@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,8 +39,8 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the voiceTransformation.
    *
-   * <p>If `true`, the voice can be transformed by using the SSML &lt;voice-transformation&gt;
-   * element; if `false`, the voice cannot be transformed.
+   * <p>If `true`, the voice can be transformed by using the SSML
+   * &amp;lt;voice-transformation&amp;gt; element; if `false`, the voice cannot be transformed.
    *
    * @return the voiceTransformation
    */

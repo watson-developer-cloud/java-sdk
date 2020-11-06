@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,7 +53,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
     /**
      * Builds a UpdateCounterexampleOptions.
      *
-     * @return the updateCounterexampleOptions
+     * @return the new UpdateCounterexampleOptions instance
      */
     public UpdateCounterexampleOptions build() {
       return new UpdateCounterexampleOptions(this);

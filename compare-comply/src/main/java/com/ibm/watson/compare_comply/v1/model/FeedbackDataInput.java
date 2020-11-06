@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -88,7 +88,7 @@ public class FeedbackDataInput extends GenericModel {
     /**
      * Builds a FeedbackDataInput.
      *
-     * @return the feedbackDataInput
+     * @return the new FeedbackDataInput instance
      */
     public FeedbackDataInput build() {
       return new FeedbackDataInput(this);

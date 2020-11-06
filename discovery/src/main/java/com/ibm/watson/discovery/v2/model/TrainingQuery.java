@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,19 +34,13 @@ public class TrainingQuery extends GenericModel {
 
   /** Builder. */
   public static class Builder {
-    private String queryId;
     private String naturalLanguageQuery;
     private String filter;
-    private Date created;
-    private Date updated;
     private List<TrainingExample> examples;
 
     private Builder(TrainingQuery trainingQuery) {
-      this.queryId = trainingQuery.queryId;
       this.naturalLanguageQuery = trainingQuery.naturalLanguageQuery;
       this.filter = trainingQuery.filter;
-      this.created = trainingQuery.created;
-      this.updated = trainingQuery.updated;
       this.examples = trainingQuery.examples;
     }
 
@@ -67,7 +61,7 @@ public class TrainingQuery extends GenericModel {
     /**
      * Builds a TrainingQuery.
      *
-     * @return the trainingQuery
+     * @return the new TrainingQuery instance
      */
     public TrainingQuery build() {
       return new TrainingQuery(this);
@@ -85,17 +79,6 @@ public class TrainingQuery extends GenericModel {
         this.examples = new ArrayList<TrainingExample>();
       }
       this.examples.add(examples);
-      return this;
-    }
-
-    /**
-     * Set the queryId.
-     *
-     * @param queryId the queryId
-     * @return the TrainingQuery builder
-     */
-    public Builder queryId(String queryId) {
-      this.queryId = queryId;
       return this;
     }
 
@@ -122,28 +105,6 @@ public class TrainingQuery extends GenericModel {
     }
 
     /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the TrainingQuery builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the TrainingQuery builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
-
-    /**
      * Set the examples. Existing examples will be replaced.
      *
      * @param examples the examples
@@ -159,11 +120,8 @@ public class TrainingQuery extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.naturalLanguageQuery, "naturalLanguageQuery cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.examples, "examples cannot be null");
-    queryId = builder.queryId;
     naturalLanguageQuery = builder.naturalLanguageQuery;
     filter = builder.filter;
-    created = builder.created;
-    updated = builder.updated;
     examples = builder.examples;
   }
 

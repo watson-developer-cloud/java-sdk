@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,6 +66,10 @@ public class GetModelOptions extends GenericModel {
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
+    /** fr-CA_BroadbandModel. */
+    String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_NarrowbandModel. */
+    String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -121,7 +125,7 @@ public class GetModelOptions extends GenericModel {
     /**
      * Builds a GetModelOptions.
      *
-     * @return the getModelOptions
+     * @return the new GetModelOptions instance
      */
     public GetModelOptions build() {
       return new GetModelOptions(this);

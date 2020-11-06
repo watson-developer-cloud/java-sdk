@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,6 @@ public class MessageRequest extends GenericModel {
     private Boolean alternateIntents;
     private Context context;
     private OutputData output;
-    private List<DialogNodeAction> actions;
 
     private Builder(MessageRequest messageRequest) {
       this.input = messageRequest.input;
@@ -48,7 +47,6 @@ public class MessageRequest extends GenericModel {
       this.alternateIntents = messageRequest.alternateIntents;
       this.context = messageRequest.context;
       this.output = messageRequest.output;
-      this.actions = messageRequest.actions;
     }
 
     /** Instantiates a new builder. */
@@ -57,7 +55,7 @@ public class MessageRequest extends GenericModel {
     /**
      * Builds a MessageRequest.
      *
-     * @return the messageRequest
+     * @return the new MessageRequest instance
      */
     public MessageRequest build() {
       return new MessageRequest(this);
@@ -90,21 +88,6 @@ public class MessageRequest extends GenericModel {
         this.entities = new ArrayList<RuntimeEntity>();
       }
       this.entities.add(entity);
-      return this;
-    }
-
-    /**
-     * Adds an actions to actions.
-     *
-     * @param actions the new actions
-     * @return the MessageRequest builder
-     */
-    public Builder addActions(DialogNodeAction actions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(actions, "actions cannot be null");
-      if (this.actions == null) {
-        this.actions = new ArrayList<DialogNodeAction>();
-      }
-      this.actions.add(actions);
       return this;
     }
 
@@ -173,17 +156,6 @@ public class MessageRequest extends GenericModel {
       this.output = output;
       return this;
     }
-
-    /**
-     * Set the actions. Existing actions will be replaced.
-     *
-     * @param actions the actions
-     * @return the MessageRequest builder
-     */
-    public Builder actions(List<DialogNodeAction> actions) {
-      this.actions = actions;
-      return this;
-    }
   }
 
   protected MessageRequest(Builder builder) {
@@ -193,7 +165,6 @@ public class MessageRequest extends GenericModel {
     alternateIntents = builder.alternateIntents;
     context = builder.context;
     output = builder.output;
-    actions = builder.actions;
   }
 
   /**

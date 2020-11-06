@@ -55,7 +55,7 @@ public class DefaultQueryParamsPassages extends GenericModel {
     /**
      * Builds a DefaultQueryParamsPassages.
      *
-     * @return the defaultQueryParamsPassages
+     * @return the new DefaultQueryParamsPassages instance
      */
     public DefaultQueryParamsPassages build() {
       return new DefaultQueryParamsPassages(this);
@@ -186,7 +186,7 @@ public class DefaultQueryParamsPassages extends GenericModel {
   /**
    * Gets the fields.
    *
-   * <p>An array of field names to perfom the passage search on.
+   * <p>An array of field names to perform the passage search on.
    *
    * @return the fields
    */

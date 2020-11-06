@@ -39,7 +39,7 @@ public class MessageContextGlobalStateless extends GenericModel {
     /**
      * Builds a MessageContextGlobalStateless.
      *
-     * @return the messageContextGlobalStateless
+     * @return the new MessageContextGlobalStateless instance
      */
     public MessageContextGlobalStateless build() {
       return new MessageContextGlobalStateless(this);

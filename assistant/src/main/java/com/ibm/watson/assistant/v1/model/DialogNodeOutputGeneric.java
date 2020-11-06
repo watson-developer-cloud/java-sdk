@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,37 +14,50 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.ArrayList;
 import java.util.List;
 
-/** DialogNodeOutputGeneric. */
+/**
+ * DialogNodeOutputGeneric.
+ *
+ * <p>Classes which extend this class: - DialogNodeOutputGenericDialogNodeOutputResponseTypeText -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypePause -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeImage -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeOption -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+ */
 public class DialogNodeOutputGeneric extends GenericModel {
+  @SuppressWarnings("unused")
+  protected static String discriminatorPropertyName = "response_type";
+
+  protected static java.util.Map<String, Class<?>> discriminatorMapping;
+
+  static {
+    discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put(
+        "connect_to_agent",
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.class);
+    discriminatorMapping.put(
+        "image", DialogNodeOutputGenericDialogNodeOutputResponseTypeImage.class);
+    discriminatorMapping.put(
+        "option", DialogNodeOutputGenericDialogNodeOutputResponseTypeOption.class);
+    discriminatorMapping.put(
+        "pause", DialogNodeOutputGenericDialogNodeOutputResponseTypePause.class);
+    discriminatorMapping.put(
+        "search_skill", DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.class);
+    discriminatorMapping.put("text", DialogNodeOutputGenericDialogNodeOutputResponseTypeText.class);
+  }
 
   /**
    * The type of response returned by the dialog node. The specified response type must be supported
    * by the client application or channel.
-   *
-   * <p>**Note:** The **search_skill** response type is used only by the v2 runtime API.
    */
   public interface ResponseType {
     /** text. */
     String TEXT = "text";
-    /** pause. */
-    String PAUSE = "pause";
-    /** image. */
-    String IMAGE = "image";
-    /** option. */
-    String OPTION = "option";
-    /** connect_to_agent. */
-    String CONNECT_TO_AGENT = "connect_to_agent";
-    /** search_skill. */
-    String SEARCH_SKILL = "search_skill";
   }
 
-  /**
-   * How a response is selected from the list, if more than one response is specified. Valid only
-   * when **response_type**=`text`.
-   */
+  /** How a response is selected from the list, if more than one response is specified. */
   public interface SelectionPolicy {
     /** sequential. */
     String SEQUENTIAL = "sequential";
@@ -54,10 +67,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     String MULTILINE = "multiline";
   }
 
-  /**
-   * The preferred type of control to display, if supported by the channel. Valid only when
-   * **response_type**=`option`.
-   */
+  /** The preferred type of control to display, if supported by the channel. */
   public interface Preference {
     /** dropdown. */
     String DROPDOWN = "dropdown";
@@ -65,7 +75,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
     String BUTTON = "button";
   }
 
-  /** The type of the search query. Required when **response_type**=`search_skill`. */
+  /** The type of the search query. */
   public interface QueryType {
     /** natural_language. */
     String NATURAL_LANGUAGE = "natural_language";
@@ -93,6 +103,15 @@ public class DialogNodeOutputGeneric extends GenericModel {
   @SerializedName("message_to_human_agent")
   protected String messageToHumanAgent;
 
+  @SerializedName("agent_available")
+  protected String agentAvailable;
+
+  @SerializedName("agent_unavailable")
+  protected String agentUnavailable;
+
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+
   protected String query;
 
   @SerializedName("query_type")
@@ -103,309 +122,13 @@ public class DialogNodeOutputGeneric extends GenericModel {
   @SerializedName("discovery_version")
   protected String discoveryVersion;
 
-  /** Builder. */
-  public static class Builder {
-    private String responseType;
-    private List<DialogNodeOutputTextValuesElement> values;
-    private String selectionPolicy;
-    private String delimiter;
-    private Long time;
-    private Boolean typing;
-    private String source;
-    private String title;
-    private String description;
-    private String preference;
-    private List<DialogNodeOutputOptionsElement> options;
-    private String messageToHumanAgent;
-    private String query;
-    private String queryType;
-    private String filter;
-    private String discoveryVersion;
-
-    private Builder(DialogNodeOutputGeneric dialogNodeOutputGeneric) {
-      this.responseType = dialogNodeOutputGeneric.responseType;
-      this.values = dialogNodeOutputGeneric.values;
-      this.selectionPolicy = dialogNodeOutputGeneric.selectionPolicy;
-      this.delimiter = dialogNodeOutputGeneric.delimiter;
-      this.time = dialogNodeOutputGeneric.time;
-      this.typing = dialogNodeOutputGeneric.typing;
-      this.source = dialogNodeOutputGeneric.source;
-      this.title = dialogNodeOutputGeneric.title;
-      this.description = dialogNodeOutputGeneric.description;
-      this.preference = dialogNodeOutputGeneric.preference;
-      this.options = dialogNodeOutputGeneric.options;
-      this.messageToHumanAgent = dialogNodeOutputGeneric.messageToHumanAgent;
-      this.query = dialogNodeOutputGeneric.query;
-      this.queryType = dialogNodeOutputGeneric.queryType;
-      this.filter = dialogNodeOutputGeneric.filter;
-      this.discoveryVersion = dialogNodeOutputGeneric.discoveryVersion;
-    }
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param responseType the responseType
-     */
-    public Builder(String responseType) {
-      this.responseType = responseType;
-    }
-
-    /**
-     * Builds a DialogNodeOutputGeneric.
-     *
-     * @return the dialogNodeOutputGeneric
-     */
-    public DialogNodeOutputGeneric build() {
-      return new DialogNodeOutputGeneric(this);
-    }
-
-    /**
-     * Adds an values to values.
-     *
-     * @param values the new values
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder addValues(DialogNodeOutputTextValuesElement values) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(values, "values cannot be null");
-      if (this.values == null) {
-        this.values = new ArrayList<DialogNodeOutputTextValuesElement>();
-      }
-      this.values.add(values);
-      return this;
-    }
-
-    /**
-     * Adds an options to options.
-     *
-     * @param options the new options
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder addOptions(DialogNodeOutputOptionsElement options) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(options, "options cannot be null");
-      if (this.options == null) {
-        this.options = new ArrayList<DialogNodeOutputOptionsElement>();
-      }
-      this.options.add(options);
-      return this;
-    }
-
-    /**
-     * Set the responseType.
-     *
-     * @param responseType the responseType
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder responseType(String responseType) {
-      this.responseType = responseType;
-      return this;
-    }
-
-    /**
-     * Set the values. Existing values will be replaced.
-     *
-     * @param values the values
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder values(List<DialogNodeOutputTextValuesElement> values) {
-      this.values = values;
-      return this;
-    }
-
-    /**
-     * Set the selectionPolicy.
-     *
-     * @param selectionPolicy the selectionPolicy
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder selectionPolicy(String selectionPolicy) {
-      this.selectionPolicy = selectionPolicy;
-      return this;
-    }
-
-    /**
-     * Set the delimiter.
-     *
-     * @param delimiter the delimiter
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder delimiter(String delimiter) {
-      this.delimiter = delimiter;
-      return this;
-    }
-
-    /**
-     * Set the time.
-     *
-     * @param time the time
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder time(long time) {
-      this.time = time;
-      return this;
-    }
-
-    /**
-     * Set the typing.
-     *
-     * @param typing the typing
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder typing(Boolean typing) {
-      this.typing = typing;
-      return this;
-    }
-
-    /**
-     * Set the source.
-     *
-     * @param source the source
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder source(String source) {
-      this.source = source;
-      return this;
-    }
-
-    /**
-     * Set the title.
-     *
-     * @param title the title
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder title(String title) {
-      this.title = title;
-      return this;
-    }
-
-    /**
-     * Set the description.
-     *
-     * @param description the description
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder description(String description) {
-      this.description = description;
-      return this;
-    }
-
-    /**
-     * Set the preference.
-     *
-     * @param preference the preference
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder preference(String preference) {
-      this.preference = preference;
-      return this;
-    }
-
-    /**
-     * Set the options. Existing options will be replaced.
-     *
-     * @param options the options
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder options(List<DialogNodeOutputOptionsElement> options) {
-      this.options = options;
-      return this;
-    }
-
-    /**
-     * Set the messageToHumanAgent.
-     *
-     * @param messageToHumanAgent the messageToHumanAgent
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder messageToHumanAgent(String messageToHumanAgent) {
-      this.messageToHumanAgent = messageToHumanAgent;
-      return this;
-    }
-
-    /**
-     * Set the query.
-     *
-     * @param query the query
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder query(String query) {
-      this.query = query;
-      return this;
-    }
-
-    /**
-     * Set the queryType.
-     *
-     * @param queryType the queryType
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder queryType(String queryType) {
-      this.queryType = queryType;
-      return this;
-    }
-
-    /**
-     * Set the filter.
-     *
-     * @param filter the filter
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder filter(String filter) {
-      this.filter = filter;
-      return this;
-    }
-
-    /**
-     * Set the discoveryVersion.
-     *
-     * @param discoveryVersion the discoveryVersion
-     * @return the DialogNodeOutputGeneric builder
-     */
-    public Builder discoveryVersion(String discoveryVersion) {
-      this.discoveryVersion = discoveryVersion;
-      return this;
-    }
-  }
-
-  protected DialogNodeOutputGeneric(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        builder.responseType, "responseType cannot be null");
-    responseType = builder.responseType;
-    values = builder.values;
-    selectionPolicy = builder.selectionPolicy;
-    delimiter = builder.delimiter;
-    time = builder.time;
-    typing = builder.typing;
-    source = builder.source;
-    title = builder.title;
-    description = builder.description;
-    preference = builder.preference;
-    options = builder.options;
-    messageToHumanAgent = builder.messageToHumanAgent;
-    query = builder.query;
-    queryType = builder.queryType;
-    filter = builder.filter;
-    discoveryVersion = builder.discoveryVersion;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a DialogNodeOutputGeneric builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
+  protected DialogNodeOutputGeneric() {}
 
   /**
    * Gets the responseType.
    *
    * <p>The type of response returned by the dialog node. The specified response type must be
    * supported by the client application or channel.
-   *
-   * <p>**Note:** The **search_skill** response type is used only by the v2 runtime API.
    *
    * @return the responseType
    */
@@ -416,8 +139,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the values.
    *
-   * <p>A list of one or more objects defining text responses. Required when
-   * **response_type**=`text`.
+   * <p>A list of one or more objects defining text responses.
    *
    * @return the values
    */
@@ -428,8 +150,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the selectionPolicy.
    *
-   * <p>How a response is selected from the list, if more than one response is specified. Valid only
-   * when **response_type**=`text`.
+   * <p>How a response is selected from the list, if more than one response is specified.
    *
    * @return the selectionPolicy
    */
@@ -451,8 +172,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the time.
    *
-   * <p>How long to pause, in milliseconds. The valid values are from 0 to 10000. Valid only when
-   * **response_type**=`pause`.
+   * <p>How long to pause, in milliseconds. The valid values are from 0 to 10000.
    *
    * @return the time
    */
@@ -464,7 +184,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * Gets the typing.
    *
    * <p>Whether to send a "user is typing" event during the pause. Ignored if the channel does not
-   * support this event. Valid only when **response_type**=`pause`.
+   * support this event.
    *
    * @return the typing
    */
@@ -475,7 +195,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the source.
    *
-   * <p>The URL of the image. Required when **response_type**=`image`.
+   * <p>The URL of the image.
    *
    * @return the source
    */
@@ -486,8 +206,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * <p>An optional title to show before the response. Valid only when **response_type**=`image` or
-   * `option`.
+   * <p>An optional title to show before the response.
    *
    * @return the title
    */
@@ -498,8 +217,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>An optional description to show with the response. Valid only when **response_type**=`image`
-   * or `option`.
+   * <p>An optional description to show with the response.
    *
    * @return the description
    */
@@ -510,8 +228,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the preference.
    *
-   * <p>The preferred type of control to display, if supported by the channel. Valid only when
-   * **response_type**=`option`.
+   * <p>The preferred type of control to display, if supported by the channel.
    *
    * @return the preference
    */
@@ -523,7 +240,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * Gets the options.
    *
    * <p>An array of objects describing the options from which the user can choose. You can include
-   * up to 20 options. Required when **response_type**=`option`.
+   * up to 20 options.
    *
    * @return the options
    */
@@ -535,12 +252,46 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * Gets the messageToHumanAgent.
    *
    * <p>An optional message to be sent to the human agent who will be taking over the conversation.
-   * Valid only when **reponse_type**=`connect_to_agent`.
    *
    * @return the messageToHumanAgent
    */
   public String messageToHumanAgent() {
     return messageToHumanAgent;
+  }
+
+  /**
+   * Gets the agentAvailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that the conversation will be
+   * transferred to the next available agent.
+   *
+   * @return the agentAvailable
+   */
+  public String agentAvailable() {
+    return agentAvailable;
+  }
+
+  /**
+   * Gets the agentUnavailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that no online agent is
+   * available to take over the conversation.
+   *
+   * @return the agentUnavailable
+   */
+  public String agentUnavailable() {
+    return agentUnavailable;
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 
   /**
@@ -550,7 +301,6 @@ public class DialogNodeOutputGeneric extends GenericModel {
    * uses the Discovery query language syntax, depending on the value of the **query_type**
    * property. For more information, see the [Discovery service
    * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-query-operators#query-operators).
-   * Required when **response_type**=`search_skill`.
    *
    * @return the query
    */
@@ -561,7 +311,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the queryType.
    *
-   * <p>The type of the search query. Required when **response_type**=`search_skill`.
+   * <p>The type of the search query.
    *
    * @return the queryType
    */

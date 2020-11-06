@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,17 +13,18 @@
 package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /** MessageContext. */
 public class MessageContext extends GenericModel {
 
   protected MessageContextGlobal global;
-  protected MessageContextSkills skills;
+  protected Map<String, MessageContextSkill> skills;
 
   /** Builder. */
   public static class Builder {
     private MessageContextGlobal global;
-    private MessageContextSkills skills;
+    private Map<String, MessageContextSkill> skills;
 
     private Builder(MessageContext messageContext) {
       this.global = messageContext.global;
@@ -36,7 +37,7 @@ public class MessageContext extends GenericModel {
     /**
      * Builds a MessageContext.
      *
-     * @return the messageContext
+     * @return the new MessageContext instance
      */
     public MessageContext build() {
       return new MessageContext(this);
@@ -59,7 +60,7 @@ public class MessageContext extends GenericModel {
      * @param skills the skills
      * @return the MessageContext builder
      */
-    public Builder skills(MessageContextSkills skills) {
+    public Builder skills(Map<String, MessageContextSkill> skills) {
       this.skills = skills;
       return this;
     }
@@ -100,7 +101,7 @@ public class MessageContext extends GenericModel {
    *
    * @return the skills
    */
-  public MessageContextSkills skills() {
+  public Map<String, MessageContextSkill> skills() {
     return skills;
   }
 }

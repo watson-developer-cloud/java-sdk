@@ -13,17 +13,18 @@
 package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /** MessageContextStateless. */
 public class MessageContextStateless extends GenericModel {
 
   protected MessageContextGlobalStateless global;
-  protected MessageContextSkills skills;
+  protected Map<String, MessageContextSkill> skills;
 
   /** Builder. */
   public static class Builder {
     private MessageContextGlobalStateless global;
-    private MessageContextSkills skills;
+    private Map<String, MessageContextSkill> skills;
 
     private Builder(MessageContextStateless messageContextStateless) {
       this.global = messageContextStateless.global;
@@ -36,7 +37,7 @@ public class MessageContextStateless extends GenericModel {
     /**
      * Builds a MessageContextStateless.
      *
-     * @return the messageContextStateless
+     * @return the new MessageContextStateless instance
      */
     public MessageContextStateless build() {
       return new MessageContextStateless(this);
@@ -59,7 +60,7 @@ public class MessageContextStateless extends GenericModel {
      * @param skills the skills
      * @return the MessageContextStateless builder
      */
-    public Builder skills(MessageContextSkills skills) {
+    public Builder skills(Map<String, MessageContextSkill> skills) {
       this.skills = skills;
       return this;
     }
@@ -100,7 +101,7 @@ public class MessageContextStateless extends GenericModel {
    *
    * @return the skills
    */
-  public MessageContextSkills skills() {
+  public Map<String, MessageContextSkill> skills() {
     return skills;
   }
 }

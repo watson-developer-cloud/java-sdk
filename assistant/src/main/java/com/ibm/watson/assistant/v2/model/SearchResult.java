@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -92,7 +92,7 @@ public class SearchResult extends GenericModel {
    * Gets the highlight.
    *
    * <p>An object containing segments of text from search results with query-matching text
-   * highlighted using HTML `<em>` tags.
+   * highlighted using HTML `&lt;em&gt;` tags.
    *
    * @return the highlight
    */

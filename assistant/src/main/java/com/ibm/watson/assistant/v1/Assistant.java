@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ */
+
 package com.ibm.watson.assistant.v1;
 
 import com.google.gson.JsonObject;
@@ -20,6 +25,8 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.watson.assistant.v1.model.BulkClassifyOptions;
+import com.ibm.watson.assistant.v1.model.BulkClassifyResponse;
 import com.ibm.watson.assistant.v1.model.Counterexample;
 import com.ibm.watson.assistant.v1.model.CounterexampleCollection;
 import com.ibm.watson.assistant.v1.model.CreateCounterexampleOptions;
@@ -85,11 +92,12 @@ import com.ibm.watson.assistant.v1.model.ValueCollection;
 import com.ibm.watson.assistant.v1.model.Workspace;
 import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.common.SdkCommon;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Assistant service combines machine learning, natural language
+ * The IBM Watson&amp;trade; Assistant service combines machine learning, natural language
  * understanding, and an integrated dialog editor to create conversation flows between your apps and
  * your users.
  *
@@ -97,68 +105,91 @@ import java.util.Map.Entry;
  * workspace.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/assistant/">Assistant</a>
+ * @see <a href="https://cloud.ibm.com/docs/assistant">Assistant</a>
  */
 public class Assistant extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "assistant";
+  public static final String DEFAULT_SERVICE_NAME = "conversation";
 
-  private static final String DEFAULT_SERVICE_URL =
+  public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
 
-  private String versionDate;
+  private String version;
 
   /**
-   * Constructs a new `Assistant` client using the DEFAULT_SERVICE_NAME.
+   * Constructs an instance of the `Assistant` client. The default service name is used to configure
+   * the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2020-04-01`.
    */
-  public Assistant(String versionDate) {
+  public Assistant(String version) {
     this(
-        versionDate,
+        version,
         DEFAULT_SERVICE_NAME,
         ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `Assistant` client with the DEFAULT_SERVICE_NAME and the specified
-   * Authenticator.
+   * Constructs an instance of the `Assistant` client. The default service name and specified
+   * authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2020-04-01`.
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public Assistant(String versionDate, Authenticator authenticator) {
-    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  public Assistant(String version, Authenticator authenticator) {
+    this(version, DEFAULT_SERVICE_NAME, authenticator);
   }
 
   /**
-   * Constructs a new `Assistant` client with the specified serviceName.
+   * Constructs an instance of the `Assistant` client. The specified service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2020-04-01`.
+   * @param serviceName the service name to be used when configuring the client instance
    */
-  public Assistant(String versionDate, String serviceName) {
-    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  public Assistant(String version, String serviceName) {
+    this(version, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
   }
 
   /**
-   * Constructs a new `Assistant` client with the specified Authenticator and serviceName.
+   * Constructs an instance of the `Assistant` client. The specified service name and authenticator
+   * are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2020-04-01`.
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public Assistant(String versionDate, String serviceName, Authenticator authenticator) {
+  public Assistant(String version, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-    this.versionDate = versionDate;
+    setVersion(version);
     this.configureService(serviceName);
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
+   * current version is `2020-04-01`.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return this.version;
+  }
+
+  /**
+   * Sets the version.
+   *
+   * @param version the new version
+   */
+  public void setVersion(final String version) {
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
+    this.version = version;
   }
 
   /**
@@ -172,21 +203,22 @@ public class Assistant extends BaseService {
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-api-overview).
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link MessageResponse}
+   * @return a {@link ServiceCall} with a result of type {@link MessageResponse}
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions, "messageOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "message"};
-    String[] pathParameters = {messageOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", messageOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/message", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "message");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (messageOptions.nodesVisitedDetails() != null) {
       builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
     }
@@ -234,33 +266,36 @@ public class Assistant extends BaseService {
    *
    * @param listWorkspacesOptions the {@link ListWorkspacesOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
+   * @return a {@link ServiceCall} with a result of type {@link WorkspaceCollection}
    */
   public ServiceCall<WorkspaceCollection> listWorkspaces(
       ListWorkspacesOptions listWorkspacesOptions) {
-    String[] pathSegments = {"v1/workspaces"};
+    if (listWorkspacesOptions == null) {
+      listWorkspacesOptions = new ListWorkspacesOptions.Builder().build();
+    }
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/workspaces"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "listWorkspaces");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listWorkspacesOptions != null) {
-      if (listWorkspacesOptions.pageLimit() != null) {
-        builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
-      }
-      if (listWorkspacesOptions.sort() != null) {
-        builder.query("sort", listWorkspacesOptions.sort());
-      }
-      if (listWorkspacesOptions.cursor() != null) {
-        builder.query("cursor", listWorkspacesOptions.cursor());
-      }
-      if (listWorkspacesOptions.includeAudit() != null) {
-        builder.query("include_audit", String.valueOf(listWorkspacesOptions.includeAudit()));
-      }
+    builder.query("version", String.valueOf(this.version));
+    if (listWorkspacesOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
+    }
+    if (listWorkspacesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listWorkspacesOptions.includeCount()));
+    }
+    if (listWorkspacesOptions.sort() != null) {
+      builder.query("sort", String.valueOf(listWorkspacesOptions.sort()));
+    }
+    if (listWorkspacesOptions.cursor() != null) {
+      builder.query("cursor", String.valueOf(listWorkspacesOptions.cursor()));
+    }
+    if (listWorkspacesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listWorkspacesOptions.includeAudit()));
     }
     ResponseConverter<WorkspaceCollection> responseConverter =
         ResponseConverterUtils.getValue(
@@ -273,7 +308,7 @@ public class Assistant extends BaseService {
    *
    * <p>List the workspaces associated with a Watson Assistant service instance.
    *
-   * @return a {@link ServiceCall} with a response type of {@link WorkspaceCollection}
+   * @return a {@link ServiceCall} with a result of type {@link WorkspaceCollection}
    */
   public ServiceCall<WorkspaceCollection> listWorkspaces() {
     return listWorkspaces(null);
@@ -287,23 +322,27 @@ public class Assistant extends BaseService {
    *
    * @param createWorkspaceOptions the {@link CreateWorkspaceOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Workspace}
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
   public ServiceCall<Workspace> createWorkspace(CreateWorkspaceOptions createWorkspaceOptions) {
-    String[] pathSegments = {"v1/workspaces"};
+    boolean skipBody = false;
+    if (createWorkspaceOptions == null) {
+      createWorkspaceOptions = new CreateWorkspaceOptions.Builder().build();
+      skipBody = true;
+    }
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/workspaces"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "createWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (createWorkspaceOptions != null) {
-      if (createWorkspaceOptions.includeAudit() != null) {
-        builder.query("include_audit", String.valueOf(createWorkspaceOptions.includeAudit()));
-      }
+    builder.query("version", String.valueOf(this.version));
+    if (createWorkspaceOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createWorkspaceOptions.includeAudit()));
+    }
+    if (!skipBody) {
       final JsonObject contentJson = new JsonObject();
       if (createWorkspaceOptions.name() != null) {
         contentJson.addProperty("name", createWorkspaceOptions.name());
@@ -313,6 +352,18 @@ public class Assistant extends BaseService {
       }
       if (createWorkspaceOptions.language() != null) {
         contentJson.addProperty("language", createWorkspaceOptions.language());
+      }
+      if (createWorkspaceOptions.dialogNodes() != null) {
+        contentJson.add(
+            "dialog_nodes",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceOptions.dialogNodes()));
+      }
+      if (createWorkspaceOptions.counterexamples() != null) {
+        contentJson.add(
+            "counterexamples",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceOptions.counterexamples()));
       }
       if (createWorkspaceOptions.metadata() != null) {
         contentJson.add(
@@ -329,6 +380,12 @@ public class Assistant extends BaseService {
             com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
                 .toJsonTree(createWorkspaceOptions.systemSettings()));
       }
+      if (createWorkspaceOptions.webhooks() != null) {
+        contentJson.add(
+            "webhooks",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceOptions.webhooks()));
+      }
       if (createWorkspaceOptions.intents() != null) {
         contentJson.add(
             "intents",
@@ -340,24 +397,6 @@ public class Assistant extends BaseService {
             "entities",
             com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
                 .toJsonTree(createWorkspaceOptions.entities()));
-      }
-      if (createWorkspaceOptions.dialogNodes() != null) {
-        contentJson.add(
-            "dialog_nodes",
-            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-                .toJsonTree(createWorkspaceOptions.dialogNodes()));
-      }
-      if (createWorkspaceOptions.counterexamples() != null) {
-        contentJson.add(
-            "counterexamples",
-            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-                .toJsonTree(createWorkspaceOptions.counterexamples()));
-      }
-      if (createWorkspaceOptions.webhooks() != null) {
-        contentJson.add(
-            "webhooks",
-            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-                .toJsonTree(createWorkspaceOptions.webhooks()));
       }
       builder.bodyJson(contentJson);
     }
@@ -373,7 +412,7 @@ public class Assistant extends BaseService {
    * <p>Create a workspace based on component objects. You must provide workspace components
    * defining the content of the new workspace.
    *
-   * @return a {@link ServiceCall} with a response type of {@link Workspace}
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
   public ServiceCall<Workspace> createWorkspace() {
     return createWorkspace(null);
@@ -385,22 +424,23 @@ public class Assistant extends BaseService {
    * <p>Get information about a workspace, optionally including all workspace content.
    *
    * @param getWorkspaceOptions the {@link GetWorkspaceOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Workspace}
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
   public ServiceCall<Workspace> getWorkspace(GetWorkspaceOptions getWorkspaceOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getWorkspaceOptions, "getWorkspaceOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces"};
-    String[] pathParameters = {getWorkspaceOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getWorkspaceOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getWorkspaceOptions.export() != null) {
       builder.query("export", String.valueOf(getWorkspaceOptions.export()));
     }
@@ -408,7 +448,7 @@ public class Assistant extends BaseService {
       builder.query("include_audit", String.valueOf(getWorkspaceOptions.includeAudit()));
     }
     if (getWorkspaceOptions.sort() != null) {
-      builder.query("sort", getWorkspaceOptions.sort());
+      builder.query("sort", String.valueOf(getWorkspaceOptions.sort()));
     }
     ResponseConverter<Workspace> responseConverter =
         ResponseConverterUtils.getValue(
@@ -424,23 +464,24 @@ public class Assistant extends BaseService {
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Workspace}
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
   public ServiceCall<Workspace> updateWorkspace(UpdateWorkspaceOptions updateWorkspaceOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateWorkspaceOptions, "updateWorkspaceOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces"};
-    String[] pathParameters = {updateWorkspaceOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateWorkspaceOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "updateWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateWorkspaceOptions.append() != null) {
       builder.query("append", String.valueOf(updateWorkspaceOptions.append()));
     }
@@ -457,6 +498,18 @@ public class Assistant extends BaseService {
     if (updateWorkspaceOptions.language() != null) {
       contentJson.addProperty("language", updateWorkspaceOptions.language());
     }
+    if (updateWorkspaceOptions.dialogNodes() != null) {
+      contentJson.add(
+          "dialog_nodes",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceOptions.dialogNodes()));
+    }
+    if (updateWorkspaceOptions.counterexamples() != null) {
+      contentJson.add(
+          "counterexamples",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceOptions.counterexamples()));
+    }
     if (updateWorkspaceOptions.metadata() != null) {
       contentJson.add(
           "metadata",
@@ -472,6 +525,12 @@ public class Assistant extends BaseService {
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
               .toJsonTree(updateWorkspaceOptions.systemSettings()));
     }
+    if (updateWorkspaceOptions.webhooks() != null) {
+      contentJson.add(
+          "webhooks",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceOptions.webhooks()));
+    }
     if (updateWorkspaceOptions.intents() != null) {
       contentJson.add(
           "intents",
@@ -483,24 +542,6 @@ public class Assistant extends BaseService {
           "entities",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
               .toJsonTree(updateWorkspaceOptions.entities()));
-    }
-    if (updateWorkspaceOptions.dialogNodes() != null) {
-      contentJson.add(
-          "dialog_nodes",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(updateWorkspaceOptions.dialogNodes()));
-    }
-    if (updateWorkspaceOptions.counterexamples() != null) {
-      contentJson.add(
-          "counterexamples",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(updateWorkspaceOptions.counterexamples()));
-    }
-    if (updateWorkspaceOptions.webhooks() != null) {
-      contentJson.add(
-          "webhooks",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(updateWorkspaceOptions.webhooks()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Workspace> responseConverter =
@@ -516,24 +557,24 @@ public class Assistant extends BaseService {
    *
    * @param deleteWorkspaceOptions the {@link DeleteWorkspaceOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces"};
-    String[] pathParameters = {deleteWorkspaceOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteWorkspaceOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "deleteWorkspace");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -544,33 +585,37 @@ public class Assistant extends BaseService {
    * <p>List the intents for a workspace.
    *
    * @param listIntentsOptions the {@link ListIntentsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link IntentCollection}
+   * @return a {@link ServiceCall} with a result of type {@link IntentCollection}
    */
   public ServiceCall<IntentCollection> listIntents(ListIntentsOptions listIntentsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listIntentsOptions, "listIntentsOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents"};
-    String[] pathParameters = {listIntentsOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listIntentsOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/intents", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listIntents");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listIntentsOptions.export() != null) {
       builder.query("export", String.valueOf(listIntentsOptions.export()));
     }
     if (listIntentsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listIntentsOptions.pageLimit()));
     }
+    if (listIntentsOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listIntentsOptions.includeCount()));
+    }
     if (listIntentsOptions.sort() != null) {
-      builder.query("sort", listIntentsOptions.sort());
+      builder.query("sort", String.valueOf(listIntentsOptions.sort()));
     }
     if (listIntentsOptions.cursor() != null) {
-      builder.query("cursor", listIntentsOptions.cursor());
+      builder.query("cursor", String.valueOf(listIntentsOptions.cursor()));
     }
     if (listIntentsOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listIntentsOptions.includeAudit()));
@@ -590,22 +635,23 @@ public class Assistant extends BaseService {
    * workspace](#update-workspace)** method instead.
    *
    * @param createIntentOptions the {@link CreateIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Intent}
+   * @return a {@link ServiceCall} with a result of type {@link Intent}
    */
   public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createIntentOptions, "createIntentOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents"};
-    String[] pathParameters = {createIntentOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createIntentOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/intents", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createIntent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createIntentOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createIntentOptions.includeAudit()));
     }
@@ -633,22 +679,24 @@ public class Assistant extends BaseService {
    * <p>Get information about an intent, optionally including all intent content.
    *
    * @param getIntentOptions the {@link GetIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Intent}
+   * @return a {@link ServiceCall} with a result of type {@link Intent}
    */
   public ServiceCall<Intent> getIntent(GetIntentOptions getIntentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getIntentOptions, "getIntentOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents"};
-    String[] pathParameters = {getIntentOptions.workspaceId(), getIntentOptions.intent()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getIntentOptions.workspaceId());
+    pathParamsMap.put("intent", getIntentOptions.intent());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/intents/{intent}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getIntent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getIntentOptions.export() != null) {
       builder.query("export", String.valueOf(getIntentOptions.export()));
     }
@@ -671,22 +719,24 @@ public class Assistant extends BaseService {
    * workspace](#update-workspace)** method instead.
    *
    * @param updateIntentOptions the {@link UpdateIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Intent}
+   * @return a {@link ServiceCall} with a result of type {@link Intent}
    */
   public ServiceCall<Intent> updateIntent(UpdateIntentOptions updateIntentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateIntentOptions, "updateIntentOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents"};
-    String[] pathParameters = {updateIntentOptions.workspaceId(), updateIntentOptions.intent()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateIntentOptions.workspaceId());
+    pathParamsMap.put("intent", updateIntentOptions.intent());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/intents/{intent}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateIntent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateIntentOptions.append() != null) {
       builder.query("append", String.valueOf(updateIntentOptions.append()));
     }
@@ -719,23 +769,24 @@ public class Assistant extends BaseService {
    * <p>Delete an intent from a workspace.
    *
    * @param deleteIntentOptions the {@link DeleteIntentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteIntentOptions, "deleteIntentOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents"};
-    String[] pathParameters = {deleteIntentOptions.workspaceId(), deleteIntentOptions.intent()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteIntentOptions.workspaceId());
+    pathParamsMap.put("intent", deleteIntentOptions.intent());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/intents/{intent}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteIntent");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -746,30 +797,37 @@ public class Assistant extends BaseService {
    * <p>List the user input examples for an intent, optionally including contextual entity mentions.
    *
    * @param listExamplesOptions the {@link ListExamplesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ExampleCollection}
+   * @return a {@link ServiceCall} with a result of type {@link ExampleCollection}
    */
   public ServiceCall<ExampleCollection> listExamples(ListExamplesOptions listExamplesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listExamplesOptions, "listExamplesOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents", "examples"};
-    String[] pathParameters = {listExamplesOptions.workspaceId(), listExamplesOptions.intent()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listExamplesOptions.workspaceId());
+    pathParamsMap.put("intent", listExamplesOptions.intent());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/intents/{intent}/examples",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listExamples");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listExamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listExamplesOptions.pageLimit()));
     }
+    if (listExamplesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listExamplesOptions.includeCount()));
+    }
     if (listExamplesOptions.sort() != null) {
-      builder.query("sort", listExamplesOptions.sort());
+      builder.query("sort", String.valueOf(listExamplesOptions.sort()));
     }
     if (listExamplesOptions.cursor() != null) {
-      builder.query("cursor", listExamplesOptions.cursor());
+      builder.query("cursor", String.valueOf(listExamplesOptions.cursor()));
     }
     if (listExamplesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listExamplesOptions.includeAudit()));
@@ -790,22 +848,26 @@ public class Assistant extends BaseService {
    *
    * @param createExampleOptions the {@link CreateExampleOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Example}
+   * @return a {@link ServiceCall} with a result of type {@link Example}
    */
   public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createExampleOptions, "createExampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents", "examples"};
-    String[] pathParameters = {createExampleOptions.workspaceId(), createExampleOptions.intent()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createExampleOptions.workspaceId());
+    pathParamsMap.put("intent", createExampleOptions.intent());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/intents/{intent}/examples",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createExample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createExampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createExampleOptions.includeAudit()));
     }
@@ -830,24 +892,27 @@ public class Assistant extends BaseService {
    * <p>Get information about a user input example.
    *
    * @param getExampleOptions the {@link GetExampleOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Example}
+   * @return a {@link ServiceCall} with a result of type {@link Example}
    */
   public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getExampleOptions, "getExampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents", "examples"};
-    String[] pathParameters = {
-      getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getExampleOptions.workspaceId());
+    pathParamsMap.put("intent", getExampleOptions.intent());
+    pathParamsMap.put("text", getExampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/intents/{intent}/examples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getExample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getExampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getExampleOptions.includeAudit()));
     }
@@ -867,24 +932,27 @@ public class Assistant extends BaseService {
    *
    * @param updateExampleOptions the {@link UpdateExampleOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Example}
+   * @return a {@link ServiceCall} with a result of type {@link Example}
    */
   public ServiceCall<Example> updateExample(UpdateExampleOptions updateExampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateExampleOptions, "updateExampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents", "examples"};
-    String[] pathParameters = {
-      updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateExampleOptions.workspaceId());
+    pathParamsMap.put("intent", updateExampleOptions.intent());
+    pathParamsMap.put("text", updateExampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/intents/{intent}/examples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateExample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateExampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(updateExampleOptions.includeAudit()));
     }
@@ -912,25 +980,27 @@ public class Assistant extends BaseService {
    *
    * @param deleteExampleOptions the {@link DeleteExampleOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteExampleOptions, "deleteExampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "intents", "examples"};
-    String[] pathParameters = {
-      deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteExampleOptions.workspaceId());
+    pathParamsMap.put("intent", deleteExampleOptions.intent());
+    pathParamsMap.put("text", deleteExampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/intents/{intent}/examples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteExample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -943,32 +1013,36 @@ public class Assistant extends BaseService {
    *
    * @param listCounterexamplesOptions the {@link ListCounterexamplesOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link CounterexampleCollection}
+   * @return a {@link ServiceCall} with a result of type {@link CounterexampleCollection}
    */
   public ServiceCall<CounterexampleCollection> listCounterexamples(
       ListCounterexamplesOptions listCounterexamplesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "counterexamples"};
-    String[] pathParameters = {listCounterexamplesOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listCounterexamplesOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/counterexamples", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "listCounterexamples");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listCounterexamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
     }
+    if (listCounterexamplesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listCounterexamplesOptions.includeCount()));
+    }
     if (listCounterexamplesOptions.sort() != null) {
-      builder.query("sort", listCounterexamplesOptions.sort());
+      builder.query("sort", String.valueOf(listCounterexamplesOptions.sort()));
     }
     if (listCounterexamplesOptions.cursor() != null) {
-      builder.query("cursor", listCounterexamplesOptions.cursor());
+      builder.query("cursor", String.valueOf(listCounterexamplesOptions.cursor()));
     }
     if (listCounterexamplesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listCounterexamplesOptions.includeAudit()));
@@ -990,24 +1064,25 @@ public class Assistant extends BaseService {
    *
    * @param createCounterexampleOptions the {@link CreateCounterexampleOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   * @return a {@link ServiceCall} with a result of type {@link Counterexample}
    */
   public ServiceCall<Counterexample> createCounterexample(
       CreateCounterexampleOptions createCounterexampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createCounterexampleOptions, "createCounterexampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "counterexamples"};
-    String[] pathParameters = {createCounterexampleOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createCounterexampleOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/counterexamples", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "createCounterexample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createCounterexampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createCounterexampleOptions.includeAudit()));
     }
@@ -1028,26 +1103,28 @@ public class Assistant extends BaseService {
    *
    * @param getCounterexampleOptions the {@link GetCounterexampleOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   * @return a {@link ServiceCall} with a result of type {@link Counterexample}
    */
   public ServiceCall<Counterexample> getCounterexample(
       GetCounterexampleOptions getCounterexampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getCounterexampleOptions, "getCounterexampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "counterexamples"};
-    String[] pathParameters = {
-      getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getCounterexampleOptions.workspaceId());
+    pathParamsMap.put("text", getCounterexampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/counterexamples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "getCounterexample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getCounterexampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getCounterexampleOptions.includeAudit()));
     }
@@ -1065,26 +1142,28 @@ public class Assistant extends BaseService {
    *
    * @param updateCounterexampleOptions the {@link UpdateCounterexampleOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Counterexample}
+   * @return a {@link ServiceCall} with a result of type {@link Counterexample}
    */
   public ServiceCall<Counterexample> updateCounterexample(
       UpdateCounterexampleOptions updateCounterexampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "counterexamples"};
-    String[] pathParameters = {
-      updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateCounterexampleOptions.workspaceId());
+    pathParamsMap.put("text", updateCounterexampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/counterexamples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "updateCounterexample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateCounterexampleOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(updateCounterexampleOptions.includeAudit()));
     }
@@ -1107,27 +1186,28 @@ public class Assistant extends BaseService {
    *
    * @param deleteCounterexampleOptions the {@link DeleteCounterexampleOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteCounterexample(
       DeleteCounterexampleOptions deleteCounterexampleOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "counterexamples"};
-    String[] pathParameters = {
-      deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteCounterexampleOptions.workspaceId());
+    pathParamsMap.put("text", deleteCounterexampleOptions.text());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/counterexamples/{text}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "deleteCounterexample");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1138,33 +1218,37 @@ public class Assistant extends BaseService {
    * <p>List the entities for a workspace.
    *
    * @param listEntitiesOptions the {@link ListEntitiesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link EntityCollection}
+   * @return a {@link ServiceCall} with a result of type {@link EntityCollection}
    */
   public ServiceCall<EntityCollection> listEntities(ListEntitiesOptions listEntitiesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listEntitiesOptions, "listEntitiesOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities"};
-    String[] pathParameters = {listEntitiesOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listEntitiesOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/entities", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listEntities");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listEntitiesOptions.export() != null) {
       builder.query("export", String.valueOf(listEntitiesOptions.export()));
     }
     if (listEntitiesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listEntitiesOptions.pageLimit()));
     }
+    if (listEntitiesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listEntitiesOptions.includeCount()));
+    }
     if (listEntitiesOptions.sort() != null) {
-      builder.query("sort", listEntitiesOptions.sort());
+      builder.query("sort", String.valueOf(listEntitiesOptions.sort()));
     }
     if (listEntitiesOptions.cursor() != null) {
-      builder.query("cursor", listEntitiesOptions.cursor());
+      builder.query("cursor", String.valueOf(listEntitiesOptions.cursor()));
     }
     if (listEntitiesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listEntitiesOptions.includeAudit()));
@@ -1184,22 +1268,23 @@ public class Assistant extends BaseService {
    * workspace](#update-workspace)** method instead.
    *
    * @param createEntityOptions the {@link CreateEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Entity}
+   * @return a {@link ServiceCall} with a result of type {@link Entity}
    */
   public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createEntityOptions, "createEntityOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities"};
-    String[] pathParameters = {createEntityOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createEntityOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/entities", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createEntity");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createEntityOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createEntityOptions.includeAudit()));
     }
@@ -1236,22 +1321,24 @@ public class Assistant extends BaseService {
    * <p>Get information about an entity, optionally including all entity content.
    *
    * @param getEntityOptions the {@link GetEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Entity}
+   * @return a {@link ServiceCall} with a result of type {@link Entity}
    */
   public ServiceCall<Entity> getEntity(GetEntityOptions getEntityOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getEntityOptions, "getEntityOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities"};
-    String[] pathParameters = {getEntityOptions.workspaceId(), getEntityOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getEntityOptions.workspaceId());
+    pathParamsMap.put("entity", getEntityOptions.entity());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/entities/{entity}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getEntity");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getEntityOptions.export() != null) {
       builder.query("export", String.valueOf(getEntityOptions.export()));
     }
@@ -1274,22 +1361,24 @@ public class Assistant extends BaseService {
    * workspace](#update-workspace)** method instead.
    *
    * @param updateEntityOptions the {@link UpdateEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Entity}
+   * @return a {@link ServiceCall} with a result of type {@link Entity}
    */
   public ServiceCall<Entity> updateEntity(UpdateEntityOptions updateEntityOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateEntityOptions, "updateEntityOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities"};
-    String[] pathParameters = {updateEntityOptions.workspaceId(), updateEntityOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateEntityOptions.workspaceId());
+    pathParamsMap.put("entity", updateEntityOptions.entity());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/entities/{entity}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateEntity");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateEntityOptions.append() != null) {
       builder.query("append", String.valueOf(updateEntityOptions.append()));
     }
@@ -1331,23 +1420,24 @@ public class Assistant extends BaseService {
    * <p>Delete an entity from a workspace, or disable a system entity.
    *
    * @param deleteEntityOptions the {@link DeleteEntityOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteEntityOptions, "deleteEntityOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities"};
-    String[] pathParameters = {deleteEntityOptions.workspaceId(), deleteEntityOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteEntityOptions.workspaceId());
+    pathParamsMap.put("entity", deleteEntityOptions.entity());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/entities/{entity}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteEntity");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1359,23 +1449,27 @@ public class Assistant extends BaseService {
    * entity in the context of an intent user input example.
    *
    * @param listMentionsOptions the {@link ListMentionsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link EntityMentionCollection}
+   * @return a {@link ServiceCall} with a result of type {@link EntityMentionCollection}
    */
   public ServiceCall<EntityMentionCollection> listMentions(
       ListMentionsOptions listMentionsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listMentionsOptions, "listMentionsOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "mentions"};
-    String[] pathParameters = {listMentionsOptions.workspaceId(), listMentionsOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listMentionsOptions.workspaceId());
+    pathParamsMap.put("entity", listMentionsOptions.entity());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/mentions",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listMentions");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listMentionsOptions.export() != null) {
       builder.query("export", String.valueOf(listMentionsOptions.export()));
     }
@@ -1394,33 +1488,40 @@ public class Assistant extends BaseService {
    * <p>List the values for an entity.
    *
    * @param listValuesOptions the {@link ListValuesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ValueCollection}
+   * @return a {@link ServiceCall} with a result of type {@link ValueCollection}
    */
   public ServiceCall<ValueCollection> listValues(ListValuesOptions listValuesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listValuesOptions, "listValuesOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values"};
-    String[] pathParameters = {listValuesOptions.workspaceId(), listValuesOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listValuesOptions.workspaceId());
+    pathParamsMap.put("entity", listValuesOptions.entity());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listValues");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listValuesOptions.export() != null) {
       builder.query("export", String.valueOf(listValuesOptions.export()));
     }
     if (listValuesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listValuesOptions.pageLimit()));
     }
+    if (listValuesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listValuesOptions.includeCount()));
+    }
     if (listValuesOptions.sort() != null) {
-      builder.query("sort", listValuesOptions.sort());
+      builder.query("sort", String.valueOf(listValuesOptions.sort()));
     }
     if (listValuesOptions.cursor() != null) {
-      builder.query("cursor", listValuesOptions.cursor());
+      builder.query("cursor", String.valueOf(listValuesOptions.cursor()));
     }
     if (listValuesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listValuesOptions.includeAudit()));
@@ -1440,22 +1541,26 @@ public class Assistant extends BaseService {
    * **[Update entity](#update-entity)** method instead.
    *
    * @param createValueOptions the {@link CreateValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Value}
+   * @return a {@link ServiceCall} with a result of type {@link Value}
    */
   public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createValueOptions, "createValueOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values"};
-    String[] pathParameters = {createValueOptions.workspaceId(), createValueOptions.entity()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createValueOptions.workspaceId());
+    pathParamsMap.put("entity", createValueOptions.entity());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createValue");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createValueOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createValueOptions.includeAudit()));
     }
@@ -1495,24 +1600,27 @@ public class Assistant extends BaseService {
    * <p>Get information about an entity value.
    *
    * @param getValueOptions the {@link GetValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Value}
+   * @return a {@link ServiceCall} with a result of type {@link Value}
    */
   public ServiceCall<Value> getValue(GetValueOptions getValueOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getValueOptions, "getValueOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values"};
-    String[] pathParameters = {
-      getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getValueOptions.workspaceId());
+    pathParamsMap.put("entity", getValueOptions.entity());
+    pathParamsMap.put("value", getValueOptions.value());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getValue");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getValueOptions.export() != null) {
       builder.query("export", String.valueOf(getValueOptions.export()));
     }
@@ -1535,24 +1643,27 @@ public class Assistant extends BaseService {
    * **[Update entity](#update-entity)** method instead.
    *
    * @param updateValueOptions the {@link UpdateValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Value}
+   * @return a {@link ServiceCall} with a result of type {@link Value}
    */
   public ServiceCall<Value> updateValue(UpdateValueOptions updateValueOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateValueOptions, "updateValueOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values"};
-    String[] pathParameters = {
-      updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions.value()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateValueOptions.workspaceId());
+    pathParamsMap.put("entity", updateValueOptions.entity());
+    pathParamsMap.put("value", updateValueOptions.value());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateValue");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateValueOptions.append() != null) {
       builder.query("append", String.valueOf(updateValueOptions.append()));
     }
@@ -1597,25 +1708,27 @@ public class Assistant extends BaseService {
    * <p>Delete a value from an entity.
    *
    * @param deleteValueOptions the {@link DeleteValueOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteValueOptions, "deleteValueOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values"};
-    String[] pathParameters = {
-      deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions.value()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteValueOptions.workspaceId());
+    pathParamsMap.put("entity", deleteValueOptions.entity());
+    pathParamsMap.put("value", deleteValueOptions.value());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteValue");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1626,32 +1739,38 @@ public class Assistant extends BaseService {
    * <p>List the synonyms for an entity value.
    *
    * @param listSynonymsOptions the {@link ListSynonymsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SynonymCollection}
+   * @return a {@link ServiceCall} with a result of type {@link SynonymCollection}
    */
   public ServiceCall<SynonymCollection> listSynonyms(ListSynonymsOptions listSynonymsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listSynonymsOptions, "listSynonymsOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values", "synonyms"};
-    String[] pathParameters = {
-      listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions.value()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listSynonymsOptions.workspaceId());
+    pathParamsMap.put("entity", listSynonymsOptions.entity());
+    pathParamsMap.put("value", listSynonymsOptions.value());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}/synonyms",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listSynonyms");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listSynonymsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listSynonymsOptions.pageLimit()));
     }
+    if (listSynonymsOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listSynonymsOptions.includeCount()));
+    }
     if (listSynonymsOptions.sort() != null) {
-      builder.query("sort", listSynonymsOptions.sort());
+      builder.query("sort", String.valueOf(listSynonymsOptions.sort()));
     }
     if (listSynonymsOptions.cursor() != null) {
-      builder.query("cursor", listSynonymsOptions.cursor());
+      builder.query("cursor", String.valueOf(listSynonymsOptions.cursor()));
     }
     if (listSynonymsOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listSynonymsOptions.includeAudit()));
@@ -1672,26 +1791,27 @@ public class Assistant extends BaseService {
    *
    * @param createSynonymOptions the {@link CreateSynonymOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Synonym}
+   * @return a {@link ServiceCall} with a result of type {@link Synonym}
    */
   public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createSynonymOptions, "createSynonymOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values", "synonyms"};
-    String[] pathParameters = {
-      createSynonymOptions.workspaceId(),
-      createSynonymOptions.entity(),
-      createSynonymOptions.value()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createSynonymOptions.workspaceId());
+    pathParamsMap.put("entity", createSynonymOptions.entity());
+    pathParamsMap.put("value", createSynonymOptions.value());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}/synonyms",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "createSynonym");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createSynonymOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createSynonymOptions.includeAudit()));
     }
@@ -1710,27 +1830,28 @@ public class Assistant extends BaseService {
    * <p>Get information about a synonym of an entity value.
    *
    * @param getSynonymOptions the {@link GetSynonymOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Synonym}
+   * @return a {@link ServiceCall} with a result of type {@link Synonym}
    */
   public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getSynonymOptions, "getSynonymOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values", "synonyms"};
-    String[] pathParameters = {
-      getSynonymOptions.workspaceId(),
-      getSynonymOptions.entity(),
-      getSynonymOptions.value(),
-      getSynonymOptions.synonym()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getSynonymOptions.workspaceId());
+    pathParamsMap.put("entity", getSynonymOptions.entity());
+    pathParamsMap.put("value", getSynonymOptions.value());
+    pathParamsMap.put("synonym", getSynonymOptions.synonym());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}/synonyms/{synonym}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getSynonym");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getSynonymOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getSynonymOptions.includeAudit()));
     }
@@ -1750,27 +1871,28 @@ public class Assistant extends BaseService {
    *
    * @param updateSynonymOptions the {@link UpdateSynonymOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Synonym}
+   * @return a {@link ServiceCall} with a result of type {@link Synonym}
    */
   public ServiceCall<Synonym> updateSynonym(UpdateSynonymOptions updateSynonymOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateSynonymOptions, "updateSynonymOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values", "synonyms"};
-    String[] pathParameters = {
-      updateSynonymOptions.workspaceId(),
-      updateSynonymOptions.entity(),
-      updateSynonymOptions.value(),
-      updateSynonymOptions.synonym()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateSynonymOptions.workspaceId());
+    pathParamsMap.put("entity", updateSynonymOptions.entity());
+    pathParamsMap.put("value", updateSynonymOptions.value());
+    pathParamsMap.put("synonym", updateSynonymOptions.synonym());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}/synonyms/{synonym}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "updateSynonym");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateSynonymOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(updateSynonymOptions.includeAudit()));
     }
@@ -1792,28 +1914,28 @@ public class Assistant extends BaseService {
    *
    * @param deleteSynonymOptions the {@link DeleteSynonymOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteSynonymOptions, "deleteSynonymOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "entities", "values", "synonyms"};
-    String[] pathParameters = {
-      deleteSynonymOptions.workspaceId(),
-      deleteSynonymOptions.entity(),
-      deleteSynonymOptions.value(),
-      deleteSynonymOptions.synonym()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteSynonymOptions.workspaceId());
+    pathParamsMap.put("entity", deleteSynonymOptions.entity());
+    pathParamsMap.put("value", deleteSynonymOptions.value());
+    pathParamsMap.put("synonym", deleteSynonymOptions.synonym());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/entities/{entity}/values/{value}/synonyms/{synonym}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "deleteSynonym");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1825,32 +1947,36 @@ public class Assistant extends BaseService {
    *
    * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link DialogNodeCollection}
+   * @return a {@link ServiceCall} with a result of type {@link DialogNodeCollection}
    */
   public ServiceCall<DialogNodeCollection> listDialogNodes(
       ListDialogNodesOptions listDialogNodesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listDialogNodesOptions, "listDialogNodesOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "dialog_nodes"};
-    String[] pathParameters = {listDialogNodesOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listDialogNodesOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/dialog_nodes", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "listDialogNodes");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listDialogNodesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
     }
+    if (listDialogNodesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listDialogNodesOptions.includeCount()));
+    }
     if (listDialogNodesOptions.sort() != null) {
-      builder.query("sort", listDialogNodesOptions.sort());
+      builder.query("sort", String.valueOf(listDialogNodesOptions.sort()));
     }
     if (listDialogNodesOptions.cursor() != null) {
-      builder.query("cursor", listDialogNodesOptions.cursor());
+      builder.query("cursor", String.valueOf(listDialogNodesOptions.cursor()));
     }
     if (listDialogNodesOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(listDialogNodesOptions.includeAudit()));
@@ -1871,23 +1997,24 @@ public class Assistant extends BaseService {
    *
    * @param createDialogNodeOptions the {@link CreateDialogNodeOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link DialogNode}
+   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
    */
   public ServiceCall<DialogNode> createDialogNode(CreateDialogNodeOptions createDialogNodeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createDialogNodeOptions, "createDialogNodeOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "dialog_nodes"};
-    String[] pathParameters = {createDialogNodeOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", createDialogNodeOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/dialog_nodes", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "createDialogNode");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (createDialogNodeOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(createDialogNodeOptions.includeAudit()));
     }
@@ -1977,24 +2104,26 @@ public class Assistant extends BaseService {
    *
    * @param getDialogNodeOptions the {@link GetDialogNodeOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link DialogNode}
+   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
    */
   public ServiceCall<DialogNode> getDialogNode(GetDialogNodeOptions getDialogNodeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getDialogNodeOptions, "getDialogNodeOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "dialog_nodes"};
-    String[] pathParameters = {
-      getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", getDialogNodeOptions.workspaceId());
+    pathParamsMap.put("dialog_node", getDialogNodeOptions.dialogNode());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "getDialogNode");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (getDialogNodeOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(getDialogNodeOptions.includeAudit()));
     }
@@ -2014,25 +2143,27 @@ public class Assistant extends BaseService {
    *
    * @param updateDialogNodeOptions the {@link UpdateDialogNodeOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link DialogNode}
+   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
    */
   public ServiceCall<DialogNode> updateDialogNode(UpdateDialogNodeOptions updateDialogNodeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateDialogNodeOptions, "updateDialogNodeOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "dialog_nodes"};
-    String[] pathParameters = {
-      updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateDialogNodeOptions.workspaceId());
+    pathParamsMap.put("dialog_node", updateDialogNodeOptions.dialogNode());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "updateDialogNode");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (updateDialogNodeOptions.includeAudit() != null) {
       builder.query("include_audit", String.valueOf(updateDialogNodeOptions.includeAudit()));
     }
@@ -2124,26 +2255,27 @@ public class Assistant extends BaseService {
    *
    * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "dialog_nodes"};
-    String[] pathParameters = {
-      deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", deleteDialogNodeOptions.workspaceId());
+    pathParamsMap.put("dialog_node", deleteDialogNodeOptions.dialogNode());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "deleteDialogNode");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2154,33 +2286,34 @@ public class Assistant extends BaseService {
    * <p>List the events from the log of a specific workspace.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link LogCollection}
+   * @return a {@link ServiceCall} with a result of type {@link LogCollection}
    */
   public ServiceCall<LogCollection> listLogs(ListLogsOptions listLogsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listLogsOptions, "listLogsOptions cannot be null");
-    String[] pathSegments = {"v1/workspaces", "logs"};
-    String[] pathParameters = {listLogsOptions.workspaceId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", listLogsOptions.workspaceId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/logs", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listLogs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     if (listLogsOptions.sort() != null) {
-      builder.query("sort", listLogsOptions.sort());
+      builder.query("sort", String.valueOf(listLogsOptions.sort()));
     }
     if (listLogsOptions.filter() != null) {
-      builder.query("filter", listLogsOptions.filter());
+      builder.query("filter", String.valueOf(listLogsOptions.filter()));
     }
     if (listLogsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listLogsOptions.pageLimit()));
     }
     if (listLogsOptions.cursor() != null) {
-      builder.query("cursor", listLogsOptions.cursor());
+      builder.query("cursor", String.valueOf(listLogsOptions.cursor()));
     }
     ResponseConverter<LogCollection> responseConverter =
         ResponseConverterUtils.getValue(
@@ -2194,29 +2327,28 @@ public class Assistant extends BaseService {
    * <p>List the events from the logs of all workspaces in the service instance.
    *
    * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link LogCollection}
+   * @return a {@link ServiceCall} with a result of type {@link LogCollection}
    */
   public ServiceCall<LogCollection> listAllLogs(ListAllLogsOptions listAllLogsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listAllLogsOptions, "listAllLogsOptions cannot be null");
-    String[] pathSegments = {"v1/logs"};
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/logs"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "listAllLogs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("filter", listAllLogsOptions.filter());
+    builder.query("version", String.valueOf(this.version));
+    builder.query("filter", String.valueOf(listAllLogsOptions.filter()));
     if (listAllLogsOptions.sort() != null) {
-      builder.query("sort", listAllLogsOptions.sort());
+      builder.query("sort", String.valueOf(listAllLogsOptions.sort()));
     }
     if (listAllLogsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listAllLogsOptions.pageLimit()));
     }
     if (listAllLogsOptions.cursor() != null) {
-      builder.query("cursor", listAllLogsOptions.cursor());
+      builder.query("cursor", String.valueOf(listAllLogsOptions.cursor()));
     }
     ResponseConverter<LogCollection> responseConverter =
         ResponseConverterUtils.getValue(
@@ -2237,23 +2369,63 @@ public class Assistant extends BaseService {
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteUserDataOptions, "deleteUserDataOptions cannot be null");
-    String[] pathSegments = {"v1/user_data"};
     RequestBuilder builder =
-        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/user_data"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("conversation", "v1", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("customer_id", deleteUserDataOptions.customerId());
+    builder.query("version", String.valueOf(this.version));
+    builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Identify intents and entities in multiple user utterances.
+   *
+   * <p>Send multiple user inputs to a workspace in a single request and receive information about
+   * the intents and entities recognized in each input. This method is useful for testing and
+   * comparing the performance of different workspaces.
+   *
+   * <p>This method is available only with Premium plans.
+   *
+   * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
+   */
+  public ServiceCall<BulkClassifyResponse> bulkClassify(BulkClassifyOptions bulkClassifyOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        bulkClassifyOptions, "bulkClassifyOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", bulkClassifyOptions.workspaceId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces/{workspace_id}/bulk_classify", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v1", "bulkClassify");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (bulkClassifyOptions.input() != null) {
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(bulkClassifyOptions.input()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<BulkClassifyResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<BulkClassifyResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,11 +14,36 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.ArrayList;
 import java.util.List;
 
-/** RuntimeResponseGeneric. */
+/**
+ * RuntimeResponseGeneric.
+ *
+ * <p>Classes which extend this class: - RuntimeResponseGenericRuntimeResponseTypeText -
+ * RuntimeResponseGenericRuntimeResponseTypePause - RuntimeResponseGenericRuntimeResponseTypeImage -
+ * RuntimeResponseGenericRuntimeResponseTypeOption -
+ * RuntimeResponseGenericRuntimeResponseTypeConnectToAgent -
+ * RuntimeResponseGenericRuntimeResponseTypeSuggestion -
+ * RuntimeResponseGenericRuntimeResponseTypeSearch
+ */
 public class RuntimeResponseGeneric extends GenericModel {
+  @SuppressWarnings("unused")
+  protected static String discriminatorPropertyName = "response_type";
+
+  protected static java.util.Map<String, Class<?>> discriminatorMapping;
+
+  static {
+    discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put(
+        "connect_to_agent", RuntimeResponseGenericRuntimeResponseTypeConnectToAgent.class);
+    discriminatorMapping.put("image", RuntimeResponseGenericRuntimeResponseTypeImage.class);
+    discriminatorMapping.put("option", RuntimeResponseGenericRuntimeResponseTypeOption.class);
+    discriminatorMapping.put(
+        "suggestion", RuntimeResponseGenericRuntimeResponseTypeSuggestion.class);
+    discriminatorMapping.put("pause", RuntimeResponseGenericRuntimeResponseTypePause.class);
+    discriminatorMapping.put("search", RuntimeResponseGenericRuntimeResponseTypeSearch.class);
+    discriminatorMapping.put("text", RuntimeResponseGenericRuntimeResponseTypeText.class);
+  }
 
   /**
    * The type of response returned by the dialog node. The specified response type must be supported
@@ -27,18 +52,6 @@ public class RuntimeResponseGeneric extends GenericModel {
   public interface ResponseType {
     /** text. */
     String TEXT = "text";
-    /** pause. */
-    String PAUSE = "pause";
-    /** image. */
-    String IMAGE = "image";
-    /** option. */
-    String OPTION = "option";
-    /** connect_to_agent. */
-    String CONNECT_TO_AGENT = "connect_to_agent";
-    /** suggestion. */
-    String SUGGESTION = "suggestion";
-    /** search. */
-    String SEARCH = "search";
   }
 
   /** The preferred type of control to display. */
@@ -64,293 +77,26 @@ public class RuntimeResponseGeneric extends GenericModel {
   @SerializedName("message_to_human_agent")
   protected String messageToHumanAgent;
 
+  @SerializedName("agent_available")
+  protected String agentAvailable;
+
+  @SerializedName("agent_unavailable")
+  protected String agentUnavailable;
+
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+
   protected String topic;
   protected List<DialogSuggestion> suggestions;
   protected String header;
-  protected List<SearchResult> results;
 
-  /** Builder. */
-  public static class Builder {
-    private String responseType;
-    private String text;
-    private Long time;
-    private Boolean typing;
-    private String source;
-    private String title;
-    private String description;
-    private String preference;
-    private List<DialogNodeOutputOptionsElement> options;
-    private String messageToHumanAgent;
-    private String topic;
-    private List<DialogSuggestion> suggestions;
-    private String header;
-    private List<SearchResult> results;
+  @SerializedName("primary_results")
+  protected List<SearchResult> primaryResults;
 
-    private Builder(RuntimeResponseGeneric runtimeResponseGeneric) {
-      this.responseType = runtimeResponseGeneric.responseType;
-      this.text = runtimeResponseGeneric.text;
-      this.time = runtimeResponseGeneric.time;
-      this.typing = runtimeResponseGeneric.typing;
-      this.source = runtimeResponseGeneric.source;
-      this.title = runtimeResponseGeneric.title;
-      this.description = runtimeResponseGeneric.description;
-      this.preference = runtimeResponseGeneric.preference;
-      this.options = runtimeResponseGeneric.options;
-      this.messageToHumanAgent = runtimeResponseGeneric.messageToHumanAgent;
-      this.topic = runtimeResponseGeneric.topic;
-      this.suggestions = runtimeResponseGeneric.suggestions;
-      this.header = runtimeResponseGeneric.header;
-      this.results = runtimeResponseGeneric.results;
-    }
+  @SerializedName("additional_results")
+  protected List<SearchResult> additionalResults;
 
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param responseType the responseType
-     */
-    public Builder(String responseType) {
-      this.responseType = responseType;
-    }
-
-    /**
-     * Builds a RuntimeResponseGeneric.
-     *
-     * @return the runtimeResponseGeneric
-     */
-    public RuntimeResponseGeneric build() {
-      return new RuntimeResponseGeneric(this);
-    }
-
-    /**
-     * Adds an options to options.
-     *
-     * @param options the new options
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder addOptions(DialogNodeOutputOptionsElement options) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(options, "options cannot be null");
-      if (this.options == null) {
-        this.options = new ArrayList<DialogNodeOutputOptionsElement>();
-      }
-      this.options.add(options);
-      return this;
-    }
-
-    /**
-     * Adds an suggestions to suggestions.
-     *
-     * @param suggestions the new suggestions
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder addSuggestions(DialogSuggestion suggestions) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(suggestions, "suggestions cannot be null");
-      if (this.suggestions == null) {
-        this.suggestions = new ArrayList<DialogSuggestion>();
-      }
-      this.suggestions.add(suggestions);
-      return this;
-    }
-
-    /**
-     * Adds an results to results.
-     *
-     * @param results the new results
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder addResults(SearchResult results) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(results, "results cannot be null");
-      if (this.results == null) {
-        this.results = new ArrayList<SearchResult>();
-      }
-      this.results.add(results);
-      return this;
-    }
-
-    /**
-     * Set the responseType.
-     *
-     * @param responseType the responseType
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder responseType(String responseType) {
-      this.responseType = responseType;
-      return this;
-    }
-
-    /**
-     * Set the text.
-     *
-     * @param text the text
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder text(String text) {
-      this.text = text;
-      return this;
-    }
-
-    /**
-     * Set the time.
-     *
-     * @param time the time
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder time(long time) {
-      this.time = time;
-      return this;
-    }
-
-    /**
-     * Set the typing.
-     *
-     * @param typing the typing
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder typing(Boolean typing) {
-      this.typing = typing;
-      return this;
-    }
-
-    /**
-     * Set the source.
-     *
-     * @param source the source
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder source(String source) {
-      this.source = source;
-      return this;
-    }
-
-    /**
-     * Set the title.
-     *
-     * @param title the title
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder title(String title) {
-      this.title = title;
-      return this;
-    }
-
-    /**
-     * Set the description.
-     *
-     * @param description the description
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder description(String description) {
-      this.description = description;
-      return this;
-    }
-
-    /**
-     * Set the preference.
-     *
-     * @param preference the preference
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder preference(String preference) {
-      this.preference = preference;
-      return this;
-    }
-
-    /**
-     * Set the options. Existing options will be replaced.
-     *
-     * @param options the options
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder options(List<DialogNodeOutputOptionsElement> options) {
-      this.options = options;
-      return this;
-    }
-
-    /**
-     * Set the messageToHumanAgent.
-     *
-     * @param messageToHumanAgent the messageToHumanAgent
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder messageToHumanAgent(String messageToHumanAgent) {
-      this.messageToHumanAgent = messageToHumanAgent;
-      return this;
-    }
-
-    /**
-     * Set the topic.
-     *
-     * @param topic the topic
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder topic(String topic) {
-      this.topic = topic;
-      return this;
-    }
-
-    /**
-     * Set the suggestions. Existing suggestions will be replaced.
-     *
-     * @param suggestions the suggestions
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder suggestions(List<DialogSuggestion> suggestions) {
-      this.suggestions = suggestions;
-      return this;
-    }
-
-    /**
-     * Set the header.
-     *
-     * @param header the header
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder header(String header) {
-      this.header = header;
-      return this;
-    }
-
-    /**
-     * Set the results. Existing results will be replaced.
-     *
-     * @param results the results
-     * @return the RuntimeResponseGeneric builder
-     */
-    public Builder results(List<SearchResult> results) {
-      this.results = results;
-      return this;
-    }
-  }
-
-  protected RuntimeResponseGeneric(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        builder.responseType, "responseType cannot be null");
-    responseType = builder.responseType;
-    text = builder.text;
-    time = builder.time;
-    typing = builder.typing;
-    source = builder.source;
-    title = builder.title;
-    description = builder.description;
-    preference = builder.preference;
-    options = builder.options;
-    messageToHumanAgent = builder.messageToHumanAgent;
-    topic = builder.topic;
-    suggestions = builder.suggestions;
-    header = builder.header;
-    results = builder.results;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a RuntimeResponseGeneric builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
+  protected RuntimeResponseGeneric() {}
 
   /**
    * Gets the responseType.
@@ -411,7 +157,7 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the title.
    *
-   * <p>The title or introductory text to show before the response.
+   * <p>The title to show before the response.
    *
    * @return the title
    */
@@ -464,10 +210,45 @@ public class RuntimeResponseGeneric extends GenericModel {
   }
 
   /**
+   * Gets the agentAvailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that the conversation will be
+   * transferred to the next available agent.
+   *
+   * @return the agentAvailable
+   */
+  public String agentAvailable() {
+    return agentAvailable;
+  }
+
+  /**
+   * Gets the agentUnavailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that no online agent is
+   * available to take over the conversation.
+   *
+   * @return the agentUnavailable
+   */
+  public String agentUnavailable() {
+    return agentUnavailable;
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
+  }
+
+  /**
    * Gets the topic.
    *
-   * <p>A label identifying the topic of the conversation, derived from the **user_label** property
-   * of the relevant node.
+   * <p>A label identifying the topic of the conversation, derived from the **title** property of
+   * the relevant node or the **topic** property of the dialog node response.
    *
    * @return the topic
    */
@@ -500,13 +281,26 @@ public class RuntimeResponseGeneric extends GenericModel {
   }
 
   /**
-   * Gets the results.
+   * Gets the primaryResults.
    *
-   * <p>An array of objects containing search results.
+   * <p>An array of objects that contains the search results to be displayed in the initial response
+   * to the user.
    *
-   * @return the results
+   * @return the primaryResults
    */
-  public List<SearchResult> results() {
-    return results;
+  public List<SearchResult> primaryResults() {
+    return primaryResults;
+  }
+
+  /**
+   * Gets the additionalResults.
+   *
+   * <p>An array of objects that contains additional search results that can be displayed to the
+   * user upon request.
+   *
+   * @return the additionalResults
+   */
+  public List<SearchResult> additionalResults() {
+    return additionalResults;
   }
 }

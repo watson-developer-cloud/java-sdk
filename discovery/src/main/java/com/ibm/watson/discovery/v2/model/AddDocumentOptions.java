@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class AddDocumentOptions extends GenericModel {
     /**
      * Builds a AddDocumentOptions.
      *
-     * @return the addDocumentOptions
+     * @return the new AddDocumentOptions instance
      */
     public AddDocumentOptions build() {
       return new AddDocumentOptions(this);

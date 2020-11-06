@@ -41,7 +41,7 @@ public class CollectionEnrichment extends GenericModel {
     /**
      * Builds a CollectionEnrichment.
      *
-     * @return the collectionEnrichment
+     * @return the new CollectionEnrichment instance
      */
     public CollectionEnrichment build() {
       return new CollectionEnrichment(this);

@@ -36,7 +36,7 @@ public class RuntimeEntityAlternative extends GenericModel {
     /**
      * Builds a RuntimeEntityAlternative.
      *
-     * @return the runtimeEntityAlternative
+     * @return the new RuntimeEntityAlternative instance
      */
     public RuntimeEntityAlternative build() {
       return new RuntimeEntityAlternative(this);

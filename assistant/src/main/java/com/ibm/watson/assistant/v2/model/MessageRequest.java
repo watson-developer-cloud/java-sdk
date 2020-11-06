@@ -36,7 +36,7 @@ public class MessageRequest extends GenericModel {
     /**
      * Builds a MessageRequest.
      *
-     * @return the messageRequest
+     * @return the new MessageRequest instance
      */
     public MessageRequest build() {
       return new MessageRequest(this);

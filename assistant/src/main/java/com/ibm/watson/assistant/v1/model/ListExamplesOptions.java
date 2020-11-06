@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,7 @@ public class ListExamplesOptions extends GenericModel {
   protected String workspaceId;
   protected String intent;
   protected Long pageLimit;
+  protected Boolean includeCount;
   protected String sort;
   protected String cursor;
   protected Boolean includeAudit;
@@ -40,6 +41,7 @@ public class ListExamplesOptions extends GenericModel {
     private String workspaceId;
     private String intent;
     private Long pageLimit;
+    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -48,6 +50,7 @@ public class ListExamplesOptions extends GenericModel {
       this.workspaceId = listExamplesOptions.workspaceId;
       this.intent = listExamplesOptions.intent;
       this.pageLimit = listExamplesOptions.pageLimit;
+      this.includeCount = listExamplesOptions.includeCount;
       this.sort = listExamplesOptions.sort;
       this.cursor = listExamplesOptions.cursor;
       this.includeAudit = listExamplesOptions.includeAudit;
@@ -70,7 +73,7 @@ public class ListExamplesOptions extends GenericModel {
     /**
      * Builds a ListExamplesOptions.
      *
-     * @return the listExamplesOptions
+     * @return the new ListExamplesOptions instance
      */
     public ListExamplesOptions build() {
       return new ListExamplesOptions(this);
@@ -106,6 +109,17 @@ public class ListExamplesOptions extends GenericModel {
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
+      return this;
+    }
+
+    /**
+     * Set the includeCount.
+     *
+     * @param includeCount the includeCount
+     * @return the ListExamplesOptions builder
+     */
+    public Builder includeCount(Boolean includeCount) {
+      this.includeCount = includeCount;
       return this;
     }
 
@@ -150,6 +164,7 @@ public class ListExamplesOptions extends GenericModel {
     workspaceId = builder.workspaceId;
     intent = builder.intent;
     pageLimit = builder.pageLimit;
+    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -195,6 +210,19 @@ public class ListExamplesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
+  }
+
+  /**
+   * Gets the includeCount.
+   *
+   * <p>Whether to include information about the number of records that satisfy the request,
+   * regardless of the page limit. If this parameter is `true`, the `pagination` object in the
+   * response includes the `total` property.
+   *
+   * @return the includeCount
+   */
+  public Boolean includeCount() {
+    return includeCount;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,8 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * State information for the conversation. To maintain state, include the context from the previous
@@ -26,13 +28,106 @@ public class Context extends DynamicModel<Object> {
   protected String conversationId;
 
   @SerializedName("system")
-  protected SystemResponse system;
+  protected Map<String, Object> system;
 
   @SerializedName("metadata")
   protected MessageContextMetadata metadata;
 
   public Context() {
     super(new TypeToken<Object>() {});
+  }
+
+  /** Builder. */
+  public static class Builder {
+    private String conversationId;
+    private Map<String, Object> system;
+    private MessageContextMetadata metadata;
+    private Map<String, Object> dynamicProperties;
+
+    private Builder(Context context) {
+      this.conversationId = context.conversationId;
+      this.system = context.system;
+      this.metadata = context.metadata;
+      this.dynamicProperties = context.getProperties();
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a Context.
+     *
+     * @return the new Context instance
+     */
+    public Context build() {
+      return new Context(this);
+    }
+
+    /**
+     * Set the conversationId.
+     *
+     * @param conversationId the conversationId
+     * @return the Context builder
+     */
+    public Builder conversationId(String conversationId) {
+      this.conversationId = conversationId;
+      return this;
+    }
+
+    /**
+     * Set the system.
+     *
+     * @param system the system
+     * @return the Context builder
+     */
+    public Builder system(Map<String, Object> system) {
+      this.system = system;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the Context builder
+     */
+    public Builder metadata(MessageContextMetadata metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Add an arbitrary property.
+     *
+     * @param name the name of the property to add
+     * @param value the value of the property to add
+     * @return the Context builder
+     */
+    public Builder add(String name, Object value) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(name, "name cannot be null");
+      if (this.dynamicProperties == null) {
+        this.dynamicProperties = new HashMap<String, Object>();
+      }
+      this.dynamicProperties.put(name, value);
+      return this;
+    }
+  }
+
+  protected Context(Builder builder) {
+    super(new TypeToken<Object>() {});
+    conversationId = builder.conversationId;
+    system = builder.system;
+    metadata = builder.metadata;
+    this.setProperties(builder.dynamicProperties);
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Context builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -62,7 +157,7 @@ public class Context extends DynamicModel<Object> {
    *
    * @return the system
    */
-  public SystemResponse getSystem() {
+  public Map<String, Object> getSystem() {
     return this.system;
   }
 
@@ -71,7 +166,7 @@ public class Context extends DynamicModel<Object> {
    *
    * @param system the new system
    */
-  public void setSystem(final SystemResponse system) {
+  public void setSystem(final Map<String, Object> system) {
     this.system = system;
   }
 

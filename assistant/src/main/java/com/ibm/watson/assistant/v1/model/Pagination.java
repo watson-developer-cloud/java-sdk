@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -58,7 +58,8 @@ public class Pagination extends GenericModel {
   /**
    * Gets the total.
    *
-   * <p>Reserved for future use.
+   * <p>The total number of objects that satisfy the request. This total includes all results, not
+   * just those included in the current page.
    *
    * @return the total
    */

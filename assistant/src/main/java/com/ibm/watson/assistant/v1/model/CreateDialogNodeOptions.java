@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -95,7 +95,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   protected String parent;
   protected String previousSibling;
   protected DialogNodeOutput output;
-  protected Map<String, Object> context;
+  protected DialogNodeContext context;
   protected Map<String, Object> metadata;
   protected DialogNodeNextStep nextStep;
   protected String title;
@@ -119,7 +119,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Map<String, Object> context;
+    private DialogNodeContext context;
     private Map<String, Object> metadata;
     private DialogNodeNextStep nextStep;
     private String title;
@@ -175,7 +175,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     /**
      * Builds a CreateDialogNodeOptions.
      *
-     * @return the createDialogNodeOptions
+     * @return the new CreateDialogNodeOptions instance
      */
     public CreateDialogNodeOptions build() {
       return new CreateDialogNodeOptions(this);
@@ -279,7 +279,7 @@ public class CreateDialogNodeOptions extends GenericModel {
      * @param context the context
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder context(Map<String, Object> context) {
+    public Builder context(DialogNodeContext context) {
       this.context = context;
       return this;
     }
@@ -583,7 +583,7 @@ public class CreateDialogNodeOptions extends GenericModel {
    *
    * @return the context
    */
-  public Map<String, Object> context() {
+  public DialogNodeContext context() {
     return context;
   }
 

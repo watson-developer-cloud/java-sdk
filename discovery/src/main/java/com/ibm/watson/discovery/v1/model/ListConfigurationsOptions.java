@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,7 +45,7 @@ public class ListConfigurationsOptions extends GenericModel {
     /**
      * Builds a ListConfigurationsOptions.
      *
-     * @return the listConfigurationsOptions
+     * @return the new ListConfigurationsOptions instance
      */
     public ListConfigurationsOptions build() {
       return new ListConfigurationsOptions(this);

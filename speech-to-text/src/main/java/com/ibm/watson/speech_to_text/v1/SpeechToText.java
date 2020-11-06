@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ */
+
 package com.ibm.watson.speech_to_text.v1;
 
 import com.google.gson.JsonObject;
@@ -82,14 +87,13 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.*;
+import okhttp3.MultipartBody;
 
 /**
- * The IBM Watson&trade; Speech to Text service provides APIs that use IBM's speech-recognition
+ * The IBM Watson&amp;trade; Speech to Text service provides APIs that use IBM's speech-recognition
  * capabilities to produce transcripts of spoken audio. The service can transcribe speech from
  * various languages and audio formats. In addition to basic transcription, the service can produce
  * detailed information about many different aspects of the audio. For most languages, the service
@@ -112,16 +116,19 @@ import okhttp3.*;
  * functionality for all language models that support language model customization.
  *
  * @version v1
- * @see <a href="https://cloud.ibm.com/docs/speech-to-text/">Speech to Text</a>
+ * @see <a href="https://cloud.ibm.com/docs/speech-to-text">Speech to Text</a>
  */
 public class SpeechToText extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "speech_to_text";
+  public static final String DEFAULT_SERVICE_NAME = "speech_to_text";
 
-  private static final String DEFAULT_SERVICE_URL =
+  public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.speech-to-text.watson.cloud.ibm.com";
 
-  /** Constructs a new `SpeechToText` client using the DEFAULT_SERVICE_NAME. */
+  /**
+   * Constructs an instance of the `SpeechToText` client. The default service name is used to
+   * configure the client instance.
+   */
   public SpeechToText() {
     this(
         DEFAULT_SERVICE_NAME,
@@ -129,29 +136,31 @@ public class SpeechToText extends BaseService {
   }
 
   /**
-   * Constructs a new `SpeechToText` client with the DEFAULT_SERVICE_NAME and the specified
-   * Authenticator.
+   * Constructs an instance of the `SpeechToText` client. The default service name and specified
+   * authenticator are used to configure the client instance.
    *
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public SpeechToText(Authenticator authenticator) {
     this(DEFAULT_SERVICE_NAME, authenticator);
   }
 
   /**
-   * Constructs a new `SpeechToText` client with the specified serviceName.
+   * Constructs an instance of the `SpeechToText` client. The specified service name is used to
+   * configure the client instance.
    *
-   * @param serviceName The name of the service to configure.
+   * @param serviceName the service name to be used when configuring the client instance
    */
   public SpeechToText(String serviceName) {
     this(serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
   }
 
   /**
-   * Constructs a new `SpeechToText` client with the specified Authenticator and serviceName.
+   * Constructs an instance of the `SpeechToText` client. The specified service name and
+   * authenticator are used to configure the client instance.
    *
-   * @param serviceName The name of the service to configure.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public SpeechToText(String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
@@ -171,19 +180,16 @@ public class SpeechToText extends BaseService {
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
+   * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
    */
   public ServiceCall<SpeechModels> listModels(ListModelsOptions listModelsOptions) {
-    String[] pathSegments = {"v1/models"};
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/models"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listModelsOptions != null) {}
-
     ResponseConverter<SpeechModels> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SpeechModels>() {}.getType());
@@ -201,7 +207,7 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
    *
-   * @return a {@link ServiceCall} with a response type of {@link SpeechModels}
+   * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
    */
   public ServiceCall<SpeechModels> listModels() {
     return listModels(null);
@@ -218,22 +224,22 @@ public class SpeechToText extends BaseService {
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SpeechModel}
+   * @return a {@link ServiceCall} with a result of type {@link SpeechModel}
    */
   public ServiceCall<SpeechModel> getModel(GetModelOptions getModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getModelOptions, "getModelOptions cannot be null");
-    String[] pathSegments = {"v1/models"};
-    String[] pathParameters = {getModelOptions.modelId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("model_id", getModelOptions.modelId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/models/{model_id}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<SpeechModel> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SpeechModel>() {}.getType());
@@ -315,14 +321,13 @@ public class SpeechToText extends BaseService {
    * request](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-http#HTTP-multi).
    *
    * @param recognizeOptions the {@link RecognizeOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
+   * @return a {@link ServiceCall} with a result of type {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         recognizeOptions, "recognizeOptions cannot be null");
-    String[] pathSegments = {"v1/recognize"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/recognize"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "recognize");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -332,16 +337,18 @@ public class SpeechToText extends BaseService {
       builder.header("Content-Type", recognizeOptions.contentType());
     }
     if (recognizeOptions.model() != null) {
-      builder.query("model", recognizeOptions.model());
+      builder.query("model", String.valueOf(recognizeOptions.model()));
     }
     if (recognizeOptions.languageCustomizationId() != null) {
-      builder.query("language_customization_id", recognizeOptions.languageCustomizationId());
+      builder.query(
+          "language_customization_id", String.valueOf(recognizeOptions.languageCustomizationId()));
     }
     if (recognizeOptions.acousticCustomizationId() != null) {
-      builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
+      builder.query(
+          "acoustic_customization_id", String.valueOf(recognizeOptions.acousticCustomizationId()));
     }
     if (recognizeOptions.baseModelVersion() != null) {
-      builder.query("base_model_version", recognizeOptions.baseModelVersion());
+      builder.query("base_model_version", String.valueOf(recognizeOptions.baseModelVersion()));
     }
     if (recognizeOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
@@ -379,10 +386,10 @@ public class SpeechToText extends BaseService {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
     if (recognizeOptions.customizationId() != null) {
-      builder.query("customization_id", recognizeOptions.customizationId());
+      builder.query("customization_id", String.valueOf(recognizeOptions.customizationId()));
     }
     if (recognizeOptions.grammarName() != null) {
-      builder.query("grammar_name", recognizeOptions.grammarName());
+      builder.query("grammar_name", String.valueOf(recognizeOptions.grammarName()));
     }
     if (recognizeOptions.redaction() != null) {
       builder.query("redaction", String.valueOf(recognizeOptions.redaction()));
@@ -414,61 +421,6 @@ public class SpeechToText extends BaseService {
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SpeechRecognitionResults>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket
-   * connection. Requests and responses are enabled over a single TCP connection that abstracts much
-   * of the complexity of the request to offer efficient implementation, low latency, high
-   * throughput, and an asynchronous response. By default, only final results are returned for any
-   * request; to enable interim results, set the interimResults parameter to true.
-   *
-   * <p>The service imposes a data size limit of 100 MB per utterance (per recognition request). You
-   * can send multiple utterances over a single WebSocket connection. The service automatically
-   * detects the endianness of the incoming audio and, for audio that includes multiple channels,
-   * downmixes the audio to one-channel mono during transcoding. (For the audio/l16 format, you can
-   * specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(
-      RecognizeOptions recognizeOptions, RecognizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        recognizeOptions, "recognizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -508,24 +460,24 @@ public class SpeechToText extends BaseService {
    *
    * @param registerCallbackOptions the {@link RegisterCallbackOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link RegisterStatus}
+   * @return a {@link ServiceCall} with a result of type {@link RegisterStatus}
    */
   public ServiceCall<RegisterStatus> registerCallback(
       RegisterCallbackOptions registerCallbackOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         registerCallbackOptions, "registerCallbackOptions cannot be null");
-    String[] pathSegments = {"v1/register_callback"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/register_callback"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "registerCallback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("callback_url", registerCallbackOptions.callbackUrl());
+    builder.query("callback_url", String.valueOf(registerCallbackOptions.callbackUrl()));
     if (registerCallbackOptions.userSecret() != null) {
-      builder.query("user_secret", registerCallbackOptions.userSecret());
+      builder.query("user_secret", String.valueOf(registerCallbackOptions.userSecret()));
     }
     ResponseConverter<RegisterStatus> responseConverter =
         ResponseConverterUtils.getValue(
@@ -545,20 +497,20 @@ public class SpeechToText extends BaseService {
    *
    * @param unregisterCallbackOptions the {@link UnregisterCallbackOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> unregisterCallback(UnregisterCallbackOptions unregisterCallbackOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         unregisterCallbackOptions, "unregisterCallbackOptions cannot be null");
-    String[] pathSegments = {"v1/unregister_callback"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/unregister_callback"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "unregisterCallback");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.query("callback_url", unregisterCallbackOptions.callbackUrl());
+    builder.query("callback_url", String.valueOf(unregisterCallbackOptions.callbackUrl()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -641,14 +593,13 @@ public class SpeechToText extends BaseService {
    * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats#audio-formats).
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
+   * @return a {@link ServiceCall} with a result of type {@link RecognitionJob}
    */
   public ServiceCall<RecognitionJob> createJob(CreateJobOptions createJobOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createJobOptions, "createJobOptions cannot be null");
-    String[] pathSegments = {"v1/recognitions"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/recognitions"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "createJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -658,28 +609,30 @@ public class SpeechToText extends BaseService {
       builder.header("Content-Type", createJobOptions.contentType());
     }
     if (createJobOptions.model() != null) {
-      builder.query("model", createJobOptions.model());
+      builder.query("model", String.valueOf(createJobOptions.model()));
     }
     if (createJobOptions.callbackUrl() != null) {
-      builder.query("callback_url", createJobOptions.callbackUrl());
+      builder.query("callback_url", String.valueOf(createJobOptions.callbackUrl()));
     }
     if (createJobOptions.events() != null) {
-      builder.query("events", createJobOptions.events());
+      builder.query("events", String.valueOf(createJobOptions.events()));
     }
     if (createJobOptions.userToken() != null) {
-      builder.query("user_token", createJobOptions.userToken());
+      builder.query("user_token", String.valueOf(createJobOptions.userToken()));
     }
     if (createJobOptions.resultsTtl() != null) {
       builder.query("results_ttl", String.valueOf(createJobOptions.resultsTtl()));
     }
     if (createJobOptions.languageCustomizationId() != null) {
-      builder.query("language_customization_id", createJobOptions.languageCustomizationId());
+      builder.query(
+          "language_customization_id", String.valueOf(createJobOptions.languageCustomizationId()));
     }
     if (createJobOptions.acousticCustomizationId() != null) {
-      builder.query("acoustic_customization_id", createJobOptions.acousticCustomizationId());
+      builder.query(
+          "acoustic_customization_id", String.valueOf(createJobOptions.acousticCustomizationId()));
     }
     if (createJobOptions.baseModelVersion() != null) {
-      builder.query("base_model_version", createJobOptions.baseModelVersion());
+      builder.query("base_model_version", String.valueOf(createJobOptions.baseModelVersion()));
     }
     if (createJobOptions.customizationWeight() != null) {
       builder.query("customization_weight", String.valueOf(createJobOptions.customizationWeight()));
@@ -717,10 +670,10 @@ public class SpeechToText extends BaseService {
       builder.query("speaker_labels", String.valueOf(createJobOptions.speakerLabels()));
     }
     if (createJobOptions.customizationId() != null) {
-      builder.query("customization_id", createJobOptions.customizationId());
+      builder.query("customization_id", String.valueOf(createJobOptions.customizationId()));
     }
     if (createJobOptions.grammarName() != null) {
-      builder.query("grammar_name", createJobOptions.grammarName());
+      builder.query("grammar_name", String.valueOf(createJobOptions.grammarName()));
     }
     if (createJobOptions.redaction() != null) {
       builder.query("redaction", String.valueOf(createJobOptions.redaction()));
@@ -777,19 +730,16 @@ public class SpeechToText extends BaseService {
    * jobs](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#jobs).
    *
    * @param checkJobsOptions the {@link CheckJobsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
+   * @return a {@link ServiceCall} with a result of type {@link RecognitionJobs}
    */
   public ServiceCall<RecognitionJobs> checkJobs(CheckJobsOptions checkJobsOptions) {
-    String[] pathSegments = {"v1/recognitions"};
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/recognitions"));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "checkJobs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (checkJobsOptions != null) {}
-
     ResponseConverter<RecognitionJobs> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<RecognitionJobs>() {}.getType());
@@ -810,7 +760,7 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Checking the status of the latest
    * jobs](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#jobs).
    *
-   * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
+   * @return a {@link ServiceCall} with a result of type {@link RecognitionJobs}
    */
   public ServiceCall<RecognitionJobs> checkJobs() {
     return checkJobs(null);
@@ -834,22 +784,22 @@ public class SpeechToText extends BaseService {
    * job](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#job).
    *
    * @param checkJobOptions the {@link CheckJobOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link RecognitionJob}
+   * @return a {@link ServiceCall} with a result of type {@link RecognitionJob}
    */
   public ServiceCall<RecognitionJob> checkJob(CheckJobOptions checkJobOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         checkJobOptions, "checkJobOptions cannot be null");
-    String[] pathSegments = {"v1/recognitions"};
-    String[] pathParameters = {checkJobOptions.id()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("id", checkJobOptions.id());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/recognitions/{id}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "checkJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<RecognitionJob> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<RecognitionJob>() {}.getType());
@@ -868,21 +818,21 @@ public class SpeechToText extends BaseService {
    * job](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#delete-async).
    *
    * @param deleteJobOptions the {@link DeleteJobOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteJob(DeleteJobOptions deleteJobOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteJobOptions, "deleteJobOptions cannot be null");
-    String[] pathSegments = {"v1/recognitions"};
-    String[] pathParameters = {deleteJobOptions.id()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("id", deleteJobOptions.id());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/recognitions/{id}", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteJob");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -903,15 +853,15 @@ public class SpeechToText extends BaseService {
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
+   * @return a {@link ServiceCall} with a result of type {@link LanguageModel}
    */
   public ServiceCall<LanguageModel> createLanguageModel(
       CreateLanguageModelOptions createLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createLanguageModelOptions, "createLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/customizations"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "createLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -947,23 +897,23 @@ public class SpeechToText extends BaseService {
    *
    * @param listLanguageModelsOptions the {@link ListLanguageModelsOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
+   * @return a {@link ServiceCall} with a result of type {@link LanguageModels}
    */
   public ServiceCall<LanguageModels> listLanguageModels(
       ListLanguageModelsOptions listLanguageModelsOptions) {
-    String[] pathSegments = {"v1/customizations"};
+    if (listLanguageModelsOptions == null) {
+      listLanguageModelsOptions = new ListLanguageModelsOptions.Builder().build();
+    }
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/customizations"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "listLanguageModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listLanguageModelsOptions != null) {
-      if (listLanguageModelsOptions.language() != null) {
-        builder.query("language", listLanguageModelsOptions.language());
-      }
+    if (listLanguageModelsOptions.language() != null) {
+      builder.query("language", String.valueOf(listLanguageModelsOptions.language()));
     }
     ResponseConverter<LanguageModels> responseConverter =
         ResponseConverterUtils.getValue(
@@ -982,7 +932,7 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Listing custom language
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageLanguageModels#listModels-language).
    *
-   * @return a {@link ServiceCall} with a response type of {@link LanguageModels}
+   * @return a {@link ServiceCall} with a result of type {@link LanguageModels}
    */
   public ServiceCall<LanguageModels> listLanguageModels() {
     return listLanguageModels(null);
@@ -999,24 +949,24 @@ public class SpeechToText extends BaseService {
    *
    * @param getLanguageModelOptions the {@link GetLanguageModelOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link LanguageModel}
+   * @return a {@link ServiceCall} with a result of type {@link LanguageModel}
    */
   public ServiceCall<LanguageModel> getLanguageModel(
       GetLanguageModelOptions getLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getLanguageModelOptions, "getLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations"};
-    String[] pathParameters = {getLanguageModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getLanguageModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "getLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<LanguageModel> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<LanguageModel>() {}.getType());
@@ -1035,24 +985,24 @@ public class SpeechToText extends BaseService {
    *
    * @param deleteLanguageModelOptions the {@link DeleteLanguageModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteLanguageModel(
       DeleteLanguageModelOptions deleteLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteLanguageModelOptions, "deleteLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations"};
-    String[] pathParameters = {deleteLanguageModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteLanguageModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1094,17 +1044,18 @@ public class SpeechToText extends BaseService {
    *
    * @param trainLanguageModelOptions the {@link TrainLanguageModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
+   * @return a {@link ServiceCall} with a result of type {@link TrainingResponse}
    */
   public ServiceCall<TrainingResponse> trainLanguageModel(
       TrainLanguageModelOptions trainLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         trainLanguageModelOptions, "trainLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "train"};
-    String[] pathParameters = {trainLanguageModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", trainLanguageModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/train", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "trainLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1112,7 +1063,7 @@ public class SpeechToText extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (trainLanguageModelOptions.wordTypeToAdd() != null) {
-      builder.query("word_type_to_add", trainLanguageModelOptions.wordTypeToAdd());
+      builder.query("word_type_to_add", String.valueOf(trainLanguageModelOptions.wordTypeToAdd()));
     }
     if (trainLanguageModelOptions.customizationWeight() != null) {
       builder.query(
@@ -1138,23 +1089,23 @@ public class SpeechToText extends BaseService {
    *
    * @param resetLanguageModelOptions the {@link ResetLanguageModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> resetLanguageModel(ResetLanguageModelOptions resetLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         resetLanguageModelOptions, "resetLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "reset"};
-    String[] pathParameters = {resetLanguageModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", resetLanguageModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/reset", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "resetLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1181,24 +1132,26 @@ public class SpeechToText extends BaseService {
    *
    * @param upgradeLanguageModelOptions the {@link UpgradeLanguageModelOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> upgradeLanguageModel(
       UpgradeLanguageModelOptions upgradeLanguageModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         upgradeLanguageModelOptions, "upgradeLanguageModelOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "upgrade_model"};
-    String[] pathParameters = {upgradeLanguageModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", upgradeLanguageModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/upgrade_model",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "upgradeLanguageModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1214,22 +1167,22 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#listCorpora).
    *
    * @param listCorporaOptions the {@link ListCorporaOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Corpora}
+   * @return a {@link ServiceCall} with a result of type {@link Corpora}
    */
   public ServiceCall<Corpora> listCorpora(ListCorporaOptions listCorporaOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listCorporaOptions, "listCorporaOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "corpora"};
-    String[] pathParameters = {listCorporaOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", listCorporaOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/corpora", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listCorpora");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Corpora> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Corpora>() {}.getType());
@@ -1285,16 +1238,20 @@ public class SpeechToText extends BaseService {
    * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> addCorpus(AddCorpusOptions addCorpusOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         addCorpusOptions, "addCorpusOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "corpora"};
-    String[] pathParameters = {addCorpusOptions.customizationId(), addCorpusOptions.corpusName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", addCorpusOptions.customizationId());
+    pathParamsMap.put("corpus_name", addCorpusOptions.corpusName());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/corpora/{corpus_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1303,8 +1260,12 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
-
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    okhttp3.RequestBody corpusFileBody =
+        RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
+    builder.body(multipartBuilder.build());
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1320,22 +1281,25 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#listCorpora).
    *
    * @param getCorpusOptions the {@link GetCorpusOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Corpus}
+   * @return a {@link ServiceCall} with a result of type {@link Corpus}
    */
   public ServiceCall<Corpus> getCorpus(GetCorpusOptions getCorpusOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getCorpusOptions, "getCorpusOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "corpora"};
-    String[] pathParameters = {getCorpusOptions.customizationId(), getCorpusOptions.corpusName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getCorpusOptions.customizationId());
+    pathParamsMap.put("corpus_name", getCorpusOptions.corpusName());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/corpora/{corpus_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Corpus> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Corpus>() {}.getType());
@@ -1357,25 +1321,26 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#deleteCorpus).
    *
    * @param deleteCorpusOptions the {@link DeleteCorpusOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteCorpus(DeleteCorpusOptions deleteCorpusOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteCorpusOptions, "deleteCorpusOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "corpora"};
-    String[] pathParameters = {
-      deleteCorpusOptions.customizationId(), deleteCorpusOptions.corpusName()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteCorpusOptions.customizationId());
+    pathParamsMap.put("corpus_name", deleteCorpusOptions.corpusName());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/corpora/{corpus_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteCorpus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1394,26 +1359,27 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#listWords).
    *
    * @param listWordsOptions the {@link ListWordsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Words}
+   * @return a {@link ServiceCall} with a result of type {@link Words}
    */
   public ServiceCall<Words> listWords(ListWordsOptions listWordsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listWordsOptions, "listWordsOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "words"};
-    String[] pathParameters = {listWordsOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", listWordsOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/words", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     if (listWordsOptions.wordType() != null) {
-      builder.query("word_type", listWordsOptions.wordType());
+      builder.query("word_type", String.valueOf(listWordsOptions.wordType()));
     }
     if (listWordsOptions.sort() != null) {
-      builder.query("sort", listWordsOptions.sort());
+      builder.query("sort", String.valueOf(listWordsOptions.sort()));
     }
     ResponseConverter<Words> responseConverter =
         ResponseConverterUtils.getValue(
@@ -1449,7 +1415,7 @@ public class SpeechToText extends BaseService {
    * complete and valid. * The `display_as` field provides a different way of spelling the word in a
    * transcript. Use the parameter when you want the word to appear different from its usual
    * representation or from its spelling in training data. For example, you might indicate that the
-   * word `IBM(trademark)` is to be displayed as `IBM&trade;`.
+   * word `IBM(trademark)` is to be displayed as `IBM&amp;trade;`.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error
@@ -1480,16 +1446,17 @@ public class SpeechToText extends BaseService {
    * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> addWords(AddWordsOptions addWordsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         addWordsOptions, "addWordsOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "words"};
-    String[] pathParameters = {addWordsOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", addWordsOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/words", pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addWords");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1531,7 +1498,7 @@ public class SpeechToText extends BaseService {
    * ensure that it is complete and valid. * The `display_as` field provides a different way of
    * spelling the word in a transcript. Use the parameter when you want the word to appear different
    * from its usual representation or from its spelling in training data. For example, you might
-   * indicate that the word `IBM(trademark)` is to be displayed as `IBM&trade;`.
+   * indicate that the word `IBM(trademark)` is to be displayed as `IBM&amp;trade;`.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error,
@@ -1546,15 +1513,19 @@ public class SpeechToText extends BaseService {
    * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> addWord(AddWordOptions addWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(addWordOptions, "addWordOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "words"};
-    String[] pathParameters = {addWordOptions.customizationId(), addWordOptions.wordName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", addWordOptions.customizationId());
+    pathParamsMap.put("word_name", addWordOptions.wordName());
     RequestBuilder builder =
         RequestBuilder.put(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/words/{word_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1588,21 +1559,24 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#listWords).
    *
    * @param getWordOptions the {@link GetWordOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Word}
+   * @return a {@link ServiceCall} with a result of type {@link Word}
    */
   public ServiceCall<Word> getWord(GetWordOptions getWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(getWordOptions, "getWordOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "words"};
-    String[] pathParameters = {getWordOptions.customizationId(), getWordOptions.wordName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getWordOptions.customizationId());
+    pathParamsMap.put("word_name", getWordOptions.wordName());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/words/{word_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Word> responseConverter =
         ResponseConverterUtils.getValue(new com.google.gson.reflect.TypeToken<Word>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
@@ -1622,22 +1596,25 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#deleteWord).
    *
    * @param deleteWordOptions the {@link DeleteWordOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteWord(DeleteWordOptions deleteWordOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteWordOptions, "deleteWordOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "words"};
-    String[] pathParameters = {deleteWordOptions.customizationId(), deleteWordOptions.wordName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteWordOptions.customizationId());
+    pathParamsMap.put("word_name", deleteWordOptions.wordName());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/words/{word_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteWord");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1653,23 +1630,23 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
    *
    * @param listGrammarsOptions the {@link ListGrammarsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Grammars}
+   * @return a {@link ServiceCall} with a result of type {@link Grammars}
    */
   public ServiceCall<Grammars> listGrammars(ListGrammarsOptions listGrammarsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listGrammarsOptions, "listGrammarsOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "grammars"};
-    String[] pathParameters = {listGrammarsOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", listGrammarsOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/customizations/{customization_id}/grammars", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "listGrammars");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Grammars> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Grammars>() {}.getType());
@@ -1717,18 +1694,20 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarAdd#addGrammar).
    *
    * @param addGrammarOptions the {@link AddGrammarOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> addGrammar(AddGrammarOptions addGrammarOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         addGrammarOptions, "addGrammarOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "grammars"};
-    String[] pathParameters = {
-      addGrammarOptions.customizationId(), addGrammarOptions.grammarName()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", addGrammarOptions.customizationId());
+    pathParamsMap.put("grammar_name", addGrammarOptions.grammarName());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/grammars/{grammar_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -1755,24 +1734,25 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
    *
    * @param getGrammarOptions the {@link GetGrammarOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Grammar}
+   * @return a {@link ServiceCall} with a result of type {@link Grammar}
    */
   public ServiceCall<Grammar> getGrammar(GetGrammarOptions getGrammarOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getGrammarOptions, "getGrammarOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "grammars"};
-    String[] pathParameters = {
-      getGrammarOptions.customizationId(), getGrammarOptions.grammarName()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getGrammarOptions.customizationId());
+    pathParamsMap.put("grammar_name", getGrammarOptions.grammarName());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/grammars/{grammar_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Grammar> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Grammar>() {}.getType());
@@ -1795,25 +1775,26 @@ public class SpeechToText extends BaseService {
    *
    * @param deleteGrammarOptions the {@link DeleteGrammarOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteGrammar(DeleteGrammarOptions deleteGrammarOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteGrammarOptions, "deleteGrammarOptions cannot be null");
-    String[] pathSegments = {"v1/customizations", "grammars"};
-    String[] pathParameters = {
-      deleteGrammarOptions.customizationId(), deleteGrammarOptions.grammarName()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteGrammarOptions.customizationId());
+    pathParamsMap.put("grammar_name", deleteGrammarOptions.grammarName());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/customizations/{customization_id}/grammars/{grammar_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteGrammar");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1834,15 +1815,15 @@ public class SpeechToText extends BaseService {
    *
    * @param createAcousticModelOptions the {@link CreateAcousticModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
+   * @return a {@link ServiceCall} with a result of type {@link AcousticModel}
    */
   public ServiceCall<AcousticModel> createAcousticModel(
       CreateAcousticModelOptions createAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createAcousticModelOptions, "createAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/acoustic_customizations"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "createAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -1875,23 +1856,24 @@ public class SpeechToText extends BaseService {
    *
    * @param listAcousticModelsOptions the {@link ListAcousticModelsOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
+   * @return a {@link ServiceCall} with a result of type {@link AcousticModels}
    */
   public ServiceCall<AcousticModels> listAcousticModels(
       ListAcousticModelsOptions listAcousticModelsOptions) {
-    String[] pathSegments = {"v1/acoustic_customizations"};
+    if (listAcousticModelsOptions == null) {
+      listAcousticModelsOptions = new ListAcousticModelsOptions.Builder().build();
+    }
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/acoustic_customizations"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "listAcousticModels");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listAcousticModelsOptions != null) {
-      if (listAcousticModelsOptions.language() != null) {
-        builder.query("language", listAcousticModelsOptions.language());
-      }
+    if (listAcousticModelsOptions.language() != null) {
+      builder.query("language", String.valueOf(listAcousticModelsOptions.language()));
     }
     ResponseConverter<AcousticModels> responseConverter =
         ResponseConverterUtils.getValue(
@@ -1910,7 +1892,7 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
-   * @return a {@link ServiceCall} with a response type of {@link AcousticModels}
+   * @return a {@link ServiceCall} with a result of type {@link AcousticModels}
    */
   public ServiceCall<AcousticModels> listAcousticModels() {
     return listAcousticModels(null);
@@ -1927,24 +1909,24 @@ public class SpeechToText extends BaseService {
    *
    * @param getAcousticModelOptions the {@link GetAcousticModelOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link AcousticModel}
+   * @return a {@link ServiceCall} with a result of type {@link AcousticModel}
    */
   public ServiceCall<AcousticModel> getAcousticModel(
       GetAcousticModelOptions getAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getAcousticModelOptions, "getAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations"};
-    String[] pathParameters = {getAcousticModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getAcousticModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/acoustic_customizations/{customization_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "getAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<AcousticModel> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<AcousticModel>() {}.getType());
@@ -1963,24 +1945,24 @@ public class SpeechToText extends BaseService {
    *
    * @param deleteAcousticModelOptions the {@link DeleteAcousticModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteAcousticModel(
       DeleteAcousticModelOptions deleteAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteAcousticModelOptions, "deleteAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations"};
-    String[] pathParameters = {deleteAcousticModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteAcousticModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/acoustic_customizations/{customization_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1994,13 +1976,13 @@ public class SpeechToText extends BaseService {
    * reflect its changed data until you train it. You must use credentials for the instance of the
    * service that owns a model to train it.
    *
-   * <p>The training method is asynchronous. It can take on the order of minutes or hours to
-   * complete depending on the total amount of audio data on which the custom acoustic model is
-   * being trained and the current load on the service. Typically, training a custom acoustic model
-   * takes approximately two to four times the length of its audio data. The actual time depends on
-   * the model being trained and the nature of the audio, such as whether the audio is clean or
-   * noisy. The method returns an HTTP 200 response code to indicate that the training process has
-   * begun.
+   * <p>The training method is asynchronous. Training time depends on the cumulative amount of audio
+   * data that the custom acoustic model contains and the current load on the service. When you
+   * train or retrain a model, the service uses all of the model's audio data in the training.
+   * Training a custom acoustic model takes approximately as long as the length of its cumulative
+   * audio data. For example, it takes approximately 2 hours to train a model that contains a total
+   * of 2 hours of audio. The method returns an HTTP 200 response code to indicate that the training
+   * process has begun.
    *
    * <p>You can monitor the status of the training by using the **Get a custom acoustic model**
    * method to poll the model's status. Use a loop to check the status once a minute. The method
@@ -2039,17 +2021,20 @@ public class SpeechToText extends BaseService {
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingResponse}
+   * @return a {@link ServiceCall} with a result of type {@link TrainingResponse}
    */
   public ServiceCall<TrainingResponse> trainAcousticModel(
       TrainAcousticModelOptions trainAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         trainAcousticModelOptions, "trainAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "train"};
-    String[] pathParameters = {trainAcousticModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", trainAcousticModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/train",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "trainAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2057,7 +2042,9 @@ public class SpeechToText extends BaseService {
     }
     builder.header("Accept", "application/json");
     if (trainAcousticModelOptions.customLanguageModelId() != null) {
-      builder.query("custom_language_model_id", trainAcousticModelOptions.customLanguageModelId());
+      builder.query(
+          "custom_language_model_id",
+          String.valueOf(trainAcousticModelOptions.customLanguageModelId()));
     }
     ResponseConverter<TrainingResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -2081,23 +2068,25 @@ public class SpeechToText extends BaseService {
    *
    * @param resetAcousticModelOptions the {@link ResetAcousticModelOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> resetAcousticModel(ResetAcousticModelOptions resetAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         resetAcousticModelOptions, "resetAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "reset"};
-    String[] pathParameters = {resetAcousticModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", resetAcousticModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/reset",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "resetAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2132,17 +2121,20 @@ public class SpeechToText extends BaseService {
    *
    * @param upgradeAcousticModelOptions the {@link UpgradeAcousticModelOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> upgradeAcousticModel(
       UpgradeAcousticModelOptions upgradeAcousticModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         upgradeAcousticModelOptions, "upgradeAcousticModelOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "upgrade_model"};
-    String[] pathParameters = {upgradeAcousticModelOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", upgradeAcousticModelOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/upgrade_model",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "upgradeAcousticModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -2151,7 +2143,8 @@ public class SpeechToText extends BaseService {
     builder.header("Accept", "application/json");
     if (upgradeAcousticModelOptions.customLanguageModelId() != null) {
       builder.query(
-          "custom_language_model_id", upgradeAcousticModelOptions.customLanguageModelId());
+          "custom_language_model_id",
+          String.valueOf(upgradeAcousticModelOptions.customLanguageModelId()));
     }
     if (upgradeAcousticModelOptions.force() != null) {
       builder.query("force", String.valueOf(upgradeAcousticModelOptions.force()));
@@ -2174,22 +2167,24 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
    *
    * @param listAudioOptions the {@link ListAudioOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link AudioResources}
+   * @return a {@link ServiceCall} with a result of type {@link AudioResources}
    */
   public ServiceCall<AudioResources> listAudio(ListAudioOptions listAudioOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listAudioOptions, "listAudioOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "audio"};
-    String[] pathParameters = {listAudioOptions.customizationId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", listAudioOptions.customizationId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/audio",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "listAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<AudioResources> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<AudioResources>() {}.getType());
@@ -2284,16 +2279,20 @@ public class SpeechToText extends BaseService {
    * example, slashes).
    *
    * @param addAudioOptions the {@link AddAudioOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> addAudio(AddAudioOptions addAudioOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         addAudioOptions, "addAudioOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "audio"};
-    String[] pathParameters = {addAudioOptions.customizationId(), addAudioOptions.audioName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", addAudioOptions.customizationId());
+    pathParamsMap.put("audio_name", addAudioOptions.audioName());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/audio/{audio_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "addAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
@@ -2338,22 +2337,25 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
    *
    * @param getAudioOptions the {@link GetAudioOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link AudioListing}
+   * @return a {@link ServiceCall} with a result of type {@link AudioListing}
    */
   public ServiceCall<AudioListing> getAudio(GetAudioOptions getAudioOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getAudioOptions, "getAudioOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "audio"};
-    String[] pathParameters = {getAudioOptions.customizationId(), getAudioOptions.audioName()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", getAudioOptions.customizationId());
+    pathParamsMap.put("audio_name", getAudioOptions.audioName());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/audio/{audio_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "getAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<AudioListing> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<AudioListing>() {}.getType());
@@ -2377,24 +2379,25 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#deleteAudio).
    *
    * @param deleteAudioOptions the {@link DeleteAudioOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteAudio(DeleteAudioOptions deleteAudioOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteAudioOptions, "deleteAudioOptions cannot be null");
-    String[] pathSegments = {"v1/acoustic_customizations", "audio"};
-    String[] pathParameters = {
-      deleteAudioOptions.customizationId(), deleteAudioOptions.audioName()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("customization_id", deleteAudioOptions.customizationId());
+    pathParamsMap.put("audio_name", deleteAudioOptions.audioName());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/acoustic_customizations/{customization_id}/audio/{audio_name}",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteAudio");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2420,20 +2423,19 @@ public class SpeechToText extends BaseService {
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteUserDataOptions, "deleteUserDataOptions cannot be null");
-    String[] pathSegments = {"v1/user_data"};
     RequestBuilder builder =
-        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
+        RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/user_data"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("speech_to_text", "v1", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
-    builder.query("customer_id", deleteUserDataOptions.customerId());
+    builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

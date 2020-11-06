@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,13 +65,11 @@ public class Credentials extends GenericModel {
 
   /** Builder. */
   public static class Builder {
-    private String credentialId;
     private String sourceType;
     private CredentialDetails credentialDetails;
     private String status;
 
     private Builder(Credentials credentials) {
-      this.credentialId = credentials.credentialId;
       this.sourceType = credentials.sourceType;
       this.credentialDetails = credentials.credentialDetails;
       this.status = credentials.status;
@@ -83,21 +81,10 @@ public class Credentials extends GenericModel {
     /**
      * Builds a Credentials.
      *
-     * @return the credentials
+     * @return the new Credentials instance
      */
     public Credentials build() {
       return new Credentials(this);
-    }
-
-    /**
-     * Set the credentialId.
-     *
-     * @param credentialId the credentialId
-     * @return the Credentials builder
-     */
-    public Builder credentialId(String credentialId) {
-      this.credentialId = credentialId;
-      return this;
     }
 
     /**
@@ -135,7 +122,6 @@ public class Credentials extends GenericModel {
   }
 
   protected Credentials(Builder builder) {
-    credentialId = builder.credentialId;
     sourceType = builder.sourceType;
     credentialDetails = builder.credentialDetails;
     status = builder.status;

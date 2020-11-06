@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,11 +26,9 @@ public class MessageContextGlobal extends GenericModel {
   /** Builder. */
   public static class Builder {
     private MessageContextGlobalSystem system;
-    private String sessionId;
 
     private Builder(MessageContextGlobal messageContextGlobal) {
       this.system = messageContextGlobal.system;
-      this.sessionId = messageContextGlobal.sessionId;
     }
 
     /** Instantiates a new builder. */
@@ -39,7 +37,7 @@ public class MessageContextGlobal extends GenericModel {
     /**
      * Builds a MessageContextGlobal.
      *
-     * @return the messageContextGlobal
+     * @return the new MessageContextGlobal instance
      */
     public MessageContextGlobal build() {
       return new MessageContextGlobal(this);
@@ -55,22 +53,10 @@ public class MessageContextGlobal extends GenericModel {
       this.system = system;
       return this;
     }
-
-    /**
-     * Set the sessionId.
-     *
-     * @param sessionId the sessionId
-     * @return the MessageContextGlobal builder
-     */
-    public Builder sessionId(String sessionId) {
-      this.sessionId = sessionId;
-      return this;
-    }
   }
 
   protected MessageContextGlobal(Builder builder) {
     system = builder.system;
-    sessionId = builder.sessionId;
   }
 
   /**

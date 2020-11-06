@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,14 +13,11 @@
 package com.ibm.watson.compare_comply.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.Date;
 
 /** The listFeedback options. */
 public class ListFeedbackOptions extends GenericModel {
 
   protected String feedbackType;
-  protected Date before;
-  protected Date after;
   protected String documentTitle;
   protected String modelId;
   protected String modelVersion;
@@ -38,8 +35,6 @@ public class ListFeedbackOptions extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String feedbackType;
-    private Date before;
-    private Date after;
     private String documentTitle;
     private String modelId;
     private String modelVersion;
@@ -56,8 +51,6 @@ public class ListFeedbackOptions extends GenericModel {
 
     private Builder(ListFeedbackOptions listFeedbackOptions) {
       this.feedbackType = listFeedbackOptions.feedbackType;
-      this.before = listFeedbackOptions.before;
-      this.after = listFeedbackOptions.after;
       this.documentTitle = listFeedbackOptions.documentTitle;
       this.modelId = listFeedbackOptions.modelId;
       this.modelVersion = listFeedbackOptions.modelVersion;
@@ -79,7 +72,7 @@ public class ListFeedbackOptions extends GenericModel {
     /**
      * Builds a ListFeedbackOptions.
      *
-     * @return the listFeedbackOptions
+     * @return the new ListFeedbackOptions instance
      */
     public ListFeedbackOptions build() {
       return new ListFeedbackOptions(this);
@@ -93,28 +86,6 @@ public class ListFeedbackOptions extends GenericModel {
      */
     public Builder feedbackType(String feedbackType) {
       this.feedbackType = feedbackType;
-      return this;
-    }
-
-    /**
-     * Set the before.
-     *
-     * @param before the before
-     * @return the ListFeedbackOptions builder
-     */
-    public Builder before(Date before) {
-      this.before = before;
-      return this;
-    }
-
-    /**
-     * Set the after.
-     *
-     * @param after the after
-     * @return the ListFeedbackOptions builder
-     */
-    public Builder after(Date after) {
-      this.after = after;
       return this;
     }
 
@@ -264,8 +235,6 @@ public class ListFeedbackOptions extends GenericModel {
 
   protected ListFeedbackOptions(Builder builder) {
     feedbackType = builder.feedbackType;
-    before = builder.before;
-    after = builder.after;
     documentTitle = builder.documentTitle;
     modelId = builder.modelId;
     modelVersion = builder.modelVersion;
@@ -300,30 +269,6 @@ public class ListFeedbackOptions extends GenericModel {
    */
   public String feedbackType() {
     return feedbackType;
-  }
-
-  /**
-   * Gets the before.
-   *
-   * <p>An optional string in the format `YYYY-MM-DD` that filters the output to include only
-   * feedback that was added before the specified date.
-   *
-   * @return the before
-   */
-  public Date before() {
-    return before;
-  }
-
-  /**
-   * Gets the after.
-   *
-   * <p>An optional string in the format `YYYY-MM-DD` that filters the output to include only
-   * feedback that was added after the specified date.
-   *
-   * @return the after
-   */
-  public Date after() {
-    return after;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,10 +18,9 @@ import java.util.List;
 
 /**
  * For the **Add custom words** method, one or more words that are to be added or updated for the
- * custom voice model and the translation for each specified word.
+ * custom model and the translation for each specified word.
  *
- * <p>For the **List custom words** method, the words and their translations from the custom voice
- * model.
+ * <p>For the **List custom words** method, the words and their translations from the custom model.
  */
 public class Words extends GenericModel {
 
@@ -50,7 +49,7 @@ public class Words extends GenericModel {
     /**
      * Builds a Words.
      *
-     * @return the words
+     * @return the new Words instance
      */
     public Words build() {
       return new Words(this);
@@ -101,12 +100,12 @@ public class Words extends GenericModel {
    * Gets the words.
    *
    * <p>The **Add custom words** method accepts an array of `Word` objects. Each object provides a
-   * word that is to be added or updated for the custom voice model and the word's translation.
+   * word that is to be added or updated for the custom model and the word's translation.
    *
    * <p>The **List custom words** method returns an array of `Word` objects. Each object shows a
-   * word and its translation from the custom voice model. The words are listed in alphabetical
-   * order, with uppercase letters listed before lowercase letters. The array is empty if the custom
-   * model contains no words.
+   * word and its translation from the custom model. The words are listed in alphabetical order,
+   * with uppercase letters listed before lowercase letters. The array is empty if the custom model
+   * contains no words.
    *
    * @return the words
    */

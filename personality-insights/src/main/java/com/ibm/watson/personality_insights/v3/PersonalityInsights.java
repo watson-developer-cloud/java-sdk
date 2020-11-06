@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ */
+
 package com.ibm.watson.personality_insights.v3;
 
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
@@ -27,8 +32,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&trade; Personality Insights service enables applications to derive insights from
- * social media, enterprise data, or other digital communications. The service uses linguistic
+ * The IBM Watson&amp;trade; Personality Insights service enables applications to derive insights
+ * from social media, enterprise data, or other digital communications. The service uses linguistic
  * analytics to infer individuals' intrinsic personality characteristics, including Big Five, Needs,
  * and Values, from digital communications such as email, text messages, tweets, and forum posts.
  *
@@ -46,68 +51,91 @@ import java.util.Map.Entry;
  * retain data from requests and responses.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/personality-insights/">Personality Insights</a>
+ * @see <a href="https://cloud.ibm.com/docs/personality-insights">Personality Insights</a>
  */
 public class PersonalityInsights extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "personality_insights";
+  public static final String DEFAULT_SERVICE_NAME = "personality_insights";
 
-  private static final String DEFAULT_SERVICE_URL =
+  public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.personality-insights.watson.cloud.ibm.com";
 
-  private String versionDate;
+  private String version;
 
   /**
-   * Constructs a new `PersonalityInsights` client using the DEFAULT_SERVICE_NAME.
+   * Constructs an instance of the `PersonalityInsights` client. The default service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
+   * @param version Release date of the version of the API you want to use. Specify dates in
+   *     YYYY-MM-DD format. The current version is `2017-10-13`.
    */
-  public PersonalityInsights(String versionDate) {
+  public PersonalityInsights(String version) {
     this(
-        versionDate,
+        version,
         DEFAULT_SERVICE_NAME,
         ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `PersonalityInsights` client with the DEFAULT_SERVICE_NAME and the specified
-   * Authenticator.
+   * Constructs an instance of the `PersonalityInsights` client. The default service name and
+   * specified authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the version of the API you want to use. Specify dates in
+   *     YYYY-MM-DD format. The current version is `2017-10-13`.
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public PersonalityInsights(String versionDate, Authenticator authenticator) {
-    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  public PersonalityInsights(String version, Authenticator authenticator) {
+    this(version, DEFAULT_SERVICE_NAME, authenticator);
   }
 
   /**
-   * Constructs a new `PersonalityInsights` client with the specified serviceName.
+   * Constructs an instance of the `PersonalityInsights` client. The specified service name is used
+   * to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
+   * @param version Release date of the version of the API you want to use. Specify dates in
+   *     YYYY-MM-DD format. The current version is `2017-10-13`.
+   * @param serviceName the service name to be used when configuring the client instance
    */
-  public PersonalityInsights(String versionDate, String serviceName) {
-    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  public PersonalityInsights(String version, String serviceName) {
+    this(version, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
   }
 
   /**
-   * Constructs a new `PersonalityInsights` client with the specified Authenticator and serviceName.
+   * Constructs an instance of the `PersonalityInsights` client. The specified service name and
+   * authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the version of the API you want to use. Specify dates in
+   *     YYYY-MM-DD format. The current version is `2017-10-13`.
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public PersonalityInsights(String versionDate, String serviceName, Authenticator authenticator) {
+  public PersonalityInsights(String version, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-    this.versionDate = versionDate;
+    setVersion(version);
     this.configureService(serviceName);
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>Release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format.
+   * The current version is `2017-10-13`.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return this.version;
+  }
+
+  /**
+   * Sets the version.
+   *
+   * @param version the new version
+   */
+  public void setVersion(final String version) {
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
+    this.version = version;
   }
 
   /**
@@ -151,14 +179,12 @@ public class PersonalityInsights extends BaseService {
    * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Profile}
+   * @return a {@link ServiceCall} with a result of type {@link Profile}
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions, "profileOptions cannot be null");
-    String[] pathSegments = {"v3/profile"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/profile"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("personality_insights", "v3", "profile");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -174,6 +200,7 @@ public class PersonalityInsights extends BaseService {
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
+    builder.query("version", String.valueOf(this.version));
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
@@ -233,14 +260,12 @@ public class PersonalityInsights extends BaseService {
    * profile](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-outputCSV#outputCSV).
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link String}
+   * @return a {@link ServiceCall} with a result of type {@link String}
    */
   public ServiceCall<InputStream> profileAsCsv(ProfileOptions profileOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(profileOptions, "profileOptions cannot be null");
-    String[] pathSegments = {"v3/profile"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/profile"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("personality_insights", "v3", "profileAsCsv");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -256,6 +281,7 @@ public class PersonalityInsights extends BaseService {
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
+    builder.query("version", String.valueOf(this.version));
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }

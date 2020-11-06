@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -158,7 +158,7 @@ public class GetPronunciationOptions extends GenericModel {
     /**
      * Builds a GetPronunciationOptions.
      *
-     * @return the getPronunciationOptions
+     * @return the new GetPronunciationOptions instance
      */
     public GetPronunciationOptions build() {
       return new GetPronunciationOptions(this);
@@ -265,12 +265,12 @@ public class GetPronunciationOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of a custom voice model for which the pronunciation is to be
-   * returned. The language of a specified custom model must match the language of the specified
-   * voice. If the word is not defined in the specified custom model, the service returns the
-   * default translation for the custom model's language. You must make the request with credentials
-   * for the instance of the service that owns the custom model. Omit the parameter to see the
-   * translation for the specified voice with no customization.
+   * <p>The customization ID (GUID) of a custom model for which the pronunciation is to be returned.
+   * The language of a specified custom model must match the language of the specified voice. If the
+   * word is not defined in the specified custom model, the service returns the default translation
+   * for the custom model's language. You must make the request with credentials for the instance of
+   * the service that owns the custom model. Omit the parameter to see the translation for the
+   * specified voice with no customization.
    *
    * @return the customizationId
    */

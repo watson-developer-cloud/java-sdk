@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -86,7 +86,7 @@ public class QueryOptions extends GenericModel {
     /**
      * Builds a QueryOptions.
      *
-     * @return the queryOptions
+     * @return the new QueryOptions instance
      */
     public QueryOptions build() {
       return new QueryOptions(this);
@@ -442,7 +442,7 @@ public class QueryOptions extends GenericModel {
    * Gets the highlight.
    *
    * <p>When `true`, a highlight field is returned for each result which contains the fields which
-   * match the query with `<em></em>` tags around the matching query terms.
+   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
    *
    * @return the highlight
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,13 +24,13 @@ public class CategoriesOptions extends GenericModel {
 
   protected Boolean explanation;
   protected Long limit;
-  @Deprecated protected String model;
+  protected String model;
 
   /** Builder. */
   public static class Builder {
     private Boolean explanation;
     private Long limit;
-    @Deprecated private String model;
+    private String model;
 
     private Builder(CategoriesOptions categoriesOptions) {
       this.explanation = categoriesOptions.explanation;
@@ -44,7 +44,7 @@ public class CategoriesOptions extends GenericModel {
     /**
      * Builds a CategoriesOptions.
      *
-     * @return the categoriesOptions
+     * @return the new CategoriesOptions instance
      */
     public CategoriesOptions build() {
       return new CategoriesOptions(this);
@@ -77,8 +77,6 @@ public class CategoriesOptions extends GenericModel {
      *
      * @param model the model
      * @return the CategoriesOptions builder
-     * @deprecated the model parameter is no longer supported by the Natural Language Understanding
-     *     service and will be removed in the next major release
      */
     public Builder model(String model) {
       this.model = model;
@@ -137,8 +135,6 @@ public class CategoriesOptions extends GenericModel {
    * categories models will no longer be accessible in Knowledge Studio on 17 December 2019.
    *
    * @return the model
-   * @deprecated the model parameter is no longer supported by the Natural Language Understanding
-   *     service and will be removed in the next major release
    */
   public String model() {
     return model;

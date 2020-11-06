@@ -45,7 +45,7 @@ public class UpdateProjectOptions extends GenericModel {
     /**
      * Builds a UpdateProjectOptions.
      *
-     * @return the updateProjectOptions
+     * @return the new UpdateProjectOptions instance
      */
     public UpdateProjectOptions build() {
       return new UpdateProjectOptions(this);

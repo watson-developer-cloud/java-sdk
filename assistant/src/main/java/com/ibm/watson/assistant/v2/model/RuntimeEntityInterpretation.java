@@ -184,7 +184,7 @@ public class RuntimeEntityInterpretation extends GenericModel {
     /**
      * Builds a RuntimeEntityInterpretation.
      *
-     * @return the runtimeEntityInterpretation
+     * @return the new RuntimeEntityInterpretation instance
      */
     public RuntimeEntityInterpretation build() {
       return new RuntimeEntityInterpretation(this);

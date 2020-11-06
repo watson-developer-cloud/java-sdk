@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,8 +44,6 @@ public class Value extends GenericModel {
     private String type;
     private List<String> synonyms;
     private List<String> patterns;
-    private Date created;
-    private Date updated;
 
     private Builder(Value value) {
       this.value = value.value;
@@ -53,8 +51,6 @@ public class Value extends GenericModel {
       this.type = value.type;
       this.synonyms = value.synonyms;
       this.patterns = value.patterns;
-      this.created = value.created;
-      this.updated = value.updated;
     }
 
     /** Instantiates a new builder. */
@@ -74,7 +70,7 @@ public class Value extends GenericModel {
     /**
      * Builds a Value.
      *
-     * @return the value
+     * @return the new Value instance
      */
     public Value build() {
       return new Value(this);
@@ -164,28 +160,6 @@ public class Value extends GenericModel {
       this.patterns = patterns;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the Value builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the Value builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected Value(Builder builder) {
@@ -196,8 +170,6 @@ public class Value extends GenericModel {
     type = builder.type;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

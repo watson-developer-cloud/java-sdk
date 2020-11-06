@@ -47,7 +47,7 @@ public class DeleteEnrichmentOptions extends GenericModel {
     /**
      * Builds a DeleteEnrichmentOptions.
      *
-     * @return the deleteEnrichmentOptions
+     * @return the new DeleteEnrichmentOptions instance
      */
     public DeleteEnrichmentOptions build() {
       return new DeleteEnrichmentOptions(this);

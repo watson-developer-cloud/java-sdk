@@ -23,11 +23,9 @@ public class UpdateObjectMetadata extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String object;
-    private Long count;
 
     private Builder(UpdateObjectMetadata updateObjectMetadata) {
       this.object = updateObjectMetadata.object;
-      this.count = updateObjectMetadata.count;
     }
 
     /** Instantiates a new builder. */
@@ -37,17 +35,15 @@ public class UpdateObjectMetadata extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param object the object
-     * @param count the count
      */
-    public Builder(String object, Long count) {
+    public Builder(String object) {
       this.object = object;
-      this.count = count;
     }
 
     /**
      * Builds a UpdateObjectMetadata.
      *
-     * @return the updateObjectMetadata
+     * @return the new UpdateObjectMetadata instance
      */
     public UpdateObjectMetadata build() {
       return new UpdateObjectMetadata(this);
@@ -63,24 +59,11 @@ public class UpdateObjectMetadata extends GenericModel {
       this.object = object;
       return this;
     }
-
-    /**
-     * Set the count.
-     *
-     * @param count the count
-     * @return the UpdateObjectMetadata builder
-     */
-    public Builder count(long count) {
-      this.count = count;
-      return this;
-    }
   }
 
   protected UpdateObjectMetadata(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.object, "object cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.count, "count cannot be null");
     object = builder.object;
-    count = builder.count;
   }
 
   /**
