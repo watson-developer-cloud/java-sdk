@@ -77,7 +77,7 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
+  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
