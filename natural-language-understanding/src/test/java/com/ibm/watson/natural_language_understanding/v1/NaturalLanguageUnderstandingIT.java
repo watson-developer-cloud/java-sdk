@@ -22,13 +22,10 @@ import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.natural_language_understanding.v1.model.*;
-
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -296,8 +293,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileTitle = "This 5,000-year-old recipe for beer actually sounds pretty tasty";
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
-    Features features =
-        new Features.Builder().metadata(new HashMap<String, Object>()).build();
+    Features features = new Features.Builder().metadata(new HashMap<String, Object>()).build();
     AnalyzeOptions parameters =
         new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
 

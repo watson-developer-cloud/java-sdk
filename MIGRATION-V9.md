@@ -19,6 +19,8 @@ This document should serve as a guide to breaking changes for users moving from 
 
 #### Models Removed
 
+`DialogSuggestionOutput`, `DialogSuggestionResponseGeneric`, `SystemResponse`
+
 #### Model Properties Changed
 
 `Context`
@@ -83,6 +85,8 @@ This document should serve as a guide to breaking changes for users moving from 
 
 #### Models Removed
 
+`MessageContextSkills`
+
 #### Model Properties Changed
 
 `MessageContext`, `MessageContextStateless`
@@ -108,8 +112,6 @@ This document should serve as a guide to breaking changes for users moving from 
 
 ### Compare Comply v1 Models
 
-#### Models Removed
-
 #### Model Properties Changed
 
 `Category`, `TypeLabel`
@@ -132,6 +134,8 @@ This document should serve as a guide to breaking changes for users moving from 
 ### Discovery v1 Models
 
 #### Models Removed
+
+`NluEnrichmentCategories`
 
 #### Model Properties Changed
 
@@ -159,6 +163,8 @@ This document should serve as a guide to breaking changes for users moving from 
 
 #### Models Removed
 
+`QueryNoticesResult`
+
 #### Model Properties Changed
 
 `CollectionDetails`
@@ -176,8 +182,6 @@ This document should serve as a guide to breaking changes for users moving from 
 
 ### Language Translator v3 Models
 
-#### Models Removed
-
 #### Model Properties Changed
 
 `ListDocumentsOptions`, `ListIdentifiableLanguagesOptions`, `ListLanguagesOptions`
@@ -188,8 +192,6 @@ This document should serve as a guide to breaking changes for users moving from 
 * No changes
 
 ### Natural Language Classifier v1 Models
-
-#### Models Removed
 
 #### Model Properties Changed
 
@@ -208,7 +210,7 @@ This document should serve as a guide to breaking changes for users moving from 
 
 #### Models Removed
 
-`MetadataOptions`
+`MetadataOptions`, `AnalysisResultsMetadata`
 
 #### Model Properties Changed
 
@@ -242,6 +244,8 @@ This document should serve as a guide to breaking changes for users moving from 
 
 #### Models Removed
 
+`SpeechTimestamp`, `SpeechWordConfidence`
+
 #### Model Properties Changed
 
 `CheckJobsOptions`, `ListModelOptions`
@@ -262,6 +266,8 @@ properties (Moved to `RecognizeWithWebsocketsOptions`)
 `CreateCustomModelOptions`, `CustomModel`, `CustomModels`, `DeleteCustomModelOptions`, `GetCustomModelOptions`, `ListCustomModelsOptions`, `UpdateCustomModelOptions`
 
 #### Models Removed
+
+`CreateVoiceModelOptions`, `DeleteVoiceModelOptions`, `GetVoiceModelOptions`, `ListVoiceModelsOptions`, `Marks`, `MarkTiming`, `Timings`, `UpdateVoiceModelOptions`, `VoiceModel`, `VoiceModels`, `WordTiming`
 
 #### Model Properties Changed
 

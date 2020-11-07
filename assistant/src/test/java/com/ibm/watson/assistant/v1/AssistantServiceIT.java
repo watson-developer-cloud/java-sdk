@@ -19,7 +19,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.ibm.cloud.sdk.core.http.Response;
-import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
@@ -1785,11 +1784,12 @@ public class AssistantServiceIT extends AssistantServiceTest {
   @Test
   public void testBulkClassify() {
     BulkClassifyUtterance bulkClassifyUtterance =
-            new BulkClassifyUtterance.Builder().text("help I need help").build();
+        new BulkClassifyUtterance.Builder().text("help I need help").build();
     BulkClassifyOptions bulkClassifyOptions =
-            new BulkClassifyOptions.Builder()
+        new BulkClassifyOptions.Builder()
             .addInput(bulkClassifyUtterance)
-            .workspaceId("{workspaceId}").build();
+            .workspaceId("{workspaceId}")
+            .build();
     BulkClassifyResponse response = service.bulkClassify(bulkClassifyOptions).execute().getResult();
 
     assertNotNull(response);

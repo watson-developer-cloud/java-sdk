@@ -108,8 +108,10 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   }
 
   protected transient InputStream audio;
+
   @SerializedName("content-type")
   protected String contentType;
+
   protected String model;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
@@ -1029,10 +1031,11 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   /**
    * Gets the interimResults.
    *
-   * If `true`, the service returns interim results as a stream of `SpeechRecognitionResults` objects. By default,
-   * the service returns a single `SpeechRecognitionResults` object with final results only.
+   * <p>If `true`, the service returns interim results as a stream of `SpeechRecognitionResults`
+   * objects. By default, the service returns a single `SpeechRecognitionResults` object with final
+   * results only.
    *
-   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
    *
    * @return the interimResults
    */
@@ -1043,12 +1046,13 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   /**
    * Gets the processingMetrics.
    *
-   * If `true`, requests processing metrics about the service's transcription of the input audio. The service returns
-   * processing metrics at the interval specified by the `processing_metrics_interval` parameter. It also returns
-   * processing metrics for transcription events, for example, for final and interim results. By default, the service
-   * returns no processing metrics.
+   * <p>If `true`, requests processing metrics about the service's transcription of the input audio.
+   * The service returns processing metrics at the interval specified by the
+   * `processing_metrics_interval` parameter. It also returns processing metrics for transcription
+   * events, for example, for final and interim results. By default, the service returns no
+   * processing metrics.
    *
-   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
    *
    * @return the processingMetrics
    */
@@ -1059,17 +1063,19 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   /**
    * Gets the processingMetricsInterval.
    *
-   * Specifies the interval in real wall-clock seconds at which the service is to return processing metrics. The
-   * parameter is ignored unless the `processing_metrics` parameter is set to `true`.
+   * <p>Specifies the interval in real wall-clock seconds at which the service is to return
+   * processing metrics. The parameter is ignored unless the `processing_metrics` parameter is set
+   * to `true`.
    *
-   * The parameter accepts a minimum value of 0.1 seconds. The level of precision is not restricted, so you can
-   * specify values such as 0.25 and 0.125.
+   * <p>The parameter accepts a minimum value of 0.1 seconds. The level of precision is not
+   * restricted, so you can specify values such as 0.25 and 0.125.
    *
-   * The service does not impose a maximum value. If you want to receive processing metrics only for transcription
-   * events instead of at periodic intervals, set the value to a large number. If the value is larger than the
-   * duration of the audio, the service returns processing metrics only for transcription events.
+   * <p>The service does not impose a maximum value. If you want to receive processing metrics only
+   * for transcription events instead of at periodic intervals, set the value to a large number. If
+   * the value is larger than the duration of the audio, the service returns processing metrics only
+   * for transcription events.
    *
-   * NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
+   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
    *
    * @return the processingMetricsInterval
    */

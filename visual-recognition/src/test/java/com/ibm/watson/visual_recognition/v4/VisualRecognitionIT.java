@@ -56,7 +56,6 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -454,8 +453,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String timeBeforeServiceAvailability = "1995-06-12";
     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(timeBeforeServiceAvailability);
 
-    GetTrainingUsageOptions options =
-        new GetTrainingUsageOptions.Builder().startTime(date).build();
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder().startTime(date).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
 
     assertNotNull(response);
@@ -468,8 +466,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     String futureTime = "3000-01-01";
     Date date = new SimpleDateFormat("yyyy-MM-dd").parse(futureTime);
 
-    GetTrainingUsageOptions options =
-        new GetTrainingUsageOptions.Builder().endTime(date).build();
+    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder().endTime(date).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
     System.out.println(response);
 

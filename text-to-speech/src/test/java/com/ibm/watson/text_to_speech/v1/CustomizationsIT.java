@@ -26,7 +26,6 @@ import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
 import com.ibm.watson.common.TestUtils;
 import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.*;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -115,7 +114,8 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertEquals(a.getCustomizationId(), b.getCustomizationId());
     GetCustomModelOptions getOptionsA =
         new GetCustomModelOptions.Builder().customizationId(a.getCustomizationId()).build();
-    assertEquals((service.getCustomModel(getOptionsA).execute().getResult()).getName(), b.getName());
+    assertEquals(
+        (service.getCustomModel(getOptionsA).execute().getResult()).getName(), b.getName());
     assertEquals(
         (service.getCustomModel(getOptionsA).execute().getResult()).getLanguage(), b.getLanguage());
   }

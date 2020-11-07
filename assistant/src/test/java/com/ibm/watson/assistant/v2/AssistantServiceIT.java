@@ -181,11 +181,12 @@ public class AssistantServiceIT extends AssistantServiceTest {
   @Test
   public void testBulkClassify() {
     BulkClassifyUtterance bulkClassifyUtterance =
-            new BulkClassifyUtterance.Builder().text("text text").build();
+        new BulkClassifyUtterance.Builder().text("text text").build();
     BulkClassifyOptions bulkClassifyOptions =
-            new BulkClassifyOptions.Builder()
+        new BulkClassifyOptions.Builder()
             .addInput(bulkClassifyUtterance)
-            .skillId("{skillId}").build();
+            .skillId("{skillId}")
+            .build();
     BulkClassifyResponse response = service.bulkClassify(bulkClassifyOptions).execute().getResult();
 
     assertNotNull(response);

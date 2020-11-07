@@ -1154,14 +1154,16 @@ public class DiscoveryIT extends WatsonServiceTest {
     String metadata = "{ \"metadata\": \"value\" }";
 
     AnalyzeDocumentOptions analyzeDocumentOptions =
-            new AnalyzeDocumentOptions.Builder()
+        new AnalyzeDocumentOptions.Builder()
             .projectId(PROJECT_ID)
             .collectionId(COLLECTION_ID)
             .file(testFile)
             .filename("test-file")
             .fileContentType(HttpMediaType.APPLICATION_PDF)
-            .metadata(metadata).build();
-    AnalyzedDocument analyzedDocument = service.analyzeDocument(analyzeDocumentOptions).execute().getResult();
+            .metadata(metadata)
+            .build();
+    AnalyzedDocument analyzedDocument =
+        service.analyzeDocument(analyzeDocumentOptions).execute().getResult();
 
     assertNotNull(analyzedDocument);
   }
