@@ -242,10 +242,6 @@ This document should serve as a guide to breaking changes for users moving from 
 
 `RecognizeWithWebsocketsOptions`
 
-#### Models Removed
-
-`SpeechTimestamp`, `SpeechWordConfidence`
-
 #### Model Properties Changed
 
 `CheckJobsOptions`, `ListModelOptions`
