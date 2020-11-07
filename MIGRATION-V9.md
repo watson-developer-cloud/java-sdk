@@ -263,7 +263,7 @@ properties (Moved to `RecognizeWithWebsocketsOptions`)
 
 #### Models Removed
 
-`CreateVoiceModelOptions`, `DeleteVoiceModelOptions`, `GetVoiceModelOptions`, `ListVoiceModelsOptions`, `Marks`, `MarkTiming`, `Timings`, `UpdateVoiceModelOptions`, `VoiceModel`, `VoiceModels`, `WordTiming`
+`CreateVoiceModelOptions`, `DeleteVoiceModelOptions`, `GetVoiceModelOptions`, `ListVoiceModelsOptions`, `UpdateVoiceModelOptions`, `VoiceModel`, `VoiceModels`
 
 #### Model Properties Changed
 
