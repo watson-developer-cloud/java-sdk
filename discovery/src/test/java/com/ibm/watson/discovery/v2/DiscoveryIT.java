@@ -65,7 +65,7 @@ public class DiscoveryIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String apiKey = getProperty("discovery.apikey");
+    String apiKey = getProperty("discovery_v2.apikey");
     Authenticator authenticator =
         new IamAuthenticator(
             apiKey, "https://iam.test.cloud.ibm.com/identity/token", null, null, false, null);
@@ -1144,5 +1144,25 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(queryResult.getPassages().get(0).getCollectionId());
     assertNotNull(queryResult.getPassages().get(0).getPassageText());
     assertNotNull(queryResult.getPassages().get(0).getDocumentId());
+  }
+
+  /** Test Analyze Document. */
+  @Ignore
+  @Test
+  public void TestAnalyzeDocument() throws FileNotFoundException {
+    InputStream testFile = new FileInputStream(RESOURCE + "test-pdf.pdf");
+    String metadata = "{ \"metadata\": \"value\" }";
+
+    AnalyzeDocumentOptions analyzeDocumentOptions =
+            new AnalyzeDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .file(testFile)
+            .filename("test-file")
+            .fileContentType(HttpMediaType.APPLICATION_PDF)
+            .metadata(metadata).build();
+    AnalyzedDocument analyzedDocument = service.analyzeDocument(analyzeDocumentOptions).execute().getResult();
+
+    assertNotNull(analyzedDocument);
   }
 }

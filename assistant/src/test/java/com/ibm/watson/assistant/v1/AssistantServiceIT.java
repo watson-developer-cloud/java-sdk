@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.http.ServiceCall;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
@@ -1777,5 +1778,20 @@ public class AssistantServiceIT extends AssistantServiceTest {
     EntityMentionCollection collection =
         service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
+  }
+
+  /** Test bulk classify */
+  @Ignore
+  @Test
+  public void testBulkClassify() {
+    BulkClassifyUtterance bulkClassifyUtterance =
+            new BulkClassifyUtterance.Builder().text("help I need help").build();
+    BulkClassifyOptions bulkClassifyOptions =
+            new BulkClassifyOptions.Builder()
+            .addInput(bulkClassifyUtterance)
+            .workspaceId("{workspaceId}").build();
+    BulkClassifyResponse response = service.bulkClassify(bulkClassifyOptions).execute().getResult();
+
+    assertNotNull(response);
   }
 }

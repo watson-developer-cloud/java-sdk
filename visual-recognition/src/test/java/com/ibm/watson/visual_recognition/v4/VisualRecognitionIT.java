@@ -53,11 +53,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -401,8 +400,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
       assertNotNull(trainingCollection);
       assertTrue(
-          trainingCollection.getTrainingStatus().objects().inProgress()
-              || trainingCollection.getTrainingStatus().objects().ready());
+          trainingCollection.getTrainingStatus().getObjects().inProgress()
+              || trainingCollection.getTrainingStatus().getObjects().ready());
     } finally {
       // delete images we added earlier
       for (String imageId : addedImageIds) {
@@ -451,10 +450,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   /** Test get training usage with start time. */
   @Test
-  public void testGetTrainingUsageWithStartTime() {
+  public void testGetTrainingUsageWithStartTime() throws ParseException {
     String timeBeforeServiceAvailability = "1995-06-12";
+    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(timeBeforeServiceAvailability);
+
     GetTrainingUsageOptions options =
-        new GetTrainingUsageOptions.Builder().startTime(timeBeforeServiceAvailability).build();
+        new GetTrainingUsageOptions.Builder().startTime(date).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
 
     assertNotNull(response);
@@ -463,10 +464,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   /** Test get training usage with end time. */
   @Test
-  public void testGetTrainingUsageWithEndTime() {
+  public void testGetTrainingUsageWithEndTime() throws ParseException {
     String futureTime = "3000-01-01";
+    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(futureTime);
+
     GetTrainingUsageOptions options =
-        new GetTrainingUsageOptions.Builder().endTime(futureTime).build();
+        new GetTrainingUsageOptions.Builder().endTime(date).build();
     TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
     System.out.println(response);
 
