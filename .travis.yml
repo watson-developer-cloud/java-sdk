@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 os: linux
 branches:
   except:
@@ -21,7 +21,7 @@ jobs:
         - ./gradlew checkstyleTest
         - travis_retry .utility/travis-run-tests.sh
       after_success:
-        - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash)+++++++
 
     - stage: Semantic release
       jdk: openjdk8
@@ -45,7 +45,7 @@ jobs:
         - .utility/push-javadoc-to-gh-pages.sh
 
     - stage: Release to bintray
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
       if: tag IS present
       script:
