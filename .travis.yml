@@ -26,7 +26,7 @@ jobs:
     - stage: Semantic release
       jdk: openjdk8
       language: java
-      if: branch = master AND type = push AND fork = false
+      if: (branch = master OR branch = rc) AND type = push AND fork = false
       before_install:
         - pip install --user bumpversion
         - nvm install 12
