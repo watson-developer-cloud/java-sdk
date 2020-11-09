@@ -1,5 +1,11 @@
 {
-  "branch": "master",
+  "branches": [
+    "master",
+    {
+        "name": "rc",
+        "prerelease": true
+    }
+  ],
   "debug": true,
   "plugins": [
     "@semantic-release/commit-analyzer",
