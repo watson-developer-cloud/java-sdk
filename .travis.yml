@@ -12,7 +12,7 @@ stages:
 jobs:
   include:
     - stage: Build and test
-      jdk: oraclejdk8
+      jdk: openjdk8
       language: java
       before_install:
         - .utility/decrypt-service-instance-apikeys.sh
@@ -22,18 +22,9 @@ jobs:
         - travis_retry .utility/travis-run-tests.sh
       after_success:
         - bash <(curl -s https://codecov.io/bash)
-    - jdk: openjdk7
-      language: java
-      before_install:
-        - .utility/patch-openjdk7.sh
-        - .utility/decrypt-service-instance-apikeys.sh
-      script:
-        - travis_retry .utility/travis-run-tests.sh
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
 
     - stage: Semantic release
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
       if: branch = master AND type = push AND fork = false
       before_install:
@@ -46,7 +37,7 @@ jobs:
         - npx semantic-release
 
     - stage: Publish javadoc
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
       if: type = push AND fork = false
       script:
