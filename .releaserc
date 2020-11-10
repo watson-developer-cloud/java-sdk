@@ -14,7 +14,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "bumpversion --current-version ${lastRelease.version} --new-version ${nextRelease.version} --allow-dirty patch"
+        "prepareCmd": ".utility/bumpversion.sh  ${lastRelease.version} ${nextRelease.version}"
       }
     ],
     [
