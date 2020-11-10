@@ -1,6 +1,8 @@
 ## v9.0.0 Migration guide
 This document should serve as a guide to breaking changes for users moving from code using the v8.x.x version of the SDK to v9.x.x.
 
+![](https://media.giphy.com/media/3o72FfM5HJydzafgUE/giphy.gif)
+
 ### Service changes
 
 ### All Services
