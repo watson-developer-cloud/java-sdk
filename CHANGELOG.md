@@ -1,3 +1,16 @@
+# [9.0.0-rc.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2020-11-11)
+
+
+### Bug Fixes
+
+* typo in migration guide ([984a350](https://github.com/watson-developer-cloud/java-sdk/commit/984a3503502a7867470b3e342fe959643ae0a561))
+* update version to 9.0.0-rc.2 ([ab57379](https://github.com/watson-developer-cloud/java-sdk/commit/ab573794f351e00f6fb97e3fed0e7d3ad20fb824))
+
+
+### Features
+
+* add bumpversion release candidate support ([b794bb6](https://github.com/watson-developer-cloud/java-sdk/commit/b794bb6407e461af0edd99952e08b98e8d4a95e2))
+
 # [9.0.0-rc.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.3...v9.0.0-rc.1) (2020-11-10)
 
 
