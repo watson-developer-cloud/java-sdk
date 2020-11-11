@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>natural-language-understanding</artifactId>
-  <version>9.0.0-rc.2</version>
+  <version>9.0.0-rc.1</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:natural-language-understanding:9.0.0-rc.2'
+'com.ibm.watson:natural-language-understanding:9.0.0-rc.1'
 ```
 
 ## Usage
