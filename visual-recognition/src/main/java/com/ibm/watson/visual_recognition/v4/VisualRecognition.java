@@ -252,12 +252,6 @@ public class VisualRecognition extends BaseService {
     if (createCollectionOptions.description() != null) {
       contentJson.addProperty("description", createCollectionOptions.description());
     }
-    if (createCollectionOptions.trainingStatus() != null) {
-      contentJson.add(
-          "training_status",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(createCollectionOptions.trainingStatus()));
-    }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
         ResponseConverterUtils.getValue(
@@ -384,12 +378,6 @@ public class VisualRecognition extends BaseService {
     }
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
-    }
-    if (updateCollectionOptions.trainingStatus() != null) {
-      contentJson.add(
-          "training_status",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(updateCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =

@@ -25,12 +25,10 @@ public class CreateCollectionOptions extends GenericModel {
   public static class Builder {
     private String name;
     private String description;
-    private TrainingStatus trainingStatus;
 
     private Builder(CreateCollectionOptions createCollectionOptions) {
       this.name = createCollectionOptions.name;
       this.description = createCollectionOptions.description;
-      this.trainingStatus = createCollectionOptions.trainingStatus;
     }
 
     /** Instantiates a new builder. */
@@ -66,23 +64,11 @@ public class CreateCollectionOptions extends GenericModel {
       this.description = description;
       return this;
     }
-
-    /**
-     * Set the trainingStatus.
-     *
-     * @param trainingStatus the trainingStatus
-     * @return the CreateCollectionOptions builder
-     */
-    public Builder trainingStatus(TrainingStatus trainingStatus) {
-      this.trainingStatus = trainingStatus;
-      return this;
-    }
   }
 
   protected CreateCollectionOptions(Builder builder) {
     name = builder.name;
     description = builder.description;
-    trainingStatus = builder.trainingStatus;
   }
 
   /**
