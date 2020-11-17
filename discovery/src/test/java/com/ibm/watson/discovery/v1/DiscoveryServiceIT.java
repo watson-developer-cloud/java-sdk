@@ -363,7 +363,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   /** Ping bad url throws exception. */
   @Test(expected = NotFoundException.class)
   public void pingBadUrlThrowsException() {
-    discovery.setServiceUrl("https://api.us-south.discovery-foo.watson.cloud.ibm.com");
+    discovery.setServiceUrl("https://api.us-south.discovery.watson.cloud.ibm.com/discovery-foo");
     ping();
   }
 
