@@ -39,7 +39,7 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket, the url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
+Speech to Text supports WebSocket, the url is: `wss://api.us-south.speech-to-text.watson.cloud.ibm.com/v1/recognize`
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");

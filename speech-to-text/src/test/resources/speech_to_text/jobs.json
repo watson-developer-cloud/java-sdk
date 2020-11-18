@@ -8,7 +8,7 @@
     "id": "2d0ef860-872e-11e6-90d3-5f28bc58ceb2",
     "status": "processing",
     "created": "2016-09-30T16:51:47.558",
-    "url": "https://stream.watsonplatform.net/speech-to-text/api/v1/recognitions/2d0ef860-872e-11e6-90d3-5f28bc58ceb2"
+    "url": "https://api.us-south.speech-to-text.watson.cloud.ibm.com/v1/recognitions/2d0ef860-872e-11e6-90d3-5f28bc58ceb2"
   }, {
     "id": "2d0ef860-872e-11e6-90d3-5f28bc58ceb2",
     "results": [{
