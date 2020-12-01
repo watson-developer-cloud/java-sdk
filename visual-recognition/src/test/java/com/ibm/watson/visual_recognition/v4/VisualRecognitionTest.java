@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -178,11 +178,27 @@ public class VisualRecognitionTest {
 
     constructClientService();
 
+    // Construct an instance of the ObjectTrainingStatus model
+    ObjectTrainingStatus objectTrainingStatusModel =
+        new ObjectTrainingStatus.Builder()
+            .ready(true)
+            .inProgress(true)
+            .dataChanged(true)
+            .latestFailed(true)
+            .rscnnReady(true)
+            .description("testString")
+            .build();
+
+    // Construct an instance of the TrainingStatus model
+    TrainingStatus trainingStatusModel =
+        new TrainingStatus.Builder().objects(objectTrainingStatusModel).build();
+
     // Construct an instance of the CreateCollectionOptions model
     CreateCollectionOptions createCollectionOptionsModel =
         new CreateCollectionOptions.Builder()
             .name("testString")
             .description("testString")
+            .trainingStatus(trainingStatusModel)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -315,12 +331,28 @@ public class VisualRecognitionTest {
 
     constructClientService();
 
+    // Construct an instance of the ObjectTrainingStatus model
+    ObjectTrainingStatus objectTrainingStatusModel =
+        new ObjectTrainingStatus.Builder()
+            .ready(true)
+            .inProgress(true)
+            .dataChanged(true)
+            .latestFailed(true)
+            .rscnnReady(true)
+            .description("testString")
+            .build();
+
+    // Construct an instance of the TrainingStatus model
+    TrainingStatus trainingStatusModel =
+        new TrainingStatus.Builder().objects(objectTrainingStatusModel).build();
+
     // Construct an instance of the UpdateCollectionOptions model
     UpdateCollectionOptions updateCollectionOptionsModel =
         new UpdateCollectionOptions.Builder()
             .collectionId("testString")
             .name("testString")
             .description("testString")
+            .trainingStatus(trainingStatusModel)
             .build();
 
     // Invoke operation with valid options model (positive test)

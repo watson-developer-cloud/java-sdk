@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,8 +12,10 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.ibm.cloud.sdk.core.util.DateTypeAdapter;
 import java.util.Date;
 
 /** Information about the Continuous Relevancy Training for this environment. */
@@ -39,6 +41,7 @@ public class SearchStatus extends GenericModel {
   @SerializedName("status_description")
   protected String statusDescription;
 
+  @JsonAdapter(DateTypeAdapter.class)
   @SerializedName("last_trained")
   protected Date lastTrained;
 

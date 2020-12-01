@@ -31,7 +31,7 @@ public class ListCustomModelsOptionsTest {
   @Test
   public void testListCustomModelsOptions() throws Throwable {
     ListCustomModelsOptions listCustomModelsOptionsModel =
-        new ListCustomModelsOptions.Builder().language("ar-AR").build();
-    assertEquals(listCustomModelsOptionsModel.language(), "ar-AR");
+        new ListCustomModelsOptions.Builder().language("de-DE").build();
+    assertEquals(listCustomModelsOptionsModel.language(), "de-DE");
   }
 }

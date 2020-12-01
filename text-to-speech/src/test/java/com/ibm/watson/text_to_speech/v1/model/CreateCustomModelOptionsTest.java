@@ -33,11 +33,11 @@ public class CreateCustomModelOptionsTest {
     CreateCustomModelOptions createCustomModelOptionsModel =
         new CreateCustomModelOptions.Builder()
             .name("testString")
-            .language("ar-AR")
+            .language("de-DE")
             .description("testString")
             .build();
     assertEquals(createCustomModelOptionsModel.name(), "testString");
-    assertEquals(createCustomModelOptionsModel.language(), "ar-AR");
+    assertEquals(createCustomModelOptionsModel.language(), "de-DE");
     assertEquals(createCustomModelOptionsModel.description(), "testString");
   }
 

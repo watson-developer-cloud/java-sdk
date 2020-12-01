@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
  */
 
 package com.ibm.watson.personality_insights.v3;
@@ -32,8 +32,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&amp;trade; Personality Insights service enables applications to derive insights
- * from social media, enterprise data, or other digital communications. The service uses linguistic
+ * IBM&amp;reg; will begin sunsetting IBM Watson&amp;trade; Personality Insights on 1 December 2020.
+ * For a period of one year from this date, you will still be able to use Watson Personality
+ * Insights. However, as of 1 December 2021, the offering will no longer be
+ * available.&lt;br/&gt;&lt;br/&gt;As an alternative, we encourage you to consider migrating to IBM
+ * Watson&amp;trade; Natural Language Understanding, a service on IBM Cloud&amp;reg; that uses deep
+ * learning to extract data and insights from text such as keywords, categories, sentiment, emotion,
+ * and syntax to provide insights for your business or industry. For more information, see [About
+ * Natural Language
+ * Understanding](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-about).
+ * {: deprecated}
+ *
+ * <p>The IBM Watson Personality Insights service enables applications to derive insights from
+ * social media, enterprise data, or other digital communications. The service uses linguistic
  * analytics to infer individuals' intrinsic personality characteristics, including Big Five, Needs,
  * and Values, from digital communications such as email, text messages, tweets, and forum posts.
  *
@@ -114,12 +125,6 @@ public class PersonalityInsights extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
-
-    System.err.println(
-        "On 1 December 2021, Personality Insights will no longer be available."
-            + " Consider migrating to Watson Natural Language Understanding."
-            + "\nFor more information, see Personality Insights Deprecation "
-            + "(https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).");
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -312,7 +312,7 @@ public class TextToSpeechTest {
     CreateCustomModelOptions createCustomModelOptionsModel =
         new CreateCustomModelOptions.Builder()
             .name("testString")
-            .language("ar-AR")
+            .language("de-DE")
             .description("testString")
             .build();
 
@@ -366,7 +366,7 @@ public class TextToSpeechTest {
 
     // Construct an instance of the ListCustomModelsOptions model
     ListCustomModelsOptions listCustomModelsOptionsModel =
-        new ListCustomModelsOptions.Builder().language("ar-AR").build();
+        new ListCustomModelsOptions.Builder().language("de-DE").build();
 
     // Invoke operation with valid options model (positive test)
     Response<CustomModels> response =
@@ -384,7 +384,7 @@ public class TextToSpeechTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("language"), "ar-AR");
+    assertEquals(query.get("language"), "de-DE");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listCustomModelsPath);

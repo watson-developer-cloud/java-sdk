@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -108,10 +107,7 @@ public class RecognizeOptions extends GenericModel {
   }
 
   protected InputStream audio;
-
-  @SerializedName("content-type")
   protected String contentType;
-
   protected String model;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;

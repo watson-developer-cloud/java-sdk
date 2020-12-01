@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
  */
 
 package com.ibm.watson.visual_recognition.v4;
@@ -67,8 +67,12 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * Provide images to the IBM Watson&amp;trade; Visual Recognition service for analysis. The service
- * detects objects based on a set of images with training data.
+ * IBM Watson&amp;trade; Visual Recognition is discontinued. Existing instances are supported until
+ * 1 December 2021, but as of 7 January 2021, you can't create instances. Any instance that is
+ * provisioned on 1 December 2021 will be deleted. {: deprecated}
+ *
+ * <p>Provide images to the IBM Watson Visual Recognition service for analysis. The service detects
+ * objects based on a set of images with training data.
  *
  * @version v4
  * @see <a
@@ -77,7 +81,7 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  public static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
@@ -248,6 +252,12 @@ public class VisualRecognition extends BaseService {
     if (createCollectionOptions.description() != null) {
       contentJson.addProperty("description", createCollectionOptions.description());
     }
+    if (createCollectionOptions.trainingStatus() != null) {
+      contentJson.add(
+          "training_status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCollectionOptions.trainingStatus()));
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
         ResponseConverterUtils.getValue(
@@ -374,6 +384,12 @@ public class VisualRecognition extends BaseService {
     }
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.trainingStatus() != null) {
+      contentJson.add(
+          "training_status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
