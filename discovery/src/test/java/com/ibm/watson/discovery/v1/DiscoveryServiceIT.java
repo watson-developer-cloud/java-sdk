@@ -216,7 +216,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void exampleIsSuccessful() {
     //    Discovery discovery = new Discovery("2016-12-15");
-    //    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery/api");
+    //    discovery.setServiceUrl("https://api.us-south.discovery.watson.cloud.ibm.com");
     //    discovery.setUsernameAndPassword("<username>", "<password");
     String environmentId = null;
     String configurationId = null;
@@ -381,7 +381,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   /** Ping bad url throws exception. */
   @Test(expected = NotFoundException.class)
   public void pingBadUrlThrowsException() {
-    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery-foo/api");
+    discovery.setServiceUrl("https://api.us-south.discovery.watson.cloud.ibm.com/discovery-foo");
     ping();
   }
 
