@@ -51,10 +51,7 @@ public class CreateCollectionOptionsTest {
     assertEquals(trainingStatusModel.objects(), objectTrainingStatusModel);
 
     CreateCollectionOptions createCollectionOptionsModel =
-        new CreateCollectionOptions.Builder()
-            .name("testString")
-            .description("testString")
-            .build();
+        new CreateCollectionOptions.Builder().name("testString").description("testString").build();
     assertEquals(createCollectionOptionsModel.name(), "testString");
     assertEquals(createCollectionOptionsModel.description(), "testString");
     assertEquals(createCollectionOptionsModel.trainingStatus(), trainingStatusModel);

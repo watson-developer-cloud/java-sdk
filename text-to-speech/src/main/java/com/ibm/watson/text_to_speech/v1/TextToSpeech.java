@@ -50,15 +50,14 @@ import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
 import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
 import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
 
 /**
  * The IBM Watson&amp;trade; Text to Speech service provides APIs that use IBM's speech-synthesis
@@ -320,9 +319,9 @@ public class TextToSpeech extends BaseService {
    * @return a {@link WebSocket} instance
    */
   public WebSocket synthesizeUsingWebSocket(
-          SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
+      SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-            synthesizeOptions, "synthesizeOptions cannot be null");
+        synthesizeOptions, "synthesizeOptions cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
 
     HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
@@ -342,7 +341,7 @@ public class TextToSpeech extends BaseService {
 
     OkHttpClient client = configureHttpClient();
     return client.newWebSocket(
-            builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
+        builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**

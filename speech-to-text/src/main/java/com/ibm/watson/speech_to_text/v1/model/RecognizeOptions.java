@@ -108,8 +108,10 @@ public class RecognizeOptions extends GenericModel {
   }
 
   protected InputStream audio;
+
   @SerializedName("content-type")
   protected String contentType;
+
   protected String model;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
