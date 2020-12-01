@@ -57,8 +57,9 @@ import okhttp3.MultipartBody;
  */
 
 /**
- * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual
- * Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
+ *     information, see Visual Recognition Deprecation
+ *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
  */
 @Deprecated
 public class VisualRecognition extends BaseService {
@@ -124,8 +125,8 @@ public class VisualRecognition extends BaseService {
     this.configureService(serviceName);
 
     System.err.println(
-            "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n" +
-            "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
+        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
+            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**
