@@ -178,6 +178,26 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             "deleteConfiguration failed. Configuration " + configurationId + " not found");
       }
     }
+
+    ListCollectionsOptions listCollectionsOptions = new ListCollectionsOptions.Builder()
+            .environmentId(environmentId)
+            .build();
+    ListCollectionsResponse response = discovery.listCollections(listCollectionsOptions).execute().getResult();
+    for(Collection collection: response.getCollections()){
+      if(collection.getName().matches("java-sdk-.*collection") ||
+              collection.getName().matches("my_watson_developer_cloud_collection.*") ||
+              collection.getName().matches("tokenization-dict-testing-collection.*")) {
+        DeleteCollectionOptions deleteCollectionOptions = new DeleteCollectionOptions.Builder()
+                .collectionId(collection.getCollectionId())
+                .environmentId(environmentId)
+                .build();
+        try {
+          DeleteCollectionResponse deleteCollectionResponse = discovery.deleteCollection(deleteCollectionOptions).execute().getResult();
+        } catch (NotFoundException ex) {
+          System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
+        }
+      }
+    }
   }
 
   /**
