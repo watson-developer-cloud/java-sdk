@@ -154,7 +154,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   /** Cleanup. */
-  @After
   public void cleanup() {
     for (String collectionId : collectionIds) {
       DeleteCollectionOptions deleteOptions =
@@ -200,6 +199,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         }
       }
     }
+    collectionId = null;
   }
 
   /**
