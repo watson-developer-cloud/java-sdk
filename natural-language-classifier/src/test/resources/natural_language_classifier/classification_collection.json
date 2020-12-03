@@ -1,6 +1,6 @@
 {
   "classifier_id" : "10D41B-nlc-1",
-  "url" : "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/10D41B-nlc-1",
+  "url" : "https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers/10D41B-nlc-1",
   "collection" : [ {
     "text" : "How hot will it be today?",
     "top_class" : "temperature",

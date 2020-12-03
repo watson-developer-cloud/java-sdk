@@ -22,8 +22,6 @@ public class ListCustomModelsOptions extends GenericModel {
    * returned. Omit the parameter to see all custom models that are owned by the requester.
    */
   public interface Language {
-    /** ar-AR. */
-    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */

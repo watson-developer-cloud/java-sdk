@@ -23,8 +23,6 @@ public class CreateCustomModelOptions extends GenericModel {
    * specified language. Omit the parameter to use the the default language, `en-US`.
    */
   public interface Language {
-    /** ar-AR. */
-    String AR_AR = "ar-AR";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */

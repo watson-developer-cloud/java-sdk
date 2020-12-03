@@ -343,7 +343,7 @@ public class AssistantTest {
             .build();
 
     // Construct an instance of the MessageContextSkill model
-    final MessageContextSkill messageContextSkillModel =
+    MessageContextSkill messageContextSkillModel =
         new MessageContextSkill.Builder()
             .userDefined(
                 new java.util.HashMap<String, Object>() {
@@ -549,7 +549,7 @@ public class AssistantTest {
             .build();
 
     // Construct an instance of the MessageContextSkill model
-    final MessageContextSkill messageContextSkillModel =
+    MessageContextSkill messageContextSkillModel =
         new MessageContextSkill.Builder()
             .userDefined(
                 new java.util.HashMap<String, Object>() {

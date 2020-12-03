@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-7cc05500-20201106-154555
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
  */
 
 package com.ibm.watson.visual_recognition.v3;
@@ -44,13 +44,24 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * The IBM Watson&amp;trade; Visual Recognition service uses deep learning algorithms to identify
- * scenes and objects in images that you upload to the service. You can create and train a custom
- * classifier to identify subjects that suit your needs.
+ * IBM Watson&amp;trade; Visual Recognition is discontinued. Existing instances are supported until
+ * 1 December 2021, but as of 7 January 2021, you can't create instances. Any instance that is
+ * provisioned on 1 December 2021 will be deleted. {: deprecated}
+ *
+ * <p>The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes and
+ * objects in images that you upload to the service. You can create and train a custom classifier to
+ * identify subjects that suit your needs.
  *
  * @version v3
  * @see <a href="https://cloud.ibm.com/docs/visual-recognition">Visual Recognition</a>
  */
+
+/**
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
+ *     information, see Visual Recognition Deprecation
+ *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ */
+@Deprecated
 public class VisualRecognition extends BaseService {
 
   public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
@@ -112,6 +123,10 @@ public class VisualRecognition extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
+            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**

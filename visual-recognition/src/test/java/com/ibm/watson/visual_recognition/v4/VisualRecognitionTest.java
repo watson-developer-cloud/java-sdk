@@ -44,12 +44,10 @@ import com.ibm.watson.visual_recognition.v4.model.ListObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadataList;
-import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
-import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
@@ -180,10 +178,7 @@ public class VisualRecognitionTest {
 
     // Construct an instance of the CreateCollectionOptions model
     CreateCollectionOptions createCollectionOptionsModel =
-        new CreateCollectionOptions.Builder()
-            .name("testString")
-            .description("testString")
-            .build();
+        new CreateCollectionOptions.Builder().name("testString").description("testString").build();
 
     // Invoke operation with valid options model (positive test)
     Response<Collection> response =

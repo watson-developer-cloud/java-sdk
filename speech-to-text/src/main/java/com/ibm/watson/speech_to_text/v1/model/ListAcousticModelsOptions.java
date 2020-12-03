@@ -48,6 +48,8 @@ public class ListAcousticModelsOptions extends GenericModel {
     String ES_MX = "es-MX";
     /** es-PE. */
     String ES_PE = "es-PE";
+    /** fr-CA. */
+    String FR_CA = "fr-CA";
     /** fr-FR. */
     String FR_FR = "fr-FR";
     /** it-IT. */
