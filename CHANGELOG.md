@@ -1,3 +1,21 @@
+# [9.0.0-rc.3](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.2...v9.0.0-rc.3) (2020-12-03)
+
+
+### Bug Fixes
+
+* **visual-recognition-v4:** remove trainingStatus as a parameter for create & update Collection ([02e3dfd](https://github.com/watson-developer-cloud/java-sdk/commit/02e3dfd0fb972f3081c91921f6acf61fdcc2f1e6))
+* **visual-recognition-v4:** remove trainingStatus as a parameter for create & update Collection ([5568bf9](https://github.com/watson-developer-cloud/java-sdk/commit/5568bf99e47ad92420253c936db7bc8fac13a7f0))
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0 ([3414833](https://github.com/watson-developer-cloud/java-sdk/commit/3414833807abe8534e6daf838500a5426e9e4e04))
+
+
+### BREAKING CHANGES
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0
+
 # [9.0.0-rc.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2020-11-11)
 
 
