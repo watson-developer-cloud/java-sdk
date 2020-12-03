@@ -9,7 +9,7 @@ This document should serve as a guide to breaking changes for users moving from 
 * The `version` of a service can be retrieved with `getVersion()`
 * The `version` of a service can be set with `setVersion()`
 
-### Assistant v1 Instance
+### Assistant v1 Service
 
 * Added function `bulkClassify()`: Identify intents and entities in multiple user utterances.
 
@@ -74,7 +74,7 @@ This document should serve as a guide to breaking changes for users moving from 
 * Changed `newContext` property type from `Map<String, Object>` to `DialogNodeContext`
 
 
-### Assistant v2 Instance
+### Assistant v2 Service
 
 * Added function `bulkClassify()`: Identify intents and entities in multiple user utterances.
 
@@ -108,7 +108,7 @@ This document should serve as a guide to breaking changes for users moving from 
 * Removed Builder
 * Added read only properties `agentAvailable`, `AgentUnavailable`, and `transferInfo`
 
-### Compare Comply v1 Instance
+### Compare Comply v1 Service
 
 * No changes
 
@@ -129,7 +129,7 @@ This document should serve as a guide to breaking changes for users moving from 
 * Removed `modification` property
 
 
-### Discovery v1 Instance
+### Discovery v1 Service
 
 * No changes
 
@@ -153,7 +153,7 @@ This document should serve as a guide to breaking changes for users moving from 
 `NluEnrichmentFeatures`
 * Changed `categories` property type from `NluEnrichmentCategories` to `Map<String, Object>`
 
-### Discovery v2 Instance
+### Discovery v2 Service
 
 * Added function `analyzeDocument()`: Process a document using the specified collection's settings and return it for realtime use. - Currently CP4D only
 
@@ -178,7 +178,7 @@ This document should serve as a guide to breaking changes for users moving from 
 `TrainingQuery`
 * Changed `created`, `queryId` and `updated` properties to read only
 
-### Language Translator v3 Instance
+### Language Translator v3 Service
 
 * No changes
 
@@ -189,7 +189,7 @@ This document should serve as a guide to breaking changes for users moving from 
 `ListDocumentsOptions`, `ListIdentifiableLanguagesOptions`, `ListLanguagesOptions`
 * Removed Builder
 
-### Natural Language Classifier v1 Instance
+### Natural Language Classifier v1 Service
 
 * No changes
 
@@ -200,7 +200,7 @@ This document should serve as a guide to breaking changes for users moving from 
 `ListClassifiersOptions`
 * Removed Builder
 
-### Natural Language Understanding v1 Instance
+### Natural Language Understanding v1 Service
 
 * No changes
 
@@ -225,15 +225,15 @@ This document should serve as a guide to breaking changes for users moving from 
 `ListModelsOptions`
 * Remove Builder
 
-### Personality Insights v3 Instance
+### Personality Insights v3 Service
 
-* No changes
+* Added deprecation notice
 
 ### Personality Insights v3  Models
 
 * No changes
 
-### Speech To Text v1 Instance
+### Speech To Text v1 Service
 
 * `recognizeUsingWebSocket()`: Changed `recognizeOptions` parameter type from `RecognizeOptions` to `RecognizeWithWebsocketsOptions`
 
@@ -253,7 +253,7 @@ This document should serve as a guide to breaking changes for users moving from 
 * Removed `interimResults`, `processingMetrics`, `processingMetricsInterval`
 properties (Moved to `RecognizeWithWebsocketsOptions`)
 
-### Text to Speech v1 Instance
+### Text to Speech v1 Service
 
 * No changes
 
@@ -275,7 +275,7 @@ properties (Moved to `RecognizeWithWebsocketsOptions`)
 `Voice`
 * Change return type of `getCustomization()` from `VoiceModel` to `CustomModel`
 
-### Tone Analyzer v3 Instance
+### Tone Analyzer v3 Service
 
 * No changes
 
@@ -283,17 +283,17 @@ properties (Moved to `RecognizeWithWebsocketsOptions`)
 
 * No changes
 
-### Visual Recognition v3 Instance
+### Visual Recognition v3 Service
 
-* No changes
+* Added deprecation notice
 
 ### Visual Recognition v3 Models
 
 * No changes
 
-### Visual Recognition v4 Instance
+### Visual Recognition v4 Service
 
-* No changes
+* Added deprecation notice
 
 ### Visual Recognition v4 Models
 
