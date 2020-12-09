@@ -42,7 +42,7 @@ public class GetAcousticModelOptions extends GenericModel {
     /**
      * Builds a GetAcousticModelOptions.
      *
-     * @return the getAcousticModelOptions
+     * @return the new GetAcousticModelOptions instance
      */
     public GetAcousticModelOptions build() {
       return new GetAcousticModelOptions(this);

@@ -54,7 +54,7 @@ public class AddImagesOptions extends GenericModel {
     /**
      * Builds a AddImagesOptions.
      *
-     * @return the addImagesOptions
+     * @return the new AddImagesOptions instance
      */
     public AddImagesOptions build() {
       return new AddImagesOptions(this);

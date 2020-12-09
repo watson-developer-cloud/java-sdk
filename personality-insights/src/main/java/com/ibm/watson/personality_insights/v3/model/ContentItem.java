@@ -100,7 +100,7 @@ public class ContentItem extends GenericModel {
     /**
      * Builds a ContentItem.
      *
-     * @return the contentItem
+     * @return the new ContentItem instance
      */
     public ContentItem build() {
       return new ContentItem(this);

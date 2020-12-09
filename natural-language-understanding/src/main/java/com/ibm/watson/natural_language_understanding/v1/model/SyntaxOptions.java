@@ -36,7 +36,7 @@ public class SyntaxOptions extends GenericModel {
     /**
      * Builds a SyntaxOptions.
      *
-     * @return the syntaxOptions
+     * @return the new SyntaxOptions instance
      */
     public SyntaxOptions build() {
       return new SyntaxOptions(this);

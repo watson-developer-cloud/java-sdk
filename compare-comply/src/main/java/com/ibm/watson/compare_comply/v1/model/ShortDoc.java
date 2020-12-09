@@ -36,7 +36,7 @@ public class ShortDoc extends GenericModel {
     /**
      * Builds a ShortDoc.
      *
-     * @return the shortDoc
+     * @return the new ShortDoc instance
      */
     public ShortDoc build() {
       return new ShortDoc(this);

@@ -49,7 +49,7 @@ public class OriginalLabelsIn extends GenericModel {
     /**
      * Builds a OriginalLabelsIn.
      *
-     * @return the originalLabelsIn
+     * @return the new OriginalLabelsIn instance
      */
     public OriginalLabelsIn build() {
       return new OriginalLabelsIn(this);

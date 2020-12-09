@@ -142,12 +142,10 @@ import java.util.Date;
 import java.util.List;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 /** Unit tests for {@link Discovery}. */
+@Ignore
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 

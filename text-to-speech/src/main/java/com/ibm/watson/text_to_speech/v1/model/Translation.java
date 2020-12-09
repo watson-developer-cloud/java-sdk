@@ -92,7 +92,7 @@ public class Translation extends GenericModel {
     /**
      * Builds a Translation.
      *
-     * @return the translation
+     * @return the new Translation instance
      */
     public Translation build() {
       return new Translation(this);

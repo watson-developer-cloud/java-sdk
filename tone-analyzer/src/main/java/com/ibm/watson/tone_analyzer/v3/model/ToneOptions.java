@@ -106,7 +106,7 @@ public class ToneOptions extends GenericModel {
     /**
      * Builds a ToneOptions.
      *
-     * @return the toneOptions
+     * @return the new ToneOptions instance
      */
     public ToneOptions build() {
       return new ToneOptions(this);

@@ -53,7 +53,7 @@ public class ListMentionsOptions extends GenericModel {
     /**
      * Builds a ListMentionsOptions.
      *
-     * @return the listMentionsOptions
+     * @return the new ListMentionsOptions instance
      */
     public ListMentionsOptions build() {
       return new ListMentionsOptions(this);

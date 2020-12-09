@@ -58,7 +58,7 @@ public class UpdateCollectionOptions extends GenericModel {
     /**
      * Builds a UpdateCollectionOptions.
      *
-     * @return the updateCollectionOptions
+     * @return the new UpdateCollectionOptions instance
      */
     public UpdateCollectionOptions build() {
       return new UpdateCollectionOptions(this);

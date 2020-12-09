@@ -60,7 +60,7 @@ public class CreateExampleOptions extends GenericModel {
     /**
      * Builds a CreateExampleOptions.
      *
-     * @return the createExampleOptions
+     * @return the new CreateExampleOptions instance
      */
     public CreateExampleOptions build() {
       return new CreateExampleOptions(this);

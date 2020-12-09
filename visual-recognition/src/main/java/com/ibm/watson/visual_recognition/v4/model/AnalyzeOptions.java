@@ -64,7 +64,7 @@ public class AnalyzeOptions extends GenericModel {
     /**
      * Builds a AnalyzeOptions.
      *
-     * @return the analyzeOptions
+     * @return the new AnalyzeOptions instance
      */
     public AnalyzeOptions build() {
       return new AnalyzeOptions(this);

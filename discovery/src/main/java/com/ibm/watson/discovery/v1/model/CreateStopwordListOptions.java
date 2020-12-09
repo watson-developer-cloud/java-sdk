@@ -65,7 +65,7 @@ public class CreateStopwordListOptions extends GenericModel {
     /**
      * Builds a CreateStopwordListOptions.
      *
-     * @return the createStopwordListOptions
+     * @return the new CreateStopwordListOptions instance
      */
     public CreateStopwordListOptions build() {
       return new CreateStopwordListOptions(this);

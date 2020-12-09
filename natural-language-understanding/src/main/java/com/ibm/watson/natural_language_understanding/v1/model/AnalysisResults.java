@@ -33,7 +33,7 @@ public class AnalysisResults extends GenericModel {
   protected List<KeywordsResult> keywords;
   protected List<CategoriesResult> categories;
   protected EmotionResult emotion;
-  protected AnalysisResultsMetadata metadata;
+  protected FeaturesResultsMetadata metadata;
   protected List<RelationsResult> relations;
 
   @SerializedName("semantic_roles")
@@ -148,7 +148,7 @@ public class AnalysisResults extends GenericModel {
    *
    * @return the metadata
    */
-  public AnalysisResultsMetadata getMetadata() {
+  public FeaturesResultsMetadata getMetadata() {
     return metadata;
   }
 

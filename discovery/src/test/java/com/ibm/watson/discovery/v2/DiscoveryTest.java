@@ -12,28 +12,55 @@
  */
 package com.ibm.watson.discovery.v2;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static org.testng.Assert.*;
 
+import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.watson.discovery.v2.model.AddDocumentOptions;
+import com.ibm.watson.discovery.v2.model.AnalyzeDocumentOptions;
+import com.ibm.watson.discovery.v2.model.AnalyzedDocument;
+import com.ibm.watson.discovery.v2.model.CollectionDetails;
+import com.ibm.watson.discovery.v2.model.CollectionEnrichment;
 import com.ibm.watson.discovery.v2.model.Completions;
 import com.ibm.watson.discovery.v2.model.ComponentSettingsResponse;
+import com.ibm.watson.discovery.v2.model.CreateCollectionOptions;
+import com.ibm.watson.discovery.v2.model.CreateEnrichment;
+import com.ibm.watson.discovery.v2.model.CreateEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.CreateProjectOptions;
 import com.ibm.watson.discovery.v2.model.CreateTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.DefaultQueryParams;
+import com.ibm.watson.discovery.v2.model.DefaultQueryParamsPassages;
+import com.ibm.watson.discovery.v2.model.DefaultQueryParamsSuggestedRefinements;
+import com.ibm.watson.discovery.v2.model.DefaultQueryParamsTableResults;
+import com.ibm.watson.discovery.v2.model.DeleteCollectionOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentResponse;
+import com.ibm.watson.discovery.v2.model.DeleteEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.DeleteProjectOptions;
 import com.ibm.watson.discovery.v2.model.DeleteTrainingQueriesOptions;
+import com.ibm.watson.discovery.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.discovery.v2.model.DocumentAccepted;
+import com.ibm.watson.discovery.v2.model.Enrichment;
+import com.ibm.watson.discovery.v2.model.EnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.Enrichments;
 import com.ibm.watson.discovery.v2.model.GetAutocompletionOptions;
+import com.ibm.watson.discovery.v2.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v2.model.GetComponentSettingsOptions;
+import com.ibm.watson.discovery.v2.model.GetEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.GetProjectOptions;
 import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
+import com.ibm.watson.discovery.v2.model.ListEnrichmentsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsResponse;
+import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
+import com.ibm.watson.discovery.v2.model.ListProjectsResponse;
 import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
+import com.ibm.watson.discovery.v2.model.ProjectDetails;
 import com.ibm.watson.discovery.v2.model.QueryLargePassages;
 import com.ibm.watson.discovery.v2.model.QueryLargeSuggestedRefinements;
 import com.ibm.watson.discovery.v2.model.QueryLargeTableResults;
@@ -44,1121 +71,1871 @@ import com.ibm.watson.discovery.v2.model.QueryResponse;
 import com.ibm.watson.discovery.v2.model.TrainingExample;
 import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
+import com.ibm.watson.discovery.v2.model.UpdateCollectionOptions;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
+import com.ibm.watson.discovery.v2.model.UpdateEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.UpdateProjectOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
-import java.io.FileInputStream;
+import com.ibm.watson.discovery.v2.utils.TestUtilities;
+import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** The Class DiscoveryTest. */
-public class DiscoveryTest extends WatsonServiceUnitTest {
-  private static final String VERSION = "2019-11-22";
-  private static final String RESOURCE = "src/test/resources/discovery/v2/";
+/** Unit test class for the Discovery service. */
+public class DiscoveryTest {
 
-  private static final String PROJECT_ID = "project_id";
-  private static final String COLLECTION_ID = "collection_id";
-  private static final String FILENAME = "filename";
-  private static final String FILE_CONTENT_TYPE = "application/pdf";
-  private static final String METADATA = "metadata";
-  private static final String NATURAL_LANGUAGE_QUERY = "natural_language_query";
-  private static final String FILTER = "filter";
-  private static final String DOCUMENT_ID = "document_id";
-  private static final Long RELEVANCE = 1L;
-  private static final String FIELD = "field";
-  private static final String PREFIX = "prefix";
-  private static final Long COUNT = 2L;
-  private static final String QUERY_ID = "query_id";
-  private static final Long MAX_PER_DOCUMENT = 3L;
-  private static final Long CHARACTERS = 4L;
-  private static final String QUERY = "query";
-  private static final String AGGREGATION = "aggregation";
-  private static final String RETURN = "return";
-  private static final Long OFFSET = 5L;
-  private static final String SORT = "sort";
-  private static final String NAME = "name";
-  private static final Long MATCHING_RESULTS = 6L;
-  private static final String SUGGESTED_QUERY = "suggested_query";
-  private static final String DOCUMENT_RETRIEVAL_SOURCE = "document_retrieval_source";
-  private static final Double CONFIDENCE = 0.0;
-  private static final String PASSAGE_TEXT = "passage_text";
-  private static final Long START_OFFSET = 7L;
-  private static final Long END_OFFSET = 8L;
-  private static final String TYPE = "type";
-  private static final String DOCUMENT_RETRIEVAL_STRATEGY = "document_retrieval_strategy";
-  private static final String TEXT = "text";
-  private static final String TABLE_ID = "table_id";
-  private static final String SOURCE_DOCUMENT_ID = "source_document_id";
-  private static final String TABLE_HTML = "table_html";
-  private static final Long TABLE_HTML_OFFSET = 9L;
-  private static final Long BEGIN = 10L;
-  private static final Long END = 11L;
-  private static final String CELL_ID = "cell_id";
-  private static final Long ROW_INDEX_BEGIN = 12L;
-  private static final Long ROW_INDEX_END = 13L;
-  private static final Long COLUMN_INDEX_BEGIN = 14L;
-  private static final Long COLUMN_INDEX_END = 15L;
-  private static final String TEXT_NORMALIZED = "text_normalized";
-  private static final String ID = "id";
-  private static final String COMPLETION = "completion";
-  private static final String NOTICE_ID = "notice_id";
-  private static final String SEVERITY = "severity";
-  private static final String STEP = "step";
-  private static final String DESCRIPTION = "description";
-  private static final Long RESULTS_PER_PAGE = 17L;
-  private static final String LABEL = "label";
-  private static final String VISUALIZATION_TYPE = "visualization_type";
-  private static final String STATUS = "status";
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private InputStream testDocument;
-  private Date testDate;
-  private TrainingExample trainingExampleMock;
-  private QueryLargeTableResults queryLargeTableResults;
-  private QueryLargeSuggestedRefinements queryLargeSuggestedRefinements;
-  private QueryLargePassages queryLargePassages;
+  protected MockWebServer server;
+  protected Discovery discoveryService;
 
-  private ListCollectionsResponse listCollectionsResponse;
-  private QueryResponse queryResponse;
-  private Completions completions;
-  private QueryNoticesResponse queryNoticesResponse;
-  private ListFieldsResponse listFieldsResponse;
-  private ComponentSettingsResponse componentSettingsResponse;
-  private DocumentAccepted documentAccepted;
-  private DeleteDocumentResponse deleteDocumentResponse;
-  private TrainingQuerySet trainingQuerySet;
-  private TrainingQuery trainingQuery;
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  private Discovery service;
+    final Authenticator authenticator = new NoAuthAuthenticator();
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
+    discoveryService = new Discovery(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    discoveryService.setServiceUrl(url);
+  }
 
-    service = new Discovery(VERSION, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-    // Create test models.
-    testDocument = new FileInputStream(RESOURCE + "test-pdf.pdf");
-    String dateString = "1995-06-12T01:11:11.111+0000";
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
-    testDate = dateFormat.parse(dateString);
-    trainingExampleMock =
-        new TrainingExample.Builder()
-            .documentId(DOCUMENT_ID)
-            .collectionId(COLLECTION_ID)
-            .relevance(RELEVANCE)
+    new Discovery(version, serviceName, null);
+  }
+
+  @Test
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(discoveryService.getVersion(), "testString");
+  }
+
+  @Test
+  public void testListCollectionsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\"}]}";
+    String listCollectionsPath = "/v2/projects/testString/collections";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListCollectionsOptions model
+    ListCollectionsOptions listCollectionsOptionsModel =
+        new ListCollectionsOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ListCollectionsResponse> response =
+        discoveryService.listCollections(listCollectionsOptionsModel).execute();
+    assertNotNull(response);
+    ListCollectionsResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listCollectionsPath);
+  }
+
+  // Test the listCollections operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListCollectionsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.listCollections(null).execute();
+  }
+
+  @Test
+  public void testCreateCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+    String createCollectionPath = "/v2/projects/testString/collections";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CollectionEnrichment model
+    CollectionEnrichment collectionEnrichmentModel =
+        new CollectionEnrichment.Builder()
+            .enrichmentId("testString")
+            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
-    queryLargeTableResults = new QueryLargeTableResults.Builder().build();
-    queryLargeSuggestedRefinements = new QueryLargeSuggestedRefinements.Builder().build();
-    queryLargePassages = new QueryLargePassages.Builder().build();
 
-    // load mock responses
-    listCollectionsResponse =
-        loadFixture(RESOURCE + "list-collections-response.json", ListCollectionsResponse.class);
-    queryResponse = loadFixture(RESOURCE + "query-response.json", QueryResponse.class);
-    completions = loadFixture(RESOURCE + "completions.json", Completions.class);
-    queryNoticesResponse =
-        loadFixture(RESOURCE + "query-notices-response.json", QueryNoticesResponse.class);
-    listFieldsResponse =
-        loadFixture(RESOURCE + "list-fields-response.json", ListFieldsResponse.class);
-    componentSettingsResponse =
-        loadFixture(RESOURCE + "component-settings-response.json", ComponentSettingsResponse.class);
-    documentAccepted = loadFixture(RESOURCE + "document-accepted.json", DocumentAccepted.class);
-    deleteDocumentResponse =
-        loadFixture(RESOURCE + "delete-document-response.json", DeleteDocumentResponse.class);
-    trainingQuerySet = loadFixture(RESOURCE + "training-query-set.json", TrainingQuerySet.class);
-    trainingQuery = loadFixture(RESOURCE + "training-query.json", TrainingQuery.class);
-  }
-
-  /** Test config based constructor. */
-  @Test
-  public void testConfigBasedConstructor() {
-    Discovery service = new Discovery(VERSION);
-    assertEquals(Authenticator.AUTHTYPE_BASIC, service.getAuthenticator().authenticationType());
-  }
-
-  /** Test add document options. */
-  @Test
-  public void testAddDocumentOptions() {
-    AddDocumentOptions options =
-        new AddDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .file(testDocument)
-            .filename(FILENAME)
-            .fileContentType(FILE_CONTENT_TYPE)
-            .metadata(METADATA)
-            .xWatsonDiscoveryForce(true)
+    // Construct an instance of the CreateCollectionOptions model
+    CreateCollectionOptions createCollectionOptionsModel =
+        new CreateCollectionOptions.Builder()
+            .projectId("testString")
+            .name("testString")
+            .description("testString")
+            .language("testString")
+            .enrichments(
+                new java.util.ArrayList<CollectionEnrichment>(
+                    java.util.Arrays.asList(collectionEnrichmentModel)))
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(testDocument, options.file());
-    assertEquals(FILENAME, options.filename());
-    assertEquals(FILE_CONTENT_TYPE, options.fileContentType());
-    assertEquals(METADATA, options.metadata());
-    assertTrue(options.xWatsonDiscoveryForce());
+    // Invoke operation with valid options model (positive test)
+    Response<CollectionDetails> response =
+        discoveryService.createCollection(createCollectionOptionsModel).execute();
+    assertNotNull(response);
+    CollectionDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createCollectionPath);
   }
 
-  /** Test create training query options. */
-  @Test
-  public void testCreateTrainingQueryOptions() {
-    List<TrainingExample> exampleList = new ArrayList<>();
-    exampleList.add(trainingExampleMock);
+  // Test the createCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    CreateTrainingQueryOptions options =
-        new CreateTrainingQueryOptions.Builder()
-            .projectId(PROJECT_ID)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .filter(FILTER)
-            .examples(exampleList)
-            .addExamples(trainingExampleMock)
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.createCollection(null).execute();
+  }
+
+  @Test
+  public void testGetCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+    String getCollectionPath = "/v2/projects/testString/collections/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCollectionOptions model
+    GetCollectionOptions getCollectionOptionsModel =
+        new GetCollectionOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, options.naturalLanguageQuery());
-    assertEquals(FILTER, options.filter());
-    assertEquals(2, options.examples().size());
-    assertEquals(trainingExampleMock, options.examples().get(0));
+    // Invoke operation with valid options model (positive test)
+    Response<CollectionDetails> response =
+        discoveryService.getCollection(getCollectionOptionsModel).execute();
+    assertNotNull(response);
+    CollectionDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCollectionPath);
   }
 
-  /** Test delete document options. */
+  // Test the getCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getCollection(null).execute();
+  }
+
   @Test
-  public void testDeleteDocumentOptions() {
-    DeleteDocumentOptions options =
-        new DeleteDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .documentId(DOCUMENT_ID)
-            .xWatsonDiscoveryForce(true)
+  public void testUpdateCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+    String updateCollectionPath = "/v2/projects/testString/collections/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CollectionEnrichment model
+    CollectionEnrichment collectionEnrichmentModel =
+        new CollectionEnrichment.Builder()
+            .enrichmentId("testString")
+            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(DOCUMENT_ID, options.documentId());
-    assertTrue(options.xWatsonDiscoveryForce());
-  }
-
-  /** Test delete training query options. */
-  @Test
-  public void testDeleteTrainingQueryOptions() {
-    DeleteTrainingQueriesOptions options =
-        new DeleteTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(PROJECT_ID, options.projectId());
-  }
-
-  /** Test get autocompletion options. */
-  @Test
-  public void testGetAutocompletionOptions() {
-    List<String> collectionIds = new ArrayList<>();
-    collectionIds.add(COLLECTION_ID);
-
-    GetAutocompletionOptions options =
-        new GetAutocompletionOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionIds(collectionIds)
-            .addCollectionIds(COLLECTION_ID)
-            .field(FIELD)
-            .prefix(PREFIX)
-            .count(COUNT)
+    // Construct an instance of the UpdateCollectionOptions model
+    UpdateCollectionOptions updateCollectionOptionsModel =
+        new UpdateCollectionOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .name("testString")
+            .description("testString")
+            .enrichments(
+                new java.util.ArrayList<CollectionEnrichment>(
+                    java.util.Arrays.asList(collectionEnrichmentModel)))
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(2, options.collectionIds().size());
-    assertEquals(COLLECTION_ID, options.collectionIds().get(0));
-    assertEquals(FIELD, options.field());
-    assertEquals(PREFIX, options.prefix());
-    assertEquals(COUNT, options.count());
+    // Invoke operation with valid options model (positive test)
+    Response<CollectionDetails> response =
+        discoveryService.updateCollection(updateCollectionOptionsModel).execute();
+    assertNotNull(response);
+    CollectionDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateCollectionPath);
   }
 
-  /** Test get component settings options. */
-  @Test
-  public void testGetComponentSettingsOptions() {
-    GetComponentSettingsOptions options =
-        new GetComponentSettingsOptions.Builder().projectId(PROJECT_ID).build();
-    options = options.newBuilder().build();
+  // Test the updateCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    assertEquals(PROJECT_ID, options.projectId());
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.updateCollection(null).execute();
   }
 
-  /** Test get training query options. */
   @Test
-  public void testGetTrainingQueryOptions() {
-    GetTrainingQueryOptions options =
-        new GetTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(QUERY_ID).build();
-    options = options.newBuilder().build();
+  public void testDeleteCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteCollectionPath = "/v2/projects/testString/collections/testString";
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(QUERY_ID, options.queryId());
-  }
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
 
-  /** Test list collections options. */
-  @Test
-  public void testListCollectionsOptions() {
-    ListCollectionsOptions options =
-        new ListCollectionsOptions.Builder().projectId(PROJECT_ID).build();
-    options = options.newBuilder().build();
+    constructClientService();
 
-    assertEquals(PROJECT_ID, options.projectId());
-  }
-
-  /** Test list fields options. */
-  @Test
-  public void testListFieldsOptions() {
-    List<String> collectionIds = new ArrayList<>();
-    collectionIds.add(COLLECTION_ID);
-
-    ListFieldsOptions options =
-        new ListFieldsOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionIds(collectionIds)
-            .addCollectionIds(COLLECTION_ID)
+    // Construct an instance of the DeleteCollectionOptions model
+    DeleteCollectionOptions deleteCollectionOptionsModel =
+        new DeleteCollectionOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(2, options.collectionIds().size());
-    assertEquals(COLLECTION_ID, options.collectionIds().get(0));
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        discoveryService.deleteCollection(deleteCollectionOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteCollectionPath);
   }
 
-  /** Test list training queries options. */
-  @Test
-  public void testListTrainingQueriesOptions() {
-    ListTrainingQueriesOptions options =
-        new ListTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
-    options = options.newBuilder().build();
+  // Test the deleteCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    assertEquals(PROJECT_ID, options.projectId());
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteCollection(null).execute();
   }
 
-  /** Test query large passages. */
   @Test
-  public void testQueryLargePassages() {
-    List<String> fields = new ArrayList<>();
-    fields.add(FIELD);
+  public void testQueryWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 10}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\"}]}], \"aggregations\": [{\"type\": \"filter\", \"match\": \"match\", \"matching_results\": 15}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\"}]}";
+    String queryPath = "/v2/projects/testString/query";
 
-    QueryLargePassages queryLargePassages =
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the QueryLargeTableResults model
+    QueryLargeTableResults queryLargeTableResultsModel =
+        new QueryLargeTableResults.Builder().enabled(true).count(Long.valueOf("26")).build();
+
+    // Construct an instance of the QueryLargeSuggestedRefinements model
+    QueryLargeSuggestedRefinements queryLargeSuggestedRefinementsModel =
+        new QueryLargeSuggestedRefinements.Builder().enabled(true).count(Long.valueOf("1")).build();
+
+    // Construct an instance of the QueryLargePassages model
+    QueryLargePassages queryLargePassagesModel =
         new QueryLargePassages.Builder()
             .enabled(true)
             .perDocument(true)
-            .maxPerDocument(MAX_PER_DOCUMENT)
-            .fields(fields)
-            .addFields(FIELD)
-            .count(COUNT)
-            .characters(CHARACTERS)
+            .maxPerDocument(Long.valueOf("26"))
+            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .count(Long.valueOf("100"))
+            .characters(Long.valueOf("50"))
             .build();
-    queryLargePassages = queryLargePassages.newBuilder().build();
 
-    assertTrue(queryLargePassages.enabled());
-    assertTrue(queryLargePassages.perDocument());
-    assertEquals(MAX_PER_DOCUMENT, queryLargePassages.maxPerDocument());
-    assertEquals(2, queryLargePassages.fields().size());
-    assertEquals(FIELD, queryLargePassages.fields().get(0));
-    assertEquals(COUNT, queryLargePassages.count());
-    assertEquals(CHARACTERS, queryLargePassages.characters());
-  }
-
-  /** Test query large suggested refinements. */
-  @Test
-  public void testQueryLargeSuggestedRefinements() {
-    QueryLargeSuggestedRefinements queryLargeSuggestedRefinements =
-        new QueryLargeSuggestedRefinements.Builder().enabled(true).count(COUNT).build();
-    queryLargeSuggestedRefinements = queryLargeSuggestedRefinements.newBuilder().build();
-
-    assertTrue(queryLargeSuggestedRefinements.enabled());
-    assertEquals(COUNT, queryLargeSuggestedRefinements.count());
-  }
-
-  /** Test query large table results. */
-  @Test
-  public void testQueryLargeTableResults() {
-    QueryLargeTableResults queryLargeTableResults =
-        new QueryLargeTableResults.Builder().enabled(true).count(COUNT).build();
-    queryLargeTableResults = queryLargeTableResults.newBuilder().build();
-
-    assertTrue(queryLargeTableResults.enabled());
-    assertEquals(COUNT, queryLargeTableResults.count());
-  }
-
-  /** Test query notices options. */
-  @Test
-  public void testQueryNoticesOptions() {
-    QueryNoticesOptions options =
-        new QueryNoticesOptions.Builder()
-            .projectId(PROJECT_ID)
-            .filter(FILTER)
-            .query(QUERY)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .count(COUNT)
-            .offset(OFFSET)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(FILTER, options.filter());
-    assertEquals(QUERY, options.query());
-    assertEquals(NATURAL_LANGUAGE_QUERY, options.naturalLanguageQuery());
-    assertEquals(COUNT, options.count());
-    assertEquals(OFFSET, options.offset());
-  }
-
-  /** Test query options. */
-  @Test
-  public void testQueryOptions() {
-    List<String> collectionIds = new ArrayList<>();
-    collectionIds.add(COLLECTION_ID);
-    List<String> returnList = new ArrayList<>();
-    returnList.add(RETURN);
-
-    QueryOptions options =
+    // Construct an instance of the QueryOptions model
+    QueryOptions queryOptionsModel =
         new QueryOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionIds(collectionIds)
-            .addCollectionIds(COLLECTION_ID)
-            .filter(FILTER)
-            .query(QUERY)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .aggregation(AGGREGATION)
-            .count(COUNT)
-            .xReturn(returnList)
-            .addReturnField(RETURN)
-            .offset(OFFSET)
-            .sort(SORT)
+            .projectId("testString")
+            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .filter("testString")
+            .query("testString")
+            .naturalLanguageQuery("testString")
+            .aggregation("testString")
+            .count(Long.valueOf("26"))
+            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .offset(Long.valueOf("26"))
+            .sort("testString")
             .highlight(true)
             .spellingSuggestions(true)
-            .tableResults(queryLargeTableResults)
-            .suggestedRefinements(queryLargeSuggestedRefinements)
-            .passages(queryLargePassages)
+            .tableResults(queryLargeTableResultsModel)
+            .suggestedRefinements(queryLargeSuggestedRefinementsModel)
+            .passages(queryLargePassagesModel)
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(FILTER, options.filter());
-    assertEquals(QUERY, options.query());
-    assertEquals(NATURAL_LANGUAGE_QUERY, options.naturalLanguageQuery());
-    assertEquals(AGGREGATION, options.aggregation());
-    assertEquals(COUNT, options.count());
-    assertEquals(2, options.xReturn().size());
-    assertEquals(RETURN, options.xReturn().get(0));
-    assertEquals(OFFSET, options.offset());
-    assertEquals(SORT, options.sort());
-    assertTrue(options.highlight());
-    assertTrue(options.spellingSuggestions());
-    assertEquals(queryLargeTableResults, options.tableResults());
-    assertEquals(queryLargeSuggestedRefinements, options.suggestedRefinements());
-    assertEquals(queryLargePassages, options.passages());
+    // Invoke operation with valid options model (positive test)
+    Response<QueryResponse> response = discoveryService.query(queryOptionsModel).execute();
+    assertNotNull(response);
+    QueryResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, queryPath);
   }
 
-  /** Test training example. */
-  @Test
-  public void testTrainingExample() {
-    TrainingExample trainingExample =
-        new TrainingExample.Builder()
-            .documentId(DOCUMENT_ID)
-            .collectionId(COLLECTION_ID)
-            .relevance(RELEVANCE)
-            .created(testDate)
-            .updated(testDate)
-            .build();
-    trainingExample = trainingExample.newBuilder().build();
+  // Test the query operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testQueryNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    assertEquals(DOCUMENT_ID, trainingExample.documentId());
-    assertEquals(COLLECTION_ID, trainingExample.collectionId());
-    assertEquals(RELEVANCE, trainingExample.relevance());
-    assertEquals(testDate, trainingExample.created());
-    assertEquals(testDate, trainingExample.updated());
-  }
-
-  /** Test training query. */
-  @Test
-  public void testTrainingQuery() {
-    List<TrainingExample> exampleList = new ArrayList<>();
-    exampleList.add(trainingExampleMock);
-
-    TrainingQuery trainingQuery =
-        new TrainingQuery.Builder()
-            .queryId(QUERY_ID)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .filter(FILTER)
-            .created(testDate)
-            .updated(testDate)
-            .examples(exampleList)
-            .addExamples(trainingExampleMock)
-            .build();
-    trainingQuery = trainingQuery.newBuilder().build();
-
-    assertEquals(QUERY_ID, trainingQuery.queryId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, trainingQuery.naturalLanguageQuery());
-    assertEquals(FILTER, trainingQuery.filter());
-    assertEquals(testDate, trainingQuery.created());
-    assertEquals(testDate, trainingQuery.updated());
-    assertEquals(2, trainingQuery.examples().size());
-    assertEquals(trainingExampleMock, trainingQuery.examples().get(0));
-  }
-
-  /** Test update document options. */
-  @Test
-  public void testUpdateDocumentOptions() {
-    UpdateDocumentOptions options =
-        new UpdateDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .documentId(DOCUMENT_ID)
-            .file(testDocument)
-            .filename(FILENAME)
-            .fileContentType(FILE_CONTENT_TYPE)
-            .metadata(METADATA)
-            .xWatsonDiscoveryForce(true)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(testDocument, options.file());
-    assertEquals(FILENAME, options.filename());
-    assertEquals(FILE_CONTENT_TYPE, options.fileContentType());
-    assertEquals(METADATA, options.metadata());
-    assertTrue(options.xWatsonDiscoveryForce());
-  }
-
-  /** Test update training query options. */
-  @Test
-  public void testUpdateTrainingQueryOptions() {
-    List<TrainingExample> exampleList = new ArrayList<>();
-    exampleList.add(trainingExampleMock);
-
-    UpdateTrainingQueryOptions options =
-        new UpdateTrainingQueryOptions.Builder()
-            .projectId(PROJECT_ID)
-            .queryId(QUERY_ID)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .filter(FILTER)
-            .examples(exampleList)
-            .addExamples(trainingExampleMock)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(PROJECT_ID, options.projectId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, options.naturalLanguageQuery());
-    assertEquals(FILTER, options.filter());
-    assertEquals(2, options.examples().size());
-    assertEquals(trainingExampleMock, options.examples().get(0));
-  }
-
-  /** Test list collections. */
-  @Test
-  public void testListCollections() {
-    server.enqueue(jsonResponse(listCollectionsResponse));
-
-    ListCollectionsOptions options =
-        new ListCollectionsOptions.Builder().projectId(PROJECT_ID).build();
-    ListCollectionsResponse response = service.listCollections(options).execute().getResult();
-
-    assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
-    assertEquals(NAME, response.getCollections().get(0).getName());
-  }
-
-  /** Test query. */
-  @Test
-  public void testQuery() {
-    server.enqueue(jsonResponse(queryResponse));
-
-    QueryOptions options = new QueryOptions.Builder().projectId(PROJECT_ID).build();
-    QueryResponse response = service.query(options).execute().getResult();
-
-    assertEquals(MATCHING_RESULTS, response.getMatchingResults());
-    assertEquals(DOCUMENT_ID, response.getResults().get(0).getDocumentId());
-    assertEquals(
-        DOCUMENT_RETRIEVAL_SOURCE,
-        response.getResults().get(0).getResultMetadata().getDocumentRetrievalSource());
-    assertEquals(COLLECTION_ID, response.getResults().get(0).getResultMetadata().getCollectionId());
-    assertEquals(CONFIDENCE, response.getResults().get(0).getResultMetadata().getConfidence());
-    assertEquals(
-        PASSAGE_TEXT, response.getResults().get(0).getDocumentPassages().get(0).getPassageText());
-    assertEquals(
-        START_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getStartOffset());
-    assertEquals(
-        END_OFFSET, response.getResults().get(0).getDocumentPassages().get(0).getEndOffset());
-    assertEquals(FIELD, response.getResults().get(0).getDocumentPassages().get(0).getField());
-    assertEquals(
-        DOCUMENT_RETRIEVAL_STRATEGY, response.getRetrievalDetails().getDocumentRetrievalStrategy());
-    assertEquals(SUGGESTED_QUERY, response.getSuggestedQuery());
-    assertEquals(TEXT, response.getSuggestedRefinements().get(0).getText());
-    assertEquals(TABLE_ID, response.getTableResults().get(0).getTableId());
-    assertEquals(SOURCE_DOCUMENT_ID, response.getTableResults().get(0).getSourceDocumentId());
-    assertEquals(COLLECTION_ID, response.getTableResults().get(0).getCollectionId());
-    assertEquals(TABLE_HTML, response.getTableResults().get(0).getTableHtml());
-    assertEquals(TABLE_HTML_OFFSET, response.getTableResults().get(0).getTableHtmlOffset());
-    assertEquals(BEGIN, response.getTableResults().get(0).getTable().getLocation().getBegin());
-    assertEquals(END, response.getTableResults().get(0).getTable().getLocation().getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getText());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getSectionTitle().getText());
-    assertEquals(
-        BEGIN,
-        response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getBegin());
-    assertEquals(
-        END, response.getTableResults().get(0).getTable().getSectionTitle().getLocation().getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getTitle().getText());
-    assertEquals(
-        BEGIN, response.getTableResults().get(0).getTable().getTitle().getLocation().getBegin());
-    assertEquals(
-        END, response.getTableResults().get(0).getTable().getTitle().getLocation().getEnd());
-    assertEquals(
-        CELL_ID, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getCellId());
-    assertEquals(
-        TEXT, response.getTableResults().get(0).getTable().getTableHeaders().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getTableHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END,
-        response.getTableResults().get(0).getTable().getTableHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getTableHeaders()
-            .get(0)
-            .getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTableResults().get(0).getTable().getTableHeaders().get(0).getColumnIndexEnd());
-    assertEquals(
-        CELL_ID, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getRowHeaders()
-            .get(0)
-            .getLocation()
-            .getBegin());
-    assertEquals(
-        END,
-        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getLocation().getEnd());
-    assertEquals(
-        TEXT, response.getTableResults().get(0).getTable().getRowHeaders().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END,
-        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTableResults().get(0).getTable().getRowHeaders().get(0).getColumnIndexEnd());
-    assertEquals(
-        CELL_ID,
-        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getCellId());
-    assertEquals(
-        TEXT, response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END,
-        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getColumnHeaders()
-            .get(0)
-            .getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTableResults().get(0).getTable().getColumnHeaders().get(0).getColumnIndexEnd());
-    assertEquals(
-        CELL_ID,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getKey()
-            .getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getKey()
-            .getLocation()
-            .getBegin());
-    assertEquals(
-        END,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getKey()
-            .getLocation()
-            .getEnd());
-    assertEquals(
-        TEXT,
-        response.getTableResults().get(0).getTable().getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(
-        CELL_ID,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .getBegin());
-    assertEquals(
-        END,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .getEnd());
-    assertEquals(
-        TEXT,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getText());
-    assertEquals(
-        CELL_ID, response.getTableResults().get(0).getTable().getBodyCells().get(0).getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getLocation()
-            .getBegin());
-    assertEquals(
-        END,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getLocation().getEnd());
-    assertEquals(
-        TEXT, response.getTableResults().get(0).getTable().getBodyCells().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTableResults().get(0).getTable().getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(
-        ID,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getRowHeaderIds()
-            .get(0)
-            .getId());
-    assertEquals(
-        TEXT,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getRowHeaderTexts()
-            .get(0)
-            .getText());
-    assertEquals(
-        TEXT_NORMALIZED,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getRowHeaderTextsNormalized()
-            .get(0)
-            .getTextNormalized());
-    assertEquals(
-        ID,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getColumnHeaderIds()
-            .get(0)
-            .getId());
-    assertEquals(
-        TEXT,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getColumnHeaderTexts()
-            .get(0)
-            .getText());
-    assertEquals(
-        TEXT_NORMALIZED,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getColumnHeaderTextsNormalized()
-            .get(0)
-            .getTextNormalized());
-    assertEquals(
-        TYPE,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getType());
-    assertEquals(
-        TEXT,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getText());
-    assertEquals(
-        BEGIN,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .getBegin());
-    assertEquals(
-        END,
-        response
-            .getTableResults()
-            .get(0)
-            .getTable()
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .getEnd());
-    assertEquals(TEXT, response.getTableResults().get(0).getTable().getContexts().get(0).getText());
-    assertEquals(
-        BEGIN,
-        response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getBegin());
-    assertEquals(
-        END,
-        response.getTableResults().get(0).getTable().getContexts().get(0).getLocation().getEnd());
-  }
-
-  /** Test get autocompletion. */
-  @Test
-  public void testGetAutocompletion() {
-    server.enqueue(jsonResponse(completions));
-
-    GetAutocompletionOptions options =
-        new GetAutocompletionOptions.Builder().projectId(PROJECT_ID).prefix(PREFIX).build();
-    Completions response = service.getAutocompletion(options).execute().getResult();
-
-    assertEquals(COMPLETION, response.getCompletions().get(0));
-  }
-
-  /** Test query notices. */
-  @Test
-  public void testQueryNotices() {
-    server.enqueue(jsonResponse(queryNoticesResponse));
-
-    QueryNoticesOptions options = new QueryNoticesOptions.Builder().projectId(PROJECT_ID).build();
-    QueryNoticesResponse response = service.queryNotices(options).execute().getResult();
-
-    assertEquals(MATCHING_RESULTS, response.getMatchingResults());
-    assertEquals(NOTICE_ID, response.getNotices().get(0).getNoticeId());
-    assertEquals(testDate, response.getNotices().get(0).getCreated());
-    assertEquals(DOCUMENT_ID, response.getNotices().get(0).getDocumentId());
-    assertEquals(COLLECTION_ID, response.getNotices().get(0).getCollectionId());
-    assertEquals(QUERY_ID, response.getNotices().get(0).getQueryId());
-    assertEquals(SEVERITY, response.getNotices().get(0).getSeverity());
-    assertEquals(STEP, response.getNotices().get(0).getStep());
-    assertEquals(DESCRIPTION, response.getNotices().get(0).getDescription());
-  }
-
-  /** Test list fields. */
-  @Test
-  public void testListFields() {
-    server.enqueue(jsonResponse(listFieldsResponse));
-
-    ListFieldsOptions options = new ListFieldsOptions.Builder().projectId(PROJECT_ID).build();
-    ListFieldsResponse response = service.listFields(options).execute().getResult();
-
-    assertEquals(FIELD, response.getFields().get(0).getField());
-    assertEquals(TYPE, response.getFields().get(0).getType());
-    assertEquals(COLLECTION_ID, response.getFields().get(0).getCollectionId());
-  }
-
-  /** Test get component settings. */
-  @Test
-  public void testGetComponentSettings() {
-    server.enqueue(jsonResponse(componentSettingsResponse));
-
-    GetComponentSettingsOptions options =
-        new GetComponentSettingsOptions.Builder().projectId(PROJECT_ID).build();
-    ComponentSettingsResponse response =
-        service.getComponentSettings(options).execute().getResult();
-
-    assertTrue(response.getFieldsShown().getBody().isUsePassage());
-    assertEquals(FIELD, response.getFieldsShown().getBody().getField());
-    assertEquals(FIELD, response.getFieldsShown().getTitle().getField());
-    assertTrue(response.isAutocomplete());
-    assertTrue(response.isStructuredSearch());
-    assertEquals(RESULTS_PER_PAGE, response.getResultsPerPage());
-    assertEquals(NAME, response.getAggregations().get(0).getName());
-    assertEquals(LABEL, response.getAggregations().get(0).getLabel());
-    assertTrue(response.getAggregations().get(0).isMultipleSelectionsAllowed());
-    assertEquals(VISUALIZATION_TYPE, response.getAggregations().get(0).getVisualizationType());
-  }
-
-  /** Test add document. */
-  @Test
-  public void testAddDocument() {
-    server.enqueue(jsonResponse(documentAccepted));
-
-    AddDocumentOptions options =
-        new AddDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .file(testDocument)
-            .filename(FILENAME)
-            .build();
-    DocumentAccepted response = service.addDocument(options).execute().getResult();
-
-    assertEquals(DOCUMENT_ID, response.getDocumentId());
-    assertEquals(STATUS, response.getStatus());
-  }
-
-  /** Test update document. */
-  @Test
-  public void testUpdateDocument() {
-    server.enqueue(jsonResponse(documentAccepted));
-
-    UpdateDocumentOptions options =
-        new UpdateDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .documentId(DOCUMENT_ID)
-            .file(testDocument)
-            .filename(FILENAME)
-            .build();
-    DocumentAccepted response = service.updateDocument(options).execute().getResult();
-
-    assertEquals(DOCUMENT_ID, response.getDocumentId());
-    assertEquals(STATUS, response.getStatus());
-  }
-
-  /** Test delete document. */
-  @Test
-  public void testDeleteDocument() {
-    server.enqueue(jsonResponse(deleteDocumentResponse));
-
-    DeleteDocumentOptions options =
-        new DeleteDocumentOptions.Builder()
-            .projectId(PROJECT_ID)
-            .collectionId(COLLECTION_ID)
-            .documentId(DOCUMENT_ID)
-            .build();
-    DeleteDocumentResponse response = service.deleteDocument(options).execute().getResult();
-
-    assertEquals(DOCUMENT_ID, response.getDocumentId());
-    assertEquals(STATUS, response.getStatus());
-  }
-
-  /** Test list training queries. */
-  @Test
-  public void testListTrainingQueries() {
-    server.enqueue(jsonResponse(trainingQuerySet));
-
-    ListTrainingQueriesOptions options =
-        new ListTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
-    TrainingQuerySet response = service.listTrainingQueries(options).execute().getResult();
-
-    assertEquals(QUERY_ID, response.getQueries().get(0).queryId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, response.getQueries().get(0).naturalLanguageQuery());
-    assertEquals(FILTER, response.getQueries().get(0).filter());
-    assertEquals(testDate, response.getQueries().get(0).created());
-    assertEquals(testDate, response.getQueries().get(0).updated());
-    assertEquals(DOCUMENT_ID, response.getQueries().get(0).examples().get(0).documentId());
-    assertEquals(COLLECTION_ID, response.getQueries().get(0).examples().get(0).collectionId());
-    assertEquals(RELEVANCE, response.getQueries().get(0).examples().get(0).relevance());
-    assertEquals(testDate, response.getQueries().get(0).examples().get(0).created());
-    assertEquals(testDate, response.getQueries().get(0).examples().get(0).updated());
-  }
-
-  /**
-   * Test delete training queries.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteTrainingQueries() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteTrainingQueriesOptions options =
-        new DeleteTrainingQueriesOptions.Builder().projectId(PROJECT_ID).build();
-    service.deleteTrainingQueries(options).execute();
+    // Invoke operation with null options model (negative test)
+    discoveryService.query(null).execute();
+  }
+
+  @Test
+  public void testGetAutocompletionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"completions\": [\"completions\"]}";
+    String getAutocompletionPath = "/v2/projects/testString/autocompletion";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetAutocompletionOptions model
+    GetAutocompletionOptions getAutocompletionOptionsModel =
+        new GetAutocompletionOptions.Builder()
+            .projectId("testString")
+            .prefix("testString")
+            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .field("testString")
+            .count(Long.valueOf("26"))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Completions> response =
+        discoveryService.getAutocompletion(getAutocompletionOptionsModel).execute();
+    assertNotNull(response);
+    Completions responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
 
-    assertEquals("DELETE", request.getMethod());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("prefix"), "testString");
+    assertEquals(
+        query.get("collection_ids"),
+        RequestUtils.join(
+            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+    assertEquals(query.get("field"), "testString");
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getAutocompletionPath);
   }
 
-  /** Test create training query. */
-  @Test
-  public void testCreateTrainingQuery() {
-    server.enqueue(jsonResponse(trainingQuery));
+  // Test the getAutocompletion operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetAutocompletionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    CreateTrainingQueryOptions options =
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getAutocompletion(null).execute();
+  }
+
+  @Test
+  public void testQueryNoticesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"matching_results\": 15, \"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}]}";
+    String queryNoticesPath = "/v2/projects/testString/notices";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the QueryNoticesOptions model
+    QueryNoticesOptions queryNoticesOptionsModel =
+        new QueryNoticesOptions.Builder()
+            .projectId("testString")
+            .filter("testString")
+            .query("testString")
+            .naturalLanguageQuery("testString")
+            .count(Long.valueOf("26"))
+            .offset(Long.valueOf("26"))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<QueryNoticesResponse> response =
+        discoveryService.queryNotices(queryNoticesOptionsModel).execute();
+    assertNotNull(response);
+    QueryNoticesResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(query.get("query"), "testString");
+    assertEquals(query.get("natural_language_query"), "testString");
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, queryNoticesPath);
+  }
+
+  // Test the queryNotices operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testQueryNoticesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.queryNotices(null).execute();
+  }
+
+  @Test
+  public void testListFieldsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"fields\": [{\"field\": \"field\", \"type\": \"nested\", \"collection_id\": \"collectionId\"}]}";
+    String listFieldsPath = "/v2/projects/testString/fields";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListFieldsOptions model
+    ListFieldsOptions listFieldsOptionsModel =
+        new ListFieldsOptions.Builder()
+            .projectId("testString")
+            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ListFieldsResponse> response =
+        discoveryService.listFields(listFieldsOptionsModel).execute();
+    assertNotNull(response);
+    ListFieldsResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(
+        query.get("collection_ids"),
+        RequestUtils.join(
+            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listFieldsPath);
+  }
+
+  // Test the listFields operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListFieldsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.listFields(null).execute();
+  }
+
+  @Test
+  public void testGetComponentSettingsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"fields_shown\": {\"body\": {\"use_passage\": true, \"field\": \"field\"}, \"title\": {\"field\": \"field\"}}, \"autocomplete\": true, \"structured_search\": true, \"results_per_page\": 14, \"aggregations\": [{\"name\": \"name\", \"label\": \"label\", \"multiple_selections_allowed\": false, \"visualization_type\": \"auto\"}]}";
+    String getComponentSettingsPath = "/v2/projects/testString/component_settings";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetComponentSettingsOptions model
+    GetComponentSettingsOptions getComponentSettingsOptionsModel =
+        new GetComponentSettingsOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ComponentSettingsResponse> response =
+        discoveryService.getComponentSettings(getComponentSettingsOptionsModel).execute();
+    assertNotNull(response);
+    ComponentSettingsResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getComponentSettingsPath);
+  }
+
+  // Test the getComponentSettings operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetComponentSettingsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getComponentSettings(null).execute();
+  }
+
+  @Test
+  public void testAddDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"document_id\": \"documentId\", \"status\": \"processing\"}";
+    String addDocumentPath = "/v2/projects/testString/collections/testString/documents";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the AddDocumentOptions model
+    AddDocumentOptions addDocumentOptionsModel =
+        new AddDocumentOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .fileContentType("application/json")
+            .metadata("testString")
+            .xWatsonDiscoveryForce(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DocumentAccepted> response =
+        discoveryService.addDocument(addDocumentOptionsModel).execute();
+    assertNotNull(response);
+    DocumentAccepted responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, addDocumentPath);
+  }
+
+  // Test the addDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAddDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.addDocument(null).execute();
+  }
+
+  @Test
+  public void testUpdateDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"document_id\": \"documentId\", \"status\": \"processing\"}";
+    String updateDocumentPath =
+        "/v2/projects/testString/collections/testString/documents/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateDocumentOptions model
+    UpdateDocumentOptions updateDocumentOptionsModel =
+        new UpdateDocumentOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .documentId("testString")
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .fileContentType("application/json")
+            .metadata("testString")
+            .xWatsonDiscoveryForce(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DocumentAccepted> response =
+        discoveryService.updateDocument(updateDocumentOptionsModel).execute();
+    assertNotNull(response);
+    DocumentAccepted responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateDocumentPath);
+  }
+
+  // Test the updateDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.updateDocument(null).execute();
+  }
+
+  @Test
+  public void testDeleteDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"document_id\": \"documentId\", \"status\": \"deleted\"}";
+    String deleteDocumentPath =
+        "/v2/projects/testString/collections/testString/documents/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteDocumentOptions model
+    DeleteDocumentOptions deleteDocumentOptionsModel =
+        new DeleteDocumentOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .documentId("testString")
+            .xWatsonDiscoveryForce(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DeleteDocumentResponse> response =
+        discoveryService.deleteDocument(deleteDocumentOptionsModel).execute();
+    assertNotNull(response);
+    DeleteDocumentResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteDocumentPath);
+  }
+
+  // Test the deleteDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteDocument(null).execute();
+  }
+
+  @Test
+  public void testListTrainingQueriesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"queries\": [{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}";
+    String listTrainingQueriesPath = "/v2/projects/testString/training_data/queries";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListTrainingQueriesOptions model
+    ListTrainingQueriesOptions listTrainingQueriesOptionsModel =
+        new ListTrainingQueriesOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingQuerySet> response =
+        discoveryService.listTrainingQueries(listTrainingQueriesOptionsModel).execute();
+    assertNotNull(response);
+    TrainingQuerySet responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listTrainingQueriesPath);
+  }
+
+  // Test the listTrainingQueries operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListTrainingQueriesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.listTrainingQueries(null).execute();
+  }
+
+  @Test
+  public void testDeleteTrainingQueriesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteTrainingQueriesPath = "/v2/projects/testString/training_data/queries";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteTrainingQueriesOptions model
+    DeleteTrainingQueriesOptions deleteTrainingQueriesOptionsModel =
+        new DeleteTrainingQueriesOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        discoveryService.deleteTrainingQueries(deleteTrainingQueriesOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteTrainingQueriesPath);
+  }
+
+  // Test the deleteTrainingQueries operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteTrainingQueriesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteTrainingQueries(null).execute();
+  }
+
+  @Test
+  public void testCreateTrainingQueryWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String createTrainingQueryPath = "/v2/projects/testString/training_data/queries";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the TrainingExample model
+    TrainingExample trainingExampleModel =
+        new TrainingExample.Builder()
+            .documentId("testString")
+            .collectionId("testString")
+            .relevance(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the CreateTrainingQueryOptions model
+    CreateTrainingQueryOptions createTrainingQueryOptionsModel =
         new CreateTrainingQueryOptions.Builder()
-            .projectId(PROJECT_ID)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .addExamples(trainingExampleMock)
+            .projectId("testString")
+            .naturalLanguageQuery("testString")
+            .examples(
+                new java.util.ArrayList<TrainingExample>(
+                    java.util.Arrays.asList(trainingExampleModel)))
+            .filter("testString")
             .build();
-    TrainingQuery response = service.createTrainingQuery(options).execute().getResult();
 
-    assertEquals(QUERY_ID, response.queryId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, response.naturalLanguageQuery());
-    assertEquals(FILTER, response.filter());
-    assertEquals(testDate, response.created());
-    assertEquals(testDate, response.updated());
-    assertEquals(DOCUMENT_ID, response.examples().get(0).documentId());
-    assertEquals(COLLECTION_ID, response.examples().get(0).collectionId());
-    assertEquals(RELEVANCE, response.examples().get(0).relevance());
-    assertEquals(testDate, response.examples().get(0).created());
-    assertEquals(testDate, response.examples().get(0).updated());
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingQuery> response =
+        discoveryService.createTrainingQuery(createTrainingQueryOptionsModel).execute();
+    assertNotNull(response);
+    TrainingQuery responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createTrainingQueryPath);
   }
 
-  /** Test get training query. */
-  @Test
-  public void testGetTrainingQuery() {
-    server.enqueue(jsonResponse(trainingQuery));
+  // Test the createTrainingQuery operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateTrainingQueryNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    GetTrainingQueryOptions options =
-        new GetTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(QUERY_ID).build();
-    TrainingQuery response = service.getTrainingQuery(options).execute().getResult();
+    server.enqueue(new MockResponse());
 
-    assertEquals(QUERY_ID, response.queryId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, response.naturalLanguageQuery());
-    assertEquals(FILTER, response.filter());
-    assertEquals(testDate, response.created());
-    assertEquals(testDate, response.updated());
-    assertEquals(DOCUMENT_ID, response.examples().get(0).documentId());
-    assertEquals(COLLECTION_ID, response.examples().get(0).collectionId());
-    assertEquals(RELEVANCE, response.examples().get(0).relevance());
-    assertEquals(testDate, response.examples().get(0).created());
-    assertEquals(testDate, response.examples().get(0).updated());
+    // Invoke operation with null options model (negative test)
+    discoveryService.createTrainingQuery(null).execute();
   }
 
-  /** Test update training query. */
   @Test
-  public void testUpdateTrainingQuery() {
-    server.enqueue(jsonResponse(trainingQuery));
+  public void testGetTrainingQueryWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String getTrainingQueryPath = "/v2/projects/testString/training_data/queries/testString";
 
-    UpdateTrainingQueryOptions options =
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetTrainingQueryOptions model
+    GetTrainingQueryOptions getTrainingQueryOptionsModel =
+        new GetTrainingQueryOptions.Builder().projectId("testString").queryId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingQuery> response =
+        discoveryService.getTrainingQuery(getTrainingQueryOptionsModel).execute();
+    assertNotNull(response);
+    TrainingQuery responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getTrainingQueryPath);
+  }
+
+  // Test the getTrainingQuery operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetTrainingQueryNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getTrainingQuery(null).execute();
+  }
+
+  @Test
+  public void testUpdateTrainingQueryWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String updateTrainingQueryPath = "/v2/projects/testString/training_data/queries/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the TrainingExample model
+    TrainingExample trainingExampleModel =
+        new TrainingExample.Builder()
+            .documentId("testString")
+            .collectionId("testString")
+            .relevance(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the UpdateTrainingQueryOptions model
+    UpdateTrainingQueryOptions updateTrainingQueryOptionsModel =
         new UpdateTrainingQueryOptions.Builder()
-            .projectId(PROJECT_ID)
-            .queryId(QUERY_ID)
-            .naturalLanguageQuery(NATURAL_LANGUAGE_QUERY)
-            .addExamples(trainingExampleMock)
+            .projectId("testString")
+            .queryId("testString")
+            .naturalLanguageQuery("testString")
+            .examples(
+                new java.util.ArrayList<TrainingExample>(
+                    java.util.Arrays.asList(trainingExampleModel)))
+            .filter("testString")
             .build();
-    TrainingQuery response = service.updateTrainingQuery(options).execute().getResult();
 
-    assertEquals(QUERY_ID, response.queryId());
-    assertEquals(NATURAL_LANGUAGE_QUERY, response.naturalLanguageQuery());
-    assertEquals(FILTER, response.filter());
-    assertEquals(testDate, response.created());
-    assertEquals(testDate, response.updated());
-    assertEquals(DOCUMENT_ID, response.examples().get(0).documentId());
-    assertEquals(COLLECTION_ID, response.examples().get(0).collectionId());
-    assertEquals(RELEVANCE, response.examples().get(0).relevance());
-    assertEquals(testDate, response.examples().get(0).created());
-    assertEquals(testDate, response.examples().get(0).updated());
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingQuery> response =
+        discoveryService.updateTrainingQuery(updateTrainingQueryOptionsModel).execute();
+    assertNotNull(response);
+    TrainingQuery responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateTrainingQueryPath);
+  }
+
+  // Test the updateTrainingQuery operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateTrainingQueryNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.updateTrainingQuery(null).execute();
+  }
+
+  @Test
+  public void testAnalyzeDocumentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}], \"result\": {\"metadata\": {\"mapKey\": \"anyValue\"}}}";
+    String analyzeDocumentPath = "/v2/projects/testString/collections/testString/analyze";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the AnalyzeDocumentOptions model
+    AnalyzeDocumentOptions analyzeDocumentOptionsModel =
+        new AnalyzeDocumentOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .fileContentType("application/json")
+            .metadata("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<AnalyzedDocument> response =
+        discoveryService.analyzeDocument(analyzeDocumentOptionsModel).execute();
+    assertNotNull(response);
+    AnalyzedDocument responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, analyzeDocumentPath);
+  }
+
+  // Test the analyzeDocument operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAnalyzeDocumentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.analyzeDocument(null).execute();
+  }
+
+  @Test
+  public void testListEnrichmentsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\"}}]}";
+    String listEnrichmentsPath = "/v2/projects/testString/enrichments";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListEnrichmentsOptions model
+    ListEnrichmentsOptions listEnrichmentsOptionsModel =
+        new ListEnrichmentsOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Enrichments> response =
+        discoveryService.listEnrichments(listEnrichmentsOptionsModel).execute();
+    assertNotNull(response);
+    Enrichments responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listEnrichmentsPath);
+  }
+
+  // Test the listEnrichments operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListEnrichmentsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.listEnrichments(null).execute();
+  }
+
+  @Test
+  public void testCreateEnrichmentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\"}}";
+    String createEnrichmentPath = "/v2/projects/testString/enrichments";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the EnrichmentOptions model
+    EnrichmentOptions enrichmentOptionsModel =
+        new EnrichmentOptions.Builder()
+            .languages(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .entityType("testString")
+            .regularExpression("testString")
+            .resultField("testString")
+            .build();
+
+    // Construct an instance of the CreateEnrichment model
+    CreateEnrichment createEnrichmentModel =
+        new CreateEnrichment.Builder()
+            .name("testString")
+            .description("testString")
+            .type("dictionary")
+            .options(enrichmentOptionsModel)
+            .build();
+
+    // Construct an instance of the CreateEnrichmentOptions model
+    CreateEnrichmentOptions createEnrichmentOptionsModel =
+        new CreateEnrichmentOptions.Builder()
+            .projectId("testString")
+            .enrichment(createEnrichmentModel)
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Enrichment> response =
+        discoveryService.createEnrichment(createEnrichmentOptionsModel).execute();
+    assertNotNull(response);
+    Enrichment responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createEnrichmentPath);
+  }
+
+  // Test the createEnrichment operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateEnrichmentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.createEnrichment(null).execute();
+  }
+
+  @Test
+  public void testGetEnrichmentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\"}}";
+    String getEnrichmentPath = "/v2/projects/testString/enrichments/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetEnrichmentOptions model
+    GetEnrichmentOptions getEnrichmentOptionsModel =
+        new GetEnrichmentOptions.Builder()
+            .projectId("testString")
+            .enrichmentId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Enrichment> response =
+        discoveryService.getEnrichment(getEnrichmentOptionsModel).execute();
+    assertNotNull(response);
+    Enrichment responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getEnrichmentPath);
+  }
+
+  // Test the getEnrichment operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetEnrichmentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getEnrichment(null).execute();
+  }
+
+  @Test
+  public void testUpdateEnrichmentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\"}}";
+    String updateEnrichmentPath = "/v2/projects/testString/enrichments/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateEnrichmentOptions model
+    UpdateEnrichmentOptions updateEnrichmentOptionsModel =
+        new UpdateEnrichmentOptions.Builder()
+            .projectId("testString")
+            .enrichmentId("testString")
+            .name("testString")
+            .description("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Enrichment> response =
+        discoveryService.updateEnrichment(updateEnrichmentOptionsModel).execute();
+    assertNotNull(response);
+    Enrichment responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateEnrichmentPath);
+  }
+
+  // Test the updateEnrichment operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateEnrichmentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.updateEnrichment(null).execute();
+  }
+
+  @Test
+  public void testDeleteEnrichmentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteEnrichmentPath = "/v2/projects/testString/enrichments/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteEnrichmentOptions model
+    DeleteEnrichmentOptions deleteEnrichmentOptionsModel =
+        new DeleteEnrichmentOptions.Builder()
+            .projectId("testString")
+            .enrichmentId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        discoveryService.deleteEnrichment(deleteEnrichmentOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteEnrichmentPath);
+  }
+
+  // Test the deleteEnrichment operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteEnrichmentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteEnrichment(null).execute();
+  }
+
+  @Test
+  public void testListProjectsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"projects\": [{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15}]}";
+    String listProjectsPath = "/v2/projects";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListProjectsOptions model
+    ListProjectsOptions listProjectsOptionsModel = new ListProjectsOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ListProjectsResponse> response =
+        discoveryService.listProjects(listProjectsOptionsModel).execute();
+    assertNotNull(response);
+    ListProjectsResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listProjectsPath);
+  }
+
+  @Test
+  public void testCreateProjectWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+    String createProjectPath = "/v2/projects";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DefaultQueryParamsPassages model
+    DefaultQueryParamsPassages defaultQueryParamsPassagesModel =
+        new DefaultQueryParamsPassages.Builder()
+            .enabled(true)
+            .count(Long.valueOf("26"))
+            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .characters(Long.valueOf("26"))
+            .perDocument(true)
+            .maxPerDocument(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the DefaultQueryParamsTableResults model
+    DefaultQueryParamsTableResults defaultQueryParamsTableResultsModel =
+        new DefaultQueryParamsTableResults.Builder()
+            .enabled(true)
+            .count(Long.valueOf("26"))
+            .perDocument(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the DefaultQueryParamsSuggestedRefinements model
+    DefaultQueryParamsSuggestedRefinements defaultQueryParamsSuggestedRefinementsModel =
+        new DefaultQueryParamsSuggestedRefinements.Builder()
+            .enabled(true)
+            .count(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the DefaultQueryParams model
+    DefaultQueryParams defaultQueryParamsModel =
+        new DefaultQueryParams.Builder()
+            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .passages(defaultQueryParamsPassagesModel)
+            .tableResults(defaultQueryParamsTableResultsModel)
+            .aggregation("testString")
+            .suggestedRefinements(defaultQueryParamsSuggestedRefinementsModel)
+            .spellingSuggestions(true)
+            .highlight(true)
+            .count(Long.valueOf("26"))
+            .sort("testString")
+            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the CreateProjectOptions model
+    CreateProjectOptions createProjectOptionsModel =
+        new CreateProjectOptions.Builder()
+            .name("testString")
+            .type("document_retrieval")
+            .defaultQueryParameters(defaultQueryParamsModel)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ProjectDetails> response =
+        discoveryService.createProject(createProjectOptionsModel).execute();
+    assertNotNull(response);
+    ProjectDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createProjectPath);
+  }
+
+  // Test the createProject operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateProjectNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.createProject(null).execute();
+  }
+
+  @Test
+  public void testGetProjectWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+    String getProjectPath = "/v2/projects/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetProjectOptions model
+    GetProjectOptions getProjectOptionsModel =
+        new GetProjectOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ProjectDetails> response =
+        discoveryService.getProject(getProjectOptionsModel).execute();
+    assertNotNull(response);
+    ProjectDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getProjectPath);
+  }
+
+  // Test the getProject operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetProjectNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.getProject(null).execute();
+  }
+
+  @Test
+  public void testUpdateProjectWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+    String updateProjectPath = "/v2/projects/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateProjectOptions model
+    UpdateProjectOptions updateProjectOptionsModel =
+        new UpdateProjectOptions.Builder().projectId("testString").name("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ProjectDetails> response =
+        discoveryService.updateProject(updateProjectOptionsModel).execute();
+    assertNotNull(response);
+    ProjectDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateProjectPath);
+  }
+
+  // Test the updateProject operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateProjectNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.updateProject(null).execute();
+  }
+
+  @Test
+  public void testDeleteProjectWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteProjectPath = "/v2/projects/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteProjectOptions model
+    DeleteProjectOptions deleteProjectOptionsModel =
+        new DeleteProjectOptions.Builder().projectId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = discoveryService.deleteProject(deleteProjectOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteProjectPath);
+  }
+
+  // Test the deleteProject operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteProjectNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteProject(null).execute();
+  }
+
+  @Test
+  public void testDeleteUserDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteUserDataPath = "/v2/user_data";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteUserDataOptions model
+    DeleteUserDataOptions deleteUserDataOptionsModel =
+        new DeleteUserDataOptions.Builder().customerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = discoveryService.deleteUserData(deleteUserDataOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteUserDataPath);
+  }
+
+  // Test the deleteUserData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteUserDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteUserData(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    discoveryService = null;
   }
 }

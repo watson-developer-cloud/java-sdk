@@ -88,7 +88,7 @@ public class FeedbackDataInput extends GenericModel {
     /**
      * Builds a FeedbackDataInput.
      *
-     * @return the feedbackDataInput
+     * @return the new FeedbackDataInput instance
      */
     public FeedbackDataInput build() {
       return new FeedbackDataInput(this);

@@ -57,7 +57,7 @@ public class NluEnrichmentEntities extends GenericModel {
     /**
      * Builds a NluEnrichmentEntities.
      *
-     * @return the nluEnrichmentEntities
+     * @return the new NluEnrichmentEntities instance
      */
     public NluEnrichmentEntities build() {
       return new NluEnrichmentEntities(this);

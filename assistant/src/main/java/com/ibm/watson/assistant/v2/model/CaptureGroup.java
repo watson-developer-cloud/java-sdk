@@ -47,7 +47,7 @@ public class CaptureGroup extends GenericModel {
     /**
      * Builds a CaptureGroup.
      *
-     * @return the captureGroup
+     * @return the new CaptureGroup instance
      */
     public CaptureGroup build() {
       return new CaptureGroup(this);

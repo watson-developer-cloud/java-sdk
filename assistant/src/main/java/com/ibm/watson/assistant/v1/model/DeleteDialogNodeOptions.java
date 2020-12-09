@@ -47,7 +47,7 @@ public class DeleteDialogNodeOptions extends GenericModel {
     /**
      * Builds a DeleteDialogNodeOptions.
      *
-     * @return the deleteDialogNodeOptions
+     * @return the new DeleteDialogNodeOptions instance
      */
     public DeleteDialogNodeOptions build() {
       return new DeleteDialogNodeOptions(this);

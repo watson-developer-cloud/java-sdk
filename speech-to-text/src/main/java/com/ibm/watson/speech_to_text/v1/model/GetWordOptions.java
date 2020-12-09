@@ -47,7 +47,7 @@ public class GetWordOptions extends GenericModel {
     /**
      * Builds a GetWordOptions.
      *
-     * @return the getWordOptions
+     * @return the new GetWordOptions instance
      */
     public GetWordOptions build() {
       return new GetWordOptions(this);

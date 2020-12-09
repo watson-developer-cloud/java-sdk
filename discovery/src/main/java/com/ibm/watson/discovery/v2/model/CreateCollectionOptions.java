@@ -58,7 +58,7 @@ public class CreateCollectionOptions extends GenericModel {
     /**
      * Builds a CreateCollectionOptions.
      *
-     * @return the createCollectionOptions
+     * @return the new CreateCollectionOptions instance
      */
     public CreateCollectionOptions build() {
       return new CreateCollectionOptions(this);

@@ -52,7 +52,7 @@ public class AddImageTrainingDataOptions extends GenericModel {
     /**
      * Builds a AddImageTrainingDataOptions.
      *
-     * @return the addImageTrainingDataOptions
+     * @return the new AddImageTrainingDataOptions instance
      */
     public AddImageTrainingDataOptions build() {
       return new AddImageTrainingDataOptions(this);

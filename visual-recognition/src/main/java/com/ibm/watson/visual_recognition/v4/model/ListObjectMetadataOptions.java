@@ -42,7 +42,7 @@ public class ListObjectMetadataOptions extends GenericModel {
     /**
      * Builds a ListObjectMetadataOptions.
      *
-     * @return the listObjectMetadataOptions
+     * @return the new ListObjectMetadataOptions instance
      */
     public ListObjectMetadataOptions build() {
       return new ListObjectMetadataOptions(this);

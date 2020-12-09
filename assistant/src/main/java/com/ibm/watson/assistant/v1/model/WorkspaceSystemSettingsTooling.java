@@ -35,7 +35,7 @@ public class WorkspaceSystemSettingsTooling extends GenericModel {
     /**
      * Builds a WorkspaceSystemSettingsTooling.
      *
-     * @return the workspaceSystemSettingsTooling
+     * @return the new WorkspaceSystemSettingsTooling instance
      */
     public WorkspaceSystemSettingsTooling build() {
       return new WorkspaceSystemSettingsTooling(this);

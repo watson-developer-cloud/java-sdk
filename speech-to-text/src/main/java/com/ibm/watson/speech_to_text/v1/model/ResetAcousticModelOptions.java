@@ -42,7 +42,7 @@ public class ResetAcousticModelOptions extends GenericModel {
     /**
      * Builds a ResetAcousticModelOptions.
      *
-     * @return the resetAcousticModelOptions
+     * @return the new ResetAcousticModelOptions instance
      */
     public ResetAcousticModelOptions build() {
       return new ResetAcousticModelOptions(this);

@@ -42,7 +42,7 @@ public class GetEnvironmentOptions extends GenericModel {
     /**
      * Builds a GetEnvironmentOptions.
      *
-     * @return the getEnvironmentOptions
+     * @return the new GetEnvironmentOptions instance
      */
     public GetEnvironmentOptions build() {
       return new GetEnvironmentOptions(this);

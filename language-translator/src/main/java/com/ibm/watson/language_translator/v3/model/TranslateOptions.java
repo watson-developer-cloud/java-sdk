@@ -53,7 +53,7 @@ public class TranslateOptions extends GenericModel {
     /**
      * Builds a TranslateOptions.
      *
-     * @return the translateOptions
+     * @return the new TranslateOptions instance
      */
     public TranslateOptions build() {
       return new TranslateOptions(this);
@@ -139,8 +139,8 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * <p>Input text in UTF-8 encoding. Multiple entries result in multiple translations in the
-   * response.
+   * <p>Input text in UTF-8 encoding. Submit a maximum of 50 KB (51,200 bytes) of text with a single
+   * request. Multiple elements result in multiple translations in the response.
    *
    * @return the text
    */

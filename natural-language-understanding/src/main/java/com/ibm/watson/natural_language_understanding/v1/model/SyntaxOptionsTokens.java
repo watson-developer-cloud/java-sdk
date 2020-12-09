@@ -39,7 +39,7 @@ public class SyntaxOptionsTokens extends GenericModel {
     /**
      * Builds a SyntaxOptionsTokens.
      *
-     * @return the syntaxOptionsTokens
+     * @return the new SyntaxOptionsTokens instance
      */
     public SyntaxOptionsTokens build() {
       return new SyntaxOptionsTokens(this);

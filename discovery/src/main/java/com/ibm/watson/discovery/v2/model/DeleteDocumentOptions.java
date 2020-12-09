@@ -55,7 +55,7 @@ public class DeleteDocumentOptions extends GenericModel {
     /**
      * Builds a DeleteDocumentOptions.
      *
-     * @return the deleteDocumentOptions
+     * @return the new DeleteDocumentOptions instance
      */
     public DeleteDocumentOptions build() {
       return new DeleteDocumentOptions(this);

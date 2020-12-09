@@ -110,7 +110,7 @@ public class QueryOptions extends GenericModel {
     /**
      * Builds a QueryOptions.
      *
-     * @return the queryOptions
+     * @return the new QueryOptions instance
      */
     public QueryOptions build() {
       return new QueryOptions(this);
@@ -544,7 +544,7 @@ public class QueryOptions extends GenericModel {
    * Gets the highlight.
    *
    * <p>When true, a highlight field is returned for each result which contains the fields which
-   * match the query with `<em></em>` tags around the matching query terms.
+   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
    *
    * @return the highlight
    */

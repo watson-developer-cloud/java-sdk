@@ -45,7 +45,7 @@ public class SentimentOptions extends GenericModel {
     /**
      * Builds a SentimentOptions.
      *
-     * @return the sentimentOptions
+     * @return the new SentimentOptions instance
      */
     public SentimentOptions build() {
       return new SentimentOptions(this);

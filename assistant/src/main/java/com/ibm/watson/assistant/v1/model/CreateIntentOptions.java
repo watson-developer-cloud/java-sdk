@@ -58,7 +58,7 @@ public class CreateIntentOptions extends GenericModel {
     /**
      * Builds a CreateIntentOptions.
      *
-     * @return the createIntentOptions
+     * @return the new CreateIntentOptions instance
      */
     public CreateIntentOptions build() {
       return new CreateIntentOptions(this);

@@ -92,7 +92,7 @@ public class SearchResult extends GenericModel {
    * Gets the highlight.
    *
    * <p>An object containing segments of text from search results with query-matching text
-   * highlighted using HTML `<em>` tags.
+   * highlighted using HTML `&lt;em&gt;` tags.
    *
    * @return the highlight
    */

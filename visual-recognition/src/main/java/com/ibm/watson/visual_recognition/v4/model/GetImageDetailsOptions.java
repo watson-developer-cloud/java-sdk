@@ -47,7 +47,7 @@ public class GetImageDetailsOptions extends GenericModel {
     /**
      * Builds a GetImageDetailsOptions.
      *
-     * @return the getImageDetailsOptions
+     * @return the new GetImageDetailsOptions instance
      */
     public GetImageDetailsOptions build() {
       return new GetImageDetailsOptions(this);

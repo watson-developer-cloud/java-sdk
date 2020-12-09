@@ -42,7 +42,7 @@ public class ListImagesOptions extends GenericModel {
     /**
      * Builds a ListImagesOptions.
      *
-     * @return the listImagesOptions
+     * @return the new ListImagesOptions instance
      */
     public ListImagesOptions build() {
       return new ListImagesOptions(this);

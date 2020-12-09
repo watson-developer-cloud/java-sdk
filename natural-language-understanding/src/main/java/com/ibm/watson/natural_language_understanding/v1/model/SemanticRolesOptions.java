@@ -43,7 +43,7 @@ public class SemanticRolesOptions extends GenericModel {
     /**
      * Builds a SemanticRolesOptions.
      *
-     * @return the semanticRolesOptions
+     * @return the new SemanticRolesOptions instance
      */
     public SemanticRolesOptions build() {
       return new SemanticRolesOptions(this);

@@ -54,9 +54,9 @@ public class Category extends GenericModel {
     String LIABILITY = "Liability";
     /** Order of Precedence. */
     String ORDER_OF_PRECEDENCE = "Order of Precedence";
-    /** Payment Terms & Billing. */
+    /** Payment Terms &amp; Billing. */
     String PAYMENT_TERMS_BILLING = "Payment Terms & Billing";
-    /** Pricing & Taxes. */
+    /** Pricing &amp; Taxes. */
     String PRICING_TAXES = "Pricing & Taxes";
     /** Privacy. */
     String PRIVACY = "Privacy";
@@ -68,10 +68,20 @@ public class Category extends GenericModel {
     String SCOPE_OF_WORK = "Scope of Work";
     /** Subcontracts. */
     String SUBCONTRACTS = "Subcontracts";
-    /** Term & Termination. */
+    /** Term &amp; Termination. */
     String TERM_TERMINATION = "Term & Termination";
     /** Warranties. */
     String WARRANTIES = "Warranties";
+  }
+
+  /** The type of modification of the feedback entry in the updated labels response. */
+  public interface Modification {
+    /** added. */
+    String ADDED = "added";
+    /** unchanged. */
+    String UNCHANGED = "unchanged";
+    /** removed. */
+    String REMOVED = "removed";
   }
 
   protected String label;
@@ -79,14 +89,18 @@ public class Category extends GenericModel {
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
 
+  protected String modification;
+
   /** Builder. */
   public static class Builder {
     private String label;
     private List<String> provenanceIds;
+    private String modification;
 
     private Builder(Category category) {
       this.label = category.label;
       this.provenanceIds = category.provenanceIds;
+      this.modification = category.modification;
     }
 
     /** Instantiates a new builder. */
@@ -95,7 +109,7 @@ public class Category extends GenericModel {
     /**
      * Builds a Category.
      *
-     * @return the category
+     * @return the new Category instance
      */
     public Category build() {
       return new Category(this);
@@ -137,11 +151,23 @@ public class Category extends GenericModel {
       this.provenanceIds = provenanceIds;
       return this;
     }
+
+    /**
+     * Set the modification.
+     *
+     * @param modification the modification
+     * @return the Category builder
+     */
+    public Builder modification(String modification) {
+      this.modification = modification;
+      return this;
+    }
   }
 
   protected Category(Builder builder) {
     label = builder.label;
     provenanceIds = builder.provenanceIds;
+    modification = builder.modification;
   }
 
   /**
@@ -173,5 +199,16 @@ public class Category extends GenericModel {
    */
   public List<String> provenanceIds() {
     return provenanceIds;
+  }
+
+  /**
+   * Gets the modification.
+   *
+   * <p>The type of modification of the feedback entry in the updated labels response.
+   *
+   * @return the modification
+   */
+  public String modification() {
+    return modification;
   }
 }

@@ -42,7 +42,7 @@ public class IdentifyOptions extends GenericModel {
     /**
      * Builds a IdentifyOptions.
      *
-     * @return the identifyOptions
+     * @return the new IdentifyOptions instance
      */
     public IdentifyOptions build() {
       return new IdentifyOptions(this);

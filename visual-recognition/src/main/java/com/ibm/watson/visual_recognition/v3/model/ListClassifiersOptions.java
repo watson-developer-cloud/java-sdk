@@ -33,7 +33,7 @@ public class ListClassifiersOptions extends GenericModel {
     /**
      * Builds a ListClassifiersOptions.
      *
-     * @return the listClassifiersOptions
+     * @return the new ListClassifiersOptions instance
      */
     public ListClassifiersOptions build() {
       return new ListClassifiersOptions(this);

@@ -69,7 +69,7 @@ public class UpdateConfigurationOptions extends GenericModel {
     /**
      * Builds a UpdateConfigurationOptions.
      *
-     * @return the updateConfigurationOptions
+     * @return the new UpdateConfigurationOptions instance
      */
     public UpdateConfigurationOptions build() {
       return new UpdateConfigurationOptions(this);

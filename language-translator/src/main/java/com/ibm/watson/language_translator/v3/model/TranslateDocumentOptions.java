@@ -66,7 +66,7 @@ public class TranslateDocumentOptions extends GenericModel {
     /**
      * Builds a TranslateDocumentOptions.
      *
-     * @return the translateDocumentOptions
+     * @return the new TranslateDocumentOptions instance
      */
     public TranslateDocumentOptions build() {
       return new TranslateDocumentOptions(this);
@@ -187,12 +187,10 @@ public class TranslateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * <p>The contents of the source file to translate.
-   *
-   * <p>[Supported file
-   * types](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats)
-   *
-   * <p>Maximum file size: **20 MB**.
+   * <p>The contents of the source file to translate. The maximum file size for document translation
+   * is 20 MB for service instances on the Standard, Advanced, and Premium plans, and 2 MB for
+   * service instances on the Lite plan. For more information, see [Supported file formats
+   * (Beta)](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats).
    *
    * @return the file
    */

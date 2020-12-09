@@ -44,7 +44,7 @@ public class KeywordsOptions extends GenericModel {
     /**
      * Builds a KeywordsOptions.
      *
-     * @return the keywordsOptions
+     * @return the new KeywordsOptions instance
      */
     public KeywordsOptions build() {
       return new KeywordsOptions(this);

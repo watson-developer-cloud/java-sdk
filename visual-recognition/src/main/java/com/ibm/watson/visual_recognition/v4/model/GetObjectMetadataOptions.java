@@ -47,7 +47,7 @@ public class GetObjectMetadataOptions extends GenericModel {
     /**
      * Builds a GetObjectMetadataOptions.
      *
-     * @return the getObjectMetadataOptions
+     * @return the new GetObjectMetadataOptions instance
      */
     public GetObjectMetadataOptions build() {
       return new GetObjectMetadataOptions(this);

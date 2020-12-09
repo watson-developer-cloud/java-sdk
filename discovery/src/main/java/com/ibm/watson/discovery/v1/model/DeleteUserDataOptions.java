@@ -42,7 +42,7 @@ public class DeleteUserDataOptions extends GenericModel {
     /**
      * Builds a DeleteUserDataOptions.
      *
-     * @return the deleteUserDataOptions
+     * @return the new DeleteUserDataOptions instance
      */
     public DeleteUserDataOptions build() {
       return new DeleteUserDataOptions(this);

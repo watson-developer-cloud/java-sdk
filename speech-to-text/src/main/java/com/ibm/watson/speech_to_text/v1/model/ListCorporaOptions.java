@@ -42,7 +42,7 @@ public class ListCorporaOptions extends GenericModel {
     /**
      * Builds a ListCorporaOptions.
      *
-     * @return the listCorporaOptions
+     * @return the new ListCorporaOptions instance
      */
     public ListCorporaOptions build() {
       return new ListCorporaOptions(this);

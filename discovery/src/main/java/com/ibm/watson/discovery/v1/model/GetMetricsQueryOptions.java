@@ -46,7 +46,7 @@ public class GetMetricsQueryOptions extends GenericModel {
     /**
      * Builds a GetMetricsQueryOptions.
      *
-     * @return the getMetricsQueryOptions
+     * @return the new GetMetricsQueryOptions instance
      */
     public GetMetricsQueryOptions build() {
       return new GetMetricsQueryOptions(this);

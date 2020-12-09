@@ -49,7 +49,7 @@ public class Mention extends GenericModel {
     /**
      * Builds a Mention.
      *
-     * @return the mention
+     * @return the new Mention instance
      */
     public Mention build() {
       return new Mention(this);

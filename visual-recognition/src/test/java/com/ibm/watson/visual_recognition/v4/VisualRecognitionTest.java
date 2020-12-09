@@ -12,15 +12,12 @@
  */
 package com.ibm.watson.visual_recognition.v4;
 
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.*;
 
-import com.google.common.io.Files;
+import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.visual_recognition.v4.model.AddImageTrainingDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.AddImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeOptions;
@@ -35,6 +32,7 @@ import com.ibm.watson.visual_recognition.v4.model.DeleteUserDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetImageDetailsOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetJpegImageOptions;
+import com.ibm.watson.visual_recognition.v4.model.GetModelFileOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.GetTrainingUsageOptions;
 import com.ibm.watson.visual_recognition.v4.model.ImageDetails;
@@ -46,883 +44,1140 @@ import com.ibm.watson.visual_recognition.v4.model.ListObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadataList;
-import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
-import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
-import java.io.File;
+import com.ibm.watson.visual_recognition.v4.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Unit tests for the {@link VisualRecognition} service. */
-public class VisualRecognitionTest extends WatsonServiceUnitTest {
-  private static final String VERSION = "2019-02-11";
-  private static final String RESOURCE = "src/test/resources/visual_recognition/v4/";
+/** Unit test class for the VisualRecognition service. */
+public class VisualRecognitionTest {
 
-  private static final String COLLECTION_ID = "123456789";
-  private static final String IMAGE_URL = "www.image.jpg";
-  private static final String TRAINING_DATA = "training_data";
-  private static final String OBJECT = "object";
-  private static final Long TOP = 0L;
-  private static final Long LEFT = 10L;
-  private static final Long WIDTH = 100L;
-  private static final Long HEIGHT = 200L;
-  private static final String IMAGE_ID = "image_id";
-  private static final Float THRESHOLD = 12f;
-  private static final String NAME = "name";
-  private static final String DESCRIPTION = "description";
-  private static final Long IMAGE_COUNT = 50L;
-  private static final String CUSTOMER_ID = "customer_id";
-  private static final String IMAGE_TYPE = "file";
-  private static final String FILENAME = "filename";
-  private static final String ARCHIVE_FILENAME = "archive_filename";
-  private static final String SOURCE_URL = "source_url";
-  private static final String RESOLVED_URL = "resolved_url";
-  private static final Float SCORE = 5.0f;
-  private static final String CODE = "code";
-  private static final String MESSAGE = "message";
-  private static final String MORE_INFO = "more_info";
-  private static final String ERROR_TYPE = "field";
-  private static final String TRACE = "trace";
-  private static final Long COMPLETED_EVENTS = 7L;
-  private static final Long TRAINED_IMAGES = 15L;
-  private static final String TYPE = "objects";
-  private static final String STATUS = "succeeded";
-  private static final String START_TIME = "1995-06-12";
-  private static final String END_TIME = "2019-11-19";
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private FileWithMetadata fileWithMetadata;
-  private TrainingDataObject trainingDataObject;
-  private ObjectTrainingStatus objectTrainingStatus;
-  private Date testDate;
+  protected MockWebServer server;
+  protected VisualRecognition visualRecognitionService;
 
-  private AnalyzeResponse analyzeResponse;
-  private Collection collection;
-  private CollectionsList collectionsList;
-  private ImageDetailsList imageDetailsList;
-  private ImageSummaryList imageSummaryList;
-  private ImageDetails imageDetails;
-  private File imageFile;
-  private TrainingDataObjects trainingDataObjects;
-  private TrainingEvents trainingEvents;
-  private ObjectMetadataList objectMetadataList;
-  private ObjectMetadata objectName;
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  private VisualRecognition service;
+    final Authenticator authenticator = new NoAuthAuthenticator();
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-
-    service = new VisualRecognition(VERSION, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
-
-    // create test models
-    fileWithMetadata =
-        new FileWithMetadata.Builder()
-            .data(new File("src/test/resources/visual_recognition/v4/giraffe_to_classify.jpg"))
-            .build();
-    new Location.Builder().top(TOP).left(LEFT).height(HEIGHT).width(WIDTH).build();
-    trainingDataObject = new TrainingDataObject.Builder().build();
-    objectTrainingStatus =
-        new ObjectTrainingStatus.Builder()
-            .ready(true)
-            .inProgress(true)
-            .dataChanged(true)
-            .rscnnReady(true)
-            .latestFailed(true)
-            .description(DESCRIPTION)
-            .build();
-    new TrainingStatus.Builder().objects(objectTrainingStatus).build();
-    String dateString = "1995-06-12T01:11:11.111+0000";
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
-    testDate = dateFormat.parse(dateString);
-
-    // load mock responses
-    analyzeResponse = loadFixture(RESOURCE + "analyze-response.json", AnalyzeResponse.class);
-    collection = loadFixture(RESOURCE + "collection.json", Collection.class);
-    collectionsList = loadFixture(RESOURCE + "collections-list.json", CollectionsList.class);
-    imageDetailsList = loadFixture(RESOURCE + "image-details-list.json", ImageDetailsList.class);
-    imageSummaryList = loadFixture(RESOURCE + "image-summary-list.json", ImageSummaryList.class);
-    imageDetails = loadFixture(RESOURCE + "image-details.json", ImageDetails.class);
-    imageFile = new File(RESOURCE + "giraffe_to_classify.jpg");
-    trainingDataObjects =
-        loadFixture(RESOURCE + "training-data-objects.json", TrainingDataObjects.class);
-    trainingEvents = loadFixture(RESOURCE + "training-events.json", TrainingEvents.class);
-    objectMetadataList =
-        loadFixture(RESOURCE + "object-metadata-list.json", ObjectMetadataList.class);
-    objectName = loadFixture(RESOURCE + "object-name.json", ObjectMetadata.class);
+    visualRecognitionService = new VisualRecognition(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    visualRecognitionService.setServiceUrl(url);
   }
 
-  /** Test config based constructor. */
-  @Test
-  public void testConfigBasedConstructor() {
-    VisualRecognition service = new VisualRecognition(VERSION);
-    assertEquals(Authenticator.AUTHTYPE_BASIC, service.getAuthenticator().authenticationType());
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    new VisualRecognition(version, serviceName, null);
   }
 
-  /** Test add images options. */
   @Test
-  public void testAddImagesOptions() {
-    List<FileWithMetadata> imageList = new ArrayList<>();
-    imageList.add(fileWithMetadata);
-    List<String> imageUrlList = new ArrayList<>();
-    imageUrlList.add(IMAGE_URL);
-
-    AddImagesOptions options =
-        new AddImagesOptions.Builder()
-            .imagesFile(imageList)
-            .addImagesFile(fileWithMetadata)
-            .imageUrl(imageUrlList)
-            .addImageUrl(IMAGE_URL)
-            .collectionId(COLLECTION_ID)
-            .trainingData(TRAINING_DATA)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(2, options.imagesFile().size());
-    assertEquals(fileWithMetadata, options.imagesFile().get(0));
-    assertEquals(2, options.imageUrl().size());
-    assertEquals(IMAGE_URL, options.imageUrl().get(0));
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(TRAINING_DATA, options.trainingData());
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(visualRecognitionService.getVersion(), "testString");
   }
 
-  /** Test add image training data options. */
   @Test
-  public void testAddImageTrainingDataOptions() {
-    List<TrainingDataObject> objectList = new ArrayList<>();
-    objectList.add(trainingDataObject);
+  public void testAnalyzeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"images\": [{\"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"objects\": {\"collections\": [{\"collection_id\": \"collectionId\", \"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}, \"score\": 5}]}]}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}]}], \"warnings\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\"}], \"trace\": \"trace\"}";
+    String analyzePath = "/v4/analyze";
 
-    AddImageTrainingDataOptions options =
-        new AddImageTrainingDataOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .imageId(IMAGE_ID)
-            .objects(objectList)
-            .addObjects(trainingDataObject)
-            .build();
-    options = options.newBuilder().build();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(IMAGE_ID, options.imageId());
-    assertEquals(2, options.objects().size());
-    assertEquals(trainingDataObject, options.objects().get(0));
-  }
+    constructClientService();
 
-  /** Test analyze options. */
-  @Test
-  public void testAnalyzeOptions() {
-    List<String> collectionIdList = new ArrayList<>();
-    collectionIdList.add(COLLECTION_ID);
-    List<String> featureList = new ArrayList<>();
-    featureList.add(AnalyzeOptions.Features.OBJECTS);
-    List<FileWithMetadata> imageList = new ArrayList<>();
-    imageList.add(fileWithMetadata);
-    List<String> imageUrlList = new ArrayList<>();
-    imageUrlList.add(IMAGE_URL);
-
-    AnalyzeOptions options =
+    // Construct an instance of the AnalyzeOptions model
+    AnalyzeOptions analyzeOptionsModel =
         new AnalyzeOptions.Builder()
-            .collectionIds(collectionIdList)
-            .addCollectionIds(COLLECTION_ID)
-            .features(featureList)
-            .addFeatures(AnalyzeOptions.Features.OBJECTS)
-            .imagesFile(imageList)
-            .addImagesFile(fileWithMetadata)
-            .imageUrl(imageUrlList)
-            .addImageUrl(IMAGE_URL)
-            .threshold(THRESHOLD)
+            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .features(new java.util.ArrayList<String>(java.util.Arrays.asList("objects")))
+            .imagesFile(mockListFileWithMetadata)
+            .imageUrl(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .threshold(Float.valueOf("0.15"))
             .build();
-    options = options.newBuilder().build();
 
-    assertEquals(2, options.collectionIds().size());
-    assertEquals(COLLECTION_ID, options.collectionIds().get(0));
-    assertEquals(2, options.features().size());
-    assertEquals(AnalyzeOptions.Features.OBJECTS, options.features().get(0));
-    assertEquals(2, options.imagesFile().size());
-    assertEquals(fileWithMetadata, options.imagesFile().get(0));
-    assertEquals(2, options.imageUrl().size());
-    assertEquals(IMAGE_URL, options.imageUrl().get(0));
-    assertEquals(THRESHOLD, options.threshold());
-  }
-
-  /** Test create collection options. */
-  @Test
-  public void testCreateCollectionOptions() {
-    CreateCollectionOptions options =
-        new CreateCollectionOptions.Builder().name(NAME).description(DESCRIPTION).build();
-    options = options.newBuilder().build();
-
-    assertEquals(NAME, options.name());
-    assertEquals(DESCRIPTION, options.description());
-  }
-
-  /** Test delete collection options. */
-  @Test
-  public void testDeleteCollectionOptions() {
-    DeleteCollectionOptions options =
-        new DeleteCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-  }
-
-  /** Test delete image options. */
-  @Test
-  public void testDeleteImageOptions() {
-    DeleteImageOptions options =
-        new DeleteImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(IMAGE_ID, options.imageId());
-  }
-
-  /** Test delete user data options. */
-  @Test
-  public void testDeleteUserDataOptions() {
-    DeleteUserDataOptions options =
-        new DeleteUserDataOptions.Builder().customerId(CUSTOMER_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(CUSTOMER_ID, options.customerId());
-  }
-
-  /** Test get collection options. */
-  @Test
-  public void testGetCollectionOptions() {
-    GetCollectionOptions options =
-        new GetCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-  }
-
-  /** Test get image details options. */
-  @Test
-  public void testGetImageDetailsOptions() {
-    GetImageDetailsOptions options =
-        new GetImageDetailsOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(IMAGE_ID, options.imageId());
-  }
-
-  /** Test get jpeg image options. */
-  @Test
-  public void testGetJpegImageOptions() {
-    GetJpegImageOptions options =
-        new GetJpegImageOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .imageId(IMAGE_ID)
-            .size(GetJpegImageOptions.Size.FULL)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(IMAGE_ID, options.imageId());
-    assertEquals(GetJpegImageOptions.Size.FULL, options.size());
-  }
-
-  /** Test list collections options. */
-  @Test
-  public void testListCollectionsOptions() {
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder().build();
-    options = options.newBuilder().build();
-
-    assertNotNull(options);
-  }
-
-  /** Test list images options. */
-  @Test
-  public void testListImagesOptions() {
-    ListImagesOptions options = new ListImagesOptions.Builder().collectionId(COLLECTION_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-  }
-
-  /** Test location. */
-  @Test
-  public void testLocation() {
-    Location location =
-        new Location.Builder().top(TOP).left(LEFT).width(WIDTH).height(HEIGHT).build();
-    location = location.newBuilder().build();
-
-    assertEquals(TOP, location.top());
-    assertEquals(LEFT, location.left());
-    assertEquals(WIDTH, location.width());
-    assertEquals(HEIGHT, location.height());
-  }
-
-  /** Test object training status. */
-  @Test
-  public void testObjectTrainingStatus() {
-    ObjectTrainingStatus trainingStatus =
-        new ObjectTrainingStatus.Builder()
-            .ready(true)
-            .inProgress(true)
-            .dataChanged(true)
-            .latestFailed(true)
-            .rscnnReady(true)
-            .description(DESCRIPTION)
-            .build();
-    trainingStatus = trainingStatus.newBuilder().build();
-
-    assertTrue(trainingStatus.ready());
-    assertTrue(trainingStatus.inProgress());
-    assertTrue(trainingStatus.dataChanged());
-    assertTrue(trainingStatus.latestFailed());
-    assertEquals(DESCRIPTION, trainingStatus.description());
-  }
-
-  /** Test training status. */
-  @Test
-  public void testTrainingStatus() {
-    TrainingStatus trainingStatus =
-        new TrainingStatus.Builder().objects(objectTrainingStatus).build();
-    trainingStatus = trainingStatus.newBuilder().build();
-
-    assertEquals(objectTrainingStatus, trainingStatus.objects());
-  }
-
-  /** Test train options. */
-  @Test
-  public void testTrainOptions() {
-    TrainOptions options = new TrainOptions.Builder().collectionId(COLLECTION_ID).build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-  }
-
-  /** Test update collection options. */
-  @Test
-  public void testUpdateCollectionOptions() {
-    UpdateCollectionOptions options =
-        new UpdateCollectionOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .name(NAME)
-            .description(DESCRIPTION)
-            .build();
-    options = options.newBuilder().build();
-
-    assertEquals(COLLECTION_ID, options.collectionId());
-    assertEquals(NAME, options.name());
-    assertEquals(DESCRIPTION, options.description());
-  }
-
-  /** Test get training usage options. */
-  @Test
-  public void testGetTrainingUsageOptions() {
-    GetTrainingUsageOptions options =
-        new GetTrainingUsageOptions.Builder().startTime(START_TIME).endTime(END_TIME).build();
-    options = options.newBuilder().build();
-
-    assertEquals(START_TIME, options.startTime());
-    assertEquals(END_TIME, options.endTime());
-  }
-
-  /** Test analyze. */
-  @Test
-  public void testAnalyze() {
-    server.enqueue(jsonResponse(analyzeResponse));
-
-    AnalyzeOptions options =
-        new AnalyzeOptions.Builder()
-            .addCollectionIds(COLLECTION_ID)
-            .addFeatures(AnalyzeOptions.Features.OBJECTS)
-            .addImagesFile(fileWithMetadata)
-            .addImageUrl(IMAGE_URL)
-            .threshold(THRESHOLD)
-            .build();
-    AnalyzeResponse response = service.analyze(options).execute().getResult();
-
-    assertEquals(IMAGE_TYPE, response.getImages().get(0).getSource().getType());
-    assertEquals(FILENAME, response.getImages().get(0).getSource().getFilename());
-    assertEquals(ARCHIVE_FILENAME, response.getImages().get(0).getSource().getArchiveFilename());
-    assertEquals(SOURCE_URL, response.getImages().get(0).getSource().getSourceUrl());
-    assertEquals(RESOLVED_URL, response.getImages().get(0).getSource().getResolvedUrl());
-    assertEquals(HEIGHT, response.getImages().get(0).getDimensions().getHeight());
-    assertEquals(WIDTH, response.getImages().get(0).getDimensions().getWidth());
-    assertEquals(
-        COLLECTION_ID,
-        response.getImages().get(0).getObjects().getCollections().get(0).getCollectionId());
-    assertEquals(
-        OBJECT,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getObject());
-    assertEquals(
-        TOP,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getLocation()
-            .top());
-    assertEquals(
-        LEFT,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getLocation()
-            .left());
-    assertEquals(
-        WIDTH,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getLocation()
-            .width());
-    assertEquals(
-        HEIGHT,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getLocation()
-            .height());
-    assertEquals(
-        SCORE,
-        response
-            .getImages()
-            .get(0)
-            .getObjects()
-            .getCollections()
-            .get(0)
-            .getObjects()
-            .get(0)
-            .getScore());
-    assertEquals(CODE, response.getImages().get(0).getErrors().get(0).getCode());
-    assertEquals(MESSAGE, response.getImages().get(0).getErrors().get(0).getMessage());
-    assertEquals(MORE_INFO, response.getImages().get(0).getErrors().get(0).getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getImages().get(0).getErrors().get(0).getTarget().getType());
-    assertEquals(NAME, response.getImages().get(0).getErrors().get(0).getTarget().getName());
-    assertEquals(CODE, response.getWarnings().get(0).getCode());
-    assertEquals(MESSAGE, response.getWarnings().get(0).getMessage());
-    assertEquals(MORE_INFO, response.getWarnings().get(0).getMoreInfo());
-    assertEquals(TRACE, response.getTrace());
-  }
-
-  private void assertCollection(Collection response) {
-    assertEquals(COLLECTION_ID, response.getCollectionId());
-    assertEquals(NAME, response.getName());
-    assertEquals(DESCRIPTION, response.getDescription());
-    assertEquals(testDate, response.getCreated());
-    assertEquals(testDate, response.getUpdated());
-    assertEquals(IMAGE_COUNT, response.getImageCount());
-    assertTrue(response.getTrainingStatus().objects().ready());
-    assertTrue(response.getTrainingStatus().objects().inProgress());
-    assertTrue(response.getTrainingStatus().objects().dataChanged());
-    assertTrue(response.getTrainingStatus().objects().latestFailed());
-    assertEquals(DESCRIPTION, response.getTrainingStatus().objects().description());
-  }
-
-  /** Test create collection. */
-  @Test
-  public void testCreateCollection() {
-    server.enqueue(jsonResponse(collection));
-
-    CreateCollectionOptions options =
-        new CreateCollectionOptions.Builder().name(NAME).description(DESCRIPTION).build();
-    Collection response = service.createCollection(options).execute().getResult();
-
-    assertCollection(response);
-  }
-
-  private void assertCollectionsList(CollectionsList response) {
-    assertEquals(COLLECTION_ID, response.getCollections().get(0).getCollectionId());
-    assertEquals(NAME, response.getCollections().get(0).getName());
-    assertEquals(DESCRIPTION, response.getCollections().get(0).getDescription());
-    assertEquals(testDate, response.getCollections().get(0).getCreated());
-    assertEquals(testDate, response.getCollections().get(0).getUpdated());
-    assertEquals(IMAGE_COUNT, response.getCollections().get(0).getImageCount());
-    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().ready());
-    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().inProgress());
-    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().dataChanged());
-    assertTrue(response.getCollections().get(0).getTrainingStatus().objects().latestFailed());
-    assertEquals(
-        DESCRIPTION, response.getCollections().get(0).getTrainingStatus().objects().description());
-  }
-
-  /** Test list collections. */
-  @Test
-  public void testListCollections() {
-    server.enqueue(jsonResponse(collectionsList));
-
-    ListCollectionsOptions options = new ListCollectionsOptions.Builder().build();
-    CollectionsList response = service.listCollections(options).execute().getResult();
-
-    assertCollectionsList(response);
-  }
-
-  /** Test list collections no options. */
-  @Test
-  public void testListCollectionsNoOptions() {
-    server.enqueue(jsonResponse(collectionsList));
-
-    CollectionsList response = service.listCollections().execute().getResult();
-
-    assertCollectionsList(response);
-  }
-
-  /** Test get collection. */
-  @Test
-  public void testGetCollection() {
-    server.enqueue(jsonResponse(collection));
-
-    GetCollectionOptions options =
-        new GetCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
-    Collection response = service.getCollection(options).execute().getResult();
-
-    assertCollection(response);
-  }
-
-  /** Test update collection. */
-  @Test
-  public void testUpdateCollection() {
-    server.enqueue(jsonResponse(collection));
-
-    UpdateCollectionOptions options =
-        new UpdateCollectionOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .name(NAME)
-            .description(DESCRIPTION)
-            .build();
-    Collection response = service.updateCollection(options).execute().getResult();
-
-    assertCollection(response);
-  }
-
-  /**
-   * Test delete collection.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteCollection() throws InterruptedException {
-    server.enqueue(new MockResponse());
-
-    DeleteCollectionOptions options =
-        new DeleteCollectionOptions.Builder().collectionId(COLLECTION_ID).build();
-    service.deleteCollection(options).execute();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals("DELETE", request.getMethod());
-  }
-
-  private void assertImageDetails(ImageDetails response) {
-    assertEquals(IMAGE_ID, response.getImageId());
-    assertEquals(testDate, response.getCreated());
-    assertEquals(testDate, response.getUpdated());
-    assertEquals(IMAGE_TYPE, response.getSource().getType());
-    assertEquals(FILENAME, response.getSource().getFilename());
-    assertEquals(ARCHIVE_FILENAME, response.getSource().getArchiveFilename());
-    assertEquals(SOURCE_URL, response.getSource().getSourceUrl());
-    assertEquals(RESOLVED_URL, response.getSource().getResolvedUrl());
-    assertEquals(HEIGHT, response.getDimensions().getHeight());
-    assertEquals(WIDTH, response.getDimensions().getWidth());
-    assertEquals(CODE, response.getErrors().get(0).getCode());
-    assertEquals(MESSAGE, response.getErrors().get(0).getMessage());
-    assertEquals(MORE_INFO, response.getErrors().get(0).getMoreInfo());
-    assertEquals(ERROR_TYPE, response.getErrors().get(0).getTarget().getType());
-    assertEquals(NAME, response.getErrors().get(0).getTarget().getName());
-    assertEquals(OBJECT, response.getTrainingData().getObjects().get(0).object());
-    assertEquals(TOP, response.getTrainingData().getObjects().get(0).location().top());
-    assertEquals(LEFT, response.getTrainingData().getObjects().get(0).location().left());
-    assertEquals(WIDTH, response.getTrainingData().getObjects().get(0).location().width());
-    assertEquals(HEIGHT, response.getTrainingData().getObjects().get(0).location().height());
-  }
-
-  /** Test add images. */
-  @Test
-  public void testAddImages() {
-    server.enqueue(jsonResponse(imageDetailsList));
-
-    AddImagesOptions options =
-        new AddImagesOptions.Builder()
-            .addImagesFile(fileWithMetadata)
-            .addImageUrl(IMAGE_URL)
-            .collectionId(COLLECTION_ID)
-            .trainingData(TRAINING_DATA)
-            .build();
-    ImageDetailsList response = service.addImages(options).execute().getResult();
-
-    assertImageDetails(response.getImages().get(0));
-    assertEquals(CODE, response.getWarnings().get(0).getCode());
-    assertEquals(MESSAGE, response.getWarnings().get(0).getMessage());
-    assertEquals(MORE_INFO, response.getWarnings().get(0).getMoreInfo());
-    assertEquals(TRACE, response.getTrace());
-  }
-
-  /** Test list images. */
-  @Test
-  public void testListImages() {
-    server.enqueue(jsonResponse(imageSummaryList));
-
-    ListImagesOptions options = new ListImagesOptions.Builder().collectionId(COLLECTION_ID).build();
-    ImageSummaryList response = service.listImages(options).execute().getResult();
-
-    assertEquals(IMAGE_ID, response.getImages().get(0).getImageId());
-    assertEquals(testDate, response.getImages().get(0).getUpdated());
-  }
-
-  /** Test get image details. */
-  @Test
-  public void testGetImageDetails() {
-    server.enqueue(jsonResponse(imageDetails));
-
-    GetImageDetailsOptions options =
-        new GetImageDetailsOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
-    ImageDetails response = service.getImageDetails(options).execute().getResult();
-
-    assertImageDetails(response);
-  }
-
-  /**
-   * Test delete image.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteImage() throws InterruptedException {
-    server.enqueue(new MockResponse());
-
-    DeleteImageOptions options =
-        new DeleteImageOptions.Builder().collectionId(COLLECTION_ID).imageId(IMAGE_ID).build();
-    service.deleteImage(options).execute();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals("DELETE", request.getMethod());
-  }
-
-  /**
-   * Test get jpeg image.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetJpegImage() throws IOException, InterruptedException {
-    @SuppressWarnings("resource")
-    Buffer buffer = new Buffer().write(Files.toByteArray(imageFile));
-    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, "image/jpeg").setBody(buffer));
-
-    GetJpegImageOptions options =
-        new GetJpegImageOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .imageId(IMAGE_ID)
-            .size(GetJpegImageOptions.Size.FULL)
-            .build();
-    InputStream response = service.getJpegImage(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals("GET", request.getMethod());
+    // Invoke operation with valid options model (positive test)
+    Response<AnalyzeResponse> response =
+        visualRecognitionService.analyze(analyzeOptionsModel).execute();
     assertNotNull(response);
-    response.close();
+    AnalyzeResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, analyzePath);
   }
 
-  /** Test train. */
-  @Test
-  public void testTrain() {
-    server.enqueue(jsonResponse(collection));
+  // Test the analyze operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAnalyzeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    TrainOptions options = new TrainOptions.Builder().collectionId(COLLECTION_ID).build();
-    Collection response = service.train(options).execute().getResult();
-
-    assertCollection(response);
-  }
-
-  /** Test add image training data. */
-  @Test
-  public void testAddImageTrainingData() {
-    server.enqueue(jsonResponse(trainingDataObjects));
-
-    AddImageTrainingDataOptions options =
-        new AddImageTrainingDataOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .imageId(IMAGE_ID)
-            .addObjects(trainingDataObject)
-            .build();
-    TrainingDataObjects response = service.addImageTrainingData(options).execute().getResult();
-
-    assertEquals(OBJECT, response.getObjects().get(0).object());
-    assertEquals(TOP, response.getObjects().get(0).location().top());
-    assertEquals(LEFT, response.getObjects().get(0).location().left());
-    assertEquals(WIDTH, response.getObjects().get(0).location().width());
-    assertEquals(HEIGHT, response.getObjects().get(0).location().height());
-  }
-
-  /**
-   * Test delete user data.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteUserData() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteUserDataOptions options =
-        new DeleteUserDataOptions.Builder().customerId(CUSTOMER_ID).build();
-    service.deleteUserData(options).execute();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals("DELETE", request.getMethod());
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.analyze(null).execute();
   }
 
-  /**
-   * Test get training usage.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testGetTrainingUsage() throws InterruptedException {
-    server.enqueue(jsonResponse(trainingEvents));
+  public void testCreateCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+    String createCollectionPath = "/v4/collections";
 
-    GetTrainingUsageOptions options = new GetTrainingUsageOptions.Builder().build();
-    TrainingEvents response = service.getTrainingUsage(options).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateCollectionOptions model
+    CreateCollectionOptions createCollectionOptionsModel =
+        new CreateCollectionOptions.Builder().name("testString").description("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Collection> response =
+        visualRecognitionService.createCollection(createCollectionOptionsModel).execute();
+    assertNotNull(response);
+    Collection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertEquals("GET", request.getMethod());
-    assertEquals(testDate, response.getStartTime());
-    assertEquals(testDate, response.getEndTime());
-    assertEquals(COMPLETED_EVENTS, response.getCompletedEvents());
-    assertEquals(TRAINED_IMAGES, response.getTrainedImages());
-    assertEquals(TYPE, response.getEvents().get(0).getType());
-    assertEquals(COLLECTION_ID, response.getEvents().get(0).getCollectionId());
-    assertEquals(testDate, response.getEvents().get(0).getCompletionTime());
-    assertEquals(STATUS, response.getEvents().get(0).getStatus());
-    assertEquals(IMAGE_COUNT, response.getEvents().get(0).getImageCount());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createCollectionPath);
   }
 
-  /**
-   * Test list object metadata.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testListObjectMetadata() throws InterruptedException {
-    server.enqueue(jsonResponse(objectMetadataList));
+  public void testListCollectionsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}]}";
+    String listCollectionsPath = "/v4/collections";
 
-    ListObjectMetadataOptions options =
-        new ListObjectMetadataOptions.Builder().collectionId(COLLECTION_ID).build();
-    ObjectMetadataList response = service.listObjectMetadata(options).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListCollectionsOptions model
+    ListCollectionsOptions listCollectionsOptionsModel = new ListCollectionsOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CollectionsList> response =
+        visualRecognitionService.listCollections(listCollectionsOptionsModel).execute();
+    assertNotNull(response);
+    CollectionsList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
 
-    assertEquals("GET", request.getMethod());
-    assertEquals(objectMetadataList.getObjects(), response.getObjects());
-    assertEquals(objectMetadataList.getObjectCount(), response.getObjectCount());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listCollectionsPath);
   }
 
-  /**
-   * Test update object name.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testUpdateObjectName() throws InterruptedException {
-    server.enqueue(jsonResponse(objectName));
+  public void testGetCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+    String getCollectionPath = "/v4/collections/testString";
 
-    UpdateObjectMetadataOptions options =
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCollectionOptions model
+    GetCollectionOptions getCollectionOptionsModel =
+        new GetCollectionOptions.Builder().collectionId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Collection> response =
+        visualRecognitionService.getCollection(getCollectionOptionsModel).execute();
+    assertNotNull(response);
+    Collection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCollectionPath);
+  }
+
+  // Test the getCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getCollection(null).execute();
+  }
+
+  @Test
+  public void testUpdateCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+    String updateCollectionPath = "/v4/collections/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateCollectionOptions model
+    UpdateCollectionOptions updateCollectionOptionsModel =
+        new UpdateCollectionOptions.Builder()
+            .collectionId("testString")
+            .name("testString")
+            .description("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Collection> response =
+        visualRecognitionService.updateCollection(updateCollectionOptionsModel).execute();
+    assertNotNull(response);
+    Collection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateCollectionPath);
+  }
+
+  // Test the updateCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.updateCollection(null).execute();
+  }
+
+  @Test
+  public void testDeleteCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteCollectionPath = "/v4/collections/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteCollectionOptions model
+    DeleteCollectionOptions deleteCollectionOptionsModel =
+        new DeleteCollectionOptions.Builder().collectionId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteCollection(deleteCollectionOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteCollectionPath);
+  }
+
+  // Test the deleteCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteCollection(null).execute();
+  }
+
+  @Test
+  public void testGetModelFileWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "This is a mock binary response.";
+    String getModelFilePath = "/v4/collections/testString/model";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/octet-stream")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetModelFileOptions model
+    GetModelFileOptions getModelFileOptionsModel =
+        new GetModelFileOptions.Builder()
+            .collectionId("testString")
+            .feature("objects")
+            .modelFormat("rscnn")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<InputStream> response =
+        visualRecognitionService.getModelFile(getModelFileOptionsModel).execute();
+    assertNotNull(response);
+    InputStream responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("feature"), "objects");
+    assertEquals(query.get("model_format"), "rscnn");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getModelFilePath);
+  }
+
+  // Test the getModelFile operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetModelFileNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getModelFile(null).execute();
+  }
+
+  @Test
+  public void testAddImagesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\", \"created\": \"2019-01-01T12:00:00\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}], \"warnings\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\"}], \"trace\": \"trace\"}";
+    String addImagesPath = "/v4/collections/testString/images";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the AddImagesOptions model
+    AddImagesOptions addImagesOptionsModel =
+        new AddImagesOptions.Builder()
+            .collectionId("testString")
+            .imagesFile(mockListFileWithMetadata)
+            .imageUrl(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .trainingData(
+                "\"{\"objects\":[{\"object\":\"2018-Fit\",\"location\":{\"left\":33,\"top\":8,\"width\":760,\"height\":419}}]}\"")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ImageDetailsList> response =
+        visualRecognitionService.addImages(addImagesOptionsModel).execute();
+    assertNotNull(response);
+    ImageDetailsList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, addImagesPath);
+  }
+
+  // Test the addImages operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAddImagesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.addImages(null).execute();
+  }
+
+  @Test
+  public void testListImagesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String listImagesPath = "/v4/collections/testString/images";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListImagesOptions model
+    ListImagesOptions listImagesOptionsModel =
+        new ListImagesOptions.Builder().collectionId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ImageSummaryList> response =
+        visualRecognitionService.listImages(listImagesOptionsModel).execute();
+    assertNotNull(response);
+    ImageSummaryList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listImagesPath);
+  }
+
+  // Test the listImages operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListImagesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.listImages(null).execute();
+  }
+
+  @Test
+  public void testGetImageDetailsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\", \"created\": \"2019-01-01T12:00:00\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}";
+    String getImageDetailsPath = "/v4/collections/testString/images/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetImageDetailsOptions model
+    GetImageDetailsOptions getImageDetailsOptionsModel =
+        new GetImageDetailsOptions.Builder()
+            .collectionId("testString")
+            .imageId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ImageDetails> response =
+        visualRecognitionService.getImageDetails(getImageDetailsOptionsModel).execute();
+    assertNotNull(response);
+    ImageDetails responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getImageDetailsPath);
+  }
+
+  // Test the getImageDetails operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetImageDetailsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getImageDetails(null).execute();
+  }
+
+  @Test
+  public void testDeleteImageWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteImagePath = "/v4/collections/testString/images/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteImageOptions model
+    DeleteImageOptions deleteImageOptionsModel =
+        new DeleteImageOptions.Builder().collectionId("testString").imageId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteImage(deleteImageOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteImagePath);
+  }
+
+  // Test the deleteImage operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteImageNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteImage(null).execute();
+  }
+
+  @Test
+  public void testGetJpegImageWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "This is a mock binary response.";
+    String getJpegImagePath = "/v4/collections/testString/images/testString/jpeg";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "image/jpeg")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetJpegImageOptions model
+    GetJpegImageOptions getJpegImageOptionsModel =
+        new GetJpegImageOptions.Builder()
+            .collectionId("testString")
+            .imageId("testString")
+            .size("full")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<InputStream> response =
+        visualRecognitionService.getJpegImage(getJpegImageOptionsModel).execute();
+    assertNotNull(response);
+    InputStream responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("size"), "full");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getJpegImagePath);
+  }
+
+  // Test the getJpegImage operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetJpegImageNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getJpegImage(null).execute();
+  }
+
+  @Test
+  public void testListObjectMetadataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"object_count\": 11, \"objects\": [{\"object\": \"object\", \"count\": 5}]}";
+    String listObjectMetadataPath = "/v4/collections/testString/objects";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListObjectMetadataOptions model
+    ListObjectMetadataOptions listObjectMetadataOptionsModel =
+        new ListObjectMetadataOptions.Builder().collectionId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ObjectMetadataList> response =
+        visualRecognitionService.listObjectMetadata(listObjectMetadataOptionsModel).execute();
+    assertNotNull(response);
+    ObjectMetadataList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listObjectMetadataPath);
+  }
+
+  // Test the listObjectMetadata operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListObjectMetadataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.listObjectMetadata(null).execute();
+  }
+
+  @Test
+  public void testUpdateObjectMetadataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"object\": \"object\", \"count\": 5}";
+    String updateObjectMetadataPath = "/v4/collections/testString/objects/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateObjectMetadataOptions model
+    UpdateObjectMetadataOptions updateObjectMetadataOptionsModel =
         new UpdateObjectMetadataOptions.Builder()
-            .collectionId(COLLECTION_ID)
-            .object(NAME)
-            .newObject(MESSAGE)
+            .collectionId("testString")
+            .object("testString")
+            .newObject("testString")
             .build();
-    UpdateObjectMetadata response = service.updateObjectMetadata(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
 
-    assertEquals("POST", request.getMethod());
-    assertEquals(objectName.getObject(), response.object());
-    assertEquals(objectName.getCount(), response.count());
+    // Invoke operation with valid options model (positive test)
+    Response<UpdateObjectMetadata> response =
+        visualRecognitionService.updateObjectMetadata(updateObjectMetadataOptionsModel).execute();
+    assertNotNull(response);
+    UpdateObjectMetadata responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateObjectMetadataPath);
   }
 
-  /**
-   * Test get object metadata.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetObjectMetadata() throws InterruptedException {
-    server.enqueue(jsonResponse(objectName));
+  // Test the updateObjectMetadata operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateObjectMetadataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    GetObjectMetadataOptions options =
-        new GetObjectMetadataOptions.Builder().collectionId(COLLECTION_ID).object(NAME).build();
-    ObjectMetadata response = service.getObjectMetadata(options).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals("GET", request.getMethod());
-    assertEquals(objectName.getObject(), response.getObject());
-    assertEquals(objectName.getCount(), response.getCount());
-  }
-
-  /**
-   * Test delete object.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteObject() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteObjectOptions options =
-        new DeleteObjectOptions.Builder().collectionId(COLLECTION_ID).object(NAME).build();
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.updateObjectMetadata(null).execute();
+  }
 
-    service.deleteObject(options).execute();
+  @Test
+  public void testGetObjectMetadataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"object\": \"object\", \"count\": 5}";
+    String getObjectMetadataPath = "/v4/collections/testString/objects/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetObjectMetadataOptions model
+    GetObjectMetadataOptions getObjectMetadataOptionsModel =
+        new GetObjectMetadataOptions.Builder()
+            .collectionId("testString")
+            .object("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ObjectMetadata> response =
+        visualRecognitionService.getObjectMetadata(getObjectMetadataOptionsModel).execute();
+    assertNotNull(response);
+    ObjectMetadata responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
 
-    assertEquals("DELETE", request.getMethod());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getObjectMetadataPath);
+  }
+
+  // Test the getObjectMetadata operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetObjectMetadataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getObjectMetadata(null).execute();
+  }
+
+  @Test
+  public void testDeleteObjectWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteObjectPath = "/v4/collections/testString/objects/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteObjectOptions model
+    DeleteObjectOptions deleteObjectOptionsModel =
+        new DeleteObjectOptions.Builder().collectionId("testString").object("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteObject(deleteObjectOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteObjectPath);
+  }
+
+  // Test the deleteObject operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteObjectNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteObject(null).execute();
+  }
+
+  @Test
+  public void testTrainWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+    String trainPath = "/v4/collections/testString/train";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the TrainOptions model
+    TrainOptions trainOptionsModel = new TrainOptions.Builder().collectionId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Collection> response = visualRecognitionService.train(trainOptionsModel).execute();
+    assertNotNull(response);
+    Collection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, trainPath);
+  }
+
+  // Test the train operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTrainNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.train(null).execute();
+  }
+
+  @Test
+  public void testAddImageTrainingDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}";
+    String addImageTrainingDataPath = "/v4/collections/testString/images/testString/training_data";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the Location model
+    Location locationModel =
+        new Location.Builder()
+            .top(Long.valueOf("26"))
+            .left(Long.valueOf("26"))
+            .width(Long.valueOf("26"))
+            .height(Long.valueOf("26"))
+            .build();
+
+    // Construct an instance of the TrainingDataObject model
+    TrainingDataObject trainingDataObjectModel =
+        new TrainingDataObject.Builder().object("testString").location(locationModel).build();
+
+    // Construct an instance of the AddImageTrainingDataOptions model
+    AddImageTrainingDataOptions addImageTrainingDataOptionsModel =
+        new AddImageTrainingDataOptions.Builder()
+            .collectionId("testString")
+            .imageId("testString")
+            .objects(
+                new java.util.ArrayList<TrainingDataObject>(
+                    java.util.Arrays.asList(trainingDataObjectModel)))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingDataObjects> response =
+        visualRecognitionService.addImageTrainingData(addImageTrainingDataOptionsModel).execute();
+    assertNotNull(response);
+    TrainingDataObjects responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, addImageTrainingDataPath);
+  }
+
+  // Test the addImageTrainingData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAddImageTrainingDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.addImageTrainingData(null).execute();
+  }
+
+  @Test
+  public void testGetTrainingUsageWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"start_time\": \"2019-01-01T12:00:00\", \"end_time\": \"2019-01-01T12:00:00\", \"completed_events\": 15, \"trained_images\": 13, \"events\": [{\"type\": \"objects\", \"collection_id\": \"collectionId\", \"completion_time\": \"2019-01-01T12:00:00\", \"status\": \"failed\", \"image_count\": 10}]}";
+    String getTrainingUsagePath = "/v4/training_usage";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetTrainingUsageOptions model
+    GetTrainingUsageOptions getTrainingUsageOptionsModel =
+        new GetTrainingUsageOptions.Builder()
+            .startTime(TestUtilities.createMockDate("2019-01-01"))
+            .endTime(TestUtilities.createMockDate("2019-01-01"))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TrainingEvents> response =
+        visualRecognitionService.getTrainingUsage(getTrainingUsageOptionsModel).execute();
+    assertNotNull(response);
+    TrainingEvents responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getTrainingUsagePath);
+  }
+
+  @Test
+  public void testDeleteUserDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteUserDataPath = "/v4/user_data";
+
+    server.enqueue(new MockResponse().setResponseCode(202).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteUserDataOptions model
+    DeleteUserDataOptions deleteUserDataOptionsModel =
+        new DeleteUserDataOptions.Builder().customerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteUserData(deleteUserDataOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteUserDataPath);
+  }
+
+  // Test the deleteUserData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteUserDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteUserData(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    visualRecognitionService = null;
   }
 }

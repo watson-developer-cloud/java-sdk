@@ -47,7 +47,7 @@ public class ListTrainingDataOptions extends GenericModel {
     /**
      * Builds a ListTrainingDataOptions.
      *
-     * @return the listTrainingDataOptions
+     * @return the new ListTrainingDataOptions instance
      */
     public ListTrainingDataOptions build() {
       return new ListTrainingDataOptions(this);

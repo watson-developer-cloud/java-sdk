@@ -10,6 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ */
+
 package com.ibm.watson.visual_recognition.v4;
 
 import com.google.gson.JsonObject;
@@ -20,6 +25,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.cloud.sdk.core.util.RequestUtils;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
 import com.ibm.watson.common.SdkCommon;
@@ -55,79 +61,118 @@ import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * Provide images to the IBM Watson&trade; Visual Recognition service for analysis. The service
- * detects objects based on a set of images with training data.
+ * IBM Watson&amp;trade; Visual Recognition is discontinued. Existing instances are supported until
+ * 1 December 2021, but as of 7 January 2021, you can't create instances. Any instance that is
+ * provisioned on 1 December 2021 will be deleted. {: deprecated}
+ *
+ * <p>Provide images to the IBM Watson Visual Recognition service for analysis. The service detects
+ * objects based on a set of images with training data.
  *
  * @version v4
  * @see <a
  *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *     Recognition</a>
  */
+
+/**
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
+ *     information, see Visual Recognition Deprecation
+ *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ */
+@Deprecated
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
-  private static final String DEFAULT_SERVICE_URL =
+  public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
-  private String versionDate;
+  private String version;
 
   /**
-   * Constructs a new `VisualRecognition` client using the DEFAULT_SERVICE_NAME.
+   * Constructs an instance of the `VisualRecognition` client. The default service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2019-02-11`.
    */
-  public VisualRecognition(String versionDate) {
+  public VisualRecognition(String version) {
     this(
-        versionDate,
+        version,
         DEFAULT_SERVICE_NAME,
         ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the DEFAULT_SERVICE_NAME and the specified
-   * Authenticator.
+   * Constructs an instance of the `VisualRecognition` client. The default service name and
+   * specified authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2019-02-11`.
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public VisualRecognition(String versionDate, Authenticator authenticator) {
-    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  public VisualRecognition(String version, Authenticator authenticator) {
+    this(version, DEFAULT_SERVICE_NAME, authenticator);
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the specified serviceName.
+   * Constructs an instance of the `VisualRecognition` client. The specified service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2019-02-11`.
+   * @param serviceName the service name to be used when configuring the client instance
    */
-  public VisualRecognition(String versionDate, String serviceName) {
-    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  public VisualRecognition(String version, String serviceName) {
+    this(version, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the specified Authenticator and serviceName.
+   * Constructs an instance of the `VisualRecognition` client. The specified service name and
+   * authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2019-02-11`.
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public VisualRecognition(String versionDate, String serviceName, Authenticator authenticator) {
+  public VisualRecognition(String version, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-    this.versionDate = versionDate;
+    setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
+            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
+   * current version is `2019-02-11`.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return this.version;
+  }
+
+  /**
+   * Sets the version.
+   *
+   * @param version the new version
+   */
+  public void setVersion(final String version) {
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
+    this.version = version;
   }
 
   /**
@@ -141,25 +186,27 @@ public class VisualRecognition extends BaseService {
    * service assumes UTF-8 encoding if it encounters non-ASCII characters.
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link AnalyzeResponse}
+   * @return a {@link ServiceCall} with a result of type {@link AnalyzeResponse}
    */
   public ServiceCall<AnalyzeResponse> analyze(AnalyzeOptions analyzeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(analyzeOptions, "analyzeOptions cannot be null");
-    String[] pathSegments = {"v4/analyze"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v4/analyze"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "analyze");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart(
-        "collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
-    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
+    for (String item : analyzeOptions.collectionIds()) {
+      multipartBuilder.addFormDataPart("collection_ids", item);
+    }
+    for (String item : analyzeOptions.features()) {
+      multipartBuilder.addFormDataPart("features", item);
+    }
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody =
@@ -195,29 +242,26 @@ public class VisualRecognition extends BaseService {
    *
    * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   * @return a {@link ServiceCall} with a result of type {@link Collection}
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createCollectionOptions, "createCollectionOptions cannot be null");
-    String[] pathSegments = {"v4/collections"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v4/collections"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "createCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
-    if (createCollectionOptions != null) {
-      if (createCollectionOptions.name() != null) {
-        contentJson.addProperty("name", createCollectionOptions.name());
-      }
-      if (createCollectionOptions.description() != null) {
-        contentJson.addProperty("description", createCollectionOptions.description());
-      }
+    if (createCollectionOptions.name() != null) {
+      contentJson.addProperty("name", createCollectionOptions.name());
+    }
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
@@ -237,7 +281,7 @@ public class VisualRecognition extends BaseService {
    * <p>Encode the name and description in UTF-8 if they contain non-ASCII characters. The service
    * assumes UTF-8 encoding if it encounters non-ASCII characters.
    *
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   * @return a {@link ServiceCall} with a result of type {@link Collection}
    */
   public ServiceCall<Collection> createCollection() {
     return createCollection(null);
@@ -250,22 +294,19 @@ public class VisualRecognition extends BaseService {
    *
    * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link CollectionsList}
+   * @return a {@link ServiceCall} with a result of type {@link CollectionsList}
    */
   public ServiceCall<CollectionsList> listCollections(
       ListCollectionsOptions listCollectionsOptions) {
-    String[] pathSegments = {"v4/collections"};
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v4/collections"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listCollections");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listCollectionsOptions != null) {}
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<CollectionsList> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<CollectionsList>() {}.getType());
@@ -277,7 +318,7 @@ public class VisualRecognition extends BaseService {
    *
    * <p>Retrieves a list of collections for the service instance.
    *
-   * @return a {@link ServiceCall} with a response type of {@link CollectionsList}
+   * @return a {@link ServiceCall} with a result of type {@link CollectionsList}
    */
   public ServiceCall<CollectionsList> listCollections() {
     return listCollections(null);
@@ -290,24 +331,24 @@ public class VisualRecognition extends BaseService {
    *
    * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   * @return a {@link ServiceCall} with a result of type {@link Collection}
    */
   public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getCollectionOptions, "getCollectionOptions cannot be null");
-    String[] pathSegments = {"v4/collections"};
-    String[] pathParameters = {getCollectionOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", getCollectionOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Collection> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Collection>() {}.getType());
@@ -324,23 +365,24 @@ public class VisualRecognition extends BaseService {
    *
    * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   * @return a {@link ServiceCall} with a result of type {@link Collection}
    */
   public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateCollectionOptions, "updateCollectionOptions cannot be null");
-    String[] pathSegments = {"v4/collections"};
-    String[] pathParameters = {updateCollectionOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", updateCollectionOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "updateCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
     if (updateCollectionOptions.name() != null) {
       contentJson.addProperty("name", updateCollectionOptions.name());
@@ -362,24 +404,24 @@ public class VisualRecognition extends BaseService {
    *
    * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    String[] pathSegments = {"v4/collections"};
-    String[] pathParameters = {deleteCollectionOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", deleteCollectionOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteCollection");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -397,25 +439,26 @@ public class VisualRecognition extends BaseService {
    * Android](https://github.com/matt-ny/rscnn) project in GitHub.
    *
    * @param getModelFileOptions the {@link GetModelFileOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
    */
   public ServiceCall<InputStream> getModelFile(GetModelFileOptions getModelFileOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getModelFileOptions, "getModelFileOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "model"};
-    String[] pathParameters = {getModelFileOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", getModelFileOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}/model", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getModelFile");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/octet-stream");
-    builder.query("feature", getModelFileOptions.feature());
-    builder.query("model_format", getModelFileOptions.modelFormat());
+    builder.query("version", String.valueOf(this.version));
+    builder.query("feature", String.valueOf(getModelFileOptions.feature()));
+    builder.query("model_format", String.valueOf(getModelFileOptions.modelFormat()));
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -429,7 +472,7 @@ public class VisualRecognition extends BaseService {
    * service assumes UTF-8 encoding if it encounters non-ASCII characters.
    *
    * @param addImagesOptions the {@link AddImagesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ImageDetailsList}
+   * @return a {@link ServiceCall} with a result of type {@link ImageDetailsList}
    */
   public ServiceCall<ImageDetailsList> addImages(AddImagesOptions addImagesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
@@ -439,18 +482,19 @@ public class VisualRecognition extends BaseService {
             || (addImagesOptions.imageUrl() != null)
             || (addImagesOptions.trainingData() != null),
         "At least one of imagesFile, imageUrl, or trainingData must be supplied.");
-    String[] pathSegments = {"v4/collections", "images"};
-    String[] pathParameters = {addImagesOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", addImagesOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}/images", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "addImages");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addImagesOptions.imagesFile() != null) {
@@ -481,24 +525,24 @@ public class VisualRecognition extends BaseService {
    * <p>Retrieves a list of images in a collection.
    *
    * @param listImagesOptions the {@link ListImagesOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ImageSummaryList}
+   * @return a {@link ServiceCall} with a result of type {@link ImageSummaryList}
    */
   public ServiceCall<ImageSummaryList> listImages(ListImagesOptions listImagesOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listImagesOptions, "listImagesOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "images"};
-    String[] pathParameters = {listImagesOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", listImagesOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}/images", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listImages");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<ImageSummaryList> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<ImageSummaryList>() {}.getType());
@@ -512,26 +556,27 @@ public class VisualRecognition extends BaseService {
    *
    * @param getImageDetailsOptions the {@link GetImageDetailsOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link ImageDetails}
+   * @return a {@link ServiceCall} with a result of type {@link ImageDetails}
    */
   public ServiceCall<ImageDetails> getImageDetails(GetImageDetailsOptions getImageDetailsOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getImageDetailsOptions, "getImageDetailsOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "images"};
-    String[] pathParameters = {
-      getImageDetailsOptions.collectionId(), getImageDetailsOptions.imageId()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", getImageDetailsOptions.collectionId());
+    pathParamsMap.put("image_id", getImageDetailsOptions.imageId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/images/{image_id}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getImageDetails");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<ImageDetails> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<ImageDetails>() {}.getType());
@@ -544,24 +589,27 @@ public class VisualRecognition extends BaseService {
    * <p>Delete one image from a collection.
    *
    * @param deleteImageOptions the {@link DeleteImageOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteImage(DeleteImageOptions deleteImageOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteImageOptions, "deleteImageOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "images"};
-    String[] pathParameters = {deleteImageOptions.collectionId(), deleteImageOptions.imageId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", deleteImageOptions.collectionId());
+    pathParamsMap.put("image_id", deleteImageOptions.imageId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/images/{image_id}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteImage");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -572,25 +620,29 @@ public class VisualRecognition extends BaseService {
    * <p>Download a JPEG representation of an image.
    *
    * @param getJpegImageOptions the {@link GetJpegImageOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
    */
   public ServiceCall<InputStream> getJpegImage(GetJpegImageOptions getJpegImageOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getJpegImageOptions, "getJpegImageOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "images", "jpeg"};
-    String[] pathParameters = {getJpegImageOptions.collectionId(), getJpegImageOptions.imageId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", getJpegImageOptions.collectionId());
+    pathParamsMap.put("image_id", getJpegImageOptions.imageId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/images/{image_id}/jpeg",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getJpegImage");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "image/jpeg");
+    builder.query("version", String.valueOf(this.version));
     if (getJpegImageOptions.size() != null) {
-      builder.query("size", getJpegImageOptions.size());
+      builder.query("size", String.valueOf(getJpegImageOptions.size()));
     }
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
@@ -603,25 +655,25 @@ public class VisualRecognition extends BaseService {
    *
    * @param listObjectMetadataOptions the {@link ListObjectMetadataOptions} containing the options
    *     for the call
-   * @return a {@link ServiceCall} with a response type of {@link ObjectMetadataList}
+   * @return a {@link ServiceCall} with a result of type {@link ObjectMetadataList}
    */
   public ServiceCall<ObjectMetadataList> listObjectMetadata(
       ListObjectMetadataOptions listObjectMetadataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         listObjectMetadataOptions, "listObjectMetadataOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "objects"};
-    String[] pathParameters = {listObjectMetadataOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", listObjectMetadataOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}/objects", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "listObjectMetadata");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<ObjectMetadataList> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<ObjectMetadataList>() {}.getType());
@@ -636,26 +688,28 @@ public class VisualRecognition extends BaseService {
    *
    * @param updateObjectMetadataOptions the {@link UpdateObjectMetadataOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of {@link UpdateObjectMetadata}
+   * @return a {@link ServiceCall} with a result of type {@link UpdateObjectMetadata}
    */
   public ServiceCall<UpdateObjectMetadata> updateObjectMetadata(
       UpdateObjectMetadataOptions updateObjectMetadataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateObjectMetadataOptions, "updateObjectMetadataOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "objects"};
-    String[] pathParameters = {
-      updateObjectMetadataOptions.collectionId(), updateObjectMetadataOptions.object()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", updateObjectMetadataOptions.collectionId());
+    pathParamsMap.put("object", updateObjectMetadataOptions.object());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/objects/{object}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "updateObjectMetadata");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("object", updateObjectMetadataOptions.newObject());
     builder.bodyJson(contentJson);
@@ -672,27 +726,28 @@ public class VisualRecognition extends BaseService {
    *
    * @param getObjectMetadataOptions the {@link GetObjectMetadataOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link ObjectMetadata}
+   * @return a {@link ServiceCall} with a result of type {@link ObjectMetadata}
    */
   public ServiceCall<ObjectMetadata> getObjectMetadata(
       GetObjectMetadataOptions getObjectMetadataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getObjectMetadataOptions, "getObjectMetadataOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "objects"};
-    String[] pathParameters = {
-      getObjectMetadataOptions.collectionId(), getObjectMetadataOptions.object()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", getObjectMetadataOptions.collectionId());
+    pathParamsMap.put("object", getObjectMetadataOptions.object());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/objects/{object}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getObjectMetadata");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<ObjectMetadata> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<ObjectMetadata>() {}.getType());
@@ -706,24 +761,27 @@ public class VisualRecognition extends BaseService {
    * images that use the object.
    *
    * @param deleteObjectOptions the {@link DeleteObjectOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteObject(DeleteObjectOptions deleteObjectOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteObjectOptions, "deleteObjectOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "objects"};
-    String[] pathParameters = {deleteObjectOptions.collectionId(), deleteObjectOptions.object()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", deleteObjectOptions.collectionId());
+    pathParamsMap.put("object", deleteObjectOptions.object());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/objects/{object}",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteObject");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -736,23 +794,23 @@ public class VisualRecognition extends BaseService {
    * progress, the request queues the next training job.
    *
    * @param trainOptions the {@link TrainOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   * @return a {@link ServiceCall} with a result of type {@link Collection}
    */
   public ServiceCall<Collection> train(TrainOptions trainOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(trainOptions, "trainOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "train"};
-    String[] pathParameters = {trainOptions.collectionId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", trainOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v4/collections/{collection_id}/train", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "train");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Collection> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Collection>() {}.getType());
@@ -774,26 +832,28 @@ public class VisualRecognition extends BaseService {
    *
    * @param addImageTrainingDataOptions the {@link AddImageTrainingDataOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingDataObjects}
+   * @return a {@link ServiceCall} with a result of type {@link TrainingDataObjects}
    */
   public ServiceCall<TrainingDataObjects> addImageTrainingData(
       AddImageTrainingDataOptions addImageTrainingDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         addImageTrainingDataOptions, "addImageTrainingDataOptions cannot be null");
-    String[] pathSegments = {"v4/collections", "images", "training_data"};
-    String[] pathParameters = {
-      addImageTrainingDataOptions.collectionId(), addImageTrainingDataOptions.imageId()
-    };
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("collection_id", addImageTrainingDataOptions.collectionId());
+    pathParamsMap.put("image_id", addImageTrainingDataOptions.imageId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v4/collections/{collection_id}/images/{image_id}/training_data",
+                pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "addImageTrainingData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
     if (addImageTrainingDataOptions.objects() != null) {
       contentJson.add(
@@ -816,27 +876,27 @@ public class VisualRecognition extends BaseService {
    *
    * @param getTrainingUsageOptions the {@link GetTrainingUsageOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link TrainingEvents}
+   * @return a {@link ServiceCall} with a result of type {@link TrainingEvents}
    */
   public ServiceCall<TrainingEvents> getTrainingUsage(
       GetTrainingUsageOptions getTrainingUsageOptions) {
-    String[] pathSegments = {"v4/training_usage"};
+    if (getTrainingUsageOptions == null) {
+      getTrainingUsageOptions = new GetTrainingUsageOptions.Builder().build();
+    }
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v4/training_usage"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "getTrainingUsage");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (getTrainingUsageOptions != null) {
-      if (getTrainingUsageOptions.startTime() != null) {
-        builder.query("start_time", getTrainingUsageOptions.startTime());
-      }
-      if (getTrainingUsageOptions.endTime() != null) {
-        builder.query("end_time", getTrainingUsageOptions.endTime());
-      }
+    builder.query("version", String.valueOf(this.version));
+    if (getTrainingUsageOptions.startTime() != null) {
+      builder.query("start_time", DateUtils.formatAsDate(getTrainingUsageOptions.startTime()));
+    }
+    if (getTrainingUsageOptions.endTime() != null) {
+      builder.query("end_time", DateUtils.formatAsDate(getTrainingUsageOptions.endTime()));
     }
     ResponseConverter<TrainingEvents> responseConverter =
         ResponseConverterUtils.getValue(
@@ -850,7 +910,7 @@ public class VisualRecognition extends BaseService {
    * <p>Information about the completed training events. You can use this information to determine
    * how close you are to the training limits for the month.
    *
-   * @return a {@link ServiceCall} with a response type of {@link TrainingEvents}
+   * @return a {@link ServiceCall} with a result of type {@link TrainingEvents}
    */
   public ServiceCall<TrainingEvents> getTrainingUsage() {
     return getTrainingUsage(null);
@@ -869,22 +929,21 @@ public class VisualRecognition extends BaseService {
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteUserDataOptions, "deleteUserDataOptions cannot be null");
-    String[] pathSegments = {"v4/user_data"};
     RequestBuilder builder =
-        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v4/user_data"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v4", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("customer_id", deleteUserDataOptions.customerId());
+    builder.query("version", String.valueOf(this.version));
+    builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

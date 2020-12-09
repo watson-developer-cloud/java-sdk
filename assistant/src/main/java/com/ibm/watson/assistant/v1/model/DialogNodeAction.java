@@ -75,7 +75,7 @@ public class DialogNodeAction extends GenericModel {
     /**
      * Builds a DialogNodeAction.
      *
-     * @return the dialogNodeAction
+     * @return the new DialogNodeAction instance
      */
     public DialogNodeAction build() {
       return new DialogNodeAction(this);

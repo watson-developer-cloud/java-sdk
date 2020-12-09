@@ -47,7 +47,7 @@ public class WebhookHeader extends GenericModel {
     /**
      * Builds a WebhookHeader.
      *
-     * @return the webhookHeader
+     * @return the new WebhookHeader instance
      */
     public WebhookHeader build() {
       return new WebhookHeader(this);

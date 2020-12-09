@@ -52,7 +52,7 @@ public class GetTrainingDataOptions extends GenericModel {
     /**
      * Builds a GetTrainingDataOptions.
      *
-     * @return the getTrainingDataOptions
+     * @return the new GetTrainingDataOptions instance
      */
     public GetTrainingDataOptions build() {
       return new GetTrainingDataOptions(this);

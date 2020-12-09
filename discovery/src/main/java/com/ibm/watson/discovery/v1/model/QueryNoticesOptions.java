@@ -100,7 +100,7 @@ public class QueryNoticesOptions extends GenericModel {
     /**
      * Builds a QueryNoticesOptions.
      *
-     * @return the queryNoticesOptions
+     * @return the new QueryNoticesOptions instance
      */
     public QueryNoticesOptions build() {
       return new QueryNoticesOptions(this);
@@ -563,7 +563,7 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the highlight.
    *
    * <p>When true, a highlight field is returned for each result which contains the fields which
-   * match the query with `<em></em>` tags around the matching query terms.
+   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
    *
    * @return the highlight
    */

@@ -42,7 +42,7 @@ public class UnregisterCallbackOptions extends GenericModel {
     /**
      * Builds a UnregisterCallbackOptions.
      *
-     * @return the unregisterCallbackOptions
+     * @return the new UnregisterCallbackOptions instance
      */
     public UnregisterCallbackOptions build() {
       return new UnregisterCallbackOptions(this);

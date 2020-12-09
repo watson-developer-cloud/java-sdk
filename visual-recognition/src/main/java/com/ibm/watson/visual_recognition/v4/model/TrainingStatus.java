@@ -42,7 +42,7 @@ public class TrainingStatus extends GenericModel {
     /**
      * Builds a TrainingStatus.
      *
-     * @return the trainingStatus
+     * @return the new TrainingStatus instance
      */
     public TrainingStatus build() {
       return new TrainingStatus(this);

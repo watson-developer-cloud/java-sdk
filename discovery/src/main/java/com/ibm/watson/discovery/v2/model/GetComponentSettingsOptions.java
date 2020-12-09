@@ -42,7 +42,7 @@ public class GetComponentSettingsOptions extends GenericModel {
     /**
      * Builds a GetComponentSettingsOptions.
      *
-     * @return the getComponentSettingsOptions
+     * @return the new GetComponentSettingsOptions instance
      */
     public GetComponentSettingsOptions build() {
       return new GetComponentSettingsOptions(this);

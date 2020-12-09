@@ -38,6 +38,16 @@ public class Workspace extends GenericModel {
   protected String name;
   protected String description;
   protected String language;
+
+  @SerializedName("workspace_id")
+  protected String workspaceId;
+
+  @SerializedName("dialog_nodes")
+  protected List<DialogNode> dialogNodes;
+
+  protected List<Counterexample> counterexamples;
+  protected Date created;
+  protected Date updated;
   protected Map<String, Object> metadata;
 
   @SerializedName("learning_opt_out")
@@ -46,20 +56,10 @@ public class Workspace extends GenericModel {
   @SerializedName("system_settings")
   protected WorkspaceSystemSettings systemSettings;
 
-  @SerializedName("workspace_id")
-  protected String workspaceId;
-
   protected String status;
-  protected Date created;
-  protected Date updated;
+  protected List<Webhook> webhooks;
   protected List<Intent> intents;
   protected List<Entity> entities;
-
-  @SerializedName("dialog_nodes")
-  protected List<DialogNode> dialogNodes;
-
-  protected List<Counterexample> counterexamples;
-  protected List<Webhook> webhooks;
 
   /**
    * Gets the name.
@@ -94,6 +94,61 @@ public class Workspace extends GenericModel {
    */
   public String getLanguage() {
     return language;
+  }
+
+  /**
+   * Gets the workspaceId.
+   *
+   * <p>The workspace ID of the workspace.
+   *
+   * @return the workspaceId
+   */
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  /**
+   * Gets the dialogNodes.
+   *
+   * <p>An array of objects describing the dialog nodes in the workspace.
+   *
+   * @return the dialogNodes
+   */
+  public List<DialogNode> getDialogNodes() {
+    return dialogNodes;
+  }
+
+  /**
+   * Gets the counterexamples.
+   *
+   * <p>An array of objects defining input examples that have been marked as irrelevant input.
+   *
+   * @return the counterexamples
+   */
+  public List<Counterexample> getCounterexamples() {
+    return counterexamples;
+  }
+
+  /**
+   * Gets the created.
+   *
+   * <p>The timestamp for creation of the object.
+   *
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * Gets the updated.
+   *
+   * <p>The timestamp for the most recent update to the object.
+   *
+   * @return the updated
+   */
+  public Date getUpdated() {
+    return updated;
   }
 
   /**
@@ -132,17 +187,6 @@ public class Workspace extends GenericModel {
   }
 
   /**
-   * Gets the workspaceId.
-   *
-   * <p>The workspace ID of the workspace.
-   *
-   * @return the workspaceId
-   */
-  public String getWorkspaceId() {
-    return workspaceId;
-  }
-
-  /**
    * Gets the status.
    *
    * <p>The current status of the workspace.
@@ -154,25 +198,12 @@ public class Workspace extends GenericModel {
   }
 
   /**
-   * Gets the created.
+   * Gets the webhooks.
    *
-   * <p>The timestamp for creation of the object.
-   *
-   * @return the created
+   * @return the webhooks
    */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the updated.
-   *
-   * <p>The timestamp for the most recent update to the object.
-   *
-   * @return the updated
-   */
-  public Date getUpdated() {
-    return updated;
+  public List<Webhook> getWebhooks() {
+    return webhooks;
   }
 
   /**
@@ -195,36 +226,5 @@ public class Workspace extends GenericModel {
    */
   public List<Entity> getEntities() {
     return entities;
-  }
-
-  /**
-   * Gets the dialogNodes.
-   *
-   * <p>An array of objects describing the dialog nodes in the workspace.
-   *
-   * @return the dialogNodes
-   */
-  public List<DialogNode> getDialogNodes() {
-    return dialogNodes;
-  }
-
-  /**
-   * Gets the counterexamples.
-   *
-   * <p>An array of counterexamples.
-   *
-   * @return the counterexamples
-   */
-  public List<Counterexample> getCounterexamples() {
-    return counterexamples;
-  }
-
-  /**
-   * Gets the webhooks.
-   *
-   * @return the webhooks
-   */
-  public List<Webhook> getWebhooks() {
-    return webhooks;
   }
 }

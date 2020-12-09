@@ -42,7 +42,7 @@ public class TrainOptions extends GenericModel {
     /**
      * Builds a TrainOptions.
      *
-     * @return the trainOptions
+     * @return the new TrainOptions instance
      */
     public TrainOptions build() {
       return new TrainOptions(this);

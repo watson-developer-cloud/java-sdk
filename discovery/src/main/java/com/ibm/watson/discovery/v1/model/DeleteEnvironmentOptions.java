@@ -42,7 +42,7 @@ public class DeleteEnvironmentOptions extends GenericModel {
     /**
      * Builds a DeleteEnvironmentOptions.
      *
-     * @return the deleteEnvironmentOptions
+     * @return the new DeleteEnvironmentOptions instance
      */
     public DeleteEnvironmentOptions build() {
       return new DeleteEnvironmentOptions(this);

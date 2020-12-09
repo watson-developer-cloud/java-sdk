@@ -52,7 +52,7 @@ public class DeleteExampleOptions extends GenericModel {
     /**
      * Builds a DeleteExampleOptions.
      *
-     * @return the deleteExampleOptions
+     * @return the new DeleteExampleOptions instance
      */
     public DeleteExampleOptions build() {
       return new DeleteExampleOptions(this);

@@ -42,7 +42,7 @@ public class ListGatewaysOptions extends GenericModel {
     /**
      * Builds a ListGatewaysOptions.
      *
-     * @return the listGatewaysOptions
+     * @return the new ListGatewaysOptions instance
      */
     public ListGatewaysOptions build() {
       return new ListGatewaysOptions(this);

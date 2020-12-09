@@ -41,7 +41,7 @@ public class RelationsOptions extends GenericModel {
     /**
      * Builds a RelationsOptions.
      *
-     * @return the relationsOptions
+     * @return the new RelationsOptions instance
      */
     public RelationsOptions build() {
       return new RelationsOptions(this);

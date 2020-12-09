@@ -15,6 +15,8 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.HashMap;
+import java.util.Map;
 
 /** An input object that includes the input text. */
 public class MessageInput extends DynamicModel<Object> {
@@ -36,6 +38,99 @@ public class MessageInput extends DynamicModel<Object> {
 
   public MessageInput() {
     super(new TypeToken<Object>() {});
+  }
+
+  /** Builder. */
+  public static class Builder {
+    private String text;
+    private Boolean spellingSuggestions;
+    private Boolean spellingAutoCorrect;
+    private Map<String, Object> dynamicProperties;
+
+    private Builder(MessageInput messageInput) {
+      this.text = messageInput.text;
+      this.spellingSuggestions = messageInput.spellingSuggestions;
+      this.spellingAutoCorrect = messageInput.spellingAutoCorrect;
+      this.dynamicProperties = messageInput.getProperties();
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a MessageInput.
+     *
+     * @return the new MessageInput instance
+     */
+    public MessageInput build() {
+      return new MessageInput(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the MessageInput builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the spellingSuggestions.
+     *
+     * @param spellingSuggestions the spellingSuggestions
+     * @return the MessageInput builder
+     */
+    public Builder spellingSuggestions(Boolean spellingSuggestions) {
+      this.spellingSuggestions = spellingSuggestions;
+      return this;
+    }
+
+    /**
+     * Set the spellingAutoCorrect.
+     *
+     * @param spellingAutoCorrect the spellingAutoCorrect
+     * @return the MessageInput builder
+     */
+    public Builder spellingAutoCorrect(Boolean spellingAutoCorrect) {
+      this.spellingAutoCorrect = spellingAutoCorrect;
+      return this;
+    }
+
+    /**
+     * Add an arbitrary property.
+     *
+     * @param name the name of the property to add
+     * @param value the value of the property to add
+     * @return the MessageInput builder
+     */
+    public Builder add(String name, Object value) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(name, "name cannot be null");
+      if (this.dynamicProperties == null) {
+        this.dynamicProperties = new HashMap<String, Object>();
+      }
+      this.dynamicProperties.put(name, value);
+      return this;
+    }
+  }
+
+  protected MessageInput(Builder builder) {
+    super(new TypeToken<Object>() {});
+    text = builder.text;
+    spellingSuggestions = builder.spellingSuggestions;
+    spellingAutoCorrect = builder.spellingAutoCorrect;
+    this.setProperties(builder.dynamicProperties);
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageInput builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -118,15 +213,6 @@ public class MessageInput extends DynamicModel<Object> {
   }
 
   /**
-   * Sets the suggestedText.
-   *
-   * @param suggestedText the new suggestedText
-   */
-  public void setSuggestedText(final String suggestedText) {
-    this.suggestedText = suggestedText;
-  }
-
-  /**
    * Gets the originalText.
    *
    * <p>The original user input text. This property is returned only if autocorrection is enabled
@@ -136,14 +222,5 @@ public class MessageInput extends DynamicModel<Object> {
    */
   public String getOriginalText() {
     return this.originalText;
-  }
-
-  /**
-   * Sets the originalText.
-   *
-   * @param originalText the new originalText
-   */
-  public void setOriginalText(final String originalText) {
-    this.originalText = originalText;
   }
 }

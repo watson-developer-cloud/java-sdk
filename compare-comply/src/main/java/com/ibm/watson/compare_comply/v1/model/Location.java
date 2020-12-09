@@ -50,7 +50,7 @@ public class Location extends GenericModel {
     /**
      * Builds a Location.
      *
-     * @return the location
+     * @return the new Location instance
      */
     public Location build() {
       return new Location(this);

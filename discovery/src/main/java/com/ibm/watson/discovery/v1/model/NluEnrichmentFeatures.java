@@ -14,6 +14,7 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /** Object containing Natural Language Understanding features to be used. */
 public class NluEnrichmentFeatures extends GenericModel {
@@ -22,7 +23,7 @@ public class NluEnrichmentFeatures extends GenericModel {
   protected NluEnrichmentEntities entities;
   protected NluEnrichmentSentiment sentiment;
   protected NluEnrichmentEmotion emotion;
-  protected NluEnrichmentCategories categories;
+  protected Map<String, Object> categories;
 
   @SerializedName("semantic_roles")
   protected NluEnrichmentSemanticRoles semanticRoles;
@@ -36,7 +37,7 @@ public class NluEnrichmentFeatures extends GenericModel {
     private NluEnrichmentEntities entities;
     private NluEnrichmentSentiment sentiment;
     private NluEnrichmentEmotion emotion;
-    private NluEnrichmentCategories categories;
+    private Map<String, Object> categories;
     private NluEnrichmentSemanticRoles semanticRoles;
     private NluEnrichmentRelations relations;
     private NluEnrichmentConcepts concepts;
@@ -58,7 +59,7 @@ public class NluEnrichmentFeatures extends GenericModel {
     /**
      * Builds a NluEnrichmentFeatures.
      *
-     * @return the nluEnrichmentFeatures
+     * @return the new NluEnrichmentFeatures instance
      */
     public NluEnrichmentFeatures build() {
       return new NluEnrichmentFeatures(this);
@@ -114,7 +115,7 @@ public class NluEnrichmentFeatures extends GenericModel {
      * @param categories the categories
      * @return the NluEnrichmentFeatures builder
      */
-    public Builder categories(NluEnrichmentCategories categories) {
+    public Builder categories(Map<String, Object> categories) {
       this.categories = categories;
       return this;
     }
@@ -224,7 +225,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the categories
    */
-  public NluEnrichmentCategories categories() {
+  public Map<String, Object> categories() {
     return categories;
   }
 

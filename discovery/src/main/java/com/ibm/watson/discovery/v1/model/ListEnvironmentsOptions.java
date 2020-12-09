@@ -33,7 +33,7 @@ public class ListEnvironmentsOptions extends GenericModel {
     /**
      * Builds a ListEnvironmentsOptions.
      *
-     * @return the listEnvironmentsOptions
+     * @return the new ListEnvironmentsOptions instance
      */
     public ListEnvironmentsOptions build() {
       return new ListEnvironmentsOptions(this);

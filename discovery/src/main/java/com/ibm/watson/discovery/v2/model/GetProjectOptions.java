@@ -42,7 +42,7 @@ public class GetProjectOptions extends GenericModel {
     /**
      * Builds a GetProjectOptions.
      *
-     * @return the getProjectOptions
+     * @return the new GetProjectOptions instance
      */
     public GetProjectOptions build() {
       return new GetProjectOptions(this);

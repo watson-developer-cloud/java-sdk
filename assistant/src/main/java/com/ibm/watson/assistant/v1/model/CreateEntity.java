@@ -39,8 +39,6 @@ public class CreateEntity extends GenericModel {
     private String description;
     private Map<String, Object> metadata;
     private Boolean fuzzyMatch;
-    private Date created;
-    private Date updated;
     private List<CreateValue> values;
 
     private Builder(CreateEntity createEntity) {
@@ -48,8 +46,6 @@ public class CreateEntity extends GenericModel {
       this.description = createEntity.description;
       this.metadata = createEntity.metadata;
       this.fuzzyMatch = createEntity.fuzzyMatch;
-      this.created = createEntity.created;
-      this.updated = createEntity.updated;
       this.values = createEntity.values;
     }
 
@@ -68,7 +64,7 @@ public class CreateEntity extends GenericModel {
     /**
      * Builds a CreateEntity.
      *
-     * @return the createEntity
+     * @return the new CreateEntity instance
      */
     public CreateEntity build() {
       return new CreateEntity(this);
@@ -134,28 +130,6 @@ public class CreateEntity extends GenericModel {
     }
 
     /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the CreateEntity builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the CreateEntity builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
-
-    /**
      * Set the values. Existing values will be replaced.
      *
      * @param values the values
@@ -173,8 +147,6 @@ public class CreateEntity extends GenericModel {
     description = builder.description;
     metadata = builder.metadata;
     fuzzyMatch = builder.fuzzyMatch;
-    created = builder.created;
-    updated = builder.updated;
     values = builder.values;
   }
 

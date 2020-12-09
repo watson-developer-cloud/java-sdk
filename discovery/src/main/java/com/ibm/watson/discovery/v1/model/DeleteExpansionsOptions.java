@@ -47,7 +47,7 @@ public class DeleteExpansionsOptions extends GenericModel {
     /**
      * Builds a DeleteExpansionsOptions.
      *
-     * @return the deleteExpansionsOptions
+     * @return the new DeleteExpansionsOptions instance
      */
     public DeleteExpansionsOptions build() {
       return new DeleteExpansionsOptions(this);

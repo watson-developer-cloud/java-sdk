@@ -21,29 +21,10 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
-import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
-import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResultsMetadata;
-import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.Author;
-import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.CategoriesResult;
-import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ConceptsResult;
-import com.ibm.watson.natural_language_understanding.v1.model.EmotionOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.EmotionScores;
-import com.ibm.watson.natural_language_understanding.v1.model.EntitiesOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.EntitiesResult;
-import com.ibm.watson.natural_language_understanding.v1.model.Features;
-import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.KeywordsResult;
-import com.ibm.watson.natural_language_understanding.v1.model.MetadataOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesResult;
-import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.TargetedSentimentResults;
+import com.ibm.watson.natural_language_understanding.v1.model.*;
 import java.io.FileInputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import org.junit.Assume;
 import org.junit.Before;
@@ -312,8 +293,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileTitle = "This 5,000-year-old recipe for beer actually sounds pretty tasty";
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
-    Features features =
-        new Features.Builder().metadata(new MetadataOptions.Builder().build()).build();
+    Features features = new Features.Builder().metadata(new HashMap<String, Object>()).build();
     AnalyzeOptions parameters =
         new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
 
@@ -322,7 +302,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertEquals(results.getLanguage(), "en");
     assertNotNull(results.getMetadata());
-    AnalysisResultsMetadata result = results.getMetadata();
+    FeaturesResultsMetadata result = results.getMetadata();
     assertNotNull(result.getTitle());
     assertEquals(result.getTitle(), fileTitle);
     assertNotNull(result.getPublicationDate());

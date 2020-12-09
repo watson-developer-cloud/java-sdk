@@ -33,7 +33,7 @@ public class PdfSettings extends GenericModel {
     /**
      * Builds a PdfSettings.
      *
-     * @return the pdfSettings
+     * @return the new PdfSettings instance
      */
     public PdfSettings build() {
       return new PdfSettings(this);

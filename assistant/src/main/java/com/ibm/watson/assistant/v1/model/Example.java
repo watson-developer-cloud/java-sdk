@@ -29,14 +29,10 @@ public class Example extends GenericModel {
   public static class Builder {
     private String text;
     private List<Mention> mentions;
-    private Date created;
-    private Date updated;
 
     private Builder(Example example) {
       this.text = example.text;
       this.mentions = example.mentions;
-      this.created = example.created;
-      this.updated = example.updated;
     }
 
     /** Instantiates a new builder. */
@@ -54,7 +50,7 @@ public class Example extends GenericModel {
     /**
      * Builds a Example.
      *
-     * @return the example
+     * @return the new Example instance
      */
     public Example build() {
       return new Example(this);
@@ -96,36 +92,12 @@ public class Example extends GenericModel {
       this.mentions = mentions;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the Example builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the Example builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected Example(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
     mentions = builder.mentions;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

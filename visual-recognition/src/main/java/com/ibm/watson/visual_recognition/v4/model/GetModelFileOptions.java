@@ -64,7 +64,7 @@ public class GetModelFileOptions extends GenericModel {
     /**
      * Builds a GetModelFileOptions.
      *
-     * @return the getModelFileOptions
+     * @return the new GetModelFileOptions instance
      */
     public GetModelFileOptions build() {
       return new GetModelFileOptions(this);

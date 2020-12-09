@@ -31,6 +31,10 @@ public class CreateLanguageModelOptions extends GenericModel {
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** en-AU_BroadbandModel. */
+    String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_NarrowbandModel. */
+    String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -65,6 +69,10 @@ public class CreateLanguageModelOptions extends GenericModel {
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
+    /** fr-CA_BroadbandModel. */
+    String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_NarrowbandModel. */
+    String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -127,7 +135,7 @@ public class CreateLanguageModelOptions extends GenericModel {
     /**
      * Builds a CreateLanguageModelOptions.
      *
-     * @return the createLanguageModelOptions
+     * @return the new CreateLanguageModelOptions instance
      */
     public CreateLanguageModelOptions build() {
       return new CreateLanguageModelOptions(this);

@@ -47,7 +47,7 @@ public class GetStopwordListStatusOptions extends GenericModel {
     /**
      * Builds a GetStopwordListStatusOptions.
      *
-     * @return the getStopwordListStatusOptions
+     * @return the new GetStopwordListStatusOptions instance
      */
     public GetStopwordListStatusOptions build() {
       return new GetStopwordListStatusOptions(this);

@@ -47,7 +47,7 @@ public class DeleteImageOptions extends GenericModel {
     /**
      * Builds a DeleteImageOptions.
      *
-     * @return the deleteImageOptions
+     * @return the new DeleteImageOptions instance
      */
     public DeleteImageOptions build() {
       return new DeleteImageOptions(this);

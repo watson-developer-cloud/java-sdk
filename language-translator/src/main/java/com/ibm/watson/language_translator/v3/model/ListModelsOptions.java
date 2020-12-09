@@ -39,7 +39,7 @@ public class ListModelsOptions extends GenericModel {
     /**
      * Builds a ListModelsOptions.
      *
-     * @return the listModelsOptions
+     * @return the new ListModelsOptions instance
      */
     public ListModelsOptions build() {
       return new ListModelsOptions(this);

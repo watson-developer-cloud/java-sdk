@@ -62,7 +62,7 @@ public class MessageInputStateless extends GenericModel {
     /**
      * Builds a MessageInputStateless.
      *
-     * @return the messageInputStateless
+     * @return the new MessageInputStateless instance
      */
     public MessageInputStateless build() {
       return new MessageInputStateless(this);

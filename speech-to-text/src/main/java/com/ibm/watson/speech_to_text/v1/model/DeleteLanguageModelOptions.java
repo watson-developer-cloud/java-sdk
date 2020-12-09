@@ -42,7 +42,7 @@ public class DeleteLanguageModelOptions extends GenericModel {
     /**
      * Builds a DeleteLanguageModelOptions.
      *
-     * @return the deleteLanguageModelOptions
+     * @return the new DeleteLanguageModelOptions instance
      */
     public DeleteLanguageModelOptions build() {
       return new DeleteLanguageModelOptions(this);

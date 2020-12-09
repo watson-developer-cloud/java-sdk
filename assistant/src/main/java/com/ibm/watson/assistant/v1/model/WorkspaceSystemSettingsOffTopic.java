@@ -33,7 +33,7 @@ public class WorkspaceSystemSettingsOffTopic extends GenericModel {
     /**
      * Builds a WorkspaceSystemSettingsOffTopic.
      *
-     * @return the workspaceSystemSettingsOffTopic
+     * @return the new WorkspaceSystemSettingsOffTopic instance
      */
     public WorkspaceSystemSettingsOffTopic build() {
       return new WorkspaceSystemSettingsOffTopic(this);

@@ -62,7 +62,7 @@ public class GetJpegImageOptions extends GenericModel {
     /**
      * Builds a GetJpegImageOptions.
      *
-     * @return the getJpegImageOptions
+     * @return the new GetJpegImageOptions instance
      */
     public GetJpegImageOptions build() {
       return new GetJpegImageOptions(this);

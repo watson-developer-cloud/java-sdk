@@ -20,19 +20,33 @@ import java.util.List;
 /** Identification of a specific type. */
 public class TypeLabel extends GenericModel {
 
+  /** The type of modification of the feedback entry in the updated labels response. */
+  public interface Modification {
+    /** added. */
+    String ADDED = "added";
+    /** unchanged. */
+    String UNCHANGED = "unchanged";
+    /** removed. */
+    String REMOVED = "removed";
+  }
+
   protected Label label;
 
   @SerializedName("provenance_ids")
   protected List<String> provenanceIds;
 
+  protected String modification;
+
   /** Builder. */
   public static class Builder {
     private Label label;
     private List<String> provenanceIds;
+    private String modification;
 
     private Builder(TypeLabel typeLabel) {
       this.label = typeLabel.label;
       this.provenanceIds = typeLabel.provenanceIds;
+      this.modification = typeLabel.modification;
     }
 
     /** Instantiates a new builder. */
@@ -41,7 +55,7 @@ public class TypeLabel extends GenericModel {
     /**
      * Builds a TypeLabel.
      *
-     * @return the typeLabel
+     * @return the new TypeLabel instance
      */
     public TypeLabel build() {
       return new TypeLabel(this);
@@ -83,11 +97,23 @@ public class TypeLabel extends GenericModel {
       this.provenanceIds = provenanceIds;
       return this;
     }
+
+    /**
+     * Set the modification.
+     *
+     * @param modification the modification
+     * @return the TypeLabel builder
+     */
+    public Builder modification(String modification) {
+      this.modification = modification;
+      return this;
+    }
   }
 
   protected TypeLabel(Builder builder) {
     label = builder.label;
     provenanceIds = builder.provenanceIds;
+    modification = builder.modification;
   }
 
   /**
@@ -120,5 +146,16 @@ public class TypeLabel extends GenericModel {
    */
   public List<String> provenanceIds() {
     return provenanceIds;
+  }
+
+  /**
+   * Gets the modification.
+   *
+   * <p>The type of modification of the feedback entry in the updated labels response.
+   *
+   * @return the modification
+   */
+  public String modification() {
+    return modification;
   }
 }

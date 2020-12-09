@@ -65,7 +65,7 @@ public class ExtractTablesOptions extends GenericModel {
     /**
      * Builds a ExtractTablesOptions.
      *
-     * @return the extractTablesOptions
+     * @return the new ExtractTablesOptions instance
      */
     public ExtractTablesOptions build() {
       return new ExtractTablesOptions(this);

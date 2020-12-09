@@ -33,7 +33,7 @@ public class GetMetricsQueryTokenEventOptions extends GenericModel {
     /**
      * Builds a GetMetricsQueryTokenEventOptions.
      *
-     * @return the getMetricsQueryTokenEventOptions
+     * @return the new GetMetricsQueryTokenEventOptions instance
      */
     public GetMetricsQueryTokenEventOptions build() {
       return new GetMetricsQueryTokenEventOptions(this);

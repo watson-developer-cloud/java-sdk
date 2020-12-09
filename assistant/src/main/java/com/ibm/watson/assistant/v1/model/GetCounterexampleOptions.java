@@ -50,7 +50,7 @@ public class GetCounterexampleOptions extends GenericModel {
     /**
      * Builds a GetCounterexampleOptions.
      *
-     * @return the getCounterexampleOptions
+     * @return the new GetCounterexampleOptions instance
      */
     public GetCounterexampleOptions build() {
       return new GetCounterexampleOptions(this);

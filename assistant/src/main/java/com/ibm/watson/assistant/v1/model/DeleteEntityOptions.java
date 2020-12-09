@@ -47,7 +47,7 @@ public class DeleteEntityOptions extends GenericModel {
     /**
      * Builds a DeleteEntityOptions.
      *
-     * @return the deleteEntityOptions
+     * @return the new DeleteEntityOptions instance
      */
     public DeleteEntityOptions build() {
       return new DeleteEntityOptions(this);

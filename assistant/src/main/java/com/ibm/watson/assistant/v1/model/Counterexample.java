@@ -25,13 +25,9 @@ public class Counterexample extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String text;
-    private Date created;
-    private Date updated;
 
     private Builder(Counterexample counterexample) {
       this.text = counterexample.text;
-      this.created = counterexample.created;
-      this.updated = counterexample.updated;
     }
 
     /** Instantiates a new builder. */
@@ -49,7 +45,7 @@ public class Counterexample extends GenericModel {
     /**
      * Builds a Counterexample.
      *
-     * @return the counterexample
+     * @return the new Counterexample instance
      */
     public Counterexample build() {
       return new Counterexample(this);
@@ -65,35 +61,11 @@ public class Counterexample extends GenericModel {
       this.text = text;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the Counterexample builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the Counterexample builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected Counterexample(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

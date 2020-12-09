@@ -36,7 +36,7 @@ public class QueryLargeTableResults extends GenericModel {
     /**
      * Builds a QueryLargeTableResults.
      *
-     * @return the queryLargeTableResults
+     * @return the new QueryLargeTableResults instance
      */
     public QueryLargeTableResults build() {
       return new QueryLargeTableResults(this);

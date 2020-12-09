@@ -42,7 +42,7 @@ public class DeleteAcousticModelOptions extends GenericModel {
     /**
      * Builds a DeleteAcousticModelOptions.
      *
-     * @return the deleteAcousticModelOptions
+     * @return the new DeleteAcousticModelOptions instance
      */
     public DeleteAcousticModelOptions build() {
       return new DeleteAcousticModelOptions(this);

@@ -42,7 +42,7 @@ public class CheckJobOptions extends GenericModel {
     /**
      * Builds a CheckJobOptions.
      *
-     * @return the checkJobOptions
+     * @return the new CheckJobOptions instance
      */
     public CheckJobOptions build() {
       return new CheckJobOptions(this);

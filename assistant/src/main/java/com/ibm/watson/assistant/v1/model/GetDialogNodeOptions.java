@@ -50,7 +50,7 @@ public class GetDialogNodeOptions extends GenericModel {
     /**
      * Builds a GetDialogNodeOptions.
      *
-     * @return the getDialogNodeOptions
+     * @return the new GetDialogNodeOptions instance
      */
     public GetDialogNodeOptions build() {
       return new GetDialogNodeOptions(this);

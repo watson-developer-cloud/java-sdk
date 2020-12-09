@@ -57,7 +57,7 @@ public class DeleteSynonymOptions extends GenericModel {
     /**
      * Builds a DeleteSynonymOptions.
      *
-     * @return the deleteSynonymOptions
+     * @return the new DeleteSynonymOptions instance
      */
     public DeleteSynonymOptions build() {
       return new DeleteSynonymOptions(this);

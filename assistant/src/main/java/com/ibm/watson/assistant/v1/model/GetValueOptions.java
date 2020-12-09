@@ -58,7 +58,7 @@ public class GetValueOptions extends GenericModel {
     /**
      * Builds a GetValueOptions.
      *
-     * @return the getValueOptions
+     * @return the new GetValueOptions instance
      */
     public GetValueOptions build() {
       return new GetValueOptions(this);

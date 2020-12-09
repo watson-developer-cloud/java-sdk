@@ -12,17 +12,15 @@
  */
 package com.ibm.watson.visual_recognition.v3;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.*;
 
-import com.google.common.io.Files;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.visual_recognition.v3.model.Classifier;
+import com.ibm.watson.visual_recognition.v3.model.Classifiers;
 import com.ibm.watson.visual_recognition.v3.model.ClassifyOptions;
 import com.ibm.watson.visual_recognition.v3.model.CreateClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.DeleteClassifierOptions;
@@ -31,323 +29,484 @@ import com.ibm.watson.visual_recognition.v3.model.GetClassifierOptions;
 import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
-import java.io.File;
-import java.io.FileInputStream;
+import com.ibm.watson.visual_recognition.v3.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import okio.Buffer;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Unit tests for the {@link VisualRecognition} service. */
-public class VisualRecognitionTest extends WatsonServiceUnitTest {
-  private static final String FIXTURE_CLASSIFICATION =
-      "src/test/resources/visual_recognition/v3/visual_classification.json";
-  private static final String FIXTURE_CLASSIFIER =
-      "src/test/resources/visual_recognition/v3/visual_classifier.json";
-  private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";
-  private static final String SINGLE_IMAGE_FILE =
-      "src/test/resources/visual_recognition/v3/car.png";
-  private static final String PATH_CLASSIFY = "/v3/classify";
-  private static final String VERSION_KEY = "version";
-  private static final String VERSION = "2018-03-19";
-  private static final String PATH_CLASSIFIERS = "/v3/classifiers";
-  private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
-  private static final String PATH_CORE_ML = "/v3/classifiers/%s/core_ml_model";
-  private static final String FILENAME = "test_file";
+/** Unit test class for the VisualRecognition service. */
+public class VisualRecognitionTest {
 
-  private VisualRecognition service;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceUnitTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
+  protected MockWebServer server;
+  protected VisualRecognition visualRecognitionService;
 
-    service = new VisualRecognition(VERSION, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    final Authenticator authenticator = new NoAuthAuthenticator();
+
+    visualRecognitionService = new VisualRecognition(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    visualRecognitionService.setServiceUrl(url);
   }
 
-  /**
-   * Test classify with file.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testClassifyWithFile() throws IOException, InterruptedException {
-    ClassifiedImages mockResponse = loadFixture(FIXTURE_CLASSIFICATION, ClassifiedImages.class);
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-    // execute request
-    File images = new File(IMAGE_FILE);
-    ClassifyOptions options =
-        new ClassifyOptions.Builder()
-            .imagesFile(images)
-            .classifierIds(Collections.singletonList("car"))
-            .build();
-    ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = PATH_CLASSIFY + "?" + VERSION_KEY + "=" + VERSION;
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(serviceResponse, mockResponse);
+    new VisualRecognition(version, serviceName, null);
   }
 
-  /**
-   * Test classify with bytes or stream.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testClassifyWithBytes() throws IOException, InterruptedException {
-    ClassifiedImages mockResponse = loadFixture(FIXTURE_CLASSIFICATION, ClassifiedImages.class);
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    // execute request
-    File images = new File(SINGLE_IMAGE_FILE);
-
-    InputStream fileStream = new FileInputStream(images);
-
-    ClassifyOptions options =
-        new ClassifyOptions.Builder()
-            .imagesFile(fileStream)
-            .imagesFilename(FILENAME)
-            .classifierIds(Collections.singletonList("car"))
-            .build();
-    ClassifiedImages serviceResponse = service.classify(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = PATH_CLASSIFY + "?" + VERSION_KEY + "=" + VERSION;
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(serviceResponse, mockResponse);
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(visualRecognitionService.getVersion(), "testString");
   }
 
-  /**
-   * Test update classifier.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testUpdateClassifier() throws IOException, InterruptedException {
-    Classifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, Classifier.class);
-
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    // execute request
-    File images = new File(IMAGE_FILE);
-    String class1 = "class1";
-    String classifierId = "foo123";
-
-    UpdateClassifierOptions options =
-        new UpdateClassifierOptions.Builder(classifierId)
-            .addPositiveExamples(class1, images)
-            .build();
-
-    Classifier serviceResponse = service.updateClassifier(options).execute().getResult();
-
-    // first request
-    String path = String.format(PATH_CLASSIFIER, classifierId);
-    RecordedRequest request = server.takeRequest();
-    path += "?" + VERSION_KEY + "=" + VERSION;
-
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    String body = request.getBody().readUtf8();
-
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\";";
-    assertTrue(body.contains(contentDisposition));
-    assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
-    assertEquals(serviceResponse, mockResponse);
-  }
-
-  /**
-   * Test create classifier.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testCreateClassifier() throws IOException, InterruptedException {
-    Classifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, Classifier.class);
-
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    // execute request
-    File positiveImages = new File(IMAGE_FILE);
-    File negativeImages = new File(IMAGE_FILE);
-    String class1 = "class1";
-    CreateClassifierOptions options =
-        new CreateClassifierOptions.Builder()
-            .name(class1)
-            .addPositiveExamples(class1, positiveImages)
-            .negativeExamples(negativeImages)
-            .build();
-
-    Classifier serviceResponse = service.createClassifier(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-    String path = PATH_CLASSIFIERS + "?" + VERSION_KEY + "=" + VERSION;
-
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    String body = request.getBody().readUtf8();
-
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\";";
-    assertTrue(body.contains(contentDisposition));
-    assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
-    assertEquals(serviceResponse, mockResponse);
-  }
-
-  /**
-   * Test delete classifier.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteClassifier() throws IOException, InterruptedException {
-    server.enqueue(new MockResponse().setBody(""));
-
-    String class1 = "class1";
-    DeleteClassifierOptions options = new DeleteClassifierOptions.Builder(class1).build();
-    service.deleteClassifier(options).execute();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-    String path = String.format(PATH_CLASSIFIER + "?" + VERSION_KEY + "=" + VERSION, class1);
-
-    assertEquals(path, request.getPath());
-    assertEquals("DELETE", request.getMethod());
-  }
-
-  /**
-   * Test get classifier.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  @Test
-  public void testGetClassifier() throws InterruptedException, IOException {
-    try {
-      Classifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, Classifier.class);
-
-      server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-      // execute request
-      String class1 = "class1";
-      GetClassifierOptions getOptions = new GetClassifierOptions.Builder(class1).build();
-      Classifier serviceResponse = service.getClassifier(getOptions).execute().getResult();
-
-      // first request
-      RecordedRequest request = server.takeRequest();
-      String path = String.format(PATH_CLASSIFIER + "?" + VERSION_KEY + "=" + VERSION, class1);
-
-      assertEquals(path, request.getPath());
-      assertEquals("GET", request.getMethod());
-      assertEquals(serviceResponse, mockResponse);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
-   * Test get classifiers.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  @Test
-  public void testGetClassifiers() throws InterruptedException, IOException {
-    Classifier mockClassifier = loadFixture(FIXTURE_CLASSIFIER, Classifier.class);
-    List<Classifier> classifiers = new ArrayList<>();
-    classifiers.add(mockClassifier);
-    classifiers.add(mockClassifier);
-    classifiers.add(mockClassifier);
-
-    JsonObject mockResponse = new JsonObject();
-    mockResponse.add("classifiers", new Gson().toJsonTree(classifiers));
-
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();
-    List<Classifier> serviceResponse =
-        service.listClassifiers(options).execute().getResult().getClassifiers();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-    String path = PATH_CLASSIFIERS + "?" + VERSION_KEY + "=" + VERSION + "&verbose=true";
-
-    assertEquals(path, request.getPath());
-    assertEquals("GET", request.getMethod());
-    assertEquals(serviceResponse, classifiers);
-  }
-
-  /**
-   * Test get core ml model.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetCoreMlModel() throws IOException, InterruptedException {
-    final File model = new File("src/test/resources/visual_recognition/v3/custom_model.mlmodel");
-    @SuppressWarnings("resource")
-    final Buffer buffer = new Buffer().write(Files.toByteArray(model));
+  public void testClassifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"custom_classes\": 13, \"images_processed\": 15, \"images\": [{\"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\", \"image\": \"image\", \"error\": {\"code\": 4, \"description\": \"description\", \"error_id\": \"errorId\"}, \"classifiers\": [{\"name\": \"name\", \"classifier_id\": \"classifierId\", \"classes\": [{\"class\": \"xClass\", \"score\": 0, \"type_hierarchy\": \"typeHierarchy\"}]}]}], \"warnings\": [{\"warning_id\": \"warningId\", \"description\": \"description\"}]}";
+    String classifyPath = "/v3/classify";
 
     server.enqueue(
         new MockResponse()
-            .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_OCTET_STREAM)
-            .setBody(buffer));
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    String classifierId = "classifier_id";
-    GetCoreMlModelOptions options =
-        new GetCoreMlModelOptions.Builder().classifierId(classifierId).build();
+    constructClientService();
 
-    InputStream modelFile = service.getCoreMlModel(options).execute().getResult();
+    // Construct an instance of the ClassifyOptions model
+    ClassifyOptions classifyOptionsModel =
+        new ClassifyOptions.Builder()
+            .imagesFile(TestUtilities.createMockStream("This is a mock file."))
+            .imagesFilename("testString")
+            .imagesFileContentType("testString")
+            .url("testString")
+            .threshold(Float.valueOf("36.0"))
+            .owners(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .classifierIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .acceptLanguage("en")
+            .build();
 
+    // Invoke operation with valid options model (positive test)
+    Response<ClassifiedImages> response =
+        visualRecognitionService.classify(classifyOptionsModel).execute();
+    assertNotNull(response);
+    ClassifiedImages responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
-    String path = String.format(PATH_CORE_ML, classifierId) + "?" + VERSION_KEY + "=" + VERSION;
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertEquals(path, request.getPath());
-    assertEquals("GET", request.getMethod());
-    File outputFile = new File("src/test/resources/visual_recognition/v3/model_result.mlmodel");
-    outputFile.createNewFile();
-    writeInputStreamToFile(modelFile, outputFile);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, classifyPath);
   }
 
-  /** Test delete user data options builder. */
   @Test
-  public void testDeleteUserDataOptionsBuilder() {
-    String customerId = "java_sdk_test_id";
+  public void testCreateClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createClassifierPath = "/v3/classifiers";
 
-    DeleteUserDataOptions deleteOptions =
-        new DeleteUserDataOptions.Builder().customerId(customerId).build();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    assertEquals(deleteOptions.customerId(), customerId);
+    constructClientService();
+
+    // Construct an instance of the CreateClassifierOptions model
+    CreateClassifierOptions createClassifierOptionsModel =
+        new CreateClassifierOptions.Builder()
+            .name("testString")
+            .positiveExamples(mockStreamMap)
+            .negativeExamples(TestUtilities.createMockStream("This is a mock file."))
+            .negativeExamplesFilename("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classifier> response =
+        visualRecognitionService.createClassifier(createClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Classifier responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createClassifierPath);
+  }
+
+  // Test the createClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.createClassifier(null).execute();
+  }
+
+  @Test
+  public void testListClassifiersWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifiers\": [{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String listClassifiersPath = "/v3/classifiers";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListClassifiersOptions model
+    ListClassifiersOptions listClassifiersOptionsModel =
+        new ListClassifiersOptions.Builder().verbose(true).build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classifiers> response =
+        visualRecognitionService.listClassifiers(listClassifiersOptionsModel).execute();
+    assertNotNull(response);
+    Classifiers responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("verbose")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listClassifiersPath);
+  }
+
+  @Test
+  public void testGetClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getClassifierPath = "/v3/classifiers/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetClassifierOptions model
+    GetClassifierOptions getClassifierOptionsModel =
+        new GetClassifierOptions.Builder().classifierId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classifier> response =
+        visualRecognitionService.getClassifier(getClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Classifier responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getClassifierPath);
+  }
+
+  // Test the getClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getClassifier(null).execute();
+  }
+
+  @Test
+  public void testUpdateClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateClassifierPath = "/v3/classifiers/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateClassifierOptions model
+    UpdateClassifierOptions updateClassifierOptionsModel =
+        new UpdateClassifierOptions.Builder()
+            .classifierId("testString")
+            .positiveExamples(mockStreamMap)
+            .negativeExamples(TestUtilities.createMockStream("This is a mock file."))
+            .negativeExamplesFilename("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classifier> response =
+        visualRecognitionService.updateClassifier(updateClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Classifier responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateClassifierPath);
+  }
+
+  // Test the updateClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.updateClassifier(null).execute();
+  }
+
+  @Test
+  public void testDeleteClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteClassifierPath = "/v3/classifiers/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteClassifierOptions model
+    DeleteClassifierOptions deleteClassifierOptionsModel =
+        new DeleteClassifierOptions.Builder().classifierId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteClassifier(deleteClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteClassifierPath);
+  }
+
+  // Test the deleteClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteClassifier(null).execute();
+  }
+
+  @Test
+  public void testGetCoreMlModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "This is a mock binary response.";
+    String getCoreMlModelPath = "/v3/classifiers/testString/core_ml_model";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/octet-stream")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCoreMlModelOptions model
+    GetCoreMlModelOptions getCoreMlModelOptionsModel =
+        new GetCoreMlModelOptions.Builder().classifierId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<InputStream> response =
+        visualRecognitionService.getCoreMlModel(getCoreMlModelOptionsModel).execute();
+    assertNotNull(response);
+    InputStream responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCoreMlModelPath);
+  }
+
+  // Test the getCoreMlModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetCoreMlModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.getCoreMlModel(null).execute();
+  }
+
+  @Test
+  public void testDeleteUserDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteUserDataPath = "/v3/user_data";
+
+    server.enqueue(new MockResponse().setResponseCode(202).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteUserDataOptions model
+    DeleteUserDataOptions deleteUserDataOptionsModel =
+        new DeleteUserDataOptions.Builder().customerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        visualRecognitionService.deleteUserData(deleteUserDataOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteUserDataPath);
+  }
+
+  // Test the deleteUserData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteUserDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    visualRecognitionService.deleteUserData(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    visualRecognitionService = null;
   }
 }

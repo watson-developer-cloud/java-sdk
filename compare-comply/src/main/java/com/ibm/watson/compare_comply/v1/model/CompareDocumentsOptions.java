@@ -79,7 +79,7 @@ public class CompareDocumentsOptions extends GenericModel {
     /**
      * Builds a CompareDocumentsOptions.
      *
-     * @return the compareDocumentsOptions
+     * @return the new CompareDocumentsOptions instance
      */
     public CompareDocumentsOptions build() {
       return new CompareDocumentsOptions(this);

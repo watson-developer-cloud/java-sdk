@@ -63,7 +63,7 @@ public class UpdateSynonymOptions extends GenericModel {
     /**
      * Builds a UpdateSynonymOptions.
      *
-     * @return the updateSynonymOptions
+     * @return the new UpdateSynonymOptions instance
      */
     public UpdateSynonymOptions build() {
       return new UpdateSynonymOptions(this);

@@ -46,7 +46,7 @@ public class GetMetricsQueryNoResultsOptions extends GenericModel {
     /**
      * Builds a GetMetricsQueryNoResultsOptions.
      *
-     * @return the getMetricsQueryNoResultsOptions
+     * @return the new GetMetricsQueryNoResultsOptions instance
      */
     public GetMetricsQueryNoResultsOptions build() {
       return new GetMetricsQueryNoResultsOptions(this);

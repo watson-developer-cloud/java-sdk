@@ -47,7 +47,7 @@ public class GetWordOptions extends GenericModel {
     /**
      * Builds a GetWordOptions.
      *
-     * @return the getWordOptions
+     * @return the new GetWordOptions instance
      */
     public GetWordOptions build() {
       return new GetWordOptions(this);
@@ -96,8 +96,8 @@ public class GetWordOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of the custom voice model. You must make the request with
-   * credentials for the instance of the service that owns the custom model.
+   * <p>The customization ID (GUID) of the custom model. You must make the request with credentials
+   * for the instance of the service that owns the custom model.
    *
    * @return the customizationId
    */
@@ -108,7 +108,7 @@ public class GetWordOptions extends GenericModel {
   /**
    * Gets the word.
    *
-   * <p>The word that is to be queried from the custom voice model.
+   * <p>The word that is to be queried from the custom model.
    *
    * @return the word
    */

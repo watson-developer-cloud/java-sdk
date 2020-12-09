@@ -62,7 +62,7 @@ public class MessageInput extends GenericModel {
     /**
      * Builds a MessageInput.
      *
-     * @return the messageInput
+     * @return the new MessageInput instance
      */
     public MessageInput build() {
       return new MessageInput(this);

@@ -66,7 +66,7 @@ public class Source extends GenericModel {
     /**
      * Builds a Source.
      *
-     * @return the source
+     * @return the new Source instance
      */
     public Source build() {
       return new Source(this);

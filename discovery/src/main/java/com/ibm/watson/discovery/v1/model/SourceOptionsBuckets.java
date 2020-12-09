@@ -45,7 +45,7 @@ public class SourceOptionsBuckets extends GenericModel {
     /**
      * Builds a SourceOptionsBuckets.
      *
-     * @return the sourceOptionsBuckets
+     * @return the new SourceOptionsBuckets instance
      */
     public SourceOptionsBuckets build() {
       return new SourceOptionsBuckets(this);

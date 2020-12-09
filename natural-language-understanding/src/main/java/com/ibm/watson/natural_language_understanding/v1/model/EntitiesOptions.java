@@ -52,7 +52,7 @@ public class EntitiesOptions extends GenericModel {
     /**
      * Builds a EntitiesOptions.
      *
-     * @return the entitiesOptions
+     * @return the new EntitiesOptions instance
      */
     public EntitiesOptions build() {
       return new EntitiesOptions(this);

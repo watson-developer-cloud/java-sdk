@@ -44,7 +44,7 @@ public class DialogSuggestionValue extends GenericModel {
     /**
      * Builds a DialogSuggestionValue.
      *
-     * @return the dialogSuggestionValue
+     * @return the new DialogSuggestionValue instance
      */
     public DialogSuggestionValue build() {
       return new DialogSuggestionValue(this);

@@ -47,7 +47,7 @@ public class ListCollectionFieldsOptions extends GenericModel {
     /**
      * Builds a ListCollectionFieldsOptions.
      *
-     * @return the listCollectionFieldsOptions
+     * @return the new ListCollectionFieldsOptions instance
      */
     public ListCollectionFieldsOptions build() {
       return new ListCollectionFieldsOptions(this);

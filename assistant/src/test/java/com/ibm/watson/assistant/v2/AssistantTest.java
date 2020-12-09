@@ -12,383 +12,796 @@
  */
 package com.ibm.watson.assistant.v2;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.*;
 
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.watson.assistant.v2.model.BulkClassifyOptions;
+import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
+import com.ibm.watson.assistant.v2.model.BulkClassifyUtterance;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
-import com.ibm.watson.assistant.v2.model.DialogLogMessage;
-import com.ibm.watson.assistant.v2.model.DialogNodeAction;
+import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
+import com.ibm.watson.assistant.v2.model.MessageContextGlobalStateless;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobalSystem;
-import com.ibm.watson.assistant.v2.model.MessageContextSkills;
+import com.ibm.watson.assistant.v2.model.MessageContextSkill;
+import com.ibm.watson.assistant.v2.model.MessageContextSkillSystem;
+import com.ibm.watson.assistant.v2.model.MessageContextStateless;
 import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageInputOptions;
+import com.ibm.watson.assistant.v2.model.MessageInputOptionsSpelling;
+import com.ibm.watson.assistant.v2.model.MessageInputOptionsStateless;
+import com.ibm.watson.assistant.v2.model.MessageInputStateless;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
-import com.ibm.watson.assistant.v2.model.MessageOutputDebug;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
+import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
+import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
 import com.ibm.watson.assistant.v2.model.RuntimeEntity;
+import com.ibm.watson.assistant.v2.model.RuntimeEntityAlternative;
+import com.ibm.watson.assistant.v2.model.RuntimeEntityInterpretation;
+import com.ibm.watson.assistant.v2.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v2.model.RuntimeIntent;
-import com.ibm.watson.assistant.v2.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
-import com.ibm.watson.common.WatsonServiceUnitTest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import com.ibm.watson.assistant.v2.utils.TestUtilities;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Unit tests for Assistant v2. */
-public class AssistantTest extends WatsonServiceUnitTest {
-  private static final String ASSISTANT_ID = "assistant_id";
-  private static final String SESSION_ID = "session_id";
-  private static final String TIMEZONE = "timezone";
-  private static final Long TURN_COUNT = 10L;
-  private static final String USER_ID = "user_id";
-  private static final String GROUP = "group";
-  private static final List<Long> LOCATION = Arrays.asList(1L, 2L);
-  private static final Double CONFIDENCE = 0.0;
-  private static final String ENTITY = "entity";
-  private static final Map<String, Object> MAP = new HashMap<>();
-  private static final String VALUE = "value";
-  private static final String INTENT = "intent";
-  private static final String TEXT = "text";
-  private static final String SUGGESTION_ID = "suggestion_id";
-  private static final String MESSAGE = "message";
-  private static final String CONDITIONS = "conditions";
-  private static final String TITLE = "title";
-  private static final String DIALOG_NODE = "dialog_node";
-  private static final String NAME = "name";
-  private static final String RESULT_VARIABLE = "result_variable";
-  private static final String CREDENTIALS = "credentials";
-  private static final String DESCRIPTION = "description";
-  private static final Long TIME = 1234L;
-  private static final String SOURCE = "source";
-  private static final String TOPIC = "topic";
-  private static final String LABEL = "label";
+/** Unit test class for the Assistant service. */
+public class AssistantTest {
 
-  private static final String VERSION = "2018-09-20";
-  private static final String RESOURCE = "src/test/resources/assistant/";
-  private static final String MESSAGE_PATH =
-      String.format(
-          "/v2/assistants/%s/sessions/%s/message?version=%s", ASSISTANT_ID, SESSION_ID, VERSION);
-  private static final String CREATE_SESSION_PATH =
-      String.format("/v2/assistants/%s/sessions?version=%s", ASSISTANT_ID, VERSION);
-  private static final String DELETE_SESSION_PATH =
-      String.format("/v2/assistants/%s/sessions/%s?version=%s", ASSISTANT_ID, SESSION_ID, VERSION);
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private MessageResponse messageResponse;
-  private SessionResponse sessionResponse;
+  protected MockWebServer server;
+  protected Assistant assistantService;
 
-  private Assistant service;
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
+    final Authenticator authenticator = new NoAuthAuthenticator();
 
-    MAP.put("key", "value");
-
-    messageResponse = loadFixture(RESOURCE + "message_response.json", MessageResponse.class);
-    sessionResponse = loadFixture(RESOURCE + "session_response.json", SessionResponse.class);
-
-    service = new Assistant(VERSION, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+    assistantService = new Assistant(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    assistantService.setServiceUrl(url);
   }
 
-  /** Test capture group. */
-  @Test
-  public void testCaptureGroup() {
-    CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).location(LOCATION).build();
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-    assertEquals(GROUP, captureGroup.group());
-    assertEquals(LOCATION, captureGroup.location());
+    new Assistant(version, serviceName, null);
   }
 
-  /** Test create session options. */
   @Test
-  public void testCreateSessionOptions() {
-    CreateSessionOptions createSessionOptions =
-        new CreateSessionOptions.Builder().assistantId(ASSISTANT_ID).build();
-    createSessionOptions = createSessionOptions.newBuilder().build();
-
-    assertEquals(ASSISTANT_ID, createSessionOptions.assistantId());
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(assistantService.getVersion(), "testString");
   }
 
-  /** Test delete session options. */
   @Test
-  public void testDeleteSessionOptions() {
-    DeleteSessionOptions deleteSessionOptions =
-        new DeleteSessionOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
-    deleteSessionOptions = deleteSessionOptions.newBuilder().build();
+  public void testCreateSessionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"session_id\": \"sessionId\"}";
+    String createSessionPath = "/v2/assistants/testString/sessions";
 
-    assertEquals(ASSISTANT_ID, deleteSessionOptions.assistantId());
-    assertEquals(SESSION_ID, deleteSessionOptions.sessionId());
-  }
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
 
-  /** Test message context global system. */
-  @Test
-  public void testMessageContextGlobalSystem() {
-    MessageContextGlobalSystem messageContextGlobalSystem =
-        new MessageContextGlobalSystem.Builder()
-            .timezone(TIMEZONE)
-            .turnCount(TURN_COUNT)
-            .userId(USER_ID)
-            .build();
+    constructClientService();
 
-    assertEquals(TIMEZONE, messageContextGlobalSystem.timezone());
-    assertEquals(TURN_COUNT, messageContextGlobalSystem.turnCount());
-    assertEquals(USER_ID, messageContextGlobalSystem.userId());
-  }
+    // Construct an instance of the CreateSessionOptions model
+    CreateSessionOptions createSessionOptionsModel =
+        new CreateSessionOptions.Builder().assistantId("testString").build();
 
-  /** Test message context global. */
-  @Test
-  public void testMessageContextGlobal() {
-    MessageContextGlobalSystem messageContextGlobalSystem =
-        new MessageContextGlobalSystem.Builder().build();
-
-    MessageContextGlobal messageContextGlobal =
-        new MessageContextGlobal.Builder().system(messageContextGlobalSystem).build();
-
-    assertEquals(messageContextGlobalSystem, messageContextGlobal.system());
-  }
-
-  /** Test message context. */
-  @Test
-  public void testMessageContext() {
-    MessageContextGlobal messageContextGlobal = new MessageContextGlobal.Builder().build();
-    MessageContextSkills messageContextSkills = new MessageContextSkills();
-
-    MessageContext messageContext =
-        new MessageContext.Builder()
-            .global(messageContextGlobal)
-            .skills(messageContextSkills)
-            .build();
-
-    assertEquals(messageContextGlobal, messageContext.global());
-    assertEquals(messageContextSkills, messageContext.skills());
-  }
-
-  /** Test message input. */
-  @Test
-  public void testMessageInput() {
-    RuntimeEntity entity1 =
-        new RuntimeEntity.Builder().entity(ENTITY).location(LOCATION).value(VALUE).build();
-    RuntimeEntity entity2 =
-        new RuntimeEntity.Builder().entity(ENTITY).location(LOCATION).value(VALUE).build();
-    List<RuntimeEntity> entityList = new ArrayList<>();
-    entityList.add(entity1);
-    RuntimeIntent intent1 =
-        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
-    RuntimeIntent intent2 =
-        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
-    List<RuntimeIntent> intentList = new ArrayList<>();
-    intentList.add(intent1);
-    MessageInputOptions inputOptions = new MessageInputOptions.Builder().build();
-
-    MessageInput messageInput =
-        new MessageInput.Builder()
-            .messageType(MessageInput.MessageType.TEXT)
-            .entities(entityList)
-            .addEntity(entity2)
-            .intents(intentList)
-            .addIntent(intent2)
-            .options(inputOptions)
-            .suggestionId(SUGGESTION_ID)
-            .text(TEXT)
-            .build();
-    messageInput = messageInput.newBuilder().build();
-
-    entityList.add(entity2);
-    intentList.add(intent2);
-    assertEquals(MessageInput.MessageType.TEXT, messageInput.messageType());
-    assertEquals(entityList, messageInput.entities());
-    assertEquals(intentList, messageInput.intents());
-    assertEquals(inputOptions, messageInput.options());
-    assertEquals(SUGGESTION_ID, messageInput.suggestionId());
-    assertEquals(TEXT, messageInput.text());
-  }
-
-  /** Test message input options. */
-  @Test
-  public void testMessageInputOptions() {
-    MessageInputOptions inputOptions =
-        new MessageInputOptions.Builder()
-            .alternateIntents(true)
-            .debug(true)
-            .restart(true)
-            .returnContext(true)
-            .build();
-
-    assertTrue(inputOptions.alternateIntents());
-    assertTrue(inputOptions.debug());
-    assertTrue(inputOptions.restart());
-    assertTrue(inputOptions.returnContext());
-  }
-
-  /** Test message options. */
-  @Test
-  public void testMessageOptions() {
-    MessageContext messageContext = new MessageContext.Builder().build();
-    MessageInput messageInput = new MessageInput.Builder().build();
-
-    MessageOptions messageOptions =
-        new MessageOptions.Builder()
-            .assistantId(ASSISTANT_ID)
-            .context(messageContext)
-            .input(messageInput)
-            .sessionId(SESSION_ID)
-            .build();
-    messageOptions = messageOptions.newBuilder().build();
-
-    assertEquals(ASSISTANT_ID, messageOptions.assistantId());
-    assertEquals(messageContext, messageOptions.context());
-    assertEquals(messageInput, messageOptions.input());
-    assertEquals(SESSION_ID, messageOptions.sessionId());
-  }
-
-  /** Test runtime entity. */
-  @Test
-  public void testRuntimeEntity() {
-    CaptureGroup captureGroup = new CaptureGroup.Builder().group(GROUP).build();
-    List<CaptureGroup> captureGroupList = Collections.singletonList(captureGroup);
-
-    RuntimeEntity runtimeEntity =
-        new RuntimeEntity.Builder()
-            .confidence(CONFIDENCE)
-            .entity(ENTITY)
-            .groups(captureGroupList)
-            .location(LOCATION)
-            .metadata(MAP)
-            .value(VALUE)
-            .build();
-
-    assertEquals(CONFIDENCE, runtimeEntity.confidence());
-    assertEquals(ENTITY, runtimeEntity.entity());
-    assertEquals(captureGroupList, runtimeEntity.groups());
-    assertEquals(LOCATION, runtimeEntity.location());
-    assertEquals(MAP, runtimeEntity.metadata());
-    assertEquals(VALUE, runtimeEntity.value());
-  }
-
-  /** Test runtime intent. */
-  @Test
-  public void testRuntimeIntent() {
-    RuntimeIntent runtimeIntent =
-        new RuntimeIntent.Builder().confidence(CONFIDENCE).intent(INTENT).build();
-
-    assertEquals(CONFIDENCE, runtimeIntent.confidence());
-    assertEquals(INTENT, runtimeIntent.intent());
-  }
-
-  /**
-   * Test message.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testMessage() throws InterruptedException {
-    server.enqueue(jsonResponse(messageResponse));
-
-    MessageOptions messageOptions =
-        new MessageOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
-    MessageResponse response = service.message(messageOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(MESSAGE_PATH, request.getPath());
-    assertNotNull(response.getContext());
-    assertNotNull(response.getOutput());
-
-    assertEquals(DialogNodeAction.Type.CLIENT, response.getOutput().getActions().get(0).getType());
-    assertEquals(NAME, response.getOutput().getActions().get(0).getName());
-    assertEquals(MAP, response.getOutput().getActions().get(0).getParameters());
-    assertEquals(RESULT_VARIABLE, response.getOutput().getActions().get(0).getResultVariable());
-    assertEquals(CREDENTIALS, response.getOutput().getActions().get(0).getCredentials());
-    assertEquals(
-        MessageOutputDebug.BranchExitedReason.COMPLETED,
-        response.getOutput().getDebug().getBranchExitedReason());
-    assertEquals(
-        DialogLogMessage.Level.INFO,
-        response.getOutput().getDebug().getLogMessages().get(0).getLevel());
-    assertEquals(MESSAGE, response.getOutput().getDebug().getLogMessages().get(0).getMessage());
-    assertEquals(
-        CONDITIONS, response.getOutput().getDebug().getNodesVisited().get(0).getConditions());
-    assertEquals(TITLE, response.getOutput().getDebug().getNodesVisited().get(0).getTitle());
-    assertEquals(
-        DIALOG_NODE, response.getOutput().getDebug().getNodesVisited().get(0).getDialogNode());
-    assertTrue(response.getOutput().getDebug().isBranchExited());
-    assertEquals(DESCRIPTION, response.getOutput().getGeneric().get(0).description());
-    assertEquals(
-        RuntimeResponseGeneric.ResponseType.TEXT,
-        response.getOutput().getGeneric().get(0).responseType());
-    assertEquals(
-        RuntimeResponseGeneric.Preference.BUTTON,
-        response.getOutput().getGeneric().get(0).preference());
-    assertEquals(TEXT, response.getOutput().getGeneric().get(0).text());
-    assertEquals(TIME, response.getOutput().getGeneric().get(0).time());
-    assertTrue(response.getOutput().getGeneric().get(0).typing());
-    assertEquals(SOURCE, response.getOutput().getGeneric().get(0).source());
-    assertEquals(TITLE, response.getOutput().getGeneric().get(0).title());
-    assertEquals(MESSAGE, response.getOutput().getGeneric().get(0).messageToHumanAgent());
-    assertEquals(TOPIC, response.getOutput().getGeneric().get(0).topic());
-    assertEquals(LABEL, response.getOutput().getGeneric().get(0).options().get(0).getLabel());
-    assertNotNull(response.getOutput().getGeneric().get(0).options().get(0).getValue().getInput());
-    assertEquals(LABEL, response.getOutput().getGeneric().get(0).suggestions().get(0).getLabel());
-    assertNotNull(response.getOutput().getGeneric().get(0).suggestions().get(0).getValue());
-  }
-
-  /**
-   * Test create session.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testCreateSession() throws InterruptedException {
-    server.enqueue(jsonResponse(sessionResponse));
-
-    CreateSessionOptions createSessionOptions =
-        new CreateSessionOptions.Builder().assistantId(ASSISTANT_ID).build();
-    SessionResponse response = service.createSession(createSessionOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
+    // Invoke operation with valid options model (positive test)
+    Response<SessionResponse> response =
+        assistantService.createSession(createSessionOptionsModel).execute();
     assertNotNull(response);
-    assertEquals(CREATE_SESSION_PATH, request.getPath());
+    SessionResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    assertEquals(SESSION_ID, response.getSessionId());
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSessionPath);
   }
 
-  /**
-   * Test delete session.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testDeleteSession() throws InterruptedException {
+  // Test the createSession operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSessionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
     server.enqueue(new MockResponse());
 
-    DeleteSessionOptions deleteSessionOptions =
-        new DeleteSessionOptions.Builder().assistantId(ASSISTANT_ID).sessionId(SESSION_ID).build();
-    service.deleteSession(deleteSessionOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
+    // Invoke operation with null options model (negative test)
+    assistantService.createSession(null).execute();
+  }
 
-    assertEquals(DELETE_SESSION_PATH, request.getPath());
+  @Test
+  public void testDeleteSessionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteSessionPath = "/v2/assistants/testString/sessions/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteSessionOptions model
+    DeleteSessionOptions deleteSessionOptionsModel =
+        new DeleteSessionOptions.Builder()
+            .assistantId("testString")
+            .sessionId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteSession(deleteSessionOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSessionPath);
+  }
+
+  // Test the deleteSession operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSessionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteSession(null).execute();
+  }
+
+  @Test
+  public void testMessageWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": true, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": true}}}}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\"}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}}}}";
+    String messagePath = "/v2/assistants/testString/sessions/testString/message";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the RuntimeIntent model
+    RuntimeIntent runtimeIntentModel =
+        new RuntimeIntent.Builder().intent("testString").confidence(Double.valueOf("72.5")).build();
+
+    // Construct an instance of the CaptureGroup model
+    CaptureGroup captureGroupModel =
+        new CaptureGroup.Builder()
+            .group("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the RuntimeEntityInterpretation model
+    RuntimeEntityInterpretation runtimeEntityInterpretationModel =
+        new RuntimeEntityInterpretation.Builder()
+            .calendarType("testString")
+            .datetimeLink("testString")
+            .festival("testString")
+            .granularity("day")
+            .rangeLink("testString")
+            .rangeModifier("testString")
+            .relativeDay(Double.valueOf("72.5"))
+            .relativeMonth(Double.valueOf("72.5"))
+            .relativeWeek(Double.valueOf("72.5"))
+            .relativeWeekend(Double.valueOf("72.5"))
+            .relativeYear(Double.valueOf("72.5"))
+            .specificDay(Double.valueOf("72.5"))
+            .specificDayOfWeek("testString")
+            .specificMonth(Double.valueOf("72.5"))
+            .specificQuarter(Double.valueOf("72.5"))
+            .specificYear(Double.valueOf("72.5"))
+            .numericValue(Double.valueOf("72.5"))
+            .subtype("testString")
+            .partOfDay("testString")
+            .relativeHour(Double.valueOf("72.5"))
+            .relativeMinute(Double.valueOf("72.5"))
+            .relativeSecond(Double.valueOf("72.5"))
+            .specificHour(Double.valueOf("72.5"))
+            .specificMinute(Double.valueOf("72.5"))
+            .specificSecond(Double.valueOf("72.5"))
+            .timezone("testString")
+            .build();
+
+    // Construct an instance of the RuntimeEntityAlternative model
+    RuntimeEntityAlternative runtimeEntityAlternativeModel =
+        new RuntimeEntityAlternative.Builder()
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .build();
+
+    // Construct an instance of the RuntimeEntityRole model
+    RuntimeEntityRole runtimeEntityRoleModel =
+        new RuntimeEntityRole.Builder().type("date_from").build();
+
+    // Construct an instance of the RuntimeEntity model
+    RuntimeEntity runtimeEntityModel =
+        new RuntimeEntity.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .groups(
+                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .interpretation(runtimeEntityInterpretationModel)
+            .alternatives(
+                new java.util.ArrayList<RuntimeEntityAlternative>(
+                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .role(runtimeEntityRoleModel)
+            .build();
+
+    // Construct an instance of the MessageInputOptionsSpelling model
+    MessageInputOptionsSpelling messageInputOptionsSpellingModel =
+        new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
+
+    // Construct an instance of the MessageInputOptions model
+    MessageInputOptions messageInputOptionsModel =
+        new MessageInputOptions.Builder()
+            .restart(true)
+            .alternateIntents(true)
+            .spelling(messageInputOptionsSpellingModel)
+            .debug(true)
+            .returnContext(true)
+            .export(true)
+            .build();
+
+    // Construct an instance of the MessageInput model
+    MessageInput messageInputModel =
+        new MessageInput.Builder()
+            .messageType("text")
+            .text("testString")
+            .intents(
+                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
+            .entities(
+                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .suggestionId("testString")
+            .options(messageInputOptionsModel)
+            .build();
+
+    // Construct an instance of the MessageContextGlobalSystem model
+    MessageContextGlobalSystem messageContextGlobalSystemModel =
+        new MessageContextGlobalSystem.Builder()
+            .timezone("testString")
+            .userId("testString")
+            .turnCount(Long.valueOf("26"))
+            .locale("en-us")
+            .referenceTime("testString")
+            .build();
+
+    // Construct an instance of the MessageContextGlobal model
+    MessageContextGlobal messageContextGlobalModel =
+        new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();
+
+    // Construct an instance of the MessageContextSkillSystem model
+    MessageContextSkillSystem messageContextSkillSystemModel =
+        new MessageContextSkillSystem.Builder()
+            .state("testString")
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the MessageContextSkill model
+    MessageContextSkill messageContextSkillModel =
+        new MessageContextSkill.Builder()
+            .userDefined(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .system(messageContextSkillSystemModel)
+            .build();
+
+    // Construct an instance of the MessageContext model
+    MessageContext messageContextModel =
+        new MessageContext.Builder()
+            .global(messageContextGlobalModel)
+            .skills(
+                new java.util.HashMap<String, MessageContextSkill>() {
+                  {
+                    put("foo", messageContextSkillModel);
+                  }
+                })
+            .build();
+
+    // Construct an instance of the MessageOptions model
+    MessageOptions messageOptionsModel =
+        new MessageOptions.Builder()
+            .assistantId("testString")
+            .sessionId("testString")
+            .input(messageInputModel)
+            .context(messageContextModel)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<MessageResponse> response = assistantService.message(messageOptionsModel).execute();
+    assertNotNull(response);
+    MessageResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, messagePath);
+  }
+
+  // Test the message operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testMessageNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.message(null).execute();
+  }
+
+  @Test
+  public void testMessageStatelessWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": true, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": true}}}}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\"}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}}}}";
+    String messageStatelessPath = "/v2/assistants/testString/message";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the RuntimeIntent model
+    RuntimeIntent runtimeIntentModel =
+        new RuntimeIntent.Builder().intent("testString").confidence(Double.valueOf("72.5")).build();
+
+    // Construct an instance of the CaptureGroup model
+    CaptureGroup captureGroupModel =
+        new CaptureGroup.Builder()
+            .group("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the RuntimeEntityInterpretation model
+    RuntimeEntityInterpretation runtimeEntityInterpretationModel =
+        new RuntimeEntityInterpretation.Builder()
+            .calendarType("testString")
+            .datetimeLink("testString")
+            .festival("testString")
+            .granularity("day")
+            .rangeLink("testString")
+            .rangeModifier("testString")
+            .relativeDay(Double.valueOf("72.5"))
+            .relativeMonth(Double.valueOf("72.5"))
+            .relativeWeek(Double.valueOf("72.5"))
+            .relativeWeekend(Double.valueOf("72.5"))
+            .relativeYear(Double.valueOf("72.5"))
+            .specificDay(Double.valueOf("72.5"))
+            .specificDayOfWeek("testString")
+            .specificMonth(Double.valueOf("72.5"))
+            .specificQuarter(Double.valueOf("72.5"))
+            .specificYear(Double.valueOf("72.5"))
+            .numericValue(Double.valueOf("72.5"))
+            .subtype("testString")
+            .partOfDay("testString")
+            .relativeHour(Double.valueOf("72.5"))
+            .relativeMinute(Double.valueOf("72.5"))
+            .relativeSecond(Double.valueOf("72.5"))
+            .specificHour(Double.valueOf("72.5"))
+            .specificMinute(Double.valueOf("72.5"))
+            .specificSecond(Double.valueOf("72.5"))
+            .timezone("testString")
+            .build();
+
+    // Construct an instance of the RuntimeEntityAlternative model
+    RuntimeEntityAlternative runtimeEntityAlternativeModel =
+        new RuntimeEntityAlternative.Builder()
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .build();
+
+    // Construct an instance of the RuntimeEntityRole model
+    RuntimeEntityRole runtimeEntityRoleModel =
+        new RuntimeEntityRole.Builder().type("date_from").build();
+
+    // Construct an instance of the RuntimeEntity model
+    RuntimeEntity runtimeEntityModel =
+        new RuntimeEntity.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .groups(
+                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .interpretation(runtimeEntityInterpretationModel)
+            .alternatives(
+                new java.util.ArrayList<RuntimeEntityAlternative>(
+                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .role(runtimeEntityRoleModel)
+            .build();
+
+    // Construct an instance of the MessageInputOptionsSpelling model
+    MessageInputOptionsSpelling messageInputOptionsSpellingModel =
+        new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
+
+    // Construct an instance of the MessageInputOptionsStateless model
+    MessageInputOptionsStateless messageInputOptionsStatelessModel =
+        new MessageInputOptionsStateless.Builder()
+            .restart(true)
+            .alternateIntents(true)
+            .spelling(messageInputOptionsSpellingModel)
+            .debug(true)
+            .build();
+
+    // Construct an instance of the MessageInputStateless model
+    MessageInputStateless messageInputStatelessModel =
+        new MessageInputStateless.Builder()
+            .messageType("text")
+            .text("testString")
+            .intents(
+                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
+            .entities(
+                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .suggestionId("testString")
+            .options(messageInputOptionsStatelessModel)
+            .build();
+
+    // Construct an instance of the MessageContextGlobalSystem model
+    MessageContextGlobalSystem messageContextGlobalSystemModel =
+        new MessageContextGlobalSystem.Builder()
+            .timezone("testString")
+            .userId("testString")
+            .turnCount(Long.valueOf("26"))
+            .locale("en-us")
+            .referenceTime("testString")
+            .build();
+
+    // Construct an instance of the MessageContextGlobalStateless model
+    MessageContextGlobalStateless messageContextGlobalStatelessModel =
+        new MessageContextGlobalStateless.Builder()
+            .system(messageContextGlobalSystemModel)
+            .sessionId("testString")
+            .build();
+
+    // Construct an instance of the MessageContextSkillSystem model
+    MessageContextSkillSystem messageContextSkillSystemModel =
+        new MessageContextSkillSystem.Builder()
+            .state("testString")
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the MessageContextSkill model
+    MessageContextSkill messageContextSkillModel =
+        new MessageContextSkill.Builder()
+            .userDefined(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .system(messageContextSkillSystemModel)
+            .build();
+
+    // Construct an instance of the MessageContextStateless model
+    MessageContextStateless messageContextStatelessModel =
+        new MessageContextStateless.Builder()
+            .global(messageContextGlobalStatelessModel)
+            .skills(
+                new java.util.HashMap<String, MessageContextSkill>() {
+                  {
+                    put("foo", messageContextSkillModel);
+                  }
+                })
+            .build();
+
+    // Construct an instance of the MessageStatelessOptions model
+    MessageStatelessOptions messageStatelessOptionsModel =
+        new MessageStatelessOptions.Builder()
+            .assistantId("testString")
+            .input(messageInputStatelessModel)
+            .context(messageContextStatelessModel)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<MessageResponseStateless> response =
+        assistantService.messageStateless(messageStatelessOptionsModel).execute();
+    assertNotNull(response);
+    MessageResponseStateless responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, messageStatelessPath);
+  }
+
+  // Test the messageStateless operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testMessageStatelessNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.messageStateless(null).execute();
+  }
+
+  @Test
+  public void testListLogsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": true, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": true}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}}}}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": true, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": true}}}}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\"}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}}}}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+    String listLogsPath = "/v2/assistants/testString/logs";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListLogsOptions model
+    ListLogsOptions listLogsOptionsModel =
+        new ListLogsOptions.Builder()
+            .assistantId("testString")
+            .sort("testString")
+            .filter("testString")
+            .pageLimit(Long.valueOf("26"))
+            .cursor("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<LogCollection> response = assistantService.listLogs(listLogsOptionsModel).execute();
+    assertNotNull(response);
+    LogCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("sort"), "testString");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(query.get("cursor"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listLogsPath);
+  }
+
+  // Test the listLogs operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListLogsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listLogs(null).execute();
+  }
+
+  @Test
+  public void testDeleteUserDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteUserDataPath = "/v2/user_data";
+
+    server.enqueue(new MockResponse().setResponseCode(202).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteUserDataOptions model
+    DeleteUserDataOptions deleteUserDataOptionsModel =
+        new DeleteUserDataOptions.Builder().customerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteUserData(deleteUserDataOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteUserDataPath);
+  }
+
+  // Test the deleteUserData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteUserDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteUserData(null).execute();
+  }
+
+  @Test
+  public void testBulkClassifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
+    String bulkClassifyPath = "/v2/skills/testString/workspace/bulk_classify";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the BulkClassifyUtterance model
+    BulkClassifyUtterance bulkClassifyUtteranceModel =
+        new BulkClassifyUtterance.Builder().text("testString").build();
+
+    // Construct an instance of the BulkClassifyOptions model
+    BulkClassifyOptions bulkClassifyOptionsModel =
+        new BulkClassifyOptions.Builder()
+            .skillId("testString")
+            .input(
+                new java.util.ArrayList<BulkClassifyUtterance>(
+                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<BulkClassifyResponse> response =
+        assistantService.bulkClassify(bulkClassifyOptionsModel).execute();
+    assertNotNull(response);
+    BulkClassifyResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, bulkClassifyPath);
+  }
+
+  // Test the bulkClassify operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testBulkClassifyNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.bulkClassify(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    assistantService = null;
   }
 }

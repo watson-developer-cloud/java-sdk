@@ -85,7 +85,7 @@ public class CreateCredentialsOptions extends GenericModel {
     /**
      * Builds a CreateCredentialsOptions.
      *
-     * @return the createCredentialsOptions
+     * @return the new CreateCredentialsOptions instance
      */
     public CreateCredentialsOptions build() {
       return new CreateCredentialsOptions(this);

@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 os: linux
 branches:
   except:
@@ -12,7 +12,7 @@ stages:
 jobs:
   include:
     - stage: Build and test
-      jdk: oraclejdk8
+      jdk: openjdk8
       language: java
       before_install:
         - .utility/decrypt-service-instance-apikeys.sh
@@ -21,21 +21,12 @@ jobs:
         - ./gradlew checkstyleTest
         - travis_retry .utility/travis-run-tests.sh
       after_success:
-        - bash <(curl -s https://codecov.io/bash)
-    - jdk: openjdk7
-      language: java
-      before_install:
-        - .utility/patch-openjdk7.sh
-        - .utility/decrypt-service-instance-apikeys.sh
-      script:
-        - travis_retry .utility/travis-run-tests.sh
-      after_success:
-        - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash)+++++++
 
     - stage: Semantic release
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
-      if: branch = master AND type = push AND fork = false
+      if: (branch = master OR branch = rc) AND type = push AND fork = false
       before_install:
         - pip install --user bumpversion
         - nvm install 12
@@ -46,7 +37,7 @@ jobs:
         - npx semantic-release
 
     - stage: Publish javadoc
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
       if: type = push AND fork = false
       script:
@@ -54,7 +45,7 @@ jobs:
         - .utility/push-javadoc-to-gh-pages.sh
 
     - stage: Release to bintray
-      jdk: openjdk7
+      jdk: openjdk8
       language: java
       if: tag IS present
       script:

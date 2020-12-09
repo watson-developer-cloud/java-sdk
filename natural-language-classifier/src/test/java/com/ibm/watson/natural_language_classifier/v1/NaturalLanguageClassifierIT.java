@@ -126,7 +126,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   /** Test list classifiers. */
   @Test
   public void cListClassifiers() {
-    ListClassifiersOptions listOptions = new ListClassifiersOptions.Builder().build();
+    ListClassifiersOptions listOptions = new ListClassifiersOptions();
     final ClassifierList classifiers = service.listClassifiers(listOptions).execute().getResult();
     assertNotNull(classifiers);
 

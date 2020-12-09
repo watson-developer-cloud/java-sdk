@@ -33,7 +33,7 @@ public class NluEnrichmentRelations extends GenericModel {
     /**
      * Builds a NluEnrichmentRelations.
      *
-     * @return the nluEnrichmentRelations
+     * @return the new NluEnrichmentRelations instance
      */
     public NluEnrichmentRelations build() {
       return new NluEnrichmentRelations(this);

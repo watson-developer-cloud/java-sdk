@@ -33,7 +33,7 @@ public class DialogNodeOutputTextValuesElement extends GenericModel {
     /**
      * Builds a DialogNodeOutputTextValuesElement.
      *
-     * @return the dialogNodeOutputTextValuesElement
+     * @return the new DialogNodeOutputTextValuesElement instance
      */
     public DialogNodeOutputTextValuesElement build() {
       return new DialogNodeOutputTextValuesElement(this);

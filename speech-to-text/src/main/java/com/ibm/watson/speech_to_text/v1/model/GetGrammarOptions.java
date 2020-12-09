@@ -47,7 +47,7 @@ public class GetGrammarOptions extends GenericModel {
     /**
      * Builds a GetGrammarOptions.
      *
-     * @return the getGrammarOptions
+     * @return the new GetGrammarOptions instance
      */
     public GetGrammarOptions build() {
       return new GetGrammarOptions(this);

@@ -42,7 +42,7 @@ public class DeleteClassifierOptions extends GenericModel {
     /**
      * Builds a DeleteClassifierOptions.
      *
-     * @return the deleteClassifierOptions
+     * @return the new DeleteClassifierOptions instance
      */
     public DeleteClassifierOptions build() {
       return new DeleteClassifierOptions(this);

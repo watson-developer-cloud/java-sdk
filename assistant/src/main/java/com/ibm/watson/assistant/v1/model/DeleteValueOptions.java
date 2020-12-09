@@ -52,7 +52,7 @@ public class DeleteValueOptions extends GenericModel {
     /**
      * Builds a DeleteValueOptions.
      *
-     * @return the deleteValueOptions
+     * @return the new DeleteValueOptions instance
      */
     public DeleteValueOptions build() {
       return new DeleteValueOptions(this);

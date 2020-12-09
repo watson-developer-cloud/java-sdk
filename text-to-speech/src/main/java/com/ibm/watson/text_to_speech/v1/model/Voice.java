@@ -15,7 +15,7 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Information about an available voice model. */
+/** Information about an available voice. */
 public class Voice extends GenericModel {
 
   protected String url;
@@ -28,7 +28,7 @@ public class Voice extends GenericModel {
   @SerializedName("supported_features")
   protected SupportedFeatures supportedFeatures;
 
-  protected VoiceModel customization;
+  protected CustomModel customization;
 
   /**
    * Gets the url.
@@ -111,12 +111,12 @@ public class Voice extends GenericModel {
   /**
    * Gets the customization.
    *
-   * <p>Returns information about a specified custom voice model. This field is returned only by the
-   * **Get a voice** method and only when you specify the customization ID of a custom voice model.
+   * <p>Returns information about a specified custom model. This field is returned only by the **Get
+   * a voice** method and only when you specify the customization ID of a custom model.
    *
    * @return the customization
    */
-  public VoiceModel getCustomization() {
+  public CustomModel getCustomization() {
     return customization;
   }
 }

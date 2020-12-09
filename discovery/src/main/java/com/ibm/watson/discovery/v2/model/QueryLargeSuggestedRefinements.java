@@ -36,7 +36,7 @@ public class QueryLargeSuggestedRefinements extends GenericModel {
     /**
      * Builds a QueryLargeSuggestedRefinements.
      *
-     * @return the queryLargeSuggestedRefinements
+     * @return the new QueryLargeSuggestedRefinements instance
      */
     public QueryLargeSuggestedRefinements build() {
       return new QueryLargeSuggestedRefinements(this);

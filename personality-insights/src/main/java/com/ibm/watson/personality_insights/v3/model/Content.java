@@ -44,7 +44,7 @@ public class Content extends GenericModel {
     /**
      * Builds a Content.
      *
-     * @return the content
+     * @return the new Content instance
      */
     public Content build() {
       return new Content(this);

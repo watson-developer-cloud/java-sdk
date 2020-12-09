@@ -71,7 +71,7 @@ public class UpdateEntityOptions extends GenericModel {
     /**
      * Builds a UpdateEntityOptions.
      *
-     * @return the updateEntityOptions
+     * @return the new UpdateEntityOptions instance
      */
     public UpdateEntityOptions build() {
       return new UpdateEntityOptions(this);

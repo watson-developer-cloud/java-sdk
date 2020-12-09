@@ -47,7 +47,7 @@ public class DeleteGatewayOptions extends GenericModel {
     /**
      * Builds a DeleteGatewayOptions.
      *
-     * @return the deleteGatewayOptions
+     * @return the new DeleteGatewayOptions instance
      */
     public DeleteGatewayOptions build() {
       return new DeleteGatewayOptions(this);

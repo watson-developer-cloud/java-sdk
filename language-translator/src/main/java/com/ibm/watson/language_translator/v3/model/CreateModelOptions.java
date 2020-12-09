@@ -55,7 +55,7 @@ public class CreateModelOptions extends GenericModel {
     /**
      * Builds a CreateModelOptions.
      *
-     * @return the createModelOptions
+     * @return the new CreateModelOptions instance
      */
     public CreateModelOptions build() {
       return new CreateModelOptions(this);

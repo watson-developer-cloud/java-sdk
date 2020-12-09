@@ -44,8 +44,6 @@ public class CreateValue extends GenericModel {
     private String type;
     private List<String> synonyms;
     private List<String> patterns;
-    private Date created;
-    private Date updated;
 
     private Builder(CreateValue createValue) {
       this.value = createValue.value;
@@ -53,8 +51,6 @@ public class CreateValue extends GenericModel {
       this.type = createValue.type;
       this.synonyms = createValue.synonyms;
       this.patterns = createValue.patterns;
-      this.created = createValue.created;
-      this.updated = createValue.updated;
     }
 
     /** Instantiates a new builder. */
@@ -72,7 +68,7 @@ public class CreateValue extends GenericModel {
     /**
      * Builds a CreateValue.
      *
-     * @return the createValue
+     * @return the new CreateValue instance
      */
     public CreateValue build() {
       return new CreateValue(this);
@@ -162,28 +158,6 @@ public class CreateValue extends GenericModel {
       this.patterns = patterns;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the CreateValue builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the CreateValue builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected CreateValue(Builder builder) {
@@ -193,8 +167,6 @@ public class CreateValue extends GenericModel {
     type = builder.type;
     synonyms = builder.synonyms;
     patterns = builder.patterns;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

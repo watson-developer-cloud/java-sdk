@@ -42,7 +42,7 @@ public class ListCredentialsOptions extends GenericModel {
     /**
      * Builds a ListCredentialsOptions.
      *
-     * @return the listCredentialsOptions
+     * @return the new ListCredentialsOptions instance
      */
     public ListCredentialsOptions build() {
       return new ListCredentialsOptions(this);

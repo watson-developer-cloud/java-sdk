@@ -86,7 +86,7 @@ public class ClassifyOptions extends GenericModel {
     /**
      * Builds a ClassifyOptions.
      *
-     * @return the classifyOptions
+     * @return the new ClassifyOptions instance
      */
     public ClassifyOptions build() {
       return new ClassifyOptions(this);

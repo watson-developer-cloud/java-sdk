@@ -39,8 +39,8 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the voiceTransformation.
    *
-   * <p>If `true`, the voice can be transformed by using the SSML &lt;voice-transformation&gt;
-   * element; if `false`, the voice cannot be transformed.
+   * <p>If `true`, the voice can be transformed by using the SSML
+   * &amp;lt;voice-transformation&amp;gt; element; if `false`, the voice cannot be transformed.
    *
    * @return the voiceTransformation
    */

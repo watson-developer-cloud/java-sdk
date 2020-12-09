@@ -62,7 +62,7 @@ public class HtmlSettings extends GenericModel {
     /**
      * Builds a HtmlSettings.
      *
-     * @return the htmlSettings
+     * @return the new HtmlSettings instance
      */
     public HtmlSettings build() {
       return new HtmlSettings(this);

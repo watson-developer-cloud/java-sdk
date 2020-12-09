@@ -1,3 +1,46 @@
+# [9.0.0-rc.3](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.2...v9.0.0-rc.3) (2020-12-03)
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0 ([3414833](https://github.com/watson-developer-cloud/java-sdk/commit/3414833807abe8534e6daf838500a5426e9e4e04))
+
+
+### BREAKING CHANGES
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0
+
+# [9.0.0-rc.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2020-11-11)
+
+
+### Bug Fixes
+
+* typo in migration guide ([984a350](https://github.com/watson-developer-cloud/java-sdk/commit/984a3503502a7867470b3e342fe959643ae0a561))
+* update version to 9.0.0-rc.2 ([ab57379](https://github.com/watson-developer-cloud/java-sdk/commit/ab573794f351e00f6fb97e3fed0e7d3ad20fb824))
+
+
+### Features
+
+* add bumpversion release candidate support ([b794bb6](https://github.com/watson-developer-cloud/java-sdk/commit/b794bb6407e461af0edd99952e08b98e8d4a95e2))
+
+# [9.0.0-rc.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.3...v9.0.0-rc.1) (2020-11-10)
+
+
+### chore
+
+* update for semantic-release ([22a7d00](https://github.com/watson-developer-cloud/java-sdk/commit/22a7d008c6e333a944c3b0f6a96f142f587e5aed))
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020-rc01' gen commit '7cc0550' ([3bec20d](https://github.com/watson-developer-cloud/java-sdk/commit/3bec20d5ccae38ba2a1f1d8adf6cf16cdc2c6a18))
+* **speech-to-text-v1:** add RecognizeWithWebsocketsOptions model ([d3b7fe9](https://github.com/watson-developer-cloud/java-sdk/commit/d3b7fe91fad17fa6ef6dd00a5ecc38b689dfd016))
+
+
+### BREAKING CHANGES
+
+* generated with 3.18.0 of the IBM openapi sdk generator
+
 ## [8.6.3](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.2...v8.6.3) (2020-10-26)
 
 

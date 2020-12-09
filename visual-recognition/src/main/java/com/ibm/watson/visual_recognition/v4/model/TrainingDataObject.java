@@ -36,7 +36,7 @@ public class TrainingDataObject extends GenericModel {
     /**
      * Builds a TrainingDataObject.
      *
-     * @return the trainingDataObject
+     * @return the new TrainingDataObject instance
      */
     public TrainingDataObject build() {
       return new TrainingDataObject(this);

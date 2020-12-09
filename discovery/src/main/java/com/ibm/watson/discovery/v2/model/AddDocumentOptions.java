@@ -66,7 +66,7 @@ public class AddDocumentOptions extends GenericModel {
     /**
      * Builds a AddDocumentOptions.
      *
-     * @return the addDocumentOptions
+     * @return the new AddDocumentOptions instance
      */
     public AddDocumentOptions build() {
       return new AddDocumentOptions(this);

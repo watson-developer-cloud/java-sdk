@@ -33,7 +33,7 @@ public class DialogNodeOutputModifiers extends GenericModel {
     /**
      * Builds a DialogNodeOutputModifiers.
      *
-     * @return the dialogNodeOutputModifiers
+     * @return the new DialogNodeOutputModifiers instance
      */
     public DialogNodeOutputModifiers build() {
       return new DialogNodeOutputModifiers(this);

@@ -47,7 +47,7 @@ public class DeleteAllTrainingDataOptions extends GenericModel {
     /**
      * Builds a DeleteAllTrainingDataOptions.
      *
-     * @return the deleteAllTrainingDataOptions
+     * @return the new DeleteAllTrainingDataOptions instance
      */
     public DeleteAllTrainingDataOptions build() {
       return new DeleteAllTrainingDataOptions(this);

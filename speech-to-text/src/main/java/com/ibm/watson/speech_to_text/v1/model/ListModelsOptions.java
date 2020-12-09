@@ -15,34 +15,4 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The listModels options. */
-public class ListModelsOptions extends GenericModel {
-
-  /** Builder. */
-  public static class Builder {
-
-    private Builder(ListModelsOptions listModelsOptions) {}
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a ListModelsOptions.
-     *
-     * @return the listModelsOptions
-     */
-    public ListModelsOptions build() {
-      return new ListModelsOptions(this);
-    }
-  }
-
-  private ListModelsOptions(Builder builder) {}
-
-  /**
-   * New builder.
-   *
-   * @return a ListModelsOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-}
+public class ListModelsOptions extends GenericModel {}

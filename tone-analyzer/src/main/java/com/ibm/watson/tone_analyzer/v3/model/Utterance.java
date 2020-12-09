@@ -45,7 +45,7 @@ public class Utterance extends GenericModel {
     /**
      * Builds a Utterance.
      *
-     * @return the utterance
+     * @return the new Utterance instance
      */
     public Utterance build() {
       return new Utterance(this);

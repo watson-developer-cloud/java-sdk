@@ -47,7 +47,7 @@ public class DeleteConfigurationOptions extends GenericModel {
     /**
      * Builds a DeleteConfigurationOptions.
      *
-     * @return the deleteConfigurationOptions
+     * @return the new DeleteConfigurationOptions instance
      */
     public DeleteConfigurationOptions build() {
       return new DeleteConfigurationOptions(this);

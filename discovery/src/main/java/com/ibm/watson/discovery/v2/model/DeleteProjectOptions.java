@@ -42,7 +42,7 @@ public class DeleteProjectOptions extends GenericModel {
     /**
      * Builds a DeleteProjectOptions.
      *
-     * @return the deleteProjectOptions
+     * @return the new DeleteProjectOptions instance
      */
     public DeleteProjectOptions build() {
       return new DeleteProjectOptions(this);

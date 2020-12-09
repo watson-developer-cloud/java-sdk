@@ -42,7 +42,7 @@ public class ResetLanguageModelOptions extends GenericModel {
     /**
      * Builds a ResetLanguageModelOptions.
      *
-     * @return the resetLanguageModelOptions
+     * @return the new ResetLanguageModelOptions instance
      */
     public ResetLanguageModelOptions build() {
       return new ResetLanguageModelOptions(this);

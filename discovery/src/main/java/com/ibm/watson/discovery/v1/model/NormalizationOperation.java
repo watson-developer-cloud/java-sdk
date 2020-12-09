@@ -86,7 +86,7 @@ public class NormalizationOperation extends GenericModel {
     /**
      * Builds a NormalizationOperation.
      *
-     * @return the normalizationOperation
+     * @return the new NormalizationOperation instance
      */
     public NormalizationOperation build() {
       return new NormalizationOperation(this);

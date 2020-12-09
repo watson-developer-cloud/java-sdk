@@ -47,7 +47,7 @@ public class QueryLogOptions extends GenericModel {
     /**
      * Builds a QueryLogOptions.
      *
-     * @return the queryLogOptions
+     * @return the new QueryLogOptions instance
      */
     public QueryLogOptions build() {
       return new QueryLogOptions(this);

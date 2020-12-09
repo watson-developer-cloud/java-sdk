@@ -52,7 +52,7 @@ public class ListTrainingExamplesOptions extends GenericModel {
     /**
      * Builds a ListTrainingExamplesOptions.
      *
-     * @return the listTrainingExamplesOptions
+     * @return the new ListTrainingExamplesOptions instance
      */
     public ListTrainingExamplesOptions build() {
       return new ListTrainingExamplesOptions(this);

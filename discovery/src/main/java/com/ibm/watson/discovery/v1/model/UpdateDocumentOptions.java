@@ -68,7 +68,7 @@ public class UpdateDocumentOptions extends GenericModel {
     /**
      * Builds a UpdateDocumentOptions.
      *
-     * @return the updateDocumentOptions
+     * @return the new UpdateDocumentOptions instance
      */
     public UpdateDocumentOptions build() {
       return new UpdateDocumentOptions(this);

@@ -61,7 +61,7 @@ public class GetWorkspaceOptions extends GenericModel {
     /**
      * Builds a GetWorkspaceOptions.
      *
-     * @return the getWorkspaceOptions
+     * @return the new GetWorkspaceOptions instance
      */
     public GetWorkspaceOptions build() {
       return new GetWorkspaceOptions(this);

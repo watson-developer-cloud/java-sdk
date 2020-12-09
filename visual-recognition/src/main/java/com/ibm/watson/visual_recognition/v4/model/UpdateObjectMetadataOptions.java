@@ -52,7 +52,7 @@ public class UpdateObjectMetadataOptions extends GenericModel {
     /**
      * Builds a UpdateObjectMetadataOptions.
      *
-     * @return the updateObjectMetadataOptions
+     * @return the new UpdateObjectMetadataOptions instance
      */
     public UpdateObjectMetadataOptions build() {
       return new UpdateObjectMetadataOptions(this);
@@ -98,6 +98,7 @@ public class UpdateObjectMetadataOptions extends GenericModel {
      * @return the UpdateObjectMetadataOptions builder
      */
     public Builder updateObjectMetadata(UpdateObjectMetadata updateObjectMetadata) {
+      this.newObject = updateObjectMetadata.object();
       return this;
     }
   }

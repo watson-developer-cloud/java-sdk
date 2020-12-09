@@ -42,7 +42,7 @@ public class UpgradeLanguageModelOptions extends GenericModel {
     /**
      * Builds a UpgradeLanguageModelOptions.
      *
-     * @return the upgradeLanguageModelOptions
+     * @return the new UpgradeLanguageModelOptions instance
      */
     public UpgradeLanguageModelOptions build() {
       return new UpgradeLanguageModelOptions(this);

@@ -38,7 +38,7 @@ public class NluEnrichmentEmotion extends GenericModel {
     /**
      * Builds a NluEnrichmentEmotion.
      *
-     * @return the nluEnrichmentEmotion
+     * @return the new NluEnrichmentEmotion instance
      */
     public NluEnrichmentEmotion build() {
       return new NluEnrichmentEmotion(this);

@@ -94,7 +94,7 @@ public class ToneChatOptions extends GenericModel {
     /**
      * Builds a ToneChatOptions.
      *
-     * @return the toneChatOptions
+     * @return the new ToneChatOptions instance
      */
     public ToneChatOptions build() {
       return new ToneChatOptions(this);

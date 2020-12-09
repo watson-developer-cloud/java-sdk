@@ -1778,4 +1778,20 @@ public class AssistantServiceIT extends AssistantServiceTest {
         service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
   }
+
+  /** Test bulk classify */
+  @Ignore
+  @Test
+  public void testBulkClassify() {
+    BulkClassifyUtterance bulkClassifyUtterance =
+        new BulkClassifyUtterance.Builder().text("help I need help").build();
+    BulkClassifyOptions bulkClassifyOptions =
+        new BulkClassifyOptions.Builder()
+            .addInput(bulkClassifyUtterance)
+            .workspaceId("{workspaceId}")
+            .build();
+    BulkClassifyResponse response = service.bulkClassify(bulkClassifyOptions).execute().getResult();
+
+    assertNotNull(response);
+  }
 }

@@ -55,7 +55,7 @@ public class Expansion extends GenericModel {
     /**
      * Builds a Expansion.
      *
-     * @return the expansion
+     * @return the new Expansion instance
      */
     public Expansion build() {
       return new Expansion(this);

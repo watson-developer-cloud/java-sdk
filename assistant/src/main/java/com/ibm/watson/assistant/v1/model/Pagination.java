@@ -58,7 +58,8 @@ public class Pagination extends GenericModel {
   /**
    * Gets the total.
    *
-   * <p>Reserved for future use.
+   * <p>The total number of objects that satisfy the request. This total includes all results, not
+   * just those included in the current page.
    *
    * @return the total
    */

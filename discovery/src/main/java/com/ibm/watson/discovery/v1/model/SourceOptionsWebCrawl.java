@@ -94,7 +94,7 @@ public class SourceOptionsWebCrawl extends GenericModel {
     /**
      * Builds a SourceOptionsWebCrawl.
      *
-     * @return the sourceOptionsWebCrawl
+     * @return the new SourceOptionsWebCrawl instance
      */
     public SourceOptionsWebCrawl build() {
       return new SourceOptionsWebCrawl(this);

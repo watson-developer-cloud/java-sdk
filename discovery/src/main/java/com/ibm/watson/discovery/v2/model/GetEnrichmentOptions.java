@@ -47,7 +47,7 @@ public class GetEnrichmentOptions extends GenericModel {
     /**
      * Builds a GetEnrichmentOptions.
      *
-     * @return the getEnrichmentOptions
+     * @return the new GetEnrichmentOptions instance
      */
     public GetEnrichmentOptions build() {
       return new GetEnrichmentOptions(this);

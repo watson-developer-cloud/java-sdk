@@ -35,7 +35,7 @@ public class PdfHeadingDetection extends GenericModel {
     /**
      * Builds a PdfHeadingDetection.
      *
-     * @return the pdfHeadingDetection
+     * @return the new PdfHeadingDetection instance
      */
     public PdfHeadingDetection build() {
       return new PdfHeadingDetection(this);

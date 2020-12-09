@@ -78,7 +78,7 @@ public class CreateValueOptions extends GenericModel {
     /**
      * Builds a CreateValueOptions.
      *
-     * @return the createValueOptions
+     * @return the new CreateValueOptions instance
      */
     public CreateValueOptions build() {
       return new CreateValueOptions(this);

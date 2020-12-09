@@ -20,6 +20,7 @@ public class UpdateCollectionOptions extends GenericModel {
   protected String collectionId;
   protected String name;
   protected String description;
+  protected TrainingStatus trainingStatus;
 
   /** Builder. */
   public static class Builder {
@@ -48,7 +49,7 @@ public class UpdateCollectionOptions extends GenericModel {
     /**
      * Builds a UpdateCollectionOptions.
      *
-     * @return the updateCollectionOptions
+     * @return the new UpdateCollectionOptions instance
      */
     public UpdateCollectionOptions build() {
       return new UpdateCollectionOptions(this);
@@ -137,5 +138,16 @@ public class UpdateCollectionOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the trainingStatus.
+   *
+   * <p>Training status information for the collection.
+   *
+   * @return the trainingStatus
+   */
+  public TrainingStatus trainingStatus() {
+    return trainingStatus;
   }
 }

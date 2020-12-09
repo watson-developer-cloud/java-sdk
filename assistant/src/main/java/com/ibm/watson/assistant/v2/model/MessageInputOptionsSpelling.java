@@ -42,7 +42,7 @@ public class MessageInputOptionsSpelling extends GenericModel {
     /**
      * Builds a MessageInputOptionsSpelling.
      *
-     * @return the messageInputOptionsSpelling
+     * @return the new MessageInputOptionsSpelling instance
      */
     public MessageInputOptionsSpelling build() {
       return new MessageInputOptionsSpelling(this);

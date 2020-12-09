@@ -73,7 +73,7 @@ public class RuntimeEntity extends GenericModel {
     /**
      * Builds a RuntimeEntity.
      *
-     * @return the runtimeEntity
+     * @return the new RuntimeEntity instance
      */
     public RuntimeEntity build() {
       return new RuntimeEntity(this);

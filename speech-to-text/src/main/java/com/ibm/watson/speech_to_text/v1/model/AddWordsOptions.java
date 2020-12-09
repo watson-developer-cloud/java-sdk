@@ -49,7 +49,7 @@ public class AddWordsOptions extends GenericModel {
     /**
      * Builds a AddWordsOptions.
      *
-     * @return the addWordsOptions
+     * @return the new AddWordsOptions instance
      */
     public AddWordsOptions build() {
       return new AddWordsOptions(this);

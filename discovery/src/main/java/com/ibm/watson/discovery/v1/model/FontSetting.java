@@ -54,7 +54,7 @@ public class FontSetting extends GenericModel {
     /**
      * Builds a FontSetting.
      *
-     * @return the fontSetting
+     * @return the new FontSetting instance
      */
     public FontSetting build() {
       return new FontSetting(this);

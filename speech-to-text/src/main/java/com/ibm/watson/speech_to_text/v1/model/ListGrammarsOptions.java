@@ -42,7 +42,7 @@ public class ListGrammarsOptions extends GenericModel {
     /**
      * Builds a ListGrammarsOptions.
      *
-     * @return the listGrammarsOptions
+     * @return the new ListGrammarsOptions instance
      */
     public ListGrammarsOptions build() {
       return new ListGrammarsOptions(this);

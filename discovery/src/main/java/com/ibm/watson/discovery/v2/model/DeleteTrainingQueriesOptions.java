@@ -42,7 +42,7 @@ public class DeleteTrainingQueriesOptions extends GenericModel {
     /**
      * Builds a DeleteTrainingQueriesOptions.
      *
-     * @return the deleteTrainingQueriesOptions
+     * @return the new DeleteTrainingQueriesOptions instance
      */
     public DeleteTrainingQueriesOptions build() {
       return new DeleteTrainingQueriesOptions(this);

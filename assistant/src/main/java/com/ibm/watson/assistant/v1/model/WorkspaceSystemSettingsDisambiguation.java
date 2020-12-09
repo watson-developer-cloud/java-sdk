@@ -71,7 +71,7 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     /**
      * Builds a WorkspaceSystemSettingsDisambiguation.
      *
-     * @return the workspaceSystemSettingsDisambiguation
+     * @return the new WorkspaceSystemSettingsDisambiguation instance
      */
     public WorkspaceSystemSettingsDisambiguation build() {
       return new WorkspaceSystemSettingsDisambiguation(this);

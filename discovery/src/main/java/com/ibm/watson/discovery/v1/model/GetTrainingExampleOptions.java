@@ -57,7 +57,7 @@ public class GetTrainingExampleOptions extends GenericModel {
     /**
      * Builds a GetTrainingExampleOptions.
      *
-     * @return the getTrainingExampleOptions
+     * @return the new GetTrainingExampleOptions instance
      */
     public GetTrainingExampleOptions build() {
       return new GetTrainingExampleOptions(this);

@@ -94,7 +94,7 @@ public class MessageContextGlobalSystem extends GenericModel {
     /**
      * Builds a MessageContextGlobalSystem.
      *
-     * @return the messageContextGlobalSystem
+     * @return the new MessageContextGlobalSystem instance
      */
     public MessageContextGlobalSystem build() {
       return new MessageContextGlobalSystem(this);

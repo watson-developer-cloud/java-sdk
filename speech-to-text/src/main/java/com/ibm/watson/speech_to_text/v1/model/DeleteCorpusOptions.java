@@ -47,7 +47,7 @@ public class DeleteCorpusOptions extends GenericModel {
     /**
      * Builds a DeleteCorpusOptions.
      *
-     * @return the deleteCorpusOptions
+     * @return the new DeleteCorpusOptions instance
      */
     public DeleteCorpusOptions build() {
       return new DeleteCorpusOptions(this);

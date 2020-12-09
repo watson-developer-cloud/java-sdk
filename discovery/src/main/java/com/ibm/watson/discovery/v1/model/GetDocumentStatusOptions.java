@@ -52,7 +52,7 @@ public class GetDocumentStatusOptions extends GenericModel {
     /**
      * Builds a GetDocumentStatusOptions.
      *
-     * @return the getDocumentStatusOptions
+     * @return the new GetDocumentStatusOptions instance
      */
     public GetDocumentStatusOptions build() {
       return new GetDocumentStatusOptions(this);

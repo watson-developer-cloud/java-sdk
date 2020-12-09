@@ -71,7 +71,7 @@ public class UpdateBatchOptions extends GenericModel {
     /**
      * Builds a UpdateBatchOptions.
      *
-     * @return the updateBatchOptions
+     * @return the new UpdateBatchOptions instance
      */
     public UpdateBatchOptions build() {
       return new UpdateBatchOptions(this);
