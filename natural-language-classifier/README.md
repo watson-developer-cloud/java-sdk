@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>natural-language-classifier</artifactId>
-  <version>9.0.0-rc.3</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:natural-language-classifier:9.0.0-rc.3'
+'com.ibm.watson:natural-language-classifier:8.6.3'
 ```
 
 ## Usage
