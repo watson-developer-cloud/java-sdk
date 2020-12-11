@@ -1,3 +1,10 @@
+## [9.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0...v9.0.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **readme:** add extra line to readme to trigger patch release ([f5d1a06](https://github.com/watson-developer-cloud/java-sdk/commit/f5d1a0696835e079a3349b5a4575a1d1a1658047))
+
 # [9.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.3...v9.0.0) (2020-12-10)
 
 
