@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
+import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
 import com.ibm.watson.assistant.v1.model.*;
 import com.ibm.watson.common.RetryRunner;
 import io.reactivex.Single;
@@ -120,7 +121,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   }
 
   /** Ping bad credentials throws exception. */
-  @Test(expected = ForbiddenException.class)
+  @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
     Assistant badService = new Assistant("2019-02-28", new BasicAuthenticator("foo", "bar"));
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
