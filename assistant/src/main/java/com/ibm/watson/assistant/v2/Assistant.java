@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -296,6 +296,47 @@ public class Assistant extends BaseService {
   }
 
   /**
+   * Identify intents and entities in multiple user utterances.
+   *
+   * <p>Send multiple user inputs to a dialog skill in a single request and receive information
+   * about the intents and entities recognized in each input. This method is useful for testing and
+   * comparing the performance of different skills or skill versions.
+   *
+   * <p>This method is available only with Premium plans.
+   *
+   * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
+   */
+  public ServiceCall<BulkClassifyResponse> bulkClassify(BulkClassifyOptions bulkClassifyOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        bulkClassifyOptions, "bulkClassifyOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("skill_id", bulkClassifyOptions.skillId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/skills/{skill_id}/workspace/bulk_classify", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "bulkClassify");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (bulkClassifyOptions.input() != null) {
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(bulkClassifyOptions.input()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<BulkClassifyResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<BulkClassifyResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List log events for an assistant.
    *
    * <p>List the events from the log of an assistant.
@@ -370,47 +411,6 @@ public class Assistant extends BaseService {
     builder.query("version", String.valueOf(this.version));
     builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Identify intents and entities in multiple user utterances.
-   *
-   * <p>Send multiple user inputs to a dialog skill in a single request and receive information
-   * about the intents and entities recognized in each input. This method is useful for testing and
-   * comparing the performance of different skills or skill versions.
-   *
-   * <p>This method is available only with Premium plans.
-   *
-   * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
-   */
-  public ServiceCall<BulkClassifyResponse> bulkClassify(BulkClassifyOptions bulkClassifyOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        bulkClassifyOptions, "bulkClassifyOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("skill_id", bulkClassifyOptions.skillId());
-    RequestBuilder builder =
-        RequestBuilder.post(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/skills/{skill_id}/workspace/bulk_classify", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "bulkClassify");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    final JsonObject contentJson = new JsonObject();
-    if (bulkClassifyOptions.input() != null) {
-      contentJson.add(
-          "input",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(bulkClassifyOptions.input()));
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<BulkClassifyResponse> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<BulkClassifyResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

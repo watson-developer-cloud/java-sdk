@@ -21,7 +21,6 @@ import static org.junit.Assert.fail;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
-import com.ibm.cloud.sdk.core.service.exception.ForbiddenException;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
 import com.ibm.watson.assistant.v1.model.*;

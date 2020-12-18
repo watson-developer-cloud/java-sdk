@@ -29,8 +29,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
   public static class Builder {
     private String responseType;
     private String messageToHumanAgent;
-    private String agentAvailable;
-    private String agentUnavailable;
+    private AgentAvailabilityMessage agentAvailable;
+    private AgentAvailabilityMessage agentUnavailable;
     private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
     private String topic;
     private String dialogNode;
@@ -96,7 +96,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
      * @param agentAvailable the agentAvailable
      * @return the RuntimeResponseGenericRuntimeResponseTypeConnectToAgent builder
      */
-    public Builder agentAvailable(String agentAvailable) {
+    public Builder agentAvailable(AgentAvailabilityMessage agentAvailable) {
       this.agentAvailable = agentAvailable;
       return this;
     }
@@ -107,7 +107,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
      * @param agentUnavailable the agentUnavailable
      * @return the RuntimeResponseGenericRuntimeResponseTypeConnectToAgent builder
      */
-    public Builder agentUnavailable(String agentUnavailable) {
+    public Builder agentUnavailable(AgentAvailabilityMessage agentUnavailable) {
       this.agentUnavailable = agentUnavailable;
       return this;
     }

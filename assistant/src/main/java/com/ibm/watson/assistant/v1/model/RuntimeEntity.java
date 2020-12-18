@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -319,10 +319,9 @@ public class RuntimeEntity extends GenericModel {
    * Gets the interpretation.
    *
    * <p>An object containing detailed information about the entity recognized in the user input.
-   * This property is included only if the new system entities are enabled for the workspace.
    *
-   * <p>For more information about how the new system entities are interpreted, see the
-   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-beta-system-entities).
+   * <p>For more information about how system entities are interpreted, see the
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-system-entities).
    *
    * @return the interpretation
    */
