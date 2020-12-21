@@ -34,6 +34,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentTe
   @Test
   public void testDialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent()
       throws Throwable {
+    AgentAvailabilityMessage agentAvailabilityMessageModel =
+        new AgentAvailabilityMessage.Builder().message("testString").build();
+    assertEquals(agentAvailabilityMessageModel.message(), "testString");
+
     DialogNodeOutputConnectToAgentTransferInfo dialogNodeOutputConnectToAgentTransferInfoModel =
         new DialogNodeOutputConnectToAgentTransferInfo.Builder()
             .target(
@@ -68,8 +72,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentTe
             new DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.Builder()
                 .responseType("connect_to_agent")
                 .messageToHumanAgent("testString")
-                .agentAvailable("testString")
-                .agentUnavailable("testString")
+                .agentAvailable(agentAvailabilityMessageModel)
+                .agentUnavailable(agentAvailabilityMessageModel)
                 .transferInfo(dialogNodeOutputConnectToAgentTransferInfoModel)
                 .build();
     assertEquals(
@@ -81,10 +85,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentTe
         "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModel.agentAvailable(),
-        "testString");
+        agentAvailabilityMessageModel);
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModel.agentUnavailable(),
-        "testString");
+        agentAvailabilityMessageModel);
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModel.transferInfo(),
         dialogNodeOutputConnectToAgentTransferInfoModel);
@@ -108,12 +112,15 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentTe
             .messageToHumanAgent(),
         "testString");
     assertEquals(
-        dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModelNew.agentAvailable(),
-        "testString");
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModelNew
+            .agentAvailable()
+            .toString(),
+        agentAvailabilityMessageModel.toString());
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModelNew
-            .agentUnavailable(),
-        "testString");
+            .agentUnavailable()
+            .toString(),
+        agentAvailabilityMessageModel.toString());
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgentModelNew
             .transferInfo()

@@ -393,6 +393,68 @@ public class AssistantTest {
   }
 
   @Test
+  public void testBulkClassifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
+    String bulkClassifyPath = "/v1/workspaces/testString/bulk_classify";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the BulkClassifyUtterance model
+    BulkClassifyUtterance bulkClassifyUtteranceModel =
+        new BulkClassifyUtterance.Builder().text("testString").build();
+
+    // Construct an instance of the BulkClassifyOptions model
+    BulkClassifyOptions bulkClassifyOptionsModel =
+        new BulkClassifyOptions.Builder()
+            .workspaceId("testString")
+            .input(
+                new java.util.ArrayList<BulkClassifyUtterance>(
+                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<BulkClassifyResponse> response =
+        assistantService.bulkClassify(bulkClassifyOptionsModel).execute();
+    assertNotNull(response);
+    BulkClassifyResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, bulkClassifyPath);
+  }
+
+  // Test the bulkClassify operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testBulkClassifyNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.bulkClassify(null).execute();
+  }
+
+  @Test
   public void testListWorkspacesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
@@ -3752,68 +3814,6 @@ public class AssistantTest {
 
     // Invoke operation with null options model (negative test)
     assistantService.deleteUserData(null).execute();
-  }
-
-  @Test
-  public void testBulkClassifyWOptions() throws Throwable {
-    // Schedule some responses.
-    String mockResponseBody =
-        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
-    String bulkClassifyPath = "/v1/workspaces/testString/bulk_classify";
-
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(200)
-            .setBody(mockResponseBody));
-
-    constructClientService();
-
-    // Construct an instance of the BulkClassifyUtterance model
-    BulkClassifyUtterance bulkClassifyUtteranceModel =
-        new BulkClassifyUtterance.Builder().text("testString").build();
-
-    // Construct an instance of the BulkClassifyOptions model
-    BulkClassifyOptions bulkClassifyOptionsModel =
-        new BulkClassifyOptions.Builder()
-            .workspaceId("testString")
-            .input(
-                new java.util.ArrayList<BulkClassifyUtterance>(
-                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
-            .build();
-
-    // Invoke operation with valid options model (positive test)
-    Response<BulkClassifyResponse> response =
-        assistantService.bulkClassify(bulkClassifyOptionsModel).execute();
-    assertNotNull(response);
-    BulkClassifyResponse responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, bulkClassifyPath);
-  }
-
-  // Test the bulkClassify operation with null options model parameter
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testBulkClassifyNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
-    server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
-    assistantService.bulkClassify(null).execute();
   }
 
   /** Initialize the server */

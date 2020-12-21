@@ -29,8 +29,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
   public static class Builder {
     private String responseType;
     private String messageToHumanAgent;
-    private String agentAvailable;
-    private String agentUnavailable;
+    private AgentAvailabilityMessage agentAvailable;
+    private AgentAvailabilityMessage agentUnavailable;
     private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
     public Builder(
@@ -96,7 +96,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
      * @param agentAvailable the agentAvailable
      * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent builder
      */
-    public Builder agentAvailable(String agentAvailable) {
+    public Builder agentAvailable(AgentAvailabilityMessage agentAvailable) {
       this.agentAvailable = agentAvailable;
       return this;
     }
@@ -107,7 +107,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
      * @param agentUnavailable the agentUnavailable
      * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent builder
      */
-    public Builder agentUnavailable(String agentUnavailable) {
+    public Builder agentUnavailable(AgentAvailabilityMessage agentUnavailable) {
       this.agentUnavailable = agentUnavailable;
       return this;
     }

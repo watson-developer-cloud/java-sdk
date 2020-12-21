@@ -78,10 +78,10 @@ public class RuntimeResponseGeneric extends GenericModel {
   protected String messageToHumanAgent;
 
   @SerializedName("agent_available")
-  protected String agentAvailable;
+  protected AgentAvailabilityMessage agentAvailable;
 
   @SerializedName("agent_unavailable")
-  protected String agentUnavailable;
+  protected AgentAvailabilityMessage agentUnavailable;
 
   @SerializedName("transfer_info")
   protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
@@ -217,7 +217,7 @@ public class RuntimeResponseGeneric extends GenericModel {
    *
    * @return the agentAvailable
    */
-  public String agentAvailable() {
+  public AgentAvailabilityMessage agentAvailable() {
     return agentAvailable;
   }
 
@@ -229,7 +229,7 @@ public class RuntimeResponseGeneric extends GenericModel {
    *
    * @return the agentUnavailable
    */
-  public String agentUnavailable() {
+  public AgentAvailabilityMessage agentUnavailable() {
     return agentUnavailable;
   }
 
