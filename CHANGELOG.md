@@ -1,3 +1,10 @@
+## [9.0.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.1...v9.0.2) (2020-12-21)
+
+
+### Bug Fixes
+
+* **generation:** api def '8be1cdc78c7998b055bc8ea895dddd7c8496b2a4' gen tag 3.19.0 ([1ddf534](https://github.com/watson-developer-cloud/java-sdk/commit/1ddf534ff0d10481e7246abb37df1b88d9421d9e))
+
 ## [9.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0...v9.0.1) (2020-12-11)
 
 
