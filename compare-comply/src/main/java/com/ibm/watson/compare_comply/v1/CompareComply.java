@@ -123,6 +123,11 @@ public class CompareComply extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+        "On 30 November 2021, Compare and Comply will no longer be available."
+            + "\nFor more information, see Compare and Comply Deprecation "
+            + "(https://github.com/watson-developer-cloud/java-sdk#compare-and-comply-deprecation).");
   }
 
   /**
