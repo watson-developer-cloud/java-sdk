@@ -1720,9 +1720,14 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String dialogNodeName = "Test" + UUID.randomUUID().toString();
     String dialogNodeDescription = "Description of " + dialogNodeName;
 
+    DialogNodeNextStep dialogNodeNextStep = new DialogNodeNextStep.Builder()
+            .dialogNode("test")
+            .behavior("skip_user_input")
+            .build();
     CreateDialogNodeOptions createOptions =
         new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
             .description(dialogNodeDescription)
+            .nextStep(dialogNodeNextStep)
             .build();
     service.createDialogNode(createOptions).execute().getResult();
 
@@ -1736,6 +1741,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
               .dialogNode(dialogNodeName)
               .newDialogNode(dialogNodeName2)
               .newDescription(dialogNodeDescription2)
+              .deleteNextStep(true)
               .build();
       DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
       assertNotNull(response);
@@ -1743,6 +1749,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(response.dialogNode(), dialogNodeName2);
       assertNotNull(response.description());
       assertEquals(response.description(), dialogNodeDescription2);
+      assertNull(response.nextStep());
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
