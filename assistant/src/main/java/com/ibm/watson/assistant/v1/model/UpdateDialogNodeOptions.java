@@ -110,6 +110,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   protected String newUserLabel;
   protected Boolean newDisambiguationOptOut;
   protected Boolean includeAudit;
+  protected Boolean deleteNextStep;
 
   /** Builder. */
   public static class Builder {
@@ -135,6 +136,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private String newUserLabel;
     private Boolean newDisambiguationOptOut;
     private Boolean includeAudit;
+    private Boolean deleteNextStep;
 
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       this.workspaceId = updateDialogNodeOptions.workspaceId;
@@ -159,6 +161,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.newUserLabel = updateDialogNodeOptions.newUserLabel;
       this.newDisambiguationOptOut = updateDialogNodeOptions.newDisambiguationOptOut;
       this.includeAudit = updateDialogNodeOptions.includeAudit;
+      this.deleteNextStep = updateDialogNodeOptions.deleteNextStep;
     }
 
     /** Instantiates a new builder. */
@@ -440,6 +443,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
       this.includeAudit = includeAudit;
       return this;
     }
+
+    /**
+     * Set the deleteNextStep.
+     *
+     * @param deleteNextStep the deleteNextStep
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder deleteNextStep(Boolean deleteNextStep) {
+      this.deleteNextStep = deleteNextStep;
+      return this;
+    }
   }
 
   protected UpdateDialogNodeOptions(Builder builder) {
@@ -469,6 +483,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
     newUserLabel = builder.newUserLabel;
     newDisambiguationOptOut = builder.newDisambiguationOptOut;
     includeAudit = builder.includeAudit;
+    deleteNextStep = builder.deleteNextStep;
+
   }
 
   /**
@@ -730,5 +746,16 @@ public class UpdateDialogNodeOptions extends GenericModel {
    */
   public Boolean includeAudit() {
     return includeAudit;
+  }
+
+  /**
+   * Gets the deleteNextStep.
+   *
+   * <p>Set nextStep to null
+   *
+   * @return the deleteNextStep
+   */
+  public Boolean deleteNextStep() {
+    return deleteNextStep;
   }
 }
