@@ -62,6 +62,13 @@ import okhttp3.MultipartBody;
  * @see <a href="https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about">Compare
  *     Comply</a>
  */
+
+ /**
+ * @deprecated On 30 November 2021, Compare and Comply will no longer be available. 
+ *     For more information, see Compare and Comply Deprecation
+ *     (https://github.com/watson-developer-cloud/java-sdk#compare-and-comply-deprecation).
+ */
+@Deprecated
 public class CompareComply extends BaseService {
 
   public static final String DEFAULT_SERVICE_NAME = "compare-comply";
@@ -123,6 +130,11 @@ public class CompareComply extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+        "On 30 November 2021, Compare and Comply will no longer be available."
+            + "\nFor more information, see Compare and Comply Deprecation "
+            + "(https://github.com/watson-developer-cloud/java-sdk#compare-and-comply-deprecation).");
   }
 
   /**
