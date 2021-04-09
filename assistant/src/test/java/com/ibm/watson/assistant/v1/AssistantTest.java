@@ -102,7 +102,9 @@ import com.ibm.watson.assistant.v1.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeOption;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
+import com.ibm.watson.assistant.v1.model.TestUpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
+import com.ibm.watson.assistant.v1.model.UpdateDialogNode;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
@@ -3637,6 +3639,182 @@ public class AssistantTest {
 
     // Invoke operation with null options model (negative test)
     assistantService.updateDialogNode(null).execute();
+  }
+
+  @Test
+  public void testTestUpdateDialogNodeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String testUpdateDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ResponseGenericChannel model
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .channels(
+                new java.util.ArrayList<ResponseGenericChannel>(
+                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the UpdateDialogNode model
+    UpdateDialogNode updateDialogNodeModel =
+        new UpdateDialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .build();
+    Map<String, Object> updateDialogNodeModelAsPatch = updateDialogNodeModel.asPatch();
+
+    // Construct an instance of the TestUpdateDialogNodeOptions model
+    TestUpdateDialogNodeOptions testUpdateDialogNodeOptionsModel =
+        new TestUpdateDialogNodeOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .body(updateDialogNodeModelAsPatch)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNode> response =
+        assistantService.testUpdateDialogNode(testUpdateDialogNodeOptionsModel).execute();
+    assertNotNull(response);
+    DialogNode responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PATCH");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, testUpdateDialogNodePath);
+  }
+
+  // Test the testUpdateDialogNode operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testTestUpdateDialogNodeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.testUpdateDialogNode(null).execute();
   }
 
   @Test

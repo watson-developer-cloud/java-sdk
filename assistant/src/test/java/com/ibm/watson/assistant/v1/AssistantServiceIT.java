@@ -1720,11 +1720,16 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String dialogNodeName = "Test" + UUID.randomUUID().toString();
     String dialogNodeDescription = "Description of " + dialogNodeName;
 
+    DialogNodeNextStep dialogNodeNextStep =
+            new DialogNodeNextStep.Builder()
+            .behavior("skip_user_input")
+            .build();
     CreateDialogNodeOptions createOptions =
         new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
             .description(dialogNodeDescription)
+                .nextStep(dialogNodeNextStep)
             .build();
-    service.createDialogNode(createOptions).execute().getResult();
+    DialogNode x = service.createDialogNode(createOptions).execute().getResult();
 
     String dialogNodeName2 = "Test2" + UUID.randomUUID().toString();
 
@@ -1737,7 +1742,22 @@ public class AssistantServiceIT extends AssistantServiceTest {
               .newDialogNode(dialogNodeName2)
               .newDescription(dialogNodeDescription2)
               .build();
-      DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
+//      HashMap<String, Object> body = new HashMap<>();
+//      body.put("newDialogNode", dialogNodeName2);
+//      body.put("newDescription", dialogNodeDescription2);
+//      body.put("newNextStep", null);
+      UpdateDialogNode updateDialogNode = new UpdateDialogNode.Builder().build();
+      Map<String, Object> body = updateDialogNode.asPatch();
+      body.put("next_step", null);
+      TestUpdateDialogNodeOptions testUpdateDialogNodeOptions =
+              new TestUpdateDialogNodeOptions.Builder()
+              .workspaceId(workspaceId)
+              .dialogNode(dialogNodeName)
+              .body(body)
+              .build();
+      DialogNode response = service.testUpdateDialogNode(testUpdateDialogNodeOptions).execute().getResult();
+      //DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
+
       assertNotNull(response);
       assertNotNull(response.dialogNode());
       assertEquals(response.dialogNode(), dialogNodeName2);

@@ -79,6 +79,7 @@ import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
+import com.ibm.watson.assistant.v1.model.TestUpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
@@ -2286,6 +2287,51 @@ public class Assistant extends BaseService {
           "disambiguation_opt_out", updateDialogNodeOptions.newDisambiguationOptOut());
     }
     builder.bodyJson(contentJson);
+    ResponseConverter<DialogNode> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DialogNode>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update dialog node.
+   *
+   * <p>Update an existing dialog node with new or modified data.
+   *
+   * <p>If you want to update multiple dialog nodes with a single API call, consider using the
+   * **[Update workspace](#update-workspace)** method instead.
+   *
+   * @param testUpdateDialogNodeOptions the {@link TestUpdateDialogNodeOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
+   */
+  public ServiceCall<DialogNode> testUpdateDialogNode(
+      TestUpdateDialogNodeOptions testUpdateDialogNodeOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        testUpdateDialogNodeOptions, "testUpdateDialogNodeOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", testUpdateDialogNodeOptions.workspaceId());
+    pathParamsMap.put("dialog_node", testUpdateDialogNodeOptions.dialogNode());
+    RequestBuilder builder =
+        RequestBuilder.patch(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v1", "testUpdateDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (testUpdateDialogNodeOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(testUpdateDialogNodeOptions.includeAudit()));
+    }
+    builder.bodyContent(
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting()
+            .toJson(testUpdateDialogNodeOptions.body()),
+        "application/merge-patch+json");
     ResponseConverter<DialogNode> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<DialogNode>() {}.getType());

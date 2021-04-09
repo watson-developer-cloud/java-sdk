@@ -30,7 +30,6 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
         RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeChannelTransfer) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.responseType;
       this.messageToUser = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.messageToUser;
-      this.transferInfo = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo;
       this.channels = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.channels;
     }
 
@@ -128,7 +127,6 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
         builder.transferInfo, "transferInfo cannot be null");
     responseType = builder.responseType;
     messageToUser = builder.messageToUser;
-    transferInfo = builder.transferInfo;
     channels = builder.channels;
   }
 

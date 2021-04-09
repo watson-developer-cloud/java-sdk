@@ -33,8 +33,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
           dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.responseType;
       this.messageToUser =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.messageToUser;
-      this.transferInfo =
-          dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.transferInfo;
       this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.channels;
     }
 
@@ -132,7 +130,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
         builder.transferInfo, "transferInfo cannot be null");
     responseType = builder.responseType;
     messageToUser = builder.messageToUser;
-    transferInfo = builder.transferInfo;
     channels = builder.channels;
   }
 
