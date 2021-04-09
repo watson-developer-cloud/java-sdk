@@ -63,9 +63,9 @@ import okhttp3.MultipartBody;
  *     Comply</a>
  */
 
- /**
- * @deprecated On 30 November 2021, Compare and Comply will no longer be available. 
- *     For more information, see Compare and Comply Deprecation
+/**
+ * @deprecated On 30 November 2021, Compare and Comply will no longer be available. For more
+ *     information, see Compare and Comply Deprecation
  *     (https://github.com/watson-developer-cloud/java-sdk#compare-and-comply-deprecation).
  */
 @Deprecated

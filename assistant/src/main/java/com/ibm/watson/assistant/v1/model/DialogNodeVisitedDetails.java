@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -100,7 +100,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * <p>A dialog node that was triggered during processing of the input message.
+   * <p>The unique ID of a dialog node that was triggered during processing of the input message.
    *
    * @return the dialogNode
    */

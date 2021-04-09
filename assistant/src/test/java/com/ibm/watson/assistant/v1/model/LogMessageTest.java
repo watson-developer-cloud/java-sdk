@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,9 +30,22 @@ public class LogMessageTest {
 
   @Test
   public void testLogMessage() throws Throwable {
-    LogMessage logMessageModel = new LogMessage.Builder().level("info").msg("testString").build();
+    LogMessageSource logMessageSourceModel =
+        new LogMessageSource.Builder().type("dialog_node").dialogNode("testString").build();
+    assertEquals(logMessageSourceModel.type(), "dialog_node");
+    assertEquals(logMessageSourceModel.dialogNode(), "testString");
+
+    LogMessage logMessageModel =
+        new LogMessage.Builder()
+            .level("info")
+            .msg("testString")
+            .code("testString")
+            .source(logMessageSourceModel)
+            .build();
     assertEquals(logMessageModel.level(), "info");
     assertEquals(logMessageModel.msg(), "testString");
+    assertEquals(logMessageModel.code(), "testString");
+    assertEquals(logMessageModel.source(), logMessageSourceModel);
 
     String json = TestUtilities.serialize(logMessageModel);
 
@@ -40,6 +53,8 @@ public class LogMessageTest {
     assertTrue(logMessageModelNew instanceof LogMessage);
     assertEquals(logMessageModelNew.level(), "info");
     assertEquals(logMessageModelNew.msg(), "testString");
+    assertEquals(logMessageModelNew.code(), "testString");
+    assertEquals(logMessageModelNew.source().toString(), logMessageSourceModel.toString());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

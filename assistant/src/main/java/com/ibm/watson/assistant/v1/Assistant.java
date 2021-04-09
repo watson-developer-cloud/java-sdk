@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -109,7 +109,7 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "assistant";
+  public static final String DEFAULT_SERVICE_NAME = "conversation";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
@@ -252,6 +252,9 @@ public class Assistant extends BaseService {
           "output",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.output()));
     }
+    if (messageOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageOptions.userId());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<MessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -266,7 +269,7 @@ public class Assistant extends BaseService {
    * the intents and entities recognized in each input. This method is useful for testing and
    * comparing the performance of different workspaces.
    *
-   * <p>This method is available only with Premium plans.
+   * <p>This method is available only with Enterprise with Data Isolation plans.
    *
    * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
@@ -2326,6 +2329,8 @@ public class Assistant extends BaseService {
    *
    * <p>List the events from the log of a specific workspace.
    *
+   * <p>This method requires Manager access.
+   *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
    */
@@ -2407,6 +2412,11 @@ public class Assistant extends BaseService {
    * request that passes data. For more information about personal data and customer IDs, see
    * [Information
    * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
+   *
+   * <p>**Note:** This operation is intended only for deleting data associated with a single
+   * specific customer, not for deleting data associated with multiple customers or for any other
+   * purpose. For more information, see [Labeling and deleting data in Watson
+   * Assistant](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security-gdpr-wa).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call

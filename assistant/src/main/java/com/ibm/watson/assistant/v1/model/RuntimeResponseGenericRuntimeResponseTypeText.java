@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,26 +12,22 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `text`. */
-public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeResponseGeneric {
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** text. */
-    String TEXT = "text";
-  }
+/** RuntimeResponseGenericRuntimeResponseTypeText. */
+public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeResponseGeneric {
 
   /** Builder. */
   public static class Builder {
     private String responseType;
     private String text;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeText) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeText.responseType;
       this.text = runtimeResponseGenericRuntimeResponseTypeText.text;
+      this.channels = runtimeResponseGenericRuntimeResponseTypeText.channels;
     }
 
     /** Instantiates a new builder. */
@@ -58,6 +54,21 @@ public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeRespon
     }
 
     /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeText builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
+    }
+
+    /**
      * Set the responseType.
      *
      * @param responseType the responseType
@@ -78,6 +89,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeRespon
       this.text = text;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeText builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeText(Builder builder) {
@@ -86,6 +108,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeRespon
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     responseType = builder.responseType;
     text = builder.text;
+    channels = builder.channels;
   }
 
   /**
