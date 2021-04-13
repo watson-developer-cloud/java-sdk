@@ -2313,7 +2313,7 @@ public class Assistant extends BaseService {
     pathParamsMap.put("workspace_id", testUpdateDialogNodeOptions.workspaceId());
     pathParamsMap.put("dialog_node", testUpdateDialogNodeOptions.dialogNode());
     RequestBuilder builder =
-        RequestBuilder.patch(
+        RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(),
                 "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
@@ -2329,9 +2329,9 @@ public class Assistant extends BaseService {
       builder.query("include_audit", String.valueOf(testUpdateDialogNodeOptions.includeAudit()));
     }
     builder.bodyContent(
-        com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithoutPrettyPrinting()
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls()
             .toJson(testUpdateDialogNodeOptions.body()),
-        "application/merge-patch+json");
+        "application/json");
     ResponseConverter<DialogNode> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<DialogNode>() {}.getType());
