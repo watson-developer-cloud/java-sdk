@@ -2193,6 +2193,7 @@ public class Assistant extends BaseService {
   public ServiceCall<DialogNode> updateDialogNode(UpdateDialogNodeOptions updateDialogNodeOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         updateDialogNodeOptions, "updateDialogNodeOptions cannot be null");
+
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("workspace_id", updateDialogNodeOptions.workspaceId());
     pathParamsMap.put("dialog_node", updateDialogNodeOptions.dialogNode());

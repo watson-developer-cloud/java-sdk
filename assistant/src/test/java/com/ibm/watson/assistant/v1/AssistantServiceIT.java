@@ -23,6 +23,7 @@ import com.ibm.cloud.sdk.core.http.ServiceCallback;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.service.exception.NotFoundException;
 import com.ibm.cloud.sdk.core.service.exception.UnauthorizedException;
+import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.assistant.v1.model.*;
 import com.ibm.watson.common.RetryRunner;
 import io.reactivex.Single;
@@ -1720,6 +1721,18 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String dialogNodeName = "Test" + UUID.randomUUID().toString();
     String dialogNodeDescription = "Description of " + dialogNodeName;
 
+    Context contextModel =
+            new Context.Builder()
+                    .conversationId("testString")
+                    .system(
+                            new java.util.HashMap<String, Object>() {
+                              {
+                                put("foo", "testString");
+                              }
+                            })
+                    .add("foo", "testString")
+                    .build();
+    String g = GsonSingleton.getGson().toJson(contextModel);
     DialogNodeNextStep dialogNodeNextStep =
             new DialogNodeNextStep.Builder()
             .behavior("skip_user_input")
@@ -1728,6 +1741,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
         new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
             .description(dialogNodeDescription)
                 .nextStep(dialogNodeNextStep)
+                .description("hello world")
+                .output(new DialogNodeOutput.Builder().add("test","test").build())
             .build();
     DialogNode x = service.createDialogNode(createOptions).execute().getResult();
 
@@ -1741,22 +1756,25 @@ public class AssistantServiceIT extends AssistantServiceTest {
               .dialogNode(dialogNodeName)
               .newDialogNode(dialogNodeName2)
               .newDescription(dialogNodeDescription2)
+                  .newOutput(null)
               .build();
 //      HashMap<String, Object> body = new HashMap<>();
 //      body.put("newDialogNode", dialogNodeName2);
 //      body.put("newDescription", dialogNodeDescription2);
 //      body.put("newNextStep", null);
-      UpdateDialogNode updateDialogNode = new UpdateDialogNode.Builder().build();
-      Map<String, Object> body = updateDialogNode.asPatch();
-      body.put("next_step", null);
-      TestUpdateDialogNodeOptions testUpdateDialogNodeOptions =
-              new TestUpdateDialogNodeOptions.Builder()
-              .workspaceId(workspaceId)
-              .dialogNode(dialogNodeName)
-              .body(body)
-              .build();
-      DialogNode response = service.testUpdateDialogNode(testUpdateDialogNodeOptions).execute().getResult();
-      //DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
+      //UpdateDialogNode updateDialogNode = new UpdateDialogNode.Builder().build();
+//      Map<String, Object> body = new HashMap<>();
+//      body.put("next_step", null);
+//      body.put("output", null);
+//
+//      TestUpdateDialogNodeOptions testUpdateDialogNodeOptions =
+//              new TestUpdateDialogNodeOptions.Builder()
+//              .workspaceId(workspaceId)
+//              .dialogNode(dialogNodeName)
+//              .body(body)
+//              .build();
+//      DialogNode response = service.testUpdateDialogNode(testUpdateDialogNodeOptions).execute().getResult();
+      DialogNode response = service.updateDialogNode(updateOptions).execute().getResult();
 
       assertNotNull(response);
       assertNotNull(response.dialogNode());
