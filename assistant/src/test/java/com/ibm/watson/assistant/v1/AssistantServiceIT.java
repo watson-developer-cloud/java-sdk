@@ -1753,6 +1753,58 @@ public class AssistantServiceIT extends AssistantServiceTest {
     }
   }
 
+  /** Test updateDialogNodeNullable. */
+  @Test
+  public void testUpdateDialogNodeNullable() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();
+    String dialogNodeDescription = "Description of " + dialogNodeName;
+
+    DialogNodeNextStep dialogNodeNextStep = new DialogNodeNextStep.Builder()
+            .behavior(DialogNodeNextStep.Behavior.SKIP_USER_INPUT)
+            .build();
+    CreateDialogNodeOptions createOptions =
+            new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
+                    .description(dialogNodeDescription)
+                    .nextStep(dialogNodeNextStep)
+                    .build();
+    service.createDialogNode(createOptions).execute().getResult();
+
+    String dialogNodeName2 = "Test2" + UUID.randomUUID().toString();
+
+    try {
+      String dialogNodeDescription2 = "Updated description of " + dialogNodeName;
+
+      UpdateDialogNode updateDialogNode = new UpdateDialogNode.Builder()
+              .description(dialogNodeDescription2)
+              .nextStep(null)
+              .dialogNode(dialogNodeName2)
+              .build();
+      Map<String, Object> body = updateDialogNode.asPatch();
+      body.put("next_step", null);
+
+      UpdateDialogNodeNullableOptions updateDialogNodeNullableOptions =
+              new UpdateDialogNodeNullableOptions.Builder()
+                      .workspaceId(workspaceId)
+                      .dialogNode(dialogNodeName)
+                      .body(body)
+                      .build();
+      DialogNode response = service.updateDialogNodeNullable(updateDialogNodeNullableOptions).execute().getResult();
+      assertNotNull(response);
+      assertNotNull(response.dialogNode());
+      assertEquals(response.dialogNode(), dialogNodeName2);
+      assertNotNull(response.description());
+      assertEquals(response.description(), dialogNodeDescription2);
+      assertNull(response.nextStep());
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions =
+              new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName2).build();
+      service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
   /** Test deleteUserData. */
   @Test
   public void testDeleteUserData() {
