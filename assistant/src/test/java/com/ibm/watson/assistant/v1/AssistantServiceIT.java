@@ -1780,7 +1780,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
               .dialogNode(dialogNodeName2)
               .build();
       Map<String, Object> body = updateDialogNode.asPatch();
-      body.put("next_step", null);
 
       UpdateDialogNodeNullableOptions updateDialogNodeNullableOptions =
               new UpdateDialogNodeNullableOptions.Builder()
