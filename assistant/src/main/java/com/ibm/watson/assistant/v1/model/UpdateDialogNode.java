@@ -721,4 +721,8 @@ public class UpdateDialogNode extends GenericModel {
   public Map<String, Object> asPatch() {
     return GsonSingleton.getGsonWithSerializeNulls().fromJson(this.toString(), Map.class);
   }
+
+  public String toString() {
+    return GsonSingleton.getGsonWithSerializeNulls().toJson(this);
+  }
 }
