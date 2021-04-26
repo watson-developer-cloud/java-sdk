@@ -19,6 +19,7 @@ public class CreateCollectionOptions extends GenericModel {
 
   protected String name;
   protected String description;
+  protected TrainingStatus trainingStatus;
 
   /** Builder. */
   public static class Builder {
@@ -36,7 +37,7 @@ public class CreateCollectionOptions extends GenericModel {
     /**
      * Builds a CreateCollectionOptions.
      *
-     * @return the createCollectionOptions
+     * @return the new CreateCollectionOptions instance
      */
     public CreateCollectionOptions build() {
       return new CreateCollectionOptions(this);
@@ -100,5 +101,16 @@ public class CreateCollectionOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the trainingStatus.
+   *
+   * <p>Training status information for the collection.
+   *
+   * @return the trainingStatus
+   */
+  public TrainingStatus trainingStatus() {
+    return trainingStatus;
   }
 }

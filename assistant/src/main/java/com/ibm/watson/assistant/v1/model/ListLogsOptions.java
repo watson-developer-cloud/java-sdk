@@ -54,7 +54,7 @@ public class ListLogsOptions extends GenericModel {
     /**
      * Builds a ListLogsOptions.
      *
-     * @return the listLogsOptions
+     * @return the new ListLogsOptions instance
      */
     public ListLogsOptions build() {
       return new ListLogsOptions(this);

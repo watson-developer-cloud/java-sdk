@@ -33,7 +33,7 @@ public class WordSettings extends GenericModel {
     /**
      * Builds a WordSettings.
      *
-     * @return the wordSettings
+     * @return the new WordSettings instance
      */
     public WordSettings build() {
       return new WordSettings(this);

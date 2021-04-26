@@ -51,9 +51,9 @@ public class CategoryComparison extends GenericModel {
     String LIABILITY = "Liability";
     /** Order of Precedence. */
     String ORDER_OF_PRECEDENCE = "Order of Precedence";
-    /** Payment Terms & Billing. */
+    /** Payment Terms &amp; Billing. */
     String PAYMENT_TERMS_BILLING = "Payment Terms & Billing";
-    /** Pricing & Taxes. */
+    /** Pricing &amp; Taxes. */
     String PRICING_TAXES = "Pricing & Taxes";
     /** Privacy. */
     String PRIVACY = "Privacy";
@@ -65,7 +65,7 @@ public class CategoryComparison extends GenericModel {
     String SCOPE_OF_WORK = "Scope of Work";
     /** Subcontracts. */
     String SUBCONTRACTS = "Subcontracts";
-    /** Term & Termination. */
+    /** Term &amp; Termination. */
     String TERM_TERMINATION = "Term & Termination";
     /** Warranties. */
     String WARRANTIES = "Warranties";

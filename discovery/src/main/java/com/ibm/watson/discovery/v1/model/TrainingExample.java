@@ -44,7 +44,7 @@ public class TrainingExample extends GenericModel {
     /**
      * Builds a TrainingExample.
      *
-     * @return the trainingExample
+     * @return the new TrainingExample instance
      */
     public TrainingExample build() {
       return new TrainingExample(this);

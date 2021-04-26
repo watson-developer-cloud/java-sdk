@@ -47,7 +47,7 @@ public class DeleteCounterexampleOptions extends GenericModel {
     /**
      * Builds a DeleteCounterexampleOptions.
      *
-     * @return the deleteCounterexampleOptions
+     * @return the new DeleteCounterexampleOptions instance
      */
     public DeleteCounterexampleOptions build() {
       return new DeleteCounterexampleOptions(this);

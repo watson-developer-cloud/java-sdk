@@ -15,7 +15,7 @@ package com.ibm.watson.text_to_speech.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Information about a word for the custom voice model. */
+/** Information about a word for the custom model. */
 public class Word extends GenericModel {
 
   /**
@@ -97,7 +97,7 @@ public class Word extends GenericModel {
     /**
      * Builds a Word.
      *
-     * @return the word
+     * @return the new Word instance
      */
     public Word build() {
       return new Word(this);
@@ -158,7 +158,7 @@ public class Word extends GenericModel {
   /**
    * Gets the word.
    *
-   * <p>The word for the custom voice model. The maximum length of a word is 49 characters.
+   * <p>The word for the custom model. The maximum length of a word is 49 characters.
    *
    * @return the word
    */

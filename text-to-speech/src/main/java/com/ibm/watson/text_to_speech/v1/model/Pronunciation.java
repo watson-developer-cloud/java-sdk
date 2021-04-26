@@ -22,8 +22,8 @@ public class Pronunciation extends GenericModel {
   /**
    * Gets the pronunciation.
    *
-   * <p>The pronunciation of the specified text in the requested voice and format. If a custom voice
-   * model is specified, the pronunciation also reflects that custom voice.
+   * <p>The pronunciation of the specified text in the requested voice and format. If a custom model
+   * is specified, the pronunciation also reflects that custom model.
    *
    * @return the pronunciation
    */

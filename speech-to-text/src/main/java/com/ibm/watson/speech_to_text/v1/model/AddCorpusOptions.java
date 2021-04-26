@@ -59,7 +59,7 @@ public class AddCorpusOptions extends GenericModel {
     /**
      * Builds a AddCorpusOptions.
      *
-     * @return the addCorpusOptions
+     * @return the new AddCorpusOptions instance
      */
     public AddCorpusOptions build() {
       return new AddCorpusOptions(this);

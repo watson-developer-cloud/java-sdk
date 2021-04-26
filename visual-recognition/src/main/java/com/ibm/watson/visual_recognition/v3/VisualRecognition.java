@@ -10,6 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
+/*
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ */
+
 package com.ibm.watson.visual_recognition.v3;
 
 import com.ibm.cloud.sdk.core.http.RequestBuilder;
@@ -33,78 +38,117 @@ import com.ibm.watson.visual_recognition.v3.model.GetCoreMlModelOptions;
 import com.ibm.watson.visual_recognition.v3.model.ListClassifiersOptions;
 import com.ibm.watson.visual_recognition.v3.model.UpdateClassifierOptions;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * The IBM Watson&trade; Visual Recognition service uses deep learning algorithms to identify scenes
- * and objects in images that you upload to the service. You can create and train a custom
- * classifier to identify subjects that suit your needs.
+ * IBM Watson&amp;trade; Visual Recognition is discontinued. Existing instances are supported until
+ * 1 December 2021, but as of 7 January 2021, you can't create instances. Any instance that is
+ * provisioned on 1 December 2021 will be deleted. {: deprecated}
+ *
+ * <p>The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes and
+ * objects in images that you upload to the service. You can create and train a custom classifier to
+ * identify subjects that suit your needs.
  *
  * @version v3
- * @see <a href="https://cloud.ibm.com/docs/visual-recognition/">Visual Recognition</a>
+ * @see <a href="https://cloud.ibm.com/docs/visual-recognition">Visual Recognition</a>
  */
+
+/**
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
+ *     information, see Visual Recognition Deprecation
+ *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ */
+@Deprecated
 public class VisualRecognition extends BaseService {
 
-  private static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
-  private static final String DEFAULT_SERVICE_URL =
+  public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
 
-  private String versionDate;
+  private String version;
 
   /**
-   * Constructs a new `VisualRecognition` client using the DEFAULT_SERVICE_NAME.
+   * Constructs an instance of the `VisualRecognition` client. The default service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2018-03-19`.
    */
-  public VisualRecognition(String versionDate) {
+  public VisualRecognition(String version) {
     this(
-        versionDate,
+        version,
         DEFAULT_SERVICE_NAME,
         ConfigBasedAuthenticatorFactory.getAuthenticator(DEFAULT_SERVICE_NAME));
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the DEFAULT_SERVICE_NAME and the specified
-   * Authenticator.
+   * Constructs an instance of the `VisualRecognition` client. The default service name and
+   * specified authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2018-03-19`.
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public VisualRecognition(String versionDate, Authenticator authenticator) {
-    this(versionDate, DEFAULT_SERVICE_NAME, authenticator);
+  public VisualRecognition(String version, Authenticator authenticator) {
+    this(version, DEFAULT_SERVICE_NAME, authenticator);
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the specified serviceName.
+   * Constructs an instance of the `VisualRecognition` client. The specified service name is used to
+   * configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2018-03-19`.
+   * @param serviceName the service name to be used when configuring the client instance
    */
-  public VisualRecognition(String versionDate, String serviceName) {
-    this(versionDate, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
+  public VisualRecognition(String version, String serviceName) {
+    this(version, serviceName, ConfigBasedAuthenticatorFactory.getAuthenticator(serviceName));
   }
 
   /**
-   * Constructs a new `VisualRecognition` client with the specified Authenticator and serviceName.
+   * Constructs an instance of the `VisualRecognition` client. The specified service name and
+   * authenticator are used to configure the client instance.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *     will keep your API calls from failing when the service introduces breaking changes.
-   * @param serviceName The name of the service to configure.
-   * @param authenticator the Authenticator instance to be configured for this service
+   * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
+   *     format. The current version is `2018-03-19`.
+   * @param serviceName the service name to be used when configuring the client instance
+   * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
-  public VisualRecognition(String versionDate, String serviceName, Authenticator authenticator) {
+  public VisualRecognition(String version, String serviceName, Authenticator authenticator) {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
-    this.versionDate = versionDate;
+    setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
+            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
+   * current version is `2018-03-19`.
+   *
+   * @return the version
+   */
+  public String getVersion() {
+    return this.version;
+  }
+
+  /**
+   * Sets the version.
+   *
+   * @param version the new version
+   */
+  public void setVersion(final String version) {
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
+    this.version = version;
   }
 
   /**
@@ -113,7 +157,7 @@ public class VisualRecognition extends BaseService {
    * <p>Classify images with built-in or custom classifiers.
    *
    * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link ClassifiedImages}
+   * @return a {@link ServiceCall} with a result of type {@link ClassifiedImages}
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
@@ -125,10 +169,8 @@ public class VisualRecognition extends BaseService {
             || (classifyOptions.owners() != null)
             || (classifyOptions.classifierIds() != null),
         "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
-    String[] pathSegments = {"v3/classify"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/classify"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "classify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -138,6 +180,7 @@ public class VisualRecognition extends BaseService {
     if (classifyOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", classifyOptions.acceptLanguage());
     }
+    builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (classifyOptions.imagesFile() != null) {
@@ -172,7 +215,7 @@ public class VisualRecognition extends BaseService {
    *
    * <p>Classify images with built-in or custom classifiers.
    *
-   * @return a {@link ServiceCall} with a response type of {@link ClassifiedImages}
+   * @return a {@link ServiceCall} with a result of type {@link ClassifiedImages}
    */
   public ServiceCall<ClassifiedImages> classify() {
     return classify(null);
@@ -198,21 +241,20 @@ public class VisualRecognition extends BaseService {
    *
    * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   * @return a {@link ServiceCall} with a result of type {@link Classifier}
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         createClassifierOptions, "createClassifierOptions cannot be null");
-    String[] pathSegments = {"v3/classifiers"};
     RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/classifiers"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "createClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
@@ -246,23 +288,23 @@ public class VisualRecognition extends BaseService {
    *
    * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Classifiers}
+   * @return a {@link ServiceCall} with a result of type {@link Classifiers}
    */
   public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
-    String[] pathSegments = {"v3/classifiers"};
+    if (listClassifiersOptions == null) {
+      listClassifiersOptions = new ListClassifiersOptions.Builder().build();
+    }
     RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/classifiers"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "listClassifiers");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    if (listClassifiersOptions != null) {
-      if (listClassifiersOptions.verbose() != null) {
-        builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
-      }
+    builder.query("version", String.valueOf(this.version));
+    if (listClassifiersOptions.verbose() != null) {
+      builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
     }
     ResponseConverter<Classifiers> responseConverter =
         ResponseConverterUtils.getValue(
@@ -273,7 +315,7 @@ public class VisualRecognition extends BaseService {
   /**
    * Retrieve a list of classifiers.
    *
-   * @return a {@link ServiceCall} with a response type of {@link Classifiers}
+   * @return a {@link ServiceCall} with a result of type {@link Classifiers}
    */
   public ServiceCall<Classifiers> listClassifiers() {
     return listClassifiers(null);
@@ -286,24 +328,24 @@ public class VisualRecognition extends BaseService {
    *
    * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   * @return a {@link ServiceCall} with a result of type {@link Classifier}
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getClassifierOptions, "getClassifierOptions cannot be null");
-    String[] pathSegments = {"v3/classifiers"};
-    String[] pathParameters = {getClassifierOptions.classifierId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("classifier_id", getClassifierOptions.classifierId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v3/classifiers/{classifier_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Classifier> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Classifier>() {}.getType());
@@ -335,7 +377,7 @@ public class VisualRecognition extends BaseService {
    *
    * @param updateClassifierOptions the {@link UpdateClassifierOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of {@link Classifier}
+   * @return a {@link ServiceCall} with a result of type {@link Classifier}
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
@@ -344,18 +386,19 @@ public class VisualRecognition extends BaseService {
         (updateClassifierOptions.positiveExamples() != null)
             || (updateClassifierOptions.negativeExamples() != null),
         "At least one of positiveExamples or negativeExamples must be supplied.");
-    String[] pathSegments = {"v3/classifiers"};
-    String[] pathParameters = {updateClassifierOptions.classifierId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("classifier_id", updateClassifierOptions.classifierId());
     RequestBuilder builder =
         RequestBuilder.post(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v3/classifiers/{classifier_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "updateClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateClassifierOptions.positiveExamples() != null) {
@@ -388,24 +431,24 @@ public class VisualRecognition extends BaseService {
    *
    * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteClassifierOptions, "deleteClassifierOptions cannot be null");
-    String[] pathSegments = {"v3/classifiers"};
-    String[] pathParameters = {deleteClassifierOptions.classifierId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("classifier_id", deleteClassifierOptions.classifierId());
     RequestBuilder builder =
         RequestBuilder.delete(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v3/classifiers/{classifier_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -414,28 +457,28 @@ public class VisualRecognition extends BaseService {
    * Retrieve a Core ML model of a classifier.
    *
    * <p>Download a Core ML model file (.mlmodel) of a custom classifier that returns
-   * <tt>"core_ml_enabled": true</tt> in the classifier details.
+   * &lt;tt&gt;"core_ml_enabled": true&lt;/tt&gt; in the classifier details.
    *
    * @param getCoreMlModelOptions the {@link GetCoreMlModelOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of {@link InputStream}
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
    */
   public ServiceCall<InputStream> getCoreMlModel(GetCoreMlModelOptions getCoreMlModelOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         getCoreMlModelOptions, "getCoreMlModelOptions cannot be null");
-    String[] pathSegments = {"v3/classifiers", "core_ml_model"};
-    String[] pathParameters = {getCoreMlModelOptions.classifierId()};
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("classifier_id", getCoreMlModelOptions.classifierId());
     RequestBuilder builder =
         RequestBuilder.get(
-            RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments, pathParameters));
-    builder.query("version", versionDate);
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v3/classifiers/{classifier_id}/core_ml_model", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "getCoreMlModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/octet-stream");
-
+    builder.query("version", String.valueOf(this.version));
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -453,22 +496,21 @@ public class VisualRecognition extends BaseService {
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call
-   * @return a {@link ServiceCall} with a response type of Void
+   * @return a {@link ServiceCall} with a void result
    */
   public ServiceCall<Void> deleteUserData(DeleteUserDataOptions deleteUserDataOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         deleteUserDataOptions, "deleteUserDataOptions cannot be null");
-    String[] pathSegments = {"v3/user_data"};
     RequestBuilder builder =
-        RequestBuilder.delete(RequestBuilder.constructHttpUrl(getServiceUrl(), pathSegments));
-    builder.query("version", versionDate);
+        RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v3/user_data"));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("watson_vision_combined", "v3", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
-    builder.query("customer_id", deleteUserDataOptions.customerId());
+    builder.query("version", String.valueOf(this.version));
+    builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }

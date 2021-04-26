@@ -18,22 +18,8 @@ import java.util.List;
 /** The original labeling from the input document, without the submitted feedback. */
 public class OriginalLabelsOut extends GenericModel {
 
-  /**
-   * A string identifying the type of modification the feedback entry in the `updated_labels` array.
-   * Possible values are `added`, `not_changed`, and `removed`.
-   */
-  public interface Modification {
-    /** added. */
-    String ADDED = "added";
-    /** not_changed. */
-    String NOT_CHANGED = "not_changed";
-    /** removed. */
-    String REMOVED = "removed";
-  }
-
   protected List<TypeLabel> types;
   protected List<Category> categories;
-  protected String modification;
 
   /**
    * Gets the types.
@@ -56,17 +42,5 @@ public class OriginalLabelsOut extends GenericModel {
    */
   public List<Category> getCategories() {
     return categories;
-  }
-
-  /**
-   * Gets the modification.
-   *
-   * <p>A string identifying the type of modification the feedback entry in the `updated_labels`
-   * array. Possible values are `added`, `not_changed`, and `removed`.
-   *
-   * @return the modification
-   */
-  public String getModification() {
-    return modification;
   }
 }

@@ -38,7 +38,7 @@ public class WordHeadingDetection extends GenericModel {
     /**
      * Builds a WordHeadingDetection.
      *
-     * @return the wordHeadingDetection
+     * @return the new WordHeadingDetection instance
      */
     public WordHeadingDetection build() {
       return new WordHeadingDetection(this);

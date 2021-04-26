@@ -50,7 +50,7 @@ public class Label extends GenericModel {
     /**
      * Builds a Label.
      *
-     * @return the label
+     * @return the new Label instance
      */
     public Label build() {
       return new Label(this);

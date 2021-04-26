@@ -48,7 +48,7 @@ public class SourceOptionsSiteColl extends GenericModel {
     /**
      * Builds a SourceOptionsSiteColl.
      *
-     * @return the sourceOptionsSiteColl
+     * @return the new SourceOptionsSiteColl instance
      */
     public SourceOptionsSiteColl build() {
       return new SourceOptionsSiteColl(this);

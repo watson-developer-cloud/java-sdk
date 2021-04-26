@@ -45,7 +45,7 @@ public class TrainAcousticModelOptions extends GenericModel {
     /**
      * Builds a TrainAcousticModelOptions.
      *
-     * @return the trainAcousticModelOptions
+     * @return the new TrainAcousticModelOptions instance
      */
     public TrainAcousticModelOptions build() {
       return new TrainAcousticModelOptions(this);

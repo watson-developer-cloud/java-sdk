@@ -42,7 +42,7 @@ public class GetCollectionOptions extends GenericModel {
     /**
      * Builds a GetCollectionOptions.
      *
-     * @return the getCollectionOptions
+     * @return the new GetCollectionOptions instance
      */
     public GetCollectionOptions build() {
       return new GetCollectionOptions(this);

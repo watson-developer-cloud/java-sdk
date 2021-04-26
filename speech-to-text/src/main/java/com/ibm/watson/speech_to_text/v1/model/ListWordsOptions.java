@@ -80,7 +80,7 @@ public class ListWordsOptions extends GenericModel {
     /**
      * Builds a ListWordsOptions.
      *
-     * @return the listWordsOptions
+     * @return the new ListWordsOptions instance
      */
     public ListWordsOptions build() {
       return new ListWordsOptions(this);

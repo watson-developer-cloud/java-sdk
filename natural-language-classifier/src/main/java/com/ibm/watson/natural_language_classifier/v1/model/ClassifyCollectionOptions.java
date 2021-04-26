@@ -49,7 +49,7 @@ public class ClassifyCollectionOptions extends GenericModel {
     /**
      * Builds a ClassifyCollectionOptions.
      *
-     * @return the classifyCollectionOptions
+     * @return the new ClassifyCollectionOptions instance
      */
     public ClassifyCollectionOptions build() {
       return new ClassifyCollectionOptions(this);

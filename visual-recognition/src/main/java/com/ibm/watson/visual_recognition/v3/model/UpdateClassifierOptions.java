@@ -57,7 +57,7 @@ public class UpdateClassifierOptions extends GenericModel {
     /**
      * Builds a UpdateClassifierOptions.
      *
-     * @return the updateClassifierOptions
+     * @return the new UpdateClassifierOptions instance
      */
     public UpdateClassifierOptions build() {
       return new UpdateClassifierOptions(this);

@@ -24,7 +24,6 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.internal.LazilyParsedNumber;
 import com.ibm.cloud.sdk.core.http.HttpConfigOptions;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
-import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BasicAuthenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
@@ -38,7 +37,6 @@ import com.ibm.watson.discovery.query.AggregationType;
 import com.ibm.watson.discovery.query.Operator;
 import com.ibm.watson.discovery.v1.model.*;
 import com.ibm.watson.discovery.v1.model.NormalizationOperation.Operation;
-
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -54,7 +52,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
 import org.junit.Before;
@@ -156,7 +153,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   /** Cleanup. */
-  @After
   public void cleanup() {
     for (String collectionId : collectionIds) {
       DeleteCollectionOptions deleteOptions =
@@ -180,6 +176,29 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             "deleteConfiguration failed. Configuration " + configurationId + " not found");
       }
     }
+
+    ListCollectionsOptions listCollectionsOptions =
+        new ListCollectionsOptions.Builder().environmentId(environmentId).build();
+    ListCollectionsResponse response =
+        discovery.listCollections(listCollectionsOptions).execute().getResult();
+    for (Collection collection : response.getCollections()) {
+      if (collection.getName().matches("java-sdk-.*collection")
+          || collection.getName().matches("my_watson_developer_cloud_collection.*")
+          || collection.getName().matches("tokenization-dict-testing-collection.*")) {
+        DeleteCollectionOptions deleteCollectionOptions =
+            new DeleteCollectionOptions.Builder()
+                .collectionId(collection.getCollectionId())
+                .environmentId(environmentId)
+                .build();
+        try {
+          DeleteCollectionResponse deleteCollectionResponse =
+              discovery.deleteCollection(deleteCollectionOptions).execute().getResult();
+        } catch (NotFoundException ex) {
+          System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
+        }
+      }
+    }
+    collectionId = null;
   }
 
   /**
@@ -198,7 +217,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Test
   public void exampleIsSuccessful() {
     //    Discovery discovery = new Discovery("2016-12-15");
-    //    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery/api");
+    //    discovery.setServiceUrl("https://api.us-south.discovery.watson.cloud.ibm.com");
     //    discovery.setUsernameAndPassword("<username>", "<password");
     String environmentId = null;
     String configurationId = null;
@@ -363,7 +382,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   /** Ping bad url throws exception. */
   @Test(expected = NotFoundException.class)
   public void pingBadUrlThrowsException() {
-    discovery.setServiceUrl("https://gateway.watsonplatform.net/discovery-foo/api");
+    discovery.setServiceUrl("https://api.us-south.discovery.watson.cloud.ibm.com/discovery-foo");
     ping();
   }
 

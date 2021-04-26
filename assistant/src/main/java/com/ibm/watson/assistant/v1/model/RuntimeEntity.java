@@ -73,7 +73,7 @@ public class RuntimeEntity extends GenericModel {
     /**
      * Builds a RuntimeEntity.
      *
-     * @return the runtimeEntity
+     * @return the new RuntimeEntity instance
      */
     public RuntimeEntity build() {
       return new RuntimeEntity(this);
@@ -319,10 +319,9 @@ public class RuntimeEntity extends GenericModel {
    * Gets the interpretation.
    *
    * <p>An object containing detailed information about the entity recognized in the user input.
-   * This property is included only if the new system entities are enabled for the workspace.
    *
-   * <p>For more information about how the new system entities are interpreted, see the
-   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-beta-system-entities).
+   * <p>For more information about how system entities are interpreted, see the
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-system-entities).
    *
    * @return the interpretation
    */

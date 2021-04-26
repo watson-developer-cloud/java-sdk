@@ -14,13 +14,14 @@ package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /** DialogSuggestion. */
 public class DialogSuggestion extends GenericModel {
 
   protected String label;
   protected DialogSuggestionValue value;
-  protected DialogSuggestionOutput output;
+  protected Map<String, Object> output;
 
   @SerializedName("dialog_node")
   protected String dialogNode;
@@ -29,7 +30,7 @@ public class DialogSuggestion extends GenericModel {
   public static class Builder {
     private String label;
     private DialogSuggestionValue value;
-    private DialogSuggestionOutput output;
+    private Map<String, Object> output;
     private String dialogNode;
 
     private Builder(DialogSuggestion dialogSuggestion) {
@@ -56,7 +57,7 @@ public class DialogSuggestion extends GenericModel {
     /**
      * Builds a DialogSuggestion.
      *
-     * @return the dialogSuggestion
+     * @return the new DialogSuggestion instance
      */
     public DialogSuggestion build() {
       return new DialogSuggestion(this);
@@ -90,7 +91,7 @@ public class DialogSuggestion extends GenericModel {
      * @param output the output
      * @return the DialogSuggestion builder
      */
-    public Builder output(DialogSuggestionOutput output) {
+    public Builder output(Map<String, Object> output) {
       this.output = output;
       return this;
     }
@@ -158,7 +159,7 @@ public class DialogSuggestion extends GenericModel {
    *
    * @return the output
    */
-  public DialogSuggestionOutput output() {
+  public Map<String, Object> output() {
     return output;
   }
 

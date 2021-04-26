@@ -45,7 +45,7 @@ public class GetTranslatedDocumentOptions extends GenericModel {
     /**
      * Builds a GetTranslatedDocumentOptions.
      *
-     * @return the getTranslatedDocumentOptions
+     * @return the new GetTranslatedDocumentOptions instance
      */
     public GetTranslatedDocumentOptions build() {
       return new GetTranslatedDocumentOptions(this);

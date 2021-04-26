@@ -58,7 +58,7 @@ public class GetAutocompletionOptions extends GenericModel {
     /**
      * Builds a GetAutocompletionOptions.
      *
-     * @return the getAutocompletionOptions
+     * @return the new GetAutocompletionOptions instance
      */
     public GetAutocompletionOptions build() {
       return new GetAutocompletionOptions(this);

@@ -52,7 +52,7 @@ public class CreateTokenizationDictionaryOptions extends GenericModel {
     /**
      * Builds a CreateTokenizationDictionaryOptions.
      *
-     * @return the createTokenizationDictionaryOptions
+     * @return the new CreateTokenizationDictionaryOptions instance
      */
     public CreateTokenizationDictionaryOptions build() {
       return new CreateTokenizationDictionaryOptions(this);

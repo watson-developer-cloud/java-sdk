@@ -47,7 +47,7 @@ public class DeleteSessionOptions extends GenericModel {
     /**
      * Builds a DeleteSessionOptions.
      *
-     * @return the deleteSessionOptions
+     * @return the new DeleteSessionOptions instance
      */
     public DeleteSessionOptions build() {
       return new DeleteSessionOptions(this);

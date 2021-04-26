@@ -55,7 +55,7 @@ public class MessageInputOptions extends GenericModel {
     /**
      * Builds a MessageInputOptions.
      *
-     * @return the messageInputOptions
+     * @return the new MessageInputOptions instance
      */
     public MessageInputOptions build() {
       return new MessageInputOptions(this);

@@ -147,7 +147,7 @@ public class SynthesizeOptions extends GenericModel {
     /**
      * Builds a SynthesizeOptions.
      *
-     * @return the synthesizeOptions
+     * @return the new SynthesizeOptions instance
      */
     public SynthesizeOptions build() {
       return new SynthesizeOptions(this);
@@ -265,10 +265,10 @@ public class SynthesizeOptions extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of a custom voice model to use for the synthesis. If a custom
-   * voice model is specified, it works only if it matches the language of the indicated voice. You
-   * must make the request with credentials for the instance of the service that owns the custom
-   * model. Omit the parameter to use the specified voice with no customization.
+   * <p>The customization ID (GUID) of a custom model to use for the synthesis. If a custom model is
+   * specified, it works only if it matches the language of the indicated voice. You must make the
+   * request with credentials for the instance of the service that owns the custom model. Omit the
+   * parameter to use the specified voice with no customization.
    *
    * @return the customizationId
    */

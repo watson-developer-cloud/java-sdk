@@ -53,7 +53,7 @@ public class GetEntityOptions extends GenericModel {
     /**
      * Builds a GetEntityOptions.
      *
-     * @return the getEntityOptions
+     * @return the new GetEntityOptions instance
      */
     public GetEntityOptions build() {
       return new GetEntityOptions(this);

@@ -53,7 +53,7 @@ public class RuntimeEntityRole extends GenericModel {
     /**
      * Builds a RuntimeEntityRole.
      *
-     * @return the runtimeEntityRole
+     * @return the new RuntimeEntityRole instance
      */
     public RuntimeEntityRole build() {
       return new RuntimeEntityRole(this);

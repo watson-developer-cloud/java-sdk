@@ -110,7 +110,7 @@ public class ProfileOptions extends GenericModel {
     /**
      * Builds a ProfileOptions.
      *
-     * @return the profileOptions
+     * @return the new ProfileOptions instance
      */
     public ProfileOptions build() {
       return new ProfileOptions(this);

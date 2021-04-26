@@ -55,7 +55,7 @@ public class SourceOptionsFolder extends GenericModel {
     /**
      * Builds a SourceOptionsFolder.
      *
-     * @return the sourceOptionsFolder
+     * @return the new SourceOptionsFolder instance
      */
     public SourceOptionsFolder build() {
       return new SourceOptionsFolder(this);

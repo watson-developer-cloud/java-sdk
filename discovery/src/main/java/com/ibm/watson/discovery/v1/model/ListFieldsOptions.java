@@ -49,7 +49,7 @@ public class ListFieldsOptions extends GenericModel {
     /**
      * Builds a ListFieldsOptions.
      *
-     * @return the listFieldsOptions
+     * @return the new ListFieldsOptions instance
      */
     public ListFieldsOptions build() {
       return new ListFieldsOptions(this);

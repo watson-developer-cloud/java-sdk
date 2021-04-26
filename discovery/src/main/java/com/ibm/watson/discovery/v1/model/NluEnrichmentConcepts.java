@@ -33,7 +33,7 @@ public class NluEnrichmentConcepts extends GenericModel {
     /**
      * Builds a NluEnrichmentConcepts.
      *
-     * @return the nluEnrichmentConcepts
+     * @return the new NluEnrichmentConcepts instance
      */
     public NluEnrichmentConcepts build() {
       return new NluEnrichmentConcepts(this);

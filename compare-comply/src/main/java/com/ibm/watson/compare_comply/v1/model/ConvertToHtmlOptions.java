@@ -65,7 +65,7 @@ public class ConvertToHtmlOptions extends GenericModel {
     /**
      * Builds a ConvertToHtmlOptions.
      *
-     * @return the convertToHtmlOptions
+     * @return the new ConvertToHtmlOptions instance
      */
     public ConvertToHtmlOptions build() {
       return new ConvertToHtmlOptions(this);

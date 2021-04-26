@@ -47,7 +47,7 @@ public class DeleteWordOptions extends GenericModel {
     /**
      * Builds a DeleteWordOptions.
      *
-     * @return the deleteWordOptions
+     * @return the new DeleteWordOptions instance
      */
     public DeleteWordOptions build() {
       return new DeleteWordOptions(this);

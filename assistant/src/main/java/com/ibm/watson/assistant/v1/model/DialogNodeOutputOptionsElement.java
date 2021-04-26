@@ -47,7 +47,7 @@ public class DialogNodeOutputOptionsElement extends GenericModel {
     /**
      * Builds a DialogNodeOutputOptionsElement.
      *
-     * @return the dialogNodeOutputOptionsElement
+     * @return the new DialogNodeOutputOptionsElement instance
      */
     public DialogNodeOutputOptionsElement build() {
       return new DialogNodeOutputOptionsElement(this);

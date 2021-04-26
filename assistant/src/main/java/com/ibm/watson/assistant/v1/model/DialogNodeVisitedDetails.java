@@ -42,7 +42,7 @@ public class DialogNodeVisitedDetails extends GenericModel {
     /**
      * Builds a DialogNodeVisitedDetails.
      *
-     * @return the dialogNodeVisitedDetails
+     * @return the new DialogNodeVisitedDetails instance
      */
     public DialogNodeVisitedDetails build() {
       return new DialogNodeVisitedDetails(this);

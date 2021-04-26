@@ -63,7 +63,7 @@ public class UpdateExampleOptions extends GenericModel {
     /**
      * Builds a UpdateExampleOptions.
      *
-     * @return the updateExampleOptions
+     * @return the new UpdateExampleOptions instance
      */
     public UpdateExampleOptions build() {
       return new UpdateExampleOptions(this);

@@ -58,7 +58,7 @@ public class DeleteFeedbackOptions extends GenericModel {
     /**
      * Builds a DeleteFeedbackOptions.
      *
-     * @return the deleteFeedbackOptions
+     * @return the new DeleteFeedbackOptions instance
      */
     public DeleteFeedbackOptions build() {
       return new DeleteFeedbackOptions(this);

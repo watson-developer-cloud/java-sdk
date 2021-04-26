@@ -25,12 +25,12 @@ public class MessageContextSkill extends GenericModel {
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
 
-  protected Map<String, Object> system;
+  protected MessageContextSkillSystem system;
 
   /** Builder. */
   public static class Builder {
     private Map<String, Object> userDefined;
-    private Map<String, Object> system;
+    private MessageContextSkillSystem system;
 
     private Builder(MessageContextSkill messageContextSkill) {
       this.userDefined = messageContextSkill.userDefined;
@@ -43,7 +43,7 @@ public class MessageContextSkill extends GenericModel {
     /**
      * Builds a MessageContextSkill.
      *
-     * @return the messageContextSkill
+     * @return the new MessageContextSkill instance
      */
     public MessageContextSkill build() {
       return new MessageContextSkill(this);
@@ -66,7 +66,7 @@ public class MessageContextSkill extends GenericModel {
      * @param system the system
      * @return the MessageContextSkill builder
      */
-    public Builder system(Map<String, Object> system) {
+    public Builder system(MessageContextSkillSystem system) {
       this.system = system;
       return this;
     }
@@ -104,7 +104,7 @@ public class MessageContextSkill extends GenericModel {
    *
    * @return the system
    */
-  public Map<String, Object> system() {
+  public MessageContextSkillSystem system() {
     return system;
   }
 }

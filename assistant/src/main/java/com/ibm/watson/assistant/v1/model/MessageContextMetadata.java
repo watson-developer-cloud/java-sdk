@@ -39,7 +39,7 @@ public class MessageContextMetadata extends GenericModel {
     /**
      * Builds a MessageContextMetadata.
      *
-     * @return the messageContextMetadata
+     * @return the new MessageContextMetadata instance
      */
     public MessageContextMetadata build() {
       return new MessageContextMetadata(this);

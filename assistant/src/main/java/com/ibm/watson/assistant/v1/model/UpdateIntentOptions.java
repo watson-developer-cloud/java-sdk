@@ -64,7 +64,7 @@ public class UpdateIntentOptions extends GenericModel {
     /**
      * Builds a UpdateIntentOptions.
      *
-     * @return the updateIntentOptions
+     * @return the new UpdateIntentOptions instance
      */
     public UpdateIntentOptions build() {
       return new UpdateIntentOptions(this);

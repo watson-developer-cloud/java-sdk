@@ -42,7 +42,7 @@ public class ClassifyInput extends GenericModel {
     /**
      * Builds a ClassifyInput.
      *
-     * @return the classifyInput
+     * @return the new ClassifyInput instance
      */
     public ClassifyInput build() {
       return new ClassifyInput(this);

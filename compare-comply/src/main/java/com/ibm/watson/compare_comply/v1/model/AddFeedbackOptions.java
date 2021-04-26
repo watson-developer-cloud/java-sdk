@@ -48,7 +48,7 @@ public class AddFeedbackOptions extends GenericModel {
     /**
      * Builds a AddFeedbackOptions.
      *
-     * @return the addFeedbackOptions
+     * @return the new AddFeedbackOptions instance
      */
     public AddFeedbackOptions build() {
       return new AddFeedbackOptions(this);

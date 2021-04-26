@@ -42,7 +42,7 @@ public class GetCoreMlModelOptions extends GenericModel {
     /**
      * Builds a GetCoreMlModelOptions.
      *
-     * @return the getCoreMlModelOptions
+     * @return the new GetCoreMlModelOptions instance
      */
     public GetCoreMlModelOptions build() {
       return new GetCoreMlModelOptions(this);

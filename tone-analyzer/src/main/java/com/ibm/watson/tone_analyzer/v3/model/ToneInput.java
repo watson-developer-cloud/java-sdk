@@ -42,7 +42,7 @@ public class ToneInput extends GenericModel {
     /**
      * Builds a ToneInput.
      *
-     * @return the toneInput
+     * @return the new ToneInput instance
      */
     public ToneInput build() {
       return new ToneInput(this);

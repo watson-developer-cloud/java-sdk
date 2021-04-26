@@ -126,8 +126,7 @@ public class Model extends GenericModel {
   /**
    * Gets the version.
    *
-   * <p>(Deprecated — use `model_version`) The model version, if it was manually provided in Watson
-   * Knowledge Studio.
+   * <p>Deprecated — use `model_version`.
    *
    * @return the version
    */

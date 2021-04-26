@@ -56,7 +56,7 @@ public class QueryLargePassages extends GenericModel {
     /**
      * Builds a QueryLargePassages.
      *
-     * @return the queryLargePassages
+     * @return the new QueryLargePassages instance
      */
     public QueryLargePassages build() {
       return new QueryLargePassages(this);

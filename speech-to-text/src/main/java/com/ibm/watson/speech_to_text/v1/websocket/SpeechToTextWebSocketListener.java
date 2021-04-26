@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,7 +66,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final long QUEUE_WAIT_MILLIS = 500;
 
   private final InputStream stream;
-  private final RecognizeOptions options;
+  private final RecognizeWithWebsocketsOptions options;
   private final RecognizeCallback callback;
   private WebSocket socket;
   private boolean socketOpen = true;
@@ -81,7 +81,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param callback the callback
    */
   public SpeechToTextWebSocketListener(
-      final RecognizeOptions options, final RecognizeCallback callback) {
+      final RecognizeWithWebsocketsOptions options, final RecognizeCallback callback) {
     this.stream = options.audio();
     this.options = options;
     this.callback = callback;
@@ -229,7 +229,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the options
    * @return the request
    */
-  private String buildStartMessage(RecognizeOptions options) {
+  private String buildStartMessage(RecognizeWithWebsocketsOptions options) {
     Gson gson =
         new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

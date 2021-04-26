@@ -44,7 +44,7 @@ public class EmotionOptions extends GenericModel {
     /**
      * Builds a EmotionOptions.
      *
-     * @return the emotionOptions
+     * @return the new EmotionOptions instance
      */
     public EmotionOptions build() {
       return new EmotionOptions(this);

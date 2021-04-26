@@ -46,7 +46,7 @@ public class GetMetricsQueryEventOptions extends GenericModel {
     /**
      * Builds a GetMetricsQueryEventOptions.
      *
-     * @return the getMetricsQueryEventOptions
+     * @return the new GetMetricsQueryEventOptions instance
      */
     public GetMetricsQueryEventOptions build() {
       return new GetMetricsQueryEventOptions(this);

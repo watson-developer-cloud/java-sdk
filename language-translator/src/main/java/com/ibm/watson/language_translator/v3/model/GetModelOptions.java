@@ -42,7 +42,7 @@ public class GetModelOptions extends GenericModel {
     /**
      * Builds a GetModelOptions.
      *
-     * @return the getModelOptions
+     * @return the new GetModelOptions instance
      */
     public GetModelOptions build() {
       return new GetModelOptions(this);

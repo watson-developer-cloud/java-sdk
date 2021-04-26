@@ -47,7 +47,7 @@ public class DeleteTokenizationDictionaryOptions extends GenericModel {
     /**
      * Builds a DeleteTokenizationDictionaryOptions.
      *
-     * @return the deleteTokenizationDictionaryOptions
+     * @return the new DeleteTokenizationDictionaryOptions instance
      */
     public DeleteTokenizationDictionaryOptions build() {
       return new DeleteTokenizationDictionaryOptions(this);

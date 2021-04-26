@@ -42,7 +42,7 @@ public class CreateSessionOptions extends GenericModel {
     /**
      * Builds a CreateSessionOptions.
      *
-     * @return the createSessionOptions
+     * @return the new CreateSessionOptions instance
      */
     public CreateSessionOptions build() {
       return new CreateSessionOptions(this);

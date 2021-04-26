@@ -71,8 +71,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the filename.
    *
-   * <p>filename from the submission (if it was missing in the multipart-form, 'noname.<ext matching
-   * content type>' is used.
+   * <p>filename from the submission (if it was missing in the multipart-form, 'noname.&lt;ext
+   * matching content type&gt;' is used.
    *
    * @return the filename
    */

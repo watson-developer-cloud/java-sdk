@@ -39,7 +39,7 @@ public class NluEnrichmentKeywords extends GenericModel {
     /**
      * Builds a NluEnrichmentKeywords.
      *
-     * @return the nluEnrichmentKeywords
+     * @return the new NluEnrichmentKeywords instance
      */
     public NluEnrichmentKeywords build() {
       return new NluEnrichmentKeywords(this);

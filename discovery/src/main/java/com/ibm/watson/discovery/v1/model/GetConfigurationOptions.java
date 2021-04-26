@@ -47,7 +47,7 @@ public class GetConfigurationOptions extends GenericModel {
     /**
      * Builds a GetConfigurationOptions.
      *
-     * @return the getConfigurationOptions
+     * @return the new GetConfigurationOptions instance
      */
     public GetConfigurationOptions build() {
       return new GetConfigurationOptions(this);

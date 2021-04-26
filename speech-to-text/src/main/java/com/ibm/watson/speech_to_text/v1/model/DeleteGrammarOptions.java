@@ -47,7 +47,7 @@ public class DeleteGrammarOptions extends GenericModel {
     /**
      * Builds a DeleteGrammarOptions.
      *
-     * @return the deleteGrammarOptions
+     * @return the new DeleteGrammarOptions instance
      */
     public DeleteGrammarOptions build() {
       return new DeleteGrammarOptions(this);

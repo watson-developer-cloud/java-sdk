@@ -47,7 +47,7 @@ public class DeleteIntentOptions extends GenericModel {
     /**
      * Builds a DeleteIntentOptions.
      *
-     * @return the deleteIntentOptions
+     * @return the new DeleteIntentOptions instance
      */
     public DeleteIntentOptions build() {
       return new DeleteIntentOptions(this);

@@ -84,7 +84,7 @@ public class UpdateValueOptions extends GenericModel {
     /**
      * Builds a UpdateValueOptions.
      *
-     * @return the updateValueOptions
+     * @return the new UpdateValueOptions instance
      */
     public UpdateValueOptions build() {
       return new UpdateValueOptions(this);

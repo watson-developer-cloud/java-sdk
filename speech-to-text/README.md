@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>speech-to-text</artifactId>
-  <version>8.6.3</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:speech-to-text:8.6.3'
+'com.ibm.watson:speech-to-text:9.0.2'
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket, the url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
+Speech to Text supports WebSocket, the url is: `wss://api.us-south.speech-to-text.watson.cloud.ibm.com/v1/recognize`
 
 ```java
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");

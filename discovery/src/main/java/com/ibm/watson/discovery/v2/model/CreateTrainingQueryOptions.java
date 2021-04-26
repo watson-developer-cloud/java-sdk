@@ -57,7 +57,7 @@ public class CreateTrainingQueryOptions extends GenericModel {
     /**
      * Builds a CreateTrainingQueryOptions.
      *
-     * @return the createTrainingQueryOptions
+     * @return the new CreateTrainingQueryOptions instance
      */
     public CreateTrainingQueryOptions build() {
       return new CreateTrainingQueryOptions(this);

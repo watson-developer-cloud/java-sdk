@@ -42,7 +42,7 @@ public class GetLanguageModelOptions extends GenericModel {
     /**
      * Builds a GetLanguageModelOptions.
      *
-     * @return the getLanguageModelOptions
+     * @return the new GetLanguageModelOptions instance
      */
     public GetLanguageModelOptions build() {
       return new GetLanguageModelOptions(this);

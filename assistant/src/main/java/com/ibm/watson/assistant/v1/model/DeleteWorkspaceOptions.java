@@ -42,7 +42,7 @@ public class DeleteWorkspaceOptions extends GenericModel {
     /**
      * Builds a DeleteWorkspaceOptions.
      *
-     * @return the deleteWorkspaceOptions
+     * @return the new DeleteWorkspaceOptions instance
      */
     public DeleteWorkspaceOptions build() {
       return new DeleteWorkspaceOptions(this);

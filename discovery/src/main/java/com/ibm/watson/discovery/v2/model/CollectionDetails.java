@@ -32,18 +32,14 @@ public class CollectionDetails extends GenericModel {
 
   /** Builder. */
   public static class Builder {
-    private String collectionId;
     private String name;
     private String description;
-    private Date created;
     private String language;
     private List<CollectionEnrichment> enrichments;
 
     private Builder(CollectionDetails collectionDetails) {
-      this.collectionId = collectionDetails.collectionId;
       this.name = collectionDetails.name;
       this.description = collectionDetails.description;
-      this.created = collectionDetails.created;
       this.language = collectionDetails.language;
       this.enrichments = collectionDetails.enrichments;
     }
@@ -63,7 +59,7 @@ public class CollectionDetails extends GenericModel {
     /**
      * Builds a CollectionDetails.
      *
-     * @return the collectionDetails
+     * @return the new CollectionDetails instance
      */
     public CollectionDetails build() {
       return new CollectionDetails(this);
@@ -81,17 +77,6 @@ public class CollectionDetails extends GenericModel {
         this.enrichments = new ArrayList<CollectionEnrichment>();
       }
       this.enrichments.add(enrichments);
-      return this;
-    }
-
-    /**
-     * Set the collectionId.
-     *
-     * @param collectionId the collectionId
-     * @return the CollectionDetails builder
-     */
-    public Builder collectionId(String collectionId) {
-      this.collectionId = collectionId;
       return this;
     }
 
@@ -114,17 +99,6 @@ public class CollectionDetails extends GenericModel {
      */
     public Builder description(String description) {
       this.description = description;
-      return this;
-    }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the CollectionDetails builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
       return this;
     }
 
@@ -153,10 +127,8 @@ public class CollectionDetails extends GenericModel {
 
   protected CollectionDetails(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
-    collectionId = builder.collectionId;
     name = builder.name;
     description = builder.description;
-    created = builder.created;
     language = builder.language;
     enrichments = builder.enrichments;
   }

@@ -55,7 +55,7 @@ public class Conversions extends GenericModel {
     /**
      * Builds a Conversions.
      *
-     * @return the conversions
+     * @return the new Conversions instance
      */
     public Conversions build() {
       return new Conversions(this);

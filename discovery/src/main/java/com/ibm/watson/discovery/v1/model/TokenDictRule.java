@@ -60,7 +60,7 @@ public class TokenDictRule extends GenericModel {
     /**
      * Builds a TokenDictRule.
      *
-     * @return the tokenDictRule
+     * @return the new TokenDictRule instance
      */
     public TokenDictRule build() {
       return new TokenDictRule(this);

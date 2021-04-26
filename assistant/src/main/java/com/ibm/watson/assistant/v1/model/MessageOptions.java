@@ -65,7 +65,7 @@ public class MessageOptions extends GenericModel {
     /**
      * Builds a MessageOptions.
      *
-     * @return the messageOptions
+     * @return the new MessageOptions instance
      */
     public MessageOptions build() {
       return new MessageOptions(this);

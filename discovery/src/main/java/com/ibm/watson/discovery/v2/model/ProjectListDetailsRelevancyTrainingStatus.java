@@ -66,7 +66,7 @@ public class ProjectListDetailsRelevancyTrainingStatus extends GenericModel {
   /**
    * Gets the sufficientLabelDiversity.
    *
-   * <p>When `true`, sufficent label diversity is present to allow training for this project.
+   * <p>When `true`, sufficient label diversity is present to allow training for this project.
    *
    * @return the sufficientLabelDiversity
    */
@@ -99,7 +99,7 @@ public class ProjectListDetailsRelevancyTrainingStatus extends GenericModel {
   /**
    * Gets the successfullyTrained.
    *
-   * <p>The time that the most recent successful training occured.
+   * <p>The time that the most recent successful training occurred.
    *
    * @return the successfullyTrained
    */

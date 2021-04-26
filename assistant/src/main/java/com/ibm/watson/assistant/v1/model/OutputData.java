@@ -15,7 +15,10 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An output object that includes the response to the user, the dialog nodes that were triggered,
@@ -40,6 +43,217 @@ public class OutputData extends DynamicModel<Object> {
 
   public OutputData() {
     super(new TypeToken<Object>() {});
+  }
+
+  /** Builder. */
+  public static class Builder {
+    private List<String> nodesVisited;
+    private List<DialogNodeVisitedDetails> nodesVisitedDetails;
+    private List<LogMessage> logMessages;
+    private List<String> text;
+    private List<RuntimeResponseGeneric> generic;
+    private Map<String, Object> dynamicProperties;
+
+    private Builder(OutputData outputData) {
+      this.nodesVisited = outputData.nodesVisited;
+      this.nodesVisitedDetails = outputData.nodesVisitedDetails;
+      this.logMessages = outputData.logMessages;
+      this.text = outputData.text;
+      this.generic = outputData.generic;
+      this.dynamicProperties = outputData.getProperties();
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param logMessages the logMessages
+     * @param text the text
+     */
+    public Builder(List<LogMessage> logMessages, List<String> text) {
+      this.logMessages = logMessages;
+      this.text = text;
+    }
+
+    /**
+     * Builds a OutputData.
+     *
+     * @return the new OutputData instance
+     */
+    public OutputData build() {
+      return new OutputData(this);
+    }
+
+    /**
+     * Adds an nodesVisited to nodesVisited.
+     *
+     * @param nodesVisited the new nodesVisited
+     * @return the OutputData builder
+     */
+    public Builder addNodesVisited(String nodesVisited) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(nodesVisited, "nodesVisited cannot be null");
+      if (this.nodesVisited == null) {
+        this.nodesVisited = new ArrayList<String>();
+      }
+      this.nodesVisited.add(nodesVisited);
+      return this;
+    }
+
+    /**
+     * Adds an nodesVisitedDetails to nodesVisitedDetails.
+     *
+     * @param nodesVisitedDetails the new nodesVisitedDetails
+     * @return the OutputData builder
+     */
+    public Builder addNodesVisitedDetails(DialogNodeVisitedDetails nodesVisitedDetails) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(
+          nodesVisitedDetails, "nodesVisitedDetails cannot be null");
+      if (this.nodesVisitedDetails == null) {
+        this.nodesVisitedDetails = new ArrayList<DialogNodeVisitedDetails>();
+      }
+      this.nodesVisitedDetails.add(nodesVisitedDetails);
+      return this;
+    }
+
+    /**
+     * Adds an logMessages to logMessages.
+     *
+     * @param logMessages the new logMessages
+     * @return the OutputData builder
+     */
+    public Builder addLogMessages(LogMessage logMessages) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(logMessages, "logMessages cannot be null");
+      if (this.logMessages == null) {
+        this.logMessages = new ArrayList<LogMessage>();
+      }
+      this.logMessages.add(logMessages);
+      return this;
+    }
+
+    /**
+     * Adds an text to text.
+     *
+     * @param text the new text
+     * @return the OutputData builder
+     */
+    public Builder addText(String text) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(text, "text cannot be null");
+      if (this.text == null) {
+        this.text = new ArrayList<String>();
+      }
+      this.text.add(text);
+      return this;
+    }
+
+    /**
+     * Adds an generic to generic.
+     *
+     * @param generic the new generic
+     * @return the OutputData builder
+     */
+    public Builder addGeneric(RuntimeResponseGeneric generic) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(generic, "generic cannot be null");
+      if (this.generic == null) {
+        this.generic = new ArrayList<RuntimeResponseGeneric>();
+      }
+      this.generic.add(generic);
+      return this;
+    }
+
+    /**
+     * Set the nodesVisited. Existing nodesVisited will be replaced.
+     *
+     * @param nodesVisited the nodesVisited
+     * @return the OutputData builder
+     */
+    public Builder nodesVisited(List<String> nodesVisited) {
+      this.nodesVisited = nodesVisited;
+      return this;
+    }
+
+    /**
+     * Set the nodesVisitedDetails. Existing nodesVisitedDetails will be replaced.
+     *
+     * @param nodesVisitedDetails the nodesVisitedDetails
+     * @return the OutputData builder
+     */
+    public Builder nodesVisitedDetails(List<DialogNodeVisitedDetails> nodesVisitedDetails) {
+      this.nodesVisitedDetails = nodesVisitedDetails;
+      return this;
+    }
+
+    /**
+     * Set the logMessages. Existing logMessages will be replaced.
+     *
+     * @param logMessages the logMessages
+     * @return the OutputData builder
+     */
+    public Builder logMessages(List<LogMessage> logMessages) {
+      this.logMessages = logMessages;
+      return this;
+    }
+
+    /**
+     * Set the text. Existing text will be replaced.
+     *
+     * @param text the text
+     * @return the OutputData builder
+     */
+    public Builder text(List<String> text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the generic. Existing generic will be replaced.
+     *
+     * @param generic the generic
+     * @return the OutputData builder
+     */
+    public Builder generic(List<RuntimeResponseGeneric> generic) {
+      this.generic = generic;
+      return this;
+    }
+
+    /**
+     * Add an arbitrary property.
+     *
+     * @param name the name of the property to add
+     * @param value the value of the property to add
+     * @return the OutputData builder
+     */
+    public Builder add(String name, Object value) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(name, "name cannot be null");
+      if (this.dynamicProperties == null) {
+        this.dynamicProperties = new HashMap<String, Object>();
+      }
+      this.dynamicProperties.put(name, value);
+      return this;
+    }
+  }
+
+  protected OutputData(Builder builder) {
+    super(new TypeToken<Object>() {});
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.logMessages, "logMessages cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
+    nodesVisited = builder.nodesVisited;
+    nodesVisitedDetails = builder.nodesVisitedDetails;
+    logMessages = builder.logMessages;
+    text = builder.text;
+    generic = builder.generic;
+    this.setProperties(builder.dynamicProperties);
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a OutputData builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**

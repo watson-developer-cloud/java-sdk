@@ -29,6 +29,7 @@ public class ListWorkspacesOptions extends GenericModel {
   }
 
   protected Long pageLimit;
+  protected Boolean includeCount;
   protected String sort;
   protected String cursor;
   protected Boolean includeAudit;
@@ -36,12 +37,14 @@ public class ListWorkspacesOptions extends GenericModel {
   /** Builder. */
   public static class Builder {
     private Long pageLimit;
+    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
 
     private Builder(ListWorkspacesOptions listWorkspacesOptions) {
       this.pageLimit = listWorkspacesOptions.pageLimit;
+      this.includeCount = listWorkspacesOptions.includeCount;
       this.sort = listWorkspacesOptions.sort;
       this.cursor = listWorkspacesOptions.cursor;
       this.includeAudit = listWorkspacesOptions.includeAudit;
@@ -53,7 +56,7 @@ public class ListWorkspacesOptions extends GenericModel {
     /**
      * Builds a ListWorkspacesOptions.
      *
-     * @return the listWorkspacesOptions
+     * @return the new ListWorkspacesOptions instance
      */
     public ListWorkspacesOptions build() {
       return new ListWorkspacesOptions(this);
@@ -67,6 +70,17 @@ public class ListWorkspacesOptions extends GenericModel {
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
+      return this;
+    }
+
+    /**
+     * Set the includeCount.
+     *
+     * @param includeCount the includeCount
+     * @return the ListWorkspacesOptions builder
+     */
+    public Builder includeCount(Boolean includeCount) {
+      this.includeCount = includeCount;
       return this;
     }
 
@@ -106,6 +120,7 @@ public class ListWorkspacesOptions extends GenericModel {
 
   protected ListWorkspacesOptions(Builder builder) {
     pageLimit = builder.pageLimit;
+    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -129,6 +144,19 @@ public class ListWorkspacesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
+  }
+
+  /**
+   * Gets the includeCount.
+   *
+   * <p>Whether to include information about the number of records that satisfy the request,
+   * regardless of the page limit. If this parameter is `true`, the `pagination` object in the
+   * response includes the `total` property.
+   *
+   * @return the includeCount
+   */
+  public Boolean includeCount() {
+    return includeCount;
   }
 
   /**

@@ -12,11 +12,12 @@
  */
 package com.ibm.watson.natural_language_classifier.v1;
 
-import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.*;
 
-import com.google.gson.JsonObject;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.natural_language_classifier.v1.model.ClassificationCollection;
 import com.ibm.watson.natural_language_classifier.v1.model.Classifier;
@@ -27,215 +28,371 @@ import com.ibm.watson.natural_language_classifier.v1.model.ClassifyOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.CreateClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.DeleteClassifierOptions;
 import com.ibm.watson.natural_language_classifier.v1.model.GetClassifierOptions;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Arrays;
+import com.ibm.watson.natural_language_classifier.v1.model.ListClassifiersOptions;
+import com.ibm.watson.natural_language_classifier.v1.utils.TestUtilities;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** The Class NaturalLanguageClassifierTest. */
-public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
-  private static final String TEXT = "text";
-  private static final String CLASSIFIERS_PATH = "/v1/classifiers";
-  private static final String CLASSIFY_PATH = "/v1/classifiers/%s/classify";
-  private static final String CLASSIFY_COLLECTION_PATH = "/v1/classifiers/%s/classify_collection";
-  private static final String RESOURCE = "src/test/resources/natural_language_classifier/";
+/** Unit test class for the NaturalLanguageClassifier service. */
+public class NaturalLanguageClassifierTest {
 
-  private ClassifierList classifiers;
-  private Classifier classifier;
-  private Classification classification;
-  private ClassificationCollection classificationCollection;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private String classifierId;
-  private NaturalLanguageClassifier service;
+  protected MockWebServer server;
+  protected NaturalLanguageClassifier naturalLanguageClassifierService;
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    service = new NaturalLanguageClassifier(new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
 
-    classifierId = "foo";
-    classifiers = loadFixture(RESOURCE + "classifiers.json", ClassifierList.class);
-    classifier = loadFixture(RESOURCE + "classifier.json", Classifier.class);
-    classification = loadFixture(RESOURCE + "classification.json", Classification.class);
-    classificationCollection =
-        loadFixture(RESOURCE + "classification_collection.json", ClassificationCollection.class);
+    final Authenticator authenticator = new NoAuthAuthenticator();
+
+    naturalLanguageClassifierService = new NaturalLanguageClassifier(serviceName, authenticator);
+    String url = server.url("/").toString();
+    naturalLanguageClassifierService.setServiceUrl(url);
   }
 
-  /**
-   * Test classify.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testClassify() throws InterruptedException {
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(TEXT, classification.getText());
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
 
-    final String path = String.format(CLASSIFY_PATH, classifierId);
-
-    server.enqueue(jsonResponse(classification));
-    ClassifyOptions classifyOptions =
-        new ClassifyOptions.Builder()
-            .classifierId(classifierId)
-            .text(classification.getText())
-            .build();
-    final Classification result = service.classify(classifyOptions).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
-
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(contentJson.toString(), request.getBody().readUtf8());
-    assertEquals(classification, result);
+    new NaturalLanguageClassifier(serviceName, null);
   }
 
-  /**
-   * Test classifying a collection.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testClassifyCollection() throws InterruptedException {
-    final String path = String.format(CLASSIFY_COLLECTION_PATH, classifierId);
+  public void testClassifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifier_id\": \"classifierId\", \"url\": \"url\", \"text\": \"text\", \"top_class\": \"topClass\", \"classes\": [{\"confidence\": 10, \"class_name\": \"className\"}]}";
+    String classifyPath = "/v1/classifiers/testString/classify";
 
-    server.enqueue(jsonResponse(classificationCollection));
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    ClassifyInput input1 = new ClassifyInput.Builder().text("How hot will it be today?").build();
-    ClassifyInput input2 = new ClassifyInput.Builder().text("Is it hot outside?").build();
-    List<ClassifyInput> inputCollection = Arrays.asList(input1, input2);
+    constructClientService();
 
-    ClassifyCollectionOptions classifyOptions =
+    // Construct an instance of the ClassifyOptions model
+    ClassifyOptions classifyOptionsModel =
+        new ClassifyOptions.Builder().classifierId("testString").text("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classification> response =
+        naturalLanguageClassifierService.classify(classifyOptionsModel).execute();
+    assertNotNull(response);
+    Classification responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, classifyPath);
+  }
+
+  // Test the classify operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testClassifyNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageClassifierService.classify(null).execute();
+  }
+
+  @Test
+  public void testClassifyCollectionWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifier_id\": \"classifierId\", \"url\": \"url\", \"collection\": [{\"text\": \"text\", \"top_class\": \"topClass\", \"classes\": [{\"confidence\": 10, \"class_name\": \"className\"}]}]}";
+    String classifyCollectionPath = "/v1/classifiers/testString/classify_collection";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ClassifyInput model
+    ClassifyInput classifyInputModel =
+        new ClassifyInput.Builder().text("How hot will it be today?").build();
+
+    // Construct an instance of the ClassifyCollectionOptions model
+    ClassifyCollectionOptions classifyCollectionOptionsModel =
         new ClassifyCollectionOptions.Builder()
-            .classifierId(classifierId)
-            .collection(inputCollection)
+            .classifierId("testString")
+            .collection(
+                new java.util.ArrayList<ClassifyInput>(java.util.Arrays.asList(classifyInputModel)))
             .build();
-    final ClassificationCollection result =
-        service.classifyCollection(classifyOptions).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
 
-    assertEquals(path, request.getPath());
-    assertEquals("POST", request.getMethod());
-    assertEquals(classificationCollection, result);
+    // Invoke operation with valid options model (positive test)
+    Response<ClassificationCollection> response =
+        naturalLanguageClassifierService
+            .classifyCollection(classifyCollectionOptionsModel)
+            .execute();
+    assertNotNull(response);
+    ClassificationCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, classifyCollectionPath);
   }
 
-  /**
-   * Test get classifier.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testGetClassifier() throws InterruptedException {
-    server.enqueue(jsonResponse(classifier));
-    GetClassifierOptions getOptions =
-        new GetClassifierOptions.Builder().classifierId(classifierId).build();
-    final Classifier response = service.getClassifier(getOptions).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
+  // Test the classifyCollection operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testClassifyCollectionNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    assertEquals(CLASSIFIERS_PATH + "/" + classifierId, request.getPath());
-    assertEquals(classifier, response);
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageClassifierService.classifyCollection(null).execute();
   }
 
-  /**
-   * Test get classifiers.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testGetClassifiers() throws InterruptedException {
-    server.enqueue(jsonResponse(classifiers));
-    final ClassifierList response = service.listClassifiers().execute().getResult();
-    final RecordedRequest request = server.takeRequest();
+  public void testCreateClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
+    String createClassifierPath = "/v1/classifiers";
 
-    assertEquals(CLASSIFIERS_PATH, request.getPath());
-    assertEquals(classifiers, response);
-  }
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-  /**
-   * Test create classifier.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
-   */
-  @Test
-  public void testCreateClassifier() throws InterruptedException, FileNotFoundException {
-    server.enqueue(jsonResponse(classifier));
-    File metadata = new File(RESOURCE + "metadata.json");
-    File trainingData = new File(RESOURCE + "weather_data_train.csv");
-    CreateClassifierOptions createOptions =
+    constructClientService();
+
+    // Construct an instance of the CreateClassifierOptions model
+    CreateClassifierOptions createClassifierOptionsModel =
         new CreateClassifierOptions.Builder()
-            .trainingMetadata(metadata)
-            .trainingData(trainingData)
+            .trainingMetadata(TestUtilities.createMockStream("This is a mock file."))
+            .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .build();
-    final Classifier response = service.createClassifier(createOptions).execute().getResult();
-    final RecordedRequest request = server.takeRequest();
 
-    assertEquals(CLASSIFIERS_PATH, request.getPath());
-    assertEquals(classifier, response);
+    // Invoke operation with valid options model (positive test)
+    Response<Classifier> response =
+        naturalLanguageClassifierService.createClassifier(createClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Classifier responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createClassifierPath);
   }
 
-  /**
-   * Test delete classifier.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
+  // Test the createClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageClassifierService.createClassifier(null).execute();
+  }
+
   @Test
-  public void testDeleteClassifier() throws InterruptedException {
-    DeleteClassifierOptions deleteOptions =
-        new DeleteClassifierOptions.Builder().classifierId(classifierId).build();
-    service.deleteClassifier(deleteOptions);
+  public void testListClassifiersWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"classifiers\": [{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}]}";
+    String listClassifiersPath = "/v1/classifiers";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListClassifiersOptions model
+    ListClassifiersOptions listClassifiersOptionsModel = new ListClassifiersOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ClassifierList> response =
+        naturalLanguageClassifierService.listClassifiers(listClassifiersOptionsModel).execute();
+    assertNotNull(response);
+    ClassifierList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listClassifiersPath);
   }
 
-  // START NEGATIVE TESTS
-  /** Test null classifier. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullClassifier() {
-    ClassifyOptions classifyOptions = new ClassifyOptions.Builder().text("test").build();
-    service.classify(classifyOptions);
+  @Test
+  public void testGetClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
+    String getClassifierPath = "/v1/classifiers/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetClassifierOptions model
+    GetClassifierOptions getClassifierOptionsModel =
+        new GetClassifierOptions.Builder().classifierId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Classifier> response =
+        naturalLanguageClassifierService.getClassifier(getClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Classifier responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getClassifierPath);
   }
 
-  /** Test null text. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullText() {
-    ClassifyOptions classifyOptions =
-        new ClassifyOptions.Builder().classifierId(classifierId).build();
-    service.classify(classifyOptions);
+  // Test the getClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageClassifierService.getClassifier(null).execute();
   }
 
-  /** Test null delete classifier. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullDeleteClassifier() {
-    DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder().build();
-    service.deleteClassifier(deleteOptions);
+  @Test
+  public void testDeleteClassifierWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteClassifierPath = "/v1/classifiers/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteClassifierOptions model
+    DeleteClassifierOptions deleteClassifierOptionsModel =
+        new DeleteClassifierOptions.Builder().classifierId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        naturalLanguageClassifierService.deleteClassifier(deleteClassifierOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteClassifierPath);
   }
 
-  /**
-   * Test null training data file.
-   *
-   * @throws FileNotFoundException the file not found exception
-   */
-  @Test(expected = FileNotFoundException.class)
-  public void testNullTrainingDataFile() throws FileNotFoundException {
-    server.enqueue(jsonResponse(classifier));
-    File metadata = new File(RESOURCE + "metadata.json");
-    File trainingData = new File(RESOURCE + "notfound.txt");
-    CreateClassifierOptions createOptions =
-        new CreateClassifierOptions.Builder()
-            .trainingMetadata(metadata)
-            .trainingData(trainingData)
-            .build();
-    service.createClassifier(createOptions).execute();
+  // Test the deleteClassifier operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteClassifierNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    naturalLanguageClassifierService.deleteClassifier(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    naturalLanguageClassifierService = null;
   }
 }

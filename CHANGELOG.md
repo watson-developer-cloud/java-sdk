@@ -1,3 +1,90 @@
+## [9.0.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.1...v9.0.2) (2020-12-21)
+
+
+### Bug Fixes
+
+* **generation:** api def '8be1cdc78c7998b055bc8ea895dddd7c8496b2a4' gen tag 3.19.0 ([1ddf534](https://github.com/watson-developer-cloud/java-sdk/commit/1ddf534ff0d10481e7246abb37df1b88d9421d9e))
+
+## [9.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0...v9.0.1) (2020-12-11)
+
+
+### Bug Fixes
+
+* **readme:** add extra line to readme to trigger patch release ([f5d1a06](https://github.com/watson-developer-cloud/java-sdk/commit/f5d1a0696835e079a3349b5a4575a1d1a1658047))
+
+# [9.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.3...v9.0.0) (2020-12-10)
+
+
+### Bug Fixes
+
+* **sdk-version:** fix sdk-version ([3019159](https://github.com/watson-developer-cloud/java-sdk/commit/3019159999a36e5065bdfe33f2976e625aec10f4))
+* **visual-recognition-v4:** remove trainingStatus as a parameter for create & update Collection ([02e3dfd](https://github.com/watson-developer-cloud/java-sdk/commit/02e3dfd0fb972f3081c91921f6acf61fdcc2f1e6))
+* **visual-recognition-v4:** remove trainingStatus as a parameter for create & update Collection ([5568bf9](https://github.com/watson-developer-cloud/java-sdk/commit/5568bf99e47ad92420253c936db7bc8fac13a7f0))
+* typo in migration guide ([984a350](https://github.com/watson-developer-cloud/java-sdk/commit/984a3503502a7867470b3e342fe959643ae0a561))
+* update version to 9.0.0-rc.2 ([ab57379](https://github.com/watson-developer-cloud/java-sdk/commit/ab573794f351e00f6fb97e3fed0e7d3ad20fb824))
+
+
+### chore
+
+* update for semantic-release ([22a7d00](https://github.com/watson-developer-cloud/java-sdk/commit/22a7d008c6e333a944c3b0f6a96f142f587e5aed))
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0 ([3414833](https://github.com/watson-developer-cloud/java-sdk/commit/3414833807abe8534e6daf838500a5426e9e4e04))
+* add bumpversion release candidate support ([b794bb6](https://github.com/watson-developer-cloud/java-sdk/commit/b794bb6407e461af0edd99952e08b98e8d4a95e2))
+* **generation:** api def tag 'sdk-major-release-2020-rc01' gen commit '7cc0550' ([3bec20d](https://github.com/watson-developer-cloud/java-sdk/commit/3bec20d5ccae38ba2a1f1d8adf6cf16cdc2c6a18))
+* **speech-to-text-v1:** add RecognizeWithWebsocketsOptions model ([d3b7fe9](https://github.com/watson-developer-cloud/java-sdk/commit/d3b7fe91fad17fa6ef6dd00a5ecc38b689dfd016))
+
+
+### BREAKING CHANGES
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0
+* generated with 3.18.0 of the IBM openapi sdk generator
+
+# [9.0.0-rc.3](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.2...v9.0.0-rc.3) (2020-12-03)
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0 ([3414833](https://github.com/watson-developer-cloud/java-sdk/commit/3414833807abe8534e6daf838500a5426e9e4e04))
+
+
+### BREAKING CHANGES
+
+* **generation:** api def tag 'sdk-major-release-2020' gen tag 3.19.0
+
+# [9.0.0-rc.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.0-rc.1...v9.0.0-rc.2) (2020-11-11)
+
+
+### Bug Fixes
+
+* typo in migration guide ([984a350](https://github.com/watson-developer-cloud/java-sdk/commit/984a3503502a7867470b3e342fe959643ae0a561))
+* update version to 9.0.0-rc.2 ([ab57379](https://github.com/watson-developer-cloud/java-sdk/commit/ab573794f351e00f6fb97e3fed0e7d3ad20fb824))
+
+
+### Features
+
+* add bumpversion release candidate support ([b794bb6](https://github.com/watson-developer-cloud/java-sdk/commit/b794bb6407e461af0edd99952e08b98e8d4a95e2))
+
+# [9.0.0-rc.1](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.3...v9.0.0-rc.1) (2020-11-10)
+
+
+### chore
+
+* update for semantic-release ([22a7d00](https://github.com/watson-developer-cloud/java-sdk/commit/22a7d008c6e333a944c3b0f6a96f142f587e5aed))
+
+
+### Features
+
+* **generation:** api def tag 'sdk-major-release-2020-rc01' gen commit '7cc0550' ([3bec20d](https://github.com/watson-developer-cloud/java-sdk/commit/3bec20d5ccae38ba2a1f1d8adf6cf16cdc2c6a18))
+* **speech-to-text-v1:** add RecognizeWithWebsocketsOptions model ([d3b7fe9](https://github.com/watson-developer-cloud/java-sdk/commit/d3b7fe91fad17fa6ef6dd00a5ecc38b689dfd016))
+
+
+### BREAKING CHANGES
+
+* generated with 3.18.0 of the IBM openapi sdk generator
+
 ## [8.6.3](https://github.com/watson-developer-cloud/java-sdk/compare/v8.6.2...v8.6.3) (2020-10-26)
 
 

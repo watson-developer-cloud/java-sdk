@@ -25,13 +25,9 @@ public class Synonym extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String synonym;
-    private Date created;
-    private Date updated;
 
     private Builder(Synonym synonym) {
       this.synonym = synonym.synonym;
-      this.created = synonym.created;
-      this.updated = synonym.updated;
     }
 
     /** Instantiates a new builder. */
@@ -49,7 +45,7 @@ public class Synonym extends GenericModel {
     /**
      * Builds a Synonym.
      *
-     * @return the synonym
+     * @return the new Synonym instance
      */
     public Synonym build() {
       return new Synonym(this);
@@ -65,35 +61,11 @@ public class Synonym extends GenericModel {
       this.synonym = synonym;
       return this;
     }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the Synonym builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the Synonym builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected Synonym(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.synonym, "synonym cannot be null");
     synonym = builder.synonym;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**

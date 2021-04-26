@@ -53,7 +53,7 @@ public class CreateEventOptions extends GenericModel {
     /**
      * Builds a CreateEventOptions.
      *
-     * @return the createEventOptions
+     * @return the new CreateEventOptions instance
      */
     public CreateEventOptions build() {
       return new CreateEventOptions(this);

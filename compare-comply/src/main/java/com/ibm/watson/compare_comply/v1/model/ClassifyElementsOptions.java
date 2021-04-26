@@ -65,7 +65,7 @@ public class ClassifyElementsOptions extends GenericModel {
     /**
      * Builds a ClassifyElementsOptions.
      *
-     * @return the classifyElementsOptions
+     * @return the new ClassifyElementsOptions instance
      */
     public ClassifyElementsOptions build() {
       return new ClassifyElementsOptions(this);

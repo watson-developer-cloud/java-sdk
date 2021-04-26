@@ -38,7 +38,7 @@ public class ConceptsOptions extends GenericModel {
     /**
      * Builds a ConceptsOptions.
      *
-     * @return the conceptsOptions
+     * @return the new ConceptsOptions instance
      */
     public ConceptsOptions build() {
       return new ConceptsOptions(this);

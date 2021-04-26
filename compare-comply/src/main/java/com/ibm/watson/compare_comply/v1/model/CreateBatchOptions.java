@@ -109,7 +109,7 @@ public class CreateBatchOptions extends GenericModel {
     /**
      * Builds a CreateBatchOptions.
      *
-     * @return the createBatchOptions
+     * @return the new CreateBatchOptions instance
      */
     public CreateBatchOptions build() {
       return new CreateBatchOptions(this);

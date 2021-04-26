@@ -73,6 +73,10 @@ public class RecognizeOptions extends GenericModel {
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
+    /** fr-CA_BroadbandModel. */
+    String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_NarrowbandModel. */
+    String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -103,7 +107,7 @@ public class RecognizeOptions extends GenericModel {
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
   }
 
-  protected transient InputStream audio;
+  protected InputStream audio;
 
   @SerializedName("content-type")
   protected String contentType;
@@ -131,9 +135,6 @@ public class RecognizeOptions extends GenericModel {
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
-  private Boolean interimResults;
-  private Boolean processingMetrics;
-  private Float processingMetricsInterval;
 
   /** Builder. */
   public static class Builder {
@@ -162,9 +163,6 @@ public class RecognizeOptions extends GenericModel {
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
-    private Boolean interimResults;
-    private Boolean processingMetrics;
-    private Float processingMetricsInterval;
 
     private Builder(RecognizeOptions recognizeOptions) {
       this.audio = recognizeOptions.audio;
@@ -192,9 +190,6 @@ public class RecognizeOptions extends GenericModel {
       this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = recognizeOptions.backgroundAudioSuppression;
-      this.interimResults = recognizeOptions.interimResults;
-      this.processingMetrics = recognizeOptions.processingMetrics;
-      this.processingMetricsInterval = recognizeOptions.processingMetricsInterval;
     }
 
     /** Instantiates a new builder. */
@@ -212,7 +207,7 @@ public class RecognizeOptions extends GenericModel {
     /**
      * Builds a RecognizeOptions.
      *
-     * @return the recognizeOptions
+     * @return the new RecognizeOptions instance
      */
     public RecognizeOptions build() {
       return new RecognizeOptions(this);
@@ -230,100 +225,6 @@ public class RecognizeOptions extends GenericModel {
         this.keywords = new ArrayList<String>();
       }
       this.keywords.add(keyword);
-      return this;
-    }
-
-    /**
-     * Gets the interimResults.
-     *
-     * <p>If `true`, the service returns interim results as a stream of `SpeechRecognitionResults`
-     * objects. By default, the service returns a single `SpeechRecognitionResults` object with
-     * final results only.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @return the interimResults
-     */
-    public Boolean interimResults() {
-      return interimResults;
-    }
-
-    /**
-     * Gets the processingMetrics.
-     *
-     * <p>If `true`, requests processing metrics about the service's transcription of the input
-     * audio. The service returns processing metrics at the interval specified by the
-     * `processing_metrics_interval` parameter. It also returns processing metrics for transcription
-     * events, for example, for final and interim results. By default, the service returns no
-     * processing metrics.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @return the processingMetrics
-     */
-    public Boolean processingMetrics() {
-      return processingMetrics;
-    }
-
-    /**
-     * Gets the processingMetricsInterval.
-     *
-     * <p>Specifies the interval in real wall-clock seconds at which the service is to return
-     * processing metrics. The parameter is ignored unless the `processing_metrics` parameter is set
-     * to `true`.
-     *
-     * <p>The parameter accepts a minimum value of 0.1 seconds. The level of precision is not
-     * restricted, so you can specify values such as 0.25 and 0.125.
-     *
-     * <p>The service does not impose a maximum value. If you want to receive processing metrics
-     * only for transcription events instead of at periodic intervals, set the value to a large
-     * number. If the value is larger than the duration of the audio, the service returns processing
-     * metrics only for transcription events.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @return the processingMetricsInterval
-     */
-    public Float processingMetricsInterval() {
-      return processingMetricsInterval;
-    }
-
-    /**
-     * Set the interimResults.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param interimResults the interimResults
-     * @return the interimResults
-     */
-    public Builder interimResults(Boolean interimResults) {
-      this.interimResults = interimResults;
-      return this;
-    }
-
-    /**
-     * Set the processingMetrics.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param processingMetrics the processingMetrics
-     * @return the processingMetrics
-     */
-    public Builder processingMetrics(Boolean processingMetrics) {
-      this.processingMetrics = processingMetrics;
-      return this;
-    }
-
-    /**
-     * Set the processingMetricsInterval.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param processingMetricsInterval the processingMetricsInterval
-     * @return the processingMetricsInterval
-     */
-    public Builder processingMetricsInterval(Float processingMetricsInterval) {
-      this.processingMetricsInterval = processingMetricsInterval;
       return this;
     }
 
@@ -642,9 +543,6 @@ public class RecognizeOptions extends GenericModel {
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
-    interimResults = builder.interimResults;
-    processingMetrics = builder.processingMetrics;
-    processingMetricsInterval = builder.processingMetricsInterval;
   }
 
   /**

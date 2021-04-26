@@ -65,7 +65,7 @@ public class CreateEntityOptions extends GenericModel {
     /**
      * Builds a CreateEntityOptions.
      *
-     * @return the createEntityOptions
+     * @return the new CreateEntityOptions instance
      */
     public CreateEntityOptions build() {
       return new CreateEntityOptions(this);

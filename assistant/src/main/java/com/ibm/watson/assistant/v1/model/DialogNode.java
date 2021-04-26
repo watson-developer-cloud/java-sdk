@@ -101,7 +101,7 @@ public class DialogNode extends GenericModel {
   protected String previousSibling;
 
   protected DialogNodeOutput output;
-  protected Map<String, Object> context;
+  protected DialogNodeContext context;
   protected Map<String, Object> metadata;
 
   @SerializedName("next_step")
@@ -143,7 +143,7 @@ public class DialogNode extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Map<String, Object> context;
+    private DialogNodeContext context;
     private Map<String, Object> metadata;
     private DialogNodeNextStep nextStep;
     private String title;
@@ -156,9 +156,6 @@ public class DialogNode extends GenericModel {
     private String digressOutSlots;
     private String userLabel;
     private Boolean disambiguationOptOut;
-    private Boolean disabled;
-    private Date created;
-    private Date updated;
 
     private Builder(DialogNode dialogNode) {
       this.dialogNode = dialogNode.dialogNode;
@@ -180,9 +177,6 @@ public class DialogNode extends GenericModel {
       this.digressOutSlots = dialogNode.digressOutSlots;
       this.userLabel = dialogNode.userLabel;
       this.disambiguationOptOut = dialogNode.disambiguationOptOut;
-      this.disabled = dialogNode.disabled;
-      this.created = dialogNode.created;
-      this.updated = dialogNode.updated;
     }
 
     /** Instantiates a new builder. */
@@ -200,7 +194,7 @@ public class DialogNode extends GenericModel {
     /**
      * Builds a DialogNode.
      *
-     * @return the dialogNode
+     * @return the new DialogNode instance
      */
     public DialogNode build() {
       return new DialogNode(this);
@@ -293,7 +287,7 @@ public class DialogNode extends GenericModel {
      * @param context the context
      * @return the DialogNode builder
      */
-    public Builder context(Map<String, Object> context) {
+    public Builder context(DialogNodeContext context) {
       this.context = context;
       return this;
     }
@@ -429,39 +423,6 @@ public class DialogNode extends GenericModel {
       this.disambiguationOptOut = disambiguationOptOut;
       return this;
     }
-
-    /**
-     * Set the disabled.
-     *
-     * @param disabled the disabled
-     * @return the DialogNode builder
-     */
-    public Builder disabled(Boolean disabled) {
-      this.disabled = disabled;
-      return this;
-    }
-
-    /**
-     * Set the created.
-     *
-     * @param created the created
-     * @return the DialogNode builder
-     */
-    public Builder created(Date created) {
-      this.created = created;
-      return this;
-    }
-
-    /**
-     * Set the updated.
-     *
-     * @param updated the updated
-     * @return the DialogNode builder
-     */
-    public Builder updated(Date updated) {
-      this.updated = updated;
-      return this;
-    }
   }
 
   protected DialogNode(Builder builder) {
@@ -485,9 +446,6 @@ public class DialogNode extends GenericModel {
     digressOutSlots = builder.digressOutSlots;
     userLabel = builder.userLabel;
     disambiguationOptOut = builder.disambiguationOptOut;
-    disabled = builder.disabled;
-    created = builder.created;
-    updated = builder.updated;
   }
 
   /**
@@ -578,7 +536,7 @@ public class DialogNode extends GenericModel {
    *
    * @return the context
    */
-  public Map<String, Object> context() {
+  public DialogNodeContext context() {
     return context;
   }
 

@@ -47,7 +47,7 @@ public class GetTokenizationDictionaryStatusOptions extends GenericModel {
     /**
      * Builds a GetTokenizationDictionaryStatusOptions.
      *
-     * @return the getTokenizationDictionaryStatusOptions
+     * @return the new GetTokenizationDictionaryStatusOptions instance
      */
     public GetTokenizationDictionaryStatusOptions build() {
       return new GetTokenizationDictionaryStatusOptions(this);

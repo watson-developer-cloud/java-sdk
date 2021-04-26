@@ -46,7 +46,7 @@ public class CustomWord extends GenericModel {
     /**
      * Builds a CustomWord.
      *
-     * @return the customWord
+     * @return the new CustomWord instance
      */
     public CustomWord build() {
       return new CustomWord(this);

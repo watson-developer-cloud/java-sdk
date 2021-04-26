@@ -57,7 +57,7 @@ public class CreateClassifierOptions extends GenericModel {
     /**
      * Builds a CreateClassifierOptions.
      *
-     * @return the createClassifierOptions
+     * @return the new CreateClassifierOptions instance
      */
     public CreateClassifierOptions build() {
       return new CreateClassifierOptions(this);

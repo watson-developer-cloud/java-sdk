@@ -63,7 +63,7 @@ public class WorkspaceSystemSettings extends GenericModel {
     /**
      * Builds a WorkspaceSystemSettings.
      *
-     * @return the workspaceSystemSettings
+     * @return the new WorkspaceSystemSettings instance
      */
     public WorkspaceSystemSettings build() {
       return new WorkspaceSystemSettings(this);

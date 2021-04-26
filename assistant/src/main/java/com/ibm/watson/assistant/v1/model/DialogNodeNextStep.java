@@ -90,7 +90,7 @@ public class DialogNodeNextStep extends GenericModel {
     /**
      * Builds a DialogNodeNextStep.
      *
-     * @return the dialogNodeNextStep
+     * @return the new DialogNodeNextStep instance
      */
     public DialogNodeNextStep build() {
       return new DialogNodeNextStep(this);

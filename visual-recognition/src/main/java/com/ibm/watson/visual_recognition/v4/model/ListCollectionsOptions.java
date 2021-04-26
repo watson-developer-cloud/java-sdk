@@ -15,34 +15,4 @@ package com.ibm.watson.visual_recognition.v4.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The listCollections options. */
-public class ListCollectionsOptions extends GenericModel {
-
-  /** Builder. */
-  public static class Builder {
-
-    private Builder(ListCollectionsOptions listCollectionsOptions) {}
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a ListCollectionsOptions.
-     *
-     * @return the listCollectionsOptions
-     */
-    public ListCollectionsOptions build() {
-      return new ListCollectionsOptions(this);
-    }
-  }
-
-  private ListCollectionsOptions(Builder builder) {}
-
-  /**
-   * New builder.
-   *
-   * @return a ListCollectionsOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-}
+public class ListCollectionsOptions extends GenericModel {}

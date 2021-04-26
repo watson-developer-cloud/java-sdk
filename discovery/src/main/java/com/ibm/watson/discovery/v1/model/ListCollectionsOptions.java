@@ -45,7 +45,7 @@ public class ListCollectionsOptions extends GenericModel {
     /**
      * Builds a ListCollectionsOptions.
      *
-     * @return the listCollectionsOptions
+     * @return the new ListCollectionsOptions instance
      */
     public ListCollectionsOptions build() {
       return new ListCollectionsOptions(this);

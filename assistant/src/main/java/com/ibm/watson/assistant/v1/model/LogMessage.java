@@ -57,7 +57,7 @@ public class LogMessage extends GenericModel {
     /**
      * Builds a LogMessage.
      *
-     * @return the logMessage
+     * @return the new LogMessage instance
      */
     public LogMessage build() {
       return new LogMessage(this);

@@ -33,7 +33,7 @@ public class WorkspaceSystemSettingsSystemEntities extends GenericModel {
     /**
      * Builds a WorkspaceSystemSettingsSystemEntities.
      *
-     * @return the workspaceSystemSettingsSystemEntities
+     * @return the new WorkspaceSystemSettingsSystemEntities instance
      */
     public WorkspaceSystemSettingsSystemEntities build() {
       return new WorkspaceSystemSettingsSystemEntities(this);

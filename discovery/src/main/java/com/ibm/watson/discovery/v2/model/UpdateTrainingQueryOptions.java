@@ -66,7 +66,7 @@ public class UpdateTrainingQueryOptions extends GenericModel {
     /**
      * Builds a UpdateTrainingQueryOptions.
      *
-     * @return the updateTrainingQueryOptions
+     * @return the new UpdateTrainingQueryOptions instance
      */
     public UpdateTrainingQueryOptions build() {
       return new UpdateTrainingQueryOptions(this);

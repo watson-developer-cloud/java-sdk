@@ -23,7 +23,7 @@ public class Completions extends GenericModel {
   /**
    * Gets the completions.
    *
-   * <p>Array of autcomplete suggestion based on the provided prefix.
+   * <p>Array of autocomplete suggestion based on the provided prefix.
    *
    * @return the completions
    */

@@ -83,7 +83,7 @@ public class ObjectTrainingStatus extends GenericModel {
     /**
      * Builds a ObjectTrainingStatus.
      *
-     * @return the objectTrainingStatus
+     * @return the new ObjectTrainingStatus instance
      */
     public ObjectTrainingStatus build() {
       return new ObjectTrainingStatus(this);

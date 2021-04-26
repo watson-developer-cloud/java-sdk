@@ -21,6 +21,7 @@ import com.ibm.watson.common.RetryRunner;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -53,8 +54,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
-    final List<String> messages =
-        Arrays.asList("Hello");
+    final List<String> messages = Arrays.asList("Hello");
     MessageContext context = new MessageContext.Builder().build();
 
     try {
@@ -111,8 +111,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
-    final List<String> messages =
-        Arrays.asList("Hello");
+    final List<String> messages = Arrays.asList("Hello");
     MessageContextStateless context = new MessageContextStateless.Builder().build();
 
     try {
@@ -175,6 +174,22 @@ public class AssistantServiceIT extends AssistantServiceTest {
     assertNotNull(logCollection);
     assertTrue(logCollection.getLogs().get(0).getRequest().input().text().contains("Hello"));
     assertTrue(logCollection.getLogs().get(0).getLanguage().equals("en"));
+  }
+
+  /** Test bulk classify */
+  @Ignore
+  @Test
+  public void testBulkClassify() {
+    BulkClassifyUtterance bulkClassifyUtterance =
+        new BulkClassifyUtterance.Builder().text("text text").build();
+    BulkClassifyOptions bulkClassifyOptions =
+        new BulkClassifyOptions.Builder()
+            .addInput(bulkClassifyUtterance)
+            .skillId("{skillId}")
+            .build();
+    BulkClassifyResponse response = service.bulkClassify(bulkClassifyOptions).execute().getResult();
+
+    assertNotNull(response);
   }
 
   /** Test Delete User Data. */

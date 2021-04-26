@@ -42,7 +42,7 @@ public class DeleteJobOptions extends GenericModel {
     /**
      * Builds a DeleteJobOptions.
      *
-     * @return the deleteJobOptions
+     * @return the new DeleteJobOptions instance
      */
     public DeleteJobOptions build() {
       return new DeleteJobOptions(this);

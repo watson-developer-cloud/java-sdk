@@ -47,7 +47,7 @@ public class DeleteStopwordListOptions extends GenericModel {
     /**
      * Builds a DeleteStopwordListOptions.
      *
-     * @return the deleteStopwordListOptions
+     * @return the new DeleteStopwordListOptions instance
      */
     public DeleteStopwordListOptions build() {
       return new DeleteStopwordListOptions(this);

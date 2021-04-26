@@ -39,7 +39,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
     /**
      * Builds a NluEnrichmentSemanticRoles.
      *
-     * @return the nluEnrichmentSemanticRoles
+     * @return the new NluEnrichmentSemanticRoles instance
      */
     public NluEnrichmentSemanticRoles build() {
       return new NluEnrichmentSemanticRoles(this);

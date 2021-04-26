@@ -60,7 +60,7 @@ public class GetSynonymOptions extends GenericModel {
     /**
      * Builds a GetSynonymOptions.
      *
-     * @return the getSynonymOptions
+     * @return the new GetSynonymOptions instance
      */
     public GetSynonymOptions build() {
       return new GetSynonymOptions(this);

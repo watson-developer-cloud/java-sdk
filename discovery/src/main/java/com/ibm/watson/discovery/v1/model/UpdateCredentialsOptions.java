@@ -90,7 +90,7 @@ public class UpdateCredentialsOptions extends GenericModel {
     /**
      * Builds a UpdateCredentialsOptions.
      *
-     * @return the updateCredentialsOptions
+     * @return the new UpdateCredentialsOptions instance
      */
     public UpdateCredentialsOptions build() {
       return new UpdateCredentialsOptions(this);

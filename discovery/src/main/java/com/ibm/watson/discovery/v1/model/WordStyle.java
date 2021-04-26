@@ -38,7 +38,7 @@ public class WordStyle extends GenericModel {
     /**
      * Builds a WordStyle.
      *
-     * @return the wordStyle
+     * @return the new WordStyle instance
      */
     public WordStyle build() {
       return new WordStyle(this);

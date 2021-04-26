@@ -31,7 +31,7 @@ public class Collection extends GenericModel {
   protected Long imageCount;
 
   @SerializedName("training_status")
-  protected TrainingStatus trainingStatus;
+  protected CollectionTrainingStatus trainingStatus;
 
   /**
    * Gets the collectionId.
@@ -107,7 +107,7 @@ public class Collection extends GenericModel {
    *
    * @return the trainingStatus
    */
-  public TrainingStatus getTrainingStatus() {
+  public CollectionTrainingStatus getTrainingStatus() {
     return trainingStatus;
   }
 }

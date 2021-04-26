@@ -42,7 +42,7 @@ public class ListTrainingQueriesOptions extends GenericModel {
     /**
      * Builds a ListTrainingQueriesOptions.
      *
-     * @return the listTrainingQueriesOptions
+     * @return the new ListTrainingQueriesOptions instance
      */
     public ListTrainingQueriesOptions build() {
       return new ListTrainingQueriesOptions(this);

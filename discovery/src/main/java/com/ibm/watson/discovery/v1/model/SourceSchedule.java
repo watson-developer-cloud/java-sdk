@@ -63,7 +63,7 @@ public class SourceSchedule extends GenericModel {
     /**
      * Builds a SourceSchedule.
      *
-     * @return the sourceSchedule
+     * @return the new SourceSchedule instance
      */
     public SourceSchedule build() {
       return new SourceSchedule(this);

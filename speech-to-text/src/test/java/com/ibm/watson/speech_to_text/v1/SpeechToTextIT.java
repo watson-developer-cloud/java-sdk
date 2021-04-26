@@ -63,9 +63,10 @@ import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
+import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.WordAlternativeResults;
 import com.ibm.watson.speech_to_text.v1.model.Words;
@@ -328,8 +329,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .inactivityTimeout(40)
             .timestamps(true)
@@ -412,8 +413,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testInactivityTimeoutWithWebSocket()
       throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .inactivityTimeout(3)
             .timestamps(true)
@@ -458,8 +459,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testEndOfPhraseSilenceTimeWebSocket()
       throws FileNotFoundException, InterruptedException {
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .contentType(HttpMediaType.AUDIO_WAV)
             .endOfPhraseSilenceTime(0.2)

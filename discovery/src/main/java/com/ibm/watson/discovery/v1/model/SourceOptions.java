@@ -56,7 +56,7 @@ public class SourceOptions extends GenericModel {
     /**
      * Builds a SourceOptions.
      *
-     * @return the sourceOptions
+     * @return the new SourceOptions instance
      */
     public SourceOptions build() {
       return new SourceOptions(this);

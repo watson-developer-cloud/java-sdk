@@ -47,7 +47,7 @@ public class GetAudioOptions extends GenericModel {
     /**
      * Builds a GetAudioOptions.
      *
-     * @return the getAudioOptions
+     * @return the new GetAudioOptions instance
      */
     public GetAudioOptions build() {
       return new GetAudioOptions(this);

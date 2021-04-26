@@ -88,7 +88,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
     /**
      * Builds a FederatedQueryNoticesOptions.
      *
-     * @return the federatedQueryNoticesOptions
+     * @return the new FederatedQueryNoticesOptions instance
      */
     public FederatedQueryNoticesOptions build() {
       return new FederatedQueryNoticesOptions(this);
@@ -491,7 +491,7 @@ public class FederatedQueryNoticesOptions extends GenericModel {
    * Gets the highlight.
    *
    * <p>When true, a highlight field is returned for each result which contains the fields which
-   * match the query with `<em></em>` tags around the matching query terms.
+   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
    *
    * @return the highlight
    */

@@ -47,7 +47,7 @@ public class DeleteCredentialsOptions extends GenericModel {
     /**
      * Builds a DeleteCredentialsOptions.
      *
-     * @return the deleteCredentialsOptions
+     * @return the new DeleteCredentialsOptions instance
      */
     public DeleteCredentialsOptions build() {
       return new DeleteCredentialsOptions(this);

@@ -72,6 +72,10 @@ public class CreateJobOptions extends GenericModel {
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
+    /** fr-CA_BroadbandModel. */
+    String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_NarrowbandModel. */
+    String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
@@ -245,7 +249,7 @@ public class CreateJobOptions extends GenericModel {
     /**
      * Builds a CreateJobOptions.
      *
-     * @return the createJobOptions
+     * @return the new CreateJobOptions instance
      */
     public CreateJobOptions build() {
       return new CreateJobOptions(this);

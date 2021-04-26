@@ -45,7 +45,7 @@ public class CreateGatewayOptions extends GenericModel {
     /**
      * Builds a CreateGatewayOptions.
      *
-     * @return the createGatewayOptions
+     * @return the new CreateGatewayOptions instance
      */
     public CreateGatewayOptions build() {
       return new CreateGatewayOptions(this);

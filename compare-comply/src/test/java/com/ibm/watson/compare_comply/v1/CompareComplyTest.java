@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.compare_comply.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.*;
 
-import com.ibm.cloud.sdk.core.http.HttpMediaType;
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
-import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.compare_comply.v1.model.AddFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.BatchStatus;
 import com.ibm.watson.compare_comply.v1.model.Batches;
@@ -26,16 +26,12 @@ import com.ibm.watson.compare_comply.v1.model.ClassifyElementsOptions;
 import com.ibm.watson.compare_comply.v1.model.ClassifyReturn;
 import com.ibm.watson.compare_comply.v1.model.CompareDocumentsOptions;
 import com.ibm.watson.compare_comply.v1.model.CompareReturn;
-import com.ibm.watson.compare_comply.v1.model.ContractAmts;
-import com.ibm.watson.compare_comply.v1.model.ContractCurrencies;
-import com.ibm.watson.compare_comply.v1.model.ContractTerms;
-import com.ibm.watson.compare_comply.v1.model.ContractTypes;
 import com.ibm.watson.compare_comply.v1.model.ConvertToHtmlOptions;
 import com.ibm.watson.compare_comply.v1.model.CreateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.DeleteFeedbackOptions;
-import com.ibm.watson.compare_comply.v1.model.EffectiveDates;
 import com.ibm.watson.compare_comply.v1.model.ExtractTablesOptions;
 import com.ibm.watson.compare_comply.v1.model.FeedbackDataInput;
+import com.ibm.watson.compare_comply.v1.model.FeedbackDeleted;
 import com.ibm.watson.compare_comply.v1.model.FeedbackList;
 import com.ibm.watson.compare_comply.v1.model.FeedbackReturn;
 import com.ibm.watson.compare_comply.v1.model.GetBatchOptions;
@@ -47,1525 +43,817 @@ import com.ibm.watson.compare_comply.v1.model.ListBatchesOptions;
 import com.ibm.watson.compare_comply.v1.model.ListFeedbackOptions;
 import com.ibm.watson.compare_comply.v1.model.Location;
 import com.ibm.watson.compare_comply.v1.model.OriginalLabelsIn;
-import com.ibm.watson.compare_comply.v1.model.OriginalLabelsOut;
-import com.ibm.watson.compare_comply.v1.model.Parties;
-import com.ibm.watson.compare_comply.v1.model.PaymentTerms;
 import com.ibm.watson.compare_comply.v1.model.ShortDoc;
 import com.ibm.watson.compare_comply.v1.model.TableReturn;
-import com.ibm.watson.compare_comply.v1.model.TerminationDates;
 import com.ibm.watson.compare_comply.v1.model.TypeLabel;
 import com.ibm.watson.compare_comply.v1.model.UpdateBatchOptions;
 import com.ibm.watson.compare_comply.v1.model.UpdatedLabelsIn;
-import com.ibm.watson.compare_comply.v1.model.UpdatedLabelsOut;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.ibm.watson.compare_comply.v1.utils.TestUtilities;
+import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-public class CompareComplyTest extends WatsonServiceUnitTest {
-  private static final String VERSION = "2018-10-15";
-  private static final String RESOURCE = "src/test/resources/compare_comply/";
+/** Unit test class for the CompareComply service. */
+public class CompareComplyTest {
 
-  private static final String COMMENT = "comment";
-  private static final String USER_ID = "user_id";
-  private static final String PROVENANCE_ID = "provenance_id";
-  private static final File SAMPLE_PDF = new File(RESOURCE + "test-pdf.pdf");
-  private static final String FILENAME = "filename";
-  private static final String CONTENT_TYPE_PDF = "application/pdf";
-  private static final String LABEL = "label";
-  private static final String BUCKET_LOCATION = "bucket_location";
-  private static final String BUCKET_NAME = "bucket_name";
-  private static final File CREDENTIALS_FILE = new File(RESOURCE + "credentials.json");
-  private static final String FEEDBACK_ID = "feedback_id";
-  private static final String FEEDBACK_TYPE = "feedback_type";
-  private static final String MODEL_ID = "model_id";
-  private static final String MODEL_VERSION = "model_version";
-  private static final String TEXT = "text";
-  private static final String BATCH_ID = "batch_id";
-  private static final String NATURE = "nature";
-  private static final String PARTY = "party";
-  private static final Date DATE = new Date();
-  private static final String CATEGORY_ADDED = "category_added";
-  private static final String CATEGORY_REMOVED = "category_removed";
-  private static final String CATEGORY_NOT_CHANGED = "category_not_changed";
-  private static final String DOCUMENT_TITLE = "document_title";
-  private static final String SORT = "sort";
-  private static final String TYPE_ADDED = "type_added";
-  private static final String TYPE_REMOVED = "type_removed";
-  private static final String TYPE_NOT_CHANGED = "type_not_changed";
-  private static final Long BEGIN = 0L;
-  private static final Long END = 1L;
-  private static final Double BEGIN_DOUBLE = 0.0;
-  private static final Double END_DOUBLE = 1.0;
-  private static final String HASH = "hash";
-  private static final String TITLE = "title";
-  private static final String NUM_PAGES = "20";
-  private static final String AUTHOR = "author";
-  private static final String PUBLICATION_DATE = "06-12-1995";
-  private static final String HTML = "html";
-  private static final String DOCUMENT_LABEL = "document_label";
-  private static final String TYPE = "type";
-  private static final String REFRESH_CURSOR = "refresh_cursor";
-  private static final String NEXT_CURSOR = "next_cursor";
-  private static final String REFRESH_URL = "refresh_url";
-  private static final String NEXT_URL = "next_url";
-  private static final Long TOTAL = 1000L;
-  private static final Long PENDING = 300L;
-  private static final Long SUCCESSFUL = 400L;
-  private static final Long FAILED = 500L;
-  private static final String STATUS = "status";
-  private static final String CELL_ID = "cell_id";
-  private static final Long ROW_INDEX_BEGIN = 2000L;
-  private static final Long ROW_INDEX_END = 3000L;
-  private static final Long COLUMN_INDEX_BEGIN = 4000L;
-  private static final Long COLUMN_INDEX_END = 5000L;
-  private static final String ID = "id";
-  private static final String TEXT_NORMALIZED = "text_normalized";
-  private static final Long LEVEL = 12L;
-  private static final String ROLE = "role";
-  private static final String NAME = "name";
-  private static final Long PAGE_LIMIT = 7L;
-  private static final String CURSOR = "cursor";
-  private static final String VALUE = "value";
-  private static final String UNIT = "unit";
-  private static final Double NUMERIC_VALUE = 21.0;
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  private static final String CONVERT_TO_HTML_PATH =
-      String.format("/v1/html_conversion?version=%s", VERSION);
-  private static final String CLASSIFY_ELEMENTS_PATH =
-      String.format("/v1/element_classification?version=%s", VERSION);
-  private static final String EXTRACT_TABLES_PATH = String.format("/v1/tables?version=%s", VERSION);
-  private static final String COMPARE_DOCUMENTS_PATH =
-      String.format("/v1/comparison?version=%s", VERSION);
-  private static final String FEEDBACK_PATH = String.format("/v1/feedback?version=%s", VERSION);
-  private static final String SPECIFIC_FEEDBACK_PATH =
-      String.format("/v1/feedback/%s?version=%s", FEEDBACK_ID, VERSION);
-  private static final String CREATE_BATCH_PATH =
-      String.format(
-          "/v1/batches?version=%s&function=%s",
-          VERSION, CreateBatchOptions.Function.ELEMENT_CLASSIFICATION);
-  private static final String GET_BATCH_PATH =
-      String.format("/v1/batches/%s?version=%s", BATCH_ID, VERSION);
-  private static final String LIST_BATCHES_PATH = String.format("/v1/batches?version=%s", VERSION);
-  private static final String UPDATE_BATCH_PATH =
-      String.format(
-          "/v1/batches/%s?version=%s&action=%s",
-          BATCH_ID, VERSION, UpdateBatchOptions.Action.CANCEL);
+  protected MockWebServer server;
+  protected CompareComply compareComplyService;
 
-  private CompareComply service;
-  private Date testDateValue;
-  private DateFormat dateFormat;
-  private HTMLReturn convertToHtmlResponse;
-  private ClassifyReturn classifyElementsResponse;
-  private TableReturn extractTablesResponse;
-  private CompareReturn compareDocumentsResponse;
-  private FeedbackReturn addFeedbackResponse;
-  private GetFeedback getFeedbackResponse;
-  private FeedbackList listFeedbackResponse;
-  private BatchStatus batchStatusResponse;
-  private Batches batchesResponse;
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
+    final Authenticator authenticator = new NoAuthAuthenticator();
 
-    String dateString = "1995-06-12T01:11:11.111+0000";
-    dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.ENGLISH);
-    testDateValue = dateFormat.parse(dateString);
-
-    convertToHtmlResponse = loadFixture(RESOURCE + "html-return.json", HTMLReturn.class);
-    classifyElementsResponse = loadFixture(RESOURCE + "classify-return.json", ClassifyReturn.class);
-    extractTablesResponse = loadFixture(RESOURCE + "table-return.json", TableReturn.class);
-    compareDocumentsResponse = loadFixture(RESOURCE + "compare-return.json", CompareReturn.class);
-    addFeedbackResponse = loadFixture(RESOURCE + "feedback-return.json", FeedbackReturn.class);
-    getFeedbackResponse = loadFixture(RESOURCE + "get-feedback.json", GetFeedback.class);
-    listFeedbackResponse = loadFixture(RESOURCE + "feedback-list.json", FeedbackList.class);
-    batchStatusResponse = loadFixture(RESOURCE + "batch-status.json", BatchStatus.class);
-    batchesResponse = loadFixture(RESOURCE + "batches.json", Batches.class);
-
-    service = new CompareComply(VERSION, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+    compareComplyService = new CompareComply(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    compareComplyService.setServiceUrl(url);
   }
 
-  // --- MODELS ---
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
 
-  @Test
-  public void testAddFeedbackOptions() {
-    Location location = new Location.Builder().begin(BEGIN).end(END).build();
-    Category category = new Category.Builder().build();
-    TypeLabel typeLabel = new TypeLabel.Builder().build();
-    OriginalLabelsIn originalLabelsIn =
-        new OriginalLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-    UpdatedLabelsIn updatedLabelsIn =
-        new UpdatedLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-    FeedbackDataInput feedbackDataInput =
-        new FeedbackDataInput.Builder()
-            .feedbackType(FEEDBACK_TYPE)
-            .location(location)
-            .originalLabels(originalLabelsIn)
-            .text(TEXT)
-            .updatedLabels(updatedLabelsIn)
-            .build();
-
-    AddFeedbackOptions addFeedbackOptions =
-        new AddFeedbackOptions.Builder()
-            .comment(COMMENT)
-            .feedbackData(feedbackDataInput)
-            .userId(USER_ID)
-            .build();
-    addFeedbackOptions = addFeedbackOptions.newBuilder().build();
-
-    assertEquals(COMMENT, addFeedbackOptions.comment());
-    assertEquals(feedbackDataInput, addFeedbackOptions.feedbackData());
-    assertEquals(USER_ID, addFeedbackOptions.userId());
+    new CompareComply(version, serviceName, null);
   }
 
   @Test
-  public void testClassifyElementsOptions() throws FileNotFoundException {
-    InputStream fileInputStream = new FileInputStream(SAMPLE_PDF);
-    ClassifyElementsOptions classifyElementsOptions =
-        new ClassifyElementsOptions.Builder()
-            .file(fileInputStream)
-            .fileContentType(HttpMediaType.APPLICATION_PDF)
-            .model(ClassifyElementsOptions.Model.CONTRACTS)
-            .build();
-    classifyElementsOptions = classifyElementsOptions.newBuilder().build();
-
-    assertEquals(fileInputStream, classifyElementsOptions.file());
-    assertEquals(HttpMediaType.APPLICATION_PDF, classifyElementsOptions.fileContentType());
-    assertEquals(ClassifyElementsOptions.Model.CONTRACTS, classifyElementsOptions.model());
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(compareComplyService.getVersion(), "testString");
   }
 
   @Test
-  public void testCompareDocumentsOptions() throws FileNotFoundException {
-    InputStream fileInputStream = new FileInputStream(SAMPLE_PDF);
-    CompareDocumentsOptions compareDocumentsOptions =
-        new CompareDocumentsOptions.Builder()
-            .file1(fileInputStream)
-            .file1ContentType(CONTENT_TYPE_PDF)
-            .file1Label(LABEL)
-            .file2(fileInputStream)
-            .file2ContentType(CONTENT_TYPE_PDF)
-            .file2Label(LABEL)
-            .model(CompareDocumentsOptions.Model.CONTRACTS)
-            .build();
-    compareDocumentsOptions = compareDocumentsOptions.newBuilder().build();
+  public void testConvertToHtmlWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"num_pages\": \"numPages\", \"author\": \"author\", \"publication_date\": \"publicationDate\", \"title\": \"title\", \"html\": \"html\"}";
+    String convertToHtmlPath = "/v1/html_conversion";
 
-    assertEquals(fileInputStream, compareDocumentsOptions.file1());
-    assertEquals(CONTENT_TYPE_PDF, compareDocumentsOptions.file1ContentType());
-    assertEquals(LABEL, compareDocumentsOptions.file1Label());
-    assertEquals(fileInputStream, compareDocumentsOptions.file2());
-    assertEquals(CONTENT_TYPE_PDF, compareDocumentsOptions.file2ContentType());
-    assertEquals(LABEL, compareDocumentsOptions.file2Label());
-    assertEquals(CompareDocumentsOptions.Model.CONTRACTS, compareDocumentsOptions.model());
-  }
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-  @Test
-  public void testConvertToHtmlOptions() throws FileNotFoundException {
-    InputStream fileInputStream = new FileInputStream(SAMPLE_PDF);
-    ConvertToHtmlOptions convertToHtmlOptions =
+    constructClientService();
+
+    // Construct an instance of the ConvertToHtmlOptions model
+    ConvertToHtmlOptions convertToHtmlOptionsModel =
         new ConvertToHtmlOptions.Builder()
-            .file(fileInputStream)
-            .fileContentType(CONTENT_TYPE_PDF)
-            .model(ConvertToHtmlOptions.Model.CONTRACTS)
-            .build();
-    convertToHtmlOptions = convertToHtmlOptions.newBuilder().build();
-
-    assertEquals(fileInputStream, convertToHtmlOptions.file());
-    assertEquals(CONTENT_TYPE_PDF, convertToHtmlOptions.fileContentType());
-    assertEquals(ConvertToHtmlOptions.Model.CONTRACTS, convertToHtmlOptions.model());
-  }
-
-  @Test
-  public void testCreateBatchOptions() throws FileNotFoundException {
-    InputStream fileInputStream = new FileInputStream(CREDENTIALS_FILE);
-    CreateBatchOptions createBatchOptions =
-        new CreateBatchOptions.Builder()
-            .function(CreateBatchOptions.Function.ELEMENT_CLASSIFICATION)
-            .inputBucketLocation(BUCKET_LOCATION)
-            .inputBucketName(BUCKET_NAME)
-            .inputCredentialsFile(fileInputStream)
-            .model(CreateBatchOptions.Model.CONTRACTS)
-            .outputBucketLocation(BUCKET_LOCATION)
-            .outputBucketName(BUCKET_NAME)
-            .outputCredentialsFile(fileInputStream)
-            .build();
-    createBatchOptions = createBatchOptions.newBuilder().build();
-
-    assertEquals(CreateBatchOptions.Function.ELEMENT_CLASSIFICATION, createBatchOptions.function());
-    assertEquals(BUCKET_LOCATION, createBatchOptions.inputBucketLocation());
-    assertEquals(BUCKET_NAME, createBatchOptions.inputBucketName());
-    assertEquals(fileInputStream, createBatchOptions.inputCredentialsFile());
-    assertEquals(CreateBatchOptions.Model.CONTRACTS, createBatchOptions.model());
-    assertEquals(BUCKET_LOCATION, createBatchOptions.outputBucketLocation());
-    assertEquals(BUCKET_NAME, createBatchOptions.outputBucketName());
-    assertEquals(fileInputStream, createBatchOptions.outputCredentialsFile());
-  }
-
-  @Test
-  public void testDeleteFeedbackOptions() {
-    DeleteFeedbackOptions deleteFeedbackOptions =
-        new DeleteFeedbackOptions.Builder()
-            .feedbackId(FEEDBACK_ID)
-            .model(DeleteFeedbackOptions.Model.CONTRACTS)
-            .build();
-    deleteFeedbackOptions = deleteFeedbackOptions.newBuilder().build();
-
-    assertEquals(FEEDBACK_ID, deleteFeedbackOptions.feedbackId());
-    assertEquals(DeleteFeedbackOptions.Model.CONTRACTS, deleteFeedbackOptions.model());
-  }
-
-  @Test
-  public void testExtractTablesOptions() throws FileNotFoundException {
-    InputStream fileInputStream = new FileInputStream(SAMPLE_PDF);
-    ExtractTablesOptions extractTablesOptions =
-        new ExtractTablesOptions.Builder()
-            .file(fileInputStream)
-            .fileContentType(HttpMediaType.APPLICATION_PDF)
-            .model(ExtractTablesOptions.Model.TABLES)
-            .build();
-    extractTablesOptions = extractTablesOptions.newBuilder().build();
-
-    assertEquals(fileInputStream, extractTablesOptions.file());
-    assertEquals(HttpMediaType.APPLICATION_PDF, extractTablesOptions.fileContentType());
-    assertEquals(ExtractTablesOptions.Model.TABLES, extractTablesOptions.model());
-  }
-
-  @Test
-  public void testFeedbackDataInput() {
-    ShortDoc shortDoc = new ShortDoc.Builder().build();
-    Location location = new Location.Builder().begin(BEGIN).end(END).build();
-    Category category = new Category.Builder().build();
-    TypeLabel typeLabel = new TypeLabel.Builder().build();
-    OriginalLabelsIn originalLabelsIn =
-        new OriginalLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-    UpdatedLabelsIn updatedLabelsIn =
-        new UpdatedLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .fileContentType("application/pdf")
+            .model("contracts")
             .build();
 
-    FeedbackDataInput feedbackDataInput =
-        new FeedbackDataInput.Builder()
-            .document(shortDoc)
-            .feedbackType(FEEDBACK_TYPE)
-            .location(location)
-            .modelId(MODEL_ID)
-            .modelVersion(MODEL_VERSION)
-            .originalLabels(originalLabelsIn)
-            .text(TEXT)
-            .updatedLabels(updatedLabelsIn)
-            .build();
+    // Invoke operation with valid options model (positive test)
+    Response<HTMLReturn> response =
+        compareComplyService.convertToHtml(convertToHtmlOptionsModel).execute();
+    assertNotNull(response);
+    HTMLReturn responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    assertEquals(shortDoc, feedbackDataInput.document());
-    assertEquals(FEEDBACK_TYPE, feedbackDataInput.feedbackType());
-    assertEquals(location, feedbackDataInput.location());
-    assertEquals(MODEL_ID, feedbackDataInput.modelId());
-    assertEquals(MODEL_VERSION, feedbackDataInput.modelVersion());
-    assertEquals(originalLabelsIn, feedbackDataInput.originalLabels());
-    assertEquals(TEXT, feedbackDataInput.text());
-    assertEquals(updatedLabelsIn, feedbackDataInput.updatedLabels());
-  }
-
-  @Test
-  public void testListBatchesOptions() {
-    ListBatchesOptions listBatchesOptions = new ListBatchesOptions.Builder().build();
-    ListBatchesOptions newListBatchesOptions = listBatchesOptions.newBuilder().build();
-
-    assertEquals(listBatchesOptions, newListBatchesOptions);
-  }
-
-  @Test
-  public void testGetBatchOptions() {
-    GetBatchOptions getBatchOptions = new GetBatchOptions.Builder().batchId(BATCH_ID).build();
-    getBatchOptions = getBatchOptions.newBuilder().build();
-
-    assertEquals(BATCH_ID, getBatchOptions.batchId());
-  }
-
-  @Test
-  public void testGetFeedbackOptions() {
-    GetFeedbackOptions getFeedbackOptions =
-        new GetFeedbackOptions.Builder()
-            .feedbackId(FEEDBACK_ID)
-            .model(GetFeedbackOptions.Model.CONTRACTS)
-            .build();
-    getFeedbackOptions = getFeedbackOptions.newBuilder().build();
-
-    assertEquals(FEEDBACK_ID, getFeedbackOptions.feedbackId());
-    assertEquals(GetFeedbackOptions.Model.CONTRACTS, getFeedbackOptions.model());
-  }
-
-  @Test
-  public void testLabel() {
-    Label label = new Label.Builder().nature(NATURE).party(PARTY).build();
-
-    assertEquals(NATURE, label.nature());
-    assertEquals(PARTY, label.party());
-  }
-
-  @Test
-  public void testListFeedbackOptions() {
-    ListFeedbackOptions listFeedbackOptions =
-        new ListFeedbackOptions.Builder()
-            .after(DATE)
-            .before(DATE)
-            .categoryAdded(CATEGORY_ADDED)
-            .categoryRemoved(CATEGORY_REMOVED)
-            .categoryNotChanged(CATEGORY_NOT_CHANGED)
-            .pageLimit(PAGE_LIMIT)
-            .documentTitle(DOCUMENT_TITLE)
-            .feedbackType(FEEDBACK_TYPE)
-            .includeTotal(true)
-            .modelId(MODEL_ID)
-            .modelVersion(MODEL_VERSION)
-            .cursor(CURSOR)
-            .sort(SORT)
-            .typeAdded(TYPE_ADDED)
-            .typeRemoved(TYPE_REMOVED)
-            .typeNotChanged(TYPE_NOT_CHANGED)
-            .build();
-    listFeedbackOptions = listFeedbackOptions.newBuilder().build();
-
-    assertEquals(DATE, listFeedbackOptions.after());
-    assertEquals(DATE, listFeedbackOptions.before());
-    assertEquals(CATEGORY_ADDED, listFeedbackOptions.categoryAdded());
-    assertEquals(CATEGORY_REMOVED, listFeedbackOptions.categoryRemoved());
-    assertEquals(CATEGORY_NOT_CHANGED, listFeedbackOptions.categoryNotChanged());
-    assertEquals(PAGE_LIMIT, listFeedbackOptions.pageLimit());
-    assertEquals(DOCUMENT_TITLE, listFeedbackOptions.documentTitle());
-    assertEquals(FEEDBACK_TYPE, listFeedbackOptions.feedbackType());
-    assertEquals(MODEL_ID, listFeedbackOptions.modelId());
-    assertEquals(MODEL_VERSION, listFeedbackOptions.modelVersion());
-    assertEquals(CURSOR, listFeedbackOptions.cursor());
-    assertEquals(TYPE_ADDED, listFeedbackOptions.typeAdded());
-    assertEquals(TYPE_REMOVED, listFeedbackOptions.typeRemoved());
-    assertEquals(TYPE_NOT_CHANGED, listFeedbackOptions.typeNotChanged());
-    assertEquals(true, listFeedbackOptions.includeTotal());
-  }
-
-  @Test
-  public void testLocation() {
-    Location location = new Location.Builder().begin(BEGIN).end(END).build();
-
-    assertEquals(BEGIN, location.begin());
-    assertEquals(END, location.end());
-  }
-
-  @Test
-  public void testOriginalLabelsIn() {
-    Category category = new Category.Builder().build();
-    TypeLabel typeLabel = new TypeLabel.Builder().build();
-    OriginalLabelsIn originalLabelsIn =
-        new OriginalLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-
-    assertEquals(category, originalLabelsIn.categories().get(0));
-    assertEquals(typeLabel, originalLabelsIn.types().get(0));
-  }
-
-  @Test
-  public void testShortDoc() {
-    ShortDoc shortDoc = new ShortDoc.Builder().hash(HASH).title(TITLE).build();
-
-    assertEquals(HASH, shortDoc.hash());
-    assertEquals(TITLE, shortDoc.title());
-  }
-
-  @Test
-  public void testTypeLabel() {
-    Label label = new Label.Builder().nature(NATURE).party(PARTY).build();
-    TypeLabel typeLabel =
-        new TypeLabel.Builder()
-            .label(label)
-            .provenanceIds(Collections.singletonList(PROVENANCE_ID))
-            .build();
-
-    assertEquals(label, typeLabel.label());
-    assertEquals(PROVENANCE_ID, typeLabel.provenanceIds().get(0));
-  }
-
-  @Test
-  public void testUpdateBatchOptions() {
-    UpdateBatchOptions updateBatchOptions =
-        new UpdateBatchOptions.Builder()
-            .action(UpdateBatchOptions.Action.CANCEL)
-            .batchId(BATCH_ID)
-            .model(UpdateBatchOptions.Model.CONTRACTS)
-            .build();
-    updateBatchOptions = updateBatchOptions.newBuilder().build();
-
-    assertEquals(UpdateBatchOptions.Action.CANCEL, updateBatchOptions.action());
-    assertEquals(BATCH_ID, updateBatchOptions.batchId());
-    assertEquals(UpdateBatchOptions.Model.CONTRACTS, updateBatchOptions.model());
-  }
-
-  @Test
-  public void testUpdatedLabelsIn() {
-    Category category = new Category.Builder().build();
-    TypeLabel typeLabel = new TypeLabel.Builder().build();
-    UpdatedLabelsIn updatedLabelsIn =
-        new UpdatedLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-
-    assertEquals(category, updatedLabelsIn.categories().get(0));
-    assertEquals(typeLabel, updatedLabelsIn.types().get(0));
-  }
-
-  // --- METHODS ---
-
-  @Test
-  public void testConvertToHtml() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(convertToHtmlResponse));
-
-    ConvertToHtmlOptions convertToHtmlOptions =
-        new ConvertToHtmlOptions.Builder().file(SAMPLE_PDF).build();
-    HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertEquals(CONVERT_TO_HTML_PATH, request.getPath());
-    assertEquals(NUM_PAGES, response.getNumPages());
-    assertEquals(AUTHOR, response.getAuthor());
-    assertEquals(PUBLICATION_DATE, response.getPublicationDate());
-    assertEquals(TITLE, response.getTitle());
-    assertEquals(HTML, response.getHtml());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, convertToHtmlPath);
   }
 
-  @Test
-  public void testClassifyElements() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(classifyElementsResponse));
+  // Test the convertToHtml operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConvertToHtmlNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    ClassifyElementsOptions classifyElementsOptions =
-        new ClassifyElementsOptions.Builder().file(SAMPLE_PDF).build();
-    ClassifyReturn response =
-        service.classifyElements(classifyElementsOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(CLASSIFY_ELEMENTS_PATH, request.getPath());
-    assertEquals(TITLE, response.getDocument().getTitle());
-    assertEquals(HTML, response.getDocument().getHtml());
-    assertEquals(HASH, response.getDocument().getHash());
-    assertEquals(LABEL, response.getDocument().getLabel());
-    assertEquals(MODEL_ID, response.getModelId());
-    assertEquals(MODEL_VERSION, response.getModelVersion());
-    assertEquals(BEGIN, response.getElements().get(0).getLocation().begin());
-    assertEquals(END, response.getElements().get(0).getLocation().end());
-    assertEquals(TEXT, response.getElements().get(0).getText());
-    assertEquals(NATURE, response.getElements().get(0).getTypes().get(0).label().nature());
-    assertEquals(PARTY, response.getElements().get(0).getTypes().get(0).label().party());
-    assertEquals(
-        PROVENANCE_ID, response.getElements().get(0).getTypes().get(0).provenanceIds().get(0));
-    assertEquals(LABEL, response.getElements().get(0).getCategories().get(0).label());
-    assertEquals(
-        PROVENANCE_ID, response.getElements().get(0).getCategories().get(0).provenanceIds().get(0));
-    assertEquals(TYPE, response.getElements().get(0).getAttributes().get(0).getType());
-    assertEquals(TEXT, response.getElements().get(0).getAttributes().get(0).getText());
-    assertEquals(BEGIN, response.getElements().get(0).getAttributes().get(0).getLocation().begin());
-    assertEquals(END, response.getElements().get(0).getAttributes().get(0).getLocation().end());
-    assertEquals(BEGIN, response.getTables().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().end());
-    assertEquals(CELL_ID, response.getTables().get(0).getTableHeaders().get(0).getCellId());
-    assertEquals(
-        BEGIN_DOUBLE,
-        response.getTables().get(0).getTableHeaders().get(0).getLocation().get("begin"));
-    assertEquals(
-        END_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("end"));
-    assertEquals(TEXT, response.getTables().get(0).getTableHeaders().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getTableHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getTableHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getTableHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getTableHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getColumnHeaders().get(0).getCellId());
-    assertEquals(
-        BEGIN_DOUBLE,
-        response.getTables().get(0).getColumnHeaders().get(0).getLocation().get("begin"));
-    assertEquals(
-        END_DOUBLE, response.getTables().get(0).getColumnHeaders().get(0).getLocation().get("end"));
-    assertEquals(TEXT, response.getTables().get(0).getColumnHeaders().get(0).getText());
-    assertEquals(
-        TEXT_NORMALIZED, response.getTables().get(0).getColumnHeaders().get(0).getTextNormalized());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getColumnHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getColumnHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getRowHeaders().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getRowHeaders().get(0).getText());
-    assertEquals(
-        TEXT_NORMALIZED, response.getTables().get(0).getRowHeaders().get(0).getTextNormalized());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getRowHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getBodyCells().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getBodyCells().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0));
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0));
-    assertEquals(
-        TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0));
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0));
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0));
-    assertEquals(
-        TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0));
-    assertEquals(
-        TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
-    assertEquals(
-        BEGIN,
-        response
-            .getTables()
-            .get(0)
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .begin());
-    assertEquals(
-        END,
-        response
-            .getTables()
-            .get(0)
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .end());
-    assertEquals(
-        CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
-    assertEquals(
-        BEGIN,
-        response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().begin());
-    assertEquals(
-        END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(
-        CELL_ID,
-        response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTables()
-            .get(0)
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .begin());
-    assertEquals(
-        END,
-        response
-            .getTables()
-            .get(0)
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .end());
-    assertEquals(
-        TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
-    assertEquals(TEXT, response.getTables().get(0).getTitle().getText());
-    assertEquals(BEGIN, response.getTables().get(0).getTitle().getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getTitle().getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getContexts().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getContexts().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getContexts().get(0).getLocation().end());
-    assertEquals(TEXT, response.getDocumentStructure().getSectionTitles().get(0).getText());
-    assertEquals(
-        BEGIN, response.getDocumentStructure().getSectionTitles().get(0).getLocation().begin());
-    assertEquals(
-        END, response.getDocumentStructure().getSectionTitles().get(0).getLocation().end());
-    assertEquals(LEVEL, response.getDocumentStructure().getSectionTitles().get(0).getLevel());
-    assertEquals(
-        BEGIN,
-        response
-            .getDocumentStructure()
-            .getSectionTitles()
-            .get(0)
-            .getElementLocations()
-            .get(0)
-            .getBegin());
-    assertEquals(
-        END,
-        response
-            .getDocumentStructure()
-            .getSectionTitles()
-            .get(0)
-            .getElementLocations()
-            .get(0)
-            .getEnd());
-    assertEquals(TEXT, response.getDocumentStructure().getLeadingSentences().get(0).getText());
-    assertEquals(
-        BEGIN, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().begin());
-    assertEquals(
-        END, response.getDocumentStructure().getLeadingSentences().get(0).getLocation().end());
-    assertEquals(
-        BEGIN,
-        response
-            .getDocumentStructure()
-            .getLeadingSentences()
-            .get(0)
-            .getElementLocations()
-            .get(0)
-            .getBegin());
-    assertEquals(
-        END,
-        response
-            .getDocumentStructure()
-            .getLeadingSentences()
-            .get(0)
-            .getElementLocations()
-            .get(0)
-            .getEnd());
-    assertEquals(
-        BEGIN, response.getDocumentStructure().getParagraphs().get(0).getLocation().begin());
-    assertEquals(END, response.getDocumentStructure().getParagraphs().get(0).getLocation().end());
-    assertEquals(PARTY, response.getParties().get(0).getParty());
-    assertEquals(Parties.Importance.UNKNOWN, response.getParties().get(0).getImportance());
-    assertEquals(ROLE, response.getParties().get(0).getRole());
-    assertEquals(TEXT, response.getParties().get(0).getAddresses().get(0).getText());
-    assertEquals(BEGIN, response.getParties().get(0).getAddresses().get(0).getLocation().begin());
-    assertEquals(END, response.getParties().get(0).getAddresses().get(0).getLocation().end());
-    assertEquals(NAME, response.getParties().get(0).getContacts().get(0).getName());
-    assertEquals(ROLE, response.getParties().get(0).getContacts().get(0).getRole());
-    assertEquals(TEXT, response.getParties().get(0).getMentions().get(0).getText());
-    assertEquals(BEGIN, response.getParties().get(0).getMentions().get(0).getLocation().begin());
-    assertEquals(END, response.getParties().get(0).getMentions().get(0).getLocation().end());
-    assertEquals(TEXT, response.getEffectiveDates().get(0).getText());
-    assertEquals(BEGIN, response.getEffectiveDates().get(0).getLocation().begin());
-    assertEquals(END, response.getEffectiveDates().get(0).getLocation().end());
-    assertEquals(
-        EffectiveDates.ConfidenceLevel.HIGH,
-        response.getEffectiveDates().get(0).getConfidenceLevel());
-    assertEquals(TEXT_NORMALIZED, response.getEffectiveDates().get(0).getTextNormalized());
-    assertEquals(PROVENANCE_ID, response.getEffectiveDates().get(0).getProvenanceIds().get(0));
-    assertEquals(TEXT, response.getContractAmounts().get(0).getText());
-    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().begin());
-    assertEquals(END, response.getContractAmounts().get(0).getLocation().end());
-    assertEquals(
-        ContractAmts.ConfidenceLevel.HIGH,
-        response.getContractAmounts().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getContractAmounts().get(0).getText());
-    assertEquals(TEXT_NORMALIZED, response.getContractAmounts().get(0).getTextNormalized());
-    assertEquals(VALUE, response.getContractAmounts().get(0).getInterpretation().getValue());
-    assertEquals(
-        NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
-    assertEquals(UNIT, response.getContractAmounts().get(0).getInterpretation().getUnit());
-    assertEquals(PROVENANCE_ID, response.getContractAmounts().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractAmounts().get(0).getLocation().begin());
-    assertEquals(END, response.getContractAmounts().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTerminationDates().get(0).getText());
-    assertEquals(BEGIN, response.getTerminationDates().get(0).getLocation().begin());
-    assertEquals(END, response.getTerminationDates().get(0).getLocation().end());
-    assertEquals(
-        TerminationDates.ConfidenceLevel.HIGH,
-        response.getTerminationDates().get(0).getConfidenceLevel());
-    assertEquals(TEXT_NORMALIZED, response.getTerminationDates().get(0).getTextNormalized());
-    assertEquals(PROVENANCE_ID, response.getTerminationDates().get(0).getProvenanceIds().get(0));
-    assertEquals(TEXT, response.getContractTypes().get(0).getText());
-    assertEquals(BEGIN, response.getContractTypes().get(0).getLocation().begin());
-    assertEquals(END, response.getContractTypes().get(0).getLocation().end());
-    assertEquals(
-        ContractTypes.ConfidenceLevel.HIGH,
-        response.getContractTypes().get(0).getConfidenceLevel());
-    assertEquals(
-        ContractTerms.ConfidenceLevel.HIGH,
-        response.getContractTerms().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getContractTerms().get(0).getText());
-    assertEquals(TEXT_NORMALIZED, response.getContractTerms().get(0).getTextNormalized());
-    assertEquals(VALUE, response.getContractTerms().get(0).getInterpretation().getValue());
-    assertEquals(
-        NUMERIC_VALUE, response.getContractTerms().get(0).getInterpretation().getNumericValue());
-    assertEquals(UNIT, response.getContractTerms().get(0).getInterpretation().getUnit());
-    assertEquals(PROVENANCE_ID, response.getContractTerms().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractTerms().get(0).getLocation().begin());
-    assertEquals(END, response.getContractTerms().get(0).getLocation().end());
-    assertEquals(
-        PaymentTerms.ConfidenceLevel.HIGH, response.getPaymentTerms().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getPaymentTerms().get(0).getText());
-    assertEquals(TEXT_NORMALIZED, response.getPaymentTerms().get(0).getTextNormalized());
-    assertEquals(VALUE, response.getPaymentTerms().get(0).getInterpretation().getValue());
-    assertEquals(
-        NUMERIC_VALUE, response.getPaymentTerms().get(0).getInterpretation().getNumericValue());
-    assertEquals(UNIT, response.getPaymentTerms().get(0).getInterpretation().getUnit());
-    assertEquals(PROVENANCE_ID, response.getPaymentTerms().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getPaymentTerms().get(0).getLocation().begin());
-    assertEquals(END, response.getPaymentTerms().get(0).getLocation().end());
-    assertEquals(
-        ContractCurrencies.ConfidenceLevel.HIGH,
-        response.getContractCurrencies().get(0).getConfidenceLevel());
-    assertEquals(TEXT, response.getContractCurrencies().get(0).getText());
-    assertEquals(TEXT_NORMALIZED, response.getContractCurrencies().get(0).getTextNormalized());
-    assertEquals(PROVENANCE_ID, response.getContractCurrencies().get(0).getProvenanceIds().get(0));
-    assertEquals(BEGIN, response.getContractCurrencies().get(0).getLocation().begin());
-    assertEquals(END, response.getContractCurrencies().get(0).getLocation().end());
-  }
-
-  @Test
-  public void testExtractTables() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(extractTablesResponse));
-
-    ExtractTablesOptions extractTablesOptions =
-        new ExtractTablesOptions.Builder().file(SAMPLE_PDF).build();
-    TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(EXTRACT_TABLES_PATH, request.getPath());
-    assertEquals(HTML, response.getDocument().getHtml());
-    assertEquals(TITLE, response.getDocument().getTitle());
-    assertEquals(HASH, response.getDocument().getHash());
-    assertEquals(MODEL_ID, response.getModelId());
-    assertEquals(MODEL_VERSION, response.getModelVersion());
-    assertEquals(BEGIN, response.getTables().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getText());
-    assertEquals(BEGIN, response.getTables().get(0).getSectionTitle().getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getSectionTitle().getLocation().end());
-    assertEquals(CELL_ID, response.getTables().get(0).getTableHeaders().get(0).getCellId());
-    assertEquals(
-        BEGIN_DOUBLE,
-        response.getTables().get(0).getTableHeaders().get(0).getLocation().get("begin"));
-    assertEquals(
-        END_DOUBLE, response.getTables().get(0).getTableHeaders().get(0).getLocation().get("end"));
-    assertEquals(TEXT, response.getTables().get(0).getTableHeaders().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getTableHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getTableHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getTableHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getTableHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getColumnHeaders().get(0).getCellId());
-    assertEquals(
-        BEGIN_DOUBLE,
-        response.getTables().get(0).getColumnHeaders().get(0).getLocation().get("begin"));
-    assertEquals(
-        END_DOUBLE, response.getTables().get(0).getColumnHeaders().get(0).getLocation().get("end"));
-    assertEquals(TEXT, response.getTables().get(0).getColumnHeaders().get(0).getText());
-    assertEquals(
-        TEXT_NORMALIZED, response.getTables().get(0).getColumnHeaders().get(0).getTextNormalized());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getColumnHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getColumnHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END,
-        response.getTables().get(0).getColumnHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getRowHeaders().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getRowHeaders().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getRowHeaders().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getRowHeaders().get(0).getText());
-    assertEquals(
-        TEXT_NORMALIZED, response.getTables().get(0).getRowHeaders().get(0).getTextNormalized());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getRowHeaders().get(0).getRowIndexBegin());
-    assertEquals(
-        ROW_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getRowHeaders().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getRowHeaders().get(0).getColumnIndexEnd());
-    assertEquals(CELL_ID, response.getTables().get(0).getBodyCells().get(0).getCellId());
-    assertEquals(BEGIN, response.getTables().get(0).getBodyCells().get(0).getLocation().begin());
-    assertEquals(END, response.getTables().get(0).getBodyCells().get(0).getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getBodyCells().get(0).getText());
-    assertEquals(
-        ROW_INDEX_BEGIN, response.getTables().get(0).getBodyCells().get(0).getRowIndexBegin());
-    assertEquals(ROW_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getRowIndexEnd());
-    assertEquals(
-        COLUMN_INDEX_BEGIN,
-        response.getTables().get(0).getBodyCells().get(0).getColumnIndexBegin());
-    assertEquals(
-        COLUMN_INDEX_END, response.getTables().get(0).getBodyCells().get(0).getColumnIndexEnd());
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getRowHeaderIds().get(0));
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getRowHeaderTexts().get(0));
-    assertEquals(
-        TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getRowHeaderTextsNormalized().get(0));
-    assertEquals(ID, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderIds().get(0));
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTexts().get(0));
-    assertEquals(
-        TEXT_NORMALIZED,
-        response.getTables().get(0).getBodyCells().get(0).getColumnHeaderTextsNormalized().get(0));
-    assertEquals(
-        TYPE, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getType());
-    assertEquals(
-        TEXT, response.getTables().get(0).getBodyCells().get(0).getAttributes().get(0).getText());
-    assertEquals(
-        BEGIN,
-        response
-            .getTables()
-            .get(0)
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .begin());
-    assertEquals(
-        END,
-        response
-            .getTables()
-            .get(0)
-            .getBodyCells()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .end());
-    assertEquals(
-        CELL_ID, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getCellId());
-    assertEquals(
-        BEGIN,
-        response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().begin());
-    assertEquals(
-        END, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getLocation().end());
-    assertEquals(TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getKey().getText());
-    assertEquals(
-        CELL_ID,
-        response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getCellId());
-    assertEquals(
-        BEGIN,
-        response
-            .getTables()
-            .get(0)
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .begin());
-    assertEquals(
-        END,
-        response
-            .getTables()
-            .get(0)
-            .getKeyValuePairs()
-            .get(0)
-            .getValue()
-            .get(0)
-            .getLocation()
-            .end());
-    assertEquals(
-        TEXT, response.getTables().get(0).getKeyValuePairs().get(0).getValue().get(0).getText());
-  }
-
-  @Test
-  public void testCompareDocuments() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(compareDocumentsResponse));
-
-    CompareDocumentsOptions compareDocumentsOptions =
-        new CompareDocumentsOptions.Builder().file1(SAMPLE_PDF).file2(SAMPLE_PDF).build();
-    CompareReturn response =
-        service.compareDocuments(compareDocumentsOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(COMPARE_DOCUMENTS_PATH, request.getPath());
-    assertEquals(TITLE, response.getDocuments().get(0).getTitle());
-    assertEquals(HTML, response.getDocuments().get(0).getHtml());
-    assertEquals(HASH, response.getDocuments().get(0).getHash());
-    assertEquals(LABEL, response.getDocuments().get(0).getLabel());
-    assertEquals(
-        DOCUMENT_LABEL,
-        response.getAlignedElements().get(0).getElementPair().get(0).getDocumentLabel());
-    assertEquals(TEXT, response.getAlignedElements().get(0).getElementPair().get(0).getText());
-    assertEquals(
-        BEGIN, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().begin());
-    assertEquals(
-        END, response.getAlignedElements().get(0).getElementPair().get(0).getLocation().end());
-    assertEquals(
-        NATURE,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getTypes()
-            .get(0)
-            .getLabel()
-            .nature());
-    assertEquals(
-        PARTY,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getTypes()
-            .get(0)
-            .getLabel()
-            .party());
-    assertEquals(
-        LABEL,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getCategories()
-            .get(0)
-            .getLabel());
-    assertEquals(
-        TYPE,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getType());
-    assertEquals(
-        TEXT,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getText());
-    assertEquals(
-        BEGIN,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .begin());
-    assertEquals(
-        END,
-        response
-            .getAlignedElements()
-            .get(0)
-            .getElementPair()
-            .get(0)
-            .getAttributes()
-            .get(0)
-            .getLocation()
-            .end());
-    assertEquals(true, response.getAlignedElements().get(0).isIdenticalText());
-    assertEquals(PROVENANCE_ID, response.getAlignedElements().get(0).getProvenanceIds().get(0));
-    assertTrue(response.getAlignedElements().get(0).isSignificantElements());
-    assertEquals(DOCUMENT_LABEL, response.getUnalignedElements().get(0).getDocumentLabel());
-    assertEquals(TEXT, response.getUnalignedElements().get(0).getText());
-    assertEquals(BEGIN, response.getUnalignedElements().get(0).getLocation().begin());
-    assertEquals(END, response.getUnalignedElements().get(0).getLocation().end());
-    assertEquals(
-        NATURE, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().nature());
-    assertEquals(
-        PARTY, response.getUnalignedElements().get(0).getTypes().get(0).getLabel().party());
-    assertEquals(LABEL, response.getUnalignedElements().get(0).getCategories().get(0).getLabel());
-    assertEquals(TYPE, response.getUnalignedElements().get(0).getAttributes().get(0).getType());
-    assertEquals(TEXT, response.getUnalignedElements().get(0).getAttributes().get(0).getText());
-    assertEquals(
-        BEGIN, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().begin());
-    assertEquals(
-        END, response.getUnalignedElements().get(0).getAttributes().get(0).getLocation().end());
-    assertEquals(MODEL_ID, response.getModelId());
-    assertEquals(MODEL_VERSION, response.getModelVersion());
-  }
-
-  @Test
-  public void testAddFeedback() throws InterruptedException {
-    server.enqueue(jsonResponse(addFeedbackResponse));
-
-    Location location = new Location.Builder().begin(BEGIN).end(END).build();
-    Category category = new Category.Builder().build();
-    TypeLabel typeLabel = new TypeLabel.Builder().build();
-    OriginalLabelsIn originalLabelsIn =
-        new OriginalLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-    UpdatedLabelsIn updatedLabelsIn =
-        new UpdatedLabelsIn.Builder()
-            .categories(Collections.singletonList(category))
-            .types(Collections.singletonList(typeLabel))
-            .build();
-    FeedbackDataInput feedbackDataInput =
-        new FeedbackDataInput.Builder()
-            .feedbackType(FEEDBACK_TYPE)
-            .location(location)
-            .originalLabels(originalLabelsIn)
-            .text(TEXT)
-            .updatedLabels(updatedLabelsIn)
-            .build();
-    AddFeedbackOptions addFeedbackOptions =
-        new AddFeedbackOptions.Builder().feedbackData(feedbackDataInput).build();
-    FeedbackReturn response = service.addFeedback(addFeedbackOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(FEEDBACK_PATH, request.getPath());
-    assertEquals(FEEDBACK_ID, response.getFeedbackId());
-    assertEquals(USER_ID, response.getUserId());
-    assertEquals(COMMENT, response.getComment());
-    assertEquals(testDateValue, response.getCreated());
-    assertEquals(FEEDBACK_TYPE, response.getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedbackData().getDocument().title());
-    assertEquals(HASH, response.getFeedbackData().getDocument().hash());
-    assertEquals(MODEL_ID, response.getFeedbackData().getModelId());
-    assertEquals(MODEL_VERSION, response.getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedbackData().getLocation().begin());
-    assertEquals(END, response.getFeedbackData().getLocation().end());
-    assertEquals(TEXT, response.getFeedbackData().getText());
-    assertEquals(
-        NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().nature());
-    assertEquals(
-        PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().party());
-    assertEquals(
-        PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getTypes().get(0).provenanceIds().get(0));
-    assertEquals(
-        LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        OriginalLabelsOut.Modification.ADDED,
-        response.getFeedbackData().getOriginalLabels().getModification());
-    assertEquals(
-        NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().nature());
-    assertEquals(
-        PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().party());
-    assertEquals(
-        PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).provenanceIds().get(0));
-    assertEquals(
-        LABEL, response.getFeedbackData().getUpdatedLabels().getCategories().get(0).label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        UpdatedLabelsOut.Modification.ADDED,
-        response.getFeedbackData().getUpdatedLabels().getModification());
-    assertEquals(REFRESH_CURSOR, response.getFeedbackData().getPagination().getRefreshCursor());
-    assertEquals(NEXT_CURSOR, response.getFeedbackData().getPagination().getNextCursor());
-    assertEquals(REFRESH_URL, response.getFeedbackData().getPagination().getRefreshUrl());
-    assertEquals(NEXT_URL, response.getFeedbackData().getPagination().getNextUrl());
-    assertEquals(TOTAL, response.getFeedbackData().getPagination().getTotal());
-  }
-
-  @Test
-  public void testDeleteFeedback() throws InterruptedException {
     server.enqueue(new MockResponse());
 
-    DeleteFeedbackOptions deleteFeedbackOptions =
-        new DeleteFeedbackOptions.Builder().feedbackId(FEEDBACK_ID).build();
-    service.deleteFeedback(deleteFeedbackOptions).execute();
-    RecordedRequest request = server.takeRequest();
-
-    assertEquals(SPECIFIC_FEEDBACK_PATH, request.getPath());
+    // Invoke operation with null options model (negative test)
+    compareComplyService.convertToHtml(null).execute();
   }
 
   @Test
-  public void testGetFeedback() throws InterruptedException {
-    server.enqueue(jsonResponse(getFeedbackResponse));
+  public void testClassifyElementsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"document\": {\"title\": \"title\", \"html\": \"html\", \"hash\": \"hash\", \"label\": \"label\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"elements\": [{\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"attributes\": [{\"type\": \"Currency\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"effective_dates\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"contract_amounts\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"interpretation\": {\"value\": \"value\", \"numeric_value\": 12, \"unit\": \"unit\"}, \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"termination_dates\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"contract_types\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"contract_terms\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"interpretation\": {\"value\": \"value\", \"numeric_value\": 12, \"unit\": \"unit\"}, \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"payment_terms\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"interpretation\": {\"value\": \"value\", \"numeric_value\": 12, \"unit\": \"unit\"}, \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"contract_currencies\": [{\"confidence_level\": \"High\", \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"provenance_ids\": [\"provenanceIds\"], \"location\": {\"begin\": 5, \"end\": 3}}], \"tables\": [{\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [\"rowHeaderIds\"], \"row_header_texts\": [\"rowHeaderTexts\"], \"row_header_texts_normalized\": [\"rowHeaderTextsNormalized\"], \"column_header_ids\": [\"columnHeaderIds\"], \"column_header_texts\": [\"columnHeaderTexts\"], \"column_header_texts_normalized\": [\"columnHeaderTextsNormalized\"], \"attributes\": [{\"type\": \"Currency\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}]}], \"document_structure\": {\"section_titles\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}, \"level\": 5, \"element_locations\": [{\"begin\": 5, \"end\": 3}]}], \"leading_sentences\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}, \"element_locations\": [{\"begin\": 5, \"end\": 3}]}], \"paragraphs\": [{\"location\": {\"begin\": 5, \"end\": 3}}]}, \"parties\": [{\"party\": \"party\", \"role\": \"role\", \"importance\": \"Primary\", \"addresses\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}], \"contacts\": [{\"name\": \"name\", \"role\": \"role\"}], \"mentions\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}]}";
+    String classifyElementsPath = "/v1/element_classification";
 
-    GetFeedbackOptions getFeedbackOptions =
-        new GetFeedbackOptions.Builder().feedbackId(FEEDBACK_ID).build();
-    GetFeedback response = service.getFeedback(getFeedbackOptions).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ClassifyElementsOptions model
+    ClassifyElementsOptions classifyElementsOptionsModel =
+        new ClassifyElementsOptions.Builder()
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .fileContentType("application/pdf")
+            .model("contracts")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ClassifyReturn> response =
+        compareComplyService.classifyElements(classifyElementsOptionsModel).execute();
+    assertNotNull(response);
+    ClassifyReturn responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertEquals(SPECIFIC_FEEDBACK_PATH, request.getPath());
-    assertEquals(FEEDBACK_ID, response.getFeedbackId());
-    assertEquals(COMMENT, response.getComment());
-    assertEquals(testDateValue, response.getCreated());
-    assertEquals(FEEDBACK_TYPE, response.getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedbackData().getDocument().title());
-    assertEquals(HASH, response.getFeedbackData().getDocument().hash());
-    assertEquals(MODEL_ID, response.getFeedbackData().getModelId());
-    assertEquals(MODEL_VERSION, response.getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedbackData().getLocation().begin());
-    assertEquals(END, response.getFeedbackData().getLocation().end());
-    assertEquals(TEXT, response.getFeedbackData().getText());
-    assertEquals(
-        NATURE, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().nature());
-    assertEquals(
-        PARTY, response.getFeedbackData().getOriginalLabels().getTypes().get(0).label().party());
-    assertEquals(
-        PROVENANCE_ID,
-        response.getFeedbackData().getOriginalLabels().getTypes().get(0).provenanceIds().get(0));
-    assertEquals(
-        LABEL, response.getFeedbackData().getOriginalLabels().getCategories().get(0).label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        OriginalLabelsOut.Modification.ADDED,
-        response.getFeedbackData().getOriginalLabels().getModification());
-    assertEquals(
-        NATURE, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().nature());
-    assertEquals(
-        PARTY, response.getFeedbackData().getUpdatedLabels().getTypes().get(0).label().party());
-    assertEquals(
-        PROVENANCE_ID,
-        response.getFeedbackData().getUpdatedLabels().getTypes().get(0).provenanceIds().get(0));
-    assertEquals(
-        LABEL, response.getFeedbackData().getUpdatedLabels().getCategories().get(0).label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        UpdatedLabelsOut.Modification.ADDED,
-        response.getFeedbackData().getUpdatedLabels().getModification());
-    assertEquals(REFRESH_CURSOR, response.getFeedbackData().getPagination().getRefreshCursor());
-    assertEquals(NEXT_CURSOR, response.getFeedbackData().getPagination().getNextCursor());
-    assertEquals(REFRESH_URL, response.getFeedbackData().getPagination().getRefreshUrl());
-    assertEquals(NEXT_URL, response.getFeedbackData().getPagination().getNextUrl());
-    assertEquals(TOTAL, response.getFeedbackData().getPagination().getTotal());
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, classifyElementsPath);
+  }
+
+  // Test the classifyElements operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testClassifyElementsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.classifyElements(null).execute();
   }
 
   @Test
-  public void testListFeedbackWithOptions() throws InterruptedException {
-    server.enqueue(jsonResponse(listFeedbackResponse));
+  public void testExtractTablesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"document\": {\"html\": \"html\", \"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"tables\": [{\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [\"rowHeaderIds\"], \"row_header_texts\": [\"rowHeaderTexts\"], \"row_header_texts_normalized\": [\"rowHeaderTextsNormalized\"], \"column_header_ids\": [\"columnHeaderIds\"], \"column_header_texts\": [\"columnHeaderTexts\"], \"column_header_texts_normalized\": [\"columnHeaderTextsNormalized\"], \"attributes\": [{\"type\": \"Currency\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}]}]}";
+    String extractTablesPath = "/v1/tables";
 
-    ListFeedbackOptions listFeedbackOptions = new ListFeedbackOptions.Builder().build();
-    FeedbackList response = service.listFeedback(listFeedbackOptions).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ExtractTablesOptions model
+    ExtractTablesOptions extractTablesOptionsModel =
+        new ExtractTablesOptions.Builder()
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .fileContentType("application/pdf")
+            .model("contracts")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<TableReturn> response =
+        compareComplyService.extractTables(extractTablesOptionsModel).execute();
+    assertNotNull(response);
+    TableReturn responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertFeedbackListResponse(request, response);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, extractTablesPath);
+  }
+
+  // Test the extractTables operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testExtractTablesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.extractTables(null).execute();
   }
 
   @Test
-  public void testListFeedbackWithoutOptions() throws InterruptedException {
-    server.enqueue(jsonResponse(listFeedbackResponse));
+  public void testCompareDocumentsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"documents\": [{\"title\": \"title\", \"html\": \"html\", \"hash\": \"hash\", \"label\": \"label\"}], \"aligned_elements\": [{\"element_pair\": [{\"document_label\": \"documentLabel\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}, \"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}}], \"categories\": [{\"label\": \"Amendments\"}], \"attributes\": [{\"type\": \"Currency\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"identical_text\": false, \"provenance_ids\": [\"provenanceIds\"], \"significant_elements\": false}], \"unaligned_elements\": [{\"document_label\": \"documentLabel\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}}], \"categories\": [{\"label\": \"Amendments\"}], \"attributes\": [{\"type\": \"Currency\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}]}";
+    String compareDocumentsPath = "/v1/comparison";
 
-    FeedbackList response = service.listFeedback().execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CompareDocumentsOptions model
+    CompareDocumentsOptions compareDocumentsOptionsModel =
+        new CompareDocumentsOptions.Builder()
+            .file1(TestUtilities.createMockStream("This is a mock file."))
+            .file2(TestUtilities.createMockStream("This is a mock file."))
+            .file1ContentType("application/pdf")
+            .file2ContentType("application/pdf")
+            .file1Label("testString")
+            .file2Label("testString")
+            .model("contracts")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CompareReturn> response =
+        compareComplyService.compareDocuments(compareDocumentsOptionsModel).execute();
+    assertNotNull(response);
+    CompareReturn responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertFeedbackListResponse(request, response);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("file_1_label"), "testString");
+    assertEquals(query.get("file_2_label"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, compareDocumentsPath);
+  }
+
+  // Test the compareDocuments operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCompareDocumentsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.compareDocuments(null).execute();
   }
 
   @Test
-  public void testCreateBatch() throws FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(batchStatusResponse));
+  public void testAddFeedbackWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"feedback_id\": \"feedbackId\", \"user_id\": \"userId\", \"comment\": \"comment\", \"created\": \"2019-01-01T12:00:00\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
+    String addFeedbackPath = "/v1/feedback";
 
-    CreateBatchOptions createBatchOptions =
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ShortDoc model
+    ShortDoc shortDocModel = new ShortDoc.Builder().title("testString").hash("testString").build();
+
+    // Construct an instance of the Location model
+    Location locationModel =
+        new Location.Builder().begin(Long.valueOf("26")).end(Long.valueOf("26")).build();
+
+    // Construct an instance of the Label model
+    Label labelModel = new Label.Builder().nature("testString").party("testString").build();
+
+    // Construct an instance of the TypeLabel model
+    TypeLabel typeLabelModel =
+        new TypeLabel.Builder()
+            .label(labelModel)
+            .provenanceIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .modification("added")
+            .build();
+
+    // Construct an instance of the Category model
+    Category categoryModel =
+        new Category.Builder()
+            .label("Amendments")
+            .provenanceIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .modification("added")
+            .build();
+
+    // Construct an instance of the OriginalLabelsIn model
+    OriginalLabelsIn originalLabelsInModel =
+        new OriginalLabelsIn.Builder()
+            .types(new java.util.ArrayList<TypeLabel>(java.util.Arrays.asList(typeLabelModel)))
+            .categories(new java.util.ArrayList<Category>(java.util.Arrays.asList(categoryModel)))
+            .build();
+
+    // Construct an instance of the UpdatedLabelsIn model
+    UpdatedLabelsIn updatedLabelsInModel =
+        new UpdatedLabelsIn.Builder()
+            .types(new java.util.ArrayList<TypeLabel>(java.util.Arrays.asList(typeLabelModel)))
+            .categories(new java.util.ArrayList<Category>(java.util.Arrays.asList(categoryModel)))
+            .build();
+
+    // Construct an instance of the FeedbackDataInput model
+    FeedbackDataInput feedbackDataInputModel =
+        new FeedbackDataInput.Builder()
+            .feedbackType("testString")
+            .document(shortDocModel)
+            .modelId("testString")
+            .modelVersion("testString")
+            .location(locationModel)
+            .text("testString")
+            .originalLabels(originalLabelsInModel)
+            .updatedLabels(updatedLabelsInModel)
+            .build();
+
+    // Construct an instance of the AddFeedbackOptions model
+    AddFeedbackOptions addFeedbackOptionsModel =
+        new AddFeedbackOptions.Builder()
+            .feedbackData(feedbackDataInputModel)
+            .userId("testString")
+            .comment("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<FeedbackReturn> response =
+        compareComplyService.addFeedback(addFeedbackOptionsModel).execute();
+    assertNotNull(response);
+    FeedbackReturn responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, addFeedbackPath);
+  }
+
+  // Test the addFeedback operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAddFeedbackNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.addFeedback(null).execute();
+  }
+
+  @Test
+  public void testListFeedbackWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"feedback\": [{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}]}";
+    String listFeedbackPath = "/v1/feedback";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListFeedbackOptions model
+    ListFeedbackOptions listFeedbackOptionsModel =
+        new ListFeedbackOptions.Builder()
+            .feedbackType("testString")
+            .documentTitle("testString")
+            .modelId("testString")
+            .modelVersion("testString")
+            .categoryRemoved("testString")
+            .categoryAdded("testString")
+            .categoryNotChanged("testString")
+            .typeRemoved("testString")
+            .typeAdded("testString")
+            .typeNotChanged("testString")
+            .pageLimit(Long.valueOf("100"))
+            .cursor("testString")
+            .sort("testString")
+            .includeTotal(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<FeedbackList> response =
+        compareComplyService.listFeedback(listFeedbackOptionsModel).execute();
+    assertNotNull(response);
+    FeedbackList responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("feedback_type"), "testString");
+    assertEquals(query.get("document_title"), "testString");
+    assertEquals(query.get("model_id"), "testString");
+    assertEquals(query.get("model_version"), "testString");
+    assertEquals(query.get("category_removed"), "testString");
+    assertEquals(query.get("category_added"), "testString");
+    assertEquals(query.get("category_not_changed"), "testString");
+    assertEquals(query.get("type_removed"), "testString");
+    assertEquals(query.get("type_added"), "testString");
+    assertEquals(query.get("type_not_changed"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(query.get("sort"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_total")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listFeedbackPath);
+  }
+
+  @Test
+  public void testGetFeedbackWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
+    String getFeedbackPath = "/v1/feedback/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetFeedbackOptions model
+    GetFeedbackOptions getFeedbackOptionsModel =
+        new GetFeedbackOptions.Builder().feedbackId("testString").model("contracts").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<GetFeedback> response =
+        compareComplyService.getFeedback(getFeedbackOptionsModel).execute();
+    assertNotNull(response);
+    GetFeedback responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getFeedbackPath);
+  }
+
+  // Test the getFeedback operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetFeedbackNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.getFeedback(null).execute();
+  }
+
+  @Test
+  public void testDeleteFeedbackWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"status\": 6, \"message\": \"message\"}";
+    String deleteFeedbackPath = "/v1/feedback/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteFeedbackOptions model
+    DeleteFeedbackOptions deleteFeedbackOptionsModel =
+        new DeleteFeedbackOptions.Builder().feedbackId("testString").model("contracts").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<FeedbackDeleted> response =
+        compareComplyService.deleteFeedback(deleteFeedbackOptionsModel).execute();
+    assertNotNull(response);
+    FeedbackDeleted responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteFeedbackPath);
+  }
+
+  // Test the deleteFeedback operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteFeedbackNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.deleteFeedback(null).execute();
+  }
+
+  @Test
+  public void testCreateBatchWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createBatchPath = "/v1/batches";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateBatchOptions model
+    CreateBatchOptions createBatchOptionsModel =
         new CreateBatchOptions.Builder()
-            .function(CreateBatchOptions.Function.ELEMENT_CLASSIFICATION)
-            .inputCredentialsFile(CREDENTIALS_FILE)
-            .inputBucketLocation(BUCKET_LOCATION)
-            .inputBucketName(BUCKET_NAME)
-            .outputCredentialsFile(CREDENTIALS_FILE)
-            .outputBucketLocation(BUCKET_LOCATION)
-            .outputBucketName(BUCKET_NAME)
+            .function("html_conversion")
+            .inputCredentialsFile(TestUtilities.createMockStream("This is a mock file."))
+            .inputBucketLocation("testString")
+            .inputBucketName("testString")
+            .outputCredentialsFile(TestUtilities.createMockStream("This is a mock file."))
+            .outputBucketLocation("testString")
+            .outputBucketName("testString")
+            .model("contracts")
             .build();
-    BatchStatus response = service.createBatch(createBatchOptions).execute().getResult();
-    RecordedRequest request = server.takeRequest();
 
-    assertEquals(CREATE_BATCH_PATH, request.getPath());
-    assertBatchStatusResponse(response);
+    // Invoke operation with valid options model (positive test)
+    Response<BatchStatus> response =
+        compareComplyService.createBatch(createBatchOptionsModel).execute();
+    assertNotNull(response);
+    BatchStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("function"), "html_conversion");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createBatchPath);
+  }
+
+  // Test the createBatch operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateBatchNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.createBatch(null).execute();
   }
 
   @Test
-  public void testGetBatch() throws InterruptedException {
-    server.enqueue(jsonResponse(batchStatusResponse));
+  public void testListBatchesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"batches\": [{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String listBatchesPath = "/v1/batches";
 
-    GetBatchOptions getBatchOptions = new GetBatchOptions.Builder().batchId(BATCH_ID).build();
-    BatchStatus response = service.getBatch(getBatchOptions).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListBatchesOptions model
+    ListBatchesOptions listBatchesOptionsModel = new ListBatchesOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Batches> response =
+        compareComplyService.listBatches(listBatchesOptionsModel).execute();
+    assertNotNull(response);
+    Batches responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
 
-    assertEquals(GET_BATCH_PATH, request.getPath());
-    assertBatchStatusResponse(response);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listBatchesPath);
   }
 
   @Test
-  public void testListBatchesWithOptions() throws InterruptedException {
-    server.enqueue(jsonResponse(batchesResponse));
+  public void testGetBatchWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getBatchPath = "/v1/batches/testString";
 
-    ListBatchesOptions listBatchesOptions = new ListBatchesOptions.Builder().build();
-    Batches response = service.listBatches(listBatchesOptions).execute().getResult();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetBatchOptions model
+    GetBatchOptions getBatchOptionsModel =
+        new GetBatchOptions.Builder().batchId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<BatchStatus> response = compareComplyService.getBatch(getBatchOptionsModel).execute();
+    assertNotNull(response);
+    BatchStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
 
-    assertBatchesResponse(request, response);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getBatchPath);
+  }
+
+  // Test the getBatch operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetBatchNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.getBatch(null).execute();
   }
 
   @Test
-  public void testListBatchesWithoutOptions() throws InterruptedException {
-    server.enqueue(jsonResponse(batchesResponse));
+  public void testUpdateBatchWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateBatchPath = "/v1/batches/testString";
 
-    Batches response = service.listBatches().execute().getResult();
-    RecordedRequest request = server.takeRequest();
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    assertBatchesResponse(request, response);
-  }
+    constructClientService();
 
-  @Test
-  public void testUpdateBatch() throws InterruptedException {
-    server.enqueue(jsonResponse(batchStatusResponse));
-
-    UpdateBatchOptions updateBatchOptions =
+    // Construct an instance of the UpdateBatchOptions model
+    UpdateBatchOptions updateBatchOptionsModel =
         new UpdateBatchOptions.Builder()
-            .action(UpdateBatchOptions.Action.CANCEL)
-            .batchId(BATCH_ID)
+            .batchId("testString")
+            .action("rescan")
+            .model("contracts")
             .build();
-    BatchStatus response = service.updateBatch(updateBatchOptions).execute().getResult();
+
+    // Invoke operation with valid options model (positive test)
+    Response<BatchStatus> response =
+        compareComplyService.updateBatch(updateBatchOptionsModel).execute();
+    assertNotNull(response);
+    BatchStatus responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "PUT");
 
-    assertEquals(UPDATE_BATCH_PATH, request.getPath());
-    assertBatchStatusResponse(response);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("action"), "rescan");
+    assertEquals(query.get("model"), "contracts");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateBatchPath);
   }
 
-  private void assertFeedbackListResponse(RecordedRequest request, FeedbackList response) {
-    assertEquals(FEEDBACK_PATH, request.getPath());
-    assertEquals(FEEDBACK_ID, response.getFeedback().get(0).getFeedbackId());
-    assertEquals(COMMENT, response.getFeedback().get(0).getComment());
-    assertEquals(testDateValue, response.getFeedback().get(0).getCreated());
-    assertEquals(FEEDBACK_TYPE, response.getFeedback().get(0).getFeedbackData().getFeedbackType());
-    assertEquals(TITLE, response.getFeedback().get(0).getFeedbackData().getDocument().title());
-    assertEquals(HASH, response.getFeedback().get(0).getFeedbackData().getDocument().hash());
-    assertEquals(MODEL_ID, response.getFeedback().get(0).getFeedbackData().getModelId());
-    assertEquals(MODEL_VERSION, response.getFeedback().get(0).getFeedbackData().getModelVersion());
-    assertEquals(BEGIN, response.getFeedback().get(0).getFeedbackData().getLocation().begin());
-    assertEquals(END, response.getFeedback().get(0).getFeedbackData().getLocation().end());
-    assertEquals(TEXT, response.getFeedback().get(0).getFeedbackData().getText());
-    assertEquals(
-        NATURE,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getTypes()
-            .get(0)
-            .label()
-            .nature());
-    assertEquals(
-        PARTY,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getTypes()
-            .get(0)
-            .label()
-            .party());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getTypes()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        LABEL,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getCategories()
-            .get(0)
-            .label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getOriginalLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        OriginalLabelsOut.Modification.ADDED,
-        response.getFeedback().get(0).getFeedbackData().getOriginalLabels().getModification());
-    assertEquals(
-        NATURE,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getTypes()
-            .get(0)
-            .label()
-            .nature());
-    assertEquals(
-        PARTY,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getTypes()
-            .get(0)
-            .label()
-            .party());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getTypes()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        LABEL,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getCategories()
-            .get(0)
-            .label());
-    assertEquals(
-        PROVENANCE_ID,
-        response
-            .getFeedback()
-            .get(0)
-            .getFeedbackData()
-            .getUpdatedLabels()
-            .getCategories()
-            .get(0)
-            .provenanceIds()
-            .get(0));
-    assertEquals(
-        UpdatedLabelsOut.Modification.ADDED,
-        response.getFeedback().get(0).getFeedbackData().getUpdatedLabels().getModification());
-    assertEquals(
-        REFRESH_CURSOR,
-        response.getFeedback().get(0).getFeedbackData().getPagination().getRefreshCursor());
-    assertEquals(
-        NEXT_CURSOR,
-        response.getFeedback().get(0).getFeedbackData().getPagination().getNextCursor());
-    assertEquals(
-        REFRESH_URL,
-        response.getFeedback().get(0).getFeedbackData().getPagination().getRefreshUrl());
-    assertEquals(
-        NEXT_URL, response.getFeedback().get(0).getFeedbackData().getPagination().getNextUrl());
-    assertEquals(TOTAL, response.getFeedback().get(0).getFeedbackData().getPagination().getTotal());
+  // Test the updateBatch operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateBatchNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    compareComplyService.updateBatch(null).execute();
   }
 
-  private void assertBatchStatusResponse(BatchStatus response) {
-    assertEquals(BatchStatus.Function.ELEMENT_CLASSIFICATION, response.getFunction());
-    assertEquals(BUCKET_LOCATION, response.getInputBucketLocation());
-    assertEquals(BUCKET_NAME, response.getInputBucketName());
-    assertEquals(BUCKET_LOCATION, response.getOutputBucketLocation());
-    assertEquals(BUCKET_NAME, response.getOutputBucketName());
-    assertEquals(BATCH_ID, response.getBatchId());
-    assertEquals(TOTAL, response.getDocumentCounts().getTotal());
-    assertEquals(PENDING, response.getDocumentCounts().getPending());
-    assertEquals(SUCCESSFUL, response.getDocumentCounts().getSuccessful());
-    assertEquals(FAILED, response.getDocumentCounts().getFailed());
-    assertEquals(STATUS, response.getStatus());
-    assertEquals(testDateValue, response.getCreated());
-    assertEquals(testDateValue, response.getUpdated());
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
   }
 
-  private void assertBatchesResponse(RecordedRequest request, Batches response) {
-    assertEquals(LIST_BATCHES_PATH, request.getPath());
-    assertBatchStatusResponse(response.getBatches().get(0));
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    compareComplyService = null;
   }
 }

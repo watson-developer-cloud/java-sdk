@@ -56,7 +56,7 @@ public class Webhook extends GenericModel {
     /**
      * Builds a Webhook.
      *
-     * @return the webhook
+     * @return the new Webhook instance
      */
     public Webhook build() {
       return new Webhook(this);

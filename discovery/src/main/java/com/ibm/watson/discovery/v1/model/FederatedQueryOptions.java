@@ -107,7 +107,7 @@ public class FederatedQueryOptions extends GenericModel {
     /**
      * Builds a FederatedQueryOptions.
      *
-     * @return the federatedQueryOptions
+     * @return the new FederatedQueryOptions instance
      */
     public FederatedQueryOptions build() {
       return new FederatedQueryOptions(this);
@@ -529,7 +529,7 @@ public class FederatedQueryOptions extends GenericModel {
    * Gets the highlight.
    *
    * <p>When true, a highlight field is returned for each result which contains the fields which
-   * match the query with `<em></em>` tags around the matching query terms.
+   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
    *
    * @return the highlight
    */

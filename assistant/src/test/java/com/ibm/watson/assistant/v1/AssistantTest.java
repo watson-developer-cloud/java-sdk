@@ -12,1184 +12,3825 @@
  */
 package com.ibm.watson.assistant.v1;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.*;
 
+import com.ibm.cloud.sdk.core.http.Response;
+import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
+import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.watson.assistant.v1.model.BulkClassifyOptions;
+import com.ibm.watson.assistant.v1.model.BulkClassifyResponse;
+import com.ibm.watson.assistant.v1.model.BulkClassifyUtterance;
+import com.ibm.watson.assistant.v1.model.CaptureGroup;
 import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.assistant.v1.model.Counterexample;
+import com.ibm.watson.assistant.v1.model.CounterexampleCollection;
+import com.ibm.watson.assistant.v1.model.CreateCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.CreateEntity;
 import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
 import com.ibm.watson.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateIntent;
 import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
+import com.ibm.watson.assistant.v1.model.CreateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.CreateValue;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
 import com.ibm.watson.assistant.v1.model.CreateWorkspaceOptions;
+import com.ibm.watson.assistant.v1.model.DeleteCounterexampleOptions;
+import com.ibm.watson.assistant.v1.model.DeleteDialogNodeOptions;
+import com.ibm.watson.assistant.v1.model.DeleteEntityOptions;
+import com.ibm.watson.assistant.v1.model.DeleteExampleOptions;
+import com.ibm.watson.assistant.v1.model.DeleteIntentOptions;
+import com.ibm.watson.assistant.v1.model.DeleteSynonymOptions;
 import com.ibm.watson.assistant.v1.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v1.model.DeleteValueOptions;
+import com.ibm.watson.assistant.v1.model.DeleteWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.DialogNode;
 import com.ibm.watson.assistant.v1.model.DialogNodeAction;
+import com.ibm.watson.assistant.v1.model.DialogNodeCollection;
+import com.ibm.watson.assistant.v1.model.DialogNodeContext;
+import com.ibm.watson.assistant.v1.model.DialogNodeNextStep;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutput;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputGeneric;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputModifiers;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputOptionsElement;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputOptionsElementValue;
+import com.ibm.watson.assistant.v1.model.DialogNodeVisitedDetails;
+import com.ibm.watson.assistant.v1.model.Entity;
+import com.ibm.watson.assistant.v1.model.EntityCollection;
+import com.ibm.watson.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.assistant.v1.model.Example;
+import com.ibm.watson.assistant.v1.model.ExampleCollection;
+import com.ibm.watson.assistant.v1.model.GetCounterexampleOptions;
+import com.ibm.watson.assistant.v1.model.GetDialogNodeOptions;
+import com.ibm.watson.assistant.v1.model.GetEntityOptions;
+import com.ibm.watson.assistant.v1.model.GetExampleOptions;
+import com.ibm.watson.assistant.v1.model.GetIntentOptions;
+import com.ibm.watson.assistant.v1.model.GetSynonymOptions;
+import com.ibm.watson.assistant.v1.model.GetValueOptions;
 import com.ibm.watson.assistant.v1.model.GetWorkspaceOptions;
+import com.ibm.watson.assistant.v1.model.Intent;
+import com.ibm.watson.assistant.v1.model.IntentCollection;
 import com.ibm.watson.assistant.v1.model.ListAllLogsOptions;
+import com.ibm.watson.assistant.v1.model.ListCounterexamplesOptions;
+import com.ibm.watson.assistant.v1.model.ListDialogNodesOptions;
+import com.ibm.watson.assistant.v1.model.ListEntitiesOptions;
+import com.ibm.watson.assistant.v1.model.ListExamplesOptions;
+import com.ibm.watson.assistant.v1.model.ListIntentsOptions;
+import com.ibm.watson.assistant.v1.model.ListLogsOptions;
 import com.ibm.watson.assistant.v1.model.ListMentionsOptions;
+import com.ibm.watson.assistant.v1.model.ListSynonymsOptions;
+import com.ibm.watson.assistant.v1.model.ListValuesOptions;
+import com.ibm.watson.assistant.v1.model.ListWorkspacesOptions;
+import com.ibm.watson.assistant.v1.model.LogCollection;
+import com.ibm.watson.assistant.v1.model.LogMessage;
 import com.ibm.watson.assistant.v1.model.Mention;
 import com.ibm.watson.assistant.v1.model.MessageContextMetadata;
 import com.ibm.watson.assistant.v1.model.MessageInput;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
-import com.ibm.watson.assistant.v1.model.MessageRequest;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.OutputData;
 import com.ibm.watson.assistant.v1.model.RuntimeEntity;
+import com.ibm.watson.assistant.v1.model.RuntimeEntityAlternative;
+import com.ibm.watson.assistant.v1.model.RuntimeEntityInterpretation;
+import com.ibm.watson.assistant.v1.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
+import com.ibm.watson.assistant.v1.model.RuntimeResponseGeneric;
+import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeOption;
+import com.ibm.watson.assistant.v1.model.Synonym;
+import com.ibm.watson.assistant.v1.model.SynonymCollection;
+import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
+import com.ibm.watson.assistant.v1.model.UpdateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.assistant.v1.model.Value;
+import com.ibm.watson.assistant.v1.model.ValueCollection;
 import com.ibm.watson.assistant.v1.model.Webhook;
 import com.ibm.watson.assistant.v1.model.WebhookHeader;
+import com.ibm.watson.assistant.v1.model.Workspace;
+import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsOffTopic;
+import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsSystemEntities;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
-import com.ibm.watson.common.WatsonServiceUnitTest;
-import java.io.FileNotFoundException;
+import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-/** Unit tests for the {@link Assistant}. */
-public class AssistantTest extends WatsonServiceUnitTest {
-  private static final String VERSION_DATE = "2019-02-28";
-  private static final String INTENT = "turn_on";
-  private static final Double CONFIDENCE = 0.0;
-  private static final String ENTITY = "genre";
-  private static final String VALUE = "jazz";
-  private static final String NONE_OF_THE_ABOVE_PROMPT = "none of the above";
-  private static final String PROMPT = "prompt";
-  private static final List<Long> LOCATION = Arrays.asList(1L, 2L);
-  private static final String TEXT = "text";
-  private static final String NAME = "name";
-  private static final String CREDENTIALS = "credentials";
-  private static final String RESULT_VARIABLE = "result_variable";
-  private static final String WEBHOOK_HEADER_NAME = "Webhook-Header";
-  private static final String WEBHOOK_HEADER_VALUE = "webhook_value";
-  private static final String WEBHOOK_NAME = "webhook_name";
-  private static final String WEBHOOK_URL = "webhook_url";
-  private static final Long MAX_SUGGESTIONS = 100L;
-  private static final String SUGGESTION_TEXT_POLICY = "suggestion_text_policy";
+/** Unit test class for the Assistant service. */
+public class AssistantTest {
 
-  private Assistant service;
-  private static final String FIXTURE = "src/test/resources/assistant/assistant.json";
-  private static final String WORKSPACE_ID = "123";
-  private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
-  private static final String VERSION = "version";
+  final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
+  final List<FileWithMetadata> mockListFileWithMetadata =
+      TestUtilities.creatMockListFileWithMetadata();
 
-  /**
-   * Sets up the tests.
-   *
-   * @throws Exception the exception
-   */
-  /*
-   * (non-Javadoc)
-   * @see com.ibm.watson.common.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    service = new Assistant(VERSION_DATE, new NoAuthAuthenticator());
-    service.setServiceUrl(getMockWebServerUrl());
+  protected MockWebServer server;
+  protected Assistant assistantService;
+
+  public void constructClientService() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    final Authenticator authenticator = new NoAuthAuthenticator();
+
+    assistantService = new Assistant(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    assistantService.setServiceUrl(url);
   }
 
-  /** Negative - Test constructor with null version date. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testConstructorWithNullVersionDate() {
-    new Assistant(null, new NoAuthAuthenticator());
+  /** Negative Test - construct the service with a null authenticator. */
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testConstructorWithNullAuthenticator() throws Throwable {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    new Assistant(version, serviceName, null);
   }
 
-  /** Negative - Test constructor with empty version date. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testConstructorWithEmptyVersionDate() {
-    new Assistant("", new NoAuthAuthenticator());
-  }
-
-  /** Negative - Test assistant with null options. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testAssistantWithNullOptions() {
-    service.message(null).execute().getResult();
-  }
-
-  /** Negative - Test assistant with null workspaceId. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testAssistantWithNullWorkspaceId() {
-    MessageOptions options = new MessageOptions.Builder().build();
-    service.message(options).execute().getResult();
-  }
-
-  /** Negative - Test assistant with empty workspaceId. */
-  @Test(expected = IllegalArgumentException.class)
-  public void testAssistantWithEmptyWorkspaceId() {
-    MessageOptions options = new MessageOptions.Builder("").build();
-    service.message(options).execute().getResult();
-  }
-
-  /**
-   * Test send message.
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
   @Test
-  public void testSendMessage() throws IOException, InterruptedException {
-    String text = "I would love to hear some jazz music.";
+  public void testGetVersion() throws Throwable {
+    constructClientService();
+    assertEquals(assistantService.getVersion(), "testString");
+  }
 
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
+  @Test
+  public void testMessageWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\"}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}]}";
+    String messagePath = "/v1/workspaces/testString/message";
 
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    RuntimeIntent intent =
-        new RuntimeIntent.Builder().intent(INTENT).confidence(CONFIDENCE).build();
-    RuntimeEntity entity =
-        new RuntimeEntity.Builder().entity(ENTITY).value(VALUE).location(LOCATION).build();
-    MessageOptions options =
-        new MessageOptions.Builder(WORKSPACE_ID)
-            .input(input)
-            .addIntent(intent)
-            .addEntity(entity)
-            .alternateIntents(true)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the MessageInput model
+    MessageInput messageInputModel =
+        new MessageInput.Builder()
+            .text("testString")
+            .spellingSuggestions(true)
+            .spellingAutoCorrect(true)
+            .add("foo", "testString")
             .build();
 
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
+    // Construct an instance of the RuntimeIntent model
+    RuntimeIntent runtimeIntentModel =
+        new RuntimeIntent.Builder().intent("testString").confidence(Double.valueOf("72.5")).build();
 
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
-    assertEquals(path, request.getPath());
-    assertArrayEquals(
-        new String[] {"Great choice! Playing some jazz for you."},
-        serviceResponse.getOutput().getText().toArray(new String[0]));
-    assertEquals(request.getMethod(), "POST");
-    assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).name());
-    assertNotNull(serviceResponse.getActions().get(0).credentials());
-    assertNotNull(serviceResponse.getActions().get(0).type());
-    assertNotNull(serviceResponse.getActions().get(0).parameters());
-    assertNotNull(serviceResponse.getActions().get(0).resultVariable());
-    assertNotNull(serviceResponse.getOutput().getLogMessages());
-    assertNotNull(serviceResponse.getOutput().getNodesVisited());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).dialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).title());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
-  }
-
-  /**
-   * Test send message. use some different MessageOptions options like context and other public
-   * methods
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testSendMessageWithAlternateIntents() throws IOException, InterruptedException {
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
-
-    MessageContextMetadata metadata = new MessageContextMetadata.Builder().build();
-    Context contextTemp = new Context();
-    contextTemp.put("name", "Myname");
-    contextTemp.setMetadata(metadata);
-    MessageInput inputTemp = new MessageInput();
-    inputTemp.setText("My text");
-
-    assertEquals("Myname", contextTemp.get("name"));
-    assertEquals(metadata, contextTemp.getMetadata());
-
-    MessageOptions options =
-        new MessageOptions.Builder(WORKSPACE_ID)
-            .input(inputTemp)
-            .alternateIntents(false)
-            .context(contextTemp)
-            .entities(null)
-            .intents(null)
+    // Construct an instance of the CaptureGroup model
+    CaptureGroup captureGroupModel =
+        new CaptureGroup.Builder()
+            .group("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .build();
 
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
-
-    // first request
-    RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
-    assertEquals(path, request.getPath());
-    assertArrayEquals(
-        new String[] {"Great choice! Playing some jazz for you."},
-        serviceResponse.getOutput().getText().toArray(new String[0]));
-    assertEquals(request.getMethod(), "POST");
-  }
-
-  /**
-   * Test send message with message request.
-   *
-   * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testSendMessageWithMessageRequest()
-      throws FileNotFoundException, InterruptedException {
-    String text = "I would love to hear some jazz music.";
-
-    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
-    server.enqueue(jsonResponse(mockResponse));
-
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    RuntimeIntent intent =
-        new RuntimeIntent.Builder().intent(INTENT).confidence(CONFIDENCE).build();
-    RuntimeEntity entity =
-        new RuntimeEntity.Builder().entity(ENTITY).value(VALUE).location(LOCATION).build();
-    Context context = new Context();
-    OutputData outputData = new OutputData();
-
-    MessageRequest messageRequest =
-        new MessageRequest.Builder()
-            .input(input)
-            .intents(Collections.singletonList(intent))
-            .entities(Collections.singletonList(entity))
-            .alternateIntents(true)
-            .context(context)
-            .output(outputData)
+    // Construct an instance of the RuntimeEntityInterpretation model
+    RuntimeEntityInterpretation runtimeEntityInterpretationModel =
+        new RuntimeEntityInterpretation.Builder()
+            .calendarType("testString")
+            .datetimeLink("testString")
+            .festival("testString")
+            .granularity("day")
+            .rangeLink("testString")
+            .rangeModifier("testString")
+            .relativeDay(Double.valueOf("72.5"))
+            .relativeMonth(Double.valueOf("72.5"))
+            .relativeWeek(Double.valueOf("72.5"))
+            .relativeWeekend(Double.valueOf("72.5"))
+            .relativeYear(Double.valueOf("72.5"))
+            .specificDay(Double.valueOf("72.5"))
+            .specificDayOfWeek("testString")
+            .specificMonth(Double.valueOf("72.5"))
+            .specificQuarter(Double.valueOf("72.5"))
+            .specificYear(Double.valueOf("72.5"))
+            .numericValue(Double.valueOf("72.5"))
+            .subtype("testString")
+            .partOfDay("testString")
+            .relativeHour(Double.valueOf("72.5"))
+            .relativeMinute(Double.valueOf("72.5"))
+            .relativeSecond(Double.valueOf("72.5"))
+            .specificHour(Double.valueOf("72.5"))
+            .specificMinute(Double.valueOf("72.5"))
+            .specificSecond(Double.valueOf("72.5"))
+            .timezone("testString")
             .build();
 
-    assertEquals(input, messageRequest.input());
-    assertEquals(intent, messageRequest.intents().get(0));
-    assertEquals(entity, messageRequest.entities().get(0));
-    assertEquals(context, messageRequest.context());
-    assertEquals(outputData, messageRequest.output());
+    // Construct an instance of the RuntimeEntityAlternative model
+    RuntimeEntityAlternative runtimeEntityAlternativeModel =
+        new RuntimeEntityAlternative.Builder()
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .build();
 
-    MessageOptions options =
+    // Construct an instance of the RuntimeEntityRole model
+    RuntimeEntityRole runtimeEntityRoleModel =
+        new RuntimeEntityRole.Builder().type("date_from").build();
+
+    // Construct an instance of the RuntimeEntity model
+    RuntimeEntity runtimeEntityModel =
+        new RuntimeEntity.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .groups(
+                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .interpretation(runtimeEntityInterpretationModel)
+            .alternatives(
+                new java.util.ArrayList<RuntimeEntityAlternative>(
+                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .role(runtimeEntityRoleModel)
+            .build();
+
+    // Construct an instance of the MessageContextMetadata model
+    MessageContextMetadata messageContextMetadataModel =
+        new MessageContextMetadata.Builder().deployment("testString").userId("testString").build();
+
+    // Construct an instance of the Context model
+    Context contextModel =
+        new Context.Builder()
+            .conversationId("testString")
+            .system(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .metadata(messageContextMetadataModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeVisitedDetails model
+    DialogNodeVisitedDetails dialogNodeVisitedDetailsModel =
+        new DialogNodeVisitedDetails.Builder()
+            .dialogNode("testString")
+            .title("testString")
+            .conditions("testString")
+            .build();
+
+    // Construct an instance of the LogMessage model
+    LogMessage logMessageModel = new LogMessage.Builder().level("info").msg("testString").build();
+
+    // Construct an instance of the DialogNodeOutputOptionsElementValue model
+    DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
+        new DialogNodeOutputOptionsElementValue.Builder()
+            .input(messageInputModel)
+            .intents(
+                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
+            .entities(
+                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .build();
+
+    // Construct an instance of the DialogNodeOutputOptionsElement model
+    DialogNodeOutputOptionsElement dialogNodeOutputOptionsElementModel =
+        new DialogNodeOutputOptionsElement.Builder()
+            .label("testString")
+            .value(dialogNodeOutputOptionsElementValueModel)
+            .build();
+
+    // Construct an instance of the RuntimeResponseGenericRuntimeResponseTypeOption model
+    RuntimeResponseGenericRuntimeResponseTypeOption runtimeResponseGenericModel =
+        new RuntimeResponseGenericRuntimeResponseTypeOption.Builder()
+            .responseType("option")
+            .title("testString")
+            .description("testString")
+            .preference("dropdown")
+            .options(
+                new java.util.ArrayList<DialogNodeOutputOptionsElement>(
+                    java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)))
+            .build();
+
+    // Construct an instance of the OutputData model
+    OutputData outputDataModel =
+        new OutputData.Builder()
+            .nodesVisited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .nodesVisitedDetails(
+                new java.util.ArrayList<DialogNodeVisitedDetails>(
+                    java.util.Arrays.asList(dialogNodeVisitedDetailsModel)))
+            .logMessages(
+                new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)))
+            .text(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .generic(
+                new java.util.ArrayList<RuntimeResponseGeneric>(
+                    java.util.Arrays.asList(runtimeResponseGenericModel)))
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the MessageOptions model
+    MessageOptions messageOptionsModel =
         new MessageOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .messageRequest(messageRequest)
+            .workspaceId("testString")
+            .input(messageInputModel)
+            .intents(
+                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
+            .entities(
+                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .alternateIntents(true)
+            .context(contextModel)
+            .output(outputDataModel)
+            .nodesVisitedDetails(true)
             .build();
 
-    // execute first request
-    MessageResponse serviceResponse = service.message(options).execute().getResult();
+    // Invoke operation with valid options model (positive test)
+    Response<MessageResponse> response = assistantService.message(messageOptionsModel).execute();
+    assertNotNull(response);
+    MessageResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    // first request
+    // Verify the contents of the request
     RecordedRequest request = server.takeRequest();
-
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", VERSION_DATE);
-    assertEquals(path, request.getPath());
-    assertArrayEquals(
-        new String[] {"Great choice! Playing some jazz for you."},
-        serviceResponse.getOutput().getText().toArray(new String[0]));
+    assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-    assertNotNull(serviceResponse.getActions());
-    assertNotNull(serviceResponse.getActions().get(0).name());
-    assertNotNull(serviceResponse.getActions().get(0).credentials());
-    assertNotNull(serviceResponse.getActions().get(0).type());
-    assertNotNull(serviceResponse.getActions().get(0).parameters());
-    assertNotNull(serviceResponse.getActions().get(0).resultVariable());
-    assertNotNull(serviceResponse.getOutput().getLogMessages());
-    assertNotNull(serviceResponse.getOutput().getNodesVisited());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).dialogNode());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).title());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
-    assertNotNull(serviceResponse.getOutput().getNodesVisitedDetails().get(0).conditions());
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("nodes_visited_details")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, messagePath);
   }
 
-  /**
-   * Negative - Test message with null workspace id.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
-    String text = "I'd like to get insurance to for my home";
+  // Test the message operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testMessageNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    MessageInput input = new MessageInput();
-    input.setText(text);
-    MessageOptions options =
-        new MessageOptions.Builder().input(input).alternateIntents(true).build();
+    server.enqueue(new MockResponse());
 
-    service.message(options).execute().getResult();
+    // Invoke operation with null options model (negative test)
+    assistantService.message(null).execute();
   }
 
-  /** Test CreateWorkspace builder. */
   @Test
-  public void testCreateWorkspaceBuilder() {
+  public void testBulkClassifyWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
+    String bulkClassifyPath = "/v1/workspaces/testString/bulk_classify";
 
-    String workspaceName = "Builder Test";
-    String workspaceDescription = "Description of " + workspaceName;
-    String workspaceLanguage = "en";
-    String userLabel = "user_label";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
 
-    // intents
-    CreateIntent testIntent0 = new CreateIntent.Builder("testIntent0").build();
-    CreateIntent testIntent1 = new CreateIntent.Builder("testIntent1").build();
+    constructClientService();
 
-    // entities
-    CreateEntity testEntity0 = new CreateEntity.Builder("testEntity0").build();
-    CreateEntity testEntity1 = new CreateEntity.Builder("testEntity1").build();
+    // Construct an instance of the BulkClassifyUtterance model
+    BulkClassifyUtterance bulkClassifyUtteranceModel =
+        new BulkClassifyUtterance.Builder().text("testString").build();
 
-    // counterexamples
-    Counterexample testCounterexample0 = new Counterexample.Builder("testCounterexample0").build();
-    Counterexample testCounterexample1 = new Counterexample.Builder("testCounterexample1").build();
-
-    // dialognodes
-    DialogNode testDialogNode0 = new DialogNode.Builder("dialogNode0").userLabel(userLabel).build();
-    DialogNode testDialogNode1 = new DialogNode.Builder("dialogNode1").build();
-
-    // metadata
-    Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
-    String metadataValue = "value for " + workspaceName;
-    workspaceMetadata.put("key", metadataValue);
-
-    // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation =
-        new WorkspaceSystemSettingsDisambiguation.Builder()
-            .enabled(true)
-            .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
-            .prompt(PROMPT)
-            .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
-            .randomize(true)
-            .maxSuggestions(MAX_SUGGESTIONS)
-            .suggestionTextPolicy(SUGGESTION_TEXT_POLICY)
-            .build();
-    WorkspaceSystemSettingsTooling tooling =
-        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
-    Map<String, Object> humanAgentAssist = new HashMap<>();
-    humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettingsOffTopic offTopic =
-        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
-    WorkspaceSystemSettings systemSettings =
-        new WorkspaceSystemSettings.Builder()
-            .disambiguation(disambiguation)
-            .tooling(tooling)
-            .humanAgentAssist(humanAgentAssist)
-            .offTopic(offTopic)
+    // Construct an instance of the BulkClassifyOptions model
+    BulkClassifyOptions bulkClassifyOptionsModel =
+        new BulkClassifyOptions.Builder()
+            .workspaceId("testString")
+            .input(
+                new java.util.ArrayList<BulkClassifyUtterance>(
+                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
             .build();
 
-    WebhookHeader webhookHeader =
-        new WebhookHeader.Builder().name(WEBHOOK_HEADER_NAME).value(WEBHOOK_HEADER_VALUE).build();
-    List<WebhookHeader> webhookHeaderList = new ArrayList<>();
-    webhookHeaderList.add(webhookHeader);
-    Webhook webhook =
-        new Webhook.Builder()
-            .name(WEBHOOK_NAME)
-            .url(WEBHOOK_URL)
-            .headers(webhookHeaderList)
-            .addHeaders(webhookHeader)
-            .build();
-    List<Webhook> webhookList = new ArrayList<>();
-    webhookList.add(webhook);
+    // Invoke operation with valid options model (positive test)
+    Response<BulkClassifyResponse> response =
+        assistantService.bulkClassify(bulkClassifyOptionsModel).execute();
+    assertNotNull(response);
+    BulkClassifyResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    CreateWorkspaceOptions createOptions =
-        new CreateWorkspaceOptions.Builder()
-            .name(workspaceName)
-            .description(workspaceDescription)
-            .language(workspaceLanguage)
-            .addIntent(testIntent0)
-            .addIntent(testIntent1)
-            .addEntity(testEntity0)
-            .addEntity(testEntity1)
-            .addCounterexample(testCounterexample0)
-            .addCounterexample(testCounterexample1)
-            .addDialogNode(testDialogNode0)
-            .addDialogNode(testDialogNode1)
-            .metadata(workspaceMetadata)
-            .systemSettings(systemSettings)
-            .webhooks(webhookList)
-            .addWebhooks(webhook)
-            .build();
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
 
-    assertEquals(createOptions.name(), workspaceName);
-    assertEquals(createOptions.description(), workspaceDescription);
-    assertEquals(createOptions.language(), workspaceLanguage);
-    assertNotNull(createOptions.intents());
-    assertEquals(createOptions.intents().size(), 2);
-    assertEquals(createOptions.intents().get(0), testIntent0);
-    assertEquals(createOptions.intents().get(1), testIntent1);
-    assertNotNull(createOptions.entities());
-    assertEquals(createOptions.entities().size(), 2);
-    assertEquals(createOptions.entities().get(0), testEntity0);
-    assertEquals(createOptions.entities().get(1), testEntity1);
-    assertNotNull(createOptions.counterexamples());
-    assertEquals(createOptions.counterexamples().size(), 2);
-    assertEquals(createOptions.counterexamples().get(0), testCounterexample0);
-    assertEquals(createOptions.counterexamples().get(1), testCounterexample1);
-    assertNotNull(createOptions.dialogNodes());
-    assertEquals(createOptions.dialogNodes().size(), 2);
-    assertEquals(createOptions.dialogNodes().get(0), testDialogNode0);
-    assertEquals(createOptions.dialogNodes().get(0).userLabel(), userLabel);
-    assertEquals(createOptions.dialogNodes().get(1), testDialogNode1);
-    assertNotNull(createOptions.systemSettings());
-    assertEquals(
-        createOptions.systemSettings().disambiguation().noneOfTheAbovePrompt(),
-        disambiguation.noneOfTheAbovePrompt());
-    assertEquals(createOptions.systemSettings().disambiguation().prompt(), disambiguation.prompt());
-    assertEquals(
-        createOptions.systemSettings().disambiguation().sensitivity(),
-        disambiguation.sensitivity());
-    assertEquals(
-        createOptions.systemSettings().disambiguation().enabled(), disambiguation.enabled());
-    assertTrue(createOptions.systemSettings().disambiguation().randomize());
-    assertEquals(MAX_SUGGESTIONS, createOptions.systemSettings().disambiguation().maxSuggestions());
-    assertEquals(
-        SUGGESTION_TEXT_POLICY,
-        createOptions.systemSettings().disambiguation().suggestionTextPolicy());
-    assertEquals(
-        createOptions.systemSettings().tooling().storeGenericResponses(),
-        tooling.storeGenericResponses());
-    assertEquals(createOptions.systemSettings().humanAgentAssist(), humanAgentAssist);
-    assertTrue(createOptions.systemSettings().offTopic().enabled());
-
-    assertEquals(2, createOptions.webhooks().size());
-    assertEquals(webhook, createOptions.webhooks().get(0));
-    assertEquals(WEBHOOK_NAME, createOptions.webhooks().get(0).name());
-    assertEquals(WEBHOOK_URL, createOptions.webhooks().get(0).url());
-    assertEquals(2, createOptions.webhooks().get(0).headers().size());
-    assertEquals(webhookHeader, createOptions.webhooks().get(0).headers().get(0));
-    assertEquals(WEBHOOK_HEADER_NAME, createOptions.webhooks().get(0).headers().get(0).name());
-    assertEquals(WEBHOOK_HEADER_VALUE, createOptions.webhooks().get(0).headers().get(0).value());
-
-    CreateWorkspaceOptions.Builder builder = createOptions.newBuilder();
-
-    CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
-    CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
-    Counterexample testCounterexample2 = new Counterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode.Builder("dialogNode2").build();
-
-    builder.intents(Collections.singletonList(testIntent2));
-    builder.entities(Collections.singletonList(testEntity2));
-    builder.counterexamples(Collections.singletonList(testCounterexample2));
-    builder.dialogNodes(Collections.singletonList(testDialogNode2));
-
-    CreateWorkspaceOptions options2 = builder.build();
-
-    assertNotNull(options2.intents());
-    assertEquals(options2.intents().size(), 1);
-    assertEquals(options2.intents().get(0), testIntent2);
-    assertNotNull(options2.entities());
-    assertEquals(options2.entities().size(), 1);
-    assertEquals(options2.entities().get(0), testEntity2);
-    assertNotNull(options2.counterexamples());
-    assertEquals(options2.counterexamples().size(), 1);
-    assertEquals(options2.counterexamples().get(0), testCounterexample2);
-    assertNotNull(options2.dialogNodes());
-    assertEquals(options2.dialogNodes().size(), 1);
-    assertEquals(options2.dialogNodes().get(0), testDialogNode2);
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, bulkClassifyPath);
   }
 
-  /** Test UpdateWorkspaceOptions builder. */
-  @Test
-  public void testUpdateWorkspaceOptionsBuilder() {
+  // Test the bulkClassify operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testBulkClassifyNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    String workspaceName = "Builder Test";
-    String workspaceDescription = "Description of " + workspaceName;
-    String workspaceLanguage = "en";
+    server.enqueue(new MockResponse());
 
-    // intents
-    CreateIntent testIntent = new CreateIntent.Builder("testIntent").build();
-
-    // entities
-    CreateEntity testEntity = new CreateEntity.Builder("testEntity").build();
-
-    // counterexamples
-    Counterexample testCounterexample = new Counterexample.Builder("testCounterexample").build();
-
-    // dialognodes
-    DialogNode testDialogNode = new DialogNode.Builder("dialogNode").build();
-
-    // metadata
-    Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
-    String metadataValue = "value for " + workspaceName;
-    workspaceMetadata.put("key", metadataValue);
-
-    // systemSettings
-    WorkspaceSystemSettingsDisambiguation disambiguation =
-        new WorkspaceSystemSettingsDisambiguation.Builder()
-            .enabled(true)
-            .noneOfTheAbovePrompt(NONE_OF_THE_ABOVE_PROMPT)
-            .prompt(PROMPT)
-            .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
-            .randomize(true)
-            .maxSuggestions(MAX_SUGGESTIONS)
-            .build();
-    WorkspaceSystemSettingsTooling tooling =
-        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
-    Map<String, Object> humanAgentAssist = new HashMap<>();
-    humanAgentAssist.put("help", "ok");
-    WorkspaceSystemSettings systemSettings =
-        new WorkspaceSystemSettings.Builder()
-            .disambiguation(disambiguation)
-            .tooling(tooling)
-            .humanAgentAssist(humanAgentAssist)
-            .build();
-
-    WebhookHeader webhookHeader =
-        new WebhookHeader.Builder().name(WEBHOOK_HEADER_NAME).value(WEBHOOK_HEADER_VALUE).build();
-    List<WebhookHeader> webhookHeaderList = new ArrayList<>();
-    webhookHeaderList.add(webhookHeader);
-    Webhook webhook =
-        new Webhook.Builder()
-            .name(WEBHOOK_NAME)
-            .url(WEBHOOK_URL)
-            .headers(webhookHeaderList)
-            .addHeaders(webhookHeader)
-            .build();
-    List<Webhook> webhookList = new ArrayList<>();
-    webhookList.add(webhook);
-
-    UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
-    builder.name(workspaceName);
-    builder.description(workspaceDescription);
-    builder.language(workspaceLanguage);
-    builder.addIntent(testIntent);
-    builder.addEntity(testEntity);
-    builder.addCounterexample(testCounterexample);
-    builder.addDialogNode(testDialogNode);
-    builder.metadata(workspaceMetadata);
-    builder.systemSettings(systemSettings);
-    builder.webhooks(webhookList);
-    builder.addWebhooks(webhook);
-
-    UpdateWorkspaceOptions options = builder.build();
-
-    assertEquals(options.name(), workspaceName);
-    assertEquals(options.description(), workspaceDescription);
-    assertEquals(options.language(), workspaceLanguage);
-    assertNotNull(options.intents());
-    assertEquals(options.intents().size(), 1);
-    assertEquals(options.intents().get(0), testIntent);
-    assertNotNull(options.entities());
-    assertEquals(options.entities().size(), 1);
-    assertEquals(options.entities().get(0), testEntity);
-    assertNotNull(options.counterexamples());
-    assertEquals(options.counterexamples().size(), 1);
-    assertEquals(options.counterexamples().get(0), testCounterexample);
-    assertNotNull(options.dialogNodes());
-    assertEquals(options.dialogNodes().size(), 1);
-    assertEquals(options.dialogNodes().get(0), testDialogNode);
-    assertNotNull(options.metadata());
-    assertEquals(options.metadata(), workspaceMetadata);
-    assertNotNull(options.systemSettings());
-    assertEquals(
-        options.systemSettings().disambiguation().noneOfTheAbovePrompt(),
-        disambiguation.noneOfTheAbovePrompt());
-    assertEquals(
-        options.systemSettings().disambiguation().sensitivity(), disambiguation.sensitivity());
-    assertEquals(options.systemSettings().disambiguation().prompt(), disambiguation.prompt());
-    assertEquals(options.systemSettings().disambiguation().enabled(), disambiguation.enabled());
-    assertTrue(options.systemSettings().disambiguation().randomize());
-    assertEquals(MAX_SUGGESTIONS, options.systemSettings().disambiguation().maxSuggestions());
-    assertEquals(
-        options.systemSettings().tooling().storeGenericResponses(),
-        tooling.storeGenericResponses());
-    assertEquals(options.systemSettings().humanAgentAssist(), humanAgentAssist);
-    assertEquals(2, options.webhooks().size());
-    assertEquals(webhook, options.webhooks().get(0));
-    assertEquals(WEBHOOK_NAME, options.webhooks().get(0).name());
-    assertEquals(WEBHOOK_URL, options.webhooks().get(0).url());
-    assertEquals(2, options.webhooks().get(0).headers().size());
-    assertEquals(webhookHeader, options.webhooks().get(0).headers().get(0));
-    assertEquals(WEBHOOK_HEADER_NAME, options.webhooks().get(0).headers().get(0).name());
-    assertEquals(WEBHOOK_HEADER_VALUE, options.webhooks().get(0).headers().get(0).value());
-
-    UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
-
-    CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
-    CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
-    Counterexample testCounterexample2 = new Counterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode.Builder("dialogNode2").build();
-
-    builder2.intents(new ArrayList<CreateIntent>());
-    builder2.addIntent(testIntent2);
-    builder2.entities(new ArrayList<CreateEntity>());
-    builder2.addEntity(testEntity2);
-    builder2.counterexamples(new ArrayList<Counterexample>());
-    builder2.addCounterexample(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<DialogNode>());
-    builder2.addDialogNode(testDialogNode2);
-
-    UpdateWorkspaceOptions options2 = builder2.build();
-
-    assertNotNull(options2.intents());
-    assertEquals(options2.intents().size(), 1);
-    assertEquals(options2.intents().get(0), testIntent2);
-    assertNotNull(options2.entities());
-    assertEquals(options2.entities().size(), 1);
-    assertEquals(options2.entities().get(0), testEntity2);
-    assertNotNull(options2.counterexamples());
-    assertEquals(options2.counterexamples().size(), 1);
-    assertEquals(options2.counterexamples().get(0), testCounterexample2);
-    assertNotNull(options2.dialogNodes());
-    assertEquals(options2.dialogNodes().size(), 1);
-    assertEquals(options2.dialogNodes().get(0), testDialogNode2);
+    // Invoke operation with null options model (negative test)
+    assistantService.bulkClassify(null).execute();
   }
 
-  /** Test get workspace options builder. */
   @Test
-  public void testGetWorkspaceOptionsBuilder() {
-    String workspaceId = "workspace_id";
-    String sort = GetWorkspaceOptions.Sort.STABLE;
+  public void testListWorkspacesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listWorkspacesPath = "/v1/workspaces";
 
-    GetWorkspaceOptions getWorkspaceOptions =
-        new GetWorkspaceOptions.Builder()
-            .workspaceId(workspaceId)
-            .export(true)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListWorkspacesOptions model
+    ListWorkspacesOptions listWorkspacesOptionsModel =
+        new ListWorkspacesOptions.Builder()
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("name")
+            .cursor("testString")
             .includeAudit(true)
-            .sort(sort)
-            .build();
-    getWorkspaceOptions = getWorkspaceOptions.newBuilder().build();
-
-    assertEquals(workspaceId, getWorkspaceOptions.workspaceId());
-    assertTrue(getWorkspaceOptions.export());
-    assertTrue(getWorkspaceOptions.includeAudit());
-    assertEquals(sort, getWorkspaceOptions.sort());
-  }
-
-  /** Test create example options builder. */
-  @Test
-  public void testCreateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
-    List<Mention> mentionsList = new ArrayList<>();
-    mentionsList.add(mentions1);
-    Mention mentions2 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
-
-    CreateExampleOptions createExampleOptions =
-        new CreateExampleOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .mentions(mentionsList)
-            .addMentions(mentions2)
-            .text(TEXT)
-            .intent(INTENT)
             .build();
 
-    mentionsList.add(mentions2);
+    // Invoke operation with valid options model (positive test)
+    Response<WorkspaceCollection> response =
+        assistantService.listWorkspaces(listWorkspacesOptionsModel).execute();
+    assertNotNull(response);
+    WorkspaceCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
 
-    assertEquals(createExampleOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(createExampleOptions.mentions(), mentionsList);
-    assertEquals(createExampleOptions.text(), TEXT);
-    assertEquals(createExampleOptions.intent(), INTENT);
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "name");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listWorkspacesPath);
   }
 
-  /** Test update example options builder. */
   @Test
-  public void testUpdateExampleOptionsBuilder() {
-    Mention mentions1 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
-    List<Mention> mentionsList = new ArrayList<>();
-    mentionsList.add(mentions1);
-    Mention mentions2 = new Mention.Builder().entity(ENTITY).location(LOCATION).build();
+  public void testCreateWorkspaceWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}";
+    String createWorkspacePath = "/v1/workspaces";
 
-    UpdateExampleOptions updateExampleOptions =
-        new UpdateExampleOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .intent(INTENT)
-            .text(TEXT)
-            .newMentions(mentionsList)
-            .newText(TEXT)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
             .build();
 
-    mentionsList.add(mentions2);
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
 
-    assertEquals(updateExampleOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(updateExampleOptions.newMentions(), mentionsList);
-    assertEquals(updateExampleOptions.newText(), TEXT);
-    assertEquals(updateExampleOptions.intent(), INTENT);
-    assertEquals(updateExampleOptions.text(), TEXT);
-  }
-
-  /** Test CreateIntentOptions builder. */
-  @Test
-  public void testCreateIntentOptionsBuilder() {
-    String intent = "anIntent";
-    Example intentExample0 = new Example.Builder().text("intentExample0").build();
-    Example intentExample1 = new Example.Builder().text("intentExample1").build();
-
-    CreateIntentOptions createOptions =
-        new CreateIntentOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .intent(intent)
-            .addExample(intentExample0)
-            .addExample(intentExample1)
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
             .build();
 
-    assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(createOptions.intent(), intent);
-    assertEquals(createOptions.examples().size(), 2);
-    assertEquals(createOptions.examples().get(0), intentExample0);
-    assertEquals(createOptions.examples().get(1), intentExample1);
-
-    CreateIntentOptions.Builder builder = createOptions.newBuilder();
-
-    Example intentExample2 = new Example.Builder().text("intentExample2").build();
-    builder.examples(Collections.singletonList(intentExample2));
-
-    CreateIntentOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.intent(), intent);
-    assertEquals(options2.examples().size(), 1);
-    assertEquals(options2.examples().get(0), intentExample2);
-  }
-
-  /** Test UpdateIntentOptions builder. */
-  @Test
-  public void testUpdateIntentOptionsBuilder() {
-    String intent = "anIntent";
-    String newIntent = "renamedIntent";
-    Example intentExample0 = new Example.Builder().text("intentExample0").build();
-    Example intentExample1 = new Example.Builder().text("intentExample1").build();
-
-    UpdateIntentOptions updateOptions =
-        new UpdateIntentOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .intent(intent)
-            .newIntent(newIntent)
-            .addExample(intentExample0)
-            .addExample(intentExample1)
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
             .build();
 
-    assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(updateOptions.intent(), intent);
-    assertEquals(updateOptions.newIntent(), newIntent);
-    assertEquals(updateOptions.newExamples().size(), 2);
-    assertEquals(updateOptions.newExamples().get(0), intentExample0);
-    assertEquals(updateOptions.newExamples().get(1), intentExample1);
-
-    UpdateIntentOptions.Builder builder = updateOptions.newBuilder();
-
-    Example intentExample2 = new Example.Builder().text("intentExample2").build();
-    builder.newExamples(Collections.singletonList(intentExample2));
-
-    UpdateIntentOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.intent(), intent);
-    assertEquals(options2.newIntent(), newIntent);
-    assertEquals(options2.newExamples().size(), 1);
-    assertEquals(options2.newExamples().get(0), intentExample2);
-  }
-
-  /** Test CreateEntityOptions builder. */
-  @Test
-  public void testCreateEntityOptionsBuilder() {
-    String entity = "anEntity";
-    CreateValue entityValue0 =
-        new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
-    CreateValue entityValue1 =
-        new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
-
-    CreateEntityOptions createOptions =
-        new CreateEntityOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .addValues(entityValue0)
-            .addValues(entityValue1)
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
             .build();
 
-    assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(createOptions.entity(), entity);
-    assertEquals(createOptions.values().size(), 2);
-    assertEquals(createOptions.values().get(0), entityValue0);
-    assertEquals(createOptions.values().get(1), entityValue1);
-
-    CreateEntityOptions.Builder builder = createOptions.newBuilder();
-
-    CreateValue entityValue2 =
-        new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
-    builder.values(Collections.singletonList(entityValue2));
-
-    CreateEntityOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.entity(), entity);
-    assertEquals(options2.values().size(), 1);
-    assertEquals(options2.values().get(0), entityValue2);
-  }
-
-  /** Test UpdateEntityOptions builder. */
-  @Test
-  public void testUpdateEntityOptionsBuilder() {
-    String entity = "anEntity";
-    String newEntity = "renamedEntity";
-    CreateValue entityValue0 =
-        new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
-    CreateValue entityValue1 =
-        new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
-
-    UpdateEntityOptions updateOptions =
-        new UpdateEntityOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .newEntity(newEntity)
-            .addValue(entityValue0)
-            .addValue(entityValue1)
-            .build();
-
-    assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(updateOptions.entity(), entity);
-    assertEquals(updateOptions.newEntity(), newEntity);
-    assertEquals(updateOptions.newValues().size(), 2);
-    assertEquals(updateOptions.newValues().get(0), entityValue0);
-    assertEquals(updateOptions.newValues().get(1), entityValue1);
-
-    UpdateEntityOptions.Builder builder = updateOptions.newBuilder();
-
-    CreateValue entityValue2 =
-        new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
-    builder.newValues(Collections.singletonList(entityValue2));
-
-    UpdateEntityOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.entity(), entity);
-    assertEquals(options2.newEntity(), newEntity);
-    assertEquals(options2.newValues().size(), 1);
-    assertEquals(options2.newValues().get(0), entityValue2);
-  }
-
-  /** Test CreateValueOptions builder. */
-  @Test
-  public void testCreateValueOptionsBuilder() {
-    String entity = "anEntity";
-    String value = "aValue";
-    String valueSynonym0 = "valueSynonym0";
-    String valueSynonym1 = "valueSynonym1";
-    String valuePattern0 = "valuePattern0";
-    String valuePattern1 = "valuePattern1";
-    String valueType = "patterns";
-
-    CreateValueOptions createOptions =
-        new CreateValueOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .value(value)
-            .addSynonym(valueSynonym0)
-            .addSynonym(valueSynonym1)
-            .addPattern(valuePattern0)
-            .addPattern(valuePattern1)
-            .type(valueType)
-            .build();
-
-    assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(createOptions.entity(), entity);
-    assertEquals(createOptions.value(), value);
-    assertEquals(createOptions.synonyms().size(), 2);
-    assertEquals(createOptions.synonyms().get(0), valueSynonym0);
-    assertEquals(createOptions.synonyms().get(1), valueSynonym1);
-    assertEquals(createOptions.patterns().size(), 2);
-    assertEquals(createOptions.patterns().get(0), valuePattern0);
-    assertEquals(createOptions.patterns().get(1), valuePattern1);
-    assertEquals(createOptions.type(), valueType);
-
-    CreateValueOptions.Builder builder = createOptions.newBuilder();
-
-    String valueSynonym2 = "valueSynonym2";
-    String valuePattern2 = "valuePattern2";
-    builder.synonyms(Collections.singletonList(valueSynonym2));
-    builder.patterns(Collections.singletonList(valuePattern2));
-
-    CreateValueOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.entity(), entity);
-    assertEquals(options2.value(), value);
-    assertEquals(options2.synonyms().size(), 1);
-    assertEquals(options2.synonyms().get(0), valueSynonym2);
-    assertEquals(options2.patterns().size(), 1);
-    assertEquals(options2.patterns().get(0), valuePattern2);
-  }
-
-  /** Test UpdateValueOptions builder. */
-  @Test
-  public void testUpdateValueOptionsBuilder() {
-    String entity = "anEntity";
-    String value = "aValue";
-    String newValue = "renamedValue";
-    String valueSynonym0 = "valueSynonym0";
-    String valueSynonym1 = "valueSynonym1";
-
-    UpdateValueOptions updateOptions =
-        new UpdateValueOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
-            .value(value)
-            .newValue(newValue)
-            .addSynonym(valueSynonym0)
-            .addSynonym(valueSynonym1)
-            .build();
-
-    assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(updateOptions.entity(), entity);
-    assertEquals(updateOptions.newValue(), newValue);
-    assertEquals(updateOptions.newSynonyms().size(), 2);
-    assertEquals(updateOptions.newSynonyms().get(0), valueSynonym0);
-    assertEquals(updateOptions.newSynonyms().get(1), valueSynonym1);
-
-    UpdateValueOptions.Builder builder = updateOptions.newBuilder();
-
-    String valueSynonym2 = "valueSynonym2";
-    builder.newSynonyms(Collections.singletonList(valueSynonym2));
-
-    UpdateValueOptions options2 = builder.build();
-
-    assertEquals(options2.workspaceId(), WORKSPACE_ID);
-    assertEquals(options2.entity(), entity);
-    assertEquals(options2.newValue(), newValue);
-    assertEquals(options2.newSynonyms().size(), 1);
-    assertEquals(options2.newSynonyms().get(0), valueSynonym2);
-  }
-
-  /** Test CreateDialogNodeOptions builder. */
-  @Test
-  public void testCreateDialogNodeOptionsBuilder() {
-    String dialogNodeName = "aDialogNode";
-    DialogNodeAction action0 =
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
         new DialogNodeAction.Builder()
-            .name(NAME)
-            .credentials(CREDENTIALS)
-            .resultVariable(RESULT_VARIABLE)
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
             .build();
-    DialogNodeAction action1 =
-        new DialogNodeAction.Builder()
-            .name(NAME)
-            .credentials(CREDENTIALS)
-            .resultVariable(RESULT_VARIABLE)
-            .build();
-    String userLabel = "user_label";
 
-    CreateDialogNodeOptions createOptions =
-        new CreateDialogNodeOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .dialogNode(dialogNodeName)
-            .addActions(action0)
-            .addActions(action1)
-            .digressIn(CreateDialogNodeOptions.DigressIn.RETURNS)
-            .digressOut(CreateDialogNodeOptions.DigressOut.ALLOW_ALL)
-            .digressOutSlots(CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL)
-            .userLabel(userLabel)
+    // Construct an instance of the DialogNode model
+    DialogNode dialogNodeModel =
+        new DialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
             .disambiguationOptOut(true)
             .build();
 
-    assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(createOptions.dialogNode(), dialogNodeName);
-    assertEquals(createOptions.actions().size(), 2);
-    assertEquals(createOptions.actions().get(0), action0);
-    assertEquals(createOptions.actions().get(0).credentials(), CREDENTIALS);
-    assertEquals(createOptions.actions().get(1), action1);
-    assertEquals(createOptions.actions().get(1).credentials(), CREDENTIALS);
-    assertEquals(createOptions.digressIn(), CreateDialogNodeOptions.DigressIn.RETURNS);
-    assertEquals(createOptions.digressOut(), CreateDialogNodeOptions.DigressOut.ALLOW_ALL);
-    assertEquals(
-        createOptions.digressOutSlots(), CreateDialogNodeOptions.DigressOutSlots.ALLOW_ALL);
-    assertEquals(createOptions.userLabel(), userLabel);
-    assertTrue(createOptions.disambiguationOptOut());
+    // Construct an instance of the Counterexample model
+    Counterexample counterexampleModel = new Counterexample.Builder().text("testString").build();
+
+    // Construct an instance of the WorkspaceSystemSettingsTooling model
+    WorkspaceSystemSettingsTooling workspaceSystemSettingsToolingModel =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsDisambiguation model
+    WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguationModel =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .prompt("testString")
+            .noneOfTheAbovePrompt("testString")
+            .enabled(true)
+            .sensitivity("auto")
+            .randomize(true)
+            .maxSuggestions(Long.valueOf("1"))
+            .suggestionTextPolicy("testString")
+            .build();
+
+    // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
+    WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsOffTopic model
+    WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettings model
+    WorkspaceSystemSettings workspaceSystemSettingsModel =
+        new WorkspaceSystemSettings.Builder()
+            .tooling(workspaceSystemSettingsToolingModel)
+            .disambiguation(workspaceSystemSettingsDisambiguationModel)
+            .humanAgentAssist(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .spellingSuggestions(true)
+            .spellingAutoCorrect(true)
+            .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
+            .offTopic(workspaceSystemSettingsOffTopicModel)
+            .build();
+
+    // Construct an instance of the WebhookHeader model
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
+
+    // Construct an instance of the Webhook model
+    Webhook webhookModel =
+        new Webhook.Builder()
+            .url("testString")
+            .name("testString")
+            .headers(
+                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .build();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .build();
+
+    // Construct an instance of the CreateIntent model
+    CreateIntent createIntentModel =
+        new CreateIntent.Builder()
+            .intent("testString")
+            .description("testString")
+            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .build();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the CreateEntity model
+    CreateEntity createEntityModel =
+        new CreateEntity.Builder()
+            .entity("testString")
+            .description("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .fuzzyMatch(true)
+            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .build();
+
+    // Construct an instance of the CreateWorkspaceOptions model
+    CreateWorkspaceOptions createWorkspaceOptionsModel =
+        new CreateWorkspaceOptions.Builder()
+            .name("testString")
+            .description("testString")
+            .language("testString")
+            .dialogNodes(
+                new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)))
+            .counterexamples(
+                new java.util.ArrayList<Counterexample>(
+                    java.util.Arrays.asList(counterexampleModel)))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .learningOptOut(true)
+            .systemSettings(workspaceSystemSettingsModel)
+            .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
+            .intents(
+                new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
+            .entities(
+                new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Workspace> response =
+        assistantService.createWorkspace(createWorkspaceOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createWorkspacePath);
   }
 
-  /** Test UpdateDialogNodeOptions builder. */
   @Test
-  public void testUpdateDialogNodeOptionsBuilder() {
-    String dialogNodeName = "aDialogNode";
-    String newDialogNodeName = "renamedDialogNode";
-    DialogNodeAction action0 =
+  public void testGetWorkspaceWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}";
+    String getWorkspacePath = "/v1/workspaces/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetWorkspaceOptions model
+    GetWorkspaceOptions getWorkspaceOptionsModel =
+        new GetWorkspaceOptions.Builder()
+            .workspaceId("testString")
+            .export(true)
+            .includeAudit(true)
+            .sort("stable")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Workspace> response =
+        assistantService.getWorkspace(getWorkspaceOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "stable");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getWorkspacePath);
+  }
+
+  // Test the getWorkspace operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetWorkspaceNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getWorkspace(null).execute();
+  }
+
+  @Test
+  public void testUpdateWorkspaceWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}";
+    String updateWorkspacePath = "/v1/workspaces/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
         new DialogNodeAction.Builder()
-            .name(NAME)
-            .credentials(CREDENTIALS)
-            .resultVariable(RESULT_VARIABLE)
-            .build();
-    DialogNodeAction action1 =
-        new DialogNodeAction.Builder()
-            .name(NAME)
-            .credentials(CREDENTIALS)
-            .resultVariable(RESULT_VARIABLE)
-            .build();
-    String userLabel = "user_label";
-
-    UpdateDialogNodeOptions updateOptions =
-        new UpdateDialogNodeOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .dialogNode(dialogNodeName)
-            .newDialogNode(newDialogNodeName)
-            .addNewActions(action0)
-            .addNewActions(action1)
-            .newDigressIn(UpdateDialogNodeOptions.NewDigressIn.RETURNS)
-            .newDigressOut(UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL)
-            .newDigressOutSlots(UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL)
-            .newUserLabel(userLabel)
-            .newDisambiguationOptOut(true)
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
             .build();
 
-    assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(updateOptions.dialogNode(), dialogNodeName);
-    assertEquals(updateOptions.newActions().size(), 2);
-    assertEquals(updateOptions.newActions().get(0), action0);
-    assertEquals(updateOptions.newActions().get(0).credentials(), CREDENTIALS);
-    assertEquals(updateOptions.newActions().get(1), action1);
-    assertEquals(updateOptions.newActions().get(1).credentials(), CREDENTIALS);
-    assertEquals(updateOptions.newDigressIn(), UpdateDialogNodeOptions.NewDigressIn.RETURNS);
-    assertEquals(updateOptions.newDigressOut(), UpdateDialogNodeOptions.NewDigressOut.ALLOW_ALL);
-    assertEquals(
-        updateOptions.newDigressOutSlots(), UpdateDialogNodeOptions.NewDigressOutSlots.ALLOW_ALL);
-    assertEquals(updateOptions.newUserLabel(), userLabel);
-    assertTrue(updateOptions.newDisambiguationOptOut());
+    // Construct an instance of the DialogNode model
+    DialogNode dialogNodeModel =
+        new DialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .build();
+
+    // Construct an instance of the Counterexample model
+    Counterexample counterexampleModel = new Counterexample.Builder().text("testString").build();
+
+    // Construct an instance of the WorkspaceSystemSettingsTooling model
+    WorkspaceSystemSettingsTooling workspaceSystemSettingsToolingModel =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsDisambiguation model
+    WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguationModel =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .prompt("testString")
+            .noneOfTheAbovePrompt("testString")
+            .enabled(true)
+            .sensitivity("auto")
+            .randomize(true)
+            .maxSuggestions(Long.valueOf("1"))
+            .suggestionTextPolicy("testString")
+            .build();
+
+    // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
+    WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsOffTopic model
+    WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettings model
+    WorkspaceSystemSettings workspaceSystemSettingsModel =
+        new WorkspaceSystemSettings.Builder()
+            .tooling(workspaceSystemSettingsToolingModel)
+            .disambiguation(workspaceSystemSettingsDisambiguationModel)
+            .humanAgentAssist(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .spellingSuggestions(true)
+            .spellingAutoCorrect(true)
+            .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
+            .offTopic(workspaceSystemSettingsOffTopicModel)
+            .build();
+
+    // Construct an instance of the WebhookHeader model
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
+
+    // Construct an instance of the Webhook model
+    Webhook webhookModel =
+        new Webhook.Builder()
+            .url("testString")
+            .name("testString")
+            .headers(
+                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .build();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .build();
+
+    // Construct an instance of the CreateIntent model
+    CreateIntent createIntentModel =
+        new CreateIntent.Builder()
+            .intent("testString")
+            .description("testString")
+            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .build();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the CreateEntity model
+    CreateEntity createEntityModel =
+        new CreateEntity.Builder()
+            .entity("testString")
+            .description("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .fuzzyMatch(true)
+            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .build();
+
+    // Construct an instance of the UpdateWorkspaceOptions model
+    UpdateWorkspaceOptions updateWorkspaceOptionsModel =
+        new UpdateWorkspaceOptions.Builder()
+            .workspaceId("testString")
+            .name("testString")
+            .description("testString")
+            .language("testString")
+            .dialogNodes(
+                new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)))
+            .counterexamples(
+                new java.util.ArrayList<Counterexample>(
+                    java.util.Arrays.asList(counterexampleModel)))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .learningOptOut(true)
+            .systemSettings(workspaceSystemSettingsModel)
+            .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
+            .intents(
+                new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
+            .entities(
+                new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
+            .append(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Workspace> response =
+        assistantService.updateWorkspace(updateWorkspaceOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateWorkspacePath);
   }
 
-  /** Test ListAllLogsOptions builder. */
-  @Test
-  public void testListAllLogsOptionsBuilder() {
-    String sort = "sort";
-    String filter = "filter";
-    Long pageLimit = 5L;
-    String cursor = "cursor";
+  // Test the updateWorkspace operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateWorkspaceNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    ListAllLogsOptions listOptions =
-        new ListAllLogsOptions.Builder()
-            .sort(sort)
-            .filter(filter)
-            .pageLimit(pageLimit)
-            .cursor(cursor)
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateWorkspace(null).execute();
+  }
+
+  @Test
+  public void testDeleteWorkspaceWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteWorkspacePath = "/v1/workspaces/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteWorkspaceOptions model
+    DeleteWorkspaceOptions deleteWorkspaceOptionsModel =
+        new DeleteWorkspaceOptions.Builder().workspaceId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        assistantService.deleteWorkspace(deleteWorkspaceOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteWorkspacePath);
+  }
+
+  // Test the deleteWorkspace operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteWorkspaceNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteWorkspace(null).execute();
+  }
+
+  @Test
+  public void testListIntentsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listIntentsPath = "/v1/workspaces/testString/intents";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListIntentsOptions model
+    ListIntentsOptions listIntentsOptionsModel =
+        new ListIntentsOptions.Builder()
+            .workspaceId("testString")
+            .export(true)
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("intent")
+            .cursor("testString")
+            .includeAudit(true)
             .build();
 
-    assertEquals(listOptions.sort(), sort);
-    assertEquals(listOptions.filter(), filter);
-    assertEquals(listOptions.pageLimit(), pageLimit);
-    assertEquals(listOptions.cursor(), cursor);
+    // Invoke operation with valid options model (positive test)
+    Response<IntentCollection> response =
+        assistantService.listIntents(listIntentsOptionsModel).execute();
+    assertNotNull(response);
+    IntentCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "intent");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listIntentsPath);
   }
 
-  /** Test DeleteUserDataOptions builder. */
-  @Test
-  public void testDeleteUserDataOptionsBuilder() {
-    String customerId = "customer_id";
+  // Test the listIntents operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListIntentsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    DeleteUserDataOptions deleteOptions =
-        new DeleteUserDataOptions.Builder().customerId(customerId).build();
+    server.enqueue(new MockResponse());
 
-    assertEquals(deleteOptions.customerId(), customerId);
+    // Invoke operation with null options model (negative test)
+    assistantService.listIntents(null).execute();
   }
 
-  /** Test list mentions builder. */
   @Test
-  public void testListMentionsBuilder() {
-    String entity = "entity";
+  public void testCreateIntentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String createIntentPath = "/v1/workspaces/testString/intents";
 
-    ListMentionsOptions listMentionsOptions =
-        new ListMentionsOptions.Builder()
-            .workspaceId(WORKSPACE_ID)
-            .entity(entity)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .build();
+
+    // Construct an instance of the CreateIntentOptions model
+    CreateIntentOptions createIntentOptionsModel =
+        new CreateIntentOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .description("testString")
+            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Intent> response = assistantService.createIntent(createIntentOptionsModel).execute();
+    assertNotNull(response);
+    Intent responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createIntentPath);
+  }
+
+  // Test the createIntent operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateIntentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createIntent(null).execute();
+  }
+
+  @Test
+  public void testGetIntentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String getIntentPath = "/v1/workspaces/testString/intents/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetIntentOptions model
+    GetIntentOptions getIntentOptionsModel =
+        new GetIntentOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
             .export(true)
             .includeAudit(true)
             .build();
 
-    assertEquals(listMentionsOptions.workspaceId(), WORKSPACE_ID);
-    assertEquals(listMentionsOptions.entity(), entity);
-    assertEquals(listMentionsOptions.export(), true);
-    assertEquals(listMentionsOptions.includeAudit(), true);
+    // Invoke operation with valid options model (positive test)
+    Response<Intent> response = assistantService.getIntent(getIntentOptionsModel).execute();
+    assertNotNull(response);
+    Intent responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getIntentPath);
   }
 
-  /** Test message context metadata. */
-  @Test
-  public void testMessageContextMetadata() {
-    String deployment = "deployment";
-    String userId = "user_id";
+  // Test the getIntent operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetIntentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
 
-    MessageContextMetadata messageContextMetadata =
-        new MessageContextMetadata.Builder().deployment(deployment).userId(userId).build();
+    server.enqueue(new MockResponse());
 
-    assertEquals(deployment, messageContextMetadata.deployment());
-    assertEquals(userId, messageContextMetadata.userId());
+    // Invoke operation with null options model (negative test)
+    assistantService.getIntent(null).execute();
   }
 
-  /** Test create entity builder. */
   @Test
-  public void testCreateEntityBuilder() {
-    String entity = "entity";
-    String description = "Entity description";
-    Map<String, Object> metadata = new HashMap<>();
-    String metadataKey = "metadata_key";
-    String metadataValue = "metadata_value";
-    metadata.put(metadataKey, metadataValue);
-    Date testDate = new Date();
-    String value = "value";
-    CreateValue createValue = new CreateValue.Builder(value).build();
-    CreateValue secondValue = new CreateValue.Builder().value(value).build();
-    List<CreateValue> values = new ArrayList<>();
-    values.add(createValue);
+  public void testUpdateIntentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String updateIntentPath = "/v1/workspaces/testString/intents/testString";
 
-    CreateEntity createEntity =
-        new CreateEntity.Builder()
-            .entity(entity)
-            .description(description)
-            .metadata(metadata)
-            .values(values)
-            .addValues(secondValue)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .build();
+
+    // Construct an instance of the UpdateIntentOptions model
+    UpdateIntentOptions updateIntentOptionsModel =
+        new UpdateIntentOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .newIntent("testString")
+            .newDescription("testString")
+            .newExamples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .append(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Intent> response = assistantService.updateIntent(updateIntentOptionsModel).execute();
+    assertNotNull(response);
+    Intent responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateIntentPath);
+  }
+
+  // Test the updateIntent operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateIntentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateIntent(null).execute();
+  }
+
+  @Test
+  public void testDeleteIntentWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteIntentPath = "/v1/workspaces/testString/intents/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteIntentOptions model
+    DeleteIntentOptions deleteIntentOptionsModel =
+        new DeleteIntentOptions.Builder().workspaceId("testString").intent("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteIntent(deleteIntentOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteIntentPath);
+  }
+
+  // Test the deleteIntent operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteIntentNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteIntent(null).execute();
+  }
+
+  @Test
+  public void testListExamplesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listExamplesPath = "/v1/workspaces/testString/intents/testString/examples";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListExamplesOptions model
+    ListExamplesOptions listExamplesOptionsModel =
+        new ListExamplesOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("text")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ExampleCollection> response =
+        assistantService.listExamples(listExamplesOptionsModel).execute();
+    assertNotNull(response);
+    ExampleCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "text");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listExamplesPath);
+  }
+
+  // Test the listExamples operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListExamplesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listExamples(null).execute();
+  }
+
+  @Test
+  public void testCreateExampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createExamplePath = "/v1/workspaces/testString/intents/testString/examples";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the CreateExampleOptions model
+    CreateExampleOptions createExampleOptionsModel =
+        new CreateExampleOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .text("testString")
+            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Example> response =
+        assistantService.createExample(createExampleOptionsModel).execute();
+    assertNotNull(response);
+    Example responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createExamplePath);
+  }
+
+  // Test the createExample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateExampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createExample(null).execute();
+  }
+
+  @Test
+  public void testGetExampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getExamplePath = "/v1/workspaces/testString/intents/testString/examples/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetExampleOptions model
+    GetExampleOptions getExampleOptionsModel =
+        new GetExampleOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .text("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Example> response = assistantService.getExample(getExampleOptionsModel).execute();
+    assertNotNull(response);
+    Example responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getExamplePath);
+  }
+
+  // Test the getExample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetExampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getExample(null).execute();
+  }
+
+  @Test
+  public void testUpdateExampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateExamplePath = "/v1/workspaces/testString/intents/testString/examples/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .build();
+
+    // Construct an instance of the UpdateExampleOptions model
+    UpdateExampleOptions updateExampleOptionsModel =
+        new UpdateExampleOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .text("testString")
+            .newText("testString")
+            .newMentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Example> response =
+        assistantService.updateExample(updateExampleOptionsModel).execute();
+    assertNotNull(response);
+    Example responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateExamplePath);
+  }
+
+  // Test the updateExample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateExampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateExample(null).execute();
+  }
+
+  @Test
+  public void testDeleteExampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteExamplePath = "/v1/workspaces/testString/intents/testString/examples/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteExampleOptions model
+    DeleteExampleOptions deleteExampleOptionsModel =
+        new DeleteExampleOptions.Builder()
+            .workspaceId("testString")
+            .intent("testString")
+            .text("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteExample(deleteExampleOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteExamplePath);
+  }
+
+  // Test the deleteExample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteExampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteExample(null).execute();
+  }
+
+  @Test
+  public void testListCounterexamplesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listCounterexamplesPath = "/v1/workspaces/testString/counterexamples";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListCounterexamplesOptions model
+    ListCounterexamplesOptions listCounterexamplesOptionsModel =
+        new ListCounterexamplesOptions.Builder()
+            .workspaceId("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("text")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<CounterexampleCollection> response =
+        assistantService.listCounterexamples(listCounterexamplesOptionsModel).execute();
+    assertNotNull(response);
+    CounterexampleCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "text");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listCounterexamplesPath);
+  }
+
+  // Test the listCounterexamples operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListCounterexamplesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listCounterexamples(null).execute();
+  }
+
+  @Test
+  public void testCreateCounterexampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createCounterexamplePath = "/v1/workspaces/testString/counterexamples";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateCounterexampleOptions model
+    CreateCounterexampleOptions createCounterexampleOptionsModel =
+        new CreateCounterexampleOptions.Builder()
+            .workspaceId("testString")
+            .text("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Counterexample> response =
+        assistantService.createCounterexample(createCounterexampleOptionsModel).execute();
+    assertNotNull(response);
+    Counterexample responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createCounterexamplePath);
+  }
+
+  // Test the createCounterexample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateCounterexampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createCounterexample(null).execute();
+  }
+
+  @Test
+  public void testGetCounterexampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getCounterexamplePath = "/v1/workspaces/testString/counterexamples/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCounterexampleOptions model
+    GetCounterexampleOptions getCounterexampleOptionsModel =
+        new GetCounterexampleOptions.Builder()
+            .workspaceId("testString")
+            .text("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Counterexample> response =
+        assistantService.getCounterexample(getCounterexampleOptionsModel).execute();
+    assertNotNull(response);
+    Counterexample responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCounterexamplePath);
+  }
+
+  // Test the getCounterexample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetCounterexampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getCounterexample(null).execute();
+  }
+
+  @Test
+  public void testUpdateCounterexampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateCounterexamplePath = "/v1/workspaces/testString/counterexamples/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateCounterexampleOptions model
+    UpdateCounterexampleOptions updateCounterexampleOptionsModel =
+        new UpdateCounterexampleOptions.Builder()
+            .workspaceId("testString")
+            .text("testString")
+            .newText("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Counterexample> response =
+        assistantService.updateCounterexample(updateCounterexampleOptionsModel).execute();
+    assertNotNull(response);
+    Counterexample responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateCounterexamplePath);
+  }
+
+  // Test the updateCounterexample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateCounterexampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateCounterexample(null).execute();
+  }
+
+  @Test
+  public void testDeleteCounterexampleWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteCounterexamplePath = "/v1/workspaces/testString/counterexamples/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteCounterexampleOptions model
+    DeleteCounterexampleOptions deleteCounterexampleOptionsModel =
+        new DeleteCounterexampleOptions.Builder()
+            .workspaceId("testString")
+            .text("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        assistantService.deleteCounterexample(deleteCounterexampleOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteCounterexamplePath);
+  }
+
+  // Test the deleteCounterexample operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteCounterexampleNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteCounterexample(null).execute();
+  }
+
+  @Test
+  public void testListEntitiesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listEntitiesPath = "/v1/workspaces/testString/entities";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListEntitiesOptions model
+    ListEntitiesOptions listEntitiesOptionsModel =
+        new ListEntitiesOptions.Builder()
+            .workspaceId("testString")
+            .export(true)
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("entity")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<EntityCollection> response =
+        assistantService.listEntities(listEntitiesOptionsModel).execute();
+    assertNotNull(response);
+    EntityCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "entity");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listEntitiesPath);
+  }
+
+  // Test the listEntities operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListEntitiesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listEntities(null).execute();
+  }
+
+  @Test
+  public void testCreateEntityWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String createEntityPath = "/v1/workspaces/testString/entities";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the CreateEntityOptions model
+    CreateEntityOptions createEntityOptionsModel =
+        new CreateEntityOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .description("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .fuzzyMatch(true)
-            .created(testDate)
-            .updated(testDate)
+            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .includeAudit(true)
             .build();
-    createEntity = createEntity.newBuilder().build();
 
-    assertEquals(entity, createEntity.entity());
-    assertEquals(description, createEntity.description());
-    assertTrue(createEntity.metadata().containsKey(metadataKey));
-    assertEquals(metadataValue, createEntity.metadata().get(metadataKey));
-    assertNotNull(createEntity.values());
-    assertEquals(2, createEntity.values().size());
-    assertTrue(createEntity.fuzzyMatch());
-    assertEquals(testDate, createEntity.created());
-    assertEquals(testDate, createEntity.updated());
+    // Invoke operation with valid options model (positive test)
+    Response<Entity> response = assistantService.createEntity(createEntityOptionsModel).execute();
+    assertNotNull(response);
+    Entity responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createEntityPath);
   }
 
-  /** Test create intent builder. */
+  // Test the createEntity operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateEntityNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createEntity(null).execute();
+  }
+
   @Test
-  public void testCreateIntentBuilder() {
-    String intent = "intent";
-    String description = "Intent description";
-    Date testDate = new Date();
-    String text = "text";
-    Example example = new Example.Builder(text).build();
-    Example secondExample = new Example.Builder().text(text).build();
-    List<Example> examples = new ArrayList<>();
-    examples.add(example);
+  public void testGetEntityWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String getEntityPath = "/v1/workspaces/testString/entities/testString";
 
-    CreateIntent createIntent =
-        new CreateIntent.Builder()
-            .intent(intent)
-            .description(description)
-            .examples(examples)
-            .addExample(secondExample)
-            .created(testDate)
-            .updated(testDate)
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetEntityOptions model
+    GetEntityOptions getEntityOptionsModel =
+        new GetEntityOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .export(true)
+            .includeAudit(true)
             .build();
-    createIntent = createIntent.newBuilder().build();
 
-    assertEquals(intent, createIntent.intent());
-    assertEquals(description, createIntent.description());
-    assertNotNull(createIntent.examples());
-    assertEquals(2, createIntent.examples().size());
-    assertEquals(testDate, createIntent.created());
-    assertEquals(testDate, createIntent.updated());
+    // Invoke operation with valid options model (positive test)
+    Response<Entity> response = assistantService.getEntity(getEntityOptionsModel).execute();
+    assertNotNull(response);
+    Entity responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getEntityPath);
+  }
+
+  // Test the getEntity operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetEntityNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getEntity(null).execute();
+  }
+
+  @Test
+  public void testUpdateEntityWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+    String updateEntityPath = "/v1/workspaces/testString/entities/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .build();
+
+    // Construct an instance of the UpdateEntityOptions model
+    UpdateEntityOptions updateEntityOptionsModel =
+        new UpdateEntityOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .newEntity("testString")
+            .newDescription("testString")
+            .newMetadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .newFuzzyMatch(true)
+            .newValues(
+                new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .append(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Entity> response = assistantService.updateEntity(updateEntityOptionsModel).execute();
+    assertNotNull(response);
+    Entity responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateEntityPath);
+  }
+
+  // Test the updateEntity operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateEntityNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateEntity(null).execute();
+  }
+
+  @Test
+  public void testDeleteEntityWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteEntityPath = "/v1/workspaces/testString/entities/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteEntityOptions model
+    DeleteEntityOptions deleteEntityOptionsModel =
+        new DeleteEntityOptions.Builder().workspaceId("testString").entity("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteEntity(deleteEntityOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteEntityPath);
+  }
+
+  // Test the deleteEntity operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteEntityNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteEntity(null).execute();
+  }
+
+  @Test
+  public void testListMentionsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"examples\": [{\"text\": \"text\", \"intent\": \"intent\", \"location\": [8]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listMentionsPath = "/v1/workspaces/testString/entities/testString/mentions";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListMentionsOptions model
+    ListMentionsOptions listMentionsOptionsModel =
+        new ListMentionsOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .export(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<EntityMentionCollection> response =
+        assistantService.listMentions(listMentionsOptionsModel).execute();
+    assertNotNull(response);
+    EntityMentionCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listMentionsPath);
+  }
+
+  // Test the listMentions operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListMentionsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listMentions(null).execute();
+  }
+
+  @Test
+  public void testListValuesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listValuesPath = "/v1/workspaces/testString/entities/testString/values";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListValuesOptions model
+    ListValuesOptions listValuesOptionsModel =
+        new ListValuesOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .export(true)
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("value")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<ValueCollection> response =
+        assistantService.listValues(listValuesOptionsModel).execute();
+    assertNotNull(response);
+    ValueCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "value");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listValuesPath);
+  }
+
+  // Test the listValues operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListValuesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listValues(null).execute();
+  }
+
+  @Test
+  public void testCreateValueWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createValuePath = "/v1/workspaces/testString/entities/testString/values";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateValueOptions model
+    CreateValueOptions createValueOptionsModel =
+        new CreateValueOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Value> response = assistantService.createValue(createValueOptionsModel).execute();
+    assertNotNull(response);
+    Value responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createValuePath);
+  }
+
+  // Test the createValue operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateValueNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createValue(null).execute();
+  }
+
+  @Test
+  public void testGetValueWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getValuePath = "/v1/workspaces/testString/entities/testString/values/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetValueOptions model
+    GetValueOptions getValueOptionsModel =
+        new GetValueOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .export(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Value> response = assistantService.getValue(getValueOptionsModel).execute();
+    assertNotNull(response);
+    Value responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getValuePath);
+  }
+
+  // Test the getValue operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetValueNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getValue(null).execute();
+  }
+
+  @Test
+  public void testUpdateValueWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateValuePath = "/v1/workspaces/testString/entities/testString/values/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateValueOptions model
+    UpdateValueOptions updateValueOptionsModel =
+        new UpdateValueOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .newValue("testString")
+            .newMetadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .newType("synonyms")
+            .newSynonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .newPatterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .append(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Value> response = assistantService.updateValue(updateValueOptionsModel).execute();
+    assertNotNull(response);
+    Value responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateValuePath);
+  }
+
+  // Test the updateValue operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateValueNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateValue(null).execute();
+  }
+
+  @Test
+  public void testDeleteValueWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteValuePath = "/v1/workspaces/testString/entities/testString/values/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteValueOptions model
+    DeleteValueOptions deleteValueOptionsModel =
+        new DeleteValueOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteValue(deleteValueOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteValuePath);
+  }
+
+  // Test the deleteValue operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteValueNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteValue(null).execute();
+  }
+
+  @Test
+  public void testListSynonymsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"synonyms\": [{\"synonym\": \"synonym\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listSynonymsPath =
+        "/v1/workspaces/testString/entities/testString/values/testString/synonyms";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListSynonymsOptions model
+    ListSynonymsOptions listSynonymsOptionsModel =
+        new ListSynonymsOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("synonym")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<SynonymCollection> response =
+        assistantService.listSynonyms(listSynonymsOptionsModel).execute();
+    assertNotNull(response);
+    SynonymCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "synonym");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listSynonymsPath);
+  }
+
+  // Test the listSynonyms operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListSynonymsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listSynonyms(null).execute();
+  }
+
+  @Test
+  public void testCreateSynonymWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"synonym\": \"synonym\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createSynonymPath =
+        "/v1/workspaces/testString/entities/testString/values/testString/synonyms";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateSynonymOptions model
+    CreateSynonymOptions createSynonymOptionsModel =
+        new CreateSynonymOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .synonym("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Synonym> response =
+        assistantService.createSynonym(createSynonymOptionsModel).execute();
+    assertNotNull(response);
+    Synonym responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSynonymPath);
+  }
+
+  // Test the createSynonym operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSynonymNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createSynonym(null).execute();
+  }
+
+  @Test
+  public void testGetSynonymWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"synonym\": \"synonym\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getSynonymPath =
+        "/v1/workspaces/testString/entities/testString/values/testString/synonyms/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetSynonymOptions model
+    GetSynonymOptions getSynonymOptionsModel =
+        new GetSynonymOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .synonym("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Synonym> response = assistantService.getSynonym(getSynonymOptionsModel).execute();
+    assertNotNull(response);
+    Synonym responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSynonymPath);
+  }
+
+  // Test the getSynonym operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSynonymNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getSynonym(null).execute();
+  }
+
+  @Test
+  public void testUpdateSynonymWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"synonym\": \"synonym\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateSynonymPath =
+        "/v1/workspaces/testString/entities/testString/values/testString/synonyms/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the UpdateSynonymOptions model
+    UpdateSynonymOptions updateSynonymOptionsModel =
+        new UpdateSynonymOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .synonym("testString")
+            .newSynonym("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Synonym> response =
+        assistantService.updateSynonym(updateSynonymOptionsModel).execute();
+    assertNotNull(response);
+    Synonym responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateSynonymPath);
+  }
+
+  // Test the updateSynonym operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateSynonymNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateSynonym(null).execute();
+  }
+
+  @Test
+  public void testDeleteSynonymWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteSynonymPath =
+        "/v1/workspaces/testString/entities/testString/values/testString/synonyms/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteSynonymOptions model
+    DeleteSynonymOptions deleteSynonymOptionsModel =
+        new DeleteSynonymOptions.Builder()
+            .workspaceId("testString")
+            .entity("testString")
+            .value("testString")
+            .synonym("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteSynonym(deleteSynonymOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSynonymPath);
+  }
+
+  // Test the deleteSynonym operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSynonymNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteSynonym(null).execute();
+  }
+
+  @Test
+  public void testListDialogNodesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listDialogNodesPath = "/v1/workspaces/testString/dialog_nodes";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListDialogNodesOptions model
+    ListDialogNodesOptions listDialogNodesOptionsModel =
+        new ListDialogNodesOptions.Builder()
+            .workspaceId("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(true)
+            .sort("dialog_node")
+            .cursor("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNodeCollection> response =
+        assistantService.listDialogNodes(listDialogNodesOptionsModel).execute();
+    assertNotNull(response);
+    DialogNodeCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(query.get("sort"), "dialog_node");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listDialogNodesPath);
+  }
+
+  // Test the listDialogNodes operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListDialogNodesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listDialogNodes(null).execute();
+  }
+
+  @Test
+  public void testCreateDialogNodeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String createDialogNodePath = "/v1/workspaces/testString/dialog_nodes";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the CreateDialogNodeOptions model
+    CreateDialogNodeOptions createDialogNodeOptionsModel =
+        new CreateDialogNodeOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNode> response =
+        assistantService.createDialogNode(createDialogNodeOptionsModel).execute();
+    assertNotNull(response);
+    DialogNode responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createDialogNodePath);
+  }
+
+  // Test the createDialogNode operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateDialogNodeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.createDialogNode(null).execute();
+  }
+
+  @Test
+  public void testGetDialogNodeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String getDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetDialogNodeOptions model
+    GetDialogNodeOptions getDialogNodeOptionsModel =
+        new GetDialogNodeOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNode> response =
+        assistantService.getDialogNode(getDialogNodeOptionsModel).execute();
+    assertNotNull(response);
+    DialogNode responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getDialogNodePath);
+  }
+
+  // Test the getDialogNode operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetDialogNodeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.getDialogNode(null).execute();
+  }
+
+  @Test
+  public void testUpdateDialogNodeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the UpdateDialogNodeOptions model
+    UpdateDialogNodeOptions updateDialogNodeOptionsModel =
+        new UpdateDialogNodeOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .newDialogNode("testString")
+            .newDescription("testString")
+            .newConditions("testString")
+            .newParent("testString")
+            .newPreviousSibling("testString")
+            .newOutput(dialogNodeOutputModel)
+            .newContext(dialogNodeContextModel)
+            .newMetadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .newNextStep(dialogNodeNextStepModel)
+            .newTitle("testString")
+            .newType("standard")
+            .newEventName("focus")
+            .newVariable("testString")
+            .newActions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .newDigressIn("not_available")
+            .newDigressOut("allow_returning")
+            .newDigressOutSlots("not_allowed")
+            .newUserLabel("testString")
+            .newDisambiguationOptOut(true)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNode> response =
+        assistantService.updateDialogNode(updateDialogNodeOptionsModel).execute();
+    assertNotNull(response);
+    DialogNode responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateDialogNodePath);
+  }
+
+  // Test the updateDialogNode operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateDialogNodeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateDialogNode(null).execute();
+  }
+
+  @Test
+  public void testDeleteDialogNodeWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteDialogNodeOptions model
+    DeleteDialogNodeOptions deleteDialogNodeOptionsModel =
+        new DeleteDialogNodeOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        assistantService.deleteDialogNode(deleteDialogNodeOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteDialogNodePath);
+  }
+
+  // Test the deleteDialogNode operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteDialogNodeNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteDialogNode(null).execute();
+  }
+
+  @Test
+  public void testListLogsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\"}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}]}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\"}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}]}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+    String listLogsPath = "/v1/workspaces/testString/logs";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListLogsOptions model
+    ListLogsOptions listLogsOptionsModel =
+        new ListLogsOptions.Builder()
+            .workspaceId("testString")
+            .sort("testString")
+            .filter("testString")
+            .pageLimit(Long.valueOf("26"))
+            .cursor("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<LogCollection> response = assistantService.listLogs(listLogsOptionsModel).execute();
+    assertNotNull(response);
+    LogCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("sort"), "testString");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(query.get("cursor"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listLogsPath);
+  }
+
+  // Test the listLogs operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListLogsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listLogs(null).execute();
+  }
+
+  @Test
+  public void testListAllLogsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\"}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}]}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\"}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}]}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+    String listAllLogsPath = "/v1/logs";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListAllLogsOptions model
+    ListAllLogsOptions listAllLogsOptionsModel =
+        new ListAllLogsOptions.Builder()
+            .filter("testString")
+            .sort("testString")
+            .pageLimit(Long.valueOf("26"))
+            .cursor("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<LogCollection> response =
+        assistantService.listAllLogs(listAllLogsOptionsModel).execute();
+    assertNotNull(response);
+    LogCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(query.get("sort"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(query.get("cursor"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listAllLogsPath);
+  }
+
+  // Test the listAllLogs operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListAllLogsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.listAllLogs(null).execute();
+  }
+
+  @Test
+  public void testDeleteUserDataWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteUserDataPath = "/v1/user_data";
+
+    server.enqueue(new MockResponse().setResponseCode(202).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteUserDataOptions model
+    DeleteUserDataOptions deleteUserDataOptionsModel =
+        new DeleteUserDataOptions.Builder().customerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response = assistantService.deleteUserData(deleteUserDataOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteUserDataPath);
+  }
+
+  // Test the deleteUserData operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteUserDataNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.deleteUserData(null).execute();
+  }
+
+  /** Initialize the server */
+  @BeforeMethod
+  public void setUpMockServer() {
+    try {
+      server = new MockWebServer();
+      // register handler
+      server.start();
+    } catch (IOException err) {
+      fail("Failed to instantiate mock web server");
+    }
+  }
+
+  @AfterMethod
+  public void tearDownMockServer() throws IOException {
+    server.shutdown();
+    assistantService = null;
   }
 }

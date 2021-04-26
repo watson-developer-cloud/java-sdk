@@ -42,7 +42,7 @@ public class ListAudioOptions extends GenericModel {
     /**
      * Builds a ListAudioOptions.
      *
-     * @return the listAudioOptions
+     * @return the new ListAudioOptions instance
      */
     public ListAudioOptions build() {
       return new ListAudioOptions(this);

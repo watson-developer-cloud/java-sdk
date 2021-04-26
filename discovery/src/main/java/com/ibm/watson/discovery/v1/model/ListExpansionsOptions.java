@@ -47,7 +47,7 @@ public class ListExpansionsOptions extends GenericModel {
     /**
      * Builds a ListExpansionsOptions.
      *
-     * @return the listExpansionsOptions
+     * @return the new ListExpansionsOptions instance
      */
     public ListExpansionsOptions build() {
       return new ListExpansionsOptions(this);

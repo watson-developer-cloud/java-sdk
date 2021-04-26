@@ -51,6 +51,7 @@ import org.junit.runner.RunWith;
  * @version v3
  */
 @RunWith(RetryRunner.class)
+@Ignore
 public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String VERSION = "2018-03-19";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/v3/test.zip";

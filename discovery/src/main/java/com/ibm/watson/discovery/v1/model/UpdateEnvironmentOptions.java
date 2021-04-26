@@ -74,7 +74,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
     /**
      * Builds a UpdateEnvironmentOptions.
      *
-     * @return the updateEnvironmentOptions
+     * @return the new UpdateEnvironmentOptions instance
      */
     public UpdateEnvironmentOptions build() {
       return new UpdateEnvironmentOptions(this);

@@ -55,7 +55,7 @@ public class GetExampleOptions extends GenericModel {
     /**
      * Builds a GetExampleOptions.
      *
-     * @return the getExampleOptions
+     * @return the new GetExampleOptions instance
      */
     public GetExampleOptions build() {
       return new GetExampleOptions(this);

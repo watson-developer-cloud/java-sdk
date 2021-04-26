@@ -62,7 +62,7 @@ public class TrainLanguageModelOptions extends GenericModel {
     /**
      * Builds a TrainLanguageModelOptions.
      *
-     * @return the trainLanguageModelOptions
+     * @return the new TrainLanguageModelOptions instance
      */
     public TrainLanguageModelOptions build() {
       return new TrainLanguageModelOptions(this);

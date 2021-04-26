@@ -42,7 +42,7 @@ public class GetClassifierOptions extends GenericModel {
     /**
      * Builds a GetClassifierOptions.
      *
-     * @return the getClassifierOptions
+     * @return the new GetClassifierOptions instance
      */
     public GetClassifierOptions build() {
       return new GetClassifierOptions(this);

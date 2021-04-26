@@ -47,7 +47,7 @@ public class DeleteAudioOptions extends GenericModel {
     /**
      * Builds a DeleteAudioOptions.
      *
-     * @return the deleteAudioOptions
+     * @return the new DeleteAudioOptions instance
      */
     public DeleteAudioOptions build() {
       return new DeleteAudioOptions(this);

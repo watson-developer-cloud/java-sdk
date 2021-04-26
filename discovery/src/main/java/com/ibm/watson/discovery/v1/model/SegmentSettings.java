@@ -46,7 +46,7 @@ public class SegmentSettings extends GenericModel {
     /**
      * Builds a SegmentSettings.
      *
-     * @return the segmentSettings
+     * @return the new SegmentSettings instance
      */
     public SegmentSettings build() {
       return new SegmentSettings(this);

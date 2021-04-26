@@ -46,7 +46,7 @@ public class GetMetricsEventRateOptions extends GenericModel {
     /**
      * Builds a GetMetricsEventRateOptions.
      *
-     * @return the getMetricsEventRateOptions
+     * @return the new GetMetricsEventRateOptions instance
      */
     public GetMetricsEventRateOptions build() {
       return new GetMetricsEventRateOptions(this);

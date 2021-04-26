@@ -30,6 +30,7 @@ public class ListCounterexamplesOptions extends GenericModel {
 
   protected String workspaceId;
   protected Long pageLimit;
+  protected Boolean includeCount;
   protected String sort;
   protected String cursor;
   protected Boolean includeAudit;
@@ -38,6 +39,7 @@ public class ListCounterexamplesOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private Long pageLimit;
+    private Boolean includeCount;
     private String sort;
     private String cursor;
     private Boolean includeAudit;
@@ -45,6 +47,7 @@ public class ListCounterexamplesOptions extends GenericModel {
     private Builder(ListCounterexamplesOptions listCounterexamplesOptions) {
       this.workspaceId = listCounterexamplesOptions.workspaceId;
       this.pageLimit = listCounterexamplesOptions.pageLimit;
+      this.includeCount = listCounterexamplesOptions.includeCount;
       this.sort = listCounterexamplesOptions.sort;
       this.cursor = listCounterexamplesOptions.cursor;
       this.includeAudit = listCounterexamplesOptions.includeAudit;
@@ -65,7 +68,7 @@ public class ListCounterexamplesOptions extends GenericModel {
     /**
      * Builds a ListCounterexamplesOptions.
      *
-     * @return the listCounterexamplesOptions
+     * @return the new ListCounterexamplesOptions instance
      */
     public ListCounterexamplesOptions build() {
       return new ListCounterexamplesOptions(this);
@@ -90,6 +93,17 @@ public class ListCounterexamplesOptions extends GenericModel {
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
+      return this;
+    }
+
+    /**
+     * Set the includeCount.
+     *
+     * @param includeCount the includeCount
+     * @return the ListCounterexamplesOptions builder
+     */
+    public Builder includeCount(Boolean includeCount) {
+      this.includeCount = includeCount;
       return this;
     }
 
@@ -132,6 +146,7 @@ public class ListCounterexamplesOptions extends GenericModel {
         builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     pageLimit = builder.pageLimit;
+    includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
     includeAudit = builder.includeAudit;
@@ -166,6 +181,19 @@ public class ListCounterexamplesOptions extends GenericModel {
    */
   public Long pageLimit() {
     return pageLimit;
+  }
+
+  /**
+   * Gets the includeCount.
+   *
+   * <p>Whether to include information about the number of records that satisfy the request,
+   * regardless of the page limit. If this parameter is `true`, the `pagination` object in the
+   * response includes the `total` property.
+   *
+   * @return the includeCount
+   */
+  public Boolean includeCount() {
+    return includeCount;
   }
 
   /**

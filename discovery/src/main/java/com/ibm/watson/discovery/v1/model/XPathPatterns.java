@@ -35,7 +35,7 @@ public class XPathPatterns extends GenericModel {
     /**
      * Builds a XPathPatterns.
      *
-     * @return the xPathPatterns
+     * @return the new XPathPatterns instance
      */
     public XPathPatterns build() {
       return new XPathPatterns(this);

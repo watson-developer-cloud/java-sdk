@@ -1,6 +1,6 @@
 {
   "classifier_id": "47C164-nlc-243",
-  "url": "https://gateway.watsonplatform.net/natural-language-classifier/api/v1/classifiers/47C164-nlc-243",
+  "url": "https://api.us-south.natural-language-classifier.watson.cloud.ibm.com/v1/classifiers/47C164-nlc-243",
   "text": "is it hot ?",
   "top_class": "temperature",
   "classes": [

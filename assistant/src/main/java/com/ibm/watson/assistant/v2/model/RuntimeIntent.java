@@ -47,7 +47,7 @@ public class RuntimeIntent extends GenericModel {
     /**
      * Builds a RuntimeIntent.
      *
-     * @return the runtimeIntent
+     * @return the new RuntimeIntent instance
      */
     public RuntimeIntent build() {
       return new RuntimeIntent(this);

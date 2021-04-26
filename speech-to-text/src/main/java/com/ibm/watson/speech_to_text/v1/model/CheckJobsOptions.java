@@ -15,34 +15,4 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The checkJobs options. */
-public class CheckJobsOptions extends GenericModel {
-
-  /** Builder. */
-  public static class Builder {
-
-    private Builder(CheckJobsOptions checkJobsOptions) {}
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a CheckJobsOptions.
-     *
-     * @return the checkJobsOptions
-     */
-    public CheckJobsOptions build() {
-      return new CheckJobsOptions(this);
-    }
-  }
-
-  private CheckJobsOptions(Builder builder) {}
-
-  /**
-   * New builder.
-   *
-   * @return a CheckJobsOptions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-}
+public class CheckJobsOptions extends GenericModel {}

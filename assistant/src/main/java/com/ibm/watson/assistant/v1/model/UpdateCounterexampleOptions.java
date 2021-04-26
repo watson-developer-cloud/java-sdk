@@ -53,7 +53,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
     /**
      * Builds a UpdateCounterexampleOptions.
      *
-     * @return the updateCounterexampleOptions
+     * @return the new UpdateCounterexampleOptions instance
      */
     public UpdateCounterexampleOptions build() {
       return new UpdateCounterexampleOptions(this);

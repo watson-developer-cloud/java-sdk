@@ -57,7 +57,7 @@ public class QueryNoticesOptions extends GenericModel {
     /**
      * Builds a QueryNoticesOptions.
      *
-     * @return the queryNoticesOptions
+     * @return the new QueryNoticesOptions instance
      */
     public QueryNoticesOptions build() {
       return new QueryNoticesOptions(this);

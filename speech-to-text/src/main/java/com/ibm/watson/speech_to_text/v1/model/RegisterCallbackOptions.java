@@ -45,7 +45,7 @@ public class RegisterCallbackOptions extends GenericModel {
     /**
      * Builds a RegisterCallbackOptions.
      *
-     * @return the registerCallbackOptions
+     * @return the new RegisterCallbackOptions instance
      */
     public RegisterCallbackOptions build() {
       return new RegisterCallbackOptions(this);

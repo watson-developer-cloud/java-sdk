@@ -48,7 +48,7 @@ public class UpgradeAcousticModelOptions extends GenericModel {
     /**
      * Builds a UpgradeAcousticModelOptions.
      *
-     * @return the upgradeAcousticModelOptions
+     * @return the new UpgradeAcousticModelOptions instance
      */
     public UpgradeAcousticModelOptions build() {
       return new UpgradeAcousticModelOptions(this);

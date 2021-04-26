@@ -75,7 +75,7 @@ public class CreateEnvironmentOptions extends GenericModel {
     /**
      * Builds a CreateEnvironmentOptions.
      *
-     * @return the createEnvironmentOptions
+     * @return the new CreateEnvironmentOptions instance
      */
     public CreateEnvironmentOptions build() {
       return new CreateEnvironmentOptions(this);

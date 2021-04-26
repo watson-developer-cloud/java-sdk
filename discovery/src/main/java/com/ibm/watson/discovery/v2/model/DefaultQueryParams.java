@@ -75,7 +75,7 @@ public class DefaultQueryParams extends GenericModel {
     /**
      * Builds a DefaultQueryParams.
      *
-     * @return the defaultQueryParams
+     * @return the new DefaultQueryParams instance
      */
     public DefaultQueryParams build() {
       return new DefaultQueryParams(this);
@@ -304,7 +304,7 @@ public class DefaultQueryParams extends GenericModel {
   /**
    * Gets the spellingSuggestions.
    *
-   * <p>When `true`, a spelling suggestions for the query are retuned by default.
+   * <p>When `true`, a spelling suggestions for the query are returned by default.
    *
    * @return the spellingSuggestions
    */
@@ -315,7 +315,7 @@ public class DefaultQueryParams extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * <p>When `true`, a highlights for the query are retuned by default.
+   * <p>When `true`, a highlights for the query are returned by default.
    *
    * @return the highlight
    */
