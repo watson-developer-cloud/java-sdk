@@ -1821,7 +1821,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   /** Test list mentions. */
   @Test
   public void testListMentions() {
-    String entity = "holiday";
+    String entity = "beverage";
 
     ListMentionsOptions listMentionsOptions =
         new ListMentionsOptions.Builder().workspaceId(workspaceId).entity(entity).build();
