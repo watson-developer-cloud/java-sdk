@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o pipefail
 
-./gradlew bintrayUpload &
+./gradlew uploadArchives &
 
 # output every 9 min to prevent a Travis timeout
 PID=$!
