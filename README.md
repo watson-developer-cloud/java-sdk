@@ -260,7 +260,7 @@ System.out.println("Response header names: " + responseHeaders.names());
 
 ### Configuring the HTTP client
 
-The HTTP client can be configured by using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
+The HTTP client can be configured by using the `setProxy()` method on your authenticator and using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
 - Disabling SSL verification (only do this if you really mean to!) ⚠️
 - Using a proxy (more info here: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564))
 - Setting HTTP logging verbosity
@@ -268,12 +268,16 @@ The HTTP client can be configured by using the `configureClient()` method on you
 Here's an example of setting the above:
 
 ```java
-Discovery service = new Discovery("2019-04-30");
+Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
+IamAuthenticator authenticator = new IamAuthenticator(apiKey);
+authenticator.setProxy(proxy);
+
+Discovery service = new Discovery("2019-04-30", authenticator);
 
 // setting configuration options
 HttpConfigOptions options = new HttpConfigOptions.Builder()
   .disableSslVerification(true)
-  .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080)))
+  .proxy(proxy)
   .loggingLevel(HttpConfigOptions.LoggingLevel.BASIC)
   .build();
 
