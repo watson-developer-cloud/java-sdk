@@ -7,7 +7,7 @@ stages:
   - Build and test
   - Semantic release
   - Publish javadoc
-  - Release to bintray
+  - Upload Archives
 
 jobs:
   include:
@@ -44,7 +44,7 @@ jobs:
         - ./gradlew docs
         - .utility/push-javadoc-to-gh-pages.sh
 
-    - stage: Release to bintray
+    - stage: Upload Archives
       jdk: openjdk8
       language: java
       if: tag IS present
