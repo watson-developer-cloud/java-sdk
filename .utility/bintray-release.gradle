@@ -60,11 +60,6 @@ uploadArchives {
                         name 'German Attanasio'
                         email 'germanatt@us.ibm.com'
                     }
-                    developer {
-                        id 'logan'
-                        name 'Logan Patino'
-                        email 'loganpatino10@ibm.com'
-                    }
                 }
             }
         }
