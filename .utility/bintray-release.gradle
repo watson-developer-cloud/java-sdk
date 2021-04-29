@@ -51,14 +51,9 @@ uploadArchives {
 
                 developers {
                     developer {
-                        id 'kevin'
-                        name 'Kevin Kowalski'
-                        email 'kevin.kowalski@ibm.com'
-                    }
-                    developer {
-                        id 'german'
-                        name 'German Attanasio'
-                        email 'germanatt@us.ibm.com'
+                        id 'watdevex'
+                        name 'Watdevex'
+                        email 'watdevex@us.ibm.com'
                     }
                 }
             }
