@@ -1,3 +1,15 @@
+# [9.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.2...v9.1.0) (2021-04-30)
+
+
+### Bug Fixes
+
+* **assistant-v1:** override toString method to allow null values ([dc0a023](https://github.com/watson-developer-cloud/java-sdk/commit/dc0a023d6b1f6748134d584f71dc804494ade737))
+
+
+### Features
+
+* **assistant-v1:** add updateDialogNodeNullable as a new function ([90e3ea5](https://github.com/watson-developer-cloud/java-sdk/commit/90e3ea5c7f9036c096721724320e7f4000b91325))
+
 ## [9.0.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.1...v9.0.2) (2020-12-21)
 
 
