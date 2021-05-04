@@ -5,7 +5,6 @@
 .idea
 .project
 .settings
-build
 out
 target
 bin/
@@ -36,3 +35,32 @@ package-lock.json
 *.py
 fix-copyrights.sh
 /.utility/secring.gpg
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+/**/target/
+/**/test-output/
+.settings/
+.factorypath
+*-apiref.json
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.key
+
+/node_modules
