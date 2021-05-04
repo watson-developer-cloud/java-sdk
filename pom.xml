@@ -1,0 +1,542 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- >>> Replace this with your service category (e.g. "platform-services") -->
+    <artifactId>ibm-watson</artifactId>
+
+    <!-- >>> Update this field to reflect your project -->
+    <name>IBM Watson Java SDK</name>
+
+    <!-- >>> Update this field to reflect your project -->
+    <description>Java client library to use the IBM Watson APIs</description>
+
+    <!-- >>> Update this field to reflect your project's github URL -->
+    <url> 	https://github.com/watson-developer-cloud/java-sdk</url>
+
+    <groupId>com.ibm.watson</groupId>
+    <version>99-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--
+            This is the version associated with the Java core. The version used here should be compatible with the version
+            of the SDK generator used to generate your SDK code.
+            See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
+        -->
+        <sdk-core-version>9.5.4</sdk-core-version>
+
+        <!-- >>> Replace this with the name of your SDK's github repository -->
+        <git-repository-name>java-sdk</git-repository-name>
+
+        <testng-version>7.1.0</testng-version>
+        <okhttp3-version>4.9.0</okhttp3-version>
+        <surefire-version>3.0.0-M3</surefire-version>
+        <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
+        <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
+        <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
+        <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
+        <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
+        <maven-shade-plugin-version>3.2.2</maven-shade-plugin-version>
+        <maven-jar-plugin-version>3.2.0</maven-jar-plugin-version>
+        <maven-javadoc-plugin-version>3.1.1</maven-javadoc-plugin-version>
+        <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+        <maven-site-plugin-version>3.7.1</maven-site-plugin-version>
+        <maven-checkstyle-plugin-version>3.1.0</maven-checkstyle-plugin-version>
+        <maven-reports-plugin-version>3.0.0</maven-reports-plugin-version>
+        <maven-failsafe-plugin-version>3.0.0-M4</maven-failsafe-plugin-version>
+        <maven-buildnumber-plugin-version>1.4</maven-buildnumber-plugin-version>
+        <powermock-version>2.0.5</powermock-version>
+        <mockito-version>3.2.4</mockito-version>
+        <slf4j-version>1.7.25</slf4j-version>
+        <logback-version>1.2.3</logback-version>
+    </properties>
+
+    <modules>
+        <!-- This module should always be listed first -->
+        <module>/common</module>
+
+        <!-- >>> List each service's module here -->
+        <module>/assistant</module>
+        <module>/compare-comply</module>
+        <module>/discovery</module>
+        <module>/language-translator</module>
+        <module>/natural-language-classifier</module>
+        <module>/natural-language-understanding</module>
+        <module>/personality-insights</module>
+        <module>/speech-to-text</module>
+        <module>/text-to-speech</module>
+        <module>/tone-analyzer</module>
+        <module>/visual-recognition</module>
+        <!-- This module should be listed after all the service-related modules above -->
+        <!-- <module>modules/coverage-reports</module> -->
+
+        <!-- This module should always be listed last -->
+        <!-- >>> Uncomment the following line if you want to build the examples -->
+        <!-- <module>modules/examples</module> -->
+    </modules>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>IBM Cloud</name>
+    </organization>
+
+    <!-- >>> Update these values to reflect your project -->
+    <scm>
+        <connection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
+        <url>https://github.com/watson-developer-cloud/java-sdk</url>
+    </scm>
+
+    <!-- >>> Update these values to reflect your project -->
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/watson-developer-cloud/java-sdk/issues</url>
+    </issueManagement>
+
+    <!-- >>> Update these values to reflect your project -->
+    <ciManagement>
+        <system>Travis-CI</system>
+        <url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
+    </ciManagement>
+
+    <repositories>
+        <!-- these definitions are useful only for internal SDK projects -->
+        <repository>
+            <id>na-artifactory-ibmcloud-sdks</id>
+            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local/</url>
+        </repository>
+    </repositories>
+
+    <!-- This section is commented out because we use an alternate deploy plugin.
+    <distributionManagement>
+    </distributionManagement>
+    -->
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- This is the Java core dependency -->
+            <dependency>
+                <groupId>com.ibm.cloud</groupId>
+                <artifactId>sdk-core</artifactId>
+                <version>${sdk-core-version}</version>
+            </dependency>
+
+            <!-- Each module (except "common") should depend on this artifact -->
+            <dependency>
+                <!-- >>> Replace this with the common module's artifactId -->
+                <artifactId>common</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <!-- >>> Replace this with the common module's artifactId -->
+                <artifactId>common</artifactId>
+                <groupId>${project.groupId}</groupId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <classifier>tests</classifier>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- TestNG is used to run unit/integration tests -->
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testng-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp3-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>mockwebserver</artifactId>
+                <version>${okhttp3-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-testng</artifactId>
+                <version>${powermock-version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Depedency needed to build examples -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>${slf4j-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin-version}</version>
+                    <configuration>
+                        <quiet>true</quiet>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin-version}</version>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin-version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>verify-style</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <failsOnError>true</failsOnError>
+                        <configLocation>checkstyle.xml</configLocation>
+                        <consoleOutput>true</consoleOutput>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skipITs>false</skipITs>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>${maven-buildnumber-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>create</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                        <shortRevisionLength>8</shortRevisionLength>
+                        <timestampFormat>{0,date,yyyyMMdd-HHmmss}</timestampFormat>
+                        <attach>true</attach>
+                        <addOutputDirectoryToResources>true</addOutputDirectoryToResources>
+                        <doCheck>false</doCheck>
+                        <doUpdate>false</doUpdate>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin-version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <Build-Time>${maven.build.timestamp}</Build-Time>
+                            </manifestEntries>
+                            <manifestSections>
+                                <manifestSection>
+                                    <name>Implementation</name>
+                                    <manifestEntries>
+                                        <Implementation-Title>${project.name}</Implementation-Title>
+                                        <Implementation-Vendor>IBM Corporation</Implementation-Vendor>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                        <Implementation-SCM-Revision>${buildNumber}</Implementation-SCM-Revision>
+                                        <Implementation-SCM-Branch>${scmBranch}</Implementation-SCM-Branch>
+                                    </manifestEntries>
+                                </manifestSection>
+                            </manifestSections>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin-version}</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- Disable default maven-deploy-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <show>public</show>
+                    <doctitle>${project.name}, version ${project.version}</doctitle>
+                    <footer>IBM Corporation</footer>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>${surefire-version}</version>
+              <configuration>
+                <skipTests>${skip.unit.tests}</skipTests>
+              </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin-version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-reports-plugin-version}</version>
+                <reportSets>
+                    <reportSet></reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <developers>
+        <developer>
+            <name>Watson Developer Experience</name>
+            <email>watdevex@us.ibm.com</email>
+            <url>https://www.ibm.com/</url>
+        </developer>
+    </developers>
+
+    <profiles>
+
+        <!-- "central" is used to deploy artifacts on maven central -->
+        <profile>
+            <id>central</id>
+
+            <!-- For this profile, we'll get dependencies from maven central -->
+            <repositories></repositories>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <!-- We don't deploy snapshot releases -->
+                </snapshotRepository>
+                <repository>
+                    <!-- This is where the nexus staging plugin will publish artifacts -->
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <gpgArgument>--batch</gpgArgument>
+                                <gpgArgument>--yes</gpgArgument>
+                                <gpgArgument>--no-tty</gpgArgument>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <!-- Configure the gpg plugin to use the env vars defined in the Travis build settings -->
+                <gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
+                <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+            </properties>
+        </profile>
+    </profiles>
+</project>
