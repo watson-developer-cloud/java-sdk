@@ -1,4 +1,0 @@
-rootProject.name = 'ibm-watson'
-include ':assistant', ':compare-comply', ':discovery', ':language-translator', ':natural-language-classifier',
-        ':natural-language-understanding', ':personality-insights', ':speech-to-text', ':text-to-speech',
-        ':tone-analyzer', ':visual-recognition', ':ibm-watson', ':common'
