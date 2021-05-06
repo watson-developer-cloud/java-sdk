@@ -2,17 +2,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- >>> Replace this with your service category (e.g. "platform-services") -->
-    <artifactId>ibm-watson</artifactId>
+    <artifactId>ibm-watson-parent</artifactId>
 
-    <!-- >>> Update this field to reflect your project -->
     <name>IBM Watson Java SDK</name>
 
-    <!-- >>> Update this field to reflect your project -->
     <description>Java client library to use the IBM Watson APIs</description>
 
-    <!-- >>> Update this field to reflect your project's github URL -->
-    <url> 	https://github.com/watson-developer-cloud/java-sdk</url>
+    <url>https://github.com/watson-developer-cloud/java-sdk</url>
 
     <groupId>com.ibm.watson</groupId>
     <version>99-SNAPSHOT</version>
@@ -21,11 +17,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!--
-            This is the version associated with the Java core. The version used here should be compatible with the version
-            of the SDK generator used to generate your SDK code.
-            See this link for details: https://github.ibm.com/CloudEngineering/openapi-sdkgen/wiki/Compatibility-Chart
-        -->
         <sdk-core-version>9.5.4</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
@@ -70,6 +61,8 @@
         <module>/text-to-speech</module>
         <module>/tone-analyzer</module>
         <module>/visual-recognition</module>
+
+        <module>/ibm-watson</module>
         <!-- This module should be listed after all the service-related modules above -->
         <!-- <module>modules/coverage-reports</module> -->
 
@@ -107,14 +100,6 @@
         <system>Travis-CI</system>
         <url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
     </ciManagement>
-
-    <repositories>
-        <!-- these definitions are useful only for internal SDK projects -->
-        <repository>
-            <id>na-artifactory-ibmcloud-sdks</id>
-            <url>https://na.artifactory.swg-devops.com:443/artifactory/wcp-ibmcloud-sdks-team-maven-local/</url>
-        </repository>
-    </repositories>
 
     <!-- This section is commented out because we use an alternate deploy plugin.
     <distributionManagement>

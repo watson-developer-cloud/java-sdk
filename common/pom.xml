@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>ibm-watson</artifactId>
+        <artifactId>ibm-watson-parent</artifactId>
         <groupId>com.ibm.watson</groupId>
         <version>99-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
@@ -68,29 +68,10 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>${project.parent.artifactId}.properties</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>${project.basedir}/bin/</directory>
-                <includes>
-                    <include>**/*</include>
+                    <include>java-sdk-version.properties</include>
                 </includes>
             </resource>
         </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 
     <developers>
