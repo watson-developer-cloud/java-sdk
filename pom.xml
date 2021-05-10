@@ -301,7 +301,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <skipITs>false</skipITs>
+                        <skipITs>${skipITs}</skipITs>
                     </configuration>
                 </plugin>
                 <plugin>
