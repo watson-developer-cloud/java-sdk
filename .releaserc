@@ -1,12 +1,7 @@
 {
-  "branches": [
-    "master",
-    {
-        "name": "rc",
-        "prerelease": true
-    }
-  ],
   "debug": true,
+  "branches": [ "master" ],
+  "tagFormat": "v${version}",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
@@ -14,31 +9,15 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": ".utility/bumpversion.sh  ${lastRelease.version} ${nextRelease.version}"
-      }
-    ],
-    [
-      "@semantic-release/exec",
-      {
-        "prepareCmd": "./gradlew clean shadowJar"
+        "prepareCmd": "bump2version --allow-dirty --current-version ${lastRelease.version} --new-version ${nextRelease.version} patch"
       }
     ],
     [
       "@semantic-release/git",
       {
-        "message": "docs(release): Add release notes for ${nextRelease.version}"
+        "message": "chore(release): ${nextRelease.version} release notes\n\n${nextRelease.notes}"
       }
     ],
-    [
-      "@semantic-release/github",
-      {
-        "assets": [
-          {
-            "path": "ibm-watson/build/libs/*.jar",
-            "name": "ibm-watson-${nextRelease.version}-jar-with-dependencies.jar"
-          }
-        ]
-      }
-    ]
+    "@semantic-release/github"
   ]
 }
