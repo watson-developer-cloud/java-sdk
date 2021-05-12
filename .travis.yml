@@ -33,8 +33,6 @@ jobs:
     - stage: Build and test
       jdk: openjdk8
       language: java
-      before_install:
-        - .utility/decrypt-service-instance-apikeys.sh
       install:
         - curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
       script:
