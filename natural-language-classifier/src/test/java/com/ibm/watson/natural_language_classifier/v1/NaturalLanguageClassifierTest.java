@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -188,7 +188,7 @@ public class NaturalLanguageClassifierTest {
   public void testCreateClassifierWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
+        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
     String createClassifierPath = "/v1/classifiers";
 
     server.enqueue(
@@ -243,7 +243,7 @@ public class NaturalLanguageClassifierTest {
   public void testListClassifiersWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"classifiers\": [{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}]}";
+        "{\"classifiers\": [{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"status_description\": \"statusDescription\", \"language\": \"language\"}]}";
     String listClassifiersPath = "/v1/classifiers";
 
     server.enqueue(
@@ -282,7 +282,7 @@ public class NaturalLanguageClassifierTest {
   public void testGetClassifierWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
+        "{\"name\": \"name\", \"url\": \"url\", \"status\": \"Non Existent\", \"classifier_id\": \"classifierId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"status_description\": \"statusDescription\", \"language\": \"language\"}";
     String getClassifierPath = "/v1/classifiers/testString";
 
     server.enqueue(

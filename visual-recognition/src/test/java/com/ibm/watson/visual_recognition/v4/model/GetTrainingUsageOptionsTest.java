@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,6 +16,7 @@ package com.ibm.watson.visual_recognition.v4.model;
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.watson.visual_recognition.v4.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,12 +33,10 @@ public class GetTrainingUsageOptionsTest {
   public void testGetTrainingUsageOptions() throws Throwable {
     GetTrainingUsageOptions getTrainingUsageOptionsModel =
         new GetTrainingUsageOptions.Builder()
-            .startTime(TestUtilities.createMockDate("2019-01-01"))
-            .endTime(TestUtilities.createMockDate("2019-01-01"))
+            .startTime(DateUtils.parseAsDate("2019-01-01"))
+            .endTime(DateUtils.parseAsDate("2019-01-01"))
             .build();
-    assertEquals(
-        getTrainingUsageOptionsModel.startTime(), TestUtilities.createMockDate("2019-01-01"));
-    assertEquals(
-        getTrainingUsageOptionsModel.endTime(), TestUtilities.createMockDate("2019-01-01"));
+    assertEquals(getTrainingUsageOptionsModel.startTime(), DateUtils.parseAsDate("2019-01-01"));
+    assertEquals(getTrainingUsageOptionsModel.endTime(), DateUtils.parseAsDate("2019-01-01"));
   }
 }

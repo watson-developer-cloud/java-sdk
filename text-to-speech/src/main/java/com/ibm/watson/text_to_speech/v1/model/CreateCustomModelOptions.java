@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,10 +19,13 @@ public class CreateCustomModelOptions extends GenericModel {
 
   /**
    * The language of the new custom model. You create a custom model for a specific language, not
-   * for a specific voice. A custom model can be used with any voice, standard or neural, for its
-   * specified language. Omit the parameter to use the the default language, `en-US`.
+   * for a specific voice. A custom model can be used with any voice for its specified language.
+   * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
+   * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
    */
   public interface Language {
+    /** ar-MS. */
+    String AR_MS = "ar-MS";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-GB. */
@@ -35,6 +38,8 @@ public class CreateCustomModelOptions extends GenericModel {
     String ES_LA = "es-LA";
     /** es-US. */
     String ES_US = "es-US";
+    /** fr-CA. */
+    String FR_CA = "fr-CA";
     /** fr-FR. */
     String FR_FR = "fr-FR";
     /** it-IT. */
@@ -153,8 +158,9 @@ public class CreateCustomModelOptions extends GenericModel {
    * Gets the language.
    *
    * <p>The language of the new custom model. You create a custom model for a specific language, not
-   * for a specific voice. A custom model can be used with any voice, standard or neural, for its
-   * specified language. Omit the parameter to use the the default language, `en-US`.
+   * for a specific voice. A custom model can be used with any voice for its specified language.
+   * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
+   * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
    *
    * @return the language
    */

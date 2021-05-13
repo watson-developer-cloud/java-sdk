@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -230,7 +230,7 @@ public class MessageStatelessOptionsTest {
             .userDefined(
                 new java.util.HashMap<String, Object>() {
                   {
-                    put("foo", "testString");
+                    put("foo", TestUtilities.createMockMap());
                   }
                 })
             .system(messageContextSkillSystemModel)
@@ -239,7 +239,7 @@ public class MessageStatelessOptionsTest {
         messageContextSkillModel.userDefined(),
         new java.util.HashMap<String, Object>() {
           {
-            put("foo", "testString");
+            put("foo", TestUtilities.createMockMap());
           }
         });
     assertEquals(messageContextSkillModel.system(), messageContextSkillSystemModel);
@@ -268,10 +268,12 @@ public class MessageStatelessOptionsTest {
             .assistantId("testString")
             .input(messageInputStatelessModel)
             .context(messageContextStatelessModel)
+            .userId("testString")
             .build();
     assertEquals(messageStatelessOptionsModel.assistantId(), "testString");
     assertEquals(messageStatelessOptionsModel.input(), messageInputStatelessModel);
     assertEquals(messageStatelessOptionsModel.context(), messageContextStatelessModel);
+    assertEquals(messageStatelessOptionsModel.userId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

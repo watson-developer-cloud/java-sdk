@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
         new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
     assertEquals(dialogNodeOutputTextValuesElementModel.text(), "testString");
 
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     DialogNodeOutputGenericDialogNodeOutputResponseTypeText
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel =
             new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
@@ -43,6 +47,9 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
                         java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel)))
                 .selectionPolicy("sequential")
                 .delimiter("testString")
+                .channels(
+                    new java.util.ArrayList<ResponseGenericChannel>(
+                        java.util.Arrays.asList(responseGenericChannelModel)))
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.responseType(), "text");
@@ -55,6 +62,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
         "sequential");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "testString");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel);

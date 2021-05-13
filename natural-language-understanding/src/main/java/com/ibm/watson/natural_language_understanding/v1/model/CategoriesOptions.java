@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -125,14 +125,10 @@ public class CategoriesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>Enter a [custom
+   * <p>(Beta) Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
-   * ID to override the standard categories model.
-   *
-   * <p>The custom categories experimental feature will be retired on 19 December 2019. On that
-   * date, deployed custom categories models will no longer be accessible in Natural Language
-   * Understanding. The feature will be removed from Knowledge Studio on an earlier date. Custom
-   * categories models will no longer be accessible in Knowledge Studio on 17 December 2019.
+   * ID to override the standard categories model. **This is available only for English
+   * categories.**.
    *
    * @return the model
    */

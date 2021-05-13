@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ public class MessageOptions extends GenericModel {
   protected String sessionId;
   protected MessageInput input;
   protected MessageContext context;
+  protected String userId;
 
   /** Builder. */
   public static class Builder {
@@ -28,12 +29,14 @@ public class MessageOptions extends GenericModel {
     private String sessionId;
     private MessageInput input;
     private MessageContext context;
+    private String userId;
 
     private Builder(MessageOptions messageOptions) {
       this.assistantId = messageOptions.assistantId;
       this.sessionId = messageOptions.sessionId;
       this.input = messageOptions.input;
       this.context = messageOptions.context;
+      this.userId = messageOptions.userId;
     }
 
     /** Instantiates a new builder. */
@@ -104,6 +107,17 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
+     * Set the userId.
+     *
+     * @param userId the userId
+     * @return the MessageOptions builder
+     */
+    public Builder userId(String userId) {
+      this.userId = userId;
+      return this;
+    }
+
+    /**
      * Set the messageRequest.
      *
      * @param messageRequest the messageRequest
@@ -112,6 +126,7 @@ public class MessageOptions extends GenericModel {
     public Builder messageRequest(MessageRequest messageRequest) {
       this.input = messageRequest.input();
       this.context = messageRequest.context();
+      this.userId = messageRequest.userId();
       return this;
     }
   }
@@ -124,6 +139,7 @@ public class MessageOptions extends GenericModel {
     sessionId = builder.sessionId;
     input = builder.input;
     context = builder.context;
+    userId = builder.userId;
   }
 
   /**
@@ -187,5 +203,24 @@ public class MessageOptions extends GenericModel {
    */
   public MessageContext context() {
     return context;
+  }
+
+  /**
+   * Gets the userId.
+   *
+   * <p>A string value that identifies the user who is interacting with the assistant. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * user-based plans, this user ID is used to identify unique users for billing purposes. This
+   * string cannot contain carriage return, newline, or tab characters. If no value is specified in
+   * the input, **user_id** is automatically set to the value of **context.global.session_id**.
+   *
+   * <p>**Note:** This property is the same as the **user_id** property in the global system
+   * context. If **user_id** is specified in both locations, the value specified at the root is
+   * used.
+   *
+   * @return the userId
+   */
+  public String userId() {
+    return userId;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ public class CustomModel extends GenericModel {
 
   protected String description;
   protected List<Word> words;
+  protected List<Prompt> prompts;
 
   /**
    * Gets the customizationId.
@@ -119,13 +120,25 @@ public class CustomModel extends GenericModel {
    *
    * <p>An array of `Word` objects that lists the words and their translations from the custom
    * model. The words are listed in alphabetical order, with uppercase letters listed before
-   * lowercase letters. The array is empty if the custom model contains no words. This field is
-   * returned only by the **Get a voice** method and only when you specify the customization ID of a
-   * custom model.
+   * lowercase letters. The array is empty if no words are defined for the custom model. This field
+   * is returned only by the **Get a custom model** method.
    *
    * @return the words
    */
   public List<Word> getWords() {
     return words;
+  }
+
+  /**
+   * Gets the prompts.
+   *
+   * <p>An array of `Prompt` objects that provides information about the prompts that are defined
+   * for the specified custom model. The array is empty if no prompts are defined for the custom
+   * model. This field is returned only by the **Get a custom model** method.
+   *
+   * @return the prompts
+   */
+  public List<Prompt> getPrompts() {
+    return prompts;
   }
 }

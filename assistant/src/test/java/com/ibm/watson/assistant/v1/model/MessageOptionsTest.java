@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -206,9 +206,22 @@ public class MessageOptionsTest {
     assertEquals(dialogNodeVisitedDetailsModel.title(), "testString");
     assertEquals(dialogNodeVisitedDetailsModel.conditions(), "testString");
 
-    LogMessage logMessageModel = new LogMessage.Builder().level("info").msg("testString").build();
+    LogMessageSource logMessageSourceModel =
+        new LogMessageSource.Builder().type("dialog_node").dialogNode("testString").build();
+    assertEquals(logMessageSourceModel.type(), "dialog_node");
+    assertEquals(logMessageSourceModel.dialogNode(), "testString");
+
+    LogMessage logMessageModel =
+        new LogMessage.Builder()
+            .level("info")
+            .msg("testString")
+            .code("testString")
+            .source(logMessageSourceModel)
+            .build();
     assertEquals(logMessageModel.level(), "info");
     assertEquals(logMessageModel.msg(), "testString");
+    assertEquals(logMessageModel.code(), "testString");
+    assertEquals(logMessageModel.source(), logMessageSourceModel);
 
     DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
         new DialogNodeOutputOptionsElementValue.Builder()
@@ -235,6 +248,10 @@ public class MessageOptionsTest {
     assertEquals(
         dialogNodeOutputOptionsElementModel.value(), dialogNodeOutputOptionsElementValueModel);
 
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     RuntimeResponseGenericRuntimeResponseTypeOption runtimeResponseGenericModel =
         new RuntimeResponseGenericRuntimeResponseTypeOption.Builder()
             .responseType("option")
@@ -244,6 +261,9 @@ public class MessageOptionsTest {
             .options(
                 new java.util.ArrayList<DialogNodeOutputOptionsElement>(
                     java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)))
+            .channels(
+                new java.util.ArrayList<ResponseGenericChannel>(
+                    java.util.Arrays.asList(responseGenericChannelModel)))
             .build();
     assertEquals(runtimeResponseGenericModel.responseType(), "option");
     assertEquals(runtimeResponseGenericModel.title(), "testString");
@@ -253,6 +273,10 @@ public class MessageOptionsTest {
         runtimeResponseGenericModel.options(),
         new java.util.ArrayList<DialogNodeOutputOptionsElement>(
             java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)));
+    assertEquals(
+        runtimeResponseGenericModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     OutputData outputDataModel =
         new OutputData.Builder()
@@ -298,6 +322,7 @@ public class MessageOptionsTest {
             .alternateIntents(true)
             .context(contextModel)
             .output(outputDataModel)
+            .userId("testString")
             .nodesVisitedDetails(true)
             .build();
     assertEquals(messageOptionsModel.workspaceId(), "testString");
@@ -311,6 +336,7 @@ public class MessageOptionsTest {
     assertEquals(messageOptionsModel.alternateIntents(), Boolean.valueOf(true));
     assertEquals(messageOptionsModel.context(), contextModel);
     assertEquals(messageOptionsModel.output(), outputDataModel);
+    assertEquals(messageOptionsModel.userId(), "testString");
     assertEquals(messageOptionsModel.nodesVisitedDetails(), Boolean.valueOf(true));
   }
 

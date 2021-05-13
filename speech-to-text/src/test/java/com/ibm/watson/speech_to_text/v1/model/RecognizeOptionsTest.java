@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -58,6 +58,7 @@ public class RecognizeOptionsTest {
             .splitTranscriptAtPhraseEnd(true)
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
+            .lowLatency(true)
             .build();
     assertEquals(
         IOUtils.toString(recognizeOptionsModel.audio()),
@@ -88,6 +89,7 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(true));
     assertEquals(recognizeOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
+    assertEquals(recognizeOptionsModel.lowLatency(), Boolean.valueOf(true));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

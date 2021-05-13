@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.assistant.v1;
@@ -80,7 +80,6 @@ import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
-import com.ibm.watson.assistant.v1.model.UpdateDialogNodeNullableOptions;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
@@ -110,7 +109,7 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "assistant";
+  public static final String DEFAULT_SERVICE_NAME = "conversation";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
@@ -253,6 +252,9 @@ public class Assistant extends BaseService {
           "output",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.output()));
     }
+    if (messageOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageOptions.userId());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<MessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -267,7 +269,7 @@ public class Assistant extends BaseService {
    * the intents and entities recognized in each input. This method is useful for testing and
    * comparing the performance of different workspaces.
    *
-   * <p>This method is available only with Premium plans.
+   * <p>This method is available only with Enterprise with Data Isolation plans.
    *
    * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
@@ -2291,51 +2293,6 @@ public class Assistant extends BaseService {
   }
 
   /**
-   * Update dialog node.
-   *
-   * <p>Update an existing dialog node with new or modified data.
-   *
-   * <p>If you want to update multiple dialog nodes with a single API call, consider using the
-   * **[Update workspace](#update-workspace)** method instead.
-   *
-   * @param UpdateDialogNodeNullableOptions the {@link UpdateDialogNodeNullableOptions} containing the
-   *     options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
-   */
-  public ServiceCall<DialogNode> updateDialogNodeNullable(
-          UpdateDialogNodeNullableOptions UpdateDialogNodeNullableOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-            UpdateDialogNodeNullableOptions, "UpdateDialogNodeNullableOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("workspace_id", UpdateDialogNodeNullableOptions.workspaceId());
-    pathParamsMap.put("dialog_node", UpdateDialogNodeNullableOptions.dialogNode());
-    RequestBuilder builder =
-            RequestBuilder.post(
-                    RequestBuilder.resolveRequestUrl(
-                            getServiceUrl(),
-                            "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
-                            pathParamsMap));
-    Map<String, String> sdkHeaders =
-            SdkCommon.getSdkHeaders("conversation", "v1", "testUpdateDialogNode");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    if (UpdateDialogNodeNullableOptions.includeAudit() != null) {
-      builder.query("include_audit", String.valueOf(UpdateDialogNodeNullableOptions.includeAudit()));
-    }
-    builder.bodyContent(
-            com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls()
-                    .toJson(UpdateDialogNodeNullableOptions.body()),
-            "application/json");
-    ResponseConverter<DialogNode> responseConverter =
-            ResponseConverterUtils.getValue(
-                    new com.google.gson.reflect.TypeToken<DialogNode>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
    * Delete dialog node.
    *
    * <p>Delete a dialog node from a workspace.
@@ -2371,6 +2328,8 @@ public class Assistant extends BaseService {
    * List log events in a workspace.
    *
    * <p>List the events from the log of a specific workspace.
+   *
+   * <p>This method requires Manager access.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
@@ -2453,6 +2412,11 @@ public class Assistant extends BaseService {
    * request that passes data. For more information about personal data and customer IDs, see
    * [Information
    * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
+   *
+   * <p>**Note:** This operation is intended only for deleting data associated with a single
+   * specific customer, not for deleting data associated with multiple customers or for any other
+   * purpose. For more information, see [Labeling and deleting data in Watson
+   * Assistant](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security-gdpr-wa).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call

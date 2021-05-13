@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,6 +16,7 @@ package com.ibm.watson.discovery.v1.model;
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.watson.discovery.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,16 +33,16 @@ public class GetMetricsQueryNoResultsOptionsTest {
   public void testGetMetricsQueryNoResultsOptions() throws Throwable {
     GetMetricsQueryNoResultsOptions getMetricsQueryNoResultsOptionsModel =
         new GetMetricsQueryNoResultsOptions.Builder()
-            .startTime(TestUtilities.createMockDateTime("2019-01-01T12:00:00"))
-            .endTime(TestUtilities.createMockDateTime("2019-01-01T12:00:00"))
+            .startTime(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
+            .endTime(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
             .resultType("document")
             .build();
     assertEquals(
         getMetricsQueryNoResultsOptionsModel.startTime(),
-        TestUtilities.createMockDateTime("2019-01-01T12:00:00"));
+        DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(
         getMetricsQueryNoResultsOptionsModel.endTime(),
-        TestUtilities.createMockDateTime("2019-01-01T12:00:00"));
+        DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(getMetricsQueryNoResultsOptionsModel.resultType(), "document");
   }
 }

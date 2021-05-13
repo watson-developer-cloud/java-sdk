@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,17 +12,8 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-/** An object that describes a response with response type `option`. */
+/** RuntimeResponseGenericRuntimeResponseTypeOption. */
 public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResponseGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** option. */
-    String OPTION = "option";
-  }
 
   /** The preferred type of control to display. */
   public interface Preference {

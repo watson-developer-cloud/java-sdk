@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,30 +12,26 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `pause`. */
+import java.util.ArrayList;
+import java.util.List;
+
+/** DialogNodeOutputGenericDialogNodeOutputResponseTypePause. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypePause
     extends DialogNodeOutputGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** pause. */
-    String PAUSE = "pause";
-  }
 
   /** Builder. */
   public static class Builder {
     private String responseType;
     private Long time;
     private Boolean typing;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypePause) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypePause.responseType;
       this.time = dialogNodeOutputGenericDialogNodeOutputResponseTypePause.time;
       this.typing = dialogNodeOutputGenericDialogNodeOutputResponseTypePause.typing;
+      this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypePause.channels;
     }
 
     /** Instantiates a new builder. */
@@ -59,6 +55,21 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypePause
      */
     public DialogNodeOutputGenericDialogNodeOutputResponseTypePause build() {
       return new DialogNodeOutputGenericDialogNodeOutputResponseTypePause(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypePause builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -93,6 +104,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypePause
       this.typing = typing;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypePause builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypePause(Builder builder) {
@@ -102,6 +124,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypePause
     responseType = builder.responseType;
     time = builder.time;
     typing = builder.typing;
+    channels = builder.channels;
   }
 
   /**

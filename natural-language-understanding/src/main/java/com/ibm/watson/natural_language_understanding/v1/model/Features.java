@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,39 +14,44 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.Map;
 
 /** Analysis features and options. */
 public class Features extends GenericModel {
 
+  protected CategoriesOptions categories;
+  protected ClassificationsOptions classifications;
   protected ConceptsOptions concepts;
   protected EmotionOptions emotion;
   protected EntitiesOptions entities;
   protected KeywordsOptions keywords;
-  protected Map<String, Object> metadata;
+  protected MetadataOptions metadata;
   protected RelationsOptions relations;
 
   @SerializedName("semantic_roles")
   protected SemanticRolesOptions semanticRoles;
 
   protected SentimentOptions sentiment;
-  protected CategoriesOptions categories;
+  protected SummarizationOptions summarization;
   protected SyntaxOptions syntax;
 
   /** Builder. */
   public static class Builder {
+    private CategoriesOptions categories;
+    private ClassificationsOptions classifications;
     private ConceptsOptions concepts;
     private EmotionOptions emotion;
     private EntitiesOptions entities;
     private KeywordsOptions keywords;
-    private Map<String, Object> metadata;
+    private MetadataOptions metadata;
     private RelationsOptions relations;
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
-    private CategoriesOptions categories;
+    private SummarizationOptions summarization;
     private SyntaxOptions syntax;
 
     private Builder(Features features) {
+      this.categories = features.categories;
+      this.classifications = features.classifications;
       this.concepts = features.concepts;
       this.emotion = features.emotion;
       this.entities = features.entities;
@@ -55,7 +60,7 @@ public class Features extends GenericModel {
       this.relations = features.relations;
       this.semanticRoles = features.semanticRoles;
       this.sentiment = features.sentiment;
-      this.categories = features.categories;
+      this.summarization = features.summarization;
       this.syntax = features.syntax;
     }
 
@@ -69,6 +74,28 @@ public class Features extends GenericModel {
      */
     public Features build() {
       return new Features(this);
+    }
+
+    /**
+     * Set the categories.
+     *
+     * @param categories the categories
+     * @return the Features builder
+     */
+    public Builder categories(CategoriesOptions categories) {
+      this.categories = categories;
+      return this;
+    }
+
+    /**
+     * Set the classifications.
+     *
+     * @param classifications the classifications
+     * @return the Features builder
+     */
+    public Builder classifications(ClassificationsOptions classifications) {
+      this.classifications = classifications;
+      return this;
     }
 
     /**
@@ -121,7 +148,7 @@ public class Features extends GenericModel {
      * @param metadata the metadata
      * @return the Features builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(MetadataOptions metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -160,13 +187,13 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Set the categories.
+     * Set the summarization.
      *
-     * @param categories the categories
+     * @param summarization the summarization
      * @return the Features builder
      */
-    public Builder categories(CategoriesOptions categories) {
-      this.categories = categories;
+    public Builder summarization(SummarizationOptions summarization) {
+      this.summarization = summarization;
       return this;
     }
 
@@ -183,6 +210,8 @@ public class Features extends GenericModel {
   }
 
   protected Features(Builder builder) {
+    categories = builder.categories;
+    classifications = builder.classifications;
     concepts = builder.concepts;
     emotion = builder.emotion;
     entities = builder.entities;
@@ -191,7 +220,7 @@ public class Features extends GenericModel {
     relations = builder.relations;
     semanticRoles = builder.semanticRoles;
     sentiment = builder.sentiment;
-    categories = builder.categories;
+    summarization = builder.summarization;
     syntax = builder.syntax;
   }
 
@@ -202,6 +231,33 @@ public class Features extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the categories.
+   *
+   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
+   *
+   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Spanish.
+   *
+   * @return the categories
+   */
+  public CategoriesOptions categories() {
+    return categories;
+  }
+
+  /**
+   * Gets the classifications.
+   *
+   * <p>Returns text classifications for the content.
+   *
+   * <p>Supported languages: English only.
+   *
+   * @return the classifications
+   */
+  public ClassificationsOptions classifications() {
+    return classifications;
   }
 
   /**
@@ -273,7 +329,7 @@ public class Features extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public MetadataOptions metadata() {
     return metadata;
   }
 
@@ -324,17 +380,16 @@ public class Features extends GenericModel {
   }
 
   /**
-   * Gets the categories.
+   * Gets the summarization.
    *
-   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
+   * <p>(Experimental) Returns a summary of content.
    *
-   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
-   * Spanish.
+   * <p>Supported languages: English only.
    *
-   * @return the categories
+   * @return the summarization
    */
-  public CategoriesOptions categories() {
-    return categories;
+  public SummarizationOptions summarization() {
+    return summarization;
   }
 
   /**

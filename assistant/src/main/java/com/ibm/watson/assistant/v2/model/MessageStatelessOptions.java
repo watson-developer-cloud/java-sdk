@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,17 +20,20 @@ public class MessageStatelessOptions extends GenericModel {
   protected String assistantId;
   protected MessageInputStateless input;
   protected MessageContextStateless context;
+  protected String userId;
 
   /** Builder. */
   public static class Builder {
     private String assistantId;
     private MessageInputStateless input;
     private MessageContextStateless context;
+    private String userId;
 
     private Builder(MessageStatelessOptions messageStatelessOptions) {
       this.assistantId = messageStatelessOptions.assistantId;
       this.input = messageStatelessOptions.input;
       this.context = messageStatelessOptions.context;
+      this.userId = messageStatelessOptions.userId;
     }
 
     /** Instantiates a new builder. */
@@ -86,6 +89,17 @@ public class MessageStatelessOptions extends GenericModel {
       this.context = context;
       return this;
     }
+
+    /**
+     * Set the userId.
+     *
+     * @param userId the userId
+     * @return the MessageStatelessOptions builder
+     */
+    public Builder userId(String userId) {
+      this.userId = userId;
+      return this;
+    }
   }
 
   protected MessageStatelessOptions(Builder builder) {
@@ -94,6 +108,7 @@ public class MessageStatelessOptions extends GenericModel {
     assistantId = builder.assistantId;
     input = builder.input;
     context = builder.context;
+    userId = builder.userId;
   }
 
   /**
@@ -145,5 +160,24 @@ public class MessageStatelessOptions extends GenericModel {
    */
   public MessageContextStateless context() {
     return context;
+  }
+
+  /**
+   * Gets the userId.
+   *
+   * <p>A string value that identifies the user who is interacting with the assistant. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * user-based plans, this user ID is used to identify unique users for billing purposes. This
+   * string cannot contain carriage return, newline, or tab characters. If no value is specified in
+   * the input, **user_id** is automatically set to the value of **context.global.session_id**.
+   *
+   * <p>**Note:** This property is the same as the **user_id** property in the global system
+   * context. If **user_id** is specified in both locations in a message request, the value
+   * specified at the root is used.
+   *
+   * @return the userId
+   */
+  public String userId() {
+    return userId;
   }
 }

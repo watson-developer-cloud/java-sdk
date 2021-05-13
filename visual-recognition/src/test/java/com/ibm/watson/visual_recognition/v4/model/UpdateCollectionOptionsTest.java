@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,6 +55,7 @@ public class UpdateCollectionOptionsTest {
             .collectionId("testString")
             .name("testString")
             .description("testString")
+            .trainingStatus(trainingStatusModel)
             .build();
     assertEquals(updateCollectionOptionsModel.collectionId(), "testString");
     assertEquals(updateCollectionOptionsModel.name(), "testString");

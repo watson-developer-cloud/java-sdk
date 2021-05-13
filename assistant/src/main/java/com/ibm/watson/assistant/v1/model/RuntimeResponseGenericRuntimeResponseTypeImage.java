@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,17 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `image`. */
-public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeResponseGeneric {
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** image. */
-    String IMAGE = "image";
-  }
+/** RuntimeResponseGenericRuntimeResponseTypeImage. */
+public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeResponseGeneric {
 
   /** Builder. */
   public static class Builder {
@@ -30,12 +24,14 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
     private String source;
     private String title;
     private String description;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeImage) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeImage.responseType;
       this.source = runtimeResponseGenericRuntimeResponseTypeImage.source;
       this.title = runtimeResponseGenericRuntimeResponseTypeImage.title;
       this.description = runtimeResponseGenericRuntimeResponseTypeImage.description;
+      this.channels = runtimeResponseGenericRuntimeResponseTypeImage.channels;
     }
 
     /** Instantiates a new builder. */
@@ -59,6 +55,21 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
      */
     public RuntimeResponseGenericRuntimeResponseTypeImage build() {
       return new RuntimeResponseGenericRuntimeResponseTypeImage(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeImage builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -104,6 +115,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeImage builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeImage(Builder builder) {
@@ -114,6 +136,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
     source = builder.source;
     title = builder.title;
     description = builder.description;
+    channels = builder.channels;
   }
 
   /**
