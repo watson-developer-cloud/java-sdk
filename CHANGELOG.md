@@ -1,3 +1,10 @@
+## [9.1.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.1.0...v9.1.1) (2021-05-17)
+
+
+### Bug Fixes
+
+* **bumpversion:** update bumpversion configuration ([e6b97d6](https://github.com/watson-developer-cloud/java-sdk/commit/e6b97d6d13a627290dea54dea14d67d6aab3bdfa))
+
 # [9.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.0.2...v9.1.0) (2021-04-30)
 
 
