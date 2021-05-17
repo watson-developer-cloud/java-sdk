@@ -23,18 +23,10 @@ echo '<!DOCTYPE html>
         | <a href="https://search.maven.org/search?q=g:com.ibm.watson">Maven</a>
     </p>
 
-    <p>Javadoc by branch/tag:</p>
-    <ul>'
+    <p>Javadoc by branch/release:</p>
+    <ul><li><a href="docs/latest">Latest</a></li>'
 ls docs | grep --invert-match index.html | sed 's/^.*/<li><a href="docs\/&">&<\/a><\/li>/'
 echo '    </ul>
 </div>
-<script>
-    (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
-    ga("create", "UA-59827755-4", "auto");
-    ga("send", "pageview");
-</script>
 </body>
 </html>'

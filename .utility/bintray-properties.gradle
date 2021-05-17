@@ -1,8 +1,0 @@
-ext {
-    packageName = PACKAGE_NAME
-    libraryName = NAME
-    artifact = ARTIFACT_ID
-    libraryDescription = DESCRIPTION
-}
-
-apply from: rootProject.file('.utility/bintray-release.gradle')

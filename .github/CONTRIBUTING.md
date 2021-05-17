@@ -4,14 +4,15 @@ If you encounter an issue with the Java SDK, you are welcome to submit a [bug re
 Before that, please search for similar issues. It's possible somebody has encountered this issue already.
 
 # Building and testing
-This project uses [Gradle] as the build tool (> v1.x). Here are some helpful commands:
+This project uses [Maven] as the build tool (> v1.x). Here are some helpful commands:
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-6.14.0.jar)
-gradle test # run tests
-gradle check # performs quality checks on source files and generates reports
-gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
-gradle codeCoverageReport # run tests and generate the code coverage report (build/reports/jacoco)
+mvn clean  # Delete target directory.
+mvn test # Run tests
+mvn package # Take the compiled code and package it in its distributable format, e.g. JAR.
+mvn verify # Run any checks to verify the MVN package is valid and meets quality criteria.
+mvn verify -fae -DskipITs=false # Run Integration tests to verify the MVN package is valid and meets quality criteria.
+mvn install # Install the package into the local maven repository cache.
 ```
 
 # Pull Requests
@@ -19,8 +20,8 @@ gradle codeCoverageReport # run tests and generate the code coverage report (bui
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
   1. Edit the [`config.properties`](../common/src/test/resources/config.properties) file to add your service credentials to the appropriate fields.
-  2. develop and test your code changes, gradle: `gradle test`.
-    * Run `checkstyle`: `gradle checkstyle`. 🏁
+  2. develop and test your code changes: `mvn verify -fae -DskipITs=false`.
+    * Run `checkstyle`: `mvn checkstyle:check`. 🏁
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass

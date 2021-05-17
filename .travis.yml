@@ -1,55 +1,78 @@
+---
+language: java
 dist: xenial
 os: linux
+
+jdk:
+  - openjdk8
+
+notifications:
+  email: true
+
 branches:
   except:
     - gh-pages
+
+cache:
+  directories:
+    - "$HOME/.m2"
+
+env:
+  global:
+    - MVN_ARGS="--settings build/.travis.settings.xml"
+
 stages:
-  - Build and test
-  - Semantic release
-  - Publish javadoc
-  - Upload Archives
+  - name: Build and test
+  - name: Semantic-Release
+    if: branch = master AND type = push AND fork = false
+  - name: Publish-Release
+    if: tag IS present
 
 jobs:
   include:
     - stage: Build and test
       jdk: openjdk8
       language: java
-      before_install:
-        - .utility/decrypt-service-instance-apikeys.sh
+      install:
+        - curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
       script:
-        - ./gradlew checkstyleMain
-        - ./gradlew checkstyleTest
-        - travis_retry .utility/travis-run-tests.sh
+        - build/setMavenVersion.sh
+        - mvn verify -fae -DskipITs $MVN_ARGS
       after_success:
-        - bash <(curl -s https://codecov.io/bash)+++++++
+        - build/publishCodeCoverage.sh
 
-    - stage: Semantic release
-      jdk: openjdk8
-      language: java
-      if: (branch = master OR branch = rc) AND type = push AND fork = false
-      before_install:
-        - pip install --user bumpversion
+    - stage: Semantic-Release
+      install:
+        - sudo apt-get install python
         - nvm install 12
+        - npm install -g npm@6.x
+        - pip install --user bump2version
         - npm install @semantic-release/changelog
         - npm install @semantic-release/exec
         - npm install @semantic-release/git
+        - npm install @semantic-release/github
       script:
         - npx semantic-release
+      after_success:
+        - echo "Semantic release has successfully created a new tagged-release"
 
-    - stage: Publish javadoc
+    - stage: Publish-Release
       jdk: openjdk8
-      language: java
-      if: type = push AND fork = false
+      name: Publish-Javadoc
+      install: true
       script:
-        - ./gradlew docs
-        - .utility/push-javadoc-to-gh-pages.sh
+        - build/setMavenVersion.sh
+        - mvn clean javadoc:aggregate $MVN_ARGS
+        - build/publishJavadoc.sh
+      after_success:
+        - echo "Javadocs successfully published to gh-pages!"
 
-    - stage: Upload Archives
-      jdk: openjdk8
-      language: java
-      if: tag IS present
+    - jdk: openjdk8
+      name: Publish-To-Maven-Central
+      install: true
       script:
-        - .utility/deploy-travis-wrapper.sh
-
-notifications:
-  email: true
+        - build/setupSigning.sh
+        - build/setMavenVersion.sh
+        - mvn deploy $MVN_ARGS -DskipTests -P central
+      after_success:
+        - echo "Maven artifacts successfully published to Maven Central!"
