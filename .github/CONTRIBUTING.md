@@ -12,7 +12,7 @@ mvn test # Run tests
 mvn package # Take the compiled code and package it in its distributable format, e.g. JAR.
 mvn verify # Run any checks to verify the MVN package is valid and meets quality criteria.
 mvn verify -fae -DskipITs=false # Run Integration tests to verify the MVN package is valid and meets quality criteria.
-mvn install # Install the package into the local repository.
+mvn install # Install the package into the local maven repository cache.
 ```
 
 # Pull Requests
@@ -20,7 +20,7 @@ mvn install # Install the package into the local repository.
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
   1. Edit the [`config.properties`](../common/src/test/resources/config.properties) file to add your service credentials to the appropriate fields.
-  2. develop and test your code changes, gradle: `mvn verify -fae -DskipITs=false`.
+  2. develop and test your code changes: `mvn verify -fae -DskipITs=false`.
     * Run `checkstyle`: `mvn checkstyle:check`. 🏁
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
