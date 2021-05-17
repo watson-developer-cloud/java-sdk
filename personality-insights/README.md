@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>personality-insights</artifactId>
-  <version>9.1.0</version>
+  <version>9.1.1</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:personality-insights:9.1.0'
+'com.ibm.watson:personality-insights:9.1.1'
 ```
 
 ## Usage
