@@ -24,7 +24,7 @@ env:
 stages:
   - name: Build and test
   - name: Semantic-Release
-    if: branch = main AND type = push AND fork = false
+    if: branch = master AND type = push AND fork = false
   - name: Publish-Release
     if: tag IS present
 
