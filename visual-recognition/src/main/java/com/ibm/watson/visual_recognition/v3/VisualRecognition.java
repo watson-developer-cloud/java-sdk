@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.visual_recognition.v3;
@@ -55,16 +55,9 @@ import okhttp3.MultipartBody;
  * @version v3
  * @see <a href="https://cloud.ibm.com/docs/visual-recognition">Visual Recognition</a>
  */
-
-/**
- * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
- *     information, see Visual Recognition Deprecation
- *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
- */
-@Deprecated
 public class VisualRecognition extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  public static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
@@ -123,10 +116,6 @@ public class VisualRecognition extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
-
-    System.err.println(
-        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
-            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**
@@ -197,11 +186,14 @@ public class VisualRecognition extends BaseService {
       multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
     }
     if (classifyOptions.owners() != null) {
-      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+      for (String item : classifyOptions.owners()) {
+        multipartBuilder.addFormDataPart("owners", item);
+      }
     }
     if (classifyOptions.classifierIds() != null) {
-      multipartBuilder.addFormDataPart(
-          "classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
+      for (String item : classifyOptions.classifierIds()) {
+        multipartBuilder.addFormDataPart("classifier_ids", item);
+      }
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassifiedImages> responseConverter =
@@ -263,18 +255,16 @@ public class VisualRecognition extends BaseService {
       String partName = String.format("%s_positive_examples", entry.getKey());
       okhttp3.RequestBody part =
           RequestUtils.inputStreamBody(entry.getValue(), "application/octet-stream");
-      multipartBuilder.addFormDataPart(partName, entry.getKey() + ".zip", part);
+      multipartBuilder.addFormDataPart(partName, entry.getKey(), part);
     }
     if (createClassifierOptions.negativeExamples() != null) {
       okhttp3.RequestBody negativeExamplesBody =
           RequestUtils.inputStreamBody(
               createClassifierOptions.negativeExamples(), "application/octet-stream");
-      String negativeExamplesFilename = createClassifierOptions.negativeExamplesFilename();
-      if (!negativeExamplesFilename.contains(".")) {
-        negativeExamplesFilename += ".zip";
-      }
       multipartBuilder.addFormDataPart(
-          "negative_examples", negativeExamplesFilename, negativeExamplesBody);
+          "negative_examples",
+          createClassifierOptions.negativeExamplesFilename(),
+          negativeExamplesBody);
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<Classifier> responseConverter =

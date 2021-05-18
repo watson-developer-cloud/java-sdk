@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -142,8 +142,8 @@ public class Translation extends GenericModel {
    *
    * <p>The phonetic or sounds-like translation for the word. A phonetic translation is based on the
    * SSML format for representing the phonetic string of a word either as an IPA translation or as
-   * an IBM SPR translation. The Arabic, Chinese, Dutch, and Korean languages support only IPA. A
-   * sounds-like is one or more words that, when combined, sound like the word.
+   * an IBM SPR translation. The Arabic, Chinese, Dutch, Australian English, and Korean languages
+   * support only IPA. A sounds-like is one or more words that, when combined, sound like the word.
    *
    * @return the translation
    */

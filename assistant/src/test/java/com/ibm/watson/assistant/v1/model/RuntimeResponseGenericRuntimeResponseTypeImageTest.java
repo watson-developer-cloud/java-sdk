@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeImageTest {
 
   @Test
   public void testRuntimeResponseGenericRuntimeResponseTypeImage() throws Throwable {
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     RuntimeResponseGenericRuntimeResponseTypeImage
         runtimeResponseGenericRuntimeResponseTypeImageModel =
             new RuntimeResponseGenericRuntimeResponseTypeImage.Builder()
@@ -37,11 +41,18 @@ public class RuntimeResponseGenericRuntimeResponseTypeImageTest {
                 .source("testString")
                 .title("testString")
                 .description("testString")
+                .channels(
+                    new java.util.ArrayList<ResponseGenericChannel>(
+                        java.util.Arrays.asList(responseGenericChannelModel)))
                 .build();
     assertEquals(runtimeResponseGenericRuntimeResponseTypeImageModel.responseType(), "image");
     assertEquals(runtimeResponseGenericRuntimeResponseTypeImageModel.source(), "testString");
     assertEquals(runtimeResponseGenericRuntimeResponseTypeImageModel.title(), "testString");
     assertEquals(runtimeResponseGenericRuntimeResponseTypeImageModel.description(), "testString");
+    assertEquals(
+        runtimeResponseGenericRuntimeResponseTypeImageModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     String json = TestUtilities.serialize(runtimeResponseGenericRuntimeResponseTypeImageModel);
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.assistant.v2;
@@ -55,7 +55,7 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "assistant";
+  public static final String DEFAULT_SERVICE_NAME = "conversation";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
@@ -67,7 +67,7 @@ public class Assistant extends BaseService {
    * the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-04-01`.
+   *     format. The current version is `2020-09-24`.
    */
   public Assistant(String version) {
     this(
@@ -81,7 +81,7 @@ public class Assistant extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-04-01`.
+   *     format. The current version is `2020-09-24`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Assistant(String version, Authenticator authenticator) {
@@ -93,7 +93,7 @@ public class Assistant extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-04-01`.
+   *     format. The current version is `2020-09-24`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Assistant(String version, String serviceName) {
@@ -105,7 +105,7 @@ public class Assistant extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-04-01`.
+   *     format. The current version is `2020-09-24`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -120,7 +120,7 @@ public class Assistant extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2020-04-01`.
+   * current version is `2020-09-24`.
    *
    * @return the version
    */
@@ -241,6 +241,9 @@ public class Assistant extends BaseService {
           "context",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(messageOptions.context()));
     }
+    if (messageOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageOptions.userId());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<MessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -288,6 +291,9 @@ public class Assistant extends BaseService {
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
               .toJsonTree(messageStatelessOptions.context()));
     }
+    if (messageStatelessOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageStatelessOptions.userId());
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<MessageResponseStateless> responseConverter =
         ResponseConverterUtils.getValue(
@@ -302,7 +308,7 @@ public class Assistant extends BaseService {
    * about the intents and entities recognized in each input. This method is useful for testing and
    * comparing the performance of different skills or skill versions.
    *
-   * <p>This method is available only with Premium plans.
+   * <p>This method is available only with Enterprise with Data Isolation plans.
    *
    * @param bulkClassifyOptions the {@link BulkClassifyOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link BulkClassifyResponse}
@@ -341,7 +347,7 @@ public class Assistant extends BaseService {
    *
    * <p>List the events from the log of an assistant.
    *
-   * <p>This method is available only with Premium plans.
+   * <p>This method requires Manager access, and is available only with Enterprise plans.
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
@@ -390,8 +396,10 @@ public class Assistant extends BaseService {
    * [Information
    * security](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security).
    *
-   * <p>This operation is limited to 4 requests per minute. For more information, see **Rate
-   * limiting**.
+   * <p>**Note:** This operation is intended only for deleting data associated with a single
+   * specific customer, not for deleting data associated with multiple customers or for any other
+   * purpose. For more information, see [Labeling and deleting data in Watson
+   * Assistant](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security-gdpr-wa).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
    *     call

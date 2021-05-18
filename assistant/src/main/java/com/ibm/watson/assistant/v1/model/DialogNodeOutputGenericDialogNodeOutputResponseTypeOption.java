@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,18 +15,9 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An object that describes a response with response type `option`. */
+/** DialogNodeOutputGenericDialogNodeOutputResponseTypeOption. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     extends DialogNodeOutputGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** option. */
-    String OPTION = "option";
-  }
 
   /** The preferred type of control to display, if supported by the channel. */
   public interface Preference {
@@ -43,6 +34,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     private String description;
     private String preference;
     private List<DialogNodeOutputOptionsElement> options;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeOption) {
@@ -51,6 +43,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
       this.description = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.description;
       this.preference = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.preference;
       this.options = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.options;
+      this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.channels;
     }
 
     /** Instantiates a new builder. */
@@ -91,6 +84,21 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
       this.options.add(options);
+      return this;
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeOption builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
       return this;
     }
 
@@ -148,6 +156,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
       this.options = options;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeOption builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeOption(Builder builder) {
@@ -160,6 +179,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     description = builder.description;
     preference = builder.preference;
     options = builder.options;
+    channels = builder.channels;
   }
 
   /**

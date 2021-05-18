@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,9 @@ public class SupportedFeatures extends GenericModel {
 
   @SerializedName("speaker_labels")
   protected Boolean speakerLabels;
+
+  @SerializedName("low_latency")
+  protected Boolean lowLatency;
 
   /**
    * Gets the customLanguageModel.
@@ -50,5 +53,18 @@ public class SupportedFeatures extends GenericModel {
    */
   public Boolean isSpeakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the lowLatency.
+   *
+   * <p>Indicates whether the `low_latency` parameter can be used with a next-generation language
+   * model. The field is returned only for next-generation models. Previous-generation models do not
+   * support the `low_latency` parameter.
+   *
+   * @return the lowLatency
+   */
+  public Boolean isLowLatency() {
+    return lowLatency;
   }
 }

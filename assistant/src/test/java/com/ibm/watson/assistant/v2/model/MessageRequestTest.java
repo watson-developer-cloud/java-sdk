@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -230,7 +230,7 @@ public class MessageRequestTest {
             .userDefined(
                 new java.util.HashMap<String, Object>() {
                   {
-                    put("foo", "testString");
+                    put("foo", TestUtilities.createMockMap());
                   }
                 })
             .system(messageContextSkillSystemModel)
@@ -239,7 +239,7 @@ public class MessageRequestTest {
         messageContextSkillModel.userDefined(),
         new java.util.HashMap<String, Object>() {
           {
-            put("foo", "testString");
+            put("foo", TestUtilities.createMockMap());
           }
         });
     assertEquals(messageContextSkillModel.system(), messageContextSkillSystemModel);
@@ -264,9 +264,14 @@ public class MessageRequestTest {
         });
 
     MessageRequest messageRequestModel =
-        new MessageRequest.Builder().input(messageInputModel).context(messageContextModel).build();
+        new MessageRequest.Builder()
+            .input(messageInputModel)
+            .context(messageContextModel)
+            .userId("testString")
+            .build();
     assertEquals(messageRequestModel.input(), messageInputModel);
     assertEquals(messageRequestModel.context(), messageContextModel);
+    assertEquals(messageRequestModel.userId(), "testString");
 
     String json = TestUtilities.serialize(messageRequestModel);
 
@@ -274,5 +279,6 @@ public class MessageRequestTest {
     assertTrue(messageRequestModelNew instanceof MessageRequest);
     assertEquals(messageRequestModelNew.input().toString(), messageInputModel.toString());
     assertEquals(messageRequestModelNew.context().toString(), messageContextModel.toString());
+    assertEquals(messageRequestModelNew.userId(), "testString");
   }
 }

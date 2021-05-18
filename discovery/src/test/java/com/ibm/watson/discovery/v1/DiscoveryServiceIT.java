@@ -1906,42 +1906,42 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   /** Query log is successful. */
-  //@Test
+  // @Test
   public void queryLogIsSuccessful() {
     LogQueryResponse response = discovery.queryLog().execute().getResult();
     assertNotNull(response);
   }
 
   /** Gets the metrics event rate is successful. */
-  //@Test
+  // @Test
   public void getMetricsEventRateIsSuccessful() {
     MetricResponse response = discovery.getMetricsEventRate().execute().getResult();
     assertNotNull(response);
   }
 
   /** Gets the metrics query is successful. */
-  //@Test
+  // @Test
   public void getMetricsQueryIsSuccessful() {
     MetricResponse response = discovery.getMetricsQuery().execute().getResult();
     assertNotNull(response);
   }
 
   /** Gets the metrics query event is successful. */
-  //@Test
+  // @Test
   public void getMetricsQueryEventIsSuccessful() {
     MetricResponse response = discovery.getMetricsQueryEvent().execute().getResult();
     assertNotNull(response);
   }
 
   /** Gets the metrics query no results is successful. */
-  //@Test
+  // @Test
   public void getMetricsQueryNoResultsIsSuccessful() {
     MetricResponse response = discovery.getMetricsQueryNoResults().execute().getResult();
     assertNotNull(response);
   }
 
   /** Gets the metrics query token event is successful. */
-  //@Test
+  // @Test
   public void getMetricsQueryTokenEventIsSuccessful() {
     MetricTokenResponse response = discovery.getMetricsQueryTokenEvent().execute().getResult();
     assertNotNull(response);

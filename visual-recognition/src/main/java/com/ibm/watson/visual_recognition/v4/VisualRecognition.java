@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.visual_recognition.v4;
@@ -79,16 +79,9 @@ import okhttp3.MultipartBody;
  *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *     Recognition</a>
  */
-
-/**
- * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
- *     information, see Visual Recognition Deprecation
- *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
- */
-@Deprecated
 public class VisualRecognition extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
+  public static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
@@ -147,10 +140,6 @@ public class VisualRecognition extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
-
-    System.err.println(
-        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
-            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**
@@ -262,6 +251,12 @@ public class VisualRecognition extends BaseService {
     }
     if (createCollectionOptions.description() != null) {
       contentJson.addProperty("description", createCollectionOptions.description());
+    }
+    if (createCollectionOptions.trainingStatus() != null) {
+      contentJson.add(
+          "training_status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
@@ -389,6 +384,12 @@ public class VisualRecognition extends BaseService {
     }
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.trainingStatus() != null) {
+      contentJson.add(
+          "training_status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =

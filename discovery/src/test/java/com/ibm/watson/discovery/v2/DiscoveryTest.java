@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,7 @@ import com.ibm.watson.discovery.v2.model.DeleteDocumentResponse;
 import com.ibm.watson.discovery.v2.model.DeleteEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.DeleteProjectOptions;
 import com.ibm.watson.discovery.v2.model.DeleteTrainingQueriesOptions;
+import com.ibm.watson.discovery.v2.model.DeleteTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.discovery.v2.model.DocumentAccepted;
 import com.ibm.watson.discovery.v2.model.Enrichment;
@@ -61,6 +62,7 @@ import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
 import com.ibm.watson.discovery.v2.model.ListProjectsResponse;
 import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
 import com.ibm.watson.discovery.v2.model.ProjectDetails;
+import com.ibm.watson.discovery.v2.model.QueryCollectionNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryLargePassages;
 import com.ibm.watson.discovery.v2.model.QueryLargeSuggestedRefinements;
 import com.ibm.watson.discovery.v2.model.QueryLargeTableResults;
@@ -184,7 +186,7 @@ public class DiscoveryTest {
   public void testCreateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String createCollectionPath = "/v2/projects/testString/collections";
 
     server.enqueue(
@@ -252,7 +254,7 @@ public class DiscoveryTest {
   public void testGetCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String getCollectionPath = "/v2/projects/testString/collections/testString";
 
     server.enqueue(
@@ -308,7 +310,7 @@ public class DiscoveryTest {
   public void testUpdateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String updateCollectionPath = "/v2/projects/testString/collections/testString";
 
     server.enqueue(
@@ -428,7 +430,7 @@ public class DiscoveryTest {
   public void testQueryWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 10}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\"}]}], \"aggregations\": [{\"type\": \"filter\", \"match\": \"match\", \"matching_results\": 15}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\"}]}";
+        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 10}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"confidence\": 0, \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}], \"aggregations\": [{\"type\": \"filter\", \"match\": \"match\", \"matching_results\": 15}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"confidence\": 0, \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}";
     String queryPath = "/v2/projects/testString/query";
 
     server.enqueue(
@@ -456,6 +458,8 @@ public class DiscoveryTest {
             .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .count(Long.valueOf("100"))
             .characters(Long.valueOf("50"))
+            .findAnswers(true)
+            .maxAnswersPerPassage(Long.valueOf("26"))
             .build();
 
     // Construct an instance of the QueryOptions model
@@ -577,10 +581,76 @@ public class DiscoveryTest {
   }
 
   @Test
+  public void testQueryCollectionNoticesWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"matching_results\": 15, \"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}]}";
+    String queryCollectionNoticesPath = "/v2/projects/testString/collections/testString/notices";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the QueryCollectionNoticesOptions model
+    QueryCollectionNoticesOptions queryCollectionNoticesOptionsModel =
+        new QueryCollectionNoticesOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .filter("testString")
+            .query("testString")
+            .naturalLanguageQuery("testString")
+            .count(Long.valueOf("26"))
+            .offset(Long.valueOf("26"))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<QueryNoticesResponse> response =
+        discoveryService.queryCollectionNotices(queryCollectionNoticesOptionsModel).execute();
+    assertNotNull(response);
+    QueryNoticesResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("filter"), "testString");
+    assertEquals(query.get("query"), "testString");
+    assertEquals(query.get("natural_language_query"), "testString");
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, queryCollectionNoticesPath);
+  }
+
+  // Test the queryCollectionNotices operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testQueryCollectionNoticesNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.queryCollectionNotices(null).execute();
+  }
+
+  @Test
   public void testQueryNoticesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"matching_results\": 15, \"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}]}";
+        "{\"matching_results\": 15, \"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}]}";
     String queryNoticesPath = "/v2/projects/testString/notices";
 
     server.enqueue(
@@ -938,7 +1008,7 @@ public class DiscoveryTest {
   public void testListTrainingQueriesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"queries\": [{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}]}";
+        "{\"queries\": [{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
     String listTrainingQueriesPath = "/v2/projects/testString/training_data/queries";
 
     server.enqueue(
@@ -1040,7 +1110,7 @@ public class DiscoveryTest {
   public void testCreateTrainingQueryWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String createTrainingQueryPath = "/v2/projects/testString/training_data/queries";
 
     server.enqueue(
@@ -1108,7 +1178,7 @@ public class DiscoveryTest {
   public void testGetTrainingQueryWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String getTrainingQueryPath = "/v2/projects/testString/training_data/queries/testString";
 
     server.enqueue(
@@ -1161,7 +1231,7 @@ public class DiscoveryTest {
   public void testUpdateTrainingQueryWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"query_id\": \"queryId\", \"natural_language_query\": \"naturalLanguageQuery\", \"filter\": \"filter\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"relevance\": 9, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String updateTrainingQueryPath = "/v2/projects/testString/training_data/queries/testString";
 
     server.enqueue(
@@ -1227,10 +1297,62 @@ public class DiscoveryTest {
   }
 
   @Test
+  public void testDeleteTrainingQueryWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteTrainingQueryPath = "/v2/projects/testString/training_data/queries/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteTrainingQueryOptions model
+    DeleteTrainingQueryOptions deleteTrainingQueryOptionsModel =
+        new DeleteTrainingQueryOptions.Builder()
+            .projectId("testString")
+            .queryId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        discoveryService.deleteTrainingQuery(deleteTrainingQueryOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteTrainingQueryPath);
+  }
+
+  // Test the deleteTrainingQuery operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteTrainingQueryNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    discoveryService.deleteTrainingQuery(null).execute();
+  }
+
+  @Test
   public void testAnalyzeDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}], \"result\": {\"metadata\": {\"mapKey\": \"anyValue\"}}}";
+        "{\"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}], \"result\": {\"metadata\": {\"mapKey\": \"anyValue\"}}}";
     String analyzeDocumentPath = "/v2/projects/testString/collections/testString/analyze";
 
     server.enqueue(

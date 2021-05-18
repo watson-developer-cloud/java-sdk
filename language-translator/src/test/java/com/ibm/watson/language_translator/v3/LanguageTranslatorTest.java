@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -499,7 +499,7 @@ public class LanguageTranslatorTest {
   public void testListDocumentsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"documents\": [{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}]}";
+        "{\"documents\": [{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00.000Z\", \"completed\": \"2019-01-01T12:00:00.000Z\", \"word_count\": 9, \"character_count\": 14}]}";
     String listDocumentsPath = "/v3/documents";
 
     server.enqueue(
@@ -539,7 +539,7 @@ public class LanguageTranslatorTest {
   public void testTranslateDocumentWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}";
+        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00.000Z\", \"completed\": \"2019-01-01T12:00:00.000Z\", \"word_count\": 9, \"character_count\": 14}";
     String translateDocumentPath = "/v3/documents";
 
     server.enqueue(
@@ -600,7 +600,7 @@ public class LanguageTranslatorTest {
   public void testGetDocumentStatusWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00\", \"completed\": \"2019-01-01T12:00:00\", \"word_count\": 9, \"character_count\": 14}";
+        "{\"document_id\": \"documentId\", \"filename\": \"filename\", \"status\": \"processing\", \"model_id\": \"modelId\", \"base_model_id\": \"baseModelId\", \"source\": \"source\", \"detected_language_confidence\": 0, \"target\": \"target\", \"created\": \"2019-01-01T12:00:00.000Z\", \"completed\": \"2019-01-01T12:00:00.000Z\", \"word_count\": 9, \"character_count\": 14}";
     String getDocumentStatusPath = "/v3/documents/testString";
 
     server.enqueue(

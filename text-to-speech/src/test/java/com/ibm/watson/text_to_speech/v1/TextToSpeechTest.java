@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,22 +18,36 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.watson.text_to_speech.v1.model.AddCustomPromptOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.text_to_speech.v1.model.CreateCustomModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.CreateSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.CustomModel;
 import com.ibm.watson.text_to_speech.v1.model.CustomModels;
 import com.ibm.watson.text_to_speech.v1.model.DeleteCustomModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.DeleteCustomPromptOptions;
+import com.ibm.watson.text_to_speech.v1.model.DeleteSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.text_to_speech.v1.model.DeleteWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetCustomModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.GetCustomPromptOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetPronunciationOptions;
+import com.ibm.watson.text_to_speech.v1.model.GetSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetWordOptions;
 import com.ibm.watson.text_to_speech.v1.model.ListCustomModelsOptions;
+import com.ibm.watson.text_to_speech.v1.model.ListCustomPromptsOptions;
+import com.ibm.watson.text_to_speech.v1.model.ListSpeakerModelsOptions;
 import com.ibm.watson.text_to_speech.v1.model.ListVoicesOptions;
 import com.ibm.watson.text_to_speech.v1.model.ListWordsOptions;
+import com.ibm.watson.text_to_speech.v1.model.Prompt;
+import com.ibm.watson.text_to_speech.v1.model.PromptMetadata;
+import com.ibm.watson.text_to_speech.v1.model.Prompts;
 import com.ibm.watson.text_to_speech.v1.model.Pronunciation;
+import com.ibm.watson.text_to_speech.v1.model.SpeakerCustomModels;
+import com.ibm.watson.text_to_speech.v1.model.SpeakerModel;
+import com.ibm.watson.text_to_speech.v1.model.Speakers;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.model.Translation;
 import com.ibm.watson.text_to_speech.v1.model.UpdateCustomModelOptions;
@@ -86,7 +100,7 @@ public class TextToSpeechTest {
   public void testListVoicesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"voices\": [{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}]}}]}";
+        "{\"voices\": [{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}}]}";
     String listVoicesPath = "/v1/voices";
 
     server.enqueue(
@@ -124,7 +138,7 @@ public class TextToSpeechTest {
   public void testGetVoiceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}]}}";
+        "{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}}";
     String getVoicePath = "/v1/voices/ar-AR_OmarVoice";
 
     server.enqueue(
@@ -297,7 +311,7 @@ public class TextToSpeechTest {
   public void testCreateCustomModelWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}]}";
+        "{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}";
     String createCustomModelPath = "/v1/customizations";
 
     server.enqueue(
@@ -312,7 +326,7 @@ public class TextToSpeechTest {
     CreateCustomModelOptions createCustomModelOptionsModel =
         new CreateCustomModelOptions.Builder()
             .name("testString")
-            .language("de-DE")
+            .language("ar-MS")
             .description("testString")
             .build();
 
@@ -353,7 +367,7 @@ public class TextToSpeechTest {
   public void testListCustomModelsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"customizations\": [{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}]}]}";
+        "{\"customizations\": [{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}]}";
     String listCustomModelsPath = "/v1/customizations";
 
     server.enqueue(
@@ -366,7 +380,7 @@ public class TextToSpeechTest {
 
     // Construct an instance of the ListCustomModelsOptions model
     ListCustomModelsOptions listCustomModelsOptionsModel =
-        new ListCustomModelsOptions.Builder().language("de-DE").build();
+        new ListCustomModelsOptions.Builder().language("ar-MS").build();
 
     // Invoke operation with valid options model (positive test)
     Response<CustomModels> response =
@@ -384,7 +398,7 @@ public class TextToSpeechTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("language"), "de-DE");
+    assertEquals(query.get("language"), "ar-MS");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listCustomModelsPath);
@@ -455,7 +469,7 @@ public class TextToSpeechTest {
   public void testGetCustomModelWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}]}";
+        "{\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}";
     String getCustomModelPath = "/v1/customizations/testString";
 
     server.enqueue(
@@ -807,6 +821,420 @@ public class TextToSpeechTest {
 
     // Invoke operation with null options model (negative test)
     textToSpeechService.deleteWord(null).execute();
+  }
+
+  @Test
+  public void testListCustomPromptsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}";
+    String listCustomPromptsPath = "/v1/customizations/testString/prompts";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListCustomPromptsOptions model
+    ListCustomPromptsOptions listCustomPromptsOptionsModel =
+        new ListCustomPromptsOptions.Builder().customizationId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Prompts> response =
+        textToSpeechService.listCustomPrompts(listCustomPromptsOptionsModel).execute();
+    assertNotNull(response);
+    Prompts responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listCustomPromptsPath);
+  }
+
+  // Test the listCustomPrompts operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListCustomPromptsNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.listCustomPrompts(null).execute();
+  }
+
+  @Test
+  public void testAddCustomPromptWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}";
+    String addCustomPromptPath = "/v1/customizations/testString/prompts/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the PromptMetadata model
+    PromptMetadata promptMetadataModel =
+        new PromptMetadata.Builder().promptText("testString").speakerId("testString").build();
+
+    // Construct an instance of the AddCustomPromptOptions model
+    AddCustomPromptOptions addCustomPromptOptionsModel =
+        new AddCustomPromptOptions.Builder()
+            .customizationId("testString")
+            .promptId("testString")
+            .metadata(promptMetadataModel)
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Prompt> response =
+        textToSpeechService.addCustomPrompt(addCustomPromptOptionsModel).execute();
+    assertNotNull(response);
+    Prompt responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, addCustomPromptPath);
+  }
+
+  // Test the addCustomPrompt operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testAddCustomPromptNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.addCustomPrompt(null).execute();
+  }
+
+  @Test
+  public void testGetCustomPromptWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}";
+    String getCustomPromptPath = "/v1/customizations/testString/prompts/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetCustomPromptOptions model
+    GetCustomPromptOptions getCustomPromptOptionsModel =
+        new GetCustomPromptOptions.Builder()
+            .customizationId("testString")
+            .promptId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Prompt> response =
+        textToSpeechService.getCustomPrompt(getCustomPromptOptionsModel).execute();
+    assertNotNull(response);
+    Prompt responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getCustomPromptPath);
+  }
+
+  // Test the getCustomPrompt operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetCustomPromptNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.getCustomPrompt(null).execute();
+  }
+
+  @Test
+  public void testDeleteCustomPromptWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteCustomPromptPath = "/v1/customizations/testString/prompts/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteCustomPromptOptions model
+    DeleteCustomPromptOptions deleteCustomPromptOptionsModel =
+        new DeleteCustomPromptOptions.Builder()
+            .customizationId("testString")
+            .promptId("testString")
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        textToSpeechService.deleteCustomPrompt(deleteCustomPromptOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteCustomPromptPath);
+  }
+
+  // Test the deleteCustomPrompt operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteCustomPromptNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.deleteCustomPrompt(null).execute();
+  }
+
+  @Test
+  public void testListSpeakerModelsWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"speakers\": [{\"speaker_id\": \"speakerId\", \"name\": \"name\"}]}";
+    String listSpeakerModelsPath = "/v1/speakers";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the ListSpeakerModelsOptions model
+    ListSpeakerModelsOptions listSpeakerModelsOptionsModel = new ListSpeakerModelsOptions();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Speakers> response =
+        textToSpeechService.listSpeakerModels(listSpeakerModelsOptionsModel).execute();
+    assertNotNull(response);
+    Speakers responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listSpeakerModelsPath);
+  }
+
+  @Test
+  public void testCreateSpeakerModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "{\"speaker_id\": \"speakerId\"}";
+    String createSpeakerModelPath = "/v1/speakers";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(201)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the CreateSpeakerModelOptions model
+    CreateSpeakerModelOptions createSpeakerModelOptionsModel =
+        new CreateSpeakerModelOptions.Builder()
+            .speakerName("testString")
+            .audio(TestUtilities.createMockStream("This is a mock file."))
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<SpeakerModel> response =
+        textToSpeechService.createSpeakerModel(createSpeakerModelOptionsModel).execute();
+    assertNotNull(response);
+    SpeakerModel responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("speaker_name"), "testString");
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createSpeakerModelPath);
+  }
+
+  // Test the createSpeakerModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateSpeakerModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.createSpeakerModel(null).execute();
+  }
+
+  @Test
+  public void testGetSpeakerModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"customizations\": [{\"customization_id\": \"customizationId\", \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\"}]}]}";
+    String getSpeakerModelPath = "/v1/speakers/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the GetSpeakerModelOptions model
+    GetSpeakerModelOptions getSpeakerModelOptionsModel =
+        new GetSpeakerModelOptions.Builder().speakerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<SpeakerCustomModels> response =
+        textToSpeechService.getSpeakerModel(getSpeakerModelOptionsModel).execute();
+    assertNotNull(response);
+    SpeakerCustomModels responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getSpeakerModelPath);
+  }
+
+  // Test the getSpeakerModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetSpeakerModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.getSpeakerModel(null).execute();
+  }
+
+  @Test
+  public void testDeleteSpeakerModelWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody = "";
+    String deleteSpeakerModelPath = "/v1/speakers/testString";
+
+    server.enqueue(new MockResponse().setResponseCode(204).setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DeleteSpeakerModelOptions model
+    DeleteSpeakerModelOptions deleteSpeakerModelOptionsModel =
+        new DeleteSpeakerModelOptions.Builder().speakerId("testString").build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<Void> response =
+        textToSpeechService.deleteSpeakerModel(deleteSpeakerModelOptionsModel).execute();
+    assertNotNull(response);
+    Void responseObj = response.getResult();
+    // Response does not have a return type. Check that the result is null.
+    assertNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "DELETE");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNull(query);
+
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deleteSpeakerModelPath);
+  }
+
+  // Test the deleteSpeakerModel operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeleteSpeakerModelNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    textToSpeechService.deleteSpeakerModel(null).execute();
   }
 
   @Test

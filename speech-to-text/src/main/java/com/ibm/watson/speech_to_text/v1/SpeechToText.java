@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -72,7 +72,6 @@ import com.ibm.watson.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.RegisterCallbackOptions;
 import com.ibm.watson.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.speech_to_text.v1.model.ResetAcousticModelOptions;
@@ -88,23 +87,24 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
+import okhttp3.MultipartBody;
 
 /**
  * The IBM Watson&amp;trade; Speech to Text service provides APIs that use IBM's speech-recognition
  * capabilities to produce transcripts of spoken audio. The service can transcribe speech from
  * various languages and audio formats. In addition to basic transcription, the service can produce
- * detailed information about many different aspects of the audio. For most languages, the service
- * supports two sampling rates, broadband and narrowband. It returns all JSON response content in
- * the UTF-8 character set.
+ * detailed information about many different aspects of the audio. It returns all JSON response
+ * content in the UTF-8 character set.
+ *
+ * <p>The service supports two types of models: previous-generation models that include the terms
+ * `Broadband` and `Narrowband` in their names, and beta next-generation models that include the
+ * terms `Multimedia` and `Telephony` in their names. Broadband and multimedia models have minimum
+ * sampling rates of 16 kHz. Narrowband and telephony models have minimum sampling rates of 8 kHz.
+ * The beta next-generation models currently support fewer languages and features, but they offer
+ * high throughput and greater transcription accuracy.
  *
  * <p>For speech recognition, the service supports synchronous and asynchronous HTTP
  * Representational State Transfer (REST) interfaces. It also supports a WebSocket interface that
@@ -118,8 +118,9 @@ import okhttp3.WebSocket;
  * specification that lets you restrict the phrases that the service can recognize.
  *
  * <p>Language model customization and acoustic model customization are generally available for
- * production use with all language models that are generally available. Grammars are beta
- * functionality for all language models that support language model customization.
+ * production use with all previous-generation models that are generally available. Grammars are
+ * beta functionality for all previous-generation models that support language model customization.
+ * Next-generation models do not support customization at this time.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/speech-to-text">Speech to Text</a>
@@ -182,8 +183,8 @@ public class SpeechToText extends BaseService {
    * ordering of the list of models can change from call to call; do not rely on an alphabetized or
    * static list of models.
    *
-   * <p>**See also:** [Languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
+   * <p>**See also:** [Listing
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
@@ -210,8 +211,8 @@ public class SpeechToText extends BaseService {
    * ordering of the list of models can change from call to call; do not rely on an alphabetized or
    * static list of models.
    *
-   * <p>**See also:** [Languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
+   * <p>**See also:** [Listing
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
    *
    * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
    */
@@ -226,8 +227,8 @@ public class SpeechToText extends BaseService {
    * service. The information includes the name of the model and its minimum sampling rate in Hertz,
    * among other things.
    *
-   * <p>**See also:** [Languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
+   * <p>**See also:** [Listing
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SpeechModel}
@@ -305,8 +306,32 @@ public class SpeechToText extends BaseService {
    * the audio to the appropriate rate. If the sampling rate of the audio is lower than the minimum
    * required rate, the request fails.
    *
-   * <p>**See also:** [Audio
-   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats#audio-formats).
+   * <p>**See also:** [Supported audio
+   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats).
+   *
+   * <p>### Next-generation models
+   *
+   * <p>**Note:** The next-generation language models are beta functionality. They support a limited
+   * number of languages and features at this time. The supported languages, models, and features
+   * will increase with future releases.
+   *
+   * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
+   * for many languages. Next-generation models have higher throughput than the service's previous
+   * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
+   * service can return transcriptions more quickly and also provide noticeably better transcription
+   * accuracy.
+   *
+   * <p>You specify a next-generation model by using the `model` query parameter, as you do a
+   * previous-generation model. Next-generation models support the same request headers as
+   * previous-generation models, but they support only the following additional query parameters: *
+   * `background_audio_suppression` * `inactivity_timeout` * `profanity_filter` * `redaction` *
+   * `smart_formatting` * `speaker_labels` * `speech_detector_sensitivity` * `timestamps`
+   *
+   * <p>Many next-generation models also support the beta `low_latency` parameter, which is not
+   * available with previous-generation models.
+   *
+   * <p>**See also:** [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    *
    * <p>### Multipart speech recognition
    *
@@ -422,66 +447,14 @@ public class SpeechToText extends BaseService {
           "background_audio_suppression",
           String.valueOf(recognizeOptions.backgroundAudioSuppression()));
     }
+    if (recognizeOptions.lowLatency() != null) {
+      builder.query("low_latency", String.valueOf(recognizeOptions.lowLatency()));
+    }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     ResponseConverter<SpeechRecognitionResults> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SpeechRecognitionResults>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket
-   * connection. Requests and responses are enabled over a single TCP connection that abstracts much
-   * of the complexity of the request to offer efficient implementation, low latency, high
-   * throughput, and an asynchronous response. By default, only final results are returned for any
-   * request; to enable interim results, set the interimResults parameter to true.
-   *
-   * <p>The service imposes a data size limit of 100 MB per utterance (per recognition request). You
-   * can send multiple utterances over a single WebSocket connection. The service automatically
-   * detects the endianness of the incoming audio and, for audio that includes multiple channels,
-   * downmixes the audio to one-channel mono during transcoding. (For the audio/l16 format, you can
-   * specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(
-      RecognizeWithWebsocketsOptions recognizeOptions, RecognizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        recognizeOptions, "recognizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -650,8 +623,32 @@ public class SpeechToText extends BaseService {
    * the audio to the appropriate rate. If the sampling rate of the audio is lower than the minimum
    * required rate, the request fails.
    *
-   * <p>**See also:** [Audio
-   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats#audio-formats).
+   * <p>**See also:** [Supported audio
+   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats).
+   *
+   * <p>### Next-generation models
+   *
+   * <p>**Note:** The next-generation language models are beta functionality. They support a limited
+   * number of languages and features at this time. The supported languages, models, and features
+   * will increase with future releases.
+   *
+   * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
+   * for many languages. Next-generation models have higher throughput than the service's previous
+   * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
+   * service can return transcriptions more quickly and also provide noticeably better transcription
+   * accuracy.
+   *
+   * <p>You specify a next-generation model by using the `model` query parameter, as you do a
+   * previous-generation model. Next-generation models support the same request headers as
+   * previous-generation models, but they support only the following additional query parameters: *
+   * `background_audio_suppression` * `inactivity_timeout` * `profanity_filter` * `redaction` *
+   * `smart_formatting` * `speaker_labels` * `speech_detector_sensitivity` * `timestamps`
+   *
+   * <p>Many next-generation models also support the beta `low_latency` parameter, which is not
+   * available with previous-generation models.
+   *
+   * <p>**See also:** [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link RecognitionJob}
@@ -768,6 +765,9 @@ public class SpeechToText extends BaseService {
       builder.query(
           "background_audio_suppression",
           String.valueOf(createJobOptions.backgroundAudioSuppression()));
+    }
+    if (createJobOptions.lowLatency() != null) {
+      builder.query("low_latency", String.valueOf(createJobOptions.lowLatency()));
     }
     builder.bodyContent(createJobOptions.contentType(), null, null, createJobOptions.audio());
     ResponseConverter<RecognitionJob> responseConverter =
@@ -1189,7 +1189,7 @@ public class SpeechToText extends BaseService {
    * subsequent requests for the model until the upgrade completes.
    *
    * <p>**See also:** [Upgrading a custom language
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customUpgrade#upgradeLanguage).
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language).
    *
    * @param upgradeLanguageModelOptions the {@link UpgradeLanguageModelOptions} containing the
    *     options for the call
@@ -1321,8 +1321,12 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
-
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    okhttp3.RequestBody corpusFileBody =
+        RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
+    builder.body(multipartBuilder.build());
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -2174,7 +2178,7 @@ public class SpeechToText extends BaseService {
    * language model.
    *
    * <p>**See also:** [Upgrading a custom acoustic
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customUpgrade#upgradeAcoustic).
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-acoustic).
    *
    * @param upgradeAcousticModelOptions the {@link UpgradeAcousticModelOptions} containing the
    *     options for the call
@@ -2307,8 +2311,8 @@ public class SpeechToText extends BaseService {
    * down-samples the audio to the appropriate rate. If the sampling rate of the audio is lower than
    * the minimum required rate, the service labels the audio file as `invalid`.
    *
-   * <p>**See also:** [Audio
-   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats#audio-formats).
+   * <p>**See also:** [Supported audio
+   * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats).
    *
    * <p>### Content types for archive-type resources
    *

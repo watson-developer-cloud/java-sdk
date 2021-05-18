@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,6 +16,7 @@ package com.ibm.watson.discovery.v1.model;
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.watson.discovery.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class CreateEventOptionsTest {
         new EventData.Builder()
             .environmentId("testString")
             .sessionToken("testString")
-            .clientTimestamp(TestUtilities.createMockDateTime("2019-01-01T12:00:00"))
+            .clientTimestamp(DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"))
             .displayRank(Long.valueOf("26"))
             .collectionId("testString")
             .documentId("testString")
@@ -42,7 +43,7 @@ public class CreateEventOptionsTest {
     assertEquals(eventDataModel.environmentId(), "testString");
     assertEquals(eventDataModel.sessionToken(), "testString");
     assertEquals(
-        eventDataModel.clientTimestamp(), TestUtilities.createMockDateTime("2019-01-01T12:00:00"));
+        eventDataModel.clientTimestamp(), DateUtils.parseAsDateTime("2019-01-01T12:00:00.000Z"));
     assertEquals(eventDataModel.displayRank(), Long.valueOf("26"));
     assertEquals(eventDataModel.collectionId(), "testString");
     assertEquals(eventDataModel.documentId(), "testString");

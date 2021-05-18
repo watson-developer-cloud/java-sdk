@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -190,8 +190,13 @@ public class MessageContextGlobalSystem extends GenericModel {
    *
    * <p>A string value that identifies the user who is interacting with the assistant. The client
    * must provide a unique identifier for each individual end user who accesses the application. For
-   * Plus and Premium plans, this user ID is used to identify unique users for billing purposes.
-   * This string cannot contain carriage return, newline, or tab characters.
+   * user-based plans, this user ID is used to identify unique users for billing purposes. This
+   * string cannot contain carriage return, newline, or tab characters. If no value is specified in
+   * the input, **user_id** is automatically set to the value of **context.global.session_id**.
+   *
+   * <p>**Note:** This property is the same as the **user_id** property at the root of the message
+   * body. If **user_id** is specified in both locations in a message request, the value specified
+   * at the root is used.
    *
    * @return the userId
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,18 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `connect_to_agent`. */
+import java.util.ArrayList;
+import java.util.List;
+
+/** DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     extends DialogNodeOutputGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** connect_to_agent. */
-    String CONNECT_TO_AGENT = "connect_to_agent";
-  }
 
   /** Builder. */
   public static class Builder {
@@ -32,6 +26,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     private AgentAvailabilityMessage agentAvailable;
     private AgentAvailabilityMessage agentUnavailable;
     private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent) {
@@ -45,6 +40,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
           dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.agentUnavailable;
       this.transferInfo =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.transferInfo;
+      this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.channels;
     }
 
     /** Instantiates a new builder. */
@@ -66,6 +62,21 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
      */
     public DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent build() {
       return new DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -122,6 +133,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
       this.transferInfo = transferInfo;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent(Builder builder) {
@@ -132,6 +154,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     agentAvailable = builder.agentAvailable;
     agentUnavailable = builder.agentUnavailable;
     transferInfo = builder.transferInfo;
+    channels = builder.channels;
   }
 
   /**

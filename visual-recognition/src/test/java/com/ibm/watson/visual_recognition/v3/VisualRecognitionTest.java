@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -134,7 +134,7 @@ public class VisualRecognitionTest {
   public void testCreateClassifierWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00.000Z\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String createClassifierPath = "/v3/classifiers";
 
     server.enqueue(
@@ -192,7 +192,7 @@ public class VisualRecognitionTest {
   public void testListClassifiersWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"classifiers\": [{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"classifiers\": [{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00.000Z\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listClassifiersPath = "/v3/classifiers";
 
     server.enqueue(
@@ -234,7 +234,7 @@ public class VisualRecognitionTest {
   public void testGetClassifierWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00.000Z\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String getClassifierPath = "/v3/classifiers/testString";
 
     server.enqueue(
@@ -287,7 +287,7 @@ public class VisualRecognitionTest {
   public void testUpdateClassifierWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"classifier_id\": \"classifierId\", \"name\": \"name\", \"owner\": \"owner\", \"status\": \"ready\", \"core_ml_enabled\": false, \"explanation\": \"explanation\", \"created\": \"2019-01-01T12:00:00.000Z\", \"classes\": [{\"class\": \"xClass\"}], \"retrained\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String updateClassifierPath = "/v3/classifiers/testString";
 
     server.enqueue(

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** A response from the Watson Assistant service. */
@@ -19,6 +20,9 @@ public class MessageResponse extends GenericModel {
 
   protected MessageOutput output;
   protected MessageContext context;
+
+  @SerializedName("user_id")
+  protected String userId;
 
   /**
    * Gets the output.
@@ -44,5 +48,23 @@ public class MessageResponse extends GenericModel {
    */
   public MessageContext getContext() {
     return context;
+  }
+
+  /**
+   * Gets the userId.
+   *
+   * <p>A string value that identifies the user who is interacting with the assistant. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * user-based plans, this user ID is used to identify unique users for billing purposes. This
+   * string cannot contain carriage return, newline, or tab characters. If no value is specified in
+   * the input, **user_id** is automatically set to the value of **context.global.session_id**.
+   *
+   * <p>**Note:** This property is the same as the **user_id** property in the global system
+   * context.
+   *
+   * @return the userId
+   */
+  public String getUserId() {
+    return userId;
   }
 }

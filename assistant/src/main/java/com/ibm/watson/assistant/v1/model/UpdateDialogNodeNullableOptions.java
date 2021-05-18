@@ -109,9 +109,9 @@ public class UpdateDialogNodeNullableOptions extends GenericModel {
 
   protected UpdateDialogNodeNullableOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
-            builder.workspaceId, "workspaceId cannot be empty");
+        builder.workspaceId, "workspaceId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
-            builder.dialogNode, "dialogNode cannot be empty");
+        builder.dialogNode, "dialogNode cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.body, "body cannot be null");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
@@ -179,4 +179,3 @@ public class UpdateDialogNodeNullableOptions extends GenericModel {
     return includeAudit;
   }
 }
-
