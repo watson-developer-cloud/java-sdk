@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import com.ibm.watson.natural_language_understanding.v1.utils.TestUtilities;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -503,5 +504,397 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
     assertTrue(results.getAnalyzedText().length() == characterLimit);
+  }
+
+  /**
+   * Test createSentimentModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testCreateSentimentModel() throws Exception {
+    // Construct an instance of the CreateSentimentModelOptions model
+    CreateSentimentModelOptions createSentimentModelOptionsModel =
+            new CreateSentimentModelOptions.Builder()
+                    .language("en")
+                    .trainingData(TestUtilities.createMockStream("This is a mock file."))
+                    .name("testString")
+                    .description("testString")
+                    .modelVersion("testString")
+                    .versionDescription("testString")
+                    .build();
+    SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+    assertEquals(response.getName(), "testString");
+    assertEquals(response.getLanguage(), "en");
+    assertEquals(response.getDescription(), "testString");
+    assertEquals(response.getModelVersion(), "testString");
+    assertEquals(response.getVersionDescription(), "testString");
+
+    DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
+            new DeleteSentimentModelOptions.Builder().modelId(response.getModelId()).build();
+    DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+  }
+
+  /**
+   * Test listSentimentModels service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testListSentimentModels() throws Exception {
+    ListSentimentModelsResponse response = service.listSentimentModels().execute().getResult();
+    assertNotNull(response.getModels());
+
+    for(SentimentModel sentimentModel: response.getModels()) {
+      if(sentimentModel.getName().startsWith("testString")) {
+        DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
+                new DeleteSentimentModelOptions.Builder().modelId(sentimentModel.getModelId()).build();
+        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+      }
+    }
+  }
+
+  /**
+   * Test updateSentimentModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testUpdateSentimentModel() throws Exception {
+    String modelId = "";
+    try {
+      // Construct an instance of the CreateSentimentModelOptions model
+      CreateSentimentModelOptions createSentimentModelOptionsModel =
+              new CreateSentimentModelOptions.Builder()
+                      .language("en")
+                      .trainingData(TestUtilities.createMockStream("This is a mock file."))
+                      .name("testString")
+                      .description("testString")
+                      .modelVersion("testString")
+                      .versionDescription("testString")
+                      .build();
+      SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+      modelId = response.getModelId();
+      assertEquals(response.getName(), "testString");
+      assertEquals(response.getLanguage(), "en");
+      assertEquals(response.getDescription(), "testString");
+      assertEquals(response.getModelVersion(), "testString");
+      assertEquals(response.getVersionDescription(), "testString");
+
+      UpdateSentimentModelOptions updateSentimentModelOptions = new UpdateSentimentModelOptions.Builder()
+              .description("newDescription")
+              .name("newName")
+              .modelId(response.getModelId())
+              .language("en")
+              .trainingData(TestUtilities.createMockStream("This is a mock file."))
+              .build();
+      SentimentModel response2 = service.updateSentimentModel(updateSentimentModelOptions).execute().getResult();
+
+      assertEquals(response2.getName(), "newName");
+      assertEquals(response2.getLanguage(), "en");
+      assertEquals(response2.getDescription(), "newDescription");
+      assertEquals(response2.getModelVersion(), "testString");
+      assertEquals(response2.getVersionDescription(), "testString");
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (modelId != "") {
+        DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
+                new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+      }
+    }
+  }
+
+  /**
+   * Test getSentimentModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testGetSentimentModel() throws Exception {
+    String modelId = "";
+    try {
+      // Construct an instance of the CreateSentimentModelOptions model
+      CreateSentimentModelOptions createSentimentModelOptionsModel =
+              new CreateSentimentModelOptions.Builder()
+                      .language("en")
+                      .trainingData(TestUtilities.createMockStream("This is a mock file."))
+                      .name("testString")
+                      .description("testString")
+                      .modelVersion("testString")
+                      .versionDescription("testString")
+                      .build();
+      SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+      modelId = response.getModelId();
+      assertEquals(response.getName(), "testString");
+      assertEquals(response.getLanguage(), "en");
+      assertEquals(response.getDescription(), "testString");
+      assertEquals(response.getModelVersion(), "testString");
+      assertEquals(response.getVersionDescription(), "testString");
+
+      GetSentimentModelOptions getSentimentModelOptionsModel =
+              new GetSentimentModelOptions.Builder().modelId(response.getModelId()).build();
+      SentimentModel response2 = service.getSentimentModel(getSentimentModelOptionsModel).execute().getResult();
+
+      assertEquals(response2.getName(), "testString");
+      assertEquals(response2.getLanguage(), "en");
+      assertEquals(response2.getDescription(), "testString");
+      assertEquals(response2.getModelVersion(), "testString");
+      assertEquals(response2.getVersionDescription(), "testString");
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (modelId != "") {
+        DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
+                new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+      }
+    }
+  }
+
+  /**
+   * Test createCategoriesModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testCreateCategoriesModel() throws Exception {
+    // Construct an instance of the CreateCategoriesModelOptions model
+    CreateCategoriesModelOptions createCategoriesModelOptionsModel =
+            new CreateCategoriesModelOptions.Builder()
+                    .language("en")
+                    .trainingData(TestUtilities.createMockStream("[\n" +
+                            "       {\n" +
+                            "           \"labels\": [\n" +
+                            "               \"level1\"\n" +
+                            "           ],\n" +
+                            "           \"key_phrases\": [\n" +
+                            "               \"key phrase\",\n" +
+                            "               \"key phrase 2\"\n" +
+                            "           ]\n" +
+                            "       },\n" +
+                            "       {\n" +
+                            "           \"labels\": [\n" +
+                            "               \"level1\",\n" +
+                            "               \"level2\"\n" +
+                            "           ],\n" +
+                            "           \"key_phrases\": [\n" +
+                            "               \"key phrase 3\",\n" +
+                            "               \"key phrase 4\"\n" +
+                            "           ]\n" +
+                            "       }\n" +
+                            "   ]"))
+                    .trainingDataContentType("application/json")
+                    .name("testString")
+                    .description("testString")
+                    .modelVersion("testString")
+                    .versionDescription("testString")
+                    .build();
+    CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+    assertEquals(response.getName(), "testString");
+    assertEquals(response.getLanguage(), "en");
+    assertEquals(response.getDescription(), "testString");
+    assertEquals(response.getModelVersion(), "testString");
+    assertEquals(response.getVersionDescription(), "testString");
+
+    DeleteCategoriesModelOptions deleteCategoriesModelOptions =
+            new DeleteCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
+    DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+  }
+  /**
+   * Test listCategoriesModels service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testListCategoriesModels() throws Exception {
+    ListCategoriesModelsResponse response = service.listCategoriesModels().execute().getResult();
+    assertNotNull(response.getModels());
+
+    for(CategoriesModelList categoriesModelList: response.getModels()) {
+      if(categoriesModelList.getModels() != null) {
+        for(CategoriesModel categoriesModel: categoriesModelList.getModels()){
+          if(categoriesModel.getName().startsWith("testString")) {
+            DeleteCategoriesModelOptions deleteCategoriesModelOptions =
+                    new DeleteCategoriesModelOptions.Builder().modelId(categoriesModel.getModelId()).build();
+            DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Test updateCategoriesModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testUpdateCategoriesModel() throws Exception {
+    String modelId = "";
+    try {
+      // Construct an instance of the CreateCategoriesModelOptions model
+      CreateCategoriesModelOptions createCategoriesModelOptionsModel =
+              new CreateCategoriesModelOptions.Builder()
+                      .language("en")
+                      .trainingData(TestUtilities.createMockStream("[\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase\",\n" +
+                              "               \"key phrase 2\"\n" +
+                              "           ]\n" +
+                              "       },\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\",\n" +
+                              "               \"level2\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase 3\",\n" +
+                              "               \"key phrase 4\"\n" +
+                              "           ]\n" +
+                              "       }\n" +
+                              "   ]"))
+                      .trainingDataContentType("application/json")
+                      .name("testString")
+                      .description("testString")
+                      .modelVersion("testString")
+                      .versionDescription("testString")
+                      .build();
+      CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+      assertEquals(response.getName(), "testString");
+      assertEquals(response.getLanguage(), "en");
+      assertEquals(response.getDescription(), "testString");
+      assertEquals(response.getModelVersion(), "testString");
+      assertEquals(response.getVersionDescription(), "testString");
+
+      modelId = response.getModelId();
+      // Construct an instance of the UpdateCategoriesModelOptions model
+      UpdateCategoriesModelOptions updateCategoriesModelOptionsModel =
+              new UpdateCategoriesModelOptions.Builder()
+                      .language("en")
+                      .trainingData(TestUtilities.createMockStream("[\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase\",\n" +
+                              "               \"key phrase 2\"\n" +
+                              "           ]\n" +
+                              "       },\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\",\n" +
+                              "               \"level2\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase 3\",\n" +
+                              "               \"key phrase 4\"\n" +
+                              "           ]\n" +
+                              "       }\n" +
+                              "   ]"))
+                      .trainingDataContentType("application/json")
+                      .name("newName")
+                      .description("newDescription")
+                      .modelVersion("testString")
+                      .versionDescription("testString")
+                      .build();
+      CategoriesModel response2 = service.updateCategoriesModel(updateCategoriesModelOptionsModel).execute().getResult();
+
+      assertEquals(response2.getName(), "newName");
+      assertEquals(response2.getLanguage(), "en");
+      assertEquals(response2.getDescription(), "newDescription");
+      assertEquals(response2.getModelVersion(), "testString");
+      assertEquals(response2.getVersionDescription(), "testString");
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (modelId != "") {
+        DeleteCategoriesModelOptions deleteCategoriesModelOptions =
+                new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+      }
+    }
+  }
+  /**
+   * Test getCategoriesModel service call
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testGetCategoriesModel() throws Exception {
+    String modelId = "";
+    try {
+      // Construct an instance of the CreateCategoriesModelOptions model
+      CreateCategoriesModelOptions createCategoriesModelOptionsModel =
+              new CreateCategoriesModelOptions.Builder()
+                      .language("en")
+                      .trainingData(TestUtilities.createMockStream("[\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase\",\n" +
+                              "               \"key phrase 2\"\n" +
+                              "           ]\n" +
+                              "       },\n" +
+                              "       {\n" +
+                              "           \"labels\": [\n" +
+                              "               \"level1\",\n" +
+                              "               \"level2\"\n" +
+                              "           ],\n" +
+                              "           \"key_phrases\": [\n" +
+                              "               \"key phrase 3\",\n" +
+                              "               \"key phrase 4\"\n" +
+                              "           ]\n" +
+                              "       }\n" +
+                              "   ]"))
+                      .trainingDataContentType("application/json")
+                      .name("testString")
+                      .description("testString")
+                      .modelVersion("testString")
+                      .versionDescription("testString")
+                      .build();
+      CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+      assertEquals(response.getName(), "testString");
+      assertEquals(response.getLanguage(), "en");
+      assertEquals(response.getDescription(), "testString");
+      assertEquals(response.getModelVersion(), "testString");
+      assertEquals(response.getVersionDescription(), "testString");
+
+      modelId = response.getModelId();
+
+      GetCategoriesModelOptions getCategoriesModelOptions =
+              new GetCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
+      CategoriesModel response2 = service.getCategoriesModel(getCategoriesModelOptions).execute().getResult();
+
+      assertEquals(response2.getName(), "testString");
+      assertEquals(response2.getLanguage(), "en");
+      assertEquals(response2.getDescription(), "testString");
+      assertEquals(response2.getModelVersion(), "testString");
+      assertEquals(response2.getVersionDescription(), "testString");
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      if (modelId != "") {
+        DeleteCategoriesModelOptions deleteCategoriesModelOptions =
+                new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+      }
+    }
   }
 }
