@@ -48,7 +48,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsResponse;
-import com.ibm.watson.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentModel;
@@ -168,7 +167,7 @@ public class NaturalLanguageUnderstandingTest {
             .build();
 
     // Construct an instance of the MetadataOptions model
-    MetadataOptions metadataOptionsModel = new MetadataOptions();
+    HashMap<String, Object> metadataOptionsModel = new HashMap<String, Object>();
 
     // Construct an instance of the RelationsOptions model
     RelationsOptions relationsOptionsModel =

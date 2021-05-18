@@ -82,7 +82,7 @@ public class AnalyzeOptionsTest {
     assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(true));
     assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(true));
 
-    MetadataOptions metadataOptionsModel = new MetadataOptions();
+    HashMap<String, Object> metadataOptionsModel = new HashMap<String, Object>();
 
     RelationsOptions relationsOptionsModel =
         new RelationsOptions.Builder().model("testString").build();
