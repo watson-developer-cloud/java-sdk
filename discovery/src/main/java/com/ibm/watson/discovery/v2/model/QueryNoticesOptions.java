@@ -18,6 +18,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class QueryNoticesOptions extends GenericModel {
 
   protected String projectId;
+  protected String collectionId;
   protected String filter;
   protected String query;
   protected String naturalLanguageQuery;
@@ -27,6 +28,7 @@ public class QueryNoticesOptions extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String projectId;
+    private String collectionId;
     private String filter;
     private String query;
     private String naturalLanguageQuery;
@@ -35,6 +37,7 @@ public class QueryNoticesOptions extends GenericModel {
 
     private Builder(QueryNoticesOptions queryNoticesOptions) {
       this.projectId = queryNoticesOptions.projectId;
+      this.collectionId = queryNoticesOptions.collectionId;
       this.filter = queryNoticesOptions.filter;
       this.query = queryNoticesOptions.query;
       this.naturalLanguageQuery = queryNoticesOptions.naturalLanguageQuery;
@@ -49,9 +52,11 @@ public class QueryNoticesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param projectId the projectId
+     * @param collectionId the collectionId
      */
-    public Builder(String projectId) {
+    public Builder(String projectId, String collectionId) {
       this.projectId = projectId;
+      this.collectionId = collectionId;
     }
 
     /**
@@ -71,6 +76,17 @@ public class QueryNoticesOptions extends GenericModel {
      */
     public Builder projectId(String projectId) {
       this.projectId = projectId;
+      return this;
+    }
+
+    /**
+     * Set the collectionId.
+     *
+     * @param collectionId the collectionId
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
       return this;
     }
 
@@ -131,8 +147,12 @@ public class QueryNoticesOptions extends GenericModel {
   }
 
   protected QueryNoticesOptions(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.projectId, "projectId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.collectionId, "collectionId cannot be empty");
     projectId = builder.projectId;
+    collectionId = builder.collectionId;
     filter = builder.filter;
     query = builder.query;
     naturalLanguageQuery = builder.naturalLanguageQuery;
@@ -159,6 +179,17 @@ public class QueryNoticesOptions extends GenericModel {
    */
   public String projectId() {
     return projectId;
+  }
+
+  /**
+   * Gets the collectionId.
+   *
+   * <p>The ID of the collection.
+   *
+   * @return the collectionId
+   */
+  public String collectionId() {
+    return collectionId;
   }
 
   /**
