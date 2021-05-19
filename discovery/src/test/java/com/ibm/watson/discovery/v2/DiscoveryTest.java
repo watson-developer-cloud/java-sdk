@@ -581,7 +581,7 @@ public class DiscoveryTest {
     // Schedule some responses.
     String mockResponseBody =
         "{\"matching_results\": 15, \"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}]}";
-    String queryNoticesPath = "/v2/projects/testString/notices";
+    String queryNoticesPath = "/v2/projects/testString/collections/testString/notices";
 
     server.enqueue(
         new MockResponse()
@@ -595,6 +595,7 @@ public class DiscoveryTest {
     QueryNoticesOptions queryNoticesOptionsModel =
         new QueryNoticesOptions.Builder()
             .projectId("testString")
+            .collectionId("testString")
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
