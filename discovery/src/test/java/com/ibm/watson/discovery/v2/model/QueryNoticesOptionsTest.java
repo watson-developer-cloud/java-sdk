@@ -33,6 +33,7 @@ public class QueryNoticesOptionsTest {
     QueryNoticesOptions queryNoticesOptionsModel =
         new QueryNoticesOptions.Builder()
             .projectId("testString")
+            .collectionId("testString")
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
@@ -40,6 +41,7 @@ public class QueryNoticesOptionsTest {
             .offset(Long.valueOf("26"))
             .build();
     assertEquals(queryNoticesOptionsModel.projectId(), "testString");
+    assertEquals(queryNoticesOptionsModel.collectionId(), "testString");
     assertEquals(queryNoticesOptionsModel.filter(), "testString");
     assertEquals(queryNoticesOptionsModel.query(), "testString");
     assertEquals(queryNoticesOptionsModel.naturalLanguageQuery(), "testString");

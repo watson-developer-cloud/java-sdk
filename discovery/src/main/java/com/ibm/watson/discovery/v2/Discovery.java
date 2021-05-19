@@ -508,10 +508,13 @@ public class Discovery extends BaseService {
         queryNoticesOptions, "queryNoticesOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("project_id", queryNoticesOptions.projectId());
+    pathParamsMap.put("collection_id", queryNoticesOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/projects/{project_id}/notices", pathParamsMap));
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/notices",
+                pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "queryNotices");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
