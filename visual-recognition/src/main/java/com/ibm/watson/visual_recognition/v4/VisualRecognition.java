@@ -81,7 +81,7 @@ import okhttp3.MultipartBody;
  */
 public class VisualRecognition extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "watson_vision_combined";
+  public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
 
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.visual-recognition.watson.cloud.ibm.com";
@@ -190,12 +190,8 @@ public class VisualRecognition extends BaseService {
     builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    for (String item : analyzeOptions.collectionIds()) {
-      multipartBuilder.addFormDataPart("collection_ids", item);
-    }
-    for (String item : analyzeOptions.features()) {
-      multipartBuilder.addFormDataPart("features", item);
-    }
+    multipartBuilder.addFormDataPart("collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
+    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody =
@@ -251,12 +247,6 @@ public class VisualRecognition extends BaseService {
     }
     if (createCollectionOptions.description() != null) {
       contentJson.addProperty("description", createCollectionOptions.description());
-    }
-    if (createCollectionOptions.trainingStatus() != null) {
-      contentJson.add(
-          "training_status",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(createCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
@@ -384,12 +374,6 @@ public class VisualRecognition extends BaseService {
     }
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
-    }
-    if (updateCollectionOptions.trainingStatus() != null) {
-      contentJson.add(
-          "training_status",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(updateCollectionOptions.trainingStatus()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Collection> responseConverter =
