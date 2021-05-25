@@ -515,15 +515,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void testCreateSentimentModel() throws Exception {
     // Construct an instance of the CreateSentimentModelOptions model
     CreateSentimentModelOptions createSentimentModelOptionsModel =
-            new CreateSentimentModelOptions.Builder()
-                    .language("en")
-                    .trainingData(TestUtilities.createMockStream("This is a mock file."))
-                    .name("testString")
-                    .description("testString")
-                    .modelVersion("testString")
-                    .versionDescription("testString")
-                    .build();
-    SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+        new CreateSentimentModelOptions.Builder()
+            .language("en")
+            .trainingData(TestUtilities.createMockStream("This is a mock file."))
+            .name("testString")
+            .description("testString")
+            .modelVersion("testString")
+            .versionDescription("testString")
+            .build();
+    SentimentModel response =
+        service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
     assertEquals(response.getName(), "testString");
     assertEquals(response.getLanguage(), "en");
     assertEquals(response.getDescription(), "testString");
@@ -531,8 +532,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertEquals(response.getVersionDescription(), "testString");
 
     DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
-            new DeleteSentimentModelOptions.Builder().modelId(response.getModelId()).build();
-    DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+        new DeleteSentimentModelOptions.Builder().modelId(response.getModelId()).build();
+    DeleteModelResults deleteModelResults =
+        service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
   }
 
   /**
@@ -545,11 +547,12 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     ListSentimentModelsResponse response = service.listSentimentModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for(SentimentModel sentimentModel: response.getModels()) {
-      if(sentimentModel.getName().startsWith("testString")) {
+    for (SentimentModel sentimentModel : response.getModels()) {
+      if (sentimentModel.getName().startsWith("testString")) {
         DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
-                new DeleteSentimentModelOptions.Builder().modelId(sentimentModel.getModelId()).build();
-        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+            new DeleteSentimentModelOptions.Builder().modelId(sentimentModel.getModelId()).build();
+        DeleteModelResults deleteModelResults =
+            service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
       }
     }
   }
@@ -565,15 +568,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateSentimentModelOptions model
       CreateSentimentModelOptions createSentimentModelOptionsModel =
-              new CreateSentimentModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("This is a mock file."))
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+          new CreateSentimentModelOptions.Builder()
+              .language("en")
+              .trainingData(TestUtilities.createMockStream("This is a mock file."))
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      SentimentModel response =
+          service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
       modelId = response.getModelId();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
@@ -581,29 +585,30 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertEquals(response.getModelVersion(), "testString");
       assertEquals(response.getVersionDescription(), "testString");
 
-      UpdateSentimentModelOptions updateSentimentModelOptions = new UpdateSentimentModelOptions.Builder()
+      UpdateSentimentModelOptions updateSentimentModelOptions =
+          new UpdateSentimentModelOptions.Builder()
               .description("newDescription")
               .name("newName")
               .modelId(response.getModelId())
               .language("en")
               .trainingData(TestUtilities.createMockStream("This is a mock file."))
               .build();
-      SentimentModel response2 = service.updateSentimentModel(updateSentimentModelOptions).execute().getResult();
+      SentimentModel response2 =
+          service.updateSentimentModel(updateSentimentModelOptions).execute().getResult();
 
       assertEquals(response2.getName(), "newName");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "newDescription");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
-                new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+            new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
       }
     }
   }
@@ -619,15 +624,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateSentimentModelOptions model
       CreateSentimentModelOptions createSentimentModelOptionsModel =
-              new CreateSentimentModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("This is a mock file."))
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      SentimentModel response = service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
+          new CreateSentimentModelOptions.Builder()
+              .language("en")
+              .trainingData(TestUtilities.createMockStream("This is a mock file."))
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      SentimentModel response =
+          service.createSentimentModel(createSentimentModelOptionsModel).execute().getResult();
       modelId = response.getModelId();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
@@ -636,23 +642,23 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertEquals(response.getVersionDescription(), "testString");
 
       GetSentimentModelOptions getSentimentModelOptionsModel =
-              new GetSentimentModelOptions.Builder().modelId(response.getModelId()).build();
-      SentimentModel response2 = service.getSentimentModel(getSentimentModelOptionsModel).execute().getResult();
+          new GetSentimentModelOptions.Builder().modelId(response.getModelId()).build();
+      SentimentModel response2 =
+          service.getSentimentModel(getSentimentModelOptionsModel).execute().getResult();
 
       assertEquals(response2.getName(), "testString");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "testString");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
-                new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
+            new DeleteSentimentModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service.deleteSentimentModel(deleteSentimentModelOptionsModel).execute().getResult();
       }
     }
   }
@@ -666,36 +672,39 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void testCreateCategoriesModel() throws Exception {
     // Construct an instance of the CreateCategoriesModelOptions model
     CreateCategoriesModelOptions createCategoriesModelOptionsModel =
-            new CreateCategoriesModelOptions.Builder()
-                    .language("en")
-                    .trainingData(TestUtilities.createMockStream("[\n" +
-                            "       {\n" +
-                            "           \"labels\": [\n" +
-                            "               \"level1\"\n" +
-                            "           ],\n" +
-                            "           \"key_phrases\": [\n" +
-                            "               \"key phrase\",\n" +
-                            "               \"key phrase 2\"\n" +
-                            "           ]\n" +
-                            "       },\n" +
-                            "       {\n" +
-                            "           \"labels\": [\n" +
-                            "               \"level1\",\n" +
-                            "               \"level2\"\n" +
-                            "           ],\n" +
-                            "           \"key_phrases\": [\n" +
-                            "               \"key phrase 3\",\n" +
-                            "               \"key phrase 4\"\n" +
-                            "           ]\n" +
-                            "       }\n" +
-                            "   ]"))
-                    .trainingDataContentType("application/json")
-                    .name("testString")
-                    .description("testString")
-                    .modelVersion("testString")
-                    .versionDescription("testString")
-                    .build();
-    CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+        new CreateCategoriesModelOptions.Builder()
+            .language("en")
+            .trainingData(
+                TestUtilities.createMockStream(
+                    "[\n"
+                        + "       {\n"
+                        + "           \"labels\": [\n"
+                        + "               \"level1\"\n"
+                        + "           ],\n"
+                        + "           \"key_phrases\": [\n"
+                        + "               \"key phrase\",\n"
+                        + "               \"key phrase 2\"\n"
+                        + "           ]\n"
+                        + "       },\n"
+                        + "       {\n"
+                        + "           \"labels\": [\n"
+                        + "               \"level1\",\n"
+                        + "               \"level2\"\n"
+                        + "           ],\n"
+                        + "           \"key_phrases\": [\n"
+                        + "               \"key phrase 3\",\n"
+                        + "               \"key phrase 4\"\n"
+                        + "           ]\n"
+                        + "       }\n"
+                        + "   ]"))
+            .trainingDataContentType("application/json")
+            .name("testString")
+            .description("testString")
+            .modelVersion("testString")
+            .versionDescription("testString")
+            .build();
+    CategoriesModel response =
+        service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
     assertEquals(response.getName(), "testString");
     assertEquals(response.getLanguage(), "en");
     assertEquals(response.getDescription(), "testString");
@@ -703,8 +712,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertEquals(response.getVersionDescription(), "testString");
 
     DeleteCategoriesModelOptions deleteCategoriesModelOptions =
-            new DeleteCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
-    DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+        new DeleteCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
+    DeleteModelResults deleteModelResults =
+        service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
   }
   /**
    * Test listCategoriesModels service call
@@ -716,13 +726,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     ListCategoriesModelsResponse response = service.listCategoriesModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for(CategoriesModelList categoriesModelList: response.getModels()) {
-      if(categoriesModelList.getModels() != null) {
-        for(CategoriesModel categoriesModel: categoriesModelList.getModels()){
-          if(categoriesModel.getName().startsWith("testString")) {
+    for (CategoriesModelList categoriesModelList : response.getModels()) {
+      if (categoriesModelList.getModels() != null) {
+        for (CategoriesModel categoriesModel : categoriesModelList.getModels()) {
+          if (categoriesModel.getName().startsWith("testString")) {
             DeleteCategoriesModelOptions deleteCategoriesModelOptions =
-                    new DeleteCategoriesModelOptions.Builder().modelId(categoriesModel.getModelId()).build();
-            DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+                new DeleteCategoriesModelOptions.Builder()
+                    .modelId(categoriesModel.getModelId())
+                    .build();
+            DeleteModelResults deleteModelResults =
+                service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
           }
         }
       }
@@ -740,36 +753,39 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateCategoriesModelOptions model
       CreateCategoriesModelOptions createCategoriesModelOptionsModel =
-              new CreateCategoriesModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase\",\n" +
-                              "               \"key phrase 2\"\n" +
-                              "           ]\n" +
-                              "       },\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\",\n" +
-                              "               \"level2\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase 3\",\n" +
-                              "               \"key phrase 4\"\n" +
-                              "           ]\n" +
-                              "       }\n" +
-                              "   ]"))
-                      .trainingDataContentType("application/json")
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+          new CreateCategoriesModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase\",\n"
+                          + "               \"key phrase 2\"\n"
+                          + "           ]\n"
+                          + "       },\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\",\n"
+                          + "               \"level2\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase 3\",\n"
+                          + "               \"key phrase 4\"\n"
+                          + "           ]\n"
+                          + "       }\n"
+                          + "   ]"))
+              .trainingDataContentType("application/json")
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      CategoriesModel response =
+          service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
       assertEquals(response.getDescription(), "testString");
@@ -779,51 +795,53 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       modelId = response.getModelId();
       // Construct an instance of the UpdateCategoriesModelOptions model
       UpdateCategoriesModelOptions updateCategoriesModelOptionsModel =
-              new UpdateCategoriesModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase\",\n" +
-                              "               \"key phrase 2\"\n" +
-                              "           ]\n" +
-                              "       },\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\",\n" +
-                              "               \"level2\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase 3\",\n" +
-                              "               \"key phrase 4\"\n" +
-                              "           ]\n" +
-                              "       }\n" +
-                              "   ]"))
-                      .trainingDataContentType("application/json")
-                      .name("newName")
-                      .description("newDescription")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      CategoriesModel response2 = service.updateCategoriesModel(updateCategoriesModelOptionsModel).execute().getResult();
+          new UpdateCategoriesModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase\",\n"
+                          + "               \"key phrase 2\"\n"
+                          + "           ]\n"
+                          + "       },\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\",\n"
+                          + "               \"level2\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase 3\",\n"
+                          + "               \"key phrase 4\"\n"
+                          + "           ]\n"
+                          + "       }\n"
+                          + "   ]"))
+              .trainingDataContentType("application/json")
+              .name("newName")
+              .description("newDescription")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      CategoriesModel response2 =
+          service.updateCategoriesModel(updateCategoriesModelOptionsModel).execute().getResult();
 
       assertEquals(response2.getName(), "newName");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "newDescription");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteCategoriesModelOptions deleteCategoriesModelOptions =
-                new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+            new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
       }
     }
   }
@@ -838,36 +856,39 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateCategoriesModelOptions model
       CreateCategoriesModelOptions createCategoriesModelOptionsModel =
-              new CreateCategoriesModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase\",\n" +
-                              "               \"key phrase 2\"\n" +
-                              "           ]\n" +
-                              "       },\n" +
-                              "       {\n" +
-                              "           \"labels\": [\n" +
-                              "               \"level1\",\n" +
-                              "               \"level2\"\n" +
-                              "           ],\n" +
-                              "           \"key_phrases\": [\n" +
-                              "               \"key phrase 3\",\n" +
-                              "               \"key phrase 4\"\n" +
-                              "           ]\n" +
-                              "       }\n" +
-                              "   ]"))
-                      .trainingDataContentType("application/json")
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      CategoriesModel response = service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
+          new CreateCategoriesModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase\",\n"
+                          + "               \"key phrase 2\"\n"
+                          + "           ]\n"
+                          + "       },\n"
+                          + "       {\n"
+                          + "           \"labels\": [\n"
+                          + "               \"level1\",\n"
+                          + "               \"level2\"\n"
+                          + "           ],\n"
+                          + "           \"key_phrases\": [\n"
+                          + "               \"key phrase 3\",\n"
+                          + "               \"key phrase 4\"\n"
+                          + "           ]\n"
+                          + "       }\n"
+                          + "   ]"))
+              .trainingDataContentType("application/json")
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      CategoriesModel response =
+          service.createCategoriesModel(createCategoriesModelOptionsModel).execute().getResult();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
       assertEquals(response.getDescription(), "testString");
@@ -877,23 +898,23 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       modelId = response.getModelId();
 
       GetCategoriesModelOptions getCategoriesModelOptions =
-              new GetCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
-      CategoriesModel response2 = service.getCategoriesModel(getCategoriesModelOptions).execute().getResult();
+          new GetCategoriesModelOptions.Builder().modelId(response.getModelId()).build();
+      CategoriesModel response2 =
+          service.getCategoriesModel(getCategoriesModelOptions).execute().getResult();
 
       assertEquals(response2.getName(), "testString");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "testString");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteCategoriesModelOptions deleteCategoriesModelOptions =
-                new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
+            new DeleteCategoriesModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
       }
     }
   }
@@ -906,57 +927,63 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void testCreateClassificationModel() throws Exception {
     // Construct an instance of the CreateClassificationsModelOptions model
     CreateClassificationsModelOptions createClassificationsModelOptionsModel =
-            new CreateClassificationsModelOptions.Builder()
-                    .language("en")
-                    .trainingData(TestUtilities.createMockStream("[\n" +
-                            "    {\n" +
-                            "        \"text\": \"How hot is it today?\",\n" +
-                            "        \"labels\": [\"temperature\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Is it hot outside?\",\n" +
-                            "        \"labels\": [\"temperature\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Will it be uncomfortably hot?\",\n" +
-                            "        \"labels\": [\"temperature\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Will it be sweltering?\",\n" +
-                            "        \"labels\": [\"temperature\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"How cold is it today?\",\n" +
-                            "        \"labels\": [\"temperature\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Will we get snow?\",\n" +
-                            "        \"labels\": [\"conditions\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Are we expecting sunny conditions?\",\n" +
-                            "        \"labels\": [\"conditions\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Is it overcast?\",\n" +
-                            "        \"labels\": [\"conditions\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"Will it be cloudy?\",\n" +
-                            "        \"labels\": [\"conditions\"]\n" +
-                            "    },\n" +
-                            "    {\n" +
-                            "        \"text\": \"How much rain will fall today?\",\n" +
-                            "        \"labels\": [\"conditions\"]\n" +
-                            "    }\n" +
-                            "]"))
-                    .trainingDataContentType("application/json")
-                    .name("testString")
-                    .description("testString")
-                    .modelVersion("testString")
-                    .versionDescription("testString")
-                    .build();
-    ClassificationsModel response = service.createClassificationsModel(createClassificationsModelOptionsModel).execute().getResult();
+        new CreateClassificationsModelOptions.Builder()
+            .language("en")
+            .trainingData(
+                TestUtilities.createMockStream(
+                    "[\n"
+                        + "    {\n"
+                        + "        \"text\": \"How hot is it today?\",\n"
+                        + "        \"labels\": [\"temperature\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Is it hot outside?\",\n"
+                        + "        \"labels\": [\"temperature\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Will it be uncomfortably hot?\",\n"
+                        + "        \"labels\": [\"temperature\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Will it be sweltering?\",\n"
+                        + "        \"labels\": [\"temperature\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"How cold is it today?\",\n"
+                        + "        \"labels\": [\"temperature\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Will we get snow?\",\n"
+                        + "        \"labels\": [\"conditions\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Are we expecting sunny conditions?\",\n"
+                        + "        \"labels\": [\"conditions\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Is it overcast?\",\n"
+                        + "        \"labels\": [\"conditions\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"Will it be cloudy?\",\n"
+                        + "        \"labels\": [\"conditions\"]\n"
+                        + "    },\n"
+                        + "    {\n"
+                        + "        \"text\": \"How much rain will fall today?\",\n"
+                        + "        \"labels\": [\"conditions\"]\n"
+                        + "    }\n"
+                        + "]"))
+            .trainingDataContentType("application/json")
+            .name("testString")
+            .description("testString")
+            .modelVersion("testString")
+            .versionDescription("testString")
+            .build();
+    ClassificationsModel response =
+        service
+            .createClassificationsModel(createClassificationsModelOptionsModel)
+            .execute()
+            .getResult();
     assertEquals(response.getName(), "testString");
     assertEquals(response.getLanguage(), "en");
     assertEquals(response.getDescription(), "testString");
@@ -964,8 +991,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertEquals(response.getVersionDescription(), "testString");
 
     DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-            new DeleteClassificationsModelOptions.Builder().modelId(response.getModelId()).build();
-    DeleteModelResults deleteModelResults = service.deleteClassificationsModel(deleteClassificationsModelOptions).execute().getResult();
+        new DeleteClassificationsModelOptions.Builder().modelId(response.getModelId()).build();
+    DeleteModelResults deleteModelResults =
+        service.deleteClassificationsModel(deleteClassificationsModelOptions).execute().getResult();
   }
   /**
    * Test listClassificationModels service call
@@ -974,16 +1002,23 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void testListClassificationModels() throws Exception {
-    ListClassificationsModelsResponse response = service.listClassificationsModels().execute().getResult();
+    ListClassificationsModelsResponse response =
+        service.listClassificationsModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for(ClassificationsModelList classificationsModelList: response.getModels()) {
-      if(classificationsModelList.getModels() != null) {
-        for(ClassificationsModel classificationsModel: classificationsModelList.getModels()){
-          if(classificationsModel.getName().startsWith("testString")) {
+    for (ClassificationsModelList classificationsModelList : response.getModels()) {
+      if (classificationsModelList.getModels() != null) {
+        for (ClassificationsModel classificationsModel : classificationsModelList.getModels()) {
+          if (classificationsModel.getName().startsWith("testString")) {
             DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-                    new DeleteClassificationsModelOptions.Builder().modelId(classificationsModel.getModelId()).build();
-            DeleteModelResults deleteModelResults = service.deleteClassificationsModel(deleteClassificationsModelOptions).execute().getResult();
+                new DeleteClassificationsModelOptions.Builder()
+                    .modelId(classificationsModel.getModelId())
+                    .build();
+            DeleteModelResults deleteModelResults =
+                service
+                    .deleteClassificationsModel(deleteClassificationsModelOptions)
+                    .execute()
+                    .getResult();
           }
         }
       }
@@ -1000,57 +1035,63 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateClassificationsModelOptions model
       CreateClassificationsModelOptions createClassificationsModelOptionsModel =
-              new CreateClassificationsModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "    {\n" +
-                              "        \"text\": \"How hot is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it hot outside?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be uncomfortably hot?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be sweltering?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How cold is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will we get snow?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Are we expecting sunny conditions?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it overcast?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be cloudy?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How much rain will fall today?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    }\n" +
-                              "]"))
-                      .trainingDataContentType("application/json")
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      ClassificationsModel response = service.createClassificationsModel(createClassificationsModelOptionsModel).execute().getResult();
+          new CreateClassificationsModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "    {\n"
+                          + "        \"text\": \"How hot is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it hot outside?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be uncomfortably hot?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be sweltering?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How cold is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will we get snow?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Are we expecting sunny conditions?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it overcast?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be cloudy?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How much rain will fall today?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    }\n"
+                          + "]"))
+              .trainingDataContentType("application/json")
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      ClassificationsModel response =
+          service
+              .createClassificationsModel(createClassificationsModelOptionsModel)
+              .execute()
+              .getResult();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
       assertEquals(response.getDescription(), "testString");
@@ -1060,73 +1101,81 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       modelId = response.getModelId();
       // Construct an instance of the UpdateCategoriesModelOptions model
       UpdateClassificationsModelOptions updateClassificationsModelOptions =
-              new UpdateClassificationsModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "    {\n" +
-                              "        \"text\": \"How hot is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it hot outside?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be uncomfortably hot?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be sweltering?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How cold is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will we get snow?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Are we expecting sunny conditions?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it overcast?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be cloudy?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How much rain will fall today?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    }\n" +
-                              "]"))
-                      .trainingDataContentType("application/json")
-                      .name("newName")
-                      .description("newDescription")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .modelId(modelId)
-                      .build();
-      ClassificationsModel response2 = service.updateClassificationsModel(updateClassificationsModelOptions).execute().getResult();
+          new UpdateClassificationsModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "    {\n"
+                          + "        \"text\": \"How hot is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it hot outside?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be uncomfortably hot?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be sweltering?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How cold is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will we get snow?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Are we expecting sunny conditions?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it overcast?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be cloudy?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How much rain will fall today?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    }\n"
+                          + "]"))
+              .trainingDataContentType("application/json")
+              .name("newName")
+              .description("newDescription")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .modelId(modelId)
+              .build();
+      ClassificationsModel response2 =
+          service
+              .updateClassificationsModel(updateClassificationsModelOptions)
+              .execute()
+              .getResult();
 
       assertEquals(response2.getName(), "newName");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "newDescription");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-                new DeleteClassificationsModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteClassificationsModel(deleteClassificationsModelOptions).execute().getResult();
+            new DeleteClassificationsModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service
+                .deleteClassificationsModel(deleteClassificationsModelOptions)
+                .execute()
+                .getResult();
       }
     }
   }
@@ -1141,57 +1190,63 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     try {
       // Construct an instance of the CreateClassificationsModelOptions model
       CreateClassificationsModelOptions createClassificationsModelOptionsModel =
-              new CreateClassificationsModelOptions.Builder()
-                      .language("en")
-                      .trainingData(TestUtilities.createMockStream("[\n" +
-                              "    {\n" +
-                              "        \"text\": \"How hot is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it hot outside?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be uncomfortably hot?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be sweltering?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How cold is it today?\",\n" +
-                              "        \"labels\": [\"temperature\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will we get snow?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Are we expecting sunny conditions?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Is it overcast?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"Will it be cloudy?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    },\n" +
-                              "    {\n" +
-                              "        \"text\": \"How much rain will fall today?\",\n" +
-                              "        \"labels\": [\"conditions\"]\n" +
-                              "    }\n" +
-                              "]"))
-                      .trainingDataContentType("application/json")
-                      .name("testString")
-                      .description("testString")
-                      .modelVersion("testString")
-                      .versionDescription("testString")
-                      .build();
-      ClassificationsModel response = service.createClassificationsModel(createClassificationsModelOptionsModel).execute().getResult();
+          new CreateClassificationsModelOptions.Builder()
+              .language("en")
+              .trainingData(
+                  TestUtilities.createMockStream(
+                      "[\n"
+                          + "    {\n"
+                          + "        \"text\": \"How hot is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it hot outside?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be uncomfortably hot?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be sweltering?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How cold is it today?\",\n"
+                          + "        \"labels\": [\"temperature\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will we get snow?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Are we expecting sunny conditions?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Is it overcast?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"Will it be cloudy?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    },\n"
+                          + "    {\n"
+                          + "        \"text\": \"How much rain will fall today?\",\n"
+                          + "        \"labels\": [\"conditions\"]\n"
+                          + "    }\n"
+                          + "]"))
+              .trainingDataContentType("application/json")
+              .name("testString")
+              .description("testString")
+              .modelVersion("testString")
+              .versionDescription("testString")
+              .build();
+      ClassificationsModel response =
+          service
+              .createClassificationsModel(createClassificationsModelOptionsModel)
+              .execute()
+              .getResult();
       assertEquals(response.getName(), "testString");
       assertEquals(response.getLanguage(), "en");
       assertEquals(response.getDescription(), "testString");
@@ -1201,23 +1256,26 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       modelId = response.getModelId();
 
       GetClassificationsModelOptions getClassificationsModelOptions =
-              new GetClassificationsModelOptions.Builder().modelId(response.getModelId()).build();
-      ClassificationsModel response2 = service.getClassificationsModel(getClassificationsModelOptions).execute().getResult();
+          new GetClassificationsModelOptions.Builder().modelId(response.getModelId()).build();
+      ClassificationsModel response2 =
+          service.getClassificationsModel(getClassificationsModelOptions).execute().getResult();
 
       assertEquals(response2.getName(), "testString");
       assertEquals(response2.getLanguage(), "en");
       assertEquals(response2.getDescription(), "testString");
       assertEquals(response2.getModelVersion(), "testString");
       assertEquals(response2.getVersionDescription(), "testString");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
+    } finally {
       if (modelId != "") {
         DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-                new DeleteClassificationsModelOptions.Builder().modelId(modelId).build();
-        DeleteModelResults deleteModelResults = service.deleteClassificationsModel(deleteClassificationsModelOptions).execute().getResult();
+            new DeleteClassificationsModelOptions.Builder().modelId(modelId).build();
+        DeleteModelResults deleteModelResults =
+            service
+                .deleteClassificationsModel(deleteClassificationsModelOptions)
+                .execute()
+                .getResult();
       }
     }
   }
