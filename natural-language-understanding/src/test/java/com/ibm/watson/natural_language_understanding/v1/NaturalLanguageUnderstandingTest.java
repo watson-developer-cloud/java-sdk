@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModel;
+import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModel;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsOptions;
@@ -41,7 +42,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.GetClassifications
 import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
@@ -705,7 +705,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListCategoriesModelsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"models\": [{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listCategoriesModelsPath = "/v1/models/categories";
 
     server.enqueue(
@@ -721,12 +721,12 @@ public class NaturalLanguageUnderstandingTest {
         new ListCategoriesModelsOptions();
 
     // Invoke operation with valid options model (positive test)
-    Response<ListCategoriesModelsResponse> response =
+    Response<CategoriesModelList> response =
         naturalLanguageUnderstandingService
             .listCategoriesModels(listCategoriesModelsOptionsModel)
             .execute();
     assertNotNull(response);
-    ListCategoriesModelsResponse responseObj = response.getResult();
+    CategoriesModelList responseObj = response.getResult();
     assertNotNull(responseObj);
 
     // Verify the contents of the request

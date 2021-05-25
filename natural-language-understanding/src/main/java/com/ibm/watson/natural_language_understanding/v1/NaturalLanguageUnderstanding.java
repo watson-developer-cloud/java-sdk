@@ -30,6 +30,7 @@ import com.ibm.watson.common.SdkCommon;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModel;
+import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModel;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateClassificationsModelOptions;
@@ -43,7 +44,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.GetCategoriesModel
 import com.ibm.watson.natural_language_understanding.v1.model.GetClassificationsModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
@@ -569,9 +569,9 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * @param listCategoriesModelsOptions the {@link ListCategoriesModelsOptions} containing the
    *     options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ListCategoriesModelsResponse}
+   * @return a {@link ServiceCall} with a result of type {@link CategoriesModelList}
    */
-  public ServiceCall<ListCategoriesModelsResponse> listCategoriesModels(
+  public ServiceCall<CategoriesModelList> listCategoriesModels(
       ListCategoriesModelsOptions listCategoriesModelsOptions) {
     RequestBuilder builder =
         RequestBuilder.get(
@@ -583,9 +583,9 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
-    ResponseConverter<ListCategoriesModelsResponse> responseConverter =
+    ResponseConverter<CategoriesModelList> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ListCategoriesModelsResponse>() {}.getType());
+            new com.google.gson.reflect.TypeToken<CategoriesModelList>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -594,9 +594,9 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * <p>(Beta) Returns all custom categories models associated with this service instance.
    *
-   * @return a {@link ServiceCall} with a result of type {@link ListCategoriesModelsResponse}
+   * @return a {@link ServiceCall} with a result of type {@link CategoriesModelList}
    */
-  public ServiceCall<ListCategoriesModelsResponse> listCategoriesModels() {
+  public ServiceCall<CategoriesModelList> listCategoriesModels() {
     return listCategoriesModels(null);
   }
 
