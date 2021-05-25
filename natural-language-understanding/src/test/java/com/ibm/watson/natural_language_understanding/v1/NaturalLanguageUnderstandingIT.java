@@ -723,21 +723,17 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void testListCategoriesModels() throws Exception {
-    ListCategoriesModelsResponse response = service.listCategoriesModels().execute().getResult();
+    CategoriesModelList response = service.listCategoriesModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for (CategoriesModelList categoriesModelList : response.getModels()) {
-      if (categoriesModelList.getModels() != null) {
-        for (CategoriesModel categoriesModel : categoriesModelList.getModels()) {
-          if (categoriesModel.getName().startsWith("testString")) {
-            DeleteCategoriesModelOptions deleteCategoriesModelOptions =
-                new DeleteCategoriesModelOptions.Builder()
-                    .modelId(categoriesModel.getModelId())
-                    .build();
-            DeleteModelResults deleteModelResults =
-                service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
-          }
-        }
+    for (CategoriesModel categoriesModel : response.getModels()) {
+      if (categoriesModel.getName().startsWith("testString")) {
+        DeleteCategoriesModelOptions deleteCategoriesModelOptions =
+            new DeleteCategoriesModelOptions.Builder()
+                .modelId(categoriesModel.getModelId())
+                .build();
+        DeleteModelResults deleteModelResults =
+            service.deleteCategoriesModel(deleteCategoriesModelOptions).execute().getResult();
       }
     }
   }
@@ -825,6 +821,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
               .description("newDescription")
               .modelVersion("testString")
               .versionDescription("testString")
+              .modelId(modelId)
               .build();
       CategoriesModel response2 =
           service.updateCategoriesModel(updateCategoriesModelOptionsModel).execute().getResult();
