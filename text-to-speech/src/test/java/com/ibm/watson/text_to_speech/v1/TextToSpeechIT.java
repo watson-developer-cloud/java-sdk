@@ -21,12 +21,29 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.common.RetryRunner;
 import com.ibm.watson.common.WatsonServiceTest;
+import com.ibm.watson.text_to_speech.v1.model.AddCustomPromptOptions;
+import com.ibm.watson.text_to_speech.v1.model.CreateCustomModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.CreateSpeakerModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.CustomModel;
+import com.ibm.watson.text_to_speech.v1.model.DeleteCustomModelOptions;
+import com.ibm.watson.text_to_speech.v1.model.DeleteCustomPromptOptions;
+import com.ibm.watson.text_to_speech.v1.model.DeleteSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.DeleteUserDataOptions;
+import com.ibm.watson.text_to_speech.v1.model.GetCustomPromptOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetPronunciationOptions;
+import com.ibm.watson.text_to_speech.v1.model.GetSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetVoiceOptions;
+import com.ibm.watson.text_to_speech.v1.model.ListCustomPromptsOptions;
+import com.ibm.watson.text_to_speech.v1.model.ListSpeakerModelsOptions;
 import com.ibm.watson.text_to_speech.v1.model.MarkTiming;
 import com.ibm.watson.text_to_speech.v1.model.Marks;
+import com.ibm.watson.text_to_speech.v1.model.Prompt;
+import com.ibm.watson.text_to_speech.v1.model.PromptMetadata;
+import com.ibm.watson.text_to_speech.v1.model.Prompts;
 import com.ibm.watson.text_to_speech.v1.model.Pronunciation;
+import com.ibm.watson.text_to_speech.v1.model.SpeakerCustomModels;
+import com.ibm.watson.text_to_speech.v1.model.SpeakerModel;
+import com.ibm.watson.text_to_speech.v1.model.Speakers;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.model.Timings;
 import com.ibm.watson.text_to_speech.v1.model.Voice;
@@ -63,6 +80,9 @@ public class TextToSpeechIT extends WatsonServiceTest {
   private String returnedContentType;
   private List<Timings> returnedTimings;
   private List<Marks> returnedMarks;
+  private String customizationId;
+  private String speakerId;
+  private static final String RESOURCE = "src/test/resources/text_to_speech/";
 
   /**
    * Sets up the tests.
@@ -329,6 +349,237 @@ public class TextToSpeechIT extends WatsonServiceTest {
       for (MarkTiming markTiming : markList) {
         assertTrue(ssmlMarks.contains(markTiming.getMark()));
       }
+    }
+  }
+
+  /** Test listCustomPrompts. */
+  @Test
+  public void testListCustomPrompts() {
+    CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+            .description("testdescription")
+            .name("testname")
+            .language(CreateCustomModelOptions.Language.EN_US)
+            .build();
+    CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+
+    customizationId = customModel.getCustomizationId();
+    ListCustomPromptsOptions listCustomPromptsOptions = new ListCustomPromptsOptions.Builder()
+            .customizationId(customizationId)
+            .build();
+    Prompts prompts = service.listCustomPrompts(listCustomPromptsOptions).execute().getResult();
+
+    assertNotNull(prompts.getPrompts());
+
+    DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
+            .customizationId(customizationId)
+            .build();
+    service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
+  }
+
+  /** Test addCustomPrompts. */
+  @Test
+  public void testAddCustomPrompts() {
+    try {
+      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+              .description("testdescription")
+              .name("testname")
+              .language(CreateCustomModelOptions.Language.EN_US)
+              .build();
+      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      customizationId = customModel.getCustomizationId();
+
+      PromptMetadata promptMetadata = new PromptMetadata.Builder()
+              .promptText("promptText")
+              .build();
+      File file = new File(RESOURCE + "numbers.wav");
+      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+              .customizationId(customizationId)
+              .promptId("testId")
+              .metadata(promptMetadata)
+              .file(file)
+              .build();
+      Prompt prompt = service.addCustomPrompt(addCustomPromptOptions).execute().getResult();
+
+      assertNotNull(prompt.getStatus());
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
+              .customizationId(customizationId)
+              .build();
+      service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
+    }
+  }
+
+  /** Test getCustomPrompts. */
+  @Test
+  public void testGetCustomPrompts() {
+    try {
+      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+              .description("testdescription")
+              .name("testname")
+              .language(CreateCustomModelOptions.Language.EN_US)
+              .build();
+      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      customizationId = customModel.getCustomizationId();
+
+      PromptMetadata promptMetadata = new PromptMetadata.Builder()
+              .promptText("promptText")
+              .build();
+      File file = new File(RESOURCE + "numbers.wav");
+      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+              .customizationId(customizationId)
+              .promptId("testId")
+              .metadata(promptMetadata)
+              .file(file)
+              .build();
+      Prompt prompt = service.addCustomPrompt(addCustomPromptOptions).execute().getResult();
+
+      assertNotNull(prompt.getStatus());
+
+      GetCustomPromptOptions getCustomPromptOptions = new GetCustomPromptOptions.Builder()
+              .customizationId(customizationId)
+              .promptId("testId")
+              .build();
+      Prompt prompt1 = service.getCustomPrompt(getCustomPromptOptions).execute().getResult();
+
+      assertNotNull(prompt1.getStatus());
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
+              .customizationId(customizationId)
+              .build();
+      service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
+    }
+  }
+
+  /** Test deleteCustomPrompts. */
+  @Test
+  public void testDeleteCustomPrompts() {
+    try {
+      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+              .description("testdescription")
+              .name("testname")
+              .language(CreateCustomModelOptions.Language.EN_US)
+              .build();
+      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      customizationId = customModel.getCustomizationId();
+
+      PromptMetadata promptMetadata = new PromptMetadata.Builder()
+              .promptText("promptText")
+              .build();
+      File file = new File(RESOURCE + "numbers.wav");
+      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+              .customizationId(customizationId)
+              .promptId("testId")
+              .metadata(promptMetadata)
+              .file(file)
+              .build();
+      Prompt prompt = service.addCustomPrompt(addCustomPromptOptions).execute().getResult();
+
+      assertNotNull(prompt.getStatus());
+
+      DeleteCustomPromptOptions deleteCustomPromptOptions = new DeleteCustomPromptOptions.Builder()
+              .customizationId(customizationId)
+              .promptId(prompt.getPromptId())
+              .build();
+      service.deleteCustomPrompt(deleteCustomPromptOptions).execute().getResult();
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
+              .customizationId(customizationId)
+              .build();
+      service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
+    }
+  }
+
+  /** Test createSpeakerModel. */
+  @Test
+  public void testCreateSpeakerModel() {
+    try {
+      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+              .speakerName("speakerName")
+              .audio(new File(RESOURCE + "numbers.wav"))
+              .build();
+      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+
+      speakerId = speakerModel.getSpeakerId();
+      assertNotNull(speakerModel.getSpeakerId());
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
+              .speakerId(speakerId)
+              .build();
+      service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
+    }
+  }
+
+  /** Test listSpeakerModel. */
+  @Test
+  public void testListSpeakerModel() {
+    try {
+      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+              .speakerName("speakerName")
+              .audio(new File(RESOURCE + "numbers.wav"))
+              .build();
+      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+
+      speakerId = speakerModel.getSpeakerId();
+      assertNotNull(speakerModel.getSpeakerId());
+
+      Speakers speakers = service.listSpeakerModels().execute().getResult();
+      assertNotNull(speakers.getSpeakers());
+      assertTrue(speakers.getSpeakers().size() > 0);
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
+              .speakerId(speakerId)
+              .build();
+      service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
+    }
+  }
+
+  /** Test getSpeakerModel. */
+  @Test
+  public void testGetSpeakerModel() {
+    try {
+      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+              .speakerName("speakerName")
+              .audio(new File(RESOURCE + "numbers.wav"))
+              .build();
+      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+
+      speakerId = speakerModel.getSpeakerId();
+      assertNotNull(speakerModel.getSpeakerId());
+
+      GetSpeakerModelOptions getSpeakerModelOptions = new GetSpeakerModelOptions.Builder()
+              .speakerId(speakerId)
+              .build();
+      SpeakerCustomModels speakerCustomModels = service.getSpeakerModel(getSpeakerModelOptions).execute().getResult();
+      assertNotNull(speakerCustomModels.getCustomizations());
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+    finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
+              .speakerId(speakerId)
+              .build();
+      service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
     }
   }
 }
