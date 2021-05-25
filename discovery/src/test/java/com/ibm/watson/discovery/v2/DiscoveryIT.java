@@ -66,9 +66,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     super.setUp();
 
     String apiKey = getProperty("discovery_v2.apikey");
-    Authenticator authenticator =
-        new IamAuthenticator(
-            apiKey);
+    Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(getProperty("discovery_v2.url"));
@@ -201,10 +199,8 @@ public class DiscoveryIT extends WatsonServiceTest {
   /** Test query. */
   @Test
   public void testQuery() {
-    QueryLargePassages queryLargePassages = new QueryLargePassages.Builder()
-            .findAnswers(true)
-            .maxAnswersPerPassage(2)
-            .build();
+    QueryLargePassages queryLargePassages =
+        new QueryLargePassages.Builder().findAnswers(true).maxAnswersPerPassage(2).build();
     QueryOptions options =
         new QueryOptions.Builder()
             .projectId(PROJECT_ID)
@@ -1177,12 +1173,14 @@ public class DiscoveryIT extends WatsonServiceTest {
   @Test
   public void TestQueryCollectionNotices() throws FileNotFoundException {
 
-    QueryCollectionNoticesOptions queryCollectionNoticesOptions = new QueryCollectionNoticesOptions.Builder()
+    QueryCollectionNoticesOptions queryCollectionNoticesOptions =
+        new QueryCollectionNoticesOptions.Builder()
             .projectId(PROJECT_ID)
             .collectionId(COLLECTION_ID)
             .naturalLanguageQuery("warning")
             .build();
-    QueryNoticesResponse queryNoticesResponse = service.queryCollectionNotices(queryCollectionNoticesOptions).execute().getResult();
+    QueryNoticesResponse queryNoticesResponse =
+        service.queryCollectionNotices(queryCollectionNoticesOptions).execute().getResult();
 
     assertNotNull(queryNoticesResponse.getNotices());
   }
@@ -1193,57 +1191,53 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     String queryId = "";
     String documentId = "";
-    try{
+    try {
       // Create test document.
       InputStream testFile = new FileInputStream(RESOURCE + "test-pdf.pdf");
       AddDocumentOptions addDocumentOptions =
-              new AddDocumentOptions.Builder()
-                      .projectId(PROJECT_ID)
-                      .collectionId(COLLECTION_ID)
-                      .file(testFile)
-                      .filename("test-file")
-                      .fileContentType(HttpMediaType.APPLICATION_PDF)
-                      .xWatsonDiscoveryForce(true)
-                      .build();
+          new AddDocumentOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .file(testFile)
+              .filename("test-file")
+              .fileContentType(HttpMediaType.APPLICATION_PDF)
+              .xWatsonDiscoveryForce(true)
+              .build();
       DocumentAccepted addResponse = service.addDocument(addDocumentOptions).execute().getResult();
 
       assertNotNull(addResponse);
       documentId = addResponse.getDocumentId();
 
       TrainingExample trainingExample =
-              new TrainingExample.Builder()
-                      .collectionId(COLLECTION_ID)
-                      .documentId(documentId)
-                      .relevance(1L)
-                      .build();
+          new TrainingExample.Builder()
+              .collectionId(COLLECTION_ID)
+              .documentId(documentId)
+              .relevance(1L)
+              .build();
 
       CreateTrainingQueryOptions createTrainingQueryOptions =
-              new CreateTrainingQueryOptions.Builder()
-                      .projectId(PROJECT_ID)
-                      .addExamples(trainingExample)
-                      .naturalLanguageQuery("test query" + UUID.randomUUID().toString())
-                      .build();
-      TrainingQuery createResponse =
-              service.createTrainingQuery(createTrainingQueryOptions).execute().getResult();
-      queryId = createResponse.queryId();
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
-    finally {
-      DeleteTrainingQueryOptions deleteTrainingQueryOptions = new DeleteTrainingQueryOptions.Builder()
+          new CreateTrainingQueryOptions.Builder()
               .projectId(PROJECT_ID)
-              .queryId(queryId)
+              .addExamples(trainingExample)
+              .naturalLanguageQuery("test query" + UUID.randomUUID().toString())
               .build();
+      TrainingQuery createResponse =
+          service.createTrainingQuery(createTrainingQueryOptions).execute().getResult();
+      queryId = createResponse.queryId();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      DeleteTrainingQueryOptions deleteTrainingQueryOptions =
+          new DeleteTrainingQueryOptions.Builder().projectId(PROJECT_ID).queryId(queryId).build();
       service.deleteTrainingQuery(deleteTrainingQueryOptions).execute().getResult();
 
       DeleteDocumentOptions deleteDocumentOptions =
-              new DeleteDocumentOptions.Builder()
-                      .projectId(PROJECT_ID)
-                      .collectionId(COLLECTION_ID)
-                      .documentId(documentId)
-                      .xWatsonDiscoveryForce(true)
-                      .build();
+          new DeleteDocumentOptions.Builder()
+              .projectId(PROJECT_ID)
+              .collectionId(COLLECTION_ID)
+              .documentId(documentId)
+              .xWatsonDiscoveryForce(true)
+              .build();
       service.deleteDocument(deleteDocumentOptions).execute().getResult();
     }
   }
