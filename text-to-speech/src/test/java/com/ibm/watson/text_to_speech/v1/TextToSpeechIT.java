@@ -34,7 +34,6 @@ import com.ibm.watson.text_to_speech.v1.model.GetPronunciationOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetSpeakerModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.GetVoiceOptions;
 import com.ibm.watson.text_to_speech.v1.model.ListCustomPromptsOptions;
-import com.ibm.watson.text_to_speech.v1.model.ListSpeakerModelsOptions;
 import com.ibm.watson.text_to_speech.v1.model.MarkTiming;
 import com.ibm.watson.text_to_speech.v1.model.Marks;
 import com.ibm.watson.text_to_speech.v1.model.Prompt;
@@ -355,24 +354,24 @@ public class TextToSpeechIT extends WatsonServiceTest {
   /** Test listCustomPrompts. */
   @Test
   public void testListCustomPrompts() {
-    CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+    CreateCustomModelOptions createCustomModelOptions =
+        new CreateCustomModelOptions.Builder()
             .description("testdescription")
             .name("testname")
             .language(CreateCustomModelOptions.Language.EN_US)
             .build();
-    CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+    CustomModel customModel =
+        service.createCustomModel(createCustomModelOptions).execute().getResult();
 
     customizationId = customModel.getCustomizationId();
-    ListCustomPromptsOptions listCustomPromptsOptions = new ListCustomPromptsOptions.Builder()
-            .customizationId(customizationId)
-            .build();
+    ListCustomPromptsOptions listCustomPromptsOptions =
+        new ListCustomPromptsOptions.Builder().customizationId(customizationId).build();
     Prompts prompts = service.listCustomPrompts(listCustomPromptsOptions).execute().getResult();
 
     assertNotNull(prompts.getPrompts());
 
-    DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
-            .customizationId(customizationId)
-            .build();
+    DeleteCustomModelOptions deleteCustomModelOptions =
+        new DeleteCustomModelOptions.Builder().customizationId(customizationId).build();
     service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
   }
 
@@ -380,19 +379,20 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testAddCustomPrompts() {
     try {
-      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+      CreateCustomModelOptions createCustomModelOptions =
+          new CreateCustomModelOptions.Builder()
               .description("testdescription")
               .name("testname")
               .language(CreateCustomModelOptions.Language.EN_US)
               .build();
-      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      CustomModel customModel =
+          service.createCustomModel(createCustomModelOptions).execute().getResult();
       customizationId = customModel.getCustomizationId();
 
-      PromptMetadata promptMetadata = new PromptMetadata.Builder()
-              .promptText("promptText")
-              .build();
+      PromptMetadata promptMetadata = new PromptMetadata.Builder().promptText("promptText").build();
       File file = new File(RESOURCE + "numbers.wav");
-      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+      AddCustomPromptOptions addCustomPromptOptions =
+          new AddCustomPromptOptions.Builder()
               .customizationId(customizationId)
               .promptId("testId")
               .metadata(promptMetadata)
@@ -401,14 +401,11 @@ public class TextToSpeechIT extends WatsonServiceTest {
       Prompt prompt = service.addCustomPrompt(addCustomPromptOptions).execute().getResult();
 
       assertNotNull(prompt.getStatus());
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
-              .customizationId(customizationId)
-              .build();
+    } finally {
+      DeleteCustomModelOptions deleteCustomModelOptions =
+          new DeleteCustomModelOptions.Builder().customizationId(customizationId).build();
       service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
     }
   }
@@ -417,19 +414,20 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testGetCustomPrompts() {
     try {
-      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+      CreateCustomModelOptions createCustomModelOptions =
+          new CreateCustomModelOptions.Builder()
               .description("testdescription")
               .name("testname")
               .language(CreateCustomModelOptions.Language.EN_US)
               .build();
-      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      CustomModel customModel =
+          service.createCustomModel(createCustomModelOptions).execute().getResult();
       customizationId = customModel.getCustomizationId();
 
-      PromptMetadata promptMetadata = new PromptMetadata.Builder()
-              .promptText("promptText")
-              .build();
+      PromptMetadata promptMetadata = new PromptMetadata.Builder().promptText("promptText").build();
       File file = new File(RESOURCE + "numbers.wav");
-      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+      AddCustomPromptOptions addCustomPromptOptions =
+          new AddCustomPromptOptions.Builder()
               .customizationId(customizationId)
               .promptId("testId")
               .metadata(promptMetadata)
@@ -439,21 +437,19 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
       assertNotNull(prompt.getStatus());
 
-      GetCustomPromptOptions getCustomPromptOptions = new GetCustomPromptOptions.Builder()
+      GetCustomPromptOptions getCustomPromptOptions =
+          new GetCustomPromptOptions.Builder()
               .customizationId(customizationId)
               .promptId("testId")
               .build();
       Prompt prompt1 = service.getCustomPrompt(getCustomPromptOptions).execute().getResult();
 
       assertNotNull(prompt1.getStatus());
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
-              .customizationId(customizationId)
-              .build();
+    } finally {
+      DeleteCustomModelOptions deleteCustomModelOptions =
+          new DeleteCustomModelOptions.Builder().customizationId(customizationId).build();
       service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
     }
   }
@@ -462,19 +458,20 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testDeleteCustomPrompts() {
     try {
-      CreateCustomModelOptions createCustomModelOptions = new CreateCustomModelOptions.Builder()
+      CreateCustomModelOptions createCustomModelOptions =
+          new CreateCustomModelOptions.Builder()
               .description("testdescription")
               .name("testname")
               .language(CreateCustomModelOptions.Language.EN_US)
               .build();
-      CustomModel customModel = service.createCustomModel(createCustomModelOptions).execute().getResult();
+      CustomModel customModel =
+          service.createCustomModel(createCustomModelOptions).execute().getResult();
       customizationId = customModel.getCustomizationId();
 
-      PromptMetadata promptMetadata = new PromptMetadata.Builder()
-              .promptText("promptText")
-              .build();
+      PromptMetadata promptMetadata = new PromptMetadata.Builder().promptText("promptText").build();
       File file = new File(RESOURCE + "numbers.wav");
-      AddCustomPromptOptions addCustomPromptOptions = new AddCustomPromptOptions.Builder()
+      AddCustomPromptOptions addCustomPromptOptions =
+          new AddCustomPromptOptions.Builder()
               .customizationId(customizationId)
               .promptId("testId")
               .metadata(promptMetadata)
@@ -484,19 +481,17 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
       assertNotNull(prompt.getStatus());
 
-      DeleteCustomPromptOptions deleteCustomPromptOptions = new DeleteCustomPromptOptions.Builder()
+      DeleteCustomPromptOptions deleteCustomPromptOptions =
+          new DeleteCustomPromptOptions.Builder()
               .customizationId(customizationId)
               .promptId(prompt.getPromptId())
               .build();
       service.deleteCustomPrompt(deleteCustomPromptOptions).execute().getResult();
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteCustomModelOptions deleteCustomModelOptions = new DeleteCustomModelOptions.Builder()
-              .customizationId(customizationId)
-              .build();
+    } finally {
+      DeleteCustomModelOptions deleteCustomModelOptions =
+          new DeleteCustomModelOptions.Builder().customizationId(customizationId).build();
       service.deleteCustomModel(deleteCustomModelOptions).execute().getResult();
     }
   }
@@ -505,22 +500,21 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testCreateSpeakerModel() {
     try {
-      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+      CreateSpeakerModelOptions createSpeakerModelOptions =
+          new CreateSpeakerModelOptions.Builder()
               .speakerName("speakerName")
               .audio(new File(RESOURCE + "numbers.wav"))
               .build();
-      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+      SpeakerModel speakerModel =
+          service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
 
       speakerId = speakerModel.getSpeakerId();
       assertNotNull(speakerModel.getSpeakerId());
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
-              .speakerId(speakerId)
-              .build();
+    } finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions =
+          new DeleteSpeakerModelOptions.Builder().speakerId(speakerId).build();
       service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
     }
   }
@@ -529,11 +523,13 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testListSpeakerModel() {
     try {
-      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+      CreateSpeakerModelOptions createSpeakerModelOptions =
+          new CreateSpeakerModelOptions.Builder()
               .speakerName("speakerName")
               .audio(new File(RESOURCE + "numbers.wav"))
               .build();
-      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+      SpeakerModel speakerModel =
+          service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
 
       speakerId = speakerModel.getSpeakerId();
       assertNotNull(speakerModel.getSpeakerId());
@@ -541,14 +537,11 @@ public class TextToSpeechIT extends WatsonServiceTest {
       Speakers speakers = service.listSpeakerModels().execute().getResult();
       assertNotNull(speakers.getSpeakers());
       assertTrue(speakers.getSpeakers().size() > 0);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
-              .speakerId(speakerId)
-              .build();
+    } finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions =
+          new DeleteSpeakerModelOptions.Builder().speakerId(speakerId).build();
       service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
     }
   }
@@ -557,28 +550,27 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testGetSpeakerModel() {
     try {
-      CreateSpeakerModelOptions createSpeakerModelOptions = new CreateSpeakerModelOptions.Builder()
+      CreateSpeakerModelOptions createSpeakerModelOptions =
+          new CreateSpeakerModelOptions.Builder()
               .speakerName("speakerName")
               .audio(new File(RESOURCE + "numbers.wav"))
               .build();
-      SpeakerModel speakerModel = service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
+      SpeakerModel speakerModel =
+          service.createSpeakerModel(createSpeakerModelOptions).execute().getResult();
 
       speakerId = speakerModel.getSpeakerId();
       assertNotNull(speakerModel.getSpeakerId());
 
-      GetSpeakerModelOptions getSpeakerModelOptions = new GetSpeakerModelOptions.Builder()
-              .speakerId(speakerId)
-              .build();
-      SpeakerCustomModels speakerCustomModels = service.getSpeakerModel(getSpeakerModelOptions).execute().getResult();
+      GetSpeakerModelOptions getSpeakerModelOptions =
+          new GetSpeakerModelOptions.Builder().speakerId(speakerId).build();
+      SpeakerCustomModels speakerCustomModels =
+          service.getSpeakerModel(getSpeakerModelOptions).execute().getResult();
       assertNotNull(speakerCustomModels.getCustomizations());
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
-    }
-    finally {
-      DeleteSpeakerModelOptions deleteSpeakerModelOptions = new DeleteSpeakerModelOptions.Builder()
-              .speakerId(speakerId)
-              .build();
+    } finally {
+      DeleteSpeakerModelOptions deleteSpeakerModelOptions =
+          new DeleteSpeakerModelOptions.Builder().speakerId(speakerId).build();
       service.deleteSpeakerModel(deleteSpeakerModelOptions).execute().getResult();
     }
   }
