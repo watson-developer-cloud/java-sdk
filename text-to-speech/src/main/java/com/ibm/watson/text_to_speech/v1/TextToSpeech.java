@@ -378,9 +378,9 @@ public class TextToSpeech extends BaseService {
    * @return a {@link WebSocket} instance
    */
   public WebSocket synthesizeUsingWebSocket(
-          SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
+      SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-            synthesizeOptions, "synthesizeOptions cannot be null");
+        synthesizeOptions, "synthesizeOptions cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
 
     HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
@@ -400,7 +400,7 @@ public class TextToSpeech extends BaseService {
 
     OkHttpClient client = configureHttpClient();
     return client.newWebSocket(
-            builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
+        builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**

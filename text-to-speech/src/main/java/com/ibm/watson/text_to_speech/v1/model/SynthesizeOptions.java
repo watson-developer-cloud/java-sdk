@@ -299,8 +299,8 @@ public class SynthesizeOptions extends GenericModel {
    * strings of the input text. Specify `words` as the element of the array to request word timing
    * information. The service returns the start and end time of each word of the input. Specify an
    * empty array or omit the parameter to receive no word timing information. Not supported for
-   * Japanese input text.
-   *protected List<String> timings;
+   * Japanese input text. protected List<String> timings;
+   *
    * <p>NOTE: This parameter only works for the `synthesizeUsingWebSocket` method.
    *
    * @return the timings
