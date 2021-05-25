@@ -81,7 +81,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         assertNotNull(genericResponses);
         boolean foundTextResponse = false;
         for (RuntimeResponseGeneric generic : genericResponses) {
-          if (generic.responseType().equals(RuntimeResponseGeneric.ResponseType.TEXT)) {
+          if (generic.responseType().equals("TEXT")) {
             foundTextResponse = true;
             break;
           }
@@ -139,7 +139,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         assertNotNull(genericResponses);
         boolean foundTextResponse = false;
         for (RuntimeResponseGeneric generic : genericResponses) {
-          if (generic.responseType().equals(RuntimeResponseGeneric.ResponseType.TEXT)) {
+          if (generic.responseType().equals("TEXT")) {
             foundTextResponse = true;
             break;
           }
