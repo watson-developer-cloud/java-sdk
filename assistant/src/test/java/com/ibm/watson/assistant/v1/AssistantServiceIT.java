@@ -71,7 +71,84 @@ public class AssistantServiceIT extends AssistantServiceTest {
     input.setText("Hi");
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
     MessageResponse response = service.message(options).execute().getResult();
+
+    assertNotNull(response);
+  }
+
+  /** Test RuntimeResponseGenericRuntimeResponseTypeText. */
+  @Test
+  public void testRuntimeResponseGenericRuntimeResponseTypeText() {
+    MessageInput input = new MessageInput();
+    input.setText("Hi");
+    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+    MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
+
+    RuntimeResponseGenericRuntimeResponseTypeText
+            runtimeResponseGenericRuntimeResponseTypeText =
+            (RuntimeResponseGenericRuntimeResponseTypeText)
+                    response.getOutput().getGeneric().get(0);
+
+    assertNotNull(runtimeResponseGenericRuntimeResponseTypeText);
+  }
+
+  /** Test RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
+  @Test
+  public void testRuntimeResponseGenericRuntimeResponseTypeChannelTransfer() {
+    MessageInput input = new MessageInput();
+    input.setText("test sdk");
+    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+    MessageResponse response = service.message(options).execute().getResult();
+    System.out.println(response);
+
+    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
+            (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
+                    response.getOutput().getGeneric().get(0);
+    ChannelTransferInfo channelTransferInfo =
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo();
+
+    assertNotNull(channelTransferInfo);
+  }
+
+  /** Test RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
+  @Test
+  public void testRuntimeResponseGenericRuntimeResponseTypeChannelTransferRequest() {
+    MessageInput input = new MessageInput();
+    input.setText("test sdk");
+
+    ChannelTransferTargetChat channelTransferTargetChat = new ChannelTransferTargetChat.Builder()
+            .url("google.com").build();
+    ChannelTransferTarget transferTarget = new ChannelTransferTarget.Builder()
+            .chat(channelTransferTargetChat).build();
+    ChannelTransferInfo channelTransferInfo = new ChannelTransferInfo.Builder()
+            .target(transferTarget).build();
+    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer testTransfer =
+            new RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.Builder()
+            .transferInfo(channelTransferInfo)
+            .responseType("channel_transfer")
+            .messageToUser("testing message").build();
+    ArrayList<LogMessage> list = new ArrayList<LogMessage>();
+    ArrayList<String> listString = new ArrayList<>();
+    OutputData outputData = new OutputData.Builder()
+            .addGeneric(testTransfer)
+            .logMessages(list)
+            .text(listString).build();
+    MessageOptions options = new MessageOptions.Builder(workspaceId)
+            .input(input)
+            .output(outputData)
+            .build();
+    MessageResponse response = service.message(options).execute().getResult();
+    System.out.println(response);
+
+    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
+            (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
+                    response.getOutput().getGeneric().get(0);
+//    ChannelTransferInfo channelTransferInfo =
+//            runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo();
+//
+//    assertNull(channelTransferInfo);
   }
 
   /**
@@ -1430,6 +1507,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
   /** Test listLogs. */
   @Test
+  @Ignore
   public void testListLogs() {
 
     try {
