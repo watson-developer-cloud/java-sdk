@@ -12,12 +12,31 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /** DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     extends DialogNodeOutputGeneric {
+
+  @SerializedName("response_type")
+  private String responseType;
+
+  @SerializedName("message_to_human_agent")
+  private String messageToHumanAgent;
+
+  @SerializedName("agent_available")
+  private AgentAvailabilityMessage agentAvailable;
+
+  @SerializedName("agent_unavailable")
+  private AgentAvailabilityMessage agentUnavailable;
+
+  @SerializedName("transfer_info")
+  private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+
+  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -29,7 +48,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent) {
+            DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.responseType;
       this.messageToHumanAgent =
@@ -39,7 +58,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
       this.agentUnavailable =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.agentUnavailable;
       this.transferInfo =
-          dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.transferInfo;
+          (DialogNodeOutputConnectToAgentTransferInfo)
+              dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.transferInfo;
       this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.channels;
     }
 
@@ -164,5 +184,75 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+
+  /**
+   * Gets the responseType.
+   *
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
+   *
+   * @return the responseType
+   */
+  public String responseType() {
+    return responseType;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
+  }
+
+  /**
+   * Gets the messageToHumanAgent.
+   *
+   * <p>An optional message to be sent to the human agent who will be taking over the conversation.
+   *
+   * @return the messageToHumanAgent
+   */
+  public String messageToHumanAgent() {
+    return messageToHumanAgent;
+  }
+
+  /**
+   * Gets the agentAvailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that the conversation will be
+   * transferred to the next available agent.
+   *
+   * @return the agentAvailable
+   */
+  public AgentAvailabilityMessage agentAvailable() {
+    return agentAvailable;
+  }
+
+  /**
+   * Gets the agentUnavailable.
+   *
+   * <p>An optional message to be displayed to the user to indicate that no online agent is
+   * available to take over the conversation.
+   *
+   * @return the agentUnavailable
+   */
+  public AgentAvailabilityMessage agentUnavailable() {
+    return agentUnavailable;
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 }

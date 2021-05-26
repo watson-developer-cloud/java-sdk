@@ -12,11 +12,19 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** RuntimeResponseGenericRuntimeResponseTypePause. */
 public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeResponseGeneric {
+
+  @SerializedName("response_type")
+  private String responseType;
+
+  private Long time;
+  private Boolean typing;
+  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -25,7 +33,9 @@ public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeRespo
     private Boolean typing;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypePause) {
+    public Builder(
+        RuntimeResponseGenericRuntimeResponseTypePause
+            runtimeResponseGenericRuntimeResponseTypePause) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypePause.responseType;
       this.time = runtimeResponseGenericRuntimeResponseTypePause.time;
       this.typing = runtimeResponseGenericRuntimeResponseTypePause.typing;
@@ -132,5 +142,52 @@ public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeRespo
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the responseType.
+   *
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
+   *
+   * @return the responseType
+   */
+  public String responseType() {
+    return responseType;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended. If **channels**
+   * is present, the response is intended for a built-in integration and should not be handled by an
+   * API client.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
+  }
+
+  /**
+   * Gets the time.
+   *
+   * <p>How long to pause, in milliseconds.
+   *
+   * @return the time
+   */
+  public Long time() {
+    return time;
+  }
+
+  /**
+   * Gets the typing.
+   *
+   * <p>Whether to send a "user is typing" event during the pause.
+   *
+   * @return the typing
+   */
+  public Boolean typing() {
+    return typing;
   }
 }

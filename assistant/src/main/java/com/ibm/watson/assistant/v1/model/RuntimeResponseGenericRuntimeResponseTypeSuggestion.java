@@ -12,11 +12,19 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** RuntimeResponseGenericRuntimeResponseTypeSuggestion. */
 public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends RuntimeResponseGeneric {
+
+  @SerializedName("response_type")
+  private String responseType;
+
+  private String title;
+  private List<DialogSuggestion> suggestions;
+  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -25,7 +33,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
     private List<DialogSuggestion> suggestions;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeSuggestion) {
+    public Builder(
+        RuntimeResponseGenericRuntimeResponseTypeSuggestion
+            runtimeResponseGenericRuntimeResponseTypeSuggestion) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeSuggestion.responseType;
       this.title = runtimeResponseGenericRuntimeResponseTypeSuggestion.title;
       this.suggestions = runtimeResponseGenericRuntimeResponseTypeSuggestion.suggestions;
@@ -151,5 +161,53 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the responseType.
+   *
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
+   *
+   * @return the responseType
+   */
+  public String responseType() {
+    return responseType;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended. If **channels**
+   * is present, the response is intended for a built-in integration and should not be handled by an
+   * API client.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
+  }
+
+  /**
+   * Gets the title.
+   *
+   * <p>The title or introductory text to show before the response.
+   *
+   * @return the title
+   */
+  public String title() {
+    return title;
+  }
+
+  /**
+   * Gets the suggestions.
+   *
+   * <p>An array of objects describing the possible matching dialog nodes from which the user can
+   * choose.
+   *
+   * @return the suggestions
+   */
+  public List<DialogSuggestion> suggestions() {
+    return suggestions;
   }
 }

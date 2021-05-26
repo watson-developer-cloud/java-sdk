@@ -12,12 +12,25 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /** DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
     extends DialogNodeOutputGeneric {
+
+  @SerializedName("response_type")
+  private String responseType;
+
+  @SerializedName("message_to_user")
+  private String messageToUser;
+
+  @SerializedName("transfer_info")
+  private ChannelTransferInfo transferInfo;
+
+  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -27,7 +40,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGeneric
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
             dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.responseType;
@@ -143,5 +156,51 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+
+  /**
+   * Gets the responseType.
+   *
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
+   *
+   * @return the responseType
+   */
+  public String responseType() {
+    return responseType;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public ChannelTransferInfo transferInfo() {
+    return transferInfo;
+  }
+
+  /**
+   * Gets the messageToUser.
+   *
+   * <p>The message to display to the user when initiating a channel transfer.
+   *
+   * @return the messageToUser
+   */
+  public String messageToUser() {
+    return messageToUser;
   }
 }

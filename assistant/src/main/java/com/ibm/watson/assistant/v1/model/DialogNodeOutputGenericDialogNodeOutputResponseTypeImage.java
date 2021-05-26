@@ -12,12 +12,22 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /** DialogNodeOutputGenericDialogNodeOutputResponseTypeImage. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
     extends DialogNodeOutputGeneric {
+
+  @SerializedName("response_type")
+  private String responseType;
+
+  private String source;
+  private String title;
+  private String description;
+  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -28,7 +38,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeImage) {
+            DialogNodeOutputGenericDialogNodeOutputResponseTypeImage dialogNodeOutputGenericDialogNodeOutputResponseTypeImage) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.responseType;
       this.source = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.source;
       this.title = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.title;
@@ -148,5 +158,62 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+
+  /**
+   * Gets the responseType.
+   *
+   * <p>The type of response returned by the dialog node. The specified response type must be
+   * supported by the client application or channel.
+   *
+   * @return the responseType
+   */
+  public String responseType() {
+    return responseType;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * <p>The URL of the image.
+   *
+   * @return the source
+   */
+  public String source() {
+    return source;
+  }
+
+  /**
+   * Gets the title.
+   *
+   * <p>An optional title to show before the response.
+   *
+   * @return the title
+   */
+  public String title() {
+    return title;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * <p>An optional description to show with the response.
+   *
+   * @return the description
+   */
+  public String description() {
+    return description;
   }
 }
