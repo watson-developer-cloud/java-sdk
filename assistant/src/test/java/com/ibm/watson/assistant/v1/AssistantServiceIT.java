@@ -84,10 +84,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
 
-    RuntimeResponseGenericRuntimeResponseTypeText
-            runtimeResponseGenericRuntimeResponseTypeText =
-            (RuntimeResponseGenericRuntimeResponseTypeText)
-                    response.getOutput().getGeneric().get(0);
+    RuntimeResponseGenericRuntimeResponseTypeText runtimeResponseGenericRuntimeResponseTypeText =
+        (RuntimeResponseGenericRuntimeResponseTypeText) response.getOutput().getGeneric().get(0);
 
     assertNotNull(runtimeResponseGenericRuntimeResponseTypeText);
   }
@@ -102,53 +100,13 @@ public class AssistantServiceIT extends AssistantServiceTest {
     System.out.println(response);
 
     RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
-            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
+        runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
             (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
-                    response.getOutput().getGeneric().get(0);
+                response.getOutput().getGeneric().get(0);
     ChannelTransferInfo channelTransferInfo =
-            runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo();
+        runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo();
 
     assertNotNull(channelTransferInfo);
-  }
-
-  /** Test RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
-  @Test
-  public void testRuntimeResponseGenericRuntimeResponseTypeChannelTransferRequest() {
-    MessageInput input = new MessageInput();
-    input.setText("test sdk");
-
-    ChannelTransferTargetChat channelTransferTargetChat = new ChannelTransferTargetChat.Builder()
-            .url("google.com").build();
-    ChannelTransferTarget transferTarget = new ChannelTransferTarget.Builder()
-            .chat(channelTransferTargetChat).build();
-    ChannelTransferInfo channelTransferInfo = new ChannelTransferInfo.Builder()
-            .target(transferTarget).build();
-    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer testTransfer =
-            new RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.Builder()
-            .transferInfo(channelTransferInfo)
-            .responseType("channel_transfer")
-            .messageToUser("testing message").build();
-    ArrayList<LogMessage> list = new ArrayList<LogMessage>();
-    ArrayList<String> listString = new ArrayList<>();
-    OutputData outputData = new OutputData.Builder()
-            .addGeneric(testTransfer)
-            .logMessages(list)
-            .text(listString).build();
-    MessageOptions options = new MessageOptions.Builder(workspaceId)
-            .input(input)
-            .output(outputData)
-            .build();
-    MessageResponse response = service.message(options).execute().getResult();
-    System.out.println(response);
-
-    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
-            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
-            (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
-                    response.getOutput().getGeneric().get(0);
-//    ChannelTransferInfo channelTransferInfo =
-//            runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo();
-//
-//    assertNull(channelTransferInfo);
   }
 
   /**
