@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,7 +156,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
   public Builder newBuilder() {
     return new Builder(this);
   }
-
 
   /**
    * Gets the responseType.

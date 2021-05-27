@@ -30,16 +30,6 @@ public class AnalyzeOptionsTest {
 
   @Test
   public void testAnalyzeOptions() throws Throwable {
-    CategoriesOptions categoriesOptionsModel =
-        new CategoriesOptions.Builder()
-            .explanation(true)
-            .limit(Long.valueOf("10"))
-            .model("testString")
-            .build();
-    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(true));
-    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
-    assertEquals(categoriesOptionsModel.model(), "testString");
-
     ClassificationsOptions classificationsOptionsModel =
         new ClassificationsOptions.Builder().model("testString").build();
     assertEquals(classificationsOptionsModel.model(), "testString");
@@ -114,6 +104,16 @@ public class AnalyzeOptionsTest {
         new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
     assertEquals(summarizationOptionsModel.limit(), Long.valueOf("10"));
 
+    CategoriesOptions categoriesOptionsModel =
+        new CategoriesOptions.Builder()
+            .explanation(true)
+            .limit(Long.valueOf("10"))
+            .model("testString")
+            .build();
+    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(true));
+    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
+    assertEquals(categoriesOptionsModel.model(), "testString");
+
     SyntaxOptionsTokens syntaxOptionsTokensModel =
         new SyntaxOptionsTokens.Builder().lemma(true).partOfSpeech(true).build();
     assertEquals(syntaxOptionsTokensModel.lemma(), Boolean.valueOf(true));
@@ -126,7 +126,6 @@ public class AnalyzeOptionsTest {
 
     Features featuresModel =
         new Features.Builder()
-            .categories(categoriesOptionsModel)
             .classifications(classificationsOptionsModel)
             .concepts(conceptsOptionsModel)
             .emotion(emotionOptionsModel)
@@ -137,9 +136,9 @@ public class AnalyzeOptionsTest {
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
             .summarization(summarizationOptionsModel)
+            .categories(categoriesOptionsModel)
             .syntax(syntaxOptionsModel)
             .build();
-    assertEquals(featuresModel.categories(), categoriesOptionsModel);
     assertEquals(featuresModel.classifications(), classificationsOptionsModel);
     assertEquals(featuresModel.concepts(), conceptsOptionsModel);
     assertEquals(featuresModel.emotion(), emotionOptionsModel);
@@ -150,6 +149,7 @@ public class AnalyzeOptionsTest {
     assertEquals(featuresModel.semanticRoles(), semanticRolesOptionsModel);
     assertEquals(featuresModel.sentiment(), sentimentOptionsModel);
     assertEquals(featuresModel.summarization(), summarizationOptionsModel);
+    assertEquals(featuresModel.categories(), categoriesOptionsModel);
     assertEquals(featuresModel.syntax(), syntaxOptionsModel);
 
     AnalyzeOptions analyzeOptionsModel =

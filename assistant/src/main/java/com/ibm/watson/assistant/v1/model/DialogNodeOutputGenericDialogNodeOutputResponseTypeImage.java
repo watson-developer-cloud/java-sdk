@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-            DialogNodeOutputGenericDialogNodeOutputResponseTypeImage dialogNodeOutputGenericDialogNodeOutputResponseTypeImage) {
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
+            dialogNodeOutputGenericDialogNodeOutputResponseTypeImage) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.responseType;
       this.source = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.source;
       this.title = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.title;
@@ -159,7 +159,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
   public Builder newBuilder() {
     return new Builder(this);
   }
-
 
   /**
    * Gets the responseType.

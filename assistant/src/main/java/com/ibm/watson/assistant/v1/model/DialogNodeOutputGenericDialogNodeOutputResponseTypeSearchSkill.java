@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-            DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill) {
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+            dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.responseType;
       this.query = dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.query;
@@ -193,7 +193,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
   public Builder newBuilder() {
     return new Builder(this);
   }
-
 
   /**
    * Gets the responseType.

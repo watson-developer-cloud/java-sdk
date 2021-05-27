@@ -125,14 +125,6 @@ public class NaturalLanguageUnderstandingTest {
 
     constructClientService();
 
-    // Construct an instance of the CategoriesOptions model
-    CategoriesOptions categoriesOptionsModel =
-        new CategoriesOptions.Builder()
-            .explanation(true)
-            .limit(Long.valueOf("10"))
-            .model("testString")
-            .build();
-
     // Construct an instance of the ClassificationsOptions model
     ClassificationsOptions classificationsOptionsModel =
         new ClassificationsOptions.Builder().model("testString").build();
@@ -193,6 +185,14 @@ public class NaturalLanguageUnderstandingTest {
     SummarizationOptions summarizationOptionsModel =
         new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
 
+    // Construct an instance of the CategoriesOptions model
+    CategoriesOptions categoriesOptionsModel =
+        new CategoriesOptions.Builder()
+            .explanation(true)
+            .limit(Long.valueOf("10"))
+            .model("testString")
+            .build();
+
     // Construct an instance of the SyntaxOptionsTokens model
     SyntaxOptionsTokens syntaxOptionsTokensModel =
         new SyntaxOptionsTokens.Builder().lemma(true).partOfSpeech(true).build();
@@ -204,7 +204,6 @@ public class NaturalLanguageUnderstandingTest {
     // Construct an instance of the Features model
     Features featuresModel =
         new Features.Builder()
-            .categories(categoriesOptionsModel)
             .classifications(classificationsOptionsModel)
             .concepts(conceptsOptionsModel)
             .emotion(emotionOptionsModel)
@@ -215,6 +214,7 @@ public class NaturalLanguageUnderstandingTest {
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
             .summarization(summarizationOptionsModel)
+            .categories(categoriesOptionsModel)
             .syntax(syntaxOptionsModel)
             .build();
 

@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +34,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
   private String responseType;
 
   private List<DialogNodeOutputTextValuesElement> values;
-  @SerializedName("selection_policy")
 
+  @SerializedName("selection_policy")
   private String selectionPolicy;
+
   private String delimiter;
   private List<ResponseGenericChannel> channels;
 
@@ -50,7 +50,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-            DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericDialogNodeOutputResponseTypeText) {
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeText
+            dialogNodeOutputGenericDialogNodeOutputResponseTypeText) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.responseType;
       this.values = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.values;
       this.selectionPolicy =
@@ -187,7 +188,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
   public Builder newBuilder() {
     return new Builder(this);
   }
-
 
   /**
    * Gets the responseType.

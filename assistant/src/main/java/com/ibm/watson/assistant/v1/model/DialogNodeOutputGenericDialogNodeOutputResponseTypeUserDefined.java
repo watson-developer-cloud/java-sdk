@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-            DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined) {
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
+            dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.responseType;
       this.userDefined = dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.userDefined;
@@ -134,7 +134,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
   public Builder newBuilder() {
     return new Builder(this);
   }
-
 
   /**
    * Gets the responseType.

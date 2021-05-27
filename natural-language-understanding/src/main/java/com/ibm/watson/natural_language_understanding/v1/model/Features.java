@@ -20,7 +20,6 @@ import java.util.HashMap;
 /** Analysis features and options. */
 public class Features extends GenericModel {
 
-  protected CategoriesOptions categories;
   protected ClassificationsOptions classifications;
   protected ConceptsOptions concepts;
   protected EmotionOptions emotion;
@@ -34,11 +33,11 @@ public class Features extends GenericModel {
 
   protected SentimentOptions sentiment;
   protected SummarizationOptions summarization;
+  protected CategoriesOptions categories;
   protected SyntaxOptions syntax;
 
   /** Builder. */
   public static class Builder {
-    private CategoriesOptions categories;
     private ClassificationsOptions classifications;
     private ConceptsOptions concepts;
     private EmotionOptions emotion;
@@ -49,10 +48,10 @@ public class Features extends GenericModel {
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
     private SummarizationOptions summarization;
+    private CategoriesOptions categories;
     private SyntaxOptions syntax;
 
     private Builder(Features features) {
-      this.categories = features.categories;
       this.classifications = features.classifications;
       this.concepts = features.concepts;
       this.emotion = features.emotion;
@@ -63,6 +62,7 @@ public class Features extends GenericModel {
       this.semanticRoles = features.semanticRoles;
       this.sentiment = features.sentiment;
       this.summarization = features.summarization;
+      this.categories = features.categories;
       this.syntax = features.syntax;
     }
 
@@ -76,17 +76,6 @@ public class Features extends GenericModel {
      */
     public Features build() {
       return new Features(this);
-    }
-
-    /**
-     * Set the categories.
-     *
-     * @param categories the categories
-     * @return the Features builder
-     */
-    public Builder categories(CategoriesOptions categories) {
-      this.categories = categories;
-      return this;
     }
 
     /**
@@ -200,6 +189,17 @@ public class Features extends GenericModel {
     }
 
     /**
+     * Set the categories.
+     *
+     * @param categories the categories
+     * @return the Features builder
+     */
+    public Builder categories(CategoriesOptions categories) {
+      this.categories = categories;
+      return this;
+    }
+
+    /**
      * Set the syntax.
      *
      * @param syntax the syntax
@@ -212,7 +212,6 @@ public class Features extends GenericModel {
   }
 
   protected Features(Builder builder) {
-    categories = builder.categories;
     classifications = builder.classifications;
     concepts = builder.concepts;
     emotion = builder.emotion;
@@ -223,6 +222,7 @@ public class Features extends GenericModel {
     semanticRoles = builder.semanticRoles;
     sentiment = builder.sentiment;
     summarization = builder.summarization;
+    categories = builder.categories;
     syntax = builder.syntax;
   }
 
@@ -233,20 +233,6 @@ public class Features extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the categories.
-   *
-   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
-   *
-   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
-   * Spanish.
-   *
-   * @return the categories
-   */
-  public CategoriesOptions categories() {
-    return categories;
   }
 
   /**
@@ -392,6 +378,20 @@ public class Features extends GenericModel {
    */
   public SummarizationOptions summarization() {
     return summarization;
+  }
+
+  /**
+   * Gets the categories.
+   *
+   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
+   *
+   * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
+   * Spanish.
+   *
+   * @return the categories
+   */
+  public CategoriesOptions categories() {
+    return categories;
   }
 
   /**
