@@ -200,9 +200,12 @@ public class VisualRecognition extends BaseService {
     builder.query("version", String.valueOf(this.version));
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart(
-        "collection_ids", RequestUtils.join(analyzeOptions.collectionIds(), ","));
-    multipartBuilder.addFormDataPart("features", RequestUtils.join(analyzeOptions.features(), ","));
+    for (String item : analyzeOptions.collectionIds()) {
+      multipartBuilder.addFormDataPart("collection_ids", item);
+    }
+    for (String item : analyzeOptions.features()) {
+      multipartBuilder.addFormDataPart("features", item);
+    }
     if (analyzeOptions.imagesFile() != null) {
       for (FileWithMetadata item : analyzeOptions.imagesFile()) {
         okhttp3.RequestBody itemBody =
