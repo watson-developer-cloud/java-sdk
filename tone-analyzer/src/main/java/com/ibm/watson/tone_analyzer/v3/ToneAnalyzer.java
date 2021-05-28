@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2021.
+ * (C) Copyright IBM Corp. 2016, 2020.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
  */
 
 package com.ibm.watson.tone_analyzer.v3;
