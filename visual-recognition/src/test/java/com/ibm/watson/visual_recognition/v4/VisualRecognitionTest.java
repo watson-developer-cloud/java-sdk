@@ -199,7 +199,6 @@ public class VisualRecognitionTest {
         new CreateCollectionOptions.Builder()
             .name("testString")
             .description("testString")
-            .trainingStatus(trainingStatusModel)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -353,7 +352,6 @@ public class VisualRecognitionTest {
             .collectionId("testString")
             .name("testString")
             .description("testString")
-            .trainingStatus(trainingStatusModel)
             .build();
 
     // Invoke operation with valid options model (positive test)

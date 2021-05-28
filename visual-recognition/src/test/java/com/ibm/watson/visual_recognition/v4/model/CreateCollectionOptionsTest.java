@@ -54,10 +54,8 @@ public class CreateCollectionOptionsTest {
         new CreateCollectionOptions.Builder()
             .name("testString")
             .description("testString")
-            .trainingStatus(trainingStatusModel)
             .build();
     assertEquals(createCollectionOptionsModel.name(), "testString");
     assertEquals(createCollectionOptionsModel.description(), "testString");
-    assertEquals(createCollectionOptionsModel.trainingStatus(), trainingStatusModel);
   }
 }

@@ -55,12 +55,10 @@ public class UpdateCollectionOptionsTest {
             .collectionId("testString")
             .name("testString")
             .description("testString")
-            .trainingStatus(trainingStatusModel)
             .build();
     assertEquals(updateCollectionOptionsModel.collectionId(), "testString");
     assertEquals(updateCollectionOptionsModel.name(), "testString");
     assertEquals(updateCollectionOptionsModel.description(), "testString");
-    assertEquals(updateCollectionOptionsModel.trainingStatus(), trainingStatusModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
