@@ -79,6 +79,12 @@ import okhttp3.MultipartBody;
  *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
  *     Recognition</a>
  */
+
+/**
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual
+ * Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ */
+@Deprecated
 public class VisualRecognition extends BaseService {
 
   public static final String DEFAULT_SERVICE_NAME = "visual_recognition";
@@ -140,6 +146,10 @@ public class VisualRecognition extends BaseService {
     setServiceUrl(DEFAULT_SERVICE_URL);
     setVersion(version);
     this.configureService(serviceName);
+
+    System.err.println(
+            "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n" +
+                    "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**
