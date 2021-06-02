@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,8 @@ public class QueryOptionsTest {
             .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .count(Long.valueOf("100"))
             .characters(Long.valueOf("50"))
+            .findAnswers(true)
+            .maxAnswersPerPassage(Long.valueOf("26"))
             .build();
     assertEquals(queryLargePassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.perDocument(), Boolean.valueOf(true));
@@ -57,6 +59,8 @@ public class QueryOptionsTest {
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(queryLargePassagesModel.count(), Long.valueOf("100"));
     assertEquals(queryLargePassagesModel.characters(), Long.valueOf("50"));
+    assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(true));
+    assertEquals(queryLargePassagesModel.maxAnswersPerPassage(), Long.valueOf("26"));
 
     QueryOptions queryOptionsModel =
         new QueryOptions.Builder()

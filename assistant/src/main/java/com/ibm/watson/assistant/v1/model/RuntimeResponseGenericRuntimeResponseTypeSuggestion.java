@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,28 +15,21 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An object that describes a response with response type `suggestion`. */
+/** RuntimeResponseGenericRuntimeResponseTypeSuggestion. */
 public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends RuntimeResponseGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** suggestion. */
-    String SUGGESTION = "suggestion";
-  }
 
   /** Builder. */
   public static class Builder {
     private String responseType;
     private String title;
     private List<DialogSuggestion> suggestions;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeSuggestion) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeSuggestion.responseType;
       this.title = runtimeResponseGenericRuntimeResponseTypeSuggestion.title;
       this.suggestions = runtimeResponseGenericRuntimeResponseTypeSuggestion.suggestions;
+      this.channels = runtimeResponseGenericRuntimeResponseTypeSuggestion.channels;
     }
 
     /** Instantiates a new builder. */
@@ -80,6 +73,21 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
     }
 
     /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeSuggestion builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
+    }
+
+    /**
      * Set the responseType.
      *
      * @param responseType the responseType
@@ -111,6 +119,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
       this.suggestions = suggestions;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeSuggestion builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeSuggestion(Builder builder) {
@@ -122,6 +141,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
     responseType = builder.responseType;
     title = builder.title;
     suggestions = builder.suggestions;
+    channels = builder.channels;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2017, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ public class AnalysisResults extends GenericModel {
   protected List<EntitiesResult> entities;
   protected List<KeywordsResult> keywords;
   protected List<CategoriesResult> categories;
+  protected List<ClassificationsResult> classifications;
   protected EmotionResult emotion;
   protected FeaturesResultsMetadata metadata;
   protected List<RelationsResult> relations;
@@ -128,6 +129,17 @@ public class AnalysisResults extends GenericModel {
    */
   public List<CategoriesResult> getCategories() {
     return categories;
+  }
+
+  /**
+   * Gets the classifications.
+   *
+   * <p>The classifications assigned to the analyzed text.
+   *
+   * @return the classifications
+   */
+  public List<ClassificationsResult> getClassifications() {
+    return classifications;
   }
 
   /**

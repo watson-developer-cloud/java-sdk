@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
 
   @Test
   public void testDialogNodeOutputGenericDialogNodeOutputResponseTypeImage() throws Throwable {
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel =
             new DialogNodeOutputGenericDialogNodeOutputResponseTypeImage.Builder()
@@ -37,6 +41,9 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
                 .source("testString")
                 .title("testString")
                 .description("testString")
+                .channels(
+                    new java.util.ArrayList<ResponseGenericChannel>(
+                        java.util.Arrays.asList(responseGenericChannelModel)))
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.responseType(), "image");
@@ -46,6 +53,10 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.title(), "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.description(), "testString");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel);

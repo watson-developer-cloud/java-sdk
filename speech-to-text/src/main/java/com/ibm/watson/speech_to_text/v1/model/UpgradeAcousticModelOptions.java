@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -140,7 +140,7 @@ public class UpgradeAcousticModelOptions extends GenericModel {
    * acoustic model that is trained with a custom language model, and only if you receive a 400
    * response code and the message `No input data modified since last training`. See [Upgrading a
    * custom acoustic
-   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customUpgrade#upgradeAcoustic).
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-acoustic).
    *
    * @return the force
    */

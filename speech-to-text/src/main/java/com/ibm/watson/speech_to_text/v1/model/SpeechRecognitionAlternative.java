@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,8 +41,9 @@ public class SpeechRecognitionAlternative extends GenericModel {
    * Gets the confidence.
    *
    * <p>A score that indicates the service's confidence in the transcript in the range of 0.0 to
-   * 1.0. A confidence score is returned only for the best alternative and only with results marked
-   * as final.
+   * 1.0. For speech recognition with previous-generation models, a confidence score is returned
+   * only for the best alternative and only with results marked as final. For speech recognition
+   * with next-generation models, a confidence score is never returned.
    *
    * @return the confidence
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,23 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
-/** An object that describes a response with response type `connect_to_agent`. */
+import com.google.gson.annotations.SerializedName;
+
+/** RuntimeResponseGenericRuntimeResponseTypeConnectToAgent. */
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
 
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+
   /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
    */
-  public interface ResponseType {
-    /** connect_to_agent. */
-    String CONNECT_TO_AGENT = "connect_to_agent";
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 }

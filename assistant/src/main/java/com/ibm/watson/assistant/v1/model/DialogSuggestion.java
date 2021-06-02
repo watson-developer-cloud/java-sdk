@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -130,8 +130,7 @@ public class DialogSuggestion extends GenericModel {
    * Gets the label.
    *
    * <p>The user-facing label for the disambiguation option. This label is taken from the **title**
-   * or **user_label** property of the corresponding dialog node, depending on the disambiguation
-   * options.
+   * or **user_label** property of the corresponding dialog node.
    *
    * @return the label
    */
@@ -166,8 +165,9 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * <p>The ID of the dialog node that the **label** property is taken from. The **label** property
-   * is populated using the value of the dialog node's **user_label** property.
+   * <p>The unique ID of the dialog node that the **label** property is taken from. The **label**
+   * property is populated using the value of the dialog node's **title** or **user_label**
+   * property.
    *
    * @return the dialogNode
    */

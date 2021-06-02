@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,17 +15,8 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An object that describes a response with response type `option`. */
+/** RuntimeResponseGenericRuntimeResponseTypeOption. */
 public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResponseGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** option. */
-    String OPTION = "option";
-  }
 
   /** The preferred type of control to display. */
   public interface Preference {
@@ -42,6 +33,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
     private String description;
     private String preference;
     private List<DialogNodeOutputOptionsElement> options;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeOption) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeOption.responseType;
@@ -49,6 +41,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
       this.description = runtimeResponseGenericRuntimeResponseTypeOption.description;
       this.preference = runtimeResponseGenericRuntimeResponseTypeOption.preference;
       this.options = runtimeResponseGenericRuntimeResponseTypeOption.options;
+      this.channels = runtimeResponseGenericRuntimeResponseTypeOption.channels;
     }
 
     /** Instantiates a new builder. */
@@ -89,6 +82,21 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
         this.options = new ArrayList<DialogNodeOutputOptionsElement>();
       }
       this.options.add(options);
+      return this;
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeOption builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
       return this;
     }
 
@@ -146,6 +154,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
       this.options = options;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeOption builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeOption(Builder builder) {
@@ -158,6 +177,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
     description = builder.description;
     preference = builder.preference;
     options = builder.options;
+    channels = builder.channels;
   }
 
   /**

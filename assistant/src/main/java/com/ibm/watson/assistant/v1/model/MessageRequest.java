@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,9 @@ public class MessageRequest extends GenericModel {
   protected OutputData output;
   protected List<DialogNodeAction> actions;
 
+  @SerializedName("user_id")
+  protected String userId;
+
   /** Builder. */
   public static class Builder {
     private MessageInput input;
@@ -39,6 +42,7 @@ public class MessageRequest extends GenericModel {
     private Boolean alternateIntents;
     private Context context;
     private OutputData output;
+    private String userId;
 
     private Builder(MessageRequest messageRequest) {
       this.input = messageRequest.input;
@@ -47,6 +51,7 @@ public class MessageRequest extends GenericModel {
       this.alternateIntents = messageRequest.alternateIntents;
       this.context = messageRequest.context;
       this.output = messageRequest.output;
+      this.userId = messageRequest.userId;
     }
 
     /** Instantiates a new builder. */
@@ -156,6 +161,17 @@ public class MessageRequest extends GenericModel {
       this.output = output;
       return this;
     }
+
+    /**
+     * Set the userId.
+     *
+     * @param userId the userId
+     * @return the MessageRequest builder
+     */
+    public Builder userId(String userId) {
+      this.userId = userId;
+      return this;
+    }
   }
 
   protected MessageRequest(Builder builder) {
@@ -165,6 +181,7 @@ public class MessageRequest extends GenericModel {
     alternateIntents = builder.alternateIntents;
     context = builder.context;
     output = builder.output;
+    userId = builder.userId;
   }
 
   /**
@@ -256,5 +273,24 @@ public class MessageRequest extends GenericModel {
    */
   public List<DialogNodeAction> actions() {
     return actions;
+  }
+
+  /**
+   * Gets the userId.
+   *
+   * <p>A string value that identifies the user who is interacting with the workspace. The client
+   * must provide a unique identifier for each individual end user who accesses the application. For
+   * user-based plans, this user ID is used to identify unique users for billing purposes. This
+   * string cannot contain carriage return, newline, or tab characters. If no value is specified in
+   * the input, **user_id** is automatically set to the value of **context.conversation_id**.
+   *
+   * <p>**Note:** This property is the same as the **user_id** property in the context metadata. If
+   * **user_id** is specified in both locations in a message request, the value specified at the
+   * root is used.
+   *
+   * @return the userId
+   */
+  public String userId() {
+    return userId;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,6 +18,7 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
+import com.ibm.cloud.sdk.core.util.DateUtils;
 import com.ibm.watson.visual_recognition.v4.model.AddImageTrainingDataOptions;
 import com.ibm.watson.visual_recognition.v4.model.AddImagesOptions;
 import com.ibm.watson.visual_recognition.v4.model.AnalyzeOptions;
@@ -165,7 +166,7 @@ public class VisualRecognitionTest {
   public void testCreateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
     String createCollectionPath = "/v4/collections";
 
     server.enqueue(
@@ -178,7 +179,10 @@ public class VisualRecognitionTest {
 
     // Construct an instance of the CreateCollectionOptions model
     CreateCollectionOptions createCollectionOptionsModel =
-        new CreateCollectionOptions.Builder().name("testString").description("testString").build();
+        new CreateCollectionOptions.Builder()
+            .name("testString")
+            .description("testString")
+            .build();
 
     // Invoke operation with valid options model (positive test)
     Response<Collection> response =
@@ -206,7 +210,7 @@ public class VisualRecognitionTest {
   public void testListCollectionsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}]}";
+        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}]}";
     String listCollectionsPath = "/v4/collections";
 
     server.enqueue(
@@ -246,7 +250,7 @@ public class VisualRecognitionTest {
   public void testGetCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
     String getCollectionPath = "/v4/collections/testString";
 
     server.enqueue(
@@ -299,7 +303,7 @@ public class VisualRecognitionTest {
   public void testUpdateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
     String updateCollectionPath = "/v4/collections/testString";
 
     server.enqueue(
@@ -463,7 +467,7 @@ public class VisualRecognitionTest {
   public void testAddImagesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\", \"created\": \"2019-01-01T12:00:00\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}], \"warnings\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\"}], \"trace\": \"trace\"}";
+        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"created\": \"2019-01-01T12:00:00.000Z\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}], \"warnings\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\"}], \"trace\": \"trace\"}";
     String addImagesPath = "/v4/collections/testString/images";
 
     server.enqueue(
@@ -522,7 +526,7 @@ public class VisualRecognitionTest {
   public void testListImagesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"images\": [{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listImagesPath = "/v4/collections/testString/images";
 
     server.enqueue(
@@ -575,7 +579,7 @@ public class VisualRecognitionTest {
   public void testGetImageDetailsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00\", \"created\": \"2019-01-01T12:00:00\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}";
+        "{\"image_id\": \"imageId\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"created\": \"2019-01-01T12:00:00.000Z\", \"source\": {\"type\": \"file\", \"filename\": \"filename\", \"archive_filename\": \"archiveFilename\", \"source_url\": \"sourceUrl\", \"resolved_url\": \"resolvedUrl\"}, \"dimensions\": {\"height\": 6, \"width\": 5}, \"errors\": [{\"code\": \"invalid_field\", \"message\": \"message\", \"more_info\": \"moreInfo\", \"target\": {\"type\": \"field\", \"name\": \"name\"}}], \"training_data\": {\"objects\": [{\"object\": \"object\", \"location\": {\"top\": 3, \"left\": 4, \"width\": 5, \"height\": 6}}]}}";
     String getImageDetailsPath = "/v4/collections/testString/images/testString";
 
     server.enqueue(
@@ -950,7 +954,7 @@ public class VisualRecognitionTest {
   public void testTrainWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"image_count\": 10, \"training_status\": {\"objects\": {\"ready\": false, \"in_progress\": true, \"data_changed\": false, \"latest_failed\": true, \"rscnn_ready\": true, \"description\": \"description\"}}}";
     String trainPath = "/v4/collections/testString/train";
 
     server.enqueue(
@@ -1073,7 +1077,7 @@ public class VisualRecognitionTest {
   public void testGetTrainingUsageWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"start_time\": \"2019-01-01T12:00:00\", \"end_time\": \"2019-01-01T12:00:00\", \"completed_events\": 15, \"trained_images\": 13, \"events\": [{\"type\": \"objects\", \"collection_id\": \"collectionId\", \"completion_time\": \"2019-01-01T12:00:00\", \"status\": \"failed\", \"image_count\": 10}]}";
+        "{\"start_time\": \"2019-01-01T12:00:00.000Z\", \"end_time\": \"2019-01-01T12:00:00.000Z\", \"completed_events\": 15, \"trained_images\": 13, \"events\": [{\"type\": \"objects\", \"collection_id\": \"collectionId\", \"completion_time\": \"2019-01-01T12:00:00.000Z\", \"status\": \"failed\", \"image_count\": 10}]}";
     String getTrainingUsagePath = "/v4/training_usage";
 
     server.enqueue(
@@ -1087,8 +1091,8 @@ public class VisualRecognitionTest {
     // Construct an instance of the GetTrainingUsageOptions model
     GetTrainingUsageOptions getTrainingUsageOptionsModel =
         new GetTrainingUsageOptions.Builder()
-            .startTime(TestUtilities.createMockDate("2019-01-01"))
-            .endTime(TestUtilities.createMockDate("2019-01-01"))
+            .startTime(DateUtils.parseAsDate("2019-01-01"))
+            .endTime(DateUtils.parseAsDate("2019-01-01"))
             .build();
 
     // Invoke operation with valid options model (positive test)

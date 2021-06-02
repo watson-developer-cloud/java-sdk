@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,11 +33,11 @@ public class CreateCustomModelOptionsTest {
     CreateCustomModelOptions createCustomModelOptionsModel =
         new CreateCustomModelOptions.Builder()
             .name("testString")
-            .language("de-DE")
+            .language("ar-MS")
             .description("testString")
             .build();
     assertEquals(createCustomModelOptionsModel.name(), "testString");
-    assertEquals(createCustomModelOptionsModel.language(), "de-DE");
+    assertEquals(createCustomModelOptionsModel.language(), "ar-MS");
     assertEquals(createCustomModelOptionsModel.description(), "testString");
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -162,6 +162,9 @@ public class TrainLanguageModelOptions extends GenericModel {
    *
    * <p>The value that you assign is used for all recognition requests that use the model. You can
    * override it for any recognition request by specifying a customization weight for that request.
+   *
+   * <p>See [Using customization
+   * weight](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageUse#weight).
    *
    * @return the customizationWeight
    */

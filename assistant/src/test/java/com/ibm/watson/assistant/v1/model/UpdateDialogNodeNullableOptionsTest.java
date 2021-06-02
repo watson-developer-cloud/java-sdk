@@ -26,31 +26,31 @@ import org.testng.annotations.Test;
 public class UpdateDialogNodeNullableOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
-          TestUtilities.creatMockListFileWithMetadata();
+      TestUtilities.creatMockListFileWithMetadata();
 
   @Test
   public void testUpdateDialogNodeNullableOptions() throws Throwable {
     UpdateDialogNodeNullableOptions updateDialogNodeNullableOptionsModel =
-            new UpdateDialogNodeNullableOptions.Builder()
-                    .workspaceId("testString")
-                    .dialogNode("testString")
-                    .body(
-                            new java.util.HashMap<String, Object>() {
-                              {
-                                put("foo", "testString");
-                              }
-                            })
-                    .includeAudit(true)
-                    .build();
+        new UpdateDialogNodeNullableOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .body(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .includeAudit(true)
+            .build();
     assertEquals(updateDialogNodeNullableOptionsModel.workspaceId(), "testString");
     assertEquals(updateDialogNodeNullableOptionsModel.dialogNode(), "testString");
     assertEquals(
-            updateDialogNodeNullableOptionsModel.body(),
-            new java.util.HashMap<String, Object>() {
-              {
-                put("foo", "testString");
-              }
-            });
+        updateDialogNodeNullableOptionsModel.body(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
     assertEquals(updateDialogNodeNullableOptionsModel.includeAudit(), Boolean.valueOf(true));
   }
 

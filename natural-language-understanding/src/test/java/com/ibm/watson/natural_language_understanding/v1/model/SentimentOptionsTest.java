@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,11 +34,13 @@ public class SentimentOptionsTest {
         new SentimentOptions.Builder()
             .document(true)
             .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .model("testString")
             .build();
     assertEquals(sentimentOptionsModel.document(), Boolean.valueOf(true));
     assertEquals(
         sentimentOptionsModel.targets(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(sentimentOptionsModel.model(), "testString");
 
     String json = TestUtilities.serialize(sentimentOptionsModel);
 
@@ -46,5 +48,6 @@ public class SentimentOptionsTest {
         TestUtilities.deserialize(json, SentimentOptions.class);
     assertTrue(sentimentOptionsModelNew instanceof SentimentOptions);
     assertEquals(sentimentOptionsModelNew.document(), Boolean.valueOf(true));
+    assertEquals(sentimentOptionsModelNew.model(), "testString");
   }
 }

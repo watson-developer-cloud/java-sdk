@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2017, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -672,7 +672,7 @@ public class QueryOptions extends GenericModel {
    * Gets the spellingSuggestions.
    *
    * <p>When `true` and the **natural_language_query** parameter is used, the
-   * **natural_languge_query** parameter is spell checked. The most likely correction is retunred in
+   * **natural_languge_query** parameter is spell checked. The most likely correction is returned in
    * the **suggested_query** field of the response (if one exists).
    *
    * <p>**Important:** this parameter is only valid when using the Cloud Pak version of Discovery.

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
+import java.util.Map;
 
 /**
  * RuntimeResponseGeneric.
@@ -24,7 +25,9 @@ import java.util.List;
  * RuntimeResponseGenericRuntimeResponseTypeOption -
  * RuntimeResponseGenericRuntimeResponseTypeConnectToAgent -
  * RuntimeResponseGenericRuntimeResponseTypeSuggestion -
- * RuntimeResponseGenericRuntimeResponseTypeSearch
+ * RuntimeResponseGenericRuntimeResponseTypeChannelTransfer -
+ * RuntimeResponseGenericRuntimeResponseTypeSearch -
+ * RuntimeResponseGenericRuntimeResponseTypeUserDefined
  */
 public class RuntimeResponseGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -35,6 +38,8 @@ public class RuntimeResponseGeneric extends GenericModel {
   static {
     discriminatorMapping = new java.util.HashMap<>();
     discriminatorMapping.put(
+        "channel_transfer", RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.class);
+    discriminatorMapping.put(
         "connect_to_agent", RuntimeResponseGenericRuntimeResponseTypeConnectToAgent.class);
     discriminatorMapping.put("image", RuntimeResponseGenericRuntimeResponseTypeImage.class);
     discriminatorMapping.put("option", RuntimeResponseGenericRuntimeResponseTypeOption.class);
@@ -43,15 +48,8 @@ public class RuntimeResponseGeneric extends GenericModel {
     discriminatorMapping.put("pause", RuntimeResponseGenericRuntimeResponseTypePause.class);
     discriminatorMapping.put("search", RuntimeResponseGenericRuntimeResponseTypeSearch.class);
     discriminatorMapping.put("text", RuntimeResponseGenericRuntimeResponseTypeText.class);
-  }
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** text. */
-    String TEXT = "text";
+    discriminatorMapping.put(
+        "user_defined", RuntimeResponseGenericRuntimeResponseTypeUserDefined.class);
   }
 
   /** The preferred type of control to display. */
@@ -66,6 +64,7 @@ public class RuntimeResponseGeneric extends GenericModel {
   protected String responseType;
 
   protected String text;
+  protected List<ResponseGenericChannel> channels;
   protected Long time;
   protected Boolean typing;
   protected String source;
@@ -83,11 +82,12 @@ public class RuntimeResponseGeneric extends GenericModel {
   @SerializedName("agent_unavailable")
   protected AgentAvailabilityMessage agentUnavailable;
 
-  @SerializedName("transfer_info")
-  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
-
   protected String topic;
   protected List<DialogSuggestion> suggestions;
+
+  @SerializedName("message_to_user")
+  protected String messageToUser;
+
   protected String header;
 
   @SerializedName("primary_results")
@@ -95,6 +95,9 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   @SerializedName("additional_results")
   protected List<SearchResult> additionalResults;
+
+  @SerializedName("user_defined")
+  protected Map<String, Object> userDefined;
 
   protected RuntimeResponseGeneric() {}
 
@@ -119,6 +122,19 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended. If **channels**
+   * is present, the response is intended for a built-in integration and should not be handled by an
+   * API client.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
   }
 
   /**
@@ -234,17 +250,6 @@ public class RuntimeResponseGeneric extends GenericModel {
   }
 
   /**
-   * Gets the transferInfo.
-   *
-   * <p>Routing or other contextual information to be used by target service desk systems.
-   *
-   * @return the transferInfo
-   */
-  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
-    return transferInfo;
-  }
-
-  /**
    * Gets the topic.
    *
    * <p>A label identifying the topic of the conversation, derived from the **title** property of
@@ -266,6 +271,17 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public List<DialogSuggestion> suggestions() {
     return suggestions;
+  }
+
+  /**
+   * Gets the messageToUser.
+   *
+   * <p>The message to display to the user when initiating a channel transfer.
+   *
+   * @return the messageToUser
+   */
+  public String messageToUser() {
+    return messageToUser;
   }
 
   /**
@@ -302,5 +318,16 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public List<SearchResult> additionalResults() {
     return additionalResults;
+  }
+
+  /**
+   * Gets the userDefined.
+   *
+   * <p>An object containing any properties for the user-defined response type.
+   *
+   * @return the userDefined
+   */
+  public Map<String, Object> userDefined() {
+    return userDefined;
   }
 }

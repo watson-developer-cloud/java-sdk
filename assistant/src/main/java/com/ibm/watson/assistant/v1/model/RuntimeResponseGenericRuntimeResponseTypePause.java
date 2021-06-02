@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,28 +12,24 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `pause`. */
-public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeResponseGeneric {
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** pause. */
-    String PAUSE = "pause";
-  }
+/** RuntimeResponseGenericRuntimeResponseTypePause. */
+public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeResponseGeneric {
 
   /** Builder. */
   public static class Builder {
     private String responseType;
     private Long time;
     private Boolean typing;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypePause) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypePause.responseType;
       this.time = runtimeResponseGenericRuntimeResponseTypePause.time;
       this.typing = runtimeResponseGenericRuntimeResponseTypePause.typing;
+      this.channels = runtimeResponseGenericRuntimeResponseTypePause.channels;
     }
 
     /** Instantiates a new builder. */
@@ -57,6 +53,21 @@ public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeRespo
      */
     public RuntimeResponseGenericRuntimeResponseTypePause build() {
       return new RuntimeResponseGenericRuntimeResponseTypePause(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypePause builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -91,6 +102,17 @@ public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeRespo
       this.typing = typing;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypePause builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypePause(Builder builder) {
@@ -100,6 +122,7 @@ public class RuntimeResponseGenericRuntimeResponseTypePause extends RuntimeRespo
     responseType = builder.responseType;
     time = builder.time;
     typing = builder.typing;
+    channels = builder.channels;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,8 +22,12 @@ public class ListCustomModelsOptions extends GenericModel {
    * returned. Omit the parameter to see all custom models that are owned by the requester.
    */
   public interface Language {
+    /** ar-MS. */
+    String AR_MS = "ar-MS";
     /** de-DE. */
     String DE_DE = "de-DE";
+    /** en-AU. */
+    String EN_AU = "en-AU";
     /** en-GB. */
     String EN_GB = "en-GB";
     /** en-US. */
@@ -34,6 +38,8 @@ public class ListCustomModelsOptions extends GenericModel {
     String ES_LA = "es-LA";
     /** es-US. */
     String ES_US = "es-US";
+    /** fr-CA. */
+    String FR_CA = "fr-CA";
     /** fr-FR. */
     String FR_FR = "fr-FR";
     /** it-IT. */

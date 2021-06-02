@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -97,7 +97,7 @@ public class ConfigurationTest {
             .excludeTagsCompletely(
                 new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+                new java.util.ArrayList<String>(java.util.Arrays.asList("span")))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
             .keepTagAttributes(
@@ -110,7 +110,7 @@ public class ConfigurationTest {
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(
         htmlSettingsModel.excludeTagsKeepContent(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(java.util.Arrays.asList("span")));
     assertEquals(htmlSettingsModel.keepContent(), xPathPatternsModel);
     assertEquals(htmlSettingsModel.excludeContent(), xPathPatternsModel);
     assertEquals(
@@ -124,7 +124,9 @@ public class ConfigurationTest {
         new SegmentSettings.Builder()
             .enabled(true)
             .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .annotatedFields(
+                new java.util.ArrayList<String>(
+                    java.util.Arrays.asList("custom-field-1", "custom-field-2")))
             .build();
     assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(true));
     assertEquals(
@@ -132,7 +134,8 @@ public class ConfigurationTest {
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(
         segmentSettingsModel.annotatedFields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(
+            java.util.Arrays.asList("custom-field-1", "custom-field-2")));
 
     NormalizationOperation normalizationOperationModel =
         new NormalizationOperation.Builder()
@@ -196,22 +199,22 @@ public class ConfigurationTest {
     NluEnrichmentSentiment nluEnrichmentSentimentModel =
         new NluEnrichmentSentiment.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")))
             .build();
     assertEquals(nluEnrichmentSentimentModel.document(), Boolean.valueOf(true));
     assertEquals(
         nluEnrichmentSentimentModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")));
 
     NluEnrichmentEmotion nluEnrichmentEmotionModel =
         new NluEnrichmentEmotion.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")))
             .build();
     assertEquals(nluEnrichmentEmotionModel.document(), Boolean.valueOf(true));
     assertEquals(
         nluEnrichmentEmotionModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")));
 
     NluEnrichmentSemanticRoles nluEnrichmentSemanticRolesModel =
         new NluEnrichmentSemanticRoles.Builder()

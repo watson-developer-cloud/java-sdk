@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
+import java.util.Map;
 
 /**
  * DialogNodeOutputGeneric.
@@ -24,7 +25,9 @@ import java.util.List;
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeImage -
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeOption -
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent -
- * DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
  */
 public class DialogNodeOutputGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -34,6 +37,9 @@ public class DialogNodeOutputGeneric extends GenericModel {
 
   static {
     discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put(
+        "channel_transfer",
+        DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.class);
     discriminatorMapping.put(
         "connect_to_agent",
         DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.class);
@@ -46,15 +52,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
     discriminatorMapping.put(
         "search_skill", DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.class);
     discriminatorMapping.put("text", DialogNodeOutputGenericDialogNodeOutputResponseTypeText.class);
-  }
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** text. */
-    String TEXT = "text";
+    discriminatorMapping.put(
+        "user_defined", DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.class);
   }
 
   /** How a response is selected from the list, if more than one response is specified. */
@@ -92,6 +91,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   protected String selectionPolicy;
 
   protected String delimiter;
+  protected List<ResponseGenericChannel> channels;
   protected Long time;
   protected Boolean typing;
   protected String source;
@@ -109,9 +109,6 @@ public class DialogNodeOutputGeneric extends GenericModel {
   @SerializedName("agent_unavailable")
   protected AgentAvailabilityMessage agentUnavailable;
 
-  @SerializedName("transfer_info")
-  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
-
   protected String query;
 
   @SerializedName("query_type")
@@ -121,6 +118,12 @@ public class DialogNodeOutputGeneric extends GenericModel {
 
   @SerializedName("discovery_version")
   protected String discoveryVersion;
+
+  @SerializedName("message_to_user")
+  protected String messageToUser;
+
+  @SerializedName("user_defined")
+  protected Map<String, Object> userDefined;
 
   protected DialogNodeOutputGeneric() {}
 
@@ -167,6 +170,17 @@ public class DialogNodeOutputGeneric extends GenericModel {
    */
   public String delimiter() {
     return delimiter;
+  }
+
+  /**
+   * Gets the channels.
+   *
+   * <p>An array of objects specifying channels for which the response is intended.
+   *
+   * @return the channels
+   */
+  public List<ResponseGenericChannel> channels() {
+    return channels;
   }
 
   /**
@@ -284,17 +298,6 @@ public class DialogNodeOutputGeneric extends GenericModel {
   }
 
   /**
-   * Gets the transferInfo.
-   *
-   * <p>Routing or other contextual information to be used by target service desk systems.
-   *
-   * @return the transferInfo
-   */
-  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
-    return transferInfo;
-  }
-
-  /**
    * Gets the query.
    *
    * <p>The text of the search query. This can be either a natural-language query or a query that
@@ -341,5 +344,28 @@ public class DialogNodeOutputGeneric extends GenericModel {
    */
   public String discoveryVersion() {
     return discoveryVersion;
+  }
+
+  /**
+   * Gets the messageToUser.
+   *
+   * <p>The message to display to the user when initiating a channel transfer.
+   *
+   * @return the messageToUser
+   */
+  public String messageToUser() {
+    return messageToUser;
+  }
+
+  /**
+   * Gets the userDefined.
+   *
+   * <p>An object containing any properties for the user-defined response type. The total size of
+   * this object cannot exceed 5000 bytes.
+   *
+   * @return the userDefined
+   */
+  public Map<String, Object> userDefined() {
+    return userDefined;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,10 +17,15 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** The getVoice options. */
 public class GetVoiceOptions extends GenericModel {
 
-  /** The voice for which information is to be returned. */
+  /**
+   * The voice for which information is to be returned. For more information about specifying a
+   * voice, see **Important voice updates** in the method description.
+   */
   public interface Voice {
     /** ar-AR_OmarVoice. */
     String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
+    /** ar-MS_OmarVoice. */
+    String AR_MS_OMARVOICE = "ar-MS_OmarVoice";
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
     /** de-DE_BirgitV3Voice. */
@@ -31,6 +36,10 @@ public class GetVoiceOptions extends GenericModel {
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
+    /** en-AU-CraigVoice. */
+    String EN_AU_CRAIGVOICE = "en-AU-CraigVoice";
+    /** en-AU-MadisonVoice. */
+    String EN_AU_MADISONVOICE = "en-AU-MadisonVoice";
     /** en-GB_CharlotteV3Voice. */
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
     /** en-GB_JamesV3Voice. */
@@ -75,6 +84,8 @@ public class GetVoiceOptions extends GenericModel {
     String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
     /** es-US_SofiaV3Voice. */
     String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
+    /** fr-CA_LouiseV3Voice. */
+    String FR_CA_LOUISEV3VOICE = "fr-CA_LouiseV3Voice";
     /** fr-FR_NicolasV3Voice. */
     String FR_FR_NICOLASV3VOICE = "fr-FR_NicolasV3Voice";
     /** fr-FR_ReneeVoice. */
@@ -89,6 +100,10 @@ public class GetVoiceOptions extends GenericModel {
     String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
+    /** ko-KR_HyunjunVoice. */
+    String KO_KR_HYUNJUNVOICE = "ko-KR_HyunjunVoice";
+    /** ko-KR_SiWooVoice. */
+    String KO_KR_SIWOOVOICE = "ko-KR_SiWooVoice";
     /** ko-KR_YoungmiVoice. */
     String KO_KR_YOUNGMIVOICE = "ko-KR_YoungmiVoice";
     /** ko-KR_YunaVoice. */
@@ -184,7 +199,8 @@ public class GetVoiceOptions extends GenericModel {
   /**
    * Gets the voice.
    *
-   * <p>The voice for which information is to be returned.
+   * <p>The voice for which information is to be returned. For more information about specifying a
+   * voice, see **Important voice updates** in the method description.
    *
    * @return the voice
    */

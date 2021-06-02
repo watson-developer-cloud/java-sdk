@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -341,7 +341,7 @@ public class CompareComplyTest {
   public void testAddFeedbackWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"feedback_id\": \"feedbackId\", \"user_id\": \"userId\", \"comment\": \"comment\", \"created\": \"2019-01-01T12:00:00\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
+        "{\"feedback_id\": \"feedbackId\", \"user_id\": \"userId\", \"comment\": \"comment\", \"created\": \"2019-01-01T12:00:00.000Z\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
     String addFeedbackPath = "/v1/feedback";
 
     server.enqueue(
@@ -451,7 +451,7 @@ public class CompareComplyTest {
   public void testListFeedbackWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"feedback\": [{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}]}";
+        "{\"feedback\": [{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}]}";
     String listFeedbackPath = "/v1/feedback";
 
     server.enqueue(
@@ -521,7 +521,7 @@ public class CompareComplyTest {
   public void testGetFeedbackWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
+        "{\"feedback_id\": \"feedbackId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"comment\": \"comment\", \"feedback_data\": {\"feedback_type\": \"feedbackType\", \"document\": {\"title\": \"title\", \"hash\": \"hash\"}, \"model_id\": \"modelId\", \"model_version\": \"modelVersion\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"original_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"updated_labels\": {\"types\": [{\"label\": {\"nature\": \"nature\", \"party\": \"party\"}, \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}], \"categories\": [{\"label\": \"Amendments\", \"provenance_ids\": [\"provenanceIds\"], \"modification\": \"added\"}]}, \"pagination\": {\"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\", \"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5}}}";
     String getFeedbackPath = "/v1/feedback/testString";
 
     server.enqueue(
@@ -628,7 +628,7 @@ public class CompareComplyTest {
   public void testCreateBatchWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String createBatchPath = "/v1/batches";
 
     server.enqueue(
@@ -692,7 +692,7 @@ public class CompareComplyTest {
   public void testListBatchesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"batches\": [{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}]}";
+        "{\"batches\": [{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listBatchesPath = "/v1/batches";
 
     server.enqueue(
@@ -732,7 +732,7 @@ public class CompareComplyTest {
   public void testGetBatchWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String getBatchPath = "/v1/batches/testString";
 
     server.enqueue(
@@ -784,7 +784,7 @@ public class CompareComplyTest {
   public void testUpdateBatchWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+        "{\"function\": \"element_classification\", \"input_bucket_location\": \"inputBucketLocation\", \"input_bucket_name\": \"inputBucketName\", \"output_bucket_location\": \"outputBucketLocation\", \"output_bucket_name\": \"outputBucketName\", \"batch_id\": \"batchId\", \"document_counts\": {\"total\": 5, \"pending\": 7, \"successful\": 10, \"failed\": 6}, \"status\": \"status\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String updateBatchPath = "/v1/batches/testString";
 
     server.enqueue(

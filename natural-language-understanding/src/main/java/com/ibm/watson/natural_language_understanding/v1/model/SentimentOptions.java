@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2017, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,15 +28,18 @@ public class SentimentOptions extends GenericModel {
 
   protected Boolean document;
   protected List<String> targets;
+  protected String model;
 
   /** Builder. */
   public static class Builder {
     private Boolean document;
     private List<String> targets;
+    private String model;
 
     private Builder(SentimentOptions sentimentOptions) {
       this.document = sentimentOptions.document;
       this.targets = sentimentOptions.targets;
+      this.model = sentimentOptions.model;
     }
 
     /** Instantiates a new builder. */
@@ -87,11 +90,23 @@ public class SentimentOptions extends GenericModel {
       this.targets = targets;
       return this;
     }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the SentimentOptions builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
   }
 
   protected SentimentOptions(Builder builder) {
     document = builder.document;
     targets = builder.targets;
+    model = builder.model;
   }
 
   /**
@@ -123,5 +138,19 @@ public class SentimentOptions extends GenericModel {
    */
   public List<String> targets() {
     return targets;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * <p>(Beta) Enter a [custom
+   * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
+   * ID to override the standard sentiment model for all sentiment analysis operations in the
+   * request, including targeted sentiment for entities and keywords.
+   *
+   * @return the model
+   */
+  public String model() {
+    return model;
   }
 }

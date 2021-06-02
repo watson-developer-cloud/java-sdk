@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,8 @@ public class DialogLogMessage extends GenericModel {
 
   protected String level;
   protected String message;
+  protected String code;
+  protected LogMessageSource source;
 
   /**
    * Gets the level.
@@ -50,5 +52,27 @@ public class DialogLogMessage extends GenericModel {
    */
   public String getMessage() {
     return message;
+  }
+
+  /**
+   * Gets the code.
+   *
+   * <p>A code that indicates the category to which the error message belongs.
+   *
+   * @return the code
+   */
+  public String getCode() {
+    return code;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * <p>An object that identifies the dialog element that generated the error message.
+   *
+   * @return the source
+   */
+  public LogMessageSource getSource() {
+    return source;
   }
 }

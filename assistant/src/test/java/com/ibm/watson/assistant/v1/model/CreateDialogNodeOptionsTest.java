@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,10 @@ public class CreateDialogNodeOptionsTest {
 
   @Test
   public void testCreateDialogNodeOptions() throws Throwable {
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
         new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
             .responseType("search_skill")
@@ -38,12 +42,19 @@ public class CreateDialogNodeOptionsTest {
             .queryType("natural_language")
             .filter("testString")
             .discoveryVersion("testString")
+            .channels(
+                new java.util.ArrayList<ResponseGenericChannel>(
+                    java.util.Arrays.asList(responseGenericChannelModel)))
             .build();
     assertEquals(dialogNodeOutputGenericModel.responseType(), "search_skill");
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
     assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(
+        dialogNodeOutputGenericModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
         new DialogNodeOutputModifiers.Builder().overwrite(true).build();

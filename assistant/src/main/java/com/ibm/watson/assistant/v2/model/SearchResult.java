@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ public class SearchResult extends GenericModel {
    * <p>The unique identifier of the document in the Discovery service collection.
    *
    * <p>This property is included in responses from search skills, which are available only to Plus
-   * or Premium plan users.
+   * or Enterprise plan users.
    *
    * @return the id
    */

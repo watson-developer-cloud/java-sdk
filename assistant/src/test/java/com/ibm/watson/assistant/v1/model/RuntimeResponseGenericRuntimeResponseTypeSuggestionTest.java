@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -207,6 +207,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestionTest {
         });
     assertEquals(dialogSuggestionModel.dialogNode(), "testString");
 
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     RuntimeResponseGenericRuntimeResponseTypeSuggestion
         runtimeResponseGenericRuntimeResponseTypeSuggestionModel =
             new RuntimeResponseGenericRuntimeResponseTypeSuggestion.Builder()
@@ -215,6 +219,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestionTest {
                 .suggestions(
                     new java.util.ArrayList<DialogSuggestion>(
                         java.util.Arrays.asList(dialogSuggestionModel)))
+                .channels(
+                    new java.util.ArrayList<ResponseGenericChannel>(
+                        java.util.Arrays.asList(responseGenericChannelModel)))
                 .build();
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeSuggestionModel.responseType(), "suggestion");
@@ -222,6 +229,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestionTest {
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeSuggestionModel.suggestions(),
         new java.util.ArrayList<DialogSuggestion>(java.util.Arrays.asList(dialogSuggestionModel)));
+    assertEquals(
+        runtimeResponseGenericRuntimeResponseTypeSuggestionModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     String json = TestUtilities.serialize(runtimeResponseGenericRuntimeResponseTypeSuggestionModel);
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,18 +12,17 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `connect_to_agent`. */
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** RuntimeResponseGenericRuntimeResponseTypeConnectToAgent. */
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
 
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** connect_to_agent. */
-    String CONNECT_TO_AGENT = "connect_to_agent";
-  }
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   /** Builder. */
   public static class Builder {
@@ -34,8 +33,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
     private String topic;
     private String dialogNode;
+    private List<ResponseGenericChannel> channels;
 
-    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
+    public Builder(RuntimeResponseGenericRuntimeResponseTypeConnectToAgent runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.responseType;
       this.messageToHumanAgent =
           runtimeResponseGenericRuntimeResponseTypeConnectToAgent.messageToHumanAgent;
@@ -45,6 +45,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
       this.transferInfo = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.transferInfo;
       this.topic = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.topic;
       this.dialogNode = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.dialogNode;
+      this.channels = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.channels;
     }
 
     /** Instantiates a new builder. */
@@ -66,6 +67,21 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
      */
     public RuntimeResponseGenericRuntimeResponseTypeConnectToAgent build() {
       return new RuntimeResponseGenericRuntimeResponseTypeConnectToAgent(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeConnectToAgent builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -144,6 +160,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
       this.dialogNode = dialogNode;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the RuntimeResponseGenericRuntimeResponseTypeConnectToAgent builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeConnectToAgent(Builder builder) {
@@ -156,6 +183,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     transferInfo = builder.transferInfo;
     topic = builder.topic;
     dialogNode = builder.dialogNode;
+    channels = builder.channels;
   }
 
   /**
@@ -165,5 +193,16 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 }

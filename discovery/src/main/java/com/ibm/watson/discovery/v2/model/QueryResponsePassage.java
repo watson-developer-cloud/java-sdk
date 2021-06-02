@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,6 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
 /** A passage query response. */
 public class QueryResponsePassage extends GenericModel {
@@ -37,6 +38,8 @@ public class QueryResponsePassage extends GenericModel {
   protected Long endOffset;
 
   protected String field;
+  protected Double confidence;
+  protected List<ResultPassageAnswer> answers;
 
   /**
    * Gets the passageText.
@@ -113,5 +116,27 @@ public class QueryResponsePassage extends GenericModel {
    */
   public String getField() {
     return field;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * <p>An estimate of the probability that the passage is relevant.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return confidence;
+  }
+
+  /**
+   * Gets the answers.
+   *
+   * <p>An array of extracted answers to the specified query.
+   *
+   * @return the answers
+   */
+  public List<ResultPassageAnswer> getAnswers() {
+    return answers;
   }
 }

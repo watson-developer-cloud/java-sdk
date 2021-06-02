@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.compare_comply.v1;
@@ -55,8 +55,14 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&amp;trade; Compare and Comply analyzes governing documents to provide details about
- * critical aspects of the documents.
+ * IBM Watson&amp;trade; Compare and Comply is discontinued. Existing instances are supported until
+ * 30 November 2021, but as of 1 December 2020, you can't create instances. Any instance that exists
+ * on 30 November 2021 will be deleted. Consider migrating to Watson Discovery Premium on IBM Cloud
+ * for your Compare and Comply use cases. To start the migration process, visit
+ * [https://ibm.biz/contact-wdc-premium](https://ibm.biz/contact-wdc-premium). {: deprecated}
+ *
+ * <p>Compare and Comply analyzes governing documents to provide details about critical aspects of
+ * the documents.
  *
  * @version v1
  * @see <a href="https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about">Compare

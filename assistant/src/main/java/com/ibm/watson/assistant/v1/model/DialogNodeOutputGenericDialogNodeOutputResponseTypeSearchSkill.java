@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,20 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-/** An object that describes a response with response type `search_skill`. */
+import java.util.ArrayList;
+import java.util.List;
+
+/** DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     extends DialogNodeOutputGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   *
-   * <p>**Note:** The **search_skill** response type is used only by the v2 runtime API.
-   */
-  public interface ResponseType {
-    /** search_skill. */
-    String SEARCH_SKILL = "search_skill";
-  }
 
   /** The type of the search query. */
   public interface QueryType {
@@ -42,6 +34,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     private String queryType;
     private String filter;
     private String discoveryVersion;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill) {
@@ -52,6 +45,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
       this.filter = dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.filter;
       this.discoveryVersion =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.discoveryVersion;
+      this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.channels;
     }
 
     /** Instantiates a new builder. */
@@ -77,6 +71,21 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
      */
     public DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill build() {
       return new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill(this);
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
+      return this;
     }
 
     /**
@@ -133,6 +142,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
       this.discoveryVersion = discoveryVersion;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill(Builder builder) {
@@ -145,6 +165,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     queryType = builder.queryType;
     filter = builder.filter;
     discoveryVersion = builder.discoveryVersion;
+    channels = builder.channels;
   }
 
   /**

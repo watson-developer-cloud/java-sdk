@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.personality_insights.v3;
@@ -32,16 +32,17 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * IBM&amp;reg; will begin sunsetting IBM Watson&amp;trade; Personality Insights on 1 December 2020.
- * For a period of one year from this date, you will still be able to use Watson Personality
- * Insights. However, as of 1 December 2021, the offering will no longer be
- * available.&lt;br/&gt;&lt;br/&gt;As an alternative, we encourage you to consider migrating to IBM
- * Watson&amp;trade; Natural Language Understanding, a service on IBM Cloud&amp;reg; that uses deep
- * learning to extract data and insights from text such as keywords, categories, sentiment, emotion,
- * and syntax to provide insights for your business or industry. For more information, see [About
- * Natural Language
- * Understanding](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-about).
- * {: deprecated}
+ * IBM Watson&amp;trade; Personality Insights is discontinued. Existing instances are supported
+ * until 1 December 2021, but as of 1 December 2020, you cannot create new instances. Any instance
+ * that exists on 1 December 2021 will be deleted.&lt;br/&gt;&lt;br/&gt;No direct replacement exists
+ * for Personality Insights. However, you can consider using [IBM Watson&amp;trade; Natural Language
+ * Understanding](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-about)
+ * on IBM Cloud&amp;reg; as part of a replacement analytic workflow for your Personality Insights
+ * use cases. You can use Natural Language Understanding to extract data and insights from text,
+ * such as keywords, categories, sentiment, emotion, and syntax. For more information about the
+ * personality models in Personality Insights, see [The science behind the
+ * service](https://cloud.ibm.com/docs/personality-insights?topic=personality-insights-science). {:
+ * deprecated}
  *
  * <p>The IBM Watson Personality Insights service enables applications to derive insights from
  * social media, enterprise data, or other digital communications. The service uses linguistic
@@ -66,10 +67,10 @@ import java.util.Map.Entry;
  */
 
 /**
- * @deprecated On 1 December 2021, Personality Insights will no longer be available. Consider
- *     migrating to Watson Natural Language Understanding. For more information, see Personality
- *     Insights Deprecation
- *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).
+ * @deprecated On 1 December 2021, Personality Insights will no longer be available.
+ * Consider migrating to Watson Natural Language Understanding.
+ * For more information, see Personality Insights Deprecation
+ * (https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).
  */
 @Deprecated
 public class PersonalityInsights extends BaseService {
@@ -134,11 +135,10 @@ public class PersonalityInsights extends BaseService {
     setVersion(version);
     this.configureService(serviceName);
 
-    System.err.println(
-        "On 1 December 2021, Personality Insights will no longer be available."
-            + " Consider migrating to Watson Natural Language Understanding."
-            + "\nFor more information, see Personality Insights Deprecation "
-            + "(https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).");
+    System.err.println("On 1 December 2021, Personality Insights will no longer be available." +
+            " Consider migrating to Watson Natural Language Understanding." +
+            "\nFor more information, see Personality Insights Deprecation " +
+            "(https://github.com/watson-developer-cloud/java-sdk/tree/master#personality-insights-deprecation).");
   }
 
   /**

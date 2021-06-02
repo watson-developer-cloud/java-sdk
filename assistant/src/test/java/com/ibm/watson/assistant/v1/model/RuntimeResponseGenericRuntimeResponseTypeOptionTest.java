@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -193,6 +193,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeOptionTest {
     assertEquals(
         dialogNodeOutputOptionsElementModel.value(), dialogNodeOutputOptionsElementValueModel);
 
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+    assertEquals(responseGenericChannelModel.channel(), "chat");
+
     RuntimeResponseGenericRuntimeResponseTypeOption
         runtimeResponseGenericRuntimeResponseTypeOptionModel =
             new RuntimeResponseGenericRuntimeResponseTypeOption.Builder()
@@ -203,6 +207,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeOptionTest {
                 .options(
                     new java.util.ArrayList<DialogNodeOutputOptionsElement>(
                         java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)))
+                .channels(
+                    new java.util.ArrayList<ResponseGenericChannel>(
+                        java.util.Arrays.asList(responseGenericChannelModel)))
                 .build();
     assertEquals(runtimeResponseGenericRuntimeResponseTypeOptionModel.responseType(), "option");
     assertEquals(runtimeResponseGenericRuntimeResponseTypeOptionModel.title(), "testString");
@@ -212,6 +219,10 @@ public class RuntimeResponseGenericRuntimeResponseTypeOptionTest {
         runtimeResponseGenericRuntimeResponseTypeOptionModel.options(),
         new java.util.ArrayList<DialogNodeOutputOptionsElement>(
             java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)));
+    assertEquals(
+        runtimeResponseGenericRuntimeResponseTypeOptionModel.channels(),
+        new java.util.ArrayList<ResponseGenericChannel>(
+            java.util.Arrays.asList(responseGenericChannelModel)));
 
     String json = TestUtilities.serialize(runtimeResponseGenericRuntimeResponseTypeOptionModel);
 

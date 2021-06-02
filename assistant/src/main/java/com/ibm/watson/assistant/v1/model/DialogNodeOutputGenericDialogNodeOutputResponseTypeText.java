@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,18 +15,9 @@ package com.ibm.watson.assistant.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An object that describes a response with response type `text`. */
+/** DialogNodeOutputGenericDialogNodeOutputResponseTypeText. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     extends DialogNodeOutputGeneric {
-
-  /**
-   * The type of response returned by the dialog node. The specified response type must be supported
-   * by the client application or channel.
-   */
-  public interface ResponseType {
-    /** text. */
-    String TEXT = "text";
-  }
 
   /** How a response is selected from the list, if more than one response is specified. */
   public interface SelectionPolicy {
@@ -44,6 +35,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     private List<DialogNodeOutputTextValuesElement> values;
     private String selectionPolicy;
     private String delimiter;
+    private List<ResponseGenericChannel> channels;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeText) {
@@ -52,6 +44,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
       this.selectionPolicy =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeText.selectionPolicy;
       this.delimiter = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.delimiter;
+      this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.channels;
     }
 
     /** Instantiates a new builder. */
@@ -89,6 +82,21 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
         this.values = new ArrayList<DialogNodeOutputTextValuesElement>();
       }
       this.values.add(values);
+      return this;
+    }
+
+    /**
+     * Adds an channels to channels.
+     *
+     * @param channels the new channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeText builder
+     */
+    public Builder addChannels(ResponseGenericChannel channels) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(channels, "channels cannot be null");
+      if (this.channels == null) {
+        this.channels = new ArrayList<ResponseGenericChannel>();
+      }
+      this.channels.add(channels);
       return this;
     }
 
@@ -135,6 +143,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
       this.delimiter = delimiter;
       return this;
     }
+
+    /**
+     * Set the channels. Existing channels will be replaced.
+     *
+     * @param channels the channels
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeText builder
+     */
+    public Builder channels(List<ResponseGenericChannel> channels) {
+      this.channels = channels;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeText(Builder builder) {
@@ -145,6 +164,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     values = builder.values;
     selectionPolicy = builder.selectionPolicy;
     delimiter = builder.delimiter;
+    channels = builder.channels;
   }
 
   /**

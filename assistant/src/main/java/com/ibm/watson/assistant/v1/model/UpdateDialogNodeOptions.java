@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2017, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -494,7 +494,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * <p>The dialog node ID (for example, `get_order`).
+   * <p>The dialog node ID (for example, `node_1_1479323581900`).
    *
    * @return the dialogNode
    */
@@ -505,8 +505,11 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newDialogNode.
    *
-   * <p>The dialog node ID. This string must conform to the following restrictions: - It can contain
-   * only Unicode alphanumeric, space, underscore, hyphen, and dot characters.
+   * <p>The unique ID of the dialog node. This is an internal identifier used to refer to the dialog
+   * node from other dialog nodes and in the diagnostic information included with message responses.
+   *
+   * <p>This string can contain only Unicode alphanumeric, space, underscore, hyphen, and dot
+   * characters.
    *
    * @return the newDialogNode
    */
@@ -541,7 +544,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newParent.
    *
-   * <p>The ID of the parent dialog node. This property is omitted if the dialog node has no parent.
+   * <p>The unique ID of the parent dialog node. This property is omitted if the dialog node has no
+   * parent.
    *
    * @return the newParent
    */
@@ -552,8 +556,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newPreviousSibling.
    *
-   * <p>The ID of the previous sibling dialog node. This property is omitted if the dialog node has
-   * no previous sibling.
+   * <p>The unique ID of the previous sibling dialog node. This property is omitted if the dialog
+   * node has no previous sibling.
    *
    * @return the newPreviousSibling
    */
@@ -610,8 +614,12 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newTitle.
    *
-   * <p>The alias used to identify the dialog node. This string must conform to the following
-   * restrictions: - It can contain only Unicode alphanumeric, space, underscore, hyphen, and dot
+   * <p>A human-readable name for the dialog node. If the node is included in disambiguation, this
+   * title is used to populate the **label** property of the corresponding suggestion in the
+   * `suggestion` response type (unless it is overridden by the **user_label** property). The title
+   * is also used to populate the **topic** property in the `connect_to_agent` response type.
+   *
+   * <p>This string can contain only Unicode alphanumeric, space, underscore, hyphen, and dot
    * characters.
    *
    * @return the newTitle
@@ -700,7 +708,9 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the newUserLabel.
    *
-   * <p>A label that can be displayed externally to describe the purpose of the node to users.
+   * <p>A label that can be displayed externally to describe the purpose of the node to users. If
+   * set, this label is used to identify the node in disambiguation responses (overriding the value
+   * of the **title** property).
    *
    * @return the newUserLabel
    */

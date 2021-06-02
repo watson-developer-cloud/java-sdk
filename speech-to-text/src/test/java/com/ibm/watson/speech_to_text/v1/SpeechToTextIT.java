@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -62,11 +62,11 @@ import com.ibm.watson.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechModel;
+import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
-import com.ibm.watson.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.WordAlternativeResults;
 import com.ibm.watson.speech_to_text.v1.model.Words;

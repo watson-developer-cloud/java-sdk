@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,12 @@ public class QueryLargePassages extends GenericModel {
   protected Long count;
   protected Long characters;
 
+  @SerializedName("find_answers")
+  protected Boolean findAnswers;
+
+  @SerializedName("max_answers_per_passage")
+  protected Long maxAnswersPerPassage;
+
   /** Builder. */
   public static class Builder {
     private Boolean enabled;
@@ -40,6 +46,8 @@ public class QueryLargePassages extends GenericModel {
     private List<String> fields;
     private Long count;
     private Long characters;
+    private Boolean findAnswers;
+    private Long maxAnswersPerPassage;
 
     private Builder(QueryLargePassages queryLargePassages) {
       this.enabled = queryLargePassages.enabled;
@@ -48,6 +56,8 @@ public class QueryLargePassages extends GenericModel {
       this.fields = queryLargePassages.fields;
       this.count = queryLargePassages.count;
       this.characters = queryLargePassages.characters;
+      this.findAnswers = queryLargePassages.findAnswers;
+      this.maxAnswersPerPassage = queryLargePassages.maxAnswersPerPassage;
     }
 
     /** Instantiates a new builder. */
@@ -142,6 +152,28 @@ public class QueryLargePassages extends GenericModel {
       this.characters = characters;
       return this;
     }
+
+    /**
+     * Set the findAnswers.
+     *
+     * @param findAnswers the findAnswers
+     * @return the QueryLargePassages builder
+     */
+    public Builder findAnswers(Boolean findAnswers) {
+      this.findAnswers = findAnswers;
+      return this;
+    }
+
+    /**
+     * Set the maxAnswersPerPassage.
+     *
+     * @param maxAnswersPerPassage the maxAnswersPerPassage
+     * @return the QueryLargePassages builder
+     */
+    public Builder maxAnswersPerPassage(long maxAnswersPerPassage) {
+      this.maxAnswersPerPassage = maxAnswersPerPassage;
+      return this;
+    }
   }
 
   protected QueryLargePassages(Builder builder) {
@@ -151,6 +183,8 @@ public class QueryLargePassages extends GenericModel {
     fields = builder.fields;
     count = builder.count;
     characters = builder.characters;
+    findAnswers = builder.findAnswers;
+    maxAnswersPerPassage = builder.maxAnswersPerPassage;
   }
 
   /**
@@ -228,5 +262,42 @@ public class QueryLargePassages extends GenericModel {
    */
   public Long characters() {
     return characters;
+  }
+
+  /**
+   * Gets the findAnswers.
+   *
+   * <p>When true, `answer` objects are returned as part of each passage in the query results. The
+   * primary difference between an `answer` and a `passage` is that the length of a passage is
+   * defined by the query, where the length of an `answer` is calculated by Discovery based on how
+   * much text is needed to answer the question./n/nThis parameter is ignored if passages are not
+   * enabled for the query, or no **natural_language_query** is specified./n/nIf the
+   * **find_answers** parameter is set to `true` and **per_document** parameter is also set to
+   * `true`, then the document search results and the passage search results within each document
+   * are reordered using the answer confidences. The goal of this reordering is to do as much as
+   * possible to make sure that the first answer of the first passage of the first document is the
+   * best answer. Similarly, if the **find_answers** parameter is set to `true` and **per_document**
+   * parameter is set to `false`, then the passage search results are reordered in decreasing order
+   * of the highest confidence answer for each document and passage./n/nThe **find_answers**
+   * parameter is **beta** functionality available only on managed instances and should not be used
+   * in a production environment. This parameter is not available on installed instances of
+   * Discovery.
+   *
+   * @return the findAnswers
+   */
+  public Boolean findAnswers() {
+    return findAnswers;
+  }
+
+  /**
+   * Gets the maxAnswersPerPassage.
+   *
+   * <p>The number of `answer` objects to return per passage if the **find_answers** parmeter is
+   * specified as `true`.
+   *
+   * @return the maxAnswersPerPassage
+   */
+  public Long maxAnswersPerPassage() {
+    return maxAnswersPerPassage;
   }
 }

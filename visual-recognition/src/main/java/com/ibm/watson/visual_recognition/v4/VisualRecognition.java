@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
  */
 
 package com.ibm.watson.visual_recognition.v4;
@@ -81,9 +81,8 @@ import okhttp3.MultipartBody;
  */
 
 /**
- * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more
- *     information, see Visual Recognition Deprecation
- *     (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
+ * @deprecated On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual
+ * Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).
  */
 @Deprecated
 public class VisualRecognition extends BaseService {
@@ -149,8 +148,8 @@ public class VisualRecognition extends BaseService {
     this.configureService(serviceName);
 
     System.err.println(
-        "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n"
-            + "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
+            "On 1 December 2021, Visual Recognition will no longer be available. For more information, see Visual\n" +
+                    "Recognition Deprecation (https://github.com/watson-developer-cloud/java-sdk/tree/master#visual-recognition-deprecation).");
   }
 
   /**

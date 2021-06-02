@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,30 +25,47 @@ import java.util.List;
 public class RecognizeOptions extends GenericModel {
 
   /**
-   * The identifier of the model that is to be used for the recognition request. See [Languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
+   * The identifier of the model that is to be used for the recognition request. (**Note:** The
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Languages
+   * and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
+   * [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
+    /** ar-MS_BroadbandModel. */
+    String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
+    /** ar-MS_Telephony. */
+    String AR_MS_TELEPHONY = "ar-MS_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** de-DE_Telephony. */
+    String DE_DE_TELEPHONY = "de-DE_Telephony";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
     /** en-AU_NarrowbandModel. */
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
+    /** en-AU_Telephony. */
+    String EN_AU_TELEPHONY = "en-AU_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
+    /** en-GB_Telephony. */
+    String EN_GB_TELEPHONY = "en-GB_Telephony";
     /** en-US_BroadbandModel. */
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
+    /** en-US_Multimedia. */
+    String EN_US_MULTIMEDIA = "en-US_Multimedia";
     /** en-US_NarrowbandModel. */
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** en-US_Telephony. */
+    String EN_US_TELEPHONY = "en-US_Telephony";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
@@ -65,6 +82,8 @@ public class RecognizeOptions extends GenericModel {
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-ES_Telephony. */
+    String ES_ES_TELEPHONY = "es-ES_Telephony";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
@@ -77,14 +96,20 @@ public class RecognizeOptions extends GenericModel {
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
+    /** fr-CA_Telephony. */
+    String FR_CA_TELEPHONY = "fr-CA_Telephony";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_NarrowbandModel. */
     String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
+    /** fr-FR_Telephony. */
+    String FR_FR_TELEPHONY = "fr-FR_Telephony";
     /** it-IT_BroadbandModel. */
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
     String IT_IT_NARROWBANDMODEL = "it-IT_NarrowbandModel";
+    /** it-IT_Telephony. */
+    String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_NarrowbandModel. */
@@ -101,6 +126,8 @@ public class RecognizeOptions extends GenericModel {
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
+    /** pt-BR_Telephony. */
+    String PT_BR_TELEPHONY = "pt-BR_Telephony";
     /** zh-CN_BroadbandModel. */
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
@@ -135,6 +162,7 @@ public class RecognizeOptions extends GenericModel {
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
+  protected Boolean lowLatency;
 
   /** Builder. */
   public static class Builder {
@@ -163,6 +191,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
+    private Boolean lowLatency;
 
     private Builder(RecognizeOptions recognizeOptions) {
       this.audio = recognizeOptions.audio;
@@ -190,6 +219,7 @@ public class RecognizeOptions extends GenericModel {
       this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = recognizeOptions.backgroundAudioSuppression;
+      this.lowLatency = recognizeOptions.lowLatency;
     }
 
     /** Instantiates a new builder. */
@@ -504,6 +534,17 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the lowLatency.
+     *
+     * @param lowLatency the lowLatency
+     * @return the RecognizeOptions builder
+     */
+    public Builder lowLatency(Boolean lowLatency) {
+      this.lowLatency = lowLatency;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -543,6 +584,7 @@ public class RecognizeOptions extends GenericModel {
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
+    lowLatency = builder.lowLatency;
   }
 
   /**
@@ -580,8 +622,11 @@ public class RecognizeOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>The identifier of the model that is to be used for the recognition request. See [Languages
-   * and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
+   * <p>The identifier of the model that is to be used for the recognition request. (**Note:** The
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Languages
+   * and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
+   * [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    *
    * @return the model
    */
@@ -596,8 +641,8 @@ public class RecognizeOptions extends GenericModel {
    * recognition request. The base model of the specified custom language model must match the model
    * specified with the `model` parameter. You must make the request with credentials for the
    * instance of the service that owns the custom model. By default, no custom language model is
-   * used. See [Custom
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#custom-input).
+   * used. See [Using a custom language model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageUse).
    *
    * <p>**Note:** Use this parameter instead of the deprecated `customization_id` parameter.
    *
@@ -614,8 +659,8 @@ public class RecognizeOptions extends GenericModel {
    * recognition request. The base model of the specified custom acoustic model must match the model
    * specified with the `model` parameter. You must make the request with credentials for the
    * instance of the service that owns the custom model. By default, no custom acoustic model is
-   * used. See [Custom
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#custom-input).
+   * used. See [Using a custom acoustic model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acousticUse).
    *
    * @return the acousticCustomizationId
    */
@@ -630,8 +675,8 @@ public class RecognizeOptions extends GenericModel {
    * Multiple versions of a base model can exist when a model is updated for internal improvements.
    * The parameter is intended primarily for use with custom models that have been upgraded for a
    * new base model. The default value depends on whether the parameter is used with or without a
-   * custom model. See [Base model
-   * version](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#version).
+   * custom model. See [Making speech recognition requests with upgraded custom
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade-use#custom-upgrade-use-recognition).
    *
    * @return the baseModelVersion
    */
@@ -655,8 +700,8 @@ public class RecognizeOptions extends GenericModel {
    * weight: a higher value can improve the accuracy of phrases from the custom model's domain, but
    * it can negatively affect performance on non-domain phrases.
    *
-   * <p>See [Custom
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#custom-input).
+   * <p>See [Using customization
+   * weight](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageUse#weight).
    *
    * @return the customizationWeight
    */
@@ -692,7 +737,7 @@ public class RecognizeOptions extends GenericModel {
    * languages might be shorter. Keywords are case-insensitive.
    *
    * <p>See [Keyword
-   * spotting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#keyword_spotting).
+   * spotting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-spotting#keyword-spotting).
    *
    * @return the keywords
    */
@@ -707,7 +752,7 @@ public class RecognizeOptions extends GenericModel {
    * match a keyword if its confidence is greater than or equal to the threshold. Specify a
    * probability between 0.0 and 1.0. If you specify a threshold, you must also specify one or more
    * keywords. The service performs no keyword spotting if you omit either parameter. See [Keyword
-   * spotting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#keyword_spotting).
+   * spotting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-spotting#keyword-spotting).
    *
    * @return the keywordsThreshold
    */
@@ -721,7 +766,7 @@ public class RecognizeOptions extends GenericModel {
    * <p>The maximum number of alternative transcripts that the service is to return. By default, the
    * service returns a single transcript. If you specify a value of `0`, the service uses the
    * default value, `1`. See [Maximum
-   * alternatives](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#max_alternatives).
+   * alternatives](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-metadata#max-alternatives).
    *
    * @return the maxAlternatives
    */
@@ -736,7 +781,7 @@ public class RecognizeOptions extends GenericModel {
    * alternative (also known as "Confusion Networks"). An alternative word is considered if its
    * confidence is greater than or equal to the threshold. Specify a probability between 0.0 and
    * 1.0. By default, the service computes no alternative words. See [Word
-   * alternatives](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#word_alternatives).
+   * alternatives](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-spotting#word-alternatives).
    *
    * @return the wordAlternativesThreshold
    */
@@ -749,7 +794,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * <p>If `true`, the service returns a confidence measure in the range of 0.0 to 1.0 for each
    * word. By default, the service returns no word confidence scores. See [Word
-   * confidence](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#word_confidence).
+   * confidence](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-metadata#word-confidence).
    *
    * @return the wordConfidence
    */
@@ -762,7 +807,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * <p>If `true`, the service returns time alignment for each word. By default, no timestamps are
    * returned. See [Word
-   * timestamps](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#word_timestamps).
+   * timestamps](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-metadata#word-timestamps).
    *
    * @return the timestamps
    */
@@ -775,8 +820,9 @@ public class RecognizeOptions extends GenericModel {
    *
    * <p>If `true`, the service filters profanity from all output except for keyword results by
    * replacing inappropriate words with a series of asterisks. Set the parameter to `false` to
-   * return results with no censoring. Applies to US English transcription only. See [Profanity
-   * filtering](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#profanity_filter).
+   * return results with no censoring. Applies to US English and Japanese transcription only. See
+   * [Profanity
+   * filtering](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#profanity-filtering).
    *
    * @return the profanityFilter
    */
@@ -795,7 +841,7 @@ public class RecognizeOptions extends GenericModel {
    * <p>**Note:** Applies to US English, Japanese, and Spanish transcription only.
    *
    * <p>See [Smart
-   * formatting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#smart_formatting).
+   * formatting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#smart-formatting).
    *
    * @return the smartFormatting
    */
@@ -809,13 +855,15 @@ public class RecognizeOptions extends GenericModel {
    * <p>If `true`, the response includes labels that identify which words were spoken by which
    * participants in a multi-person exchange. By default, the service returns no speaker labels.
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
-   * of whether you specify `false` for the parameter.
+   * of whether you specify `false` for the parameter. * For previous-generation models, can be used
+   * for US English, Australian English, German, Japanese, Korean, and Spanish (both broadband and
+   * narrowband models) and UK English (narrowband model) transcription only. * For next-generation
+   * models, can be used for English (Australian, UK, and US), German, and Spanish transcription
+   * only.
    *
-   * <p>**Note:** Applies to US English, Australian English, German, Japanese, Korean, and Spanish
-   * (both broadband and narrowband models) and UK English (narrowband model) transcription only.
-   *
-   * <p>See [Speaker
-   * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#speaker_labels).
+   * <p>Restrictions and limitations apply to the use of speaker labels for both types of models.
+   * See [Speaker
+   * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speaker-labels).
    *
    * @return the speakerLabels
    */
@@ -843,8 +891,8 @@ public class RecognizeOptions extends GenericModel {
    * grammar, you must also use the `language_customization_id` parameter to specify the name of the
    * custom language model for which the grammar is defined. The service recognizes only strings
    * that are recognized by the specified grammar; it does not recognize other custom words from the
-   * model's words resource. See
-   * [Grammars](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#grammars-input).
+   * model's words resource. See [Using a grammar for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarUse).
    *
    * @return the grammarName
    */
@@ -868,7 +916,7 @@ public class RecognizeOptions extends GenericModel {
    * <p>**Note:** Applies to US English, Japanese, and Korean transcription only.
    *
    * <p>See [Numeric
-   * redaction](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#redaction).
+   * redaction](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#numeric-redaction).
    *
    * @return the redaction
    */
@@ -884,7 +932,7 @@ public class RecognizeOptions extends GenericModel {
    * service returns no audio metrics.
    *
    * <p>See [Audio
-   * metrics](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-metrics#audio_metrics).
+   * metrics](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-metrics#audio-metrics).
    *
    * @return the audioMetrics
    */
@@ -909,7 +957,7 @@ public class RecognizeOptions extends GenericModel {
    * seconds.
    *
    * <p>See [End of phrase silence
-   * time](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#silence_time).
+   * time](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#silence-time).
    *
    * @return the endOfPhraseSilenceTime
    */
@@ -928,7 +976,7 @@ public class RecognizeOptions extends GenericModel {
    * on the pause interval.
    *
    * <p>See [Split transcript at phrase
-   * end](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-output#split_transcript).
+   * end](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#split-transcript).
    *
    * @return the splitTranscriptAtPhraseEnd
    */
@@ -948,8 +996,8 @@ public class RecognizeOptions extends GenericModel {
    * * 0.5 (the default) provides a reasonable compromise for the level of sensitivity. * 1.0
    * suppresses no audio (speech detection sensitivity is disabled).
    *
-   * <p>The values increase on a monotonic curve. See [Speech Activity
-   * Detection](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#detection).
+   * <p>The values increase on a monotonic curve. See [Speech detector
+   * sensitivity](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-sensitivity).
    *
    * @return the speechDetectorSensitivity
    */
@@ -968,12 +1016,35 @@ public class RecognizeOptions extends GenericModel {
    * (background audio suppression is disabled). * 0.5 provides a reasonable level of audio
    * suppression for general usage. * 1.0 suppresses all audio (no audio is transcribed).
    *
-   * <p>The values increase on a monotonic curve. See [Speech Activity
-   * Detection](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-input#detection).
+   * <p>The values increase on a monotonic curve. See [Background audio
+   * suppression](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-suppression).
    *
    * @return the backgroundAudioSuppression
    */
   public Float backgroundAudioSuppression() {
     return backgroundAudioSuppression;
+  }
+
+  /**
+   * Gets the lowLatency.
+   *
+   * <p>If `true` for next-generation `Multimedia` and `Telephony` models that support low latency,
+   * directs the service to produce results even more quickly than it usually does. Next-generation
+   * models produce transcription results faster than previous-generation models. The `low_latency`
+   * parameter causes the models to produce results even more quickly, though the results might be
+   * less accurate when the parameter is used.
+   *
+   * <p>**Note:** The parameter is beta functionality. It is not available for previous-generation
+   * `Broadband` and `Narrowband` models. It is available only for some next-generation models.
+   *
+   * <p>* For a list of next-generation models that support low latency, see [Supported language
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported)
+   * for next-generation models. * For more information about the `low_latency` parameter, see [Low
+   * latency](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-interim#low-latency).
+   *
+   * @return the lowLatency
+   */
+  public Boolean lowLatency() {
+    return lowLatency;
   }
 }

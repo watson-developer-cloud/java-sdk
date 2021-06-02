@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2017, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -123,7 +123,7 @@ public class GetDialogNodeOptions extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * <p>The dialog node ID (for example, `get_order`).
+   * <p>The dialog node ID (for example, `node_1_1479323581900`).
    *
    * @return the dialogNode
    */
