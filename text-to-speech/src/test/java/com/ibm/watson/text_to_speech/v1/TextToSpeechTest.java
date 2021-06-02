@@ -901,7 +901,6 @@ public class TextToSpeechTest {
             .promptId("testString")
             .metadata(promptMetadataModel)
             .file(TestUtilities.createMockStream("This is a mock file."))
-            .filename("testString")
             .build();
 
     // Invoke operation with valid options model (positive test)

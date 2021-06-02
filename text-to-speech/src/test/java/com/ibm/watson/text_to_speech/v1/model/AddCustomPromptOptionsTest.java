@@ -42,7 +42,6 @@ public class AddCustomPromptOptionsTest {
             .promptId("testString")
             .metadata(promptMetadataModel)
             .file(TestUtilities.createMockStream("This is a mock file."))
-            .filename("testString")
             .build();
     assertEquals(addCustomPromptOptionsModel.customizationId(), "testString");
     assertEquals(addCustomPromptOptionsModel.promptId(), "testString");
@@ -50,7 +49,6 @@ public class AddCustomPromptOptionsTest {
     assertEquals(
         IOUtils.toString(addCustomPromptOptionsModel.file()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
-    assertEquals(addCustomPromptOptionsModel.filename(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
