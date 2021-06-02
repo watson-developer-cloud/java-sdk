@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>compare-comply</artifactId>
-  <version>9.1.1</version>
+  <version>9.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:compare-comply:9.1.1'
+'com.ibm.watson:compare-comply:9.2.0'
 ```
 
 ## Usage
