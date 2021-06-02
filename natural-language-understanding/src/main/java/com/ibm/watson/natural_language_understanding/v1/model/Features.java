@@ -15,7 +15,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /** Analysis features and options. */
 public class Features extends GenericModel {
@@ -25,7 +25,7 @@ public class Features extends GenericModel {
   protected EmotionOptions emotion;
   protected EntitiesOptions entities;
   protected KeywordsOptions keywords;
-  protected HashMap<String, Object> metadata;
+  protected Map<String, Object> metadata;
   protected RelationsOptions relations;
 
   @SerializedName("semantic_roles")
@@ -43,7 +43,7 @@ public class Features extends GenericModel {
     private EmotionOptions emotion;
     private EntitiesOptions entities;
     private KeywordsOptions keywords;
-    private HashMap<String, Object> metadata;
+    private Map<String, Object> metadata;
     private RelationsOptions relations;
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
@@ -139,7 +139,7 @@ public class Features extends GenericModel {
      * @param metadata the metadata
      * @return the Features builder
      */
-    public Builder metadata(HashMap<String, Object> metadata) {
+    public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -317,7 +317,7 @@ public class Features extends GenericModel {
    *
    * @return the metadata
    */
-  public HashMap<String, Object> metadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
