@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -192,6 +192,43 @@ public class AssistantServiceIT extends AssistantServiceTest {
     assertNotNull(response);
   }
 
+  /** Test RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
+  @Test
+  public void testRuntimeResponseGenericRuntimeResponseTypeChannelTransfer() {
+
+    // get session ID
+    CreateSessionOptions createSessionOptions =
+            new CreateSessionOptions.Builder().assistantId(assistantId).build();
+    SessionResponse sessionResponse =
+            service.createSession(createSessionOptions).execute().getResult();
+    String sessionId = sessionResponse.getSessionId();
+
+    final List<String> messages = Arrays.asList("test sdk");
+    MessageContext context = new MessageContext.Builder().build();
+
+    MessageInputOptions inputOptions = new MessageInputOptions.Builder().debug(true).build();
+    MessageInput input =
+            new MessageInput.Builder()
+                    .text("test sdk")
+                    .messageType(MessageInput.MessageType.TEXT)
+                    .options(inputOptions)
+                    .build();
+    MessageOptions messageOptions =
+            new MessageOptions.Builder()
+                    .assistantId(assistantId)
+                    .sessionId(sessionId)
+                    .input(input)
+                    .context(context)
+                    .build();
+    MessageResponse response = service.message(messageOptions).execute().getResult();
+
+    RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
+            (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
+                    response.getOutput().getGeneric().get(0);
+
+    assertNotNull(null);
+  }
   /** Test Delete User Data. */
   /*
   @Test
