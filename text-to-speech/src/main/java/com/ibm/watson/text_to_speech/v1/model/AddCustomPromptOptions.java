@@ -25,7 +25,6 @@ public class AddCustomPromptOptions extends GenericModel {
   protected String promptId;
   protected PromptMetadata metadata;
   protected InputStream file;
-  protected String filename;
 
   /** Builder. */
   public static class Builder {
@@ -33,14 +32,12 @@ public class AddCustomPromptOptions extends GenericModel {
     private String promptId;
     private PromptMetadata metadata;
     private InputStream file;
-    private String filename;
 
     private Builder(AddCustomPromptOptions addCustomPromptOptions) {
       this.customizationId = addCustomPromptOptions.customizationId;
       this.promptId = addCustomPromptOptions.promptId;
       this.metadata = addCustomPromptOptions.metadata;
       this.file = addCustomPromptOptions.file;
-      this.filename = addCustomPromptOptions.filename;
     }
 
     /** Instantiates a new builder. */
@@ -53,19 +50,13 @@ public class AddCustomPromptOptions extends GenericModel {
      * @param promptId the promptId
      * @param metadata the metadata
      * @param file the file
-     * @param filename the filename
      */
     public Builder(
-        String customizationId,
-        String promptId,
-        PromptMetadata metadata,
-        InputStream file,
-        String filename) {
+        String customizationId, String promptId, PromptMetadata metadata, InputStream file) {
       this.customizationId = customizationId;
       this.promptId = promptId;
       this.metadata = metadata;
       this.file = file;
-      this.filename = filename;
     }
 
     /**
@@ -122,17 +113,6 @@ public class AddCustomPromptOptions extends GenericModel {
     }
 
     /**
-     * Set the filename.
-     *
-     * @param filename the filename
-     * @return the AddCustomPromptOptions builder
-     */
-    public Builder filename(String filename) {
-      this.filename = filename;
-      return this;
-    }
-
-    /**
      * Set the file.
      *
      * @param file the file
@@ -141,7 +121,6 @@ public class AddCustomPromptOptions extends GenericModel {
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);
-      this.filename = file.getName();
       return this;
     }
   }
@@ -152,12 +131,10 @@ public class AddCustomPromptOptions extends GenericModel {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.promptId, "promptId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.metadata, "metadata cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.file, "file cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.filename, "filename cannot be null");
     customizationId = builder.customizationId;
     promptId = builder.promptId;
     metadata = builder.metadata;
     file = builder.file;
-    filename = builder.filename;
   }
 
   /**
@@ -226,16 +203,5 @@ public class AddCustomPromptOptions extends GenericModel {
    */
   public InputStream file() {
     return file;
-  }
-
-  /**
-   * Gets the filename.
-   *
-   * <p>The filename for file.
-   *
-   * @return the filename
-   */
-  public String filename() {
-    return filename;
   }
 }

@@ -1071,7 +1071,7 @@ public class TextToSpeech extends BaseService {
     multipartBuilder.addFormDataPart("metadata", addCustomPromptOptions.metadata().toString());
     okhttp3.RequestBody fileBody =
         RequestUtils.inputStreamBody(addCustomPromptOptions.file(), "audio/wav");
-    multipartBuilder.addFormDataPart("file", addCustomPromptOptions.filename(), fileBody);
+    multipartBuilder.addFormDataPart("file", "filename", fileBody);
     builder.body(multipartBuilder.build());
     ResponseConverter<Prompt> responseConverter =
         ResponseConverterUtils.getValue(
