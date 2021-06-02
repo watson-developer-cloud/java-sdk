@@ -1,3 +1,17 @@
+# [9.2.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.1.1...v9.2.0) (2021-06-02)
+
+
+### Bug Fixes
+
+* **text-to-speech-v1:** generated using api def sdk-2021-05-11-rerelease and gen 3.31.0 ([e825419](https://github.com/watson-developer-cloud/java-sdk/commit/e8254194cd199c3039a61a58c65039eadecfb562))
+
+
+### Features
+
+* **generation:** generated using api def sdk-2021-05-11 & gen 3.31.0 ([82ef647](https://github.com/watson-developer-cloud/java-sdk/commit/82ef647c855b7d226104ab4a3bf56de8dce748c5))
+* **generation:** generated using api def: sdk-2021-05-11 and generator: 3.31.0 ([c039886](https://github.com/watson-developer-cloud/java-sdk/commit/c039886481d21e70c2d66bbf3aacb56543ada9a3))
+* **natural-language-understanding-v1:** generated using api def 5b4cdff & gen 3.31.0 ([ac51578](https://github.com/watson-developer-cloud/java-sdk/commit/ac515782a0e1e1541b3852d490d0ad8f8d8fce9e))
+
 ## [9.1.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.1.0...v9.1.1) (2021-05-17)
 
 
