@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +20,6 @@ import java.util.Map;
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
     extends DialogNodeOutputGeneric {
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  @SerializedName("user_defined")
-  private Map<String, Object> userDefined;
-
-  private List<ResponseGenericChannel> channels;
-
   /** Builder. */
   public static class Builder {
     private String responseType;
@@ -36,8 +27,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
-            dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined) {
+        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.responseType;
       this.userDefined = dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.userDefined;
@@ -133,40 +123,5 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
-  }
-
-  /**
-   * Gets the userDefined.
-   *
-   * <p>An object containing any properties for the user-defined response type. The total size of
-   * this object cannot exceed 5000 bytes.
-   *
-   * @return the userDefined
-   */
-  public Map<String, Object> userDefined() {
-    return userDefined;
   }
 }

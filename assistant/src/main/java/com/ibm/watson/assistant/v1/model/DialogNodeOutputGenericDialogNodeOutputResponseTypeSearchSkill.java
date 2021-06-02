@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,21 +27,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     String DISCOVERY_QUERY_LANGUAGE = "discovery_query_language";
   }
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  private String query;
-
-  @SerializedName("query_type")
-  private String queryType;
-
-  private String filter;
-
-  @SerializedName("discovery_version")
-  private String discoveryVersion;
-
-  private List<ResponseGenericChannel> channels;
-
   /** Builder. */
   public static class Builder {
     private String responseType;
@@ -53,8 +37,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
-            dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill) {
+        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.responseType;
       this.query = dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.query;
@@ -192,77 +175,5 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
-  }
-
-  /**
-   * Gets the query.
-   *
-   * <p>The text of the search query. This can be either a natural-language query or a query that
-   * uses the Discovery query language syntax, depending on the value of the **query_type**
-   * property. For more information, see the [Discovery service
-   * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-query-operators#query-operators).
-   *
-   * @return the query
-   */
-  public String query() {
-    return query;
-  }
-
-  /**
-   * Gets the queryType.
-   *
-   * <p>The type of the search query.
-   *
-   * @return the queryType
-   */
-  public String queryType() {
-    return queryType;
-  }
-
-  /**
-   * Gets the filter.
-   *
-   * <p>An optional filter that narrows the set of documents to be searched. For more information,
-   * see the [Discovery service documentation]([Discovery service
-   * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-query-parameters#filter).
-   *
-   * @return the filter
-   */
-  public String filter() {
-    return filter;
-  }
-
-  /**
-   * Gets the discoveryVersion.
-   *
-   * <p>The version of the Discovery service API to use for the query.
-   *
-   * @return the discoveryVersion
-   */
-  public String discoveryVersion() {
-    return discoveryVersion;
   }
 }

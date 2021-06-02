@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,15 +27,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     String BUTTON = "button";
   }
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  private String title;
-  private String description;
-  private String preference;
-  private List<DialogNodeOutputOptionsElement> options;
-  private List<ResponseGenericChannel> channels;
-
   /** Builder. */
   public static class Builder {
     private String responseType;
@@ -47,8 +37,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
-            dialogNodeOutputGenericDialogNodeOutputResponseTypeOption) {
+        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeOption) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.responseType;
       this.title = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.title;
       this.description = dialogNodeOutputGenericDialogNodeOutputResponseTypeOption.description;
@@ -200,73 +189,5 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
-  }
-
-  /**
-   * Gets the title.
-   *
-   * <p>An optional title to show before the response.
-   *
-   * @return the title
-   */
-  public String title() {
-    return title;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * <p>An optional description to show with the response.
-   *
-   * @return the description
-   */
-  public String description() {
-    return description;
-  }
-
-  /**
-   * Gets the preference.
-   *
-   * <p>The preferred type of control to display, if supported by the channel.
-   *
-   * @return the preference
-   */
-  public String preference() {
-    return preference;
-  }
-
-  /**
-   * Gets the options.
-   *
-   * <p>An array of objects describing the options from which the user can choose. You can include
-   * up to 20 options.
-   *
-   * @return the options
-   */
-  public List<DialogNodeOutputOptionsElement> options() {
-    return options;
   }
 }

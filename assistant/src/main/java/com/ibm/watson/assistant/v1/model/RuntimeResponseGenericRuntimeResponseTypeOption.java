@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +26,6 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
     String BUTTON = "button";
   }
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  private String title;
-  private String description;
-  private String preference;
-  private List<DialogNodeOutputOptionsElement> options;
-  private List<ResponseGenericChannel> channels;
-
   /** Builder. */
   public static class Builder {
     private String responseType;
@@ -45,9 +35,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
     private List<DialogNodeOutputOptionsElement> options;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(
-        RuntimeResponseGenericRuntimeResponseTypeOption
-            runtimeResponseGenericRuntimeResponseTypeOption) {
+    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeOption) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeOption.responseType;
       this.title = runtimeResponseGenericRuntimeResponseTypeOption.title;
       this.description = runtimeResponseGenericRuntimeResponseTypeOption.description;
@@ -199,74 +187,5 @@ public class RuntimeResponseGenericRuntimeResponseTypeOption extends RuntimeResp
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended. If **channels**
-   * is present, the response is intended for a built-in integration and should not be handled by an
-   * API client.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
-  }
-
-  /**
-   * Gets the title.
-   *
-   * <p>The title or introductory text to show before the response.
-   *
-   * @return the title
-   */
-  public String title() {
-    return title;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * <p>The description to show with the the response.
-   *
-   * @return the description
-   */
-  public String description() {
-    return description;
-  }
-
-  /**
-   * Gets the preference.
-   *
-   * <p>The preferred type of control to display.
-   *
-   * @return the preference
-   */
-  public String preference() {
-    return preference;
-  }
-
-  /**
-   * Gets the options.
-   *
-   * <p>An array of objects describing the options from which the user can choose.
-   *
-   * @return the options
-   */
-  public List<DialogNodeOutputOptionsElement> options() {
-    return options;
   }
 }

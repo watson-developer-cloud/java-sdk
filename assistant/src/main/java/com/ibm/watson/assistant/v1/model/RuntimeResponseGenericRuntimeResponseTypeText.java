@@ -12,18 +12,11 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** RuntimeResponseGenericRuntimeResponseTypeText. */
 public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeResponseGeneric {
-
-  @SerializedName("response_type")
-  private String responseType;
-
-  private String text;
-  private List<ResponseGenericChannel> channels;
 
   /** Builder. */
   public static class Builder {
@@ -31,9 +24,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeRespon
     private String text;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(
-        RuntimeResponseGenericRuntimeResponseTypeText
-            runtimeResponseGenericRuntimeResponseTypeText) {
+    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeText) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeText.responseType;
       this.text = runtimeResponseGenericRuntimeResponseTypeText.text;
       this.channels = runtimeResponseGenericRuntimeResponseTypeText.channels;
@@ -127,41 +118,5 @@ public class RuntimeResponseGenericRuntimeResponseTypeText extends RuntimeRespon
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * <p>The text of the response.
-   *
-   * @return the text
-   */
-  public String text() {
-    return text;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended. If **channels**
-   * is present, the response is intended for a built-in integration and should not be handled by an
-   * API client.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
   }
 }

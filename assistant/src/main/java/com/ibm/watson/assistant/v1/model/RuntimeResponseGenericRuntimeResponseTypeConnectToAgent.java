@@ -13,6 +13,7 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,27 +21,8 @@ import java.util.List;
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  @SerializedName("message_to_human_agent")
-  private String messageToHumanAgent;
-
-  @SerializedName("agent_available")
-  private AgentAvailabilityMessage agentAvailable;
-
-  @SerializedName("agent_unavailable")
-  private AgentAvailabilityMessage agentUnavailable;
-
   @SerializedName("transfer_info")
-  private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
-
-  private String topic;
-
-  @SerializedName("dialog_node")
-  private String dialogNode;
-
-  private List<ResponseGenericChannel> channels;
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   /** Builder. */
   public static class Builder {
@@ -53,9 +35,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     private String dialogNode;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(
-        RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
-            runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
+    public Builder(RuntimeResponseGenericRuntimeResponseTypeConnectToAgent runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.responseType;
       this.messageToHumanAgent =
           runtimeResponseGenericRuntimeResponseTypeConnectToAgent.messageToHumanAgent;
@@ -213,90 +193,6 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended. If **channels**
-   * is present, the response is intended for a built-in integration and should not be handled by an
-   * API client.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
-  }
-
-  /**
-   * Gets the messageToHumanAgent.
-   *
-   * <p>A message to be sent to the human agent who will be taking over the conversation.
-   *
-   * @return the messageToHumanAgent
-   */
-  public String messageToHumanAgent() {
-    return messageToHumanAgent;
-  }
-
-  /**
-   * Gets the agentAvailable.
-   *
-   * <p>An optional message to be displayed to the user to indicate that the conversation will be
-   * transferred to the next available agent.
-   *
-   * @return the agentAvailable
-   */
-  public AgentAvailabilityMessage agentAvailable() {
-    return agentAvailable;
-  }
-
-  /**
-   * Gets the agentUnavailable.
-   *
-   * <p>An optional message to be displayed to the user to indicate that no online agent is
-   * available to take over the conversation.
-   *
-   * @return the agentUnavailable
-   */
-  public AgentAvailabilityMessage agentUnavailable() {
-    return agentUnavailable;
-  }
-
-  /**
-   * Gets the topic.
-   *
-   * <p>A label identifying the topic of the conversation, derived from the **title** property of
-   * the relevant node or the **topic** property of the dialog node response.
-   *
-   * @return the topic
-   */
-  public String topic() {
-    return topic;
-  }
-
-  /**
-   * Gets the dialogNode.
-   *
-   * <p>The unique ID of the dialog node that the **topic** property is taken from. The **topic**
-   * property is populated using the value of the dialog node's **title** property.
-   *
-   * @return the dialogNode
-   */
-  public String dialogNode() {
-    return dialogNode;
   }
 
   /**

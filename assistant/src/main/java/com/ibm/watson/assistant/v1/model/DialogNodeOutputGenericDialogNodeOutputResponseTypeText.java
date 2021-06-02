@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,17 +29,6 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     String MULTILINE = "multiline";
   }
 
-  @SerializedName("response_type")
-  private String responseType;
-
-  private List<DialogNodeOutputTextValuesElement> values;
-
-  @SerializedName("selection_policy")
-  private String selectionPolicy;
-
-  private String delimiter;
-  private List<ResponseGenericChannel> channels;
-
   /** Builder. */
   public static class Builder {
     private String responseType;
@@ -50,8 +38,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-        DialogNodeOutputGenericDialogNodeOutputResponseTypeText
-            dialogNodeOutputGenericDialogNodeOutputResponseTypeText) {
+        DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeText) {
       this.responseType = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.responseType;
       this.values = dialogNodeOutputGenericDialogNodeOutputResponseTypeText.values;
       this.selectionPolicy =
@@ -187,61 +174,5 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeText
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the responseType.
-   *
-   * <p>The type of response returned by the dialog node. The specified response type must be
-   * supported by the client application or channel.
-   *
-   * @return the responseType
-   */
-  public String responseType() {
-    return responseType;
-  }
-
-  /**
-   * Gets the values.
-   *
-   * <p>A list of one or more objects defining text responses.
-   *
-   * @return the values
-   */
-  public List<DialogNodeOutputTextValuesElement> values() {
-    return values;
-  }
-
-  /**
-   * Gets the selectionPolicy.
-   *
-   * <p>How a response is selected from the list, if more than one response is specified.
-   *
-   * @return the selectionPolicy
-   */
-  public String selectionPolicy() {
-    return selectionPolicy;
-  }
-
-  /**
-   * Gets the delimiter.
-   *
-   * <p>The delimiter to use as a separator between responses when `selection_policy`=`multiline`.
-   *
-   * @return the delimiter
-   */
-  public String delimiter() {
-    return delimiter;
-  }
-
-  /**
-   * Gets the channels.
-   *
-   * <p>An array of objects specifying channels for which the response is intended.
-   *
-   * @return the channels
-   */
-  public List<ResponseGenericChannel> channels() {
-    return channels;
   }
 }
