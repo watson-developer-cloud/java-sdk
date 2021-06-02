@@ -45,12 +45,10 @@ import com.ibm.watson.visual_recognition.v4.model.ListObjectMetadataOptions;
 import com.ibm.watson.visual_recognition.v4.model.Location;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.ObjectMetadataList;
-import com.ibm.watson.visual_recognition.v4.model.ObjectTrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.TrainOptions;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObject;
 import com.ibm.watson.visual_recognition.v4.model.TrainingDataObjects;
 import com.ibm.watson.visual_recognition.v4.model.TrainingEvents;
-import com.ibm.watson.visual_recognition.v4.model.TrainingStatus;
 import com.ibm.watson.visual_recognition.v4.model.UpdateCollectionOptions;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadata;
 import com.ibm.watson.visual_recognition.v4.model.UpdateObjectMetadataOptions;
@@ -178,21 +176,6 @@ public class VisualRecognitionTest {
             .setBody(mockResponseBody));
 
     constructClientService();
-
-    // Construct an instance of the ObjectTrainingStatus model
-    ObjectTrainingStatus objectTrainingStatusModel =
-        new ObjectTrainingStatus.Builder()
-            .ready(true)
-            .inProgress(true)
-            .dataChanged(true)
-            .latestFailed(true)
-            .rscnnReady(true)
-            .description("testString")
-            .build();
-
-    // Construct an instance of the TrainingStatus model
-    TrainingStatus trainingStatusModel =
-        new TrainingStatus.Builder().objects(objectTrainingStatusModel).build();
 
     // Construct an instance of the CreateCollectionOptions model
     CreateCollectionOptions createCollectionOptionsModel =
@@ -330,21 +313,6 @@ public class VisualRecognitionTest {
             .setBody(mockResponseBody));
 
     constructClientService();
-
-    // Construct an instance of the ObjectTrainingStatus model
-    ObjectTrainingStatus objectTrainingStatusModel =
-        new ObjectTrainingStatus.Builder()
-            .ready(true)
-            .inProgress(true)
-            .dataChanged(true)
-            .latestFailed(true)
-            .rscnnReady(true)
-            .description("testString")
-            .build();
-
-    // Construct an instance of the TrainingStatus model
-    TrainingStatus trainingStatusModel =
-        new TrainingStatus.Builder().objects(objectTrainingStatusModel).build();
 
     // Construct an instance of the UpdateCollectionOptions model
     UpdateCollectionOptions updateCollectionOptionsModel =
