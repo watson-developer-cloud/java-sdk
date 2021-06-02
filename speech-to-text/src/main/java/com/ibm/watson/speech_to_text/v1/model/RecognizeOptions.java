@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.speech_to_text.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.io.File;
 import java.io.FileInputStream;
@@ -134,7 +135,10 @@ public class RecognizeOptions extends GenericModel {
   }
 
   protected InputStream audio;
+
+  @SerializedName("content-type")
   protected String contentType;
+
   protected String model;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
