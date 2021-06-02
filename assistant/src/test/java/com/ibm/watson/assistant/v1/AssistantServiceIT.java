@@ -84,8 +84,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     MessageResponse response = service.message(options).execute().getResult();
     System.out.println(response);
 
-    RuntimeResponseGenericRuntimeResponseTypeText runtimeResponseGenericRuntimeResponseTypeText =
-        (RuntimeResponseGenericRuntimeResponseTypeText) response.getOutput().getGeneric().get(0);
+    RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeText = response.getOutput().getGeneric().get(0);
 
     assertNotNull(runtimeResponseGenericRuntimeResponseTypeText);
   }
