@@ -12,6 +12,23 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /** RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
 public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
-    extends RuntimeResponseGeneric {}
+    extends RuntimeResponseGeneric {
+
+  @SerializedName("transfer_info")
+  protected ChannelTransferInfo transferInfo;
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public ChannelTransferInfo transferInfo() {
+    return transferInfo;
+  }
+}
