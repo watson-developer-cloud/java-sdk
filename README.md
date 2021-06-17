@@ -194,6 +194,16 @@ Supplying the IAM API key:
 
 ```java
 // letting the SDK manage the IAM token
+Authenticator authenticator = new IamAuthenticator.Builder()
+            .apikey("<iam_api_key>")
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+```
+
+or
+
+```java
+// letting the SDK manage the IAM token
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
 Discovery service = new Discovery("2019-04-30", authenticator);
 ```
@@ -207,6 +217,16 @@ Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### Username and password
+
+```java
+Authenticator authenticator = new BasicAuthenticator.Builder()
+            .username("<username>")
+            .password("<password>")
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+```
+
+or
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
@@ -229,6 +249,21 @@ service.configureClient(options);
 
 #### Cloud Pak for Data
 Like IAM, you can pass in credentials to let the SDK manage an access token for you or directly supply an access token to do it yourself.
+
+```java
+// letting the SDK manage the token
+Authenticator authenticator = new CloudPakForDataAuthenticator.Builder()
+            .url("<CP4D token exchange base URL>")
+            .username("<username>")
+            .password("<password>")
+            .disableSSLVerification(true)
+            .headers(null)
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+service.setServiceUrl("<service CP4D URL>");
+```
+
+or
 
 ```java
 // letting the SDK manage the token
