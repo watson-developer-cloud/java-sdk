@@ -47,4 +47,4 @@ jobs:
 
     - name: Do not Publish Java code coverage
       if: !github.ref == 'refs/heads/master'
-      printf ">>>>> Bypassing code coverage publish step for feature branch/PR build.\n"
+      run: printf ">>>>> Bypassing code coverage publish step for feature branch/PR build.\n"
