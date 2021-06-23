@@ -43,4 +43,6 @@ jobs:
 
     - name: Publish Java code coverage
       if: github.ref == 'refs/heads/9258-gha'
-      run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CODECOV_TOKEN
+      env:
+        CC_TOK: ${{ secrets.CODECOV_TOKEN }}
+      run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CC_TOK
