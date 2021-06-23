@@ -39,11 +39,12 @@ jobs:
     - name: Execute Java unit tests
       env:
         MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
-      run: mvn verify -fae -DskipITs -Dskip.unit.tests $MVN_ARGS
+      run: mvn verify -fae -DskipITs $MVN_ARGS
 
     - name: Publish Java code coverage
-      env:
-        TRAVIS_BRANCH: ${{ github.ref }} # non PR only need to get last part
-        TRAVIS_PULL_REQUEST: ${{ github.event.number }}
-        TRAVIS_TAG: ${{ github.event.release.tag_name }}
-      run: build/publishCodeCoverage.sh
+      if: github.ref == 'refs/heads/master'
+      run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CODECOV_TOKEN
+
+    - name: Do not Publish Java code coverage
+      if: !github.ref == 'refs/heads/master'
+      printf ">>>>> Bypassing code coverage publish step for feature branch/PR build.\n"
