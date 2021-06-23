@@ -42,9 +42,5 @@ jobs:
       run: mvn verify -fae -DskipITs $MVN_ARGS
 
     - name: Publish Java code coverage
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/9258-gha'
       run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CODECOV_TOKEN
-
-    - name: Do not Publish Java code coverage
-      if: github.ref != 'refs/heads/master'
-      run: printf ">>>>> Bypassing code coverage publish step for feature branch/PR build.\n"
