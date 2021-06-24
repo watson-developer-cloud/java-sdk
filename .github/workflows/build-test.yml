@@ -42,7 +42,7 @@ jobs:
       run: mvn verify -fae -DskipITs $MVN_ARGS
 
     - name: Publish Java code coverage
-      if: github.ref == 'refs/heads/9258-gha'
+      if: github.ref == 'refs/heads/master'
       env:
         CC_TOK: ${{ secrets.CODECOV_TOKEN }}
       run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CC_TOK
