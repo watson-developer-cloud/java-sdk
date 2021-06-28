@@ -1,0 +1,48 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support documentation.
+# This workflow will do a clean install of java dependencies, build the source code and run tests across different versions of java
+# For more information see: https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+
+name: Build and Test
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build_test:
+    name: Build and Test on Java ${{ matrix.java-version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        java-version: ['8']
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: ${{ matrix.java-version }}
+        distribution: 'adopt'
+
+    - name: Install Java dependencies
+      run: curl -s https://codecov.io/bash > $HOME/codecov-bash.sh && chmod +x $HOME/codecov-bash.sh
+
+    - name: Execute Java unit tests
+      env:
+        MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+      run: mvn verify -fae -DskipITs $MVN_ARGS
+
+    - name: Publish Java code coverage
+      if: github.ref == 'refs/heads/master'
+      env:
+        CC_TOK: ${{ secrets.CODECOV_TOKEN }}
+      run: $HOME/codecov-bash.sh -s modules/coverage-reports/target/site/jacoco-aggregate -t $CC_TOK
