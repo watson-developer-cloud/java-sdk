@@ -62,7 +62,7 @@ jobs:
         GHA_JOB_NUMBER: ${{ github.job_number }}
         GHA_COMMIT: ${{ github.sha }}
         GHA_TAG: ${{ github.event.release.tag_name }}
-        # TRAVIS_TAG: ${{ github.event.release.tag_name }}
+        TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
       run: |
         build/setMavenVersion.sh
         mvn clean javadoc:aggregate $MVN_ARGS

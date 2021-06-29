@@ -4,9 +4,9 @@
 # The javadocs are committed and pushed to the git repository's gh-pages branch.
 # Be sure to customize this file to reflect your SDK project's settings (git url, 
 
+export GHA_BRANCH=${GHA_BRANCH##*/}    # Get the last part for true branch name - "refs/heads/9260_gha"
 # Avoid publishing javadocs for a PR build
 if [ "$GHA_PULL_REQUEST" == "false" ] && [ "$GHA_BRANCH" ]; then
-    export GHA_BRANCH=${GHA_BRANCH##*/}    # Get the last part for true branch name - "refs/heads/9260_gha"
     printf "\n>>>>> Publishing javadoc for release build: repo=%s branch=%s build_num=%s job_num=%s pr=%s tag=%s commit=%s\n" ${GHA_REPO_SLUG} ${GHA_BRANCH} ${GHA_BUILD_NUMBER} ${GHA_JOB_NUMBER} ${GHA_PULL_REQUEST} ${GHA_TAG} ${GHA_COMMIT}
 
     printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'\n"
