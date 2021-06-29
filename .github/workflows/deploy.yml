@@ -17,6 +17,8 @@ jobs:
   deploy:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     name: Deploy and Publish
+    env:
+      MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
     runs-on: ubuntu-latest
 
     steps:
@@ -31,8 +33,6 @@ jobs:
         distribution: 'adopt'
 
     - name: Build Java package
-      env:
-        MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
       run: mvn verify -fae -DskipITs -Dskip.unit.tests $MVN_ARGS
 
     - name: Setup Node
@@ -65,5 +65,5 @@ jobs:
         # TRAVIS_TAG: ${{ github.event.release.tag_name }}
       run: |
         build/setMavenVersion.sh
-        mvn clean javadoc:aggregate
+        mvn clean javadoc:aggregate $MVN_ARGS
         build/publish_gha.sh
