@@ -59,11 +59,13 @@ jobs:
       run: npx semantic-release --dry-run --branches 9520_gha  # Uncomment for testing purposes
 
     - name: Publish to Maven Central
+      if: ${{ github.event.workflow_run.conclusion == 'success' }}
       env:
         TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
       run: |
         build/setupSigning.sh
         build/setMavenVersion.sh
+        mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: Publish Java docs
       if: ${{ github.event.workflow_run.conclusion == 'success' }}
