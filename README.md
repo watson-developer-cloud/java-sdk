@@ -1,6 +1,6 @@
 # Watson APIs Java SDK
-[![Build and Test](https://github.com/watson-developer-cloud/java-sdk/workflows/Build%20and%20Test/badge.svg?branch=master)](https://github.com/watson-developer-cloud/java-sdk/actions?query=workflow%3A"Build+and+Test")
-[![Deploy and Publish](https://github.com/watson-developer-cloud/java-sdk/workflows/Deploy%20and%20Publish/badge.svg?branch=master)](https://github.com/watson-developer-cloud/java-sdk/actions?query=workflow%3A%22Deploy+and+Publish%22)
+[![Build and Test](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/build-test.yml/badge.svg)](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/build-test.yml)
+[![Deploy and Publish](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/deploy.yml/badge.svg)](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/deploy.yml)
 [![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
