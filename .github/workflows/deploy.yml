@@ -59,10 +59,12 @@ jobs:
       run: npx semantic-release --dry-run --branches 9520_gha  # Uncomment for testing purposes
 
     - name: Publish to Maven Central
+      if: startsWith(github.ref, 'refs/tags/v')
       env:
-        TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
+        # TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
+        TRAVIS_TAG: ${GITHUB_REF##*/} # for setMavenVersion
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
-        OSSRH_PASSWORD: ${{ secrets.OSSRH_USERNAME }}
+        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
       run: |
         build/setupSigning.sh
         build/setMavenVersion.sh
