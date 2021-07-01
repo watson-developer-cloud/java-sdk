@@ -61,12 +61,12 @@ jobs:
     - name: Publish to Maven Central
       env:
         # TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
-        TRAVIS_TAG: ${GITHUB_REF##*/} # for setMavenVersion
+        GHA_TAG: ${{ github.ref }} # non PR only need to get last part
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_USERNAME }}
       run: |
         build/setupSigning.sh
-        build/setMavenVersion.sh
+        build/setMavenVersion_gha.sh
         mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: Publish Java docs
@@ -79,9 +79,8 @@ jobs:
         GHA_BUILD_NUMBER: ${{ github.run_number }}
         GHA_JOB_NUMBER: ${{ github.job_number }}
         GHA_COMMIT: ${{ github.sha }}
-        GHA_TAG: ${{ github.event.release.tag_name }}
-        TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
+        GHA_TAG: ${{ github.ref }} # for setMavenVersion_gha
       run: |
-        build/setMavenVersion.sh
+        build/setMavenVersion_gha.sh
         mvn clean javadoc:aggregate $MVN_ARGS
         build/publish_gha.sh
