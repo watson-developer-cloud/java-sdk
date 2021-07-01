@@ -60,7 +60,6 @@ jobs:
 
     - name: Publish to Maven Central
       env:
-        # TRAVIS_TAG: ${{ github.event.release.tag_name }} # for setMavenVersion
         GHA_TAG: ${{ github.ref }} # non PR only need to get last part
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_USERNAME }}
