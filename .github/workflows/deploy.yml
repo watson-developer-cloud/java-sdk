@@ -59,7 +59,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release --dry-run --branches 9520_gha  # Uncomment for testing purposes
+      run: npx semantic-release # --dry-run --branches 9520_gha 
 
     - name: Publish to Maven Central
       if: startsWith(github.ref, 'refs/tags/v')
