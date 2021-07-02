@@ -110,10 +110,6 @@ Only Assistant:
 'com.ibm.watson:assistant:9.2.0'
 ```
 
-##### JAR
-
-Download the jar with dependencies [here][jar].
-
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson).
 
 ## Usage
