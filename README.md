@@ -11,51 +11,6 @@
 
 Java client library to use the [Watson APIs][wdc].
 
-<details>
-  <summary>Table of Contents</summary>
-
-  * [Before you begin](#before-you-begin)
-  * [Installation](#installation)
-    * [Maven](#maven)
-    * [Gradle](#gradle)
-  * [Usage](#usage)
-  * [Running in IBM Cloud](#running-in-ibm-cloud)
-  * [Authentication](#authentication)
-    * [IAM](#iam)
-    * [Username and password](#username-and-password)
-    * [ICP](#icp)
-    * [Cloud Pak for Data](#cloud-pak-for-data)
-  * [Using the SDK](#using-the-sdk)
-    * [Parsing responses](#parsing-responses)
-    * [Configuring the HTTP client](#configuring-the-http-client)
-    * [Making asynchronous API calls](#making-asynchronous-api-calls)
-    * [Default headers](#default-headers)
-    * [Sending request headers](#sending-request-headers)
-    * [Canceling requests](#canceling-requests)
-    * [Transaction IDs](#transaction-ids)
-  * [FAQ](#faq)
-  * IBM Watson Services
-    * [Assistant](assistant)
-    * [Compare and Comply](compare-comply)
-    * [Discovery](discovery)
-    * [Language Translator](language-translator)
-    * [Natural Language Classifier](natural-language-classifier)
-    * [Natural Language Understanding](natural-language-understanding)
-    * [Personality Insights](personality-insights)
-    * [Speech to Text](speech-to-text)
-    * [Text to Speech](text-to-speech)
-    * [Tone Analyzer](tone-analyzer)
-    * [Tradeoff Analytics](tradeoff-analytics)
-    * [Visual Recognition](visual-recognition)
-  * [Android](#android)
-  * [Debug](#debug)
-  * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
-  * [License](#license)
-  * [Contributing](#contributing)
-  * [Featured projects](#featured-projects)
-
-</details>
-
 ## Announcements
 ### Updating endpoint URLs from watsonplatform.net
 Watson API endpoint URLs at watsonplatform.net are changing and will not work after 26 May 2021. Update your calls to use the newer endpoint URLs. For more information, see https://cloud.ibm.com/docs/watson?topic=watson-endpoint-change.
