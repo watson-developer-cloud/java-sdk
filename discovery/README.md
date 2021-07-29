@@ -20,7 +20,7 @@
 
 ## Usage
 
-This SDK supports both the Discovery v1 and v2 APIs. Please note that the Discovery v2 API is accessible **only** on Cloud Pak for Data.
+This SDK supports both the Discovery v1 and v2 APIs.
 
 Otherwise, the APIs are fairly similar, offering the ability to manage collections of documents and query them for insights. You can learn more about the Discovery service [here](https://cloud.ibm.com/docs/discovery?topic=discovery-gs-api).
 
