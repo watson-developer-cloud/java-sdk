@@ -1,3 +1,13 @@
+## [9.2.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.0...v9.2.1) (2021-08-17)
+
+
+### Bug Fixes
+
+* **deploy:** use bump2version ([d4bbc44](https://github.com/watson-developer-cloud/java-sdk/commit/d4bbc44cd49b4227cd2338f99a0aad58c0019753))
+* **deploy:** use python ([03168b4](https://github.com/watson-developer-cloud/java-sdk/commit/03168b48e64780f3d17eb714f2adf6ff8c479d26))
+* **deploy.xml:** fix typo on deploy.xml gha ([9136c47](https://github.com/watson-developer-cloud/java-sdk/commit/9136c47c549be29b7b600e844946da928ca42890))
+* **pom.xml:** update java-sdk-core version ([c6814a5](https://github.com/watson-developer-cloud/java-sdk/commit/c6814a58a4a271689fa1df8d3dc4772c838bce05))
+
 # [9.2.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.1.1...v9.2.0) (2021-06-02)
 
 
