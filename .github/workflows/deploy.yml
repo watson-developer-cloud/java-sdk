@@ -30,9 +30,9 @@ jobs:
         persist-credentials: false
 
     - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.8'
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
 
     - name: Set up Java
       uses: actions/setup-java@v2
