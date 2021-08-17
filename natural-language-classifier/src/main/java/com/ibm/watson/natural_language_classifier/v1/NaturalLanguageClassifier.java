@@ -52,6 +52,14 @@ import okhttp3.MultipartBody;
  * @see <a href="https://cloud.ibm.com/docs/natural-language-classifier">Natural Language
  *     Classifier</a>
  */
+
+ /**
+ * @deprecated On 9 August 2021, IBM announced the deprecation of the Natural Language Classifier service.
+ * The service will no longer be available from 8 August 2022. As of 9 September 2021, you will not be able to create new instances.
+ * Existing instances will be supported until 8 August 2022. Any instance that still exists on that date will be deleted.
+ * (https://github.com/watson-developer-cloud/java-sdk/tree/master#natural-language-classifier-deprecation).
+ */
+@Deprecated
 public class NaturalLanguageClassifier extends BaseService {
 
   public static final String DEFAULT_SERVICE_NAME = "natural_language_classifier";
