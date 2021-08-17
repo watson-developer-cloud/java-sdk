@@ -100,6 +100,12 @@ public class NaturalLanguageClassifier extends BaseService {
     super(serviceName, authenticator);
     setServiceUrl(DEFAULT_SERVICE_URL);
     this.configureService(serviceName);
+
+    System.err.println(
+      "On 9 August 2021, IBM announced the deprecation of the Natural Language Classifier service."
+        + "\nThe service will no longer be available from 8 August 2022. As of 9 September 2021, you will not be able to create new instances." 
+        + "\nExisting instances will be supported until 8 August 2022. Any instance that still exists on that date will be deleted."
+        + "\n(https://github.com/watson-developer-cloud/java-sdk/tree/master#natural-language-classifier-deprecation).");
   }
 
   /**
