@@ -7,10 +7,11 @@
 name: Deploy and Publish
 
 on:
-  push:
-    branches: [ '**' ]
-  pull_request:
+  workflow_run:
+    workflows: ["Build and Test"]
     branches: [ master ]
+    types:
+      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -63,14 +64,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: echo ::set-output name=IS_NEW_RELEASE::$(npx semantic-release --dry-run --branches 9662_addcheck | grep -c -i "Published release")
+      run: echo ::set-output name=IS_NEW_RELEASE::$(npx semantic-release --dry-run | grep -c -i "Published release")
 
     - name: Publish to Git Releases and Tags
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release --dry-run --branches 9662_addcheck
+      run: npx semantic-release # --dry-run --branches 9662_addcheck
 
     - name: Publish to Maven Central
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
