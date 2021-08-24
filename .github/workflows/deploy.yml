@@ -59,15 +59,22 @@ jobs:
         npm install -g @semantic-release/commit-analyzer
         npm install -g @semantic-release/release-notes-generator
 
-    - name: Publish to Git Releases and Tags
-      if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    - name: Check if semantic release generated a release
+      id: is_new_release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release # --dry-run --branches 9520_gha 
+      run: echo ::set-output name=IS_NEW_RELEASE::$(npx semantic-release --dry-run | grep -c -i "Published release")
+
+    - name: Publish to Git Releases and Tags
+      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release # --dry-run --branches 9662_addcheck
 
     - name: Publish to Maven Central
-      if: startsWith(github.ref, 'refs/tags/v')
+      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
       env:
         GHA_TAG: ${{ github.ref }} # non PR only need to get last part
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
@@ -78,7 +85,7 @@ jobs:
         mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: Publish Java docs
-      if: startsWith(github.ref, 'refs/tags/v')
+      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         GHA_REPO_SLUG: ${{ github.repository }}
@@ -92,3 +99,8 @@ jobs:
         build/setMavenVersion_gha.sh
         mvn clean javadoc:aggregate $MVN_ARGS
         build/publish_gha.sh
+
+    - name: SKIP - Publish/Deploy to Git and Maven Central
+      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
+      run: |
+        echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
