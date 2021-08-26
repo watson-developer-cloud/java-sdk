@@ -77,4 +77,4 @@ jobs:
       run: |
         echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
         echo "next release is "
-        echo ${{ steps.is_next_release.outputs.NEXT_RELEASE }}
+        echo ${{ steps.next_release.outputs.NEXT_RELEASE }}
