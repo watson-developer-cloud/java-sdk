@@ -66,7 +66,6 @@ jobs:
       run: echo ::set-output name=IS_NEW_RELEASE::$(npx semantic-release --dry-run | grep -c -i "Published release")
 
     - name: Get the nextRelease.version from semantic release
-      if: ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
       id: next_release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -77,3 +76,5 @@ jobs:
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
       run: |
         echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
+        echo "next release is "
+        echo ${{ steps.is_new_release.outputs.NEXT_RELEASE }}
