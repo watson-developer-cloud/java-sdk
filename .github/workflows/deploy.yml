@@ -7,11 +7,10 @@
 name: Deploy and Publish
 
 on:
-  workflow_run:
-    workflows: ["Build and Test"]
+  push:
+    branches: [ '**' ]
+  pull_request:
     branches: [ master ]
-    types:
-      - completed
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -73,43 +72,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -Po "Published release \K.*? ")
-
-    - name: Publish to Git Releases and Tags
-      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npx semantic-release # --dry-run --branches 9662_addcheck
-
-    - name: Publish to Maven Central
-      if:  ${{ steps.next_release.outputs.IS_NEW_RELEASE == '1' }}
-      env:
-        GHA_TAG: ${{ steps.is_new_release.outputs.NEXT_RELEASE }} # non PR only need to get last part
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
-        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }}
-      run: |
-        build/setupSigning_gha.sh
-        build/setMavenVersion_gha.sh
-        mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
-
-    - name: Publish Java docs
-      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        GHA_REPO_SLUG: ${{ github.repository }}
-        GHA_BRANCH: ${{ github.ref }} # non PR only need to get last part
-        GHA_PULL_REQUEST: ${{ github.event.number }}
-        GHA_BUILD_NUMBER: ${{ github.run_number }}
-        GHA_JOB_NUMBER: ${{ github.job_number }}
-        GHA_COMMIT: ${{ github.sha }}
-        GHA_TAG: ${{ github.ref }} # for setMavenVersion_gha
-      run: |
-        build/setMavenVersion_gha.sh
-        mvn clean javadoc:aggregate $MVN_ARGS
-        build/publish_gha.sh
 
     - name: SKIP - Publish/Deploy to Git and Maven Central
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
