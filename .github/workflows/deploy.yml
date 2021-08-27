@@ -67,3 +67,5 @@ jobs:
       run: |
         build/setupSigning_gha.sh
         build/setMavenVersion_gha.sh
+        echo ${{ github.ref }}
+
