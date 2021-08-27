@@ -58,13 +58,6 @@ jobs:
         npm install -g @semantic-release/commit-analyzer
         npm install -g @semantic-release/release-notes-generator
 
-    - name: Check if semantic release generated a release
-      id: is_new_release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: echo ::set-output name=IS_NEW_RELEASE::$(npx semantic-release --dry-run | grep -c -i "Published release")
-
     - name: Get the nextRelease.version from semantic release
       id: next_release
       env:
@@ -72,9 +65,15 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -Po "semantic-release version \K.*? ")
 
-    - name: SKIP - Publish/Deploy to Git and Maven Central
-      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
+    - name: Publish to Maven Central
+      if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '1' }}
+      env:
+        GHA_TAG: ${{ steps.next_release.outputs.NEXT_RELEASE }} # for setMavenVersion_gha
+        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
+        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+        SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setMavenVersion_gha
       run: |
-        echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
-        echo "next release is "
-        echo ${{ steps.next_release.outputs.NEXT_RELEASE }}
+        build/setupSigning_gha.sh
+        build/setMavenVersion_gha.sh
