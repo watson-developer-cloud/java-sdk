@@ -59,13 +59,12 @@ jobs:
         npm install -g @semantic-release/release-notes-generator
 
     - name: Publish to Maven Central
+      if: "startsWith(github.ref, 'refs/heads/g')"
       env:
-        GHA_TAG: "refs/heads/v9.2.1"
+        GHA_TAG: ${{ github.ref }}
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setMavenVersion_gha
       run: |
         build/setupSigning_gha.sh
         build/setMavenVersion_gha.sh
-        echo ${{ github.ref }}
-
