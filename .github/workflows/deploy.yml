@@ -68,7 +68,7 @@ jobs:
     - name: Publish to Maven Central
       if: ${{ steps.next_release.outputs.NEXT_RELEASE }}
       env:
-        GHA_TAG: "9.2.1"
+        GHA_TAG: "v9.2.1"
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
