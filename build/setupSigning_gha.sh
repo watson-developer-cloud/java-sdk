@@ -15,7 +15,7 @@ echo "Importing signing key..."
 gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_PASSPHRASE" --output ./build/signing.key ./build/signing.key.gpg
 
 gpg --version
-gpg --fast-import ./build/signing.key
+gpg --import ./build/signing.key
 rm ./build/signing.key
 
 echo "Signing key import finished!"
