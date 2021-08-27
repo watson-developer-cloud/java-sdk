@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export GPG_TTY=$(tty)
+# export GPG_TTY=$(tty)
 
 set -x
 
@@ -15,7 +15,7 @@ echo "Importing signing key..."
 gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_PASSPHRASE" --output ./build/signing.key ./build/signing.key.gpg
 
 gpg --version
-gpg --import ./build/signing.key
+gpg --no-tty --batch --yes --import ./build/signing.key
 rm ./build/signing.key
 
 echo "Signing key import finished!"
