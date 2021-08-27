@@ -58,18 +58,9 @@ jobs:
         npm install -g @semantic-release/commit-analyzer
         npm install -g @semantic-release/release-notes-generator
 
-    - name: Get the nextRelease.version from semantic release
-      id: next_release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: |
-        echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -o "semantic-release version")
-        echo ${{ steps.next_release.outputs.NEXT_RELEASE }}
-
     - name: Publish to Maven Central
       env:
-        GHA_TAG: "v9.2.1"
+        GHA_TAG: "refs/heads/v9.2.1"
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setMavenVersion_gha

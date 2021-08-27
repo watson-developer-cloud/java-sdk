@@ -2,7 +2,7 @@
 
 # This script will check $GHA_TAG to see if we need to run maven to
 # set the artifact version #'s.
-# export GHA_TAG=${GHA_TAG##*/}    # Get the last part for true tag name - "refs/heads/9260_gha"
+export GHA_TAG=${GHA_TAG##*/}    # Get the last part for true tag name - "refs/heads/9260_gha"
 
 if [[ -n "${GHA_TAG}" ]]; then
     printf "\n>>>>> Setting artifact version #'s to: %s\n" ${GHA_TAG}
