@@ -61,10 +61,11 @@ jobs:
     - name: Publish to Maven Central
       if: "startsWith(github.ref, 'refs/heads/g')"
       env:
-        GHA_TAG: ${{ github.ref }}
+        GHA_TAG: ${{ github.ref }} # for setMavenVersion_gha
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setMavenVersion_gha
+        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setupSigning_gha
       run: |
+        echo "The full TAG - ${{ github.ref }}"
         build/setupSigning_gha.sh
         build/setMavenVersion_gha.sh
