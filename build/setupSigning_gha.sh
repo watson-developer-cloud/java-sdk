@@ -10,11 +10,11 @@ echo "Importing signing key..."
 
 # Modify the command below to use the correct environment variables
 # that were added to your Travis build settings when you encrypted your signing.key file.
-gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_PASSPHRASE" --output build/signing.key build/signing.key.gpg
+gpg --quiet --batch --yes --decrypt --passphrase="$SIGNING_PASSPHRASE" --output ./build/signing.key ./build/signing.key.gpg
 
 export GPG_TTY=$(tty)
 gpg --version
-gpg --fast-import build/signing.key
-rm build/signing.key
+gpg --fast-import ./build/signing.key
+rm ./build/signing.key
 
 echo "Signing key import finished!"
