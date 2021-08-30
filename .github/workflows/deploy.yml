@@ -72,7 +72,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -o "semantic-release version \K[0-9]+\.[0-9]+\.[0-9]+")
+      run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -oP "semantic-release version \K[0-9]+\.[0-9]+\.[0-9]+")
 
     - name: Publish to Maven Central
       if: "startsWith(github.ref, 'refs/tags/v')"
