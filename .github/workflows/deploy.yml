@@ -72,7 +72,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -o "semantic-release version")
+      run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -o "semantic-release version \K[0-9]+\.[0-9]+\.[0-9]+")
 
     - name: Publish to Maven Central
       if: "startsWith(github.ref, 'refs/tags/v')"
@@ -105,4 +105,4 @@ jobs:
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
       run: |
         echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
-        echo "The full TAG - ${{ steps.next_release.outputs.NEXT_RELEASE }}"
+        echo "The NEXT_RELEASE - ${{ steps.next_release.outputs.NEXT_RELEASE }}"
