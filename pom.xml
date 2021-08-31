@@ -511,6 +511,7 @@
                             <gpgArguments>
                                 <gpgArgument>--batch</gpgArgument>
                                 <gpgArgument>--yes</gpgArgument>
+                                <gpgArgument>--no-tty</gpgArgument>
                             </gpgArguments>
                         </configuration>
                     </plugin>
