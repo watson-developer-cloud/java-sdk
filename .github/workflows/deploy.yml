@@ -83,6 +83,7 @@ jobs:
       run: |
         build/setupSigning_gha.sh
         build/setMavenVersion_gha.sh
+        mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: SKIP - Publish/Deploy to Git and Maven Central
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
