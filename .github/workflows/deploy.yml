@@ -75,7 +75,6 @@ jobs:
       run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -oP "Published release \K[0-9]+\.[0-9]+\.[0-9]+")
 
     - name: Publish to Maven Central
-      if: ${{ steps.next_release.outputs.NEXT_RELEASE }}
       env:
         GHA_TAG: "refs/tags/v9.2.1" # for setMavenVersion_gha
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
