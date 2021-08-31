@@ -80,8 +80,8 @@ jobs:
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         GPG_KEYNAME: ${{ secrets.SIGNING_KEY }}
-        GPG_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }}
-        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSWORD }} # for setupSigning_gha
+        GPG_PASSPHRASE: ${{ secrets.SIGNING_PASSWORD }}
+        SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setupSigning_gha
       run: |
         echo -e "\n\033[0;35mCommand: setupSigning"
         build/setupSigning_gha.sh
