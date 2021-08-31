@@ -81,8 +81,11 @@ jobs:
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setupSigning_gha
       run: |
+        echo -e "\n\033[0;35mCommand: setupSigning"
         build/setupSigning_gha.sh
+        echo -e "\n\033[0;35mCommand: setMavenVersion"
         build/setMavenVersion_gha.sh
+        echo -e "\n\033[0;35mCommand: mvn deploy"
         mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: SKIP - Publish/Deploy to Git and Maven Central
