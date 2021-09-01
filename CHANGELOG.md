@@ -1,3 +1,10 @@
+## [9.2.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.1...v9.2.2) (2021-09-01)
+
+
+### Bug Fixes
+
+* **nlc:** add a deprecation message ([#1185](https://github.com/watson-developer-cloud/java-sdk/issues/1185)) ([b460cdd](https://github.com/watson-developer-cloud/java-sdk/commit/b460cddc4e1b27765441a8cfc1e0139bd92b5ff7))
+
 ## [9.2.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.0...v9.2.1) (2021-08-17)
 
 
