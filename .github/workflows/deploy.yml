@@ -84,14 +84,16 @@ jobs:
       run: npx semantic-release # --dry-run --branches 9662_addcheck
 
     - name: Publish to Maven Central
+      if: ${{ steps.next_release.outputs.NEXT_RELEASE }}
       env:
-        GHA_TAG: "refs/tags/v9.2.2" # for setMavenVersion_gha
+        GHA_TAG: "refs/tags/v${{ steps.next_release.outputs.NEXT_RELEASE }}" # for setMavenVersion_gha
         OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
         OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         GPG_KEYNAME: ${{ secrets.SIGNING_KEY }}
         GPG_PASSPHRASE: ${{ secrets.SIGNING_PASSWORD }}
         SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setupSigning_gha
       run: |
+        echo "The NEXT_RELEASE - ${{ steps.next_release.outputs.NEXT_RELEASE }}"
         echo -e "\n\033[0;35mCommand: setupSigning"
         build/setupSigning_gha.sh
         echo -e "\n\033[0;35mCommand: setMavenVersion"
@@ -100,6 +102,7 @@ jobs:
         mvn deploy --settings build/.travis.settings.xml -DskipITs -Dskip.unit.tests -P central $MVN_ARGS
 
     - name: Publish Java docs
+      if: ${{ steps.next_release.outputs.NEXT_RELEASE }}
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         GHA_REPO_SLUG: ${{ github.repository }}
@@ -108,7 +111,7 @@ jobs:
         GHA_BUILD_NUMBER: ${{ github.run_number }}
         GHA_JOB_NUMBER: ${{ github.job_number }}
         GHA_COMMIT: ${{ github.sha }}
-        GHA_TAG: "refs/tags/v9.2.2" # for setMavenVersion_gha
+        GHA_TAG: "refs/tags/v${{ steps.next_release.outputs.NEXT_RELEASE }}" # for setMavenVersion_gha
       run: |
         build/setMavenVersion_gha.sh
         mvn clean javadoc:aggregate $MVN_ARGS
@@ -118,4 +121,3 @@ jobs:
       if:  ${{ steps.is_new_release.outputs.IS_NEW_RELEASE == '0' }}
       run: |
         echo -e "\n\033[0;35mCommand: Skipping the deployment because semantic release has determined there are no relevant changes that warrent a new release.\n"
-        echo "The NEXT_RELEASE - ${{ steps.next_release.outputs.NEXT_RELEASE }}"
