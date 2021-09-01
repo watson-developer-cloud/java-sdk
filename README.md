@@ -43,7 +43,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>ibm-watson</artifactId>
-	<version>9.2.1</version>
+	<version>9.2.2</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ Only Discovery:
 <dependency>
 	<groupId>com.ibm.watson</groupId>
 	<artifactId>discovery</artifactId>
-	<version>9.2.1</version>
+	<version>9.2.2</version>
 </dependency>
 ```
 
@@ -61,13 +61,13 @@ Only Discovery:
 All the services:
 
 ```gradle
-'com.ibm.watson:ibm-watson:9.2.1'
+'com.ibm.watson:ibm-watson:9.2.2'
 ```
 
 Only Assistant:
 
 ```gradle
-'com.ibm.watson:assistant:9.2.1'
+'com.ibm.watson:assistant:9.2.2'
 ```
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/src/main/java/com/ibm/watson).
@@ -433,7 +433,7 @@ We do :sunglasses:  http://ibm.github.io/
 ## Featured projects
 We'd love to highlight cool open-source projects that use this SDK! If you'd like to get your project added to the list, feel free to make an issue linking us to it.
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/v9.2.1/ibm-watson-9.2.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/v9.2.2/ibm-watson-9.2.2-jar-with-dependencies.jar
 
 ## Contributors ✨
 
