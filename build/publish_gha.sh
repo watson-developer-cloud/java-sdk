@@ -5,7 +5,7 @@
 # Be sure to customize this file to reflect your SDK project's settings
 
 export GHA_TAG=${GHA_TAG##*/}    # Get the last part for true tag name - "refs/heads/vx.x.x"
-printf "\n>>>>> Publishing javadoc for release build\n"
+printf "\n>>>>> Publishing javadoc for release build: %s\n" ${GHA_TAG}
 
 printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'\n"
 rm -fr ./gh-pages
@@ -31,7 +31,6 @@ printf "\n>>>>> Updated 'docs/latest' symlink:\n"
 ls -l latest
 popd
 
-printf "\n>>>>> Committing new javadoc for release: %s\n" ${GHA_TAG}
 printf "\n>>>>> Committing new javadoc for commit: %s\n" ${github.sha}
 # git add -f .
 # git commit -m "chore: Javadoc for release ${GHA_TAG} (${github.sha})"
