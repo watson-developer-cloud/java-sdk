@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.personality_insights.v3;
@@ -62,8 +62,7 @@ import java.util.Map.Entry;
  * whether you set the `X-Watson-Learning-Opt-Out` request header, the service does not log or
  * retain data from requests and responses.
  *
- * @version v3
- * @see <a href="https://cloud.ibm.com/docs/personality-insights">Personality Insights</a>
+ * <p>API Version: 3.4.4 See: https://cloud.ibm.com/docs/personality-insights
  */
 
 /**
