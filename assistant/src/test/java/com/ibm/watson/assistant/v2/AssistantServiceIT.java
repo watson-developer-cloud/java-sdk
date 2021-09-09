@@ -227,7 +227,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
                 response.getOutput().getGeneric().get(0);
 
-    assertNotNull(null);
+    assertNotNull(runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo());
   }
   /** Test Delete User Data. */
   /*
