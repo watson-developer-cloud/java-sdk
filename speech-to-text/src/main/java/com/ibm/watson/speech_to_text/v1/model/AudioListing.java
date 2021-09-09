@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,7 +19,7 @@ import java.util.List;
 public class AudioListing extends GenericModel {
 
   /**
-   * **For an audio-type resource,** the status of the resource: * `ok`: The service successfully
+   * _For an audio-type resource_, the status of the resource: * `ok`: The service successfully
    * analyzed the audio data. The data can be used to train the custom model. * `being_processed`:
    * The service is still analyzing the audio data. The service cannot accept requests to add new
    * audio resources or to train the custom model until its analysis is complete. * `invalid`: The
@@ -47,7 +47,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the duration.
    *
-   * <p>**For an audio-type resource,** the total seconds of audio in the resource. Omitted for an
+   * <p>_For an audio-type resource_, the total seconds of audio in the resource. Omitted for an
    * archive-type resource.
    *
    * @return the duration
@@ -59,7 +59,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the name.
    *
-   * <p>**For an audio-type resource,** the user-specified name of the resource. Omitted for an
+   * <p>_For an audio-type resource_, the user-specified name of the resource. Omitted for an
    * archive-type resource.
    *
    * @return the name
@@ -71,7 +71,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the details.
    *
-   * <p>**For an audio-type resource,** an `AudioDetails` object that provides detailed information
+   * <p>_For an audio-type resource_, an `AudioDetails` object that provides detailed information
    * about the resource. The object is empty until the service finishes processing the audio.
    * Omitted for an archive-type resource.
    *
@@ -84,7 +84,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the status.
    *
-   * <p>**For an audio-type resource,** the status of the resource: * `ok`: The service successfully
+   * <p>_For an audio-type resource_, the status of the resource: * `ok`: The service successfully
    * analyzed the audio data. The data can be used to train the custom model. * `being_processed`:
    * The service is still analyzing the audio data. The service cannot accept requests to add new
    * audio resources or to train the custom model until its analysis is complete. * `invalid`: The
@@ -102,8 +102,8 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the container.
    *
-   * <p>**For an archive-type resource,** an object of type `AudioResource` that provides
-   * information about the resource. Omitted for an audio-type resource.
+   * <p>_For an archive-type resource_, an object of type `AudioResource` that provides information
+   * about the resource. Omitted for an audio-type resource.
    *
    * @return the container
    */
@@ -114,7 +114,7 @@ public class AudioListing extends GenericModel {
   /**
    * Gets the audio.
    *
-   * <p>**For an archive-type resource,** an array of `AudioResource` objects that provides
+   * <p>_For an archive-type resource_, an array of `AudioResource` objects that provides
    * information about the audio-type resources that are contained in the resource. Omitted for an
    * audio-type resource.
    *

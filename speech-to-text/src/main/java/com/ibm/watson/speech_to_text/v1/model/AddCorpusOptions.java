@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -183,9 +183,10 @@ public class AddCorpusOptions extends GenericModel {
    * if it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters
    * non-ASCII characters.
    *
-   * <p>Make sure that you know the character encoding of the file. You must use that encoding when
-   * working with the words in the custom language model. For more information, see [Character
-   * encoding](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#charEncoding).
+   * <p>Make sure that you know the character encoding of the file. You must use that same encoding
+   * when working with the words in the custom language model. For more information, see [Character
+   * encoding for custom
+   * words](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#charEncoding).
    *
    * <p>With the `curl` command, use the `--data-binary` option to upload the file for the request.
    *

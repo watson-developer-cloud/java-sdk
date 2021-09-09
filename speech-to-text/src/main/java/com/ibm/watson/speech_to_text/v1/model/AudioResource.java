@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -54,9 +54,9 @@ public class AudioResource extends GenericModel {
   /**
    * Gets the name.
    *
-   * <p>**For an archive-type resource,** the user-specified name of the resource.
+   * <p>_For an archive-type resource_, the user-specified name of the resource.
    *
-   * <p>**For an audio-type resource,** the user-specified name of the resource or the name of the
+   * <p>_For an audio-type resource_, the user-specified name of the resource or the name of the
    * audio file that the user added for the resource. The value depends on the method that is
    * called.
    *

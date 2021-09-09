@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -106,11 +106,10 @@ import okhttp3.WebSocket;
  * content in the UTF-8 character set.
  *
  * <p>The service supports two types of models: previous-generation models that include the terms
- * `Broadband` and `Narrowband` in their names, and beta next-generation models that include the
- * terms `Multimedia` and `Telephony` in their names. Broadband and multimedia models have minimum
+ * `Broadband` and `Narrowband` in their names, and next-generation models that include the terms
+ * `Multimedia` and `Telephony` in their names. Broadband and multimedia models have minimum
  * sampling rates of 16 kHz. Narrowband and telephony models have minimum sampling rates of 8 kHz.
- * The beta next-generation models currently support fewer languages and features, but they offer
- * high throughput and greater transcription accuracy.
+ * The next-generation models offer high throughput and greater transcription accuracy.
  *
  * <p>For speech recognition, the service supports synchronous and asynchronous HTTP
  * Representational State Transfer (REST) interfaces. It also supports a WebSocket interface that
@@ -123,13 +122,12 @@ import okhttp3.WebSocket;
  * model customization, the service also supports grammars. A grammar is a formal language
  * specification that lets you restrict the phrases that the service can recognize.
  *
- * <p>Language model customization and acoustic model customization are generally available for
- * production use with all previous-generation models that are generally available. Grammars are
- * beta functionality for all previous-generation models that support language model customization.
- * Next-generation models do not support customization at this time.
+ * <p>Language model customization is available for most previous- and next-generation models.
+ * Acoustic model customization is available for all previous-generation models. Grammars are beta
+ * functionality that is available for all previous-generation models that support language model
+ * customization.
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/speech-to-text">Speech to Text</a>
+ * <p>API Version: 1.0.0 See: https://cloud.ibm.com/docs/speech-to-text
  */
 public class SpeechToText extends BaseService {
 
@@ -317,10 +315,6 @@ public class SpeechToText extends BaseService {
    *
    * <p>### Next-generation models
    *
-   * <p>**Note:** The next-generation language models are beta functionality. They support a limited
-   * number of languages and features at this time. The supported languages, models, and features
-   * will increase with future releases.
-   *
    * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
    * for many languages. Next-generation models have higher throughput than the service's previous
    * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
@@ -328,13 +322,13 @@ public class SpeechToText extends BaseService {
    * accuracy.
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Next-generation models support the same request headers as
-   * previous-generation models, but they support only the following additional query parameters: *
-   * `background_audio_suppression` * `inactivity_timeout` * `profanity_filter` * `redaction` *
-   * `smart_formatting` * `speaker_labels` * `speech_detector_sensitivity` * `timestamps`
+   * previous-generation model. Many next-generation models also support the `low_latency`
+   * parameter, which is not available with previous-generation models.
    *
-   * <p>Many next-generation models also support the beta `low_latency` parameter, which is not
-   * available with previous-generation models.
+   * <p>But next-generation models do not support all of the parameters that are available for use
+   * with previous-generation models. For more information about all parameters that are supported
+   * for use with next-generation models, see [Supported features for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
    *
    * <p>**See also:** [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
@@ -535,9 +529,8 @@ public class SpeechToText extends BaseService {
    * <p>The service sends only a single `GET` request to the callback URL. If the service does not
    * receive a reply with a response code of 200 and a body that echoes the challenge string sent by
    * the service within five seconds, it does not allowlist the URL; it instead sends status code
-   * 400 in response to the **Register a callback** request. If the requested callback URL is
-   * already allowlisted, the service responds to the initial registration request with response
-   * code 200.
+   * 400 in response to the request to register a callback. If the requested callback URL is already
+   * allowlisted, the service responds to the initial registration request with response code 200.
    *
    * <p>If you specify a user secret with the request, the service uses it as a key to calculate an
    * HMAC-SHA1 signature of the challenge string in its response to the `POST` request. It sends
@@ -583,9 +576,9 @@ public class SpeechToText extends BaseService {
   /**
    * Unregister a callback.
    *
-   * <p>Unregisters a callback URL that was previously allowlisted with a **Register a callback**
-   * request for use with the asynchronous interface. Once unregistered, the URL can no longer be
-   * used with asynchronous recognition requests.
+   * <p>Unregisters a callback URL that was previously allowlisted with a [Register a
+   * callback](#registercallback) request for use with the asynchronous interface. Once
+   * unregistered, the URL can no longer be used with asynchronous recognition requests.
    *
    * <p>**See also:** [Unregistering a callback
    * URL](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#unregister).
@@ -620,15 +613,15 @@ public class SpeechToText extends BaseService {
    * send callback notifications when the status of the job changes. Optionally, you can also
    * include the `events` and `user_token` parameters to subscribe to specific events and to specify
    * a string that is to be included with each notification for the job. * By polling the service:
-   * Omit the `callback_url`, `events`, and `user_token` parameters. You must then use the **Check
-   * jobs** or **Check a job** methods to check the status of the job, using the latter to retrieve
-   * the results when the job is complete.
+   * Omit the `callback_url`, `events`, and `user_token` parameters. You must then use the [Check
+   * jobs](#checkjobs) or [Check a job](#checkjob) methods to check the status of the job, using the
+   * latter to retrieve the results when the job is complete.
    *
    * <p>The two approaches are not mutually exclusive. You can poll the service for job status or
    * obtain results from the service manually even if you include a callback URL. In both cases, you
    * can include the `results_ttl` parameter to specify how long the results are to remain available
-   * after the job is complete. Using the HTTPS **Check a job** method to retrieve results is more
-   * secure than receiving them via callback notification over HTTP because it provides
+   * after the job is complete. Using the HTTPS [Check a job](#checkjob) method to retrieve results
+   * is more secure than receiving them via callback notification over HTTP because it provides
    * confidentiality in addition to authentication and data integrity.
    *
    * <p>The method supports the same basic parameters as other HTTP and WebSocket recognition
@@ -689,10 +682,6 @@ public class SpeechToText extends BaseService {
    *
    * <p>### Next-generation models
    *
-   * <p>**Note:** The next-generation language models are beta functionality. They support a limited
-   * number of languages and features at this time. The supported languages, models, and features
-   * will increase with future releases.
-   *
    * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
    * for many languages. Next-generation models have higher throughput than the service's previous
    * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
@@ -700,13 +689,13 @@ public class SpeechToText extends BaseService {
    * accuracy.
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Next-generation models support the same request headers as
-   * previous-generation models, but they support only the following additional query parameters: *
-   * `background_audio_suppression` * `inactivity_timeout` * `profanity_filter` * `redaction` *
-   * `smart_formatting` * `speaker_labels` * `speech_detector_sensitivity` * `timestamps`
+   * previous-generation model. Many next-generation models also support the `low_latency`
+   * parameter, which is not available with previous-generation models.
    *
-   * <p>Many next-generation models also support the beta `low_latency` parameter, which is not
-   * available with previous-generation models.
+   * <p>But next-generation models do not support all of the parameters that are available for use
+   * with previous-generation models. For more information about all parameters that are supported
+   * for use with next-generation models, see [Supported features for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
    *
    * <p>**See also:** [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
@@ -844,9 +833,9 @@ public class SpeechToText extends BaseService {
    * with which it is called. The method also returns the creation and update times of each job,
    * and, if a job was created with a callback URL and a user token, the user token for the job. To
    * obtain the results for a job whose status is `completed` or not one of the latest 100
-   * outstanding jobs, use the **Check a job** method. A job and its results remain available until
-   * you delete them with the **Delete a job** method or until the job's time to live expires,
-   * whichever comes first.
+   * outstanding jobs, use the [Check a job[(#checkjob) method. A job and its results remain
+   * available until you delete them with the [Delete a job](#deletejob) method or until the job's
+   * time to live expires, whichever comes first.
    *
    * <p>**See also:** [Checking the status of the latest
    * jobs](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#jobs).
@@ -875,9 +864,9 @@ public class SpeechToText extends BaseService {
    * with which it is called. The method also returns the creation and update times of each job,
    * and, if a job was created with a callback URL and a user token, the user token for the job. To
    * obtain the results for a job whose status is `completed` or not one of the latest 100
-   * outstanding jobs, use the **Check a job** method. A job and its results remain available until
-   * you delete them with the **Delete a job** method or until the job's time to live expires,
-   * whichever comes first.
+   * outstanding jobs, use the [Check a job[(#checkjob) method. A job and its results remain
+   * available until you delete them with the [Delete a job](#deletejob) method or until the job's
+   * time to live expires, whichever comes first.
    *
    * <p>**See also:** [Checking the status of the latest
    * jobs](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#jobs).
@@ -898,9 +887,9 @@ public class SpeechToText extends BaseService {
    *
    * <p>You can use the method to retrieve the results of any job, regardless of whether it was
    * submitted with a callback URL and the `recognitions.completed_with_results` event, and you can
-   * retrieve the results multiple times for as long as they remain available. Use the **Check
-   * jobs** method to request information about the most recent jobs associated with the calling
-   * credentials.
+   * retrieve the results multiple times for as long as they remain available. Use the [Check
+   * jobs](#checkjobs) method to request information about the most recent jobs associated with the
+   * calling credentials.
    *
    * <p>**See also:** [Checking the status and retrieving the results of a
    * job](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-async#job).
@@ -1144,12 +1133,12 @@ public class SpeechToText extends BaseService {
    * the service. The method returns an HTTP 200 response code to indicate that the training process
    * has begun.
    *
-   * <p>You can monitor the status of the training by using the **Get a custom language model**
-   * method to poll the model's status. Use a loop to check the status every 10 seconds. The method
-   * returns a `LanguageModel` object that includes `status` and `progress` fields. A status of
-   * `available` means that the custom model is trained and ready to use. The service cannot accept
-   * subsequent training requests or requests to add new resources until the existing request
-   * completes.
+   * <p>You can monitor the status of the training by using the [Get a custom language
+   * model](#getlanguagemodel) method to poll the model's status. Use a loop to check the status
+   * every 10 seconds. The method returns a `LanguageModel` object that includes `status` and
+   * `progress` fields. A status of `available` means that the custom model is trained and ready to
+   * use. The service cannot accept subsequent training requests or requests to add new resources
+   * until the existing request completes.
    *
    * <p>**See also:** [Train the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#trainModel-language).
@@ -1242,12 +1231,17 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to upgrade it.
    *
    * <p>The method returns an HTTP 200 response code to indicate that the upgrade process has begun
-   * successfully. You can monitor the status of the upgrade by using the **Get a custom language
-   * model** method to poll the model's status. The method returns a `LanguageModel` object that
-   * includes `status` and `progress` fields. Use a loop to check the status every 10 seconds. While
-   * it is being upgraded, the custom model has the status `upgrading`. When the upgrade is
-   * complete, the model resumes the status that it had prior to upgrade. The service cannot accept
-   * subsequent requests for the model until the upgrade completes.
+   * successfully. You can monitor the status of the upgrade by using the [Get a custom language
+   * model](#getlanguagemodel) method to poll the model's status. The method returns a
+   * `LanguageModel` object that includes `status` and `progress` fields. Use a loop to check the
+   * status every 10 seconds. While it is being upgraded, the custom model has the status
+   * `upgrading`. When the upgrade is complete, the model resumes the status that it had prior to
+   * upgrade. The service cannot accept subsequent requests for the model until the upgrade
+   * completes.
+   *
+   * <p>**Note:** Upgrading is necessary only for custom language models that are based on
+   * previous-generation models. Only a single version of a custom model that is based on a
+   * next-generation model is ever available.
    *
    * <p>**See also:** [Upgrading a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language).
@@ -1282,8 +1276,10 @@ public class SpeechToText extends BaseService {
    * List corpora.
    *
    * <p>Lists information about all corpora from a custom language model. The information includes
-   * the total number of words and out-of-vocabulary (OOV) words, name, and status of each corpus.
-   * You must use credentials for the instance of the service that owns a model to list its corpora.
+   * the name, status, and total number of words for each corpus. _For custom models that are based
+   * on previous-generation models_, it also includes the number of out-of-vocabulary (OOV) words
+   * from the corpus. You must use credentials for the instance of the service that owns a model to
+   * list its corpora.
    *
    * <p>**See also:** [Listing corpora for a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#listCorpora).
@@ -1317,47 +1313,55 @@ public class SpeechToText extends BaseService {
    * <p>Adds a single corpus text file of new training data to a custom language model. Use multiple
    * requests to submit multiple corpus text files. You must use credentials for the instance of the
    * service that owns a model to add a corpus to it. Adding a corpus does not affect the custom
-   * language model until you train the model for the new data by using the **Train a custom
-   * language model** method.
+   * language model until you train the model for the new data by using the [Train a custom language
+   * model](#trainlanguagemodel) method.
    *
    * <p>Submit a plain text file that contains sample sentences from the domain of interest to
-   * enable the service to extract words in context. The more sentences you add that represent the
+   * enable the service to parse the words in context. The more sentences you add that represent the
    * context in which speakers use words from the domain, the better the service's recognition
    * accuracy.
    *
    * <p>The call returns an HTTP 201 response code if the corpus is valid. The service then
-   * asynchronously processes the contents of the corpus and automatically extracts new words that
-   * it finds. This operation can take on the order of minutes to complete depending on the total
-   * number of words and the number of new words in the corpus, as well as the current load on the
-   * service. You cannot submit requests to add additional resources to the custom model or to train
-   * the model until the service's analysis of the corpus for the current request completes. Use the
-   * **List a corpus** method to check the status of the analysis.
+   * asynchronously processes and automatically extracts data from the contents of the corpus. This
+   * operation can take on the order of minutes to complete depending on the current load on the
+   * service, the total number of words in the corpus, and, _for custom models that are based on
+   * previous-generation models_, the number of new (out-of-vocabulary) words in the corpus. You
+   * cannot submit requests to add additional resources to the custom model or to train the model
+   * until the service's analysis of the corpus for the current request completes. Use the [Get a
+   * corpus](#getcorpus) method to check the status of the analysis.
    *
-   * <p>The service auto-populates the model's words resource with words from the corpus that are
-   * not found in its base vocabulary. These words are referred to as out-of-vocabulary (OOV) words.
-   * After adding a corpus, you must validate the words resource to ensure that each OOV word's
-   * definition is complete and valid. You can use the **List custom words** method to examine the
-   * words resource. You can use other words method to eliminate typos and modify how words are
-   * pronounced as needed.
+   * <p>_For custom models that are based on previous-generation models_, the service auto-populates
+   * the model's words resource with words from the corpus that are not found in its base
+   * vocabulary. These words are referred to as out-of-vocabulary (OOV) words. After adding a
+   * corpus, you must validate the words resource to ensure that each OOV word's definition is
+   * complete and valid. You can use the [List custom words](#listwords) method to examine the words
+   * resource. You can use other words method to eliminate typos and modify how words are pronounced
+   * as needed.
    *
    * <p>To add a corpus file that has the same name as an existing corpus, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails. Overwriting an existing corpus causes the
-   * service to process the corpus text file and extract OOV words anew. Before doing so, it removes
-   * any OOV words associated with the existing corpus from the model's words resource unless they
-   * were also added by another corpus or grammar, or they have been modified in some way with the
-   * **Add custom words** or **Add a custom word** method.
+   * service to process the corpus text file and extract its data anew. _For a custom model that is
+   * based on a previous-generation model_, the service first removes any OOV words that are
+   * associated with the existing corpus from the model's words resource unless they were also added
+   * by another corpus or grammar, or they have been modified in some way with the [Add custom
+   * words](#addwords) or [Add a custom word](#addword) method.
    *
    * <p>The service limits the overall amount of data that you can add to a custom model to a
-   * maximum of 10 million total words from all sources combined. Also, you can add no more than 90
-   * thousand custom (OOV) words to a model. This includes words that the service extracts from
-   * corpora and grammars, and words that you add directly.
+   * maximum of 10 million total words from all sources combined. _For a custom model that is based
+   * on a previous-generation model_, you can add no more than 90 thousand custom (OOV) words to a
+   * model. This includes words that the service extracts from corpora and grammars, and words that
+   * you add directly.
    *
    * <p>**See also:** * [Add a corpus to the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addCorpus)
-   * * [Working with
-   * corpora](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingCorpora)
-   * * [Validating a words
-   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
+   * * [Working with corpora for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingCorpora)
+   * * [Working with corpora for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingCorpora-ng)
+   * * [Validating a words resource for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
+   * * [Validating a words resource for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
@@ -1392,8 +1396,10 @@ public class SpeechToText extends BaseService {
    * Get a corpus.
    *
    * <p>Gets information about a corpus from a custom language model. The information includes the
-   * total number of words and out-of-vocabulary (OOV) words, name, and status of the corpus. You
-   * must use credentials for the instance of the service that owns a model to list its corpora.
+   * name, status, and total number of words for the corpus. _For custom models that are based on
+   * previous-generation models_, it also includes the number of out-of-vocabulary (OOV) words from
+   * the corpus. You must use credentials for the instance of the service that owns a model to list
+   * its corpora.
    *
    * <p>**See also:** [Listing corpora for a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#listCorpora).
@@ -1427,13 +1433,15 @@ public class SpeechToText extends BaseService {
   /**
    * Delete a corpus.
    *
-   * <p>Deletes an existing corpus from a custom language model. The service removes any
+   * <p>Deletes an existing corpus from a custom language model. Removing a corpus does not affect
+   * the custom model until you train the model with the [Train a custom language
+   * model](#trainlanguagemodel) method. You must use credentials for the instance of the service
+   * that owns a model to delete its corpora.
+   *
+   * <p>_For custom models that are based on previous-generation models_, the service removes any
    * out-of-vocabulary (OOV) words that are associated with the corpus from the custom model's words
    * resource unless they were also added by another corpus or grammar, or they were modified in
-   * some way with the **Add custom words** or **Add a custom word** method. Removing a corpus does
-   * not affect the custom model until you train the model with the **Train a custom language
-   * model** method. You must use credentials for the instance of the service that owns a model to
-   * delete its corpora.
+   * some way with the [Add custom words](#addwords) or [Add a custom word](#addword) method.
    *
    * <p>**See also:** [Deleting a corpus from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageCorpora#deleteCorpus).
@@ -1468,10 +1476,11 @@ public class SpeechToText extends BaseService {
    *
    * <p>Lists information about custom words from a custom language model. You can list all words
    * from the custom model's words resource, only custom words that were added or modified by the
-   * user, or only out-of-vocabulary (OOV) words that were extracted from corpora or are recognized
-   * by grammars. You can also indicate the order in which the service is to return words; by
-   * default, the service lists words in ascending alphabetical order. You must use credentials for
-   * the instance of the service that owns a model to list information about its words.
+   * user, or, _for a custom model that is based on a previous-generation model_, only
+   * out-of-vocabulary (OOV) words that were extracted from corpora or are recognized by grammars.
+   * You can also indicate the order in which the service is to return words; by default, the
+   * service lists words in ascending alphabetical order. You must use credentials for the instance
+   * of the service that owns a model to list information about its words.
    *
    * <p>**See also:** [Listing words from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#listWords).
@@ -1508,32 +1517,36 @@ public class SpeechToText extends BaseService {
   /**
    * Add custom words.
    *
-   * <p>Adds one or more custom words to a custom language model. The service populates the words
-   * resource for a custom model with out-of-vocabulary (OOV) words from each corpus or grammar that
-   * is added to the model. You can use this method to add additional words or to modify existing
-   * words in the words resource. The words resource for a model can contain a maximum of 90
-   * thousand custom (OOV) words. This includes words that the service extracts from corpora and
-   * grammars and words that you add directly.
+   * <p>Adds one or more custom words to a custom language model. You can use this method to add
+   * words or to modify existing words in a custom model's words resource. _For custom models that
+   * are based on previous-generation models_, the service populates the words resource for a custom
+   * model with out-of-vocabulary (OOV) words from each corpus or grammar that is added to the
+   * model. You can use this method to modify OOV words in the model's words resource.
+   *
+   * <p>_For a custom model that is based on a previous-generation model_, the words resource for a
+   * model can contain a maximum of 90 thousand custom (OOV) words. This includes words that the
+   * service extracts from corpora and grammars and words that you add directly.
    *
    * <p>You must use credentials for the instance of the service that owns a model to add or modify
    * custom words for the model. Adding or modifying custom words does not affect the custom model
-   * until you train the model for the new data by using the **Train a custom language model**
-   * method.
+   * until you train the model for the new data by using the [Train a custom language
+   * model](#trainlanguagemodel) method.
    *
    * <p>You add custom words by providing a `CustomWords` object, which is an array of `CustomWord`
-   * objects, one per word. You must use the object's `word` parameter to identify the word that is
-   * to be added. You can also provide one or both of the optional `sounds_like` and `display_as`
-   * fields for each word. * The `sounds_like` field provides an array of one or more pronunciations
-   * for the word. Use the parameter to specify how the word can be pronounced by users. Use the
-   * parameter for words that are difficult to pronounce, foreign words, acronyms, and so on. For
-   * example, you might specify that the word `IEEE` can sound like `i triple e`. You can specify a
-   * maximum of five sounds-like pronunciations for a word. If you omit the `sounds_like` field, the
-   * service attempts to set the field to its pronunciation of the word. It cannot generate a
-   * pronunciation for all words, so you must review the word's definition to ensure that it is
-   * complete and valid. * The `display_as` field provides a different way of spelling the word in a
+   * objects, one per word. Use the object's `word` parameter to identify the word that is to be
+   * added. You can also provide one or both of the optional `display_as` or `sounds_like` fields
+   * for each word. * The `display_as` field provides a different way of spelling the word in a
    * transcript. Use the parameter when you want the word to appear different from its usual
    * representation or from its spelling in training data. For example, you might indicate that the
-   * word `IBM(trademark)` is to be displayed as `IBM&amp;trade;`.
+   * word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field, _which can be
+   * used only with a custom model that is based on a previous-generation model_, provides an array
+   * of one or more pronunciations for the word. Use the parameter to specify how the word can be
+   * pronounced by users. Use the parameter for words that are difficult to pronounce, foreign
+   * words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like
+   * `i triple e`. You can specify a maximum of five sounds-like pronunciations for a word. If you
+   * omit the `sounds_like` field, the service attempts to set the field to its pronunciation of the
+   * word. It cannot generate a pronunciation for all words, so you must review the word's
+   * definition to ensure that it is complete and valid.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error
@@ -1545,23 +1558,27 @@ public class SpeechToText extends BaseService {
    * takes for the analysis to complete depends on the number of new words that you add but is
    * generally faster than adding a corpus or grammar.
    *
-   * <p>You can monitor the status of the request by using the **List a custom language model**
-   * method to poll the model's status. Use a loop to check the status every 10 seconds. The method
-   * returns a `Customization` object that includes a `status` field. A status of `ready` means that
-   * the words have been added to the custom model. The service cannot accept requests to add new
-   * data or to train the model until the existing request completes.
+   * <p>You can monitor the status of the request by using the [Get a custom language
+   * model](#getlanguagemodel) method to poll the model's status. Use a loop to check the status
+   * every 10 seconds. The method returns a `Customization` object that includes a `status` field. A
+   * status of `ready` means that the words have been added to the custom model. The service cannot
+   * accept requests to add new data or to train the model until the existing request completes.
    *
-   * <p>You can use the **List custom words** or **List a custom word** method to review the words
-   * that you add. Words with an invalid `sounds_like` field include an `error` field that describes
-   * the problem. You can use other words-related methods to correct errors, eliminate typos, and
-   * modify how words are pronounced as needed.
+   * <p>You can use the [List custom words](#listwords) or [Get a custom word](#getword) method to
+   * review the words that you add. Words with an invalid `sounds_like` field include an `error`
+   * field that describes the problem. You can use other words-related methods to correct errors,
+   * eliminate typos, and modify how words are pronounced as needed.
    *
    * <p>**See also:** * [Add words to the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
-   * * [Working with custom
-   * words](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Validating a words
-   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
+   * * [Working with custom words for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
+   * * [Working with custom words for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingWords-ng)
+   * * [Validating a words resource for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
+   * * [Validating a words resource for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
@@ -1592,43 +1609,51 @@ public class SpeechToText extends BaseService {
   /**
    * Add a custom word.
    *
-   * <p>Adds a custom word to a custom language model. The service populates the words resource for
-   * a custom model with out-of-vocabulary (OOV) words from each corpus or grammar that is added to
-   * the model. You can use this method to add a word or to modify an existing word in the words
-   * resource. The words resource for a model can contain a maximum of 90 thousand custom (OOV)
-   * words. This includes words that the service extracts from corpora and grammars and words that
-   * you add directly.
+   * <p>Adds a custom word to a custom language model. You can use this method to add a word or to
+   * modify an existing word in the words resource. _For custom models that are based on
+   * previous-generation models_, the service populates the words resource for a custom model with
+   * out-of-vocabulary (OOV) words from each corpus or grammar that is added to the model. You can
+   * use this method to modify OOV words in the model's words resource.
+   *
+   * <p>_For a custom model that is based on a previous-generation models_, the words resource for a
+   * model can contain a maximum of 90 thousand custom (OOV) words. This includes words that the
+   * service extracts from corpora and grammars and words that you add directly.
    *
    * <p>You must use credentials for the instance of the service that owns a model to add or modify
    * a custom word for the model. Adding or modifying a custom word does not affect the custom model
-   * until you train the model for the new data by using the **Train a custom language model**
-   * method.
+   * until you train the model for the new data by using the [Train a custom language
+   * model](#trainlanguagemodel) method.
    *
    * <p>Use the `word_name` parameter to specify the custom word that is to be added or modified.
-   * Use the `CustomWord` object to provide one or both of the optional `sounds_like` and
-   * `display_as` fields for the word. * The `sounds_like` field provides an array of one or more
-   * pronunciations for the word. Use the parameter to specify how the word can be pronounced by
-   * users. Use the parameter for words that are difficult to pronounce, foreign words, acronyms,
-   * and so on. For example, you might specify that the word `IEEE` can sound like `i triple e`. You
-   * can specify a maximum of five sounds-like pronunciations for a word. If you omit the
-   * `sounds_like` field, the service attempts to set the field to its pronunciation of the word. It
-   * cannot generate a pronunciation for all words, so you must review the word's definition to
-   * ensure that it is complete and valid. * The `display_as` field provides a different way of
+   * Use the `CustomWord` object to provide one or both of the optional `display_as` or
+   * `sounds_like` fields for the word. * The `display_as` field provides a different way of
    * spelling the word in a transcript. Use the parameter when you want the word to appear different
    * from its usual representation or from its spelling in training data. For example, you might
-   * indicate that the word `IBM(trademark)` is to be displayed as `IBM&amp;trade;`.
+   * indicate that the word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field,
+   * _which can be used only with a custom model that is based on a previous-generation model_,
+   * provides an array of one or more pronunciations for the word. Use the parameter to specify how
+   * the word can be pronounced by users. Use the parameter for words that are difficult to
+   * pronounce, foreign words, acronyms, and so on. For example, you might specify that the word
+   * `IEEE` can sound like `i triple e`. You can specify a maximum of five sounds-like
+   * pronunciations for a word. If you omit the `sounds_like` field, the service attempts to set the
+   * field to its pronunciation of the word. It cannot generate a pronunciation for all words, so
+   * you must review the word's definition to ensure that it is complete and valid.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error,
-   * it does not add the word to the words resource. Use the **List a custom word** method to review
-   * the word that you add.
+   * it does not add the word to the words resource. Use the [Get a custom word](#getword) method to
+   * review the word that you add.
    *
    * <p>**See also:** * [Add words to the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
-   * * [Working with custom
-   * words](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Validating a words
-   * resource](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel).
+   * * [Working with custom words for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
+   * * [Working with custom words for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingWords-ng)
+   * * [Validating a words resource for previous-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
+   * * [Validating a words resource for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
    * @return a {@link ServiceCall} with a void result
@@ -1705,10 +1730,10 @@ public class SpeechToText extends BaseService {
    *
    * <p>Deletes a custom word from a custom language model. You can remove any word that you added
    * to the custom model's words resource via any means. However, if the word also exists in the
-   * service's base vocabulary, the service removes only the custom pronunciation for the word; the
-   * word remains in the base vocabulary. Removing a custom word does not affect the custom model
-   * until you train the model with the **Train a custom language model** method. You must use
-   * credentials for the instance of the service that owns a model to delete its words.
+   * service's base vocabulary, the service removes the word only from the words resource; the word
+   * remains in the base vocabulary. Removing a custom word does not affect the custom model until
+   * you train the model with the [Train a custom language model](#trainlanguagemodel) method. You
+   * must use credentials for the instance of the service that owns a model to delete its words.
    *
    * <p>**See also:** [Deleting a word from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageWords#deleteWord).
@@ -1743,6 +1768,10 @@ public class SpeechToText extends BaseService {
    * <p>Lists information about all grammars from a custom language model. The information includes
    * the total number of out-of-vocabulary (OOV) words, name, and status of each grammar. You must
    * use credentials for the instance of the service that owns a model to list its grammars.
+   * Grammars are available for all languages and models that support language customization.
+   *
+   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
+   * supported for next-generation models.
    *
    * <p>**See also:** [Listing grammars from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
@@ -1778,33 +1807,37 @@ public class SpeechToText extends BaseService {
    * format that defines the grammar. Use multiple requests to submit multiple grammar files. You
    * must use credentials for the instance of the service that owns a model to add a grammar to it.
    * Adding a grammar does not affect the custom language model until you train the model for the
-   * new data by using the **Train a custom language model** method.
+   * new data by using the [Train a custom language model](#trainlanguagemodel) method.
    *
    * <p>The call returns an HTTP 201 response code if the grammar is valid. The service then
    * asynchronously processes the contents of the grammar and automatically extracts new words that
    * it finds. This operation can take a few seconds or minutes to complete depending on the size
    * and complexity of the grammar, as well as the current load on the service. You cannot submit
    * requests to add additional resources to the custom model or to train the model until the
-   * service's analysis of the grammar for the current request completes. Use the **Get a grammar**
-   * method to check the status of the analysis.
+   * service's analysis of the grammar for the current request completes. Use the [Get a
+   * grammar](#getgrammar) method to check the status of the analysis.
    *
    * <p>The service populates the model's words resource with any word that is recognized by the
    * grammar that is not found in the model's base vocabulary. These are referred to as
-   * out-of-vocabulary (OOV) words. You can use the **List custom words** method to examine the
-   * words resource and use other words-related methods to eliminate typos and modify how words are
-   * pronounced as needed.
+   * out-of-vocabulary (OOV) words. You can use the [List custom words](#listwords) method to
+   * examine the words resource and use other words-related methods to eliminate typos and modify
+   * how words are pronounced as needed.
    *
    * <p>To add a grammar that has the same name as an existing grammar, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails. Overwriting an existing grammar causes the
    * service to process the grammar file and extract OOV words anew. Before doing so, it removes any
    * OOV words associated with the existing grammar from the model's words resource unless they were
-   * also added by another resource or they have been modified in some way with the **Add custom
-   * words** or **Add a custom word** method.
+   * also added by another resource or they have been modified in some way with the [Add custom
+   * words](#addwords) or [Add a custom word](#addword) method.
    *
    * <p>The service limits the overall amount of data that you can add to a custom model to a
    * maximum of 10 million total words from all sources combined. Also, you can add no more than 90
    * thousand OOV words to a model. This includes words that the service extracts from corpora and
-   * grammars and words that you add directly.
+   * grammars and words that you add directly. Grammars are available for all languages and models
+   * that support language customization.
+   *
+   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
+   * supported for next-generation models.
    *
    * <p>**See also:** * [Understanding
    * grammars](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
@@ -1846,7 +1879,11 @@ public class SpeechToText extends BaseService {
    *
    * <p>Gets information about a grammar from a custom language model. The information includes the
    * total number of out-of-vocabulary (OOV) words, name, and status of the grammar. You must use
-   * credentials for the instance of the service that owns a model to list its grammars.
+   * credentials for the instance of the service that owns a model to list its grammars. Grammars
+   * are available for all languages and models that support language customization.
+   *
+   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
+   * supported for next-generation models.
    *
    * <p>**See also:** [Listing grammars from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
@@ -1883,10 +1920,14 @@ public class SpeechToText extends BaseService {
    * <p>Deletes an existing grammar from a custom language model. The service removes any
    * out-of-vocabulary (OOV) words associated with the grammar from the custom model's words
    * resource unless they were also added by another resource or they were modified in some way with
-   * the **Add custom words** or **Add a custom word** method. Removing a grammar does not affect
-   * the custom model until you train the model with the **Train a custom language model** method.
-   * You must use credentials for the instance of the service that owns a model to delete its
-   * grammar.
+   * the [Add custom words](#addwords) or [Add a custom word](#addword) method. Removing a grammar
+   * does not affect the custom model until you train the model with the [Train a custom language
+   * model](#trainlanguagemodel) method. You must use credentials for the instance of the service
+   * that owns a model to delete its grammar. Grammars are available for all languages and models
+   * that support language customization.
+   *
+   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
+   * supported for next-generation models.
    *
    * <p>**See also:** [Deleting a grammar from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#deleteGrammar).
@@ -1927,6 +1968,9 @@ public class SpeechToText extends BaseService {
    * <p>You can create a maximum of 1024 custom acoustic models per owning credentials. The service
    * returns an error if you attempt to create more than 1024 models. You do not lose any models,
    * but you cannot create any more until your model count is below the limit.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Create a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#createModel-acoustic).
@@ -1969,6 +2013,9 @@ public class SpeechToText extends BaseService {
    * language. Omit the parameter to see all custom acoustic models for all languages. You must use
    * credentials for the instance of the service that owns a model to list information about it.
    *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
+   *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
@@ -2007,6 +2054,9 @@ public class SpeechToText extends BaseService {
    * language. Omit the parameter to see all custom acoustic models for all languages. You must use
    * credentials for the instance of the service that owns a model to list information about it.
    *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
+   *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
    *
@@ -2021,6 +2071,9 @@ public class SpeechToText extends BaseService {
    *
    * <p>Gets information about a specified custom acoustic model. You must use credentials for the
    * instance of the service that owns a model to list information about it.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
@@ -2057,6 +2110,9 @@ public class SpeechToText extends BaseService {
    * <p>Deletes an existing custom acoustic model. The custom model cannot be deleted if another
    * request, such as adding an audio resource to the model, is currently being processed. You must
    * use credentials for the instance of the service that owns a model to delete it.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Deleting a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
@@ -2102,13 +2158,13 @@ public class SpeechToText extends BaseService {
    * of 2 hours of audio. The method returns an HTTP 200 response code to indicate that the training
    * process has begun.
    *
-   * <p>You can monitor the status of the training by using the **Get a custom acoustic model**
-   * method to poll the model's status. Use a loop to check the status once a minute. The method
-   * returns an `AcousticModel` object that includes `status` and `progress` fields. A status of
-   * `available` indicates that the custom model is trained and ready to use. The service cannot
-   * train a model while it is handling another request for the model. The service cannot accept
-   * subsequent training requests, or requests to add new audio resources, until the existing
-   * training request completes.
+   * <p>You can monitor the status of the training by using the [Get a custom acoustic
+   * model](#getacousticmodel) method to poll the model's status. Use a loop to check the status
+   * once a minute. The method returns an `AcousticModel` object that includes `status` and
+   * `progress` fields. A status of `available` indicates that the custom model is trained and ready
+   * to use. The service cannot train a model while it is handling another request for the model.
+   * The service cannot accept subsequent training requests, or requests to add new audio resources,
+   * until the existing training request completes.
    *
    * <p>You can use the optional `custom_language_model_id` parameter to specify the GUID of a
    * separately created custom language model that is to be used during training. Train with a
@@ -2117,6 +2173,9 @@ public class SpeechToText extends BaseService {
    * relevant to the contents of the audio files. For training to succeed, both of the custom models
    * must be based on the same version of the same base model, and the custom language model must be
    * fully trained and available.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** * [Train the custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#trainModel-acoustic)
@@ -2181,6 +2240,9 @@ public class SpeechToText extends BaseService {
    * existing reset request completes. You must use credentials for the instance of the service that
    * owns a model to reset it.
    *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
+   *
    * <p>**See also:** [Resetting a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
    *
@@ -2220,19 +2282,22 @@ public class SpeechToText extends BaseService {
    * You must use credentials for the instance of the service that owns a model to upgrade it.
    *
    * <p>The method returns an HTTP 200 response code to indicate that the upgrade process has begun
-   * successfully. You can monitor the status of the upgrade by using the **Get a custom acoustic
-   * model** method to poll the model's status. The method returns an `AcousticModel` object that
-   * includes `status` and `progress` fields. Use a loop to check the status once a minute. While it
-   * is being upgraded, the custom model has the status `upgrading`. When the upgrade is complete,
-   * the model resumes the status that it had prior to upgrade. The service cannot upgrade a model
-   * while it is handling another request for the model. The service cannot accept subsequent
-   * requests for the model until the existing upgrade request completes.
+   * successfully. You can monitor the status of the upgrade by using the [Get a custom acoustic
+   * model](#getacousticmodel) method to poll the model's status. The method returns an
+   * `AcousticModel` object that includes `status` and `progress` fields. Use a loop to check the
+   * status once a minute. While it is being upgraded, the custom model has the status `upgrading`.
+   * When the upgrade is complete, the model resumes the status that it had prior to upgrade. The
+   * service cannot upgrade a model while it is handling another request for the model. The service
+   * cannot accept subsequent requests for the model until the existing upgrade request completes.
    *
    * <p>If the custom acoustic model was trained with a separately created custom language model,
    * you must use the `custom_language_model_id` parameter to specify the GUID of that custom
    * language model. The custom language model must be upgraded before the custom acoustic model can
    * be upgraded. Omit the parameter if the custom acoustic model was not trained with a custom
    * language model.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Upgrading a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-acoustic).
@@ -2281,6 +2346,9 @@ public class SpeechToText extends BaseService {
    * model. You must use credentials for the instance of the service that owns a model to list its
    * audio resources.
    *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
+   *
    * <p>**See also:** [Listing audio resources for a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
    *
@@ -2316,7 +2384,7 @@ public class SpeechToText extends BaseService {
    * acoustic characteristics of the audio that you plan to transcribe. You must use credentials for
    * the instance of the service that owns a model to add an audio resource to it. Adding audio data
    * does not affect the custom acoustic model until you train the model for the new data by using
-   * the **Train a custom acoustic model** method.
+   * the [Train a custom acoustic model](#trainacousticmodel) method.
    *
    * <p>You can add individual audio files or an archive file that contains multiple audio files.
    * Adding multiple audio files via a single archive file is significantly more efficient than
@@ -2339,10 +2407,14 @@ public class SpeechToText extends BaseService {
    * requests to train or upgrade the model until the service's analysis of all audio resources for
    * current requests completes.
    *
-   * <p>To determine the status of the service's analysis of the audio, use the **Get an audio
-   * resource** method to poll the status of the audio. The method accepts the customization ID of
-   * the custom model and the name of the audio resource, and it returns the status of the resource.
-   * Use a loop to check the status of the audio every few seconds until it becomes `ok`.
+   * <p>To determine the status of the service's analysis of the audio, use the [Get an audio
+   * resource](#getaudio) method to poll the status of the audio. The method accepts the
+   * customization ID of the custom model and the name of the audio resource, and it returns the
+   * status of the resource. Use a loop to check the status of the audio every few seconds until it
+   * becomes `ok`.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Add audio to the custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#addAudio).
@@ -2435,21 +2507,24 @@ public class SpeechToText extends BaseService {
    *
    * <p>Gets information about an audio resource from a custom acoustic model. The method returns an
    * `AudioListing` object whose fields depend on the type of audio resource that you specify with
-   * the method's `audio_name` parameter: * **For an audio-type resource,** the object's fields
-   * match those of an `AudioResource` object: `duration`, `name`, `details`, and `status`. * **For
-   * an archive-type resource,** the object includes a `container` field whose fields match those of
-   * an `AudioResource` object. It also includes an `audio` field, which contains an array of
+   * the method's `audio_name` parameter: * _For an audio-type resource_, the object's fields match
+   * those of an `AudioResource` object: `duration`, `name`, `details`, and `status`. * _For an
+   * archive-type resource_, the object includes a `container` field whose fields match those of an
+   * `AudioResource` object. It also includes an `audio` field, which contains an array of
    * `AudioResource` objects that provides information about the audio files that are contained in
    * the archive.
    *
    * <p>The information includes the status of the specified audio resource. The status is important
-   * for checking the service's analysis of a resource that you add to the custom model. * For an
-   * audio-type resource, the `status` field is located in the `AudioListing` object. * For an
-   * archive-type resource, the `status` field is located in the `AudioResource` object that is
+   * for checking the service's analysis of a resource that you add to the custom model. * _For an
+   * audio-type resource_, the `status` field is located in the `AudioListing` object. * _For an
+   * archive-type resource_, the `status` field is located in the `AudioResource` object that is
    * returned in the `container` field.
    *
    * <p>You must use credentials for the instance of the service that owns a model to list its audio
    * resources.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Listing audio resources for a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
@@ -2488,10 +2563,13 @@ public class SpeechToText extends BaseService {
    * individual files from an archive resource.
    *
    * <p>Removing an audio resource does not affect the custom model until you train the model on its
-   * updated data by using the **Train a custom acoustic model** method. You can delete an existing
-   * audio resource from a model while a different resource is being added to the model. You must
-   * use credentials for the instance of the service that owns a model to delete its audio
-   * resources.
+   * updated data by using the [Train a custom acoustic model](#trainacousticmodel) method. You can
+   * delete an existing audio resource from a model while a different resource is being added to the
+   * model. You must use credentials for the instance of the service that owns a model to delete its
+   * audio resources.
+   *
+   * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
+   * models. It is not supported for next-generation models.
    *
    * <p>**See also:** [Deleting an audio resource from a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#deleteAudio).

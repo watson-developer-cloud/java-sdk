@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,11 +18,16 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class TrainLanguageModelOptions extends GenericModel {
 
   /**
-   * The type of words from the custom language model's words resource on which to train the model:
-   * * `all` (the default) trains the model on all new words, regardless of whether they were
-   * extracted from corpora or grammars or were added or modified by the user. * `user` trains the
-   * model only on new words that were added or modified by the user directly. The model is not
-   * trained on new words extracted from corpora or grammars.
+   * _For custom models that are based on previous-generation models_, the type of words from the
+   * custom language model's words resource on which to train the model: * `all` (the default)
+   * trains the model on all new words, regardless of whether they were extracted from corpora or
+   * grammars or were added or modified by the user. * `user` trains the model only on custom words
+   * that were added or modified by the user directly. The model is not trained on new words
+   * extracted from corpora or grammars.
+   *
+   * <p>_For custom models that are based on next-generation models_, the service ignores the
+   * parameter. The words resource contains only custom words that the user adds or modifies
+   * directly, so the parameter is unnecessary.
    */
   public interface WordTypeToAdd {
     /** all. */
@@ -135,11 +140,16 @@ public class TrainLanguageModelOptions extends GenericModel {
   /**
    * Gets the wordTypeToAdd.
    *
-   * <p>The type of words from the custom language model's words resource on which to train the
-   * model: * `all` (the default) trains the model on all new words, regardless of whether they were
-   * extracted from corpora or grammars or were added or modified by the user. * `user` trains the
-   * model only on new words that were added or modified by the user directly. The model is not
-   * trained on new words extracted from corpora or grammars.
+   * <p>_For custom models that are based on previous-generation models_, the type of words from the
+   * custom language model's words resource on which to train the model: * `all` (the default)
+   * trains the model on all new words, regardless of whether they were extracted from corpora or
+   * grammars or were added or modified by the user. * `user` trains the model only on custom words
+   * that were added or modified by the user directly. The model is not trained on new words
+   * extracted from corpora or grammars.
+   *
+   * <p>_For custom models that are based on next-generation models_, the service ignores the
+   * parameter. The words resource contains only custom words that the user adds or modifies
+   * directly, so the parameter is unnecessary.
    *
    * @return the wordTypeToAdd
    */

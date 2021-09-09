@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,11 +22,10 @@ import java.io.InputStream;
 public class AddAudioOptions extends GenericModel {
 
   /**
-   * **For an archive-type resource,** specify the format of the audio files that are contained in
-   * the archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or
-   * `audio/mulaw`. Include the `rate`, `channels`, and `endianness` parameters where necessary. In
-   * this case, all audio files that are contained in the archive file must be of the indicated
-   * type.
+   * _For an archive-type resource_, specify the format of the audio files that are contained in the
+   * archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or `audio/mulaw`.
+   * Include the `rate`, `channels`, and `endianness` parameters where necessary. In this case, all
+   * audio files that are contained in the archive file must be of the indicated type.
    *
    * <p>For all other audio formats, you can omit the header. In this case, the audio files can be
    * of multiple types as long as they are not of the types listed in the previous paragraph.
@@ -35,7 +34,7 @@ public class AddAudioOptions extends GenericModel {
    * recognition. For more information, see **Content types for audio-type resources** in the method
    * description.
    *
-   * <p>**For an audio-type resource,** omit the header.
+   * <p>_For an audio-type resource_, omit the header.
    */
   public interface ContainedContentType {
     /** audio/alaw. */
@@ -285,8 +284,8 @@ public class AddAudioOptions extends GenericModel {
   /**
    * Gets the containedContentType.
    *
-   * <p>**For an archive-type resource,** specify the format of the audio files that are contained
-   * in the archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or
+   * <p>_For an archive-type resource_, specify the format of the audio files that are contained in
+   * the archive file if they are of type `audio/alaw`, `audio/basic`, `audio/l16`, or
    * `audio/mulaw`. Include the `rate`, `channels`, and `endianness` parameters where necessary. In
    * this case, all audio files that are contained in the archive file must be of the indicated
    * type.
@@ -298,7 +297,7 @@ public class AddAudioOptions extends GenericModel {
    * recognition. For more information, see **Content types for audio-type resources** in the method
    * description.
    *
-   * <p>**For an audio-type resource,** omit the header.
+   * <p>_For an audio-type resource_, omit the header.
    *
    * @return the containedContentType
    */
