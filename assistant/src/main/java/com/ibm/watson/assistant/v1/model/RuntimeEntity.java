@@ -61,12 +61,10 @@ public class RuntimeEntity extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param entity the entity
-     * @param location the location
      * @param value the value
      */
-    public Builder(String entity, List<Long> location, String value) {
+    public Builder(String entity, String value) {
       this.entity = entity;
-      this.location = location;
       this.value = value;
     }
 
@@ -226,7 +224,6 @@ public class RuntimeEntity extends GenericModel {
 
   protected RuntimeEntity(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.location, "location cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.value, "value cannot be null");
     entity = builder.entity;
     location = builder.location;
