@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,7 @@ public class LanguageTranslatorTest {
   public void constructClientService() throws Throwable {
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "testString";
+    String version = "2018-05-01";
 
     final Authenticator authenticator = new NoAuthAuthenticator();
 
@@ -80,7 +80,7 @@ public class LanguageTranslatorTest {
   public void testConstructorWithNullAuthenticator() throws Throwable {
     final String serviceName = "testService";
     // set mock values for global params
-    String version = "testString";
+    String version = "2018-05-01";
 
     new LanguageTranslator(version, serviceName, null);
   }
@@ -88,7 +88,7 @@ public class LanguageTranslatorTest {
   @Test
   public void testGetVersion() throws Throwable {
     constructClientService();
-    assertEquals(languageTranslatorService.getVersion(), "testString");
+    assertEquals(languageTranslatorService.getVersion(), "2018-05-01");
   }
 
   @Test
@@ -125,7 +125,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listLanguagesPath);
@@ -171,7 +171,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, translatePath);
@@ -225,7 +225,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listIdentifiableLanguagesPath);
@@ -264,7 +264,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, identifyPath);
@@ -321,7 +321,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     assertEquals(query.get("source"), "testString");
     assertEquals(query.get("target"), "testString");
     assertEquals(Boolean.valueOf(query.get("default")), Boolean.valueOf(true));
@@ -370,7 +370,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     assertEquals(query.get("base_model_id"), "testString");
     assertEquals(query.get("name"), "testString");
     // Check request path
@@ -424,7 +424,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteModelPath);
@@ -477,7 +477,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getModelPath);
@@ -529,7 +529,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listDocumentsPath);
@@ -578,7 +578,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, translateDocumentPath);
@@ -631,7 +631,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDocumentStatusPath);
@@ -680,7 +680,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteDocumentPath);
@@ -737,7 +737,7 @@ public class LanguageTranslatorTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("version"), "2018-05-01");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getTranslatedDocumentPath);

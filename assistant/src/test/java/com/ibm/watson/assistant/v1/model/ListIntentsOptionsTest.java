@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,20 +33,20 @@ public class ListIntentsOptionsTest {
     ListIntentsOptions listIntentsOptionsModel =
         new ListIntentsOptions.Builder()
             .workspaceId("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("intent")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listIntentsOptionsModel.workspaceId(), "testString");
-    assertEquals(listIntentsOptionsModel.export(), Boolean.valueOf(true));
+    assertEquals(listIntentsOptionsModel.export(), Boolean.valueOf(false));
     assertEquals(listIntentsOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listIntentsOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listIntentsOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listIntentsOptionsModel.sort(), "intent");
     assertEquals(listIntentsOptionsModel.cursor(), "testString");
-    assertEquals(listIntentsOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listIntentsOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

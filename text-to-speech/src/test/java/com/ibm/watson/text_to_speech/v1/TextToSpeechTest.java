@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -207,8 +207,8 @@ public class TextToSpeechTest {
     SynthesizeOptions synthesizeOptionsModel =
         new SynthesizeOptions.Builder()
             .text("testString")
-            .accept("audio/basic")
-            .voice("ar-AR_OmarVoice")
+            .accept("audio/ogg;codecs=opus")
+            .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
             .build();
 
@@ -228,7 +228,7 @@ public class TextToSpeechTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("voice"), "ar-AR_OmarVoice");
+    assertEquals(query.get("voice"), "en-US_MichaelV3Voice");
     assertEquals(query.get("customization_id"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -265,8 +265,8 @@ public class TextToSpeechTest {
     GetPronunciationOptions getPronunciationOptionsModel =
         new GetPronunciationOptions.Builder()
             .text("testString")
-            .voice("ar-AR_OmarVoice")
-            .format("ibm")
+            .voice("en-US_MichaelV3Voice")
+            .format("ipa")
             .customizationId("testString")
             .build();
 
@@ -287,8 +287,8 @@ public class TextToSpeechTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("text"), "testString");
-    assertEquals(query.get("voice"), "ar-AR_OmarVoice");
-    assertEquals(query.get("format"), "ibm");
+    assertEquals(query.get("voice"), "en-US_MichaelV3Voice");
+    assertEquals(query.get("format"), "ipa");
     assertEquals(query.get("customization_id"), "testString");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -326,7 +326,7 @@ public class TextToSpeechTest {
     CreateCustomModelOptions createCustomModelOptionsModel =
         new CreateCustomModelOptions.Builder()
             .name("testString")
-            .language("ar-MS")
+            .language("en-US")
             .description("testString")
             .build();
 

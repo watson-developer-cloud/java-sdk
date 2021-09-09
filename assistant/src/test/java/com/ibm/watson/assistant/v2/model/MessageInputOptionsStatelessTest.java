@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,26 +37,26 @@ public class MessageInputOptionsStatelessTest {
 
     MessageInputOptionsStateless messageInputOptionsStatelessModel =
         new MessageInputOptionsStateless.Builder()
-            .restart(true)
-            .alternateIntents(true)
+            .restart(false)
+            .alternateIntents(false)
             .spelling(messageInputOptionsSpellingModel)
-            .debug(true)
+            .debug(false)
             .build();
-    assertEquals(messageInputOptionsStatelessModel.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsStatelessModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModel.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsStatelessModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsStatelessModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsStatelessModel.debug(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModel.debug(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(messageInputOptionsStatelessModel);
 
     MessageInputOptionsStateless messageInputOptionsStatelessModelNew =
         TestUtilities.deserialize(json, MessageInputOptionsStateless.class);
     assertTrue(messageInputOptionsStatelessModelNew instanceof MessageInputOptionsStateless);
-    assertEquals(messageInputOptionsStatelessModelNew.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsStatelessModelNew.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModelNew.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsStatelessModelNew.alternateIntents(), Boolean.valueOf(false));
     assertEquals(
         messageInputOptionsStatelessModelNew.spelling().toString(),
         messageInputOptionsSpellingModel.toString());
-    assertEquals(messageInputOptionsStatelessModelNew.debug(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModelNew.debug(), Boolean.valueOf(false));
   }
 }

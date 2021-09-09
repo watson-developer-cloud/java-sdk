@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,8 +57,8 @@ public class UpdateIntentOptionsTest {
             .newIntent("testString")
             .newDescription("testString")
             .newExamples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
     assertEquals(updateIntentOptionsModel.workspaceId(), "testString");
     assertEquals(updateIntentOptionsModel.intent(), "testString");
@@ -67,8 +67,8 @@ public class UpdateIntentOptionsTest {
     assertEquals(
         updateIntentOptionsModel.newExamples(),
         new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)));
-    assertEquals(updateIntentOptionsModel.append(), Boolean.valueOf(true));
-    assertEquals(updateIntentOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateIntentOptionsModel.append(), Boolean.valueOf(false));
+    assertEquals(updateIntentOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

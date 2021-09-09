@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,17 +34,17 @@ public class ListCounterexamplesOptionsTest {
         new ListCounterexamplesOptions.Builder()
             .workspaceId("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("text")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listCounterexamplesOptionsModel.workspaceId(), "testString");
     assertEquals(listCounterexamplesOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listCounterexamplesOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listCounterexamplesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listCounterexamplesOptionsModel.sort(), "text");
     assertEquals(listCounterexamplesOptionsModel.cursor(), "testString");
-    assertEquals(listCounterexamplesOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listCounterexamplesOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

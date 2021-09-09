@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,7 @@ public class ToneOptionsTest {
             .sentences(true)
             .tones(new java.util.ArrayList<String>(java.util.Arrays.asList("emotion")))
             .contentLanguage("en")
-            .acceptLanguage("ar")
+            .acceptLanguage("en")
             .build();
     assertEquals(toneOptionsModel.toneInput(), toneInputModel);
     assertEquals(toneOptionsModel.sentences(), Boolean.valueOf(true));
@@ -47,6 +47,6 @@ public class ToneOptionsTest {
         toneOptionsModel.tones(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("emotion")));
     assertEquals(toneOptionsModel.contentLanguage(), "en");
-    assertEquals(toneOptionsModel.acceptLanguage(), "ar");
+    assertEquals(toneOptionsModel.acceptLanguage(), "en");
   }
 }

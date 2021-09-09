@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,14 +37,14 @@ public class UpdateSynonymOptionsTest {
             .value("testString")
             .synonym("testString")
             .newSynonym("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(updateSynonymOptionsModel.workspaceId(), "testString");
     assertEquals(updateSynonymOptionsModel.entity(), "testString");
     assertEquals(updateSynonymOptionsModel.value(), "testString");
     assertEquals(updateSynonymOptionsModel.synonym(), "testString");
     assertEquals(updateSynonymOptionsModel.newSynonym(), "testString");
-    assertEquals(updateSynonymOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateSynonymOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

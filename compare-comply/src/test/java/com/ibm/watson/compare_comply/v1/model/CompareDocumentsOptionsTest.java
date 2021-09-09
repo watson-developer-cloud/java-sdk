@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,8 +37,8 @@ public class CompareDocumentsOptionsTest {
             .file2(TestUtilities.createMockStream("This is a mock file."))
             .file1ContentType("application/pdf")
             .file2ContentType("application/pdf")
-            .file1Label("testString")
-            .file2Label("testString")
+            .file1Label("file_1")
+            .file2Label("file_2")
             .model("contracts")
             .build();
     assertEquals(
@@ -49,8 +49,8 @@ public class CompareDocumentsOptionsTest {
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(compareDocumentsOptionsModel.file1ContentType(), "application/pdf");
     assertEquals(compareDocumentsOptionsModel.file2ContentType(), "application/pdf");
-    assertEquals(compareDocumentsOptionsModel.file1Label(), "testString");
-    assertEquals(compareDocumentsOptionsModel.file2Label(), "testString");
+    assertEquals(compareDocumentsOptionsModel.file1Label(), "file_1");
+    assertEquals(compareDocumentsOptionsModel.file2Label(), "file_2");
     assertEquals(compareDocumentsOptionsModel.model(), "contracts");
   }
 

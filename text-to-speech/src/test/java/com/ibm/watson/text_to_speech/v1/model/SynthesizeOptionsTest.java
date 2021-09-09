@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,13 +33,13 @@ public class SynthesizeOptionsTest {
     SynthesizeOptions synthesizeOptionsModel =
         new SynthesizeOptions.Builder()
             .text("testString")
-            .accept("audio/basic")
-            .voice("ar-AR_OmarVoice")
+            .accept("audio/ogg;codecs=opus")
+            .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
             .build();
     assertEquals(synthesizeOptionsModel.text(), "testString");
-    assertEquals(synthesizeOptionsModel.accept(), "audio/basic");
-    assertEquals(synthesizeOptionsModel.voice(), "ar-AR_OmarVoice");
+    assertEquals(synthesizeOptionsModel.accept(), "audio/ogg;codecs=opus");
+    assertEquals(synthesizeOptionsModel.voice(), "en-US_MichaelV3Voice");
     assertEquals(synthesizeOptionsModel.customizationId(), "testString");
   }
 

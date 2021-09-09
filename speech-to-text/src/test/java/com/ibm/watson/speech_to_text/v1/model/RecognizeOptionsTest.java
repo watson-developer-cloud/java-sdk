@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,7 +35,7 @@ public class RecognizeOptionsTest {
         new RecognizeOptions.Builder()
             .audio(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/octet-stream")
-            .model("ar-AR_BroadbandModel")
+            .model("en-US_BroadbandModel")
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -45,26 +45,26 @@ public class RecognizeOptionsTest {
             .keywordsThreshold(Float.valueOf("36.0"))
             .maxAlternatives(Long.valueOf("26"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
-            .wordConfidence(true)
-            .timestamps(true)
+            .wordConfidence(false)
+            .timestamps(false)
             .profanityFilter(true)
-            .smartFormatting(true)
-            .speakerLabels(true)
+            .smartFormatting(false)
+            .speakerLabels(false)
             .customizationId("testString")
             .grammarName("testString")
-            .redaction(true)
-            .audioMetrics(true)
+            .redaction(false)
+            .audioMetrics(false)
             .endOfPhraseSilenceTime(Double.valueOf("72.5"))
-            .splitTranscriptAtPhraseEnd(true)
+            .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
-            .lowLatency(true)
+            .lowLatency(false)
             .build();
     assertEquals(
         IOUtils.toString(recognizeOptionsModel.audio()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(recognizeOptionsModel.contentType(), "application/octet-stream");
-    assertEquals(recognizeOptionsModel.model(), "ar-AR_BroadbandModel");
+    assertEquals(recognizeOptionsModel.model(), "en-US_BroadbandModel");
     assertEquals(recognizeOptionsModel.languageCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.baseModelVersion(), "testString");
@@ -76,20 +76,20 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.keywordsThreshold(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.maxAlternatives(), Long.valueOf("26"));
     assertEquals(recognizeOptionsModel.wordAlternativesThreshold(), Float.valueOf("36.0"));
-    assertEquals(recognizeOptionsModel.wordConfidence(), Boolean.valueOf(true));
-    assertEquals(recognizeOptionsModel.timestamps(), Boolean.valueOf(true));
+    assertEquals(recognizeOptionsModel.wordConfidence(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.timestamps(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.profanityFilter(), Boolean.valueOf(true));
-    assertEquals(recognizeOptionsModel.smartFormatting(), Boolean.valueOf(true));
-    assertEquals(recognizeOptionsModel.speakerLabels(), Boolean.valueOf(true));
+    assertEquals(recognizeOptionsModel.smartFormatting(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.speakerLabels(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.customizationId(), "testString");
     assertEquals(recognizeOptionsModel.grammarName(), "testString");
-    assertEquals(recognizeOptionsModel.redaction(), Boolean.valueOf(true));
-    assertEquals(recognizeOptionsModel.audioMetrics(), Boolean.valueOf(true));
+    assertEquals(recognizeOptionsModel.redaction(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.audioMetrics(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("72.5"));
-    assertEquals(recognizeOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(true));
+    assertEquals(recognizeOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
-    assertEquals(recognizeOptionsModel.lowLatency(), Boolean.valueOf(true));
+    assertEquals(recognizeOptionsModel.lowLatency(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

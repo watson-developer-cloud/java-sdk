@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,7 +41,7 @@ public class DialogNodeTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -50,7 +50,7 @@ public class DialogNodeTest {
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
@@ -193,7 +193,7 @@ public class DialogNodeTest {
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
             .userLabel("testString")
-            .disambiguationOptOut(true)
+            .disambiguationOptOut(false)
             .build();
     assertEquals(dialogNodeModel.dialogNode(), "testString");
     assertEquals(dialogNodeModel.description(), "testString");
@@ -221,7 +221,7 @@ public class DialogNodeTest {
     assertEquals(dialogNodeModel.digressOut(), "allow_returning");
     assertEquals(dialogNodeModel.digressOutSlots(), "not_allowed");
     assertEquals(dialogNodeModel.userLabel(), "testString");
-    assertEquals(dialogNodeModel.disambiguationOptOut(), Boolean.valueOf(true));
+    assertEquals(dialogNodeModel.disambiguationOptOut(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(dialogNodeModel);
 
@@ -243,7 +243,7 @@ public class DialogNodeTest {
     assertEquals(dialogNodeModelNew.digressOut(), "allow_returning");
     assertEquals(dialogNodeModelNew.digressOutSlots(), "not_allowed");
     assertEquals(dialogNodeModelNew.userLabel(), "testString");
-    assertEquals(dialogNodeModelNew.disambiguationOptOut(), Boolean.valueOf(true));
+    assertEquals(dialogNodeModelNew.disambiguationOptOut(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

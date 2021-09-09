@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -163,19 +163,19 @@ public class MessageOptionsTest {
 
     MessageInputOptions messageInputOptionsModel =
         new MessageInputOptions.Builder()
-            .restart(true)
-            .alternateIntents(true)
+            .restart(false)
+            .alternateIntents(false)
             .spelling(messageInputOptionsSpellingModel)
-            .debug(true)
-            .returnContext(true)
-            .export(true)
+            .debug(false)
+            .returnContext(false)
+            .export(false)
             .build();
-    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.export(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.export(), Boolean.valueOf(false));
 
     MessageInput messageInputModel =
         new MessageInput.Builder()
@@ -206,12 +206,16 @@ public class MessageOptionsTest {
             .turnCount(Long.valueOf("26"))
             .locale("en-us")
             .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
     assertEquals(messageContextGlobalSystemModel.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModel.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.state(), "testString");
 
     MessageContextGlobal messageContextGlobalModel =
         new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();

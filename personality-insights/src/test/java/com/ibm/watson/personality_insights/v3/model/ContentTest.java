@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,20 +37,20 @@ public class ContentTest {
             .created(Long.valueOf("26"))
             .updated(Long.valueOf("26"))
             .contenttype("text/plain")
-            .language("ar")
+            .language("en")
             .parentid("testString")
-            .reply(true)
-            .forward(true)
+            .reply(false)
+            .forward(false)
             .build();
     assertEquals(contentItemModel.content(), "testString");
     assertEquals(contentItemModel.id(), "testString");
     assertEquals(contentItemModel.created(), Long.valueOf("26"));
     assertEquals(contentItemModel.updated(), Long.valueOf("26"));
     assertEquals(contentItemModel.contenttype(), "text/plain");
-    assertEquals(contentItemModel.language(), "ar");
+    assertEquals(contentItemModel.language(), "en");
     assertEquals(contentItemModel.parentid(), "testString");
-    assertEquals(contentItemModel.reply(), Boolean.valueOf(true));
-    assertEquals(contentItemModel.forward(), Boolean.valueOf(true));
+    assertEquals(contentItemModel.reply(), Boolean.valueOf(false));
+    assertEquals(contentItemModel.forward(), Boolean.valueOf(false));
 
     Content contentModel =
         new Content.Builder()

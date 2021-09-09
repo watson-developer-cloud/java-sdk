@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,32 +37,32 @@ public class MessageInputOptionsTest {
 
     MessageInputOptions messageInputOptionsModel =
         new MessageInputOptions.Builder()
-            .restart(true)
-            .alternateIntents(true)
+            .restart(false)
+            .alternateIntents(false)
             .spelling(messageInputOptionsSpellingModel)
-            .debug(true)
-            .returnContext(true)
-            .export(true)
+            .debug(false)
+            .returnContext(false)
+            .export(false)
             .build();
-    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.export(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.export(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(messageInputOptionsModel);
 
     MessageInputOptions messageInputOptionsModelNew =
         TestUtilities.deserialize(json, MessageInputOptions.class);
     assertTrue(messageInputOptionsModelNew instanceof MessageInputOptions);
-    assertEquals(messageInputOptionsModelNew.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModelNew.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModelNew.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModelNew.alternateIntents(), Boolean.valueOf(false));
     assertEquals(
         messageInputOptionsModelNew.spelling().toString(),
         messageInputOptionsSpellingModel.toString());
-    assertEquals(messageInputOptionsModelNew.debug(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModelNew.returnContext(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModelNew.export(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModelNew.debug(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModelNew.returnContext(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModelNew.export(), Boolean.valueOf(false));
   }
 }

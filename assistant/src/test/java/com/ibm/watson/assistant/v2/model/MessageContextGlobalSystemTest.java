@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,12 +37,16 @@ public class MessageContextGlobalSystemTest {
             .turnCount(Long.valueOf("26"))
             .locale("en-us")
             .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
     assertEquals(messageContextGlobalSystemModel.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModel.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.state(), "testString");
 
     String json = TestUtilities.serialize(messageContextGlobalSystemModel);
 
@@ -54,5 +58,7 @@ public class MessageContextGlobalSystemTest {
     assertEquals(messageContextGlobalSystemModelNew.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModelNew.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModelNew.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModelNew.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModelNew.state(), "testString");
   }
 }

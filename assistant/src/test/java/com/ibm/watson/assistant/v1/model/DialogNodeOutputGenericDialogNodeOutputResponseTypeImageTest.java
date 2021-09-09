@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,6 +44,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
                 .channels(
                     new java.util.ArrayList<ResponseGenericChannel>(
                         java.util.Arrays.asList(responseGenericChannelModel)))
+                .altText("testString")
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.responseType(), "image");
@@ -57,6 +58,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
             java.util.Arrays.asList(responseGenericChannelModel)));
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.altText(), "testString");
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel);
@@ -77,6 +80,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModelNew.description(),
         "testString");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModelNew.altText(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

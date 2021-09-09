@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,19 +36,19 @@ public class ListSynonymsOptionsTest {
             .entity("testString")
             .value("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("synonym")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listSynonymsOptionsModel.workspaceId(), "testString");
     assertEquals(listSynonymsOptionsModel.entity(), "testString");
     assertEquals(listSynonymsOptionsModel.value(), "testString");
     assertEquals(listSynonymsOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listSynonymsOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listSynonymsOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listSynonymsOptionsModel.sort(), "synonym");
     assertEquals(listSynonymsOptionsModel.cursor(), "testString");
-    assertEquals(listSynonymsOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listSynonymsOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

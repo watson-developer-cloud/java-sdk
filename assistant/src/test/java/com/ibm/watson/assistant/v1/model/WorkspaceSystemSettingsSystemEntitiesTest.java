@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,8 +31,8 @@ public class WorkspaceSystemSettingsSystemEntitiesTest {
   @Test
   public void testWorkspaceSystemSettingsSystemEntities() throws Throwable {
     WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
-        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
-    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(true));
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
+    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(workspaceSystemSettingsSystemEntitiesModel);
 
@@ -41,6 +41,6 @@ public class WorkspaceSystemSettingsSystemEntitiesTest {
     assertTrue(
         workspaceSystemSettingsSystemEntitiesModelNew
             instanceof WorkspaceSystemSettingsSystemEntities);
-    assertEquals(workspaceSystemSettingsSystemEntitiesModelNew.enabled(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsSystemEntitiesModelNew.enabled(), Boolean.valueOf(false));
   }
 }

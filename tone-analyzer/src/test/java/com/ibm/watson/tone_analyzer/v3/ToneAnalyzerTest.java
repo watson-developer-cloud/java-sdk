@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,7 +101,7 @@ public class ToneAnalyzerTest {
             .sentences(true)
             .tones(new java.util.ArrayList<String>(java.util.Arrays.asList("emotion")))
             .contentLanguage("en")
-            .acceptLanguage("ar")
+            .acceptLanguage("en")
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -166,7 +166,7 @@ public class ToneAnalyzerTest {
         new ToneChatOptions.Builder()
             .utterances(new java.util.ArrayList<Utterance>(java.util.Arrays.asList(utteranceModel)))
             .contentLanguage("en")
-            .acceptLanguage("ar")
+            .acceptLanguage("en")
             .build();
 
     // Invoke operation with valid options model (positive test)

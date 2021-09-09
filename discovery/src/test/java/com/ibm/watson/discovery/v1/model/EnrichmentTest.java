@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -142,17 +142,17 @@ public class EnrichmentTest {
             .description("testString")
             .destinationField("testString")
             .sourceField("testString")
-            .overwrite(true)
+            .overwrite(false)
             .enrichment("testString")
-            .ignoreDownstreamErrors(true)
+            .ignoreDownstreamErrors(false)
             .options(enrichmentOptionsModel)
             .build();
     assertEquals(enrichmentModel.description(), "testString");
     assertEquals(enrichmentModel.destinationField(), "testString");
     assertEquals(enrichmentModel.sourceField(), "testString");
-    assertEquals(enrichmentModel.overwrite(), Boolean.valueOf(true));
+    assertEquals(enrichmentModel.overwrite(), Boolean.valueOf(false));
     assertEquals(enrichmentModel.enrichment(), "testString");
-    assertEquals(enrichmentModel.ignoreDownstreamErrors(), Boolean.valueOf(true));
+    assertEquals(enrichmentModel.ignoreDownstreamErrors(), Boolean.valueOf(false));
     assertEquals(enrichmentModel.options(), enrichmentOptionsModel);
 
     String json = TestUtilities.serialize(enrichmentModel);
@@ -162,9 +162,9 @@ public class EnrichmentTest {
     assertEquals(enrichmentModelNew.description(), "testString");
     assertEquals(enrichmentModelNew.destinationField(), "testString");
     assertEquals(enrichmentModelNew.sourceField(), "testString");
-    assertEquals(enrichmentModelNew.overwrite(), Boolean.valueOf(true));
+    assertEquals(enrichmentModelNew.overwrite(), Boolean.valueOf(false));
     assertEquals(enrichmentModelNew.enrichment(), "testString");
-    assertEquals(enrichmentModelNew.ignoreDownstreamErrors(), Boolean.valueOf(true));
+    assertEquals(enrichmentModelNew.ignoreDownstreamErrors(), Boolean.valueOf(false));
     assertEquals(enrichmentModelNew.options().toString(), enrichmentOptionsModel.toString());
   }
 

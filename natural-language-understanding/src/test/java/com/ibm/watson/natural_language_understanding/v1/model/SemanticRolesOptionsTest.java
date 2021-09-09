@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,12 @@ public class SemanticRolesOptionsTest {
     SemanticRolesOptions semanticRolesOptionsModel =
         new SemanticRolesOptions.Builder()
             .limit(Long.valueOf("26"))
-            .keywords(true)
-            .entities(true)
+            .keywords(false)
+            .entities(false)
             .build();
     assertEquals(semanticRolesOptionsModel.limit(), Long.valueOf("26"));
-    assertEquals(semanticRolesOptionsModel.keywords(), Boolean.valueOf(true));
-    assertEquals(semanticRolesOptionsModel.entities(), Boolean.valueOf(true));
+    assertEquals(semanticRolesOptionsModel.keywords(), Boolean.valueOf(false));
+    assertEquals(semanticRolesOptionsModel.entities(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(semanticRolesOptionsModel);
 
@@ -46,7 +46,7 @@ public class SemanticRolesOptionsTest {
         TestUtilities.deserialize(json, SemanticRolesOptions.class);
     assertTrue(semanticRolesOptionsModelNew instanceof SemanticRolesOptions);
     assertEquals(semanticRolesOptionsModelNew.limit(), Long.valueOf("26"));
-    assertEquals(semanticRolesOptionsModelNew.keywords(), Boolean.valueOf(true));
-    assertEquals(semanticRolesOptionsModelNew.entities(), Boolean.valueOf(true));
+    assertEquals(semanticRolesOptionsModelNew.keywords(), Boolean.valueOf(false));
+    assertEquals(semanticRolesOptionsModelNew.entities(), Boolean.valueOf(false));
   }
 }

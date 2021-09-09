@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,7 @@ public class WorkspaceSystemSettingsTest {
         new WorkspaceSystemSettingsDisambiguation.Builder()
             .prompt("testString")
             .noneOfTheAbovePrompt("testString")
-            .enabled(true)
+            .enabled(false)
             .sensitivity("auto")
             .randomize(true)
             .maxSuggestions(Long.valueOf("1"))
@@ -47,19 +47,19 @@ public class WorkspaceSystemSettingsTest {
             .build();
     assertEquals(workspaceSystemSettingsDisambiguationModel.prompt(), "testString");
     assertEquals(workspaceSystemSettingsDisambiguationModel.noneOfTheAbovePrompt(), "testString");
-    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsDisambiguationModel.sensitivity(), "auto");
     assertEquals(workspaceSystemSettingsDisambiguationModel.randomize(), Boolean.valueOf(true));
     assertEquals(workspaceSystemSettingsDisambiguationModel.maxSuggestions(), Long.valueOf("1"));
     assertEquals(workspaceSystemSettingsDisambiguationModel.suggestionTextPolicy(), "testString");
 
     WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
-        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
-    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(true));
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
+    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
-        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
-    assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(true));
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
+    assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
@@ -71,8 +71,8 @@ public class WorkspaceSystemSettingsTest {
                     put("foo", "testString");
                   }
                 })
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
             .build();
@@ -86,8 +86,8 @@ public class WorkspaceSystemSettingsTest {
             put("foo", "testString");
           }
         });
-    assertEquals(workspaceSystemSettingsModel.spellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(workspaceSystemSettingsModel.spellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsModel.spellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModel.spellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
         workspaceSystemSettingsModel.systemEntities(), workspaceSystemSettingsSystemEntitiesModel);
     assertEquals(workspaceSystemSettingsModel.offTopic(), workspaceSystemSettingsOffTopicModel);
@@ -103,8 +103,8 @@ public class WorkspaceSystemSettingsTest {
     assertEquals(
         workspaceSystemSettingsModelNew.disambiguation().toString(),
         workspaceSystemSettingsDisambiguationModel.toString());
-    assertEquals(workspaceSystemSettingsModelNew.spellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(workspaceSystemSettingsModelNew.spellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsModelNew.spellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModelNew.spellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
         workspaceSystemSettingsModelNew.systemEntities().toString(),
         workspaceSystemSettingsSystemEntitiesModel.toString());

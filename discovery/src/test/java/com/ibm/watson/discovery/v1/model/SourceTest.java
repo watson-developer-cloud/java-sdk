@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,11 +33,11 @@ public class SourceTest {
     SourceSchedule sourceScheduleModel =
         new SourceSchedule.Builder()
             .enabled(true)
-            .timeZone("testString")
+            .timeZone("America/New_York")
             .frequency("daily")
             .build();
     assertEquals(sourceScheduleModel.enabled(), Boolean.valueOf(true));
-    assertEquals(sourceScheduleModel.timeZone(), "testString");
+    assertEquals(sourceScheduleModel.timeZone(), "America/New_York");
     assertEquals(sourceScheduleModel.frequency(), "daily");
 
     SourceOptionsFolder sourceOptionsFolderModel =
@@ -67,20 +67,20 @@ public class SourceTest {
         new SourceOptionsWebCrawl.Builder()
             .url("testString")
             .limitToStartingHosts(true)
-            .crawlSpeed("gentle")
-            .allowUntrustedCertificate(true)
+            .crawlSpeed("normal")
+            .allowUntrustedCertificate(false)
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
-            .overrideRobotsTxt(true)
+            .overrideRobotsTxt(false)
             .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
     assertEquals(sourceOptionsWebCrawlModel.url(), "testString");
     assertEquals(sourceOptionsWebCrawlModel.limitToStartingHosts(), Boolean.valueOf(true));
-    assertEquals(sourceOptionsWebCrawlModel.crawlSpeed(), "gentle");
-    assertEquals(sourceOptionsWebCrawlModel.allowUntrustedCertificate(), Boolean.valueOf(true));
+    assertEquals(sourceOptionsWebCrawlModel.crawlSpeed(), "normal");
+    assertEquals(sourceOptionsWebCrawlModel.allowUntrustedCertificate(), Boolean.valueOf(false));
     assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("26"));
-    assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(true));
+    assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(false));
     assertEquals(
         sourceOptionsWebCrawlModel.blacklist(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

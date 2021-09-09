@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -186,7 +186,7 @@ public class DiscoveryTest {
   public void testCreateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String createCollectionPath = "/v2/projects/testString/collections";
 
     server.enqueue(
@@ -210,7 +210,7 @@ public class DiscoveryTest {
             .projectId("testString")
             .name("testString")
             .description("testString")
-            .language("testString")
+            .language("en")
             .enrichments(
                 new java.util.ArrayList<CollectionEnrichment>(
                     java.util.Arrays.asList(collectionEnrichmentModel)))
@@ -254,7 +254,7 @@ public class DiscoveryTest {
   public void testGetCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String getCollectionPath = "/v2/projects/testString/collections/testString";
 
     server.enqueue(
@@ -310,7 +310,7 @@ public class DiscoveryTest {
   public void testUpdateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"language\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}]}";
     String updateCollectionPath = "/v2/projects/testString/collections/testString";
 
     server.enqueue(
@@ -456,9 +456,9 @@ public class DiscoveryTest {
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
             .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .count(Long.valueOf("100"))
+            .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
-            .findAnswers(true)
+            .findAnswers(false)
             .maxAnswersPerPassage(Long.valueOf("26"))
             .build();
 
@@ -847,7 +847,7 @@ public class DiscoveryTest {
             .filename("testString")
             .fileContentType("application/json")
             .metadata("testString")
-            .xWatsonDiscoveryForce(true)
+            .xWatsonDiscoveryForce(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -909,7 +909,7 @@ public class DiscoveryTest {
             .filename("testString")
             .fileContentType("application/json")
             .metadata("testString")
-            .xWatsonDiscoveryForce(true)
+            .xWatsonDiscoveryForce(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -967,7 +967,7 @@ public class DiscoveryTest {
             .projectId("testString")
             .collectionId("testString")
             .documentId("testString")
-            .xWatsonDiscoveryForce(true)
+            .xWatsonDiscoveryForce(false)
             .build();
 
     // Invoke operation with valid options model (positive test)

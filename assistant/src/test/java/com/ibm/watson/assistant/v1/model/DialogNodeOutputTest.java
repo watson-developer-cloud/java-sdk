@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,7 +41,7 @@ public class DialogNodeOutputTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -50,7 +50,7 @@ public class DialogNodeOutputTest {
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(

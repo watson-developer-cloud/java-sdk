@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModel;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModel;
+import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
@@ -43,7 +44,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelO
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsOptions;
@@ -144,18 +144,18 @@ public class NaturalLanguageUnderstandingTest {
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
             .limit(Long.valueOf("250"))
-            .mentions(true)
+            .mentions(false)
             .model("testString")
-            .sentiment(true)
-            .emotion(true)
+            .sentiment(false)
+            .emotion(false)
             .build();
 
     // Construct an instance of the KeywordsOptions model
     KeywordsOptions keywordsOptionsModel =
         new KeywordsOptions.Builder()
             .limit(Long.valueOf("250"))
-            .sentiment(true)
-            .emotion(true)
+            .sentiment(false)
+            .emotion(false)
             .build();
 
     // Construct an instance of the MetadataOptions model
@@ -169,8 +169,8 @@ public class NaturalLanguageUnderstandingTest {
     SemanticRolesOptions semanticRolesOptionsModel =
         new SemanticRolesOptions.Builder()
             .limit(Long.valueOf("26"))
-            .keywords(true)
-            .entities(true)
+            .keywords(false)
+            .entities(false)
             .build();
 
     // Construct an instance of the SentimentOptions model
@@ -188,7 +188,7 @@ public class NaturalLanguageUnderstandingTest {
     // Construct an instance of the CategoriesOptions model
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
-            .explanation(true)
+            .explanation(false)
             .limit(Long.valueOf("10"))
             .model("testString")
             .build();
@@ -228,7 +228,7 @@ public class NaturalLanguageUnderstandingTest {
             .clean(true)
             .xpath("testString")
             .fallbackToRaw(true)
-            .returnAnalyzedText(true)
+            .returnAnalyzedText(false)
             .language("testString")
             .limitTextCharacters(Long.valueOf("26"))
             .build();
@@ -986,7 +986,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListClassificationsModelsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"models\": [{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listClassificationsModelsPath = "/v1/models/classifications";
 
     server.enqueue(
@@ -1002,12 +1002,12 @@ public class NaturalLanguageUnderstandingTest {
         new ListClassificationsModelsOptions();
 
     // Invoke operation with valid options model (positive test)
-    Response<ListClassificationsModelsResponse> response =
+    Response<ClassificationsModelList> response =
         naturalLanguageUnderstandingService
             .listClassificationsModels(listClassificationsModelsOptionsModel)
             .execute();
     assertNotNull(response);
-    ListClassificationsModelsResponse responseObj = response.getResult();
+    ClassificationsModelList responseObj = response.getResult();
     assertNotNull(responseObj);
 
     // Verify the contents of the request
