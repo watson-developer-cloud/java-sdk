@@ -76,7 +76,6 @@ jobs:
       run: echo ::set-output name=NEXT_RELEASE::$(npx semantic-release --dry-run | grep -oP "Published release \K[0-9]+\.[0-9]+\.[0-9]+")
 
     - name: Publish Java docs
-      if: ${{ steps.next_release.outputs.NEXT_RELEASE }}
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         GHA_REPO_SLUG: ${{ github.repository }}
