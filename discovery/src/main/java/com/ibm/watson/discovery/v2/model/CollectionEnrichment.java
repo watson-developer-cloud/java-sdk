@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -114,6 +114,9 @@ public class CollectionEnrichment extends GenericModel {
    * Gets the fields.
    *
    * <p>An array of field names that the enrichment is applied to.
+   *
+   * <p>If you apply an enrichment to a field from a JSON file, the data is converted to an array
+   * automatically, even if the field contains a single value.
    *
    * @return the fields
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,8 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * A restriction that alter the document set used for sub aggregations it precedes to nested
- * documents found in the field specified.
+ * A restriction that alters the document set that is used for sub-aggregations it precedes to
+ * nested documents found in the field specified.
  */
 public class QueryNestedAggregation extends QueryAggregation {
 
@@ -31,7 +31,7 @@ public class QueryNestedAggregation extends QueryAggregation {
   /**
    * Gets the path.
    *
-   * <p>The path to the document field to scope sub aggregations to.
+   * <p>The path to the document field to scope sub-aggregations to.
    *
    * @return the path
    */
@@ -53,7 +53,7 @@ public class QueryNestedAggregation extends QueryAggregation {
   /**
    * Gets the aggregations.
    *
-   * <p>An array of sub aggregations.
+   * <p>An array of sub-aggregations.
    *
    * @return the aggregations
    */

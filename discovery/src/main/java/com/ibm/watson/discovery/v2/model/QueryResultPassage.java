@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,7 +57,7 @@ public class QueryResultPassage extends GenericModel {
   /**
    * Gets the endOffset.
    *
-   * <p>The position of the last character of the extracted passage in the originating field.
+   * <p>The position after the last character of the extracted passage in the originating field.
    *
    * @return the endOffset
    */

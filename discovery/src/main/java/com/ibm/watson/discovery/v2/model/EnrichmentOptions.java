@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,10 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/** A object containing options for the current enrichment. */
+/**
+ * An object that contains options for the current enrichment. Starting with version `2020-08-30`,
+ * the enrichment options are not included in responses from the List Enrichments method.
+ */
 public class EnrichmentOptions extends GenericModel {
 
   protected List<String> languages;
@@ -136,7 +139,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the languages.
    *
-   * <p>An array of supported languages for this enrichment.
+   * <p>An array of supported languages for this enrichment. Required when `type` is `dictionary`.
+   * Optional when `type` is `rule_based`. Not valid when creating any other type of enrichment.
    *
    * @return the languages
    */
@@ -147,8 +151,9 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the entityType.
    *
-   * <p>The type of entity. Required when creating `dictionary` and `regular_expression` **type**
-   * enrichment. Not valid when creating any other type of enrichment.
+   * <p>The name of the entity type. This value is used as the field name in the index. Required
+   * when `type` is `dictionary` or `regular_expression`. Not valid when creating any other type of
+   * enrichment.
    *
    * @return the entityType
    */
@@ -159,9 +164,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the regularExpression.
    *
-   * <p>The regular expression to apply for this enrichment. Required only when the **type** of
-   * enrichment being created is a `regular_expression`. Not valid when creating any other type of
-   * enrichment.
+   * <p>The regular expression to apply for this enrichment. Required when `type` is
+   * `regular_expression`. Not valid when creating any other type of enrichment.
    *
    * @return the regularExpression
    */
@@ -172,8 +176,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the resultField.
    *
-   * <p>The name of the result document field that this enrichment creates. Required only when the
-   * enrichment **type** is `rule_based`. Not valid when creating any other type of enrichment.
+   * <p>The name of the result document field that this enrichment creates. Required when `type` is
+   * `rule_based`. Not valid when creating any other type of enrichment.
    *
    * @return the resultField
    */

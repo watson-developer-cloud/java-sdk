@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Object containing a potential answer to the specified query. */
+/** Object that contains a potential answer to the specified query. */
 public class ResultPassageAnswer extends GenericModel {
 
   @SerializedName("answer_text")
@@ -54,7 +54,7 @@ public class ResultPassageAnswer extends GenericModel {
   /**
    * Gets the endOffset.
    *
-   * <p>The position of the last character of the extracted answer in the originating field.
+   * <p>The position after the last character of the extracted answer in the originating field.
    *
    * @return the endOffset
    */

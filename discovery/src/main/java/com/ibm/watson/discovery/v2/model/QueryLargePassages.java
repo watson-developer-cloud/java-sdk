@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -210,7 +210,12 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the perDocument.
    *
-   * <p>When `true`, passages will be returned within their respective result.
+   * <p>If `true`, ranks the documents by document quality, and then returns the highest-ranked
+   * passages per document in a `document_passages` field for each document entry in the results
+   * list of the response.
+   *
+   * <p>If `false`, ranks the passages from all of the documents by passage quality regardless of
+   * the document quality and returns them in a separate `passages` field in the response.
    *
    * @return the perDocument
    */
@@ -221,7 +226,8 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the maxPerDocument.
    *
-   * <p>Maximum number of passages to return per result.
+   * <p>Maximum number of passages to return per document in the result. Ignored if
+   * `passages.per_document` is `false`.
    *
    * @return the maxPerDocument
    */
@@ -232,8 +238,8 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the fields.
    *
-   * <p>A list of fields that passages are drawn from. If this parameter not specified, then all
-   * top-level fields are included.
+   * <p>A list of fields to extract passages from. If this parameter is an empty list, then all
+   * root-level fields are included.
    *
    * @return the fields
    */
@@ -244,8 +250,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the count.
    *
-   * <p>The maximum number of passages to return. The search returns fewer passages if the requested
-   * total is not found. The maximum is `100`.
+   * <p>The maximum number of passages to return. Ignored if `passages.per_document` is `true`.
    *
    * @return the count
    */
@@ -270,18 +275,20 @@ public class QueryLargePassages extends GenericModel {
    * <p>When true, `answer` objects are returned as part of each passage in the query results. The
    * primary difference between an `answer` and a `passage` is that the length of a passage is
    * defined by the query, where the length of an `answer` is calculated by Discovery based on how
-   * much text is needed to answer the question./n/nThis parameter is ignored if passages are not
-   * enabled for the query, or no **natural_language_query** is specified./n/nIf the
-   * **find_answers** parameter is set to `true` and **per_document** parameter is also set to
-   * `true`, then the document search results and the passage search results within each document
-   * are reordered using the answer confidences. The goal of this reordering is to do as much as
-   * possible to make sure that the first answer of the first passage of the first document is the
-   * best answer. Similarly, if the **find_answers** parameter is set to `true` and **per_document**
-   * parameter is set to `false`, then the passage search results are reordered in decreasing order
-   * of the highest confidence answer for each document and passage./n/nThe **find_answers**
-   * parameter is **beta** functionality available only on managed instances and should not be used
-   * in a production environment. This parameter is not available on installed instances of
-   * Discovery.
+   * much text is needed to answer the question.
+   *
+   * <p>This parameter is ignored if passages are not enabled for the query, or no
+   * **natural_language_query** is specified.
+   *
+   * <p>If the **find_answers** parameter is set to `true` and **per_document** parameter is also
+   * set to `true`, then the document search results and the passage search results within each
+   * document are reordered using the answer confidences. The goal of this reordering is to place
+   * the best answer as the first answer of the first passage of the first document. Similarly, if
+   * the **find_answers** parameter is set to `true` and **per_document** parameter is set to
+   * `false`, then the passage search results are reordered in decreasing order of the highest
+   * confidence answer for each document and passage.
+   *
+   * <p>The **find_answers** parameter is available only on managed instances of Discovery.
    *
    * @return the findAnswers
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,7 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Object containing suggested refinement settings. */
+/** Object that contains suggested refinement settings. Available with Premium plans only. */
 public class DefaultQueryParamsSuggestedRefinements extends GenericModel {
 
   protected Boolean enabled;
@@ -82,7 +82,7 @@ public class DefaultQueryParamsSuggestedRefinements extends GenericModel {
   /**
    * Gets the enabled.
    *
-   * <p>When `true`, a suggested refinements for the query are returned by default.
+   * <p>When `true`, suggested refinements for the query are returned by default.
    *
    * @return the enabled
    */
