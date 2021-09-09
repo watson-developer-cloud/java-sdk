@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -97,6 +97,10 @@ public class DialogNodeOutputGeneric extends GenericModel {
   protected String source;
   protected String title;
   protected String description;
+
+  @SerializedName("alt_text")
+  protected String altText;
+
   protected String preference;
   protected List<DialogNodeOutputOptionsElement> options;
 
@@ -209,7 +213,7 @@ public class DialogNodeOutputGeneric extends GenericModel {
   /**
    * Gets the source.
    *
-   * <p>The URL of the image.
+   * <p>The `https:` URL of the image.
    *
    * @return the source
    */
@@ -237,6 +241,18 @@ public class DialogNodeOutputGeneric extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the altText.
+   *
+   * <p>Descriptive text that can be used for screen readers or other situations where the image
+   * cannot be seen.
+   *
+   * @return the altText
+   */
+  public String altText() {
+    return altText;
   }
 
   /**

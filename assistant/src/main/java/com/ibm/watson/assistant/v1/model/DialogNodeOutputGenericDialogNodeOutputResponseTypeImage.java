@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
     private String title;
     private String description;
     private List<ResponseGenericChannel> channels;
+    private String altText;
 
     public Builder(
         DialogNodeOutputGeneric dialogNodeOutputGenericDialogNodeOutputResponseTypeImage) {
@@ -34,6 +35,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
       this.title = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.title;
       this.description = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.description;
       this.channels = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.channels;
+      this.altText = dialogNodeOutputGenericDialogNodeOutputResponseTypeImage.altText;
     }
 
     /** Instantiates a new builder. */
@@ -128,6 +130,17 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
       this.channels = channels;
       return this;
     }
+
+    /**
+     * Set the altText.
+     *
+     * @param altText the altText
+     * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeImage builder
+     */
+    public Builder altText(String altText) {
+      this.altText = altText;
+      return this;
+    }
   }
 
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeImage(Builder builder) {
@@ -139,6 +152,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImage
     title = builder.title;
     description = builder.description;
     channels = builder.channels;
+    altText = builder.altText;
   }
 
   /**
