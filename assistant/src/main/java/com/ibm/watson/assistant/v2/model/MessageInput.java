@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,10 +20,20 @@ import java.util.List;
 /** An input object that includes the input text. */
 public class MessageInput extends GenericModel {
 
-  /** The type of user input. Currently, only text input is supported. */
+  /**
+   * The type of the message:
+   *
+   * <p>- `text`: The user input is processed normally by the assistant. - `search`: Only search
+   * results are returned. (Any dialog or actions skill is bypassed.)
+   *
+   * <p>**Note:** A `search` message results in an error if no search skill is configured for the
+   * assistant.
+   */
   public interface MessageType {
     /** text. */
     String TEXT = "text";
+    /** search. */
+    String SEARCH = "search";
   }
 
   @SerializedName("message_type")
@@ -186,7 +196,13 @@ public class MessageInput extends GenericModel {
   /**
    * Gets the messageType.
    *
-   * <p>The type of user input. Currently, only text input is supported.
+   * <p>The type of the message:
+   *
+   * <p>- `text`: The user input is processed normally by the assistant. - `search`: Only search
+   * results are returned. (Any dialog or actions skill is bypassed.)
+   *
+   * <p>**Note:** A `search` message results in an error if no search skill is configured for the
+   * assistant.
    *
    * @return the messageType
    */
