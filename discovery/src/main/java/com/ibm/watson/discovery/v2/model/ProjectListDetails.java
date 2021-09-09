@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,14 +18,24 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** Details about a specific project. */
 public class ProjectListDetails extends GenericModel {
 
-  /** The project type of this project. */
+  /**
+   * The type of project.
+   *
+   * <p>The `content_intelligence` type is a *Document Retrieval for Contracts* project and the
+   * `other` type is a *Custom* project.
+   *
+   * <p>The `content_mining` and `content_intelligence` types are available with Premium plan
+   * managed deployments and installed deployments only.
+   */
   public interface Type {
     /** document_retrieval. */
     String DOCUMENT_RETRIEVAL = "document_retrieval";
-    /** answer_retrieval. */
-    String ANSWER_RETRIEVAL = "answer_retrieval";
+    /** conversational_search. */
+    String CONVERSATIONAL_SEARCH = "conversational_search";
     /** content_mining. */
     String CONTENT_MINING = "content_mining";
+    /** content_intelligence. */
+    String CONTENT_INTELLIGENCE = "content_intelligence";
     /** other. */
     String OTHER = "other";
   }
@@ -67,7 +77,13 @@ public class ProjectListDetails extends GenericModel {
   /**
    * Gets the type.
    *
-   * <p>The project type of this project.
+   * <p>The type of project.
+   *
+   * <p>The `content_intelligence` type is a *Document Retrieval for Contracts* project and the
+   * `other` type is a *Custom* project.
+   *
+   * <p>The `content_mining` and `content_intelligence` types are available with Premium plan
+   * managed deployments and installed deployments only.
    *
    * @return the type
    */
