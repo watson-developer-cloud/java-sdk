@@ -35,5 +35,6 @@ printf "\n>>>>> Committing new javadoc...\n"
 # git add -f .
 # git commit -m "chore: Javadoc for release ${GHA_TAG} (${github.sha})"
 # git push -f origin gh-pages
+printf "\n>>>>> DEBUG: commit=%s tag=%s sha=%s\n" ${GHA_COMMIT} ${GHA_TAG} ${github.sha}
 
 popd
