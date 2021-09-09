@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,8 +26,9 @@ public class RecognizeOptions extends GenericModel {
 
   /**
    * The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Languages
-   * and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See
+   * [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
    * [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    */
@@ -50,6 +51,8 @@ public class RecognizeOptions extends GenericModel {
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-AU_Telephony. */
     String EN_AU_TELEPHONY = "en-AU_Telephony";
+    /** en-IN_Telephony. */
+    String EN_IN_TELEPHONY = "en-IN_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_NarrowbandModel. */
@@ -100,10 +103,14 @@ public class RecognizeOptions extends GenericModel {
     String FR_CA_TELEPHONY = "fr-CA_Telephony";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** fr-FR_Multimedia. */
+    String FR_FR_MULTIMEDIA = "fr-FR_Multimedia";
     /** fr-FR_NarrowbandModel. */
     String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
     /** fr-FR_Telephony. */
     String FR_FR_TELEPHONY = "fr-FR_Telephony";
+    /** hi-IN_Telephony. */
+    String HI_IN_TELEPHONY = "hi-IN_Telephony";
     /** it-IT_BroadbandModel. */
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
@@ -112,12 +119,20 @@ public class RecognizeOptions extends GenericModel {
     String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
+    /** ja-JP_Multimedia. */
+    String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_Multimedia. */
+    String KO_KR_MULTIMEDIA = "ko-KR_Multimedia";
     /** ko-KR_NarrowbandModel. */
     String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+    /** ko-KR_Telephony. */
+    String KO_KR_TELEPHONY = "ko-KR_Telephony";
+    /** nl-BE_Telephony. */
+    String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
@@ -623,8 +638,9 @@ public class RecognizeOptions extends GenericModel {
    * Gets the model.
    *
    * <p>The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Languages
-   * and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See
+   * [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
    * [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    *
@@ -838,7 +854,8 @@ public class RecognizeOptions extends GenericModel {
    * final transcript of a recognition request. For US English, the service also converts certain
    * keyword strings to punctuation symbols. By default, the service performs no smart formatting.
    *
-   * <p>**Note:** Applies to US English, Japanese, and Spanish transcription only.
+   * <p>**Beta:** The parameter is beta functionality. Applies to US English, Japanese, and Spanish
+   * transcription only.
    *
    * <p>See [Smart
    * formatting](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#smart-formatting).
@@ -855,11 +872,13 @@ public class RecognizeOptions extends GenericModel {
    * <p>If `true`, the response includes labels that identify which words were spoken by which
    * participants in a multi-person exchange. By default, the service returns no speaker labels.
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
-   * of whether you specify `false` for the parameter. * For previous-generation models, can be used
-   * for US English, Australian English, German, Japanese, Korean, and Spanish (both broadband and
-   * narrowband models) and UK English (narrowband model) transcription only. * For next-generation
-   * models, can be used for English (Australian, UK, and US), German, and Spanish transcription
-   * only.
+   * of whether you specify `false` for the parameter.
+   *
+   * <p>**Beta:** The parameter is beta functionality. * For previous-generation models, the
+   * parameter can be used for Australian English, US English, German, Japanese, Korean, and Spanish
+   * (both broadband and narrowband models) and UK English (narrowband model) transcription only. *
+   * For next-generation models, the parameter can be used for English (Australian, Indian, UK, and
+   * US), German, Japanese, Korean, and Spanish transcription only.
    *
    * <p>Restrictions and limitations apply to the use of speaker labels for both types of models.
    * See [Speaker
@@ -891,7 +910,11 @@ public class RecognizeOptions extends GenericModel {
    * grammar, you must also use the `language_customization_id` parameter to specify the name of the
    * custom language model for which the grammar is defined. The service recognizes only strings
    * that are recognized by the specified grammar; it does not recognize other custom words from the
-   * model's words resource. See [Using a grammar for speech
+   * model's words resource.
+   *
+   * <p>**Beta:** The parameter is beta functionality.
+   *
+   * <p>See [Using a grammar for speech
    * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarUse).
    *
    * @return the grammarName
@@ -913,7 +936,8 @@ public class RecognizeOptions extends GenericModel {
    * disables keyword spotting (ignores the `keywords` and `keywords_threshold` parameters) and
    * returns only a single final transcript (forces the `max_alternatives` parameter to be `1`).
    *
-   * <p>**Note:** Applies to US English, Japanese, and Korean transcription only.
+   * <p>**Beta:** The parameter is beta functionality. Applies to US English, Japanese, and Korean
+   * transcription only.
    *
    * <p>See [Numeric
    * redaction](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#numeric-redaction).
@@ -1034,12 +1058,11 @@ public class RecognizeOptions extends GenericModel {
    * parameter causes the models to produce results even more quickly, though the results might be
    * less accurate when the parameter is used.
    *
-   * <p>**Note:** The parameter is beta functionality. It is not available for previous-generation
-   * `Broadband` and `Narrowband` models. It is available only for some next-generation models.
-   *
-   * <p>* For a list of next-generation models that support low latency, see [Supported language
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported)
-   * for next-generation models. * For more information about the `low_latency` parameter, see [Low
+   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
+   * It is available only for some next-generation models. For a list of next-generation models that
+   * support low latency, see [Supported next-generation language
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported).
+   * * For more information about the `low_latency` parameter, see [Low
    * latency](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-interim#low-latency).
    *
    * @return the lowLatency

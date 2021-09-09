@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,9 +18,9 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class GetModelOptions extends GenericModel {
 
   /**
-   * The identifier of the model in the form of its name from the output of the **Get a model**
-   * method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel`
-   * instead.).
+   * The identifier of the model in the form of its name from the output of the [List
+   * models](#listmodels) method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use
+   * `ar-MS_BroadbandModel` instead.).
    */
   public interface ModelId {
     /** ar-AR_BroadbandModel. */
@@ -47,6 +47,8 @@ public class GetModelOptions extends GenericModel {
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
     /** en-GB_Telephony. */
     String EN_GB_TELEPHONY = "en-GB_Telephony";
+    /** en-IN_Telephony. */
+    String EN_IN_TELEPHONY = "en-IN_Telephony";
     /** en-US_BroadbandModel. */
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
     /** en-US_Multimedia. */
@@ -91,10 +93,14 @@ public class GetModelOptions extends GenericModel {
     String FR_CA_TELEPHONY = "fr-CA_Telephony";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** fr-FR_Multimedia. */
+    String FR_FR_MULTIMEDIA = "fr-FR_Multimedia";
     /** fr-FR_NarrowbandModel. */
     String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
     /** fr-FR_Telephony. */
     String FR_FR_TELEPHONY = "fr-FR_Telephony";
+    /** hi-IN_Telephony. */
+    String HI_IN_TELEPHONY = "hi-IN_Telephony";
     /** it-IT_BroadbandModel. */
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
@@ -103,12 +109,20 @@ public class GetModelOptions extends GenericModel {
     String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
+    /** ja-JP_Multimedia. */
+    String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_Multimedia. */
+    String KO_KR_MULTIMEDIA = "ko-KR_Multimedia";
     /** ko-KR_NarrowbandModel. */
     String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+    /** ko-KR_Telephony. */
+    String KO_KR_TELEPHONY = "ko-KR_Telephony";
+    /** nl-BE_Telephony. */
+    String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
@@ -185,9 +199,9 @@ public class GetModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * <p>The identifier of the model in the form of its name from the output of the **Get a model**
-   * method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel`
-   * instead.).
+   * <p>The identifier of the model in the form of its name from the output of the [List
+   * models](#listmodels) method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use
+   * `ar-MS_BroadbandModel` instead.).
    *
    * @return the modelId
    */
