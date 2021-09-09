@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,13 @@ public class SynthesizeOptions extends GenericModel {
 
   /**
    * The voice to use for synthesis. For more information about specifying a voice, see **Important
-   * voice updates** in the method description.
+   * voice updates for IBM Cloud** in the method description.
+   *
+   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
+   * voices are supported only for IBM Cloud.
+   *
+   * <p>**See also:** See also [Using languages and
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices).
    */
   public interface Voice {
     /** ar-AR_OmarVoice. */
@@ -109,6 +115,8 @@ public class SynthesizeOptions extends GenericModel {
     String KO_KR_YOUNGMIVOICE = "ko-KR_YoungmiVoice";
     /** ko-KR_YunaVoice. */
     String KO_KR_YUNAVOICE = "ko-KR_YunaVoice";
+    /** nl-BE_AdeleVoice. */
+    String NL_BE_ADELEVOICE = "nl-BE_AdeleVoice";
     /** nl-NL_EmmaVoice. */
     String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
     /** nl-NL_LiamVoice. */
@@ -270,7 +278,13 @@ public class SynthesizeOptions extends GenericModel {
    * Gets the voice.
    *
    * <p>The voice to use for synthesis. For more information about specifying a voice, see
-   * **Important voice updates** in the method description.
+   * **Important voice updates for IBM Cloud** in the method description.
+   *
+   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
+   * voices are supported only for IBM Cloud.
+   *
+   * <p>**See also:** See also [Using languages and
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices).
    *
    * @return the voice
    */

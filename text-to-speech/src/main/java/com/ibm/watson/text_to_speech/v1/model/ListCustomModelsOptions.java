@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,8 @@ public class ListCustomModelsOptions extends GenericModel {
     String JA_JP = "ja-JP";
     /** ko-KR. */
     String KO_KR = "ko-KR";
+    /** nl-BE. */
+    String NL_BE = "nl-BE";
     /** nl-NL. */
     String NL_NL = "nl-NL";
     /** pt-BR. */
