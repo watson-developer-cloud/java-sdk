@@ -71,7 +71,7 @@ public class ClassificationsOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>(Beta) Enter a [custom
+   * <p>Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
    * ID of the classification model to be used.
    *
