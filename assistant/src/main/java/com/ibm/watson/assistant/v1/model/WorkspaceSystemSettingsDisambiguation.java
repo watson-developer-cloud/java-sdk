@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,15 +19,23 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
 
   /**
-   * The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high** if
-   * you want the disambiguation feature to be triggered more often. This can be useful for testing
-   * or demonstration purposes.
+   * The sensitivity of the disambiguation feature to intent detection uncertainty. Higher
+   * sensitivity means that the disambiguation feature is triggered more often and includes more
+   * choices.
    */
   public interface Sensitivity {
     /** auto. */
     String AUTO = "auto";
     /** high. */
     String HIGH = "high";
+    /** medium_high. */
+    String MEDIUM_HIGH = "medium_high";
+    /** medium. */
+    String MEDIUM = "medium";
+    /** medium_low. */
+    String MEDIUM_LOW = "medium_low";
+    /** low. */
+    String LOW = "low";
   }
 
   protected String prompt;
@@ -212,9 +220,9 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
   /**
    * Gets the sensitivity.
    *
-   * <p>The sensitivity of the disambiguation feature to intent detection conflicts. Set to **high**
-   * if you want the disambiguation feature to be triggered more often. This can be useful for
-   * testing or demonstration purposes.
+   * <p>The sensitivity of the disambiguation feature to intent detection uncertainty. Higher
+   * sensitivity means that the disambiguation feature is triggered more often and includes more
+   * choices.
    *
    * @return the sensitivity
    */
