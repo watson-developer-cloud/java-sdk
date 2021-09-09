@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -54,7 +54,7 @@ public class Notice extends GenericModel {
    * `smart_document_understanding_failed_internal_error`,
    * `smart_document_understanding_failed_internal_error`,
    * `smart_document_understanding_failed_warning`, `smart_document_understanding_page_error`,
-   * `smart_document_understanding_page_warning`. **Note:** This is not a complete list, other
+   * `smart_document_understanding_page_warning`. **Note:** This is not a complete list; other
    * values might be returned.
    *
    * @return the noticeId
@@ -111,8 +111,8 @@ public class Notice extends GenericModel {
    * Gets the step.
    *
    * <p>Ingestion or training step in which the notice occurred. Typical step values include:
-   * `classify_elements`, `smartDocumentUnderstanding`, `ingestion`, `indexing`, `convert`.
-   * **Note:** This is not a complete list, other values might be returned.
+   * `smartDocumentUnderstanding`, `ingestion`, `indexing`, `convert`. **Note:** This is not a
+   * complete list; other values might be returned.
    *
    * @return the step
    */

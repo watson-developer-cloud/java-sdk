@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -151,8 +151,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>*For use with `elements` enrichments only.* The element extraction model to use. Models
-   * available are: `contract`.
+   * <p>For use with `elements` enrichments only. The element extraction model to use. The only
+   * model available is `contract`.
    *
    * @return the model
    */
