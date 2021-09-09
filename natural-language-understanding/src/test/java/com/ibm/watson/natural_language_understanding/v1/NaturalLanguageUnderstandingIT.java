@@ -999,25 +999,21 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void testListClassificationModels() throws Exception {
-    ListClassificationsModelsResponse response =
+    ClassificationsModelList response =
         service.listClassificationsModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for (ClassificationsModelList classificationsModelList : response.getModels()) {
-      if (classificationsModelList.getModels() != null) {
-        for (ClassificationsModel classificationsModel : classificationsModelList.getModels()) {
-          if (classificationsModel.getName().startsWith("testString")) {
-            DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-                new DeleteClassificationsModelOptions.Builder()
-                    .modelId(classificationsModel.getModelId())
-                    .build();
-            DeleteModelResults deleteModelResults =
-                service
-                    .deleteClassificationsModel(deleteClassificationsModelOptions)
-                    .execute()
-                    .getResult();
-          }
-        }
+    for (ClassificationsModel classificationsModel : response.getModels()) {
+      if (classificationsModel.getName().startsWith("testString")) {
+        DeleteClassificationsModelOptions deleteClassificationsModelOptions =
+            new DeleteClassificationsModelOptions.Builder()
+                .modelId(classificationsModel.getModelId())
+                .build();
+        DeleteModelResults deleteModelResults =
+            service
+                .deleteClassificationsModel(deleteClassificationsModelOptions)
+                .execute()
+                .getResult();
       }
     }
   }
