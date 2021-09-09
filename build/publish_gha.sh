@@ -32,8 +32,8 @@ ls -l latest
 popd
 
 printf "\n>>>>> Committing new javadoc for commit: %s\n" ${GHA_COMMIT}
-# git add -f .
-# git commit -m "chore: Javadoc for release ${GHA_TAG} (${GHA_COMMIT})"
-# git push -f origin gh-pages
+git add -f .
+git commit -m "chore: Javadoc for release ${GHA_TAG} (${GHA_COMMIT})"
+git push -f origin gh-pages
 
 popd
