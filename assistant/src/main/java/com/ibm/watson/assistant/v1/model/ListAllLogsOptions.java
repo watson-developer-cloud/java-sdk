@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -125,7 +125,8 @@ public class ListAllLogsOptions extends GenericModel {
    * <p>A cacheable parameter that limits the results to those matching the specified filter. You
    * must specify a filter query that includes a value for `language`, as well as a value for
    * `request.context.system.assistant_id`, `workspace_id`, or
-   * `request.context.metadata.deployment`. For more information, see the
+   * `request.context.metadata.deployment`. These required filters must be specified using the exact
+   * match (`::`) operator. For more information, see the
    * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-filter-reference#filter-reference).
    *
    * @return the filter
