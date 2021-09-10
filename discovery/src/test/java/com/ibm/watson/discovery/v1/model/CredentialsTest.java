@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,15 +72,20 @@ public class CredentialsTest {
     assertEquals(credentialDetailsModel.accessKeyId(), "testString");
     assertEquals(credentialDetailsModel.secretAccessKey(), "testString");
 
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+    assertEquals(statusDetailsModel.authentication(), Boolean.valueOf(true));
+    assertEquals(statusDetailsModel.errorMessage(), "testString");
+
     Credentials credentialsModel =
         new Credentials.Builder()
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
     assertEquals(credentialsModel.sourceType(), "box");
     assertEquals(credentialsModel.credentialDetails(), credentialDetailsModel);
-    assertEquals(credentialsModel.status(), "connected");
+    assertEquals(credentialsModel.status(), statusDetailsModel);
 
     String json = TestUtilities.serialize(credentialsModel);
 
@@ -89,6 +94,6 @@ public class CredentialsTest {
     assertEquals(credentialsModelNew.sourceType(), "box");
     assertEquals(
         credentialsModelNew.credentialDetails().toString(), credentialDetailsModel.toString());
-    assertEquals(credentialsModelNew.status(), "connected");
+    assertEquals(credentialsModelNew.status().toString(), statusDetailsModel.toString());
   }
 }

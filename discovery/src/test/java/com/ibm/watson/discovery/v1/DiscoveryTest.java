@@ -131,6 +131,7 @@ import com.ibm.watson.discovery.v1.model.SourceOptionsObject;
 import com.ibm.watson.discovery.v1.model.SourceOptionsSiteColl;
 import com.ibm.watson.discovery.v1.model.SourceOptionsWebCrawl;
 import com.ibm.watson.discovery.v1.model.SourceSchedule;
+import com.ibm.watson.discovery.v1.model.StatusDetails;
 import com.ibm.watson.discovery.v1.model.TokenDictRule;
 import com.ibm.watson.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.discovery.v1.model.TrainingDataSet;
@@ -3904,13 +3905,17 @@ public class DiscoveryTest {
             .secretAccessKey("testString")
             .build();
 
+    // Construct an instance of the StatusDetails model
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+
     // Construct an instance of the CreateCredentialsOptions model
     CreateCredentialsOptions createCredentialsOptionsModel =
         new CreateCredentialsOptions.Builder()
             .environmentId("testString")
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -4042,6 +4047,10 @@ public class DiscoveryTest {
             .secretAccessKey("testString")
             .build();
 
+    // Construct an instance of the StatusDetails model
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+
     // Construct an instance of the UpdateCredentialsOptions model
     UpdateCredentialsOptions updateCredentialsOptionsModel =
         new UpdateCredentialsOptions.Builder()
@@ -4049,7 +4058,7 @@ public class DiscoveryTest {
             .credentialId("testString")
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
 
     // Invoke operation with valid options model (positive test)

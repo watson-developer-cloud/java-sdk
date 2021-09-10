@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,19 +72,24 @@ public class UpdateCredentialsOptionsTest {
     assertEquals(credentialDetailsModel.accessKeyId(), "testString");
     assertEquals(credentialDetailsModel.secretAccessKey(), "testString");
 
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+    assertEquals(statusDetailsModel.authentication(), Boolean.valueOf(true));
+    assertEquals(statusDetailsModel.errorMessage(), "testString");
+
     UpdateCredentialsOptions updateCredentialsOptionsModel =
         new UpdateCredentialsOptions.Builder()
             .environmentId("testString")
             .credentialId("testString")
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
     assertEquals(updateCredentialsOptionsModel.environmentId(), "testString");
     assertEquals(updateCredentialsOptionsModel.credentialId(), "testString");
     assertEquals(updateCredentialsOptionsModel.sourceType(), "box");
     assertEquals(updateCredentialsOptionsModel.credentialDetails(), credentialDetailsModel);
-    assertEquals(updateCredentialsOptionsModel.status(), "connected");
+    assertEquals(updateCredentialsOptionsModel.status(), statusDetailsModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
