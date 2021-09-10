@@ -2673,7 +2673,10 @@ public class Discovery extends BaseService {
               .toJsonTree(createCredentialsOptions.credentialDetails()));
     }
     if (createCredentialsOptions.status() != null) {
-      contentJson.addProperty("status", createCredentialsOptions.status());
+      contentJson.add(
+          "status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCredentialsOptions.status()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Credentials> responseConverter =
@@ -2760,7 +2763,10 @@ public class Discovery extends BaseService {
               .toJsonTree(updateCredentialsOptions.credentialDetails()));
     }
     if (updateCredentialsOptions.status() != null) {
-      contentJson.addProperty("status", updateCredentialsOptions.status());
+      contentJson.add(
+          "status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateCredentialsOptions.status()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Credentials> responseConverter =

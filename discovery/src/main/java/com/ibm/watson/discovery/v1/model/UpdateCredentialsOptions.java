@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,24 +38,11 @@ public class UpdateCredentialsOptions extends GenericModel {
     String CLOUD_OBJECT_STORAGE = "cloud_object_storage";
   }
 
-  /**
-   * The current status of this set of credentials. `connected` indicates that the credentials are
-   * available to use with the source configuration of a collection. `invalid` refers to the
-   * credentials (for example, the password provided has expired) and must be corrected before they
-   * can be used with a collection.
-   */
-  public interface Status {
-    /** connected. */
-    String CONNECTED = "connected";
-    /** invalid. */
-    String INVALID = "invalid";
-  }
-
   protected String environmentId;
   protected String credentialId;
   protected String sourceType;
   protected CredentialDetails credentialDetails;
-  protected String status;
+  protected StatusDetails status;
 
   /** Builder. */
   public static class Builder {
@@ -63,7 +50,7 @@ public class UpdateCredentialsOptions extends GenericModel {
     private String credentialId;
     private String sourceType;
     private CredentialDetails credentialDetails;
-    private String status;
+    private StatusDetails status;
 
     private Builder(UpdateCredentialsOptions updateCredentialsOptions) {
       this.environmentId = updateCredentialsOptions.environmentId;
@@ -146,7 +133,7 @@ public class UpdateCredentialsOptions extends GenericModel {
      * @param status the status
      * @return the UpdateCredentialsOptions builder
      */
-    public Builder status(String status) {
+    public Builder status(StatusDetails status) {
       this.status = status;
       return this;
     }
@@ -240,14 +227,11 @@ public class UpdateCredentialsOptions extends GenericModel {
   /**
    * Gets the status.
    *
-   * <p>The current status of this set of credentials. `connected` indicates that the credentials
-   * are available to use with the source configuration of a collection. `invalid` refers to the
-   * credentials (for example, the password provided has expired) and must be corrected before they
-   * can be used with a collection.
+   * <p>Object that contains details about the status of the authentication process.
    *
    * @return the status
    */
-  public String status() {
+  public StatusDetails status() {
     return status;
   }
 }
