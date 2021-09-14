@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,8 +73,8 @@ public class UpdateCredentialsOptionsTest {
     assertEquals(credentialDetailsModel.secretAccessKey(), "testString");
 
     StatusDetails statusDetailsModel =
-        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
-    assertEquals(statusDetailsModel.authentication(), Boolean.valueOf(true));
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
+    assertEquals(statusDetailsModel.authenticated(), Boolean.valueOf(true));
     assertEquals(statusDetailsModel.errorMessage(), "testString");
 
     UpdateCredentialsOptions updateCredentialsOptionsModel =

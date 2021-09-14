@@ -31,15 +31,15 @@ public class StatusDetailsTest {
   @Test
   public void testStatusDetails() throws Throwable {
     StatusDetails statusDetailsModel =
-        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
-    assertEquals(statusDetailsModel.authentication(), Boolean.valueOf(true));
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
+    assertEquals(statusDetailsModel.authenticated(), Boolean.valueOf(true));
     assertEquals(statusDetailsModel.errorMessage(), "testString");
 
     String json = TestUtilities.serialize(statusDetailsModel);
 
     StatusDetails statusDetailsModelNew = TestUtilities.deserialize(json, StatusDetails.class);
     assertTrue(statusDetailsModelNew instanceof StatusDetails);
-    assertEquals(statusDetailsModelNew.authentication(), Boolean.valueOf(true));
+    assertEquals(statusDetailsModelNew.authenticated(), Boolean.valueOf(true));
     assertEquals(statusDetailsModelNew.errorMessage(), "testString");
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -3817,7 +3817,7 @@ public class DiscoveryTest {
   public void testListCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credentials\": [{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authentication\": true, \"error_message\": \"errorMessage\"}}]}";
+        "{\"credentials\": [{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}]}";
     String listCredentialsPath = "/v1/environments/testString/credentials";
 
     server.enqueue(
@@ -3870,7 +3870,7 @@ public class DiscoveryTest {
   public void testCreateCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authentication\": true, \"error_message\": \"errorMessage\"}}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String createCredentialsPath = "/v1/environments/testString/credentials";
 
     server.enqueue(
@@ -3907,7 +3907,7 @@ public class DiscoveryTest {
 
     // Construct an instance of the StatusDetails model
     StatusDetails statusDetailsModel =
-        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
 
     // Construct an instance of the CreateCredentialsOptions model
     CreateCredentialsOptions createCredentialsOptionsModel =
@@ -3956,7 +3956,7 @@ public class DiscoveryTest {
   public void testGetCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authentication\": true, \"error_message\": \"errorMessage\"}}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String getCredentialsPath = "/v1/environments/testString/credentials/testString";
 
     server.enqueue(
@@ -4012,7 +4012,7 @@ public class DiscoveryTest {
   public void testUpdateCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authentication\": true, \"error_message\": \"errorMessage\"}}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String updateCredentialsPath = "/v1/environments/testString/credentials/testString";
 
     server.enqueue(
@@ -4049,7 +4049,7 @@ public class DiscoveryTest {
 
     // Construct an instance of the StatusDetails model
     StatusDetails statusDetailsModel =
-        new StatusDetails.Builder().authentication(true).errorMessage("testString").build();
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
 
     // Construct an instance of the UpdateCredentialsOptions model
     UpdateCredentialsOptions updateCredentialsOptionsModel =
