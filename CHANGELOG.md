@@ -1,3 +1,29 @@
+# [9.3.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.2...v9.3.0) (2021-09-14)
+
+
+### Bug Fixes
+
+* **assistant-v1:** location is no longer a required parameter for RuntimeEntity ([4014b36](https://github.com/watson-developer-cloud/java-sdk/commit/4014b365cd862ceca885855796fc8595c7662f36))
+* **assistant-v2:** add answers to searchResult ([8d53d6c](https://github.com/watson-developer-cloud/java-sdk/commit/8d53d6c71b6ef6fb31119ed5bcd082e1bf6dcbb6))
+* **assistant-v2:** location is no longer a required parameter for RuntimeEntity ([2971a3b](https://github.com/watson-developer-cloud/java-sdk/commit/2971a3b22fab6092e5f4c05c6e96f2871c5d4905))
+* **discovery-v1:** change authentication to authenticated property in StatusDetails ([e7b3cae](https://github.com/watson-developer-cloud/java-sdk/commit/e7b3caeebc07e53a11421369237c013df6dd1d88))
+* **discovery-v1:** status is now deserialized as an object ([c72b497](https://github.com/watson-developer-cloud/java-sdk/commit/c72b497317ca33a9b6017458f8f2fce9ee528748))
+* **natural-language-understanding-v1:** listClassificationsModels return type change ([5776b7b](https://github.com/watson-developer-cloud/java-sdk/commit/5776b7b97cedef31420fe88fa59d7e3fce048638))
+* **natural-language-understanding-v1:** remove unused models ([8e894dc](https://github.com/watson-developer-cloud/java-sdk/commit/8e894dc16b8aeabf76f9e9c33977188a9f840d16))
+
+
+### Features
+
+* **assistant-v1:** add altText property to DialogNodeOutputGeneric & RuntimeResponseGeneric ([66acc78](https://github.com/watson-developer-cloud/java-sdk/commit/66acc78bcb3ce1d4fe495c93ca646d4d8741c98a))
+* **assistant-v1:** add extra sensitivity values for RuntimeResponseGenericRuntimeResponseTypeImage ([86b331d](https://github.com/watson-developer-cloud/java-sdk/commit/86b331d935b8b1719cb7b1cafff24baaaa423506))
+* **assistant-v2:** add altText property to RuntimeResponseGeneric ([798f780](https://github.com/watson-developer-cloud/java-sdk/commit/798f780b71a67ec3e3b13ef19f44dec151d3c22c))
+* **assistant-v2:** add SEARCH as a type of the message to MessageInput & MessageInputStateless ([b9a3427](https://github.com/watson-developer-cloud/java-sdk/commit/b9a342794f2594033c5a48b8323610f30eedd527))
+* **assistant-v2:** add sessionStartTime & state properties to MessageContextGlobalSystem ([6cd0b2e](https://github.com/watson-developer-cloud/java-sdk/commit/6cd0b2e50079f7435ee935588d2a38cdc7c5bab7))
+* **discovery-v2:** add CONVERSATIONAL_SEARCH & CONTENT_INTELLIGENCE as a type of a project ([ec6e753](https://github.com/watson-developer-cloud/java-sdk/commit/ec6e7531d8c39a0c3aa3c4a392071e982a1fba65))
+* **speech-to-text-v1:** add more languages supported for next generation models ([2fbd050](https://github.com/watson-developer-cloud/java-sdk/commit/2fbd050306f2912fc7648e4ed70cd48abea54dad))
+* **speech-to-text-v1:** add more languages supported for next generation models ([c03ea09](https://github.com/watson-developer-cloud/java-sdk/commit/c03ea099880c06f1717486c226debfede9eeb30b))
+* **text-to-speech-v1:** add new voice models ([54d2338](https://github.com/watson-developer-cloud/java-sdk/commit/54d2338a4d216e629db767415d6e066e6e22a45e))
+
 ## [9.2.2](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.1...v9.2.2) (2021-09-01)
 
 
