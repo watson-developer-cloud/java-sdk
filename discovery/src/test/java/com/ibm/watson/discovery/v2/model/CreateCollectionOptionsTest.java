@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,7 +45,7 @@ public class CreateCollectionOptionsTest {
             .projectId("testString")
             .name("testString")
             .description("testString")
-            .language("testString")
+            .language("en")
             .enrichments(
                 new java.util.ArrayList<CollectionEnrichment>(
                     java.util.Arrays.asList(collectionEnrichmentModel)))
@@ -53,7 +53,7 @@ public class CreateCollectionOptionsTest {
     assertEquals(createCollectionOptionsModel.projectId(), "testString");
     assertEquals(createCollectionOptionsModel.name(), "testString");
     assertEquals(createCollectionOptionsModel.description(), "testString");
-    assertEquals(createCollectionOptionsModel.language(), "testString");
+    assertEquals(createCollectionOptionsModel.language(), "en");
     assertEquals(
         createCollectionOptionsModel.enrichments(),
         new java.util.ArrayList<CollectionEnrichment>(

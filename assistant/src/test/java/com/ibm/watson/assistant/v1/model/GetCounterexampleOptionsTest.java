@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,11 +34,11 @@ public class GetCounterexampleOptionsTest {
         new GetCounterexampleOptions.Builder()
             .workspaceId("testString")
             .text("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(getCounterexampleOptionsModel.workspaceId(), "testString");
     assertEquals(getCounterexampleOptionsModel.text(), "testString");
-    assertEquals(getCounterexampleOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(getCounterexampleOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

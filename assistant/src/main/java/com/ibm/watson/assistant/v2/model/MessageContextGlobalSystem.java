@@ -72,6 +72,11 @@ public class MessageContextGlobalSystem extends GenericModel {
   @SerializedName("reference_time")
   protected String referenceTime;
 
+  @SerializedName("session_start_time")
+  protected String sessionStartTime;
+
+  protected String state;
+
   /** Builder. */
   public static class Builder {
     private String timezone;
@@ -79,6 +84,8 @@ public class MessageContextGlobalSystem extends GenericModel {
     private Long turnCount;
     private String locale;
     private String referenceTime;
+    private String sessionStartTime;
+    private String state;
 
     private Builder(MessageContextGlobalSystem messageContextGlobalSystem) {
       this.timezone = messageContextGlobalSystem.timezone;
@@ -86,6 +93,8 @@ public class MessageContextGlobalSystem extends GenericModel {
       this.turnCount = messageContextGlobalSystem.turnCount;
       this.locale = messageContextGlobalSystem.locale;
       this.referenceTime = messageContextGlobalSystem.referenceTime;
+      this.sessionStartTime = messageContextGlobalSystem.sessionStartTime;
+      this.state = messageContextGlobalSystem.state;
     }
 
     /** Instantiates a new builder. */
@@ -154,6 +163,28 @@ public class MessageContextGlobalSystem extends GenericModel {
       this.referenceTime = referenceTime;
       return this;
     }
+
+    /**
+     * Set the sessionStartTime.
+     *
+     * @param sessionStartTime the sessionStartTime
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder sessionStartTime(String sessionStartTime) {
+      this.sessionStartTime = sessionStartTime;
+      return this;
+    }
+
+    /**
+     * Set the state.
+     *
+     * @param state the state
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder state(String state) {
+      this.state = state;
+      return this;
+    }
   }
 
   protected MessageContextGlobalSystem(Builder builder) {
@@ -162,6 +193,8 @@ public class MessageContextGlobalSystem extends GenericModel {
     turnCount = builder.turnCount;
     locale = builder.locale;
     referenceTime = builder.referenceTime;
+    sessionStartTime = builder.sessionStartTime;
+    state = builder.state;
   }
 
   /**
@@ -242,7 +275,7 @@ public class MessageContextGlobalSystem extends GenericModel {
    * testing purposes, or when analyzing documents such as news articles.
    *
    * <p>This value must be a UTC time value formatted according to ISO 8601 (for example,
-   * `2019-06-26T12:00:00Z` for noon on 26 June 2019.
+   * `2021-06-26T12:00:00Z` for noon UTC on 26 June 2021).
    *
    * <p>This property is included only if the new system entities are enabled for the skill.
    *
@@ -250,5 +283,37 @@ public class MessageContextGlobalSystem extends GenericModel {
    */
   public String referenceTime() {
     return referenceTime;
+  }
+
+  /**
+   * Gets the sessionStartTime.
+   *
+   * <p>The time at which the session started. With the stateful `message` method, the start time is
+   * always present, and is set by the service based on the time the session was created. With the
+   * stateless `message` method, the start time is set by the service in the response to the first
+   * message, and should be returned as part of the context with each subsequent message in the
+   * session.
+   *
+   * <p>This value is a UTC time value formatted according to ISO 8601 (for example,
+   * `2021-06-26T12:00:00Z` for noon UTC on 26 June 2021).
+   *
+   * @return the sessionStartTime
+   */
+  public String sessionStartTime() {
+    return sessionStartTime;
+  }
+
+  /**
+   * Gets the state.
+   *
+   * <p>An encoded string that represents the configuration state of the assistant at the beginning
+   * of the conversation. If you are using the stateless `message` method, save this value and then
+   * send it in the context of the subsequent message request to avoid disruptions if there are
+   * configuration changes during the conversation (such as a change to a skill the assistant uses).
+   *
+   * @return the state
+   */
+  public String state() {
+    return state;
   }
 }

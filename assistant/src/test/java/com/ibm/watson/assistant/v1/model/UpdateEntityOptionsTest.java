@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -74,8 +74,8 @@ public class UpdateEntityOptionsTest {
             .newFuzzyMatch(true)
             .newValues(
                 new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
     assertEquals(updateEntityOptionsModel.workspaceId(), "testString");
     assertEquals(updateEntityOptionsModel.entity(), "testString");
@@ -92,8 +92,8 @@ public class UpdateEntityOptionsTest {
     assertEquals(
         updateEntityOptionsModel.newValues(),
         new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)));
-    assertEquals(updateEntityOptionsModel.append(), Boolean.valueOf(true));
-    assertEquals(updateEntityOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateEntityOptionsModel.append(), Boolean.valueOf(false));
+    assertEquals(updateEntityOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

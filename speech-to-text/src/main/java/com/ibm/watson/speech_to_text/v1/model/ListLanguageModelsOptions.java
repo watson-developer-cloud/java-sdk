@@ -24,7 +24,7 @@ public class ListLanguageModelsOptions extends GenericModel {
    * `ar-MS` instead.)
    *
    * <p>To determine the languages for which customization is available, see [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
    */
   public interface Language {
     /** ar-AR. */
@@ -37,6 +37,8 @@ public class ListLanguageModelsOptions extends GenericModel {
     String EN_AU = "en-AU";
     /** en-GB. */
     String EN_GB = "en-GB";
+    /** en-IN. */
+    String EN_IN = "en-IN";
     /** en-US. */
     String EN_US = "en-US";
     /** es-AR. */
@@ -55,12 +57,16 @@ public class ListLanguageModelsOptions extends GenericModel {
     String FR_CA = "fr-CA";
     /** fr-FR. */
     String FR_FR = "fr-FR";
+    /** hi-IN. */
+    String HI_IN = "hi-IN";
     /** it-IT. */
     String IT_IT = "it-IT";
     /** ja-JP. */
     String JA_JP = "ja-JP";
     /** ko-KR. */
     String KO_KR = "ko-KR";
+    /** nl-BE. */
+    String NL_BE = "nl-BE";
     /** nl-NL. */
     String NL_NL = "nl-NL";
     /** pt-BR. */
@@ -125,7 +131,7 @@ public class ListLanguageModelsOptions extends GenericModel {
    * `ar-MS` instead.)
    *
    * <p>To determine the languages for which customization is available, see [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-customization#languageSupport).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
    *
    * @return the language
    */

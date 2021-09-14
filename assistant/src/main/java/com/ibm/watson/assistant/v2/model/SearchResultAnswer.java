@@ -10,22 +10,37 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.natural_language_understanding.v1.model;
+package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.List;
 
-/** ListClassificationsModelsResponse. */
-public class ListClassificationsModelsResponse extends GenericModel {
+/**
+ * An object specifing a segment of text that was identified as a direct answer to the search query.
+ */
+public class SearchResultAnswer extends GenericModel {
 
-  protected List<ClassificationsModelList> models;
+  protected String text;
+  protected Double confidence;
 
   /**
-   * Gets the models.
+   * Gets the text.
    *
-   * @return the models
+   * <p>The text of the answer.
+   *
+   * @return the text
    */
-  public List<ClassificationsModelList> getModels() {
-    return models;
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Gets the confidence.
+   *
+   * <p>The confidence score for the answer, as returned by the Discovery service.
+   *
+   * @return the confidence
+   */
+  public Double getConfidence() {
+    return confidence;
   }
 }

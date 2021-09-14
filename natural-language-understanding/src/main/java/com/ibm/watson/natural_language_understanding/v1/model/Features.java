@@ -383,7 +383,8 @@ public class Features extends GenericModel {
   /**
    * Gets the categories.
    *
-   * <p>Returns a five-level taxonomy of the content. The top three categories are returned.
+   * <p>Returns a hierarchical taxonomy of the content. The top three categories are returned by
+   * default.
    *
    * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
    * Spanish.

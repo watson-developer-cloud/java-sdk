@@ -485,7 +485,7 @@ public class VisualRecognitionTest {
             .imagesFile(mockListFileWithMetadata)
             .imageUrl(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .trainingData(
-                "\"{\"objects\":[{\"object\":\"2018-Fit\",\"location\":{\"left\":33,\"top\":8,\"width\":760,\"height\":419}}]}\"")
+                "{\"objects\":[{\"object\":\"2018-Fit\",\"location\":{\"left\":33,\"top\":8,\"width\":760,\"height\":419}}]}")
             .build();
 
     // Invoke operation with valid options model (positive test)

@@ -33,13 +33,13 @@ public class MessageOptionsTest {
     MessageInput messageInputModel =
         new MessageInput.Builder()
             .text("testString")
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .add("foo", "testString")
             .build();
     assertEquals(messageInputModel.getText(), "testString");
-    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(messageInputModel.get("foo"), "testString");
 
     RuntimeIntent runtimeIntentModel =
@@ -319,11 +319,11 @@ public class MessageOptionsTest {
                 new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
-            .alternateIntents(true)
+            .alternateIntents(false)
             .context(contextModel)
             .output(outputDataModel)
             .userId("testString")
-            .nodesVisitedDetails(true)
+            .nodesVisitedDetails(false)
             .build();
     assertEquals(messageOptionsModel.workspaceId(), "testString");
     assertEquals(messageOptionsModel.input(), messageInputModel);
@@ -333,11 +333,11 @@ public class MessageOptionsTest {
     assertEquals(
         messageOptionsModel.entities(),
         new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
-    assertEquals(messageOptionsModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageOptionsModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageOptionsModel.context(), contextModel);
     assertEquals(messageOptionsModel.output(), outputDataModel);
     assertEquals(messageOptionsModel.userId(), "testString");
-    assertEquals(messageOptionsModel.nodesVisitedDetails(), Boolean.valueOf(true));
+    assertEquals(messageOptionsModel.nodesVisitedDetails(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

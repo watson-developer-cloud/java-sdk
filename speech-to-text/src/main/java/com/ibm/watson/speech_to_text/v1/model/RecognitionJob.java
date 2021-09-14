@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -98,7 +98,7 @@ public class RecognitionJob extends GenericModel {
    *
    * <p>The date and time in Coordinated Universal Time (UTC) at which the job was last updated by
    * the service. The value is provided in full ISO 8601 format (`YYYY-MM-DDThh:mm:ss.sTZD`). This
-   * field is returned only by the **Check jobs** and **Check a job** methods.
+   * field is returned only by the [Check jobs](#checkjobs) and [Check a job[(#checkjob) methods.
    *
    * @return the updated
    */
@@ -109,8 +109,8 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the url.
    *
-   * <p>The URL to use to request information about the job with the **Check a job** method. This
-   * field is returned only by the **Create a job** method.
+   * <p>The URL to use to request information about the job with the [Check a job](#checkjob)
+   * method. This field is returned only by the [Create a job](#createjob) method.
    *
    * @return the url
    */
@@ -122,7 +122,7 @@ public class RecognitionJob extends GenericModel {
    * Gets the userToken.
    *
    * <p>The user token associated with a job that was created with a callback URL and a user token.
-   * This field can be returned only by the **Check jobs** method.
+   * This field can be returned only by the [Check jobs](#checkjobs) method.
    *
    * @return the userToken
    */
@@ -135,7 +135,7 @@ public class RecognitionJob extends GenericModel {
    *
    * <p>If the status is `completed`, the results of the recognition request as an array that
    * includes a single instance of a `SpeechRecognitionResults` object. This field is returned only
-   * by the **Check a job** method.
+   * by the [Check a job](#checkjob) method.
    *
    * @return the results
    */
@@ -149,8 +149,8 @@ public class RecognitionJob extends GenericModel {
    * <p>An array of warning messages about invalid parameters included with the request. Each
    * warning includes a descriptive message and a list of invalid argument strings, for example,
    * `"unexpected query parameter 'user_token', query parameter 'callback_url' was not specified"`.
-   * The request succeeds despite the warnings. This field can be returned only by the **Create a
-   * job** method.
+   * The request succeeds despite the warnings. This field can be returned only by the [Create a
+   * job](#createjob) method.
    *
    * @return the warnings
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-/** A response containing the documents and aggregations for the query. */
+/** A response that contains the documents and aggregations for the query. */
 public class QueryResponse extends GenericModel {
 
   @SerializedName("matching_results")
@@ -42,7 +42,8 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * <p>The number of matching results for the query.
+   * <p>The number of matching results for the query. Results that match due to a curation only are
+   * not counted in the total.
    *
    * @return the matchingResults
    */
@@ -119,7 +120,7 @@ public class QueryResponse extends GenericModel {
   /**
    * Gets the passages.
    *
-   * <p>Passages returned by Discovery.
+   * <p>Passages that best match the query from across all of the collections in the project.
    *
    * @return the passages
    */

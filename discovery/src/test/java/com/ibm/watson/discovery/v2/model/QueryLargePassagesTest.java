@@ -36,9 +36,9 @@ public class QueryLargePassagesTest {
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
             .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .count(Long.valueOf("100"))
+            .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
-            .findAnswers(true)
+            .findAnswers(false)
             .maxAnswersPerPassage(Long.valueOf("26"))
             .build();
     assertEquals(queryLargePassagesModel.enabled(), Boolean.valueOf(true));
@@ -47,9 +47,9 @@ public class QueryLargePassagesTest {
     assertEquals(
         queryLargePassagesModel.fields(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(queryLargePassagesModel.count(), Long.valueOf("100"));
+    assertEquals(queryLargePassagesModel.count(), Long.valueOf("400"));
     assertEquals(queryLargePassagesModel.characters(), Long.valueOf("50"));
-    assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(true));
+    assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(false));
     assertEquals(queryLargePassagesModel.maxAnswersPerPassage(), Long.valueOf("26"));
 
     String json = TestUtilities.serialize(queryLargePassagesModel);
@@ -60,9 +60,9 @@ public class QueryLargePassagesTest {
     assertEquals(queryLargePassagesModelNew.enabled(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModelNew.perDocument(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModelNew.maxPerDocument(), Long.valueOf("26"));
-    assertEquals(queryLargePassagesModelNew.count(), Long.valueOf("100"));
+    assertEquals(queryLargePassagesModelNew.count(), Long.valueOf("400"));
     assertEquals(queryLargePassagesModelNew.characters(), Long.valueOf("50"));
-    assertEquals(queryLargePassagesModelNew.findAnswers(), Boolean.valueOf(true));
+    assertEquals(queryLargePassagesModelNew.findAnswers(), Boolean.valueOf(false));
     assertEquals(queryLargePassagesModelNew.maxAnswersPerPassage(), Long.valueOf("26"));
   }
 }

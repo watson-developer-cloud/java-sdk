@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -96,10 +96,10 @@ public class PersonalityInsightsTest {
             .created(Long.valueOf("26"))
             .updated(Long.valueOf("26"))
             .contenttype("text/plain")
-            .language("ar")
+            .language("en")
             .parentid("testString")
-            .reply(true)
-            .forward(true)
+            .reply(false)
+            .forward(false)
             .build();
 
     // Construct an instance of the Content model
@@ -113,11 +113,11 @@ public class PersonalityInsightsTest {
     ProfileOptions profileOptionsModel =
         new ProfileOptions.Builder()
             .content(contentModel)
-            .contentLanguage("ar")
-            .acceptLanguage("ar")
-            .rawScores(true)
-            .csvHeaders(true)
-            .consumptionPreferences(true)
+            .contentLanguage("en")
+            .acceptLanguage("en")
+            .rawScores(false)
+            .csvHeaders(false)
+            .consumptionPreferences(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -136,9 +136,9 @@ public class PersonalityInsightsTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("raw_scores")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("csv_headers")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("consumption_preferences")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("raw_scores")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("csv_headers")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("consumption_preferences")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, profilePath);
@@ -178,10 +178,10 @@ public class PersonalityInsightsTest {
             .created(Long.valueOf("26"))
             .updated(Long.valueOf("26"))
             .contenttype("text/plain")
-            .language("ar")
+            .language("en")
             .parentid("testString")
-            .reply(true)
-            .forward(true)
+            .reply(false)
+            .forward(false)
             .build();
 
     // Construct an instance of the Content model
@@ -195,11 +195,11 @@ public class PersonalityInsightsTest {
     ProfileOptions profileOptionsModel =
         new ProfileOptions.Builder()
             .content(contentModel)
-            .contentLanguage("ar")
-            .acceptLanguage("ar")
-            .rawScores(true)
-            .csvHeaders(true)
-            .consumptionPreferences(true)
+            .contentLanguage("en")
+            .acceptLanguage("en")
+            .rawScores(false)
+            .csvHeaders(false)
+            .consumptionPreferences(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -219,9 +219,9 @@ public class PersonalityInsightsTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("raw_scores")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("csv_headers")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("consumption_preferences")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("raw_scores")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("csv_headers")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("consumption_preferences")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, profileAsCsvPath);

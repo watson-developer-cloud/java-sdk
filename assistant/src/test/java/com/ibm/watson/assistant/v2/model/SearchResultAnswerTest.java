@@ -11,27 +11,27 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.natural_language_understanding.v1.model;
+package com.ibm.watson.assistant.v2.model;
 
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.watson.natural_language_understanding.v1.utils.TestUtilities;
+import com.ibm.watson.assistant.v2.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListCategoriesModelsResponse model. */
-public class ListCategoriesModelsResponseTest {
+/** Unit test class for the SearchResultAnswer model. */
+public class SearchResultAnswerTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListCategoriesModelsResponse() throws Throwable {
-    ListCategoriesModelsResponse listCategoriesModelsResponseModel =
-        new ListCategoriesModelsResponse();
-    assertNull(listCategoriesModelsResponseModel.getModels());
+  public void testSearchResultAnswer() throws Throwable {
+    SearchResultAnswer searchResultAnswerModel = new SearchResultAnswer();
+    assertNull(searchResultAnswerModel.getText());
+    assertNull(searchResultAnswerModel.getConfidence());
   }
 }

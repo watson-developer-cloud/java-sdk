@@ -41,9 +41,8 @@ public class SpeechRecognitionAlternative extends GenericModel {
    * Gets the confidence.
    *
    * <p>A score that indicates the service's confidence in the transcript in the range of 0.0 to
-   * 1.0. For speech recognition with previous-generation models, a confidence score is returned
-   * only for the best alternative and only with results marked as final. For speech recognition
-   * with next-generation models, a confidence score is never returned.
+   * 1.0. The service returns a confidence score only for the best alternative and only with results
+   * marked as final.
    *
    * @return the confidence
    */

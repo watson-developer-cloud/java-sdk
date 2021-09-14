@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,16 +33,16 @@ public class EntitiesOptionsTest {
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
             .limit(Long.valueOf("250"))
-            .mentions(true)
+            .mentions(false)
             .model("testString")
-            .sentiment(true)
-            .emotion(true)
+            .sentiment(false)
+            .emotion(false)
             .build();
     assertEquals(entitiesOptionsModel.limit(), Long.valueOf("250"));
-    assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModel.model(), "testString");
-    assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(true));
-    assertEquals(entitiesOptionsModel.emotion(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(false));
+    assertEquals(entitiesOptionsModel.emotion(), Boolean.valueOf(false));
 
     String json = TestUtilities.serialize(entitiesOptionsModel);
 
@@ -50,9 +50,9 @@ public class EntitiesOptionsTest {
         TestUtilities.deserialize(json, EntitiesOptions.class);
     assertTrue(entitiesOptionsModelNew instanceof EntitiesOptions);
     assertEquals(entitiesOptionsModelNew.limit(), Long.valueOf("250"));
-    assertEquals(entitiesOptionsModelNew.mentions(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModelNew.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModelNew.model(), "testString");
-    assertEquals(entitiesOptionsModelNew.sentiment(), Boolean.valueOf(true));
-    assertEquals(entitiesOptionsModelNew.emotion(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModelNew.sentiment(), Boolean.valueOf(false));
+    assertEquals(entitiesOptionsModelNew.emotion(), Boolean.valueOf(false));
   }
 }

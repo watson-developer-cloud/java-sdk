@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.visual_recognition.v3;
@@ -52,8 +52,7 @@ import okhttp3.MultipartBody;
  * objects in images that you upload to the service. You can create and train a custom classifier to
  * identify subjects that suit your needs.
  *
- * @version v3
- * @see <a href="https://cloud.ibm.com/docs/visual-recognition">Visual Recognition</a>
+ * <p>API Version: 3.0 See: https://cloud.ibm.com/docs/visual-recognition
  */
 
 /**

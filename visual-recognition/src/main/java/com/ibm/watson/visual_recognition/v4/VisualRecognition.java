@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.visual_recognition.v4;
@@ -74,10 +74,8 @@ import okhttp3.MultipartBody;
  * <p>Provide images to the IBM Watson Visual Recognition service for analysis. The service detects
  * objects based on a set of images with training data.
  *
- * @version v4
- * @see <a
- *     href="https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview">Visual
- *     Recognition</a>
+ * <p>API Version: 4.0 See:
+ * https://cloud.ibm.com/docs/visual-recognition?topic=visual-recognition-object-detection-overview
  */
 
 /**

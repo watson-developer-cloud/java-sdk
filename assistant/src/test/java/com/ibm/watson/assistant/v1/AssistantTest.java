@@ -178,7 +178,7 @@ public class AssistantTest {
   public void testMessageWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}";
+        "{\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}";
     String messagePath = "/v1/workspaces/testString/message";
 
     server.enqueue(
@@ -193,8 +193,8 @@ public class AssistantTest {
     MessageInput messageInputModel =
         new MessageInput.Builder()
             .text("testString")
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .add("foo", "testString")
             .build();
 
@@ -373,11 +373,11 @@ public class AssistantTest {
                 new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
-            .alternateIntents(true)
+            .alternateIntents(false)
             .context(contextModel)
             .output(outputDataModel)
             .userId("testString")
-            .nodesVisitedDetails(true)
+            .nodesVisitedDetails(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -396,7 +396,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("nodes_visited_details")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("nodes_visited_details")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, messagePath);
@@ -480,7 +480,7 @@ public class AssistantTest {
   public void testListWorkspacesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listWorkspacesPath = "/v1/workspaces";
 
     server.enqueue(
@@ -495,10 +495,10 @@ public class AssistantTest {
     ListWorkspacesOptions listWorkspacesOptionsModel =
         new ListWorkspacesOptions.Builder()
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("name")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -519,10 +519,10 @@ public class AssistantTest {
     // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "name");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listWorkspacesPath);
@@ -532,7 +532,7 @@ public class AssistantTest {
   public void testCreateWorkspaceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
     String createWorkspacePath = "/v1/workspaces";
 
     server.enqueue(
@@ -555,7 +555,7 @@ public class AssistantTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -656,7 +656,7 @@ public class AssistantTest {
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
             .userLabel("testString")
-            .disambiguationOptOut(true)
+            .disambiguationOptOut(false)
             .build();
 
     // Construct an instance of the Counterexample model
@@ -671,7 +671,7 @@ public class AssistantTest {
         new WorkspaceSystemSettingsDisambiguation.Builder()
             .prompt("testString")
             .noneOfTheAbovePrompt("testString")
-            .enabled(true)
+            .enabled(false)
             .sensitivity("auto")
             .randomize(true)
             .maxSuggestions(Long.valueOf("1"))
@@ -680,11 +680,11 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
     WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
-        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
 
     // Construct an instance of the WorkspaceSystemSettingsOffTopic model
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
-        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
@@ -697,8 +697,8 @@ public class AssistantTest {
                     put("foo", "testString");
                   }
                 })
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
             .build();
@@ -785,14 +785,14 @@ public class AssistantTest {
                     put("foo", "testString");
                   }
                 })
-            .learningOptOut(true)
+            .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
             .intents(
                 new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
             .entities(
                 new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -812,7 +812,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createWorkspacePath);
@@ -822,7 +822,7 @@ public class AssistantTest {
   public void testGetWorkspaceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
     String getWorkspacePath = "/v1/workspaces/testString";
 
     server.enqueue(
@@ -837,8 +837,8 @@ public class AssistantTest {
     GetWorkspaceOptions getWorkspaceOptionsModel =
         new GetWorkspaceOptions.Builder()
             .workspaceId("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .sort("stable")
             .build();
 
@@ -859,8 +859,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "stable");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
@@ -883,7 +883,7 @@ public class AssistantTest {
   public void testUpdateWorkspaceWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": true, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
     String updateWorkspacePath = "/v1/workspaces/testString";
 
     server.enqueue(
@@ -906,7 +906,7 @@ public class AssistantTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -1007,7 +1007,7 @@ public class AssistantTest {
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
             .userLabel("testString")
-            .disambiguationOptOut(true)
+            .disambiguationOptOut(false)
             .build();
 
     // Construct an instance of the Counterexample model
@@ -1022,7 +1022,7 @@ public class AssistantTest {
         new WorkspaceSystemSettingsDisambiguation.Builder()
             .prompt("testString")
             .noneOfTheAbovePrompt("testString")
-            .enabled(true)
+            .enabled(false)
             .sensitivity("auto")
             .randomize(true)
             .maxSuggestions(Long.valueOf("1"))
@@ -1031,11 +1031,11 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
     WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
-        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
 
     // Construct an instance of the WorkspaceSystemSettingsOffTopic model
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
-        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
@@ -1048,8 +1048,8 @@ public class AssistantTest {
                     put("foo", "testString");
                   }
                 })
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
             .build();
@@ -1137,15 +1137,15 @@ public class AssistantTest {
                     put("foo", "testString");
                   }
                 })
-            .learningOptOut(true)
+            .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
             .intents(
                 new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
             .entities(
                 new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1165,8 +1165,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateWorkspacePath);
@@ -1252,12 +1252,12 @@ public class AssistantTest {
     ListIntentsOptions listIntentsOptionsModel =
         new ListIntentsOptions.Builder()
             .workspaceId("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("intent")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1277,12 +1277,12 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "intent");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listIntentsPath);
@@ -1336,7 +1336,7 @@ public class AssistantTest {
             .intent("testString")
             .description("testString")
             .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1355,7 +1355,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createIntentPath);
@@ -1393,8 +1393,8 @@ public class AssistantTest {
         new GetIntentOptions.Builder()
             .workspaceId("testString")
             .intent("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1413,8 +1413,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getIntentPath);
@@ -1469,8 +1469,8 @@ public class AssistantTest {
             .newIntent("testString")
             .newDescription("testString")
             .newExamples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1489,8 +1489,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateIntentPath);
@@ -1577,10 +1577,10 @@ public class AssistantTest {
             .workspaceId("testString")
             .intent("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("text")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1601,10 +1601,10 @@ public class AssistantTest {
     // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "text");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listExamplesPath);
@@ -1651,7 +1651,7 @@ public class AssistantTest {
             .intent("testString")
             .text("testString")
             .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1671,7 +1671,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createExamplePath);
@@ -1710,7 +1710,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .intent("testString")
             .text("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1729,7 +1729,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getExamplePath);
@@ -1777,7 +1777,7 @@ public class AssistantTest {
             .text("testString")
             .newText("testString")
             .newMentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1797,7 +1797,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateExamplePath);
@@ -1887,10 +1887,10 @@ public class AssistantTest {
         new ListCounterexamplesOptions.Builder()
             .workspaceId("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("text")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1911,10 +1911,10 @@ public class AssistantTest {
     // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "text");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listCounterexamplesPath);
@@ -1952,7 +1952,7 @@ public class AssistantTest {
         new CreateCounterexampleOptions.Builder()
             .workspaceId("testString")
             .text("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1972,7 +1972,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createCounterexamplePath);
@@ -2010,7 +2010,7 @@ public class AssistantTest {
         new GetCounterexampleOptions.Builder()
             .workspaceId("testString")
             .text("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2030,7 +2030,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getCounterexamplePath);
@@ -2069,7 +2069,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .text("testString")
             .newText("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2089,7 +2089,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateCounterexamplePath);
@@ -2178,12 +2178,12 @@ public class AssistantTest {
     ListEntitiesOptions listEntitiesOptionsModel =
         new ListEntitiesOptions.Builder()
             .workspaceId("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("entity")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2203,12 +2203,12 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "entity");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listEntitiesPath);
@@ -2270,7 +2270,7 @@ public class AssistantTest {
                 })
             .fuzzyMatch(true)
             .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2289,7 +2289,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createEntityPath);
@@ -2327,8 +2327,8 @@ public class AssistantTest {
         new GetEntityOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2347,8 +2347,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getEntityPath);
@@ -2412,8 +2412,8 @@ public class AssistantTest {
             .newFuzzyMatch(true)
             .newValues(
                 new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2432,8 +2432,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateEntityPath);
@@ -2519,8 +2519,8 @@ public class AssistantTest {
         new ListMentionsOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2540,8 +2540,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listMentionsPath);
@@ -2579,12 +2579,12 @@ public class AssistantTest {
         new ListValuesOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("value")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2604,12 +2604,12 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "value");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listValuesPath);
@@ -2657,7 +2657,7 @@ public class AssistantTest {
             .type("synonyms")
             .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2676,7 +2676,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createValuePath);
@@ -2715,8 +2715,8 @@ public class AssistantTest {
             .workspaceId("testString")
             .entity("testString")
             .value("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2735,8 +2735,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getValuePath);
@@ -2785,8 +2785,8 @@ public class AssistantTest {
             .newType("synonyms")
             .newSynonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .newPatterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2805,8 +2805,8 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateValuePath);
@@ -2899,10 +2899,10 @@ public class AssistantTest {
             .entity("testString")
             .value("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("synonym")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2923,10 +2923,10 @@ public class AssistantTest {
     // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "synonym");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listSynonymsPath);
@@ -2967,7 +2967,7 @@ public class AssistantTest {
             .entity("testString")
             .value("testString")
             .synonym("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2987,7 +2987,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createSynonymPath);
@@ -3028,7 +3028,7 @@ public class AssistantTest {
             .entity("testString")
             .value("testString")
             .synonym("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3047,7 +3047,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSynonymPath);
@@ -3089,7 +3089,7 @@ public class AssistantTest {
             .value("testString")
             .synonym("testString")
             .newSynonym("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3109,7 +3109,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateSynonymPath);
@@ -3185,7 +3185,7 @@ public class AssistantTest {
   public void testListDialogNodesWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listDialogNodesPath = "/v1/workspaces/testString/dialog_nodes";
 
     server.enqueue(
@@ -3201,10 +3201,10 @@ public class AssistantTest {
         new ListDialogNodesOptions.Builder()
             .workspaceId("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("dialog_node")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3225,10 +3225,10 @@ public class AssistantTest {
     // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
-    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "dialog_node");
     assertEquals(query.get("cursor"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listDialogNodesPath);
@@ -3250,7 +3250,7 @@ public class AssistantTest {
   public void testCreateDialogNodeWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String createDialogNodePath = "/v1/workspaces/testString/dialog_nodes";
 
     server.enqueue(
@@ -3273,7 +3273,7 @@ public class AssistantTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -3375,8 +3375,8 @@ public class AssistantTest {
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
             .userLabel("testString")
-            .disambiguationOptOut(true)
-            .includeAudit(true)
+            .disambiguationOptOut(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3396,7 +3396,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createDialogNodePath);
@@ -3418,7 +3418,7 @@ public class AssistantTest {
   public void testGetDialogNodeWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String getDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
 
     server.enqueue(
@@ -3434,7 +3434,7 @@ public class AssistantTest {
         new GetDialogNodeOptions.Builder()
             .workspaceId("testString")
             .dialogNode("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3454,7 +3454,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getDialogNodePath);
@@ -3476,7 +3476,7 @@ public class AssistantTest {
   public void testUpdateDialogNodeWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"2018-12-03\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String updateDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
 
     server.enqueue(
@@ -3499,7 +3499,7 @@ public class AssistantTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -3602,8 +3602,8 @@ public class AssistantTest {
             .newDigressOut("allow_returning")
             .newDigressOutSlots("not_allowed")
             .newUserLabel("testString")
-            .newDisambiguationOptOut(true)
-            .includeAudit(true)
+            .newDisambiguationOptOut(false)
+            .includeAudit(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3623,7 +3623,7 @@ public class AssistantTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateDialogNodePath);
@@ -3697,7 +3697,7 @@ public class AssistantTest {
   public void testListLogsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listLogsPath = "/v1/workspaces/testString/logs";
 
     server.enqueue(
@@ -3759,7 +3759,7 @@ public class AssistantTest {
   public void testListAllLogsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": true, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"text\": [\"text\"], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listAllLogsPath = "/v1/logs";
 
     server.enqueue(

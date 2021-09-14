@@ -163,17 +163,17 @@ public class MessageRequestTest {
 
     MessageInputOptions messageInputOptionsModel =
         new MessageInputOptions.Builder()
-            .restart(true)
-            .alternateIntents(true)
+            .restart(false)
+            .alternateIntents(false)
             .spelling(messageInputOptionsSpellingModel)
-            .debug(true)
+            .debug(false)
             .returnContext(true)
             .export(true)
             .build();
-    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(true));
     assertEquals(messageInputOptionsModel.export(), Boolean.valueOf(true));
 
@@ -206,12 +206,16 @@ public class MessageRequestTest {
             .turnCount(Long.valueOf("26"))
             .locale("en-us")
             .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "my_user_id");
     assertEquals(messageContextGlobalSystemModel.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModel.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.state(), "testString");
 
     MessageContextGlobal messageContextGlobalModel =
         new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();

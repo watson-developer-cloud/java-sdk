@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.discovery.v1;
@@ -133,8 +133,7 @@ import okhttp3.MultipartBody;
  * decision-making. Securely unify structured and unstructured data with pre-enriched content, and
  * use a simplified query language to eliminate the need for manual filtering of results.
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/discovery">Discovery</a>
+ * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/discovery
  */
 public class Discovery extends BaseService {
 
@@ -2674,7 +2673,10 @@ public class Discovery extends BaseService {
               .toJsonTree(createCredentialsOptions.credentialDetails()));
     }
     if (createCredentialsOptions.status() != null) {
-      contentJson.addProperty("status", createCredentialsOptions.status());
+      contentJson.add(
+          "status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCredentialsOptions.status()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Credentials> responseConverter =
@@ -2761,7 +2763,10 @@ public class Discovery extends BaseService {
               .toJsonTree(updateCredentialsOptions.credentialDetails()));
     }
     if (updateCredentialsOptions.status() != null) {
-      contentJson.addProperty("status", updateCredentialsOptions.status());
+      contentJson.add(
+          "status",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateCredentialsOptions.status()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<Credentials> responseConverter =

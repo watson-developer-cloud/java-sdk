@@ -123,7 +123,7 @@ public class ConfigurationTest {
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
             .enabled(true)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
             .annotatedFields(
                 new java.util.ArrayList<String>(
                     java.util.Arrays.asList("custom-field-1", "custom-field-2")))
@@ -131,7 +131,7 @@ public class ConfigurationTest {
     assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(true));
     assertEquals(
         segmentSettingsModel.selectorTags(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")));
     assertEquals(
         segmentSettingsModel.annotatedFields(),
         new java.util.ArrayList<String>(
@@ -280,17 +280,17 @@ public class ConfigurationTest {
             .description("testString")
             .destinationField("enriched_title")
             .sourceField("title")
-            .overwrite(true)
+            .overwrite(false)
             .enrichment("natural_language_understanding")
-            .ignoreDownstreamErrors(true)
+            .ignoreDownstreamErrors(false)
             .options(enrichmentOptionsModel)
             .build();
     assertEquals(enrichmentModel.description(), "testString");
     assertEquals(enrichmentModel.destinationField(), "enriched_title");
     assertEquals(enrichmentModel.sourceField(), "title");
-    assertEquals(enrichmentModel.overwrite(), Boolean.valueOf(true));
+    assertEquals(enrichmentModel.overwrite(), Boolean.valueOf(false));
     assertEquals(enrichmentModel.enrichment(), "natural_language_understanding");
-    assertEquals(enrichmentModel.ignoreDownstreamErrors(), Boolean.valueOf(true));
+    assertEquals(enrichmentModel.ignoreDownstreamErrors(), Boolean.valueOf(false));
     assertEquals(enrichmentModel.options(), enrichmentOptionsModel);
 
     SourceSchedule sourceScheduleModel =
@@ -330,20 +330,20 @@ public class ConfigurationTest {
         new SourceOptionsWebCrawl.Builder()
             .url("testString")
             .limitToStartingHosts(true)
-            .crawlSpeed("gentle")
-            .allowUntrustedCertificate(true)
+            .crawlSpeed("normal")
+            .allowUntrustedCertificate(false)
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
-            .overrideRobotsTxt(true)
+            .overrideRobotsTxt(false)
             .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
     assertEquals(sourceOptionsWebCrawlModel.url(), "testString");
     assertEquals(sourceOptionsWebCrawlModel.limitToStartingHosts(), Boolean.valueOf(true));
-    assertEquals(sourceOptionsWebCrawlModel.crawlSpeed(), "gentle");
-    assertEquals(sourceOptionsWebCrawlModel.allowUntrustedCertificate(), Boolean.valueOf(true));
+    assertEquals(sourceOptionsWebCrawlModel.crawlSpeed(), "normal");
+    assertEquals(sourceOptionsWebCrawlModel.allowUntrustedCertificate(), Boolean.valueOf(false));
     assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("26"));
-    assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(true));
+    assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(false));
     assertEquals(
         sourceOptionsWebCrawlModel.blacklist(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));

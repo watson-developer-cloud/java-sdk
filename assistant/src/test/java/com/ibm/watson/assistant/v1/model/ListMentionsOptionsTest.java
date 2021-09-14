@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class ListMentionsOptionsTest {
         new ListMentionsOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
     assertEquals(listMentionsOptionsModel.workspaceId(), "testString");
     assertEquals(listMentionsOptionsModel.entity(), "testString");
-    assertEquals(listMentionsOptionsModel.export(), Boolean.valueOf(true));
-    assertEquals(listMentionsOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listMentionsOptionsModel.export(), Boolean.valueOf(false));
+    assertEquals(listMentionsOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

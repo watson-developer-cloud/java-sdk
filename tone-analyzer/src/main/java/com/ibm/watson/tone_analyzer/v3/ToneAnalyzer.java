@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.tone_analyzer.v3;
@@ -46,8 +46,7 @@ import java.util.Map.Entry;
  * set the `X-Watson-Learning-Opt-Out` request header, the service does not log or retain data from
  * requests and responses.
  *
- * @version v3
- * @see <a href="https://cloud.ibm.com/docs/tone-analyzer">Tone Analyzer</a>
+ * <p>API Version: 3.5.3 See: https://cloud.ibm.com/docs/tone-analyzer
  */
 public class ToneAnalyzer extends BaseService {
 

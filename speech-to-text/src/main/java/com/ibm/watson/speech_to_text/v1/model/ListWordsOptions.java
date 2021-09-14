@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,10 @@ public class ListWordsOptions extends GenericModel {
    * default) shows all words. * `user` shows only custom words that were added or modified by the
    * user directly. * `corpora` shows only OOV that were extracted from corpora. * `grammars` shows
    * only OOV words that are recognized by grammars.
+   *
+   * <p>_For a custom model that is based on a next-generation model_, only `all` and `user` apply.
+   * Both options return the same results. Words from other sources are not added to custom models
+   * that are based on next-generation models.
    */
   public interface WordType {
     /** all. */
@@ -157,6 +161,10 @@ public class ListWordsOptions extends GenericModel {
    * default) shows all words. * `user` shows only custom words that were added or modified by the
    * user directly. * `corpora` shows only OOV that were extracted from corpora. * `grammars` shows
    * only OOV words that are recognized by grammars.
+   *
+   * <p>_For a custom model that is based on a next-generation model_, only `all` and `user` apply.
+   * Both options return the same results. Words from other sources are not added to custom models
+   * that are based on next-generation models.
    *
    * @return the wordType
    */

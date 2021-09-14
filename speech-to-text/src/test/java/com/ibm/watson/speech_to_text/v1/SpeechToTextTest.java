@@ -231,7 +231,7 @@ public class SpeechToTextTest {
         new RecognizeOptions.Builder()
             .audio(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/octet-stream")
-            .model("ar-AR_BroadbandModel")
+            .model("en-US_BroadbandModel")
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -241,20 +241,20 @@ public class SpeechToTextTest {
             .keywordsThreshold(Float.valueOf("36.0"))
             .maxAlternatives(Long.valueOf("26"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
-            .wordConfidence(true)
-            .timestamps(true)
+            .wordConfidence(false)
+            .timestamps(false)
             .profanityFilter(true)
-            .smartFormatting(true)
-            .speakerLabels(true)
+            .smartFormatting(false)
+            .speakerLabels(false)
             .customizationId("testString")
             .grammarName("testString")
-            .redaction(true)
-            .audioMetrics(true)
+            .redaction(false)
+            .audioMetrics(false)
             .endOfPhraseSilenceTime(Double.valueOf("72.5"))
-            .splitTranscriptAtPhraseEnd(true)
+            .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
-            .lowLatency(true)
+            .lowLatency(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -273,7 +273,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("model"), "ar-AR_BroadbandModel");
+    assertEquals(query.get("model"), "en-US_BroadbandModel");
     assertEquals(query.get("language_customization_id"), "testString");
     assertEquals(query.get("acoustic_customization_id"), "testString");
     assertEquals(query.get("base_model_version"), "testString");
@@ -286,21 +286,21 @@ public class SpeechToTextTest {
     assertEquals(Float.valueOf(query.get("keywords_threshold")), Float.valueOf("36.0"));
     assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("26"));
     assertEquals(Float.valueOf(query.get("word_alternatives_threshold")), Float.valueOf("36.0"));
-    assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("customization_id"), "testString");
     assertEquals(query.get("grammar_name"), "testString");
-    assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("72.5"));
     assertEquals(
-        Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(true));
+        Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("36.0"));
     assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("36.0"));
-    assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, recognizePath);
@@ -443,7 +443,7 @@ public class SpeechToTextTest {
         new CreateJobOptions.Builder()
             .audio(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/octet-stream")
-            .model("ar-AR_BroadbandModel")
+            .model("en-US_BroadbandModel")
             .callbackUrl("testString")
             .events("recognitions.started")
             .userToken("testString")
@@ -457,22 +457,22 @@ public class SpeechToTextTest {
             .keywordsThreshold(Float.valueOf("36.0"))
             .maxAlternatives(Long.valueOf("26"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
-            .wordConfidence(true)
-            .timestamps(true)
+            .wordConfidence(false)
+            .timestamps(false)
             .profanityFilter(true)
-            .smartFormatting(true)
-            .speakerLabels(true)
+            .smartFormatting(false)
+            .speakerLabels(false)
             .customizationId("testString")
             .grammarName("testString")
-            .redaction(true)
-            .processingMetrics(true)
+            .redaction(false)
+            .processingMetrics(false)
             .processingMetricsInterval(Float.valueOf("36.0"))
-            .audioMetrics(true)
+            .audioMetrics(false)
             .endOfPhraseSilenceTime(Double.valueOf("72.5"))
-            .splitTranscriptAtPhraseEnd(true)
+            .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
-            .lowLatency(true)
+            .lowLatency(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -491,7 +491,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(query.get("model"), "ar-AR_BroadbandModel");
+    assertEquals(query.get("model"), "en-US_BroadbandModel");
     assertEquals(query.get("callback_url"), "testString");
     assertEquals(query.get("events"), "recognitions.started");
     assertEquals(query.get("user_token"), "testString");
@@ -508,23 +508,23 @@ public class SpeechToTextTest {
     assertEquals(Float.valueOf(query.get("keywords_threshold")), Float.valueOf("36.0"));
     assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("26"));
     assertEquals(Float.valueOf(query.get("word_alternatives_threshold")), Float.valueOf("36.0"));
-    assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("customization_id"), "testString");
     assertEquals(query.get("grammar_name"), "testString");
-    assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(true));
-    assertEquals(Boolean.valueOf(query.get("processing_metrics")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("processing_metrics")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("processing_metrics_interval")), Float.valueOf("36.0"));
-    assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(false));
     assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("72.5"));
     assertEquals(
-        Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(true));
+        Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("36.0"));
     assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("36.0"));
-    assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createJobPath);
@@ -698,7 +698,7 @@ public class SpeechToTextTest {
     CreateLanguageModelOptions createLanguageModelOptionsModel =
         new CreateLanguageModelOptions.Builder()
             .name("testString")
-            .baseModelName("de-DE_BroadbandModel")
+            .baseModelName("ar-MS_Telephony")
             .dialect("testString")
             .description("testString")
             .build();
@@ -1098,7 +1098,7 @@ public class SpeechToTextTest {
             .customizationId("testString")
             .corpusName("testString")
             .corpusFile(TestUtilities.createMockStream("This is a mock file."))
-            .allowOverwrite(true)
+            .allowOverwrite(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1117,7 +1117,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, addCorpusPath);
@@ -1577,7 +1577,7 @@ public class SpeechToTextTest {
             .grammarName("testString")
             .grammarFile(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/srgs")
-            .allowOverwrite(true)
+            .allowOverwrite(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -1597,7 +1597,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, addGrammarPath);
@@ -2036,7 +2036,7 @@ public class SpeechToTextTest {
         new UpgradeAcousticModelOptions.Builder()
             .customizationId("testString")
             .customLanguageModelId("testString")
-            .force(true)
+            .force(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2057,7 +2057,7 @@ public class SpeechToTextTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("custom_language_model_id"), "testString");
-    assertEquals(Boolean.valueOf(query.get("force")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("force")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, upgradeAcousticModelPath);
@@ -2145,7 +2145,7 @@ public class SpeechToTextTest {
             .audioResource(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/zip")
             .containedContentType("audio/alaw")
-            .allowOverwrite(true)
+            .allowOverwrite(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2164,7 +2164,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     // Get query params
-    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("allow_overwrite")), Boolean.valueOf(false));
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, addAudioPath);

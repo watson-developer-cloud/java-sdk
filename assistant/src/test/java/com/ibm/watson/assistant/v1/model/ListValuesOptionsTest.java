@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,21 +34,21 @@ public class ListValuesOptionsTest {
         new ListValuesOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("value")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listValuesOptionsModel.workspaceId(), "testString");
     assertEquals(listValuesOptionsModel.entity(), "testString");
-    assertEquals(listValuesOptionsModel.export(), Boolean.valueOf(true));
+    assertEquals(listValuesOptionsModel.export(), Boolean.valueOf(false));
     assertEquals(listValuesOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listValuesOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listValuesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listValuesOptionsModel.sort(), "value");
     assertEquals(listValuesOptionsModel.cursor(), "testString");
-    assertEquals(listValuesOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listValuesOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

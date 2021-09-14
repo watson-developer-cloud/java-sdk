@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class GetEntityOptionsTest {
         new GetEntityOptions.Builder()
             .workspaceId("testString")
             .entity("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
     assertEquals(getEntityOptionsModel.workspaceId(), "testString");
     assertEquals(getEntityOptionsModel.entity(), "testString");
-    assertEquals(getEntityOptionsModel.export(), Boolean.valueOf(true));
-    assertEquals(getEntityOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(getEntityOptionsModel.export(), Boolean.valueOf(false));
+    assertEquals(getEntityOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

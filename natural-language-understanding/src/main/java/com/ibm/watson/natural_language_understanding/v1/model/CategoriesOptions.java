@@ -15,7 +15,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * Returns a five-level taxonomy of the content. The top three categories are returned.
+ * Returns a hierarchical taxonomy of the content. The top three categories are returned by default.
  *
  * <p>Supported languages: Arabic, English, French, German, Italian, Japanese, Korean, Portuguese,
  * Spanish.

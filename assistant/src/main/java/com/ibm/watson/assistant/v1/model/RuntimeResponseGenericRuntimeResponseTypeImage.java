@@ -25,6 +25,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
     private String title;
     private String description;
     private List<ResponseGenericChannel> channels;
+    private String altText;
 
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeImage) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeImage.responseType;
@@ -32,6 +33,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
       this.title = runtimeResponseGenericRuntimeResponseTypeImage.title;
       this.description = runtimeResponseGenericRuntimeResponseTypeImage.description;
       this.channels = runtimeResponseGenericRuntimeResponseTypeImage.channels;
+      this.altText = runtimeResponseGenericRuntimeResponseTypeImage.altText;
     }
 
     /** Instantiates a new builder. */
@@ -126,6 +128,17 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
       this.channels = channels;
       return this;
     }
+
+    /**
+     * Set the altText.
+     *
+     * @param altText the altText
+     * @return the RuntimeResponseGenericRuntimeResponseTypeImage builder
+     */
+    public Builder altText(String altText) {
+      this.altText = altText;
+      return this;
+    }
   }
 
   protected RuntimeResponseGenericRuntimeResponseTypeImage(Builder builder) {
@@ -137,6 +150,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeImage extends RuntimeRespo
     title = builder.title;
     description = builder.description;
     channels = builder.channels;
+    altText = builder.altText;
   }
 
   /**

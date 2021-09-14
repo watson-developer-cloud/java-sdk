@@ -14,6 +14,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 
 /** SearchResult. */
 public class SearchResult extends GenericModel {
@@ -27,6 +28,7 @@ public class SearchResult extends GenericModel {
   protected String title;
   protected String url;
   protected SearchResultHighlight highlight;
+  protected List<SearchResultAnswer> answers;
 
   /**
    * Gets the id.
@@ -98,5 +100,21 @@ public class SearchResult extends GenericModel {
    */
   public SearchResultHighlight getHighlight() {
     return highlight;
+  }
+
+  /**
+   * Gets the answers.
+   *
+   * <p>An array specifying segments of text within the result that were identified as direct
+   * answers to the search query. Currently, only the single answer with the highest confidence (if
+   * any) is returned.
+   *
+   * <p>**Note:** This property uses the answer finding beta feature, and is available only if the
+   * search skill is connected to a Discovery v2 service instance.
+   *
+   * @return the answers
+   */
+  public List<SearchResultAnswer> getAnswers() {
+    return answers;
   }
 }

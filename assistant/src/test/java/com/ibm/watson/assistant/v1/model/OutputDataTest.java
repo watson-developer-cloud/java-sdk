@@ -60,13 +60,13 @@ public class OutputDataTest {
     MessageInput messageInputModel =
         new MessageInput.Builder()
             .text("testString")
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .add("foo", "testString")
             .build();
     assertEquals(messageInputModel.getText(), "testString");
-    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(messageInputModel.get("foo"), "testString");
 
     RuntimeIntent runtimeIntentModel =

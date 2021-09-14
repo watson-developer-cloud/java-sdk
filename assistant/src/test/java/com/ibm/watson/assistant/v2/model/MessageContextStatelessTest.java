@@ -37,12 +37,16 @@ public class MessageContextStatelessTest {
             .turnCount(Long.valueOf("26"))
             .locale("en-us")
             .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
     assertEquals(messageContextGlobalSystemModel.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModel.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.state(), "testString");
 
     MessageContextGlobalStateless messageContextGlobalStatelessModel =
         new MessageContextGlobalStateless.Builder()

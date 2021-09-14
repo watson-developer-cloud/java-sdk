@@ -70,6 +70,10 @@ public class RuntimeResponseGeneric extends GenericModel {
   protected String source;
   protected String title;
   protected String description;
+
+  @SerializedName("alt_text")
+  protected String altText;
+
   protected String preference;
   protected List<DialogNodeOutputOptionsElement> options;
 
@@ -162,7 +166,7 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the source.
    *
-   * <p>The URL of the image.
+   * <p>The `https:` URL of the image.
    *
    * @return the source
    */
@@ -190,6 +194,18 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the altText.
+   *
+   * <p>Descriptive text that can be used for screen readers or other situations where the image
+   * cannot be seen.
+   *
+   * @return the altText
+   */
+  public String altText() {
+    return altText;
   }
 
   /**

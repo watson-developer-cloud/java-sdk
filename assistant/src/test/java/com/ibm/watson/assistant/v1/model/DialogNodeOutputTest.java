@@ -41,7 +41,7 @@ public class DialogNodeOutputTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -50,7 +50,7 @@ public class DialogNodeOutputTest {
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(

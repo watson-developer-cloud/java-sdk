@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,7 +80,8 @@ public class SpeechRecognitionResults extends GenericModel {
    * Gets the processingMetrics.
    *
    * <p>If processing metrics are requested, information about the service's processing of the input
-   * audio. Processing metrics are not available with the synchronous **Recognize audio** method.
+   * audio. Processing metrics are not available with the synchronous [Recognize audio](#recognize)
+   * method.
    *
    * @return the processingMetrics
    */

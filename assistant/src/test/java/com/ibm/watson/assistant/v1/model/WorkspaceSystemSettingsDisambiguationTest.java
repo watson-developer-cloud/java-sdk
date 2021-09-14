@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ public class WorkspaceSystemSettingsDisambiguationTest {
         new WorkspaceSystemSettingsDisambiguation.Builder()
             .prompt("testString")
             .noneOfTheAbovePrompt("testString")
-            .enabled(true)
+            .enabled(false)
             .sensitivity("auto")
             .randomize(true)
             .maxSuggestions(Long.valueOf("1"))
@@ -42,7 +42,7 @@ public class WorkspaceSystemSettingsDisambiguationTest {
             .build();
     assertEquals(workspaceSystemSettingsDisambiguationModel.prompt(), "testString");
     assertEquals(workspaceSystemSettingsDisambiguationModel.noneOfTheAbovePrompt(), "testString");
-    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsDisambiguationModel.sensitivity(), "auto");
     assertEquals(workspaceSystemSettingsDisambiguationModel.randomize(), Boolean.valueOf(true));
     assertEquals(workspaceSystemSettingsDisambiguationModel.maxSuggestions(), Long.valueOf("1"));
@@ -58,7 +58,7 @@ public class WorkspaceSystemSettingsDisambiguationTest {
     assertEquals(workspaceSystemSettingsDisambiguationModelNew.prompt(), "testString");
     assertEquals(
         workspaceSystemSettingsDisambiguationModelNew.noneOfTheAbovePrompt(), "testString");
-    assertEquals(workspaceSystemSettingsDisambiguationModelNew.enabled(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsDisambiguationModelNew.enabled(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsDisambiguationModelNew.sensitivity(), "auto");
     assertEquals(workspaceSystemSettingsDisambiguationModelNew.randomize(), Boolean.valueOf(true));
     assertEquals(workspaceSystemSettingsDisambiguationModelNew.maxSuggestions(), Long.valueOf("1"));

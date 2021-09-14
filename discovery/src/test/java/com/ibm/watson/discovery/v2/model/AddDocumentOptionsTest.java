@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,7 +39,7 @@ public class AddDocumentOptionsTest {
             .filename("testString")
             .fileContentType("application/json")
             .metadata("testString")
-            .xWatsonDiscoveryForce(true)
+            .xWatsonDiscoveryForce(false)
             .build();
     assertEquals(addDocumentOptionsModel.projectId(), "testString");
     assertEquals(addDocumentOptionsModel.collectionId(), "testString");
@@ -49,7 +49,7 @@ public class AddDocumentOptionsTest {
     assertEquals(addDocumentOptionsModel.filename(), "testString");
     assertEquals(addDocumentOptionsModel.fileContentType(), "application/json");
     assertEquals(addDocumentOptionsModel.metadata(), "testString");
-    assertEquals(addDocumentOptionsModel.xWatsonDiscoveryForce(), Boolean.valueOf(true));
+    assertEquals(addDocumentOptionsModel.xWatsonDiscoveryForce(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

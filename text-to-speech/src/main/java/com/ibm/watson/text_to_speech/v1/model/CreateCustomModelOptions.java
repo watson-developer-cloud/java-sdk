@@ -22,6 +22,9 @@ public class CreateCustomModelOptions extends GenericModel {
    * for a specific voice. A custom model can be used with any voice for its specified language.
    * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
    * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
+   *
+   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
+   * voices are supported only for IBM Cloud.
    */
   public interface Language {
     /** ar-MS. */
@@ -48,6 +51,8 @@ public class CreateCustomModelOptions extends GenericModel {
     String JA_JP = "ja-JP";
     /** ko-KR. */
     String KO_KR = "ko-KR";
+    /** nl-BE. */
+    String NL_BE = "nl-BE";
     /** nl-NL. */
     String NL_NL = "nl-NL";
     /** pt-BR. */
@@ -161,6 +166,9 @@ public class CreateCustomModelOptions extends GenericModel {
    * for a specific voice. A custom model can be used with any voice for its specified language.
    * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
    * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
+   *
+   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
+   * voices are supported only for IBM Cloud.
    *
    * @return the language
    */

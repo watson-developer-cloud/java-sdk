@@ -48,6 +48,8 @@ public class ListCustomModelsOptions extends GenericModel {
     String JA_JP = "ja-JP";
     /** ko-KR. */
     String KO_KR = "ko-KR";
+    /** nl-BE. */
+    String NL_BE = "nl-BE";
     /** nl-NL. */
     String NL_NL = "nl-NL";
     /** pt-BR. */

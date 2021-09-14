@@ -46,7 +46,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
                     new java.util.ArrayList<DialogNodeOutputTextValuesElement>(
                         java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel)))
                 .selectionPolicy("sequential")
-                .delimiter("testString")
+                .delimiter("\n")
                 .channels(
                     new java.util.ArrayList<ResponseGenericChannel>(
                         java.util.Arrays.asList(responseGenericChannelModel)))
@@ -60,8 +60,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.selectionPolicy(),
         "sequential");
-    assertEquals(
-        dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "testString");
+    assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "\n");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
@@ -82,8 +81,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.selectionPolicy(),
         "sequential");
-    assertEquals(
-        dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.delimiter(), "testString");
+    assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.delimiter(), "\n");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

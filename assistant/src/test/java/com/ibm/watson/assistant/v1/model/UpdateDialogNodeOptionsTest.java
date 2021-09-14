@@ -41,7 +41,7 @@ public class UpdateDialogNodeOptionsTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -50,7 +50,7 @@ public class UpdateDialogNodeOptionsTest {
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
@@ -195,8 +195,8 @@ public class UpdateDialogNodeOptionsTest {
             .newDigressOut("allow_returning")
             .newDigressOutSlots("not_allowed")
             .newUserLabel("testString")
-            .newDisambiguationOptOut(true)
-            .includeAudit(true)
+            .newDisambiguationOptOut(false)
+            .includeAudit(false)
             .build();
     assertEquals(updateDialogNodeOptionsModel.workspaceId(), "testString");
     assertEquals(updateDialogNodeOptionsModel.dialogNode(), "testString");
@@ -226,8 +226,8 @@ public class UpdateDialogNodeOptionsTest {
     assertEquals(updateDialogNodeOptionsModel.newDigressOut(), "allow_returning");
     assertEquals(updateDialogNodeOptionsModel.newDigressOutSlots(), "not_allowed");
     assertEquals(updateDialogNodeOptionsModel.newUserLabel(), "testString");
-    assertEquals(updateDialogNodeOptionsModel.newDisambiguationOptOut(), Boolean.valueOf(true));
-    assertEquals(updateDialogNodeOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateDialogNodeOptionsModel.newDisambiguationOptOut(), Boolean.valueOf(false));
+    assertEquals(updateDialogNodeOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

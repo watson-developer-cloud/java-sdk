@@ -131,6 +131,7 @@ import com.ibm.watson.discovery.v1.model.SourceOptionsObject;
 import com.ibm.watson.discovery.v1.model.SourceOptionsSiteColl;
 import com.ibm.watson.discovery.v1.model.SourceOptionsWebCrawl;
 import com.ibm.watson.discovery.v1.model.SourceSchedule;
+import com.ibm.watson.discovery.v1.model.StatusDetails;
 import com.ibm.watson.discovery.v1.model.TokenDictRule;
 import com.ibm.watson.discovery.v1.model.TokenDictStatusResponse;
 import com.ibm.watson.discovery.v1.model.TrainingDataSet;
@@ -523,7 +524,7 @@ public class DiscoveryTest {
   public void testCreateConfigurationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": true, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": false, \"time_zone\": \"timeZone\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"gentle\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String createConfigurationPath = "/v1/environments/testString/configurations";
 
     server.enqueue(
@@ -597,8 +598,8 @@ public class DiscoveryTest {
     // Construct an instance of the SegmentSettings model
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
-            .enabled(true)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .enabled(false)
+            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
             .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
 
@@ -705,9 +706,9 @@ public class DiscoveryTest {
             .description("testString")
             .destinationField("testString")
             .sourceField("testString")
-            .overwrite(true)
+            .overwrite(false)
             .enrichment("testString")
-            .ignoreDownstreamErrors(true)
+            .ignoreDownstreamErrors(false)
             .options(enrichmentOptionsModel)
             .build();
 
@@ -715,7 +716,7 @@ public class DiscoveryTest {
     SourceSchedule sourceScheduleModel =
         new SourceSchedule.Builder()
             .enabled(true)
-            .timeZone("testString")
+            .timeZone("America/New_York")
             .frequency("daily")
             .build();
 
@@ -743,11 +744,11 @@ public class DiscoveryTest {
         new SourceOptionsWebCrawl.Builder()
             .url("testString")
             .limitToStartingHosts(true)
-            .crawlSpeed("gentle")
-            .allowUntrustedCertificate(true)
+            .crawlSpeed("normal")
+            .allowUntrustedCertificate(false)
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
-            .overrideRobotsTxt(true)
+            .overrideRobotsTxt(false)
             .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
 
@@ -838,7 +839,7 @@ public class DiscoveryTest {
   public void testListConfigurationsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"configurations\": [{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": true, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": false, \"time_zone\": \"timeZone\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"gentle\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}]}";
+        "{\"configurations\": [{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}]}";
     String listConfigurationsPath = "/v1/environments/testString/configurations";
 
     server.enqueue(
@@ -895,7 +896,7 @@ public class DiscoveryTest {
   public void testGetConfigurationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": true, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": false, \"time_zone\": \"timeZone\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"gentle\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String getConfigurationPath = "/v1/environments/testString/configurations/testString";
 
     server.enqueue(
@@ -951,7 +952,7 @@ public class DiscoveryTest {
   public void testUpdateConfigurationWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": true, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": false, \"time_zone\": \"timeZone\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"gentle\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"mapKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String updateConfigurationPath = "/v1/environments/testString/configurations/testString";
 
     server.enqueue(
@@ -1025,8 +1026,8 @@ public class DiscoveryTest {
     // Construct an instance of the SegmentSettings model
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
-            .enabled(true)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .enabled(false)
+            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
             .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
 
@@ -1133,9 +1134,9 @@ public class DiscoveryTest {
             .description("testString")
             .destinationField("testString")
             .sourceField("testString")
-            .overwrite(true)
+            .overwrite(false)
             .enrichment("testString")
-            .ignoreDownstreamErrors(true)
+            .ignoreDownstreamErrors(false)
             .options(enrichmentOptionsModel)
             .build();
 
@@ -1143,7 +1144,7 @@ public class DiscoveryTest {
     SourceSchedule sourceScheduleModel =
         new SourceSchedule.Builder()
             .enabled(true)
-            .timeZone("testString")
+            .timeZone("America/New_York")
             .frequency("daily")
             .build();
 
@@ -1171,11 +1172,11 @@ public class DiscoveryTest {
         new SourceOptionsWebCrawl.Builder()
             .url("testString")
             .limitToStartingHosts(true)
-            .crawlSpeed("gentle")
-            .allowUntrustedCertificate(true)
+            .crawlSpeed("normal")
+            .allowUntrustedCertificate(false)
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
-            .overrideRobotsTxt(true)
+            .overrideRobotsTxt(false)
             .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
 
@@ -1323,7 +1324,7 @@ public class DiscoveryTest {
   public void testCreateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": false, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": true, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
     String createCollectionPath = "/v1/environments/testString/collections";
 
     server.enqueue(
@@ -1382,7 +1383,7 @@ public class DiscoveryTest {
   public void testListCollectionsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": false, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}]}";
+        "{\"collections\": [{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": true, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}]}";
     String listCollectionsPath = "/v1/environments/testString/collections";
 
     server.enqueue(
@@ -1436,7 +1437,7 @@ public class DiscoveryTest {
   public void testGetCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": false, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": true, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
     String getCollectionPath = "/v1/environments/testString/collections/testString";
 
     server.enqueue(
@@ -1492,7 +1493,7 @@ public class DiscoveryTest {
   public void testUpdateCollectionWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": false, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status\": \"active\", \"configuration_id\": \"configurationId\", \"language\": \"language\", \"document_counts\": {\"available\": 9, \"processing\": 10, \"failed\": 6, \"pending\": 7}, \"disk_usage\": {\"used_bytes\": 9}, \"training_status\": {\"total_examples\": 13, \"available\": false, \"processing\": true, \"minimum_queries_added\": false, \"minimum_examples_added\": true, \"sufficient_label_diversity\": true, \"notices\": 7, \"successfully_trained\": \"2019-01-01T12:00:00.000Z\", \"data_updated\": \"2019-01-01T12:00:00.000Z\"}, \"crawl_status\": {\"source_crawl\": {\"status\": \"running\", \"next_crawl\": \"2019-01-01T12:00:00.000Z\"}}, \"smart_document_understanding\": {\"enabled\": true, \"total_annotated_pages\": 19, \"total_pages\": 10, \"total_documents\": 14, \"custom_fields\": {\"defined\": 7, \"maximum_allowed\": 14}}}";
     String updateCollectionPath = "/v1/environments/testString/collections/testString";
 
     server.enqueue(
@@ -2444,18 +2445,18 @@ public class DiscoveryTest {
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
-            .highlight(true)
+            .highlight(false)
             .passagesFields("testString")
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
-            .deduplicate(true)
+            .deduplicate(false)
             .deduplicateField("testString")
-            .similar(true)
+            .similar(false)
             .similarDocumentIds("testString")
             .similarFields("testString")
             .bias("testString")
-            .spellingSuggestions(true)
-            .xWatsonLoggingOptOut(true)
+            .spellingSuggestions(false)
+            .xWatsonLoggingOptOut(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2520,12 +2521,12 @@ public class DiscoveryTest {
             .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .offset(Long.valueOf("26"))
             .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .highlight(true)
+            .highlight(false)
             .passagesFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
             .deduplicateField("testString")
-            .similar(true)
+            .similar(false)
             .similarDocumentIds(
                 new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -2563,7 +2564,7 @@ public class DiscoveryTest {
         query.get("sort"),
         RequestUtils.join(
             new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
-    assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(false));
     assertEquals(
         query.get("passages.fields"),
         RequestUtils.join(
@@ -2571,7 +2572,7 @@ public class DiscoveryTest {
     assertEquals(Long.valueOf(query.get("passages.count")), Long.valueOf("100"));
     assertEquals(Long.valueOf(query.get("passages.characters")), Long.valueOf("50"));
     assertEquals(query.get("deduplicate.field"), "testString");
-    assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(false));
     assertEquals(
         query.get("similar.document_ids"),
         RequestUtils.join(
@@ -2626,17 +2627,17 @@ public class DiscoveryTest {
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
-            .highlight(true)
+            .highlight(false)
             .passagesFields("testString")
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
-            .deduplicate(true)
+            .deduplicate(false)
             .deduplicateField("testString")
-            .similar(true)
+            .similar(false)
             .similarDocumentIds("testString")
             .similarFields("testString")
             .bias("testString")
-            .xWatsonLoggingOptOut(true)
+            .xWatsonLoggingOptOut(false)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -2701,9 +2702,9 @@ public class DiscoveryTest {
             .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .offset(Long.valueOf("26"))
             .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .highlight(true)
+            .highlight(false)
             .deduplicateField("testString")
-            .similar(true)
+            .similar(false)
             .similarDocumentIds(
                 new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
@@ -2744,9 +2745,9 @@ public class DiscoveryTest {
         query.get("sort"),
         RequestUtils.join(
             new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
-    assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(false));
     assertEquals(query.get("deduplicate.field"), "testString");
-    assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(false));
     assertEquals(
         query.get("similar.document_ids"),
         RequestUtils.join(
@@ -3816,7 +3817,7 @@ public class DiscoveryTest {
   public void testListCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credentials\": [{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": \"connected\"}]}";
+        "{\"credentials\": [{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}]}";
     String listCredentialsPath = "/v1/environments/testString/credentials";
 
     server.enqueue(
@@ -3869,7 +3870,7 @@ public class DiscoveryTest {
   public void testCreateCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": \"connected\"}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String createCredentialsPath = "/v1/environments/testString/credentials";
 
     server.enqueue(
@@ -3904,13 +3905,17 @@ public class DiscoveryTest {
             .secretAccessKey("testString")
             .build();
 
+    // Construct an instance of the StatusDetails model
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
+
     // Construct an instance of the CreateCredentialsOptions model
     CreateCredentialsOptions createCredentialsOptionsModel =
         new CreateCredentialsOptions.Builder()
             .environmentId("testString")
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
 
     // Invoke operation with valid options model (positive test)
@@ -3951,7 +3956,7 @@ public class DiscoveryTest {
   public void testGetCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": \"connected\"}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String getCredentialsPath = "/v1/environments/testString/credentials/testString";
 
     server.enqueue(
@@ -4007,7 +4012,7 @@ public class DiscoveryTest {
   public void testUpdateCredentialsWOptions() throws Throwable {
     // Schedule some responses.
     String mockResponseBody =
-        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": \"connected\"}";
+        "{\"credential_id\": \"credentialId\", \"source_type\": \"box\", \"credential_details\": {\"credential_type\": \"oauth2\", \"client_id\": \"clientId\", \"enterprise_id\": \"enterpriseId\", \"url\": \"url\", \"username\": \"username\", \"organization_url\": \"organizationUrl\", \"site_collection.path\": \"siteCollectionPath\", \"client_secret\": \"clientSecret\", \"public_key_id\": \"publicKeyId\", \"private_key\": \"privateKey\", \"passphrase\": \"passphrase\", \"password\": \"password\", \"gateway_id\": \"gatewayId\", \"source_version\": \"online\", \"web_application_url\": \"webApplicationUrl\", \"domain\": \"domain\", \"endpoint\": \"endpoint\", \"access_key_id\": \"accessKeyId\", \"secret_access_key\": \"secretAccessKey\"}, \"status\": {\"authenticated\": false, \"error_message\": \"errorMessage\"}}";
     String updateCredentialsPath = "/v1/environments/testString/credentials/testString";
 
     server.enqueue(
@@ -4042,6 +4047,10 @@ public class DiscoveryTest {
             .secretAccessKey("testString")
             .build();
 
+    // Construct an instance of the StatusDetails model
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
+
     // Construct an instance of the UpdateCredentialsOptions model
     UpdateCredentialsOptions updateCredentialsOptionsModel =
         new UpdateCredentialsOptions.Builder()
@@ -4049,7 +4058,7 @@ public class DiscoveryTest {
             .credentialId("testString")
             .sourceType("box")
             .credentialDetails(credentialDetailsModel)
-            .status("connected")
+            .status(statusDetailsModel)
             .build();
 
     // Invoke operation with valid options model (positive test)

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-be3b4618-20201201-123423
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.natural_language_classifier.v1;
@@ -43,21 +43,19 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&amp;trade; Natural Language Classifier uses machine learning algorithms to return the
- * top matching predefined classes for short text input. You create and train a classifier to
- * connect predefined classes to example texts so that the service can apply those classes to new
- * inputs.
+ * @deprecated On 9 August 2021, IBM announced the deprecation of IBM Watson&amp;trade; Natural Language
+ * Classifier. As of 9 September 2021, you cannot create new instances. However, existing instances
+ * are supported until 8 August 2022. The service will no longer be available on 8 August
+ * 2022.&lt;br/&gt;&lt;br/&gt;As an alternative, consider migrating to IBM Watson Natural Language
+ * Understanding. For more information, see [Migrating to Natural Language
+ * Understanding](https://cloud.ibm.com/docs/natural-language-classifier?topic=natural-language-classifier-migrating).
+ * {: deprecated}
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/natural-language-classifier">Natural Language
- *     Classifier</a>
- */
-
- /**
- * @deprecated On 9 August 2021, IBM announced the deprecation of the Natural Language Classifier service.
- * The service will no longer be available from 8 August 2022. As of 9 September 2021, you will not be able to create new instances.
- * Existing instances will be supported until 8 August 2022. Any instance that still exists on that date will be deleted.
- * (https://github.com/watson-developer-cloud/java-sdk/tree/master#natural-language-classifier-deprecation).
+ * <p>Natural Language Classifier uses machine learning algorithms to return the top matching
+ * predefined classes for short text input. You create and train a classifier to connect predefined
+ * classes to example texts so that the service can apply those classes to new inputs.
+ *
+ * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/natural-language-classifier
  */
 @Deprecated
 public class NaturalLanguageClassifier extends BaseService {

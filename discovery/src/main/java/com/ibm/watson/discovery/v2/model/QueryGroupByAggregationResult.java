@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,7 +48,7 @@ public class QueryGroupByAggregationResult extends GenericModel {
   /**
    * Gets the matchingResults.
    *
-   * <p>Number of documents containing the 'key'.
+   * <p>Number of documents that contain the 'key'.
    *
    * @return the matchingResults
    */
@@ -95,7 +95,7 @@ public class QueryGroupByAggregationResult extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * <p>An array of sub aggregations.
+   * <p>An array of sub-aggregations.
    *
    * @return the aggregations
    */

@@ -51,26 +51,26 @@ public class FeaturesTest {
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
             .limit(Long.valueOf("250"))
-            .mentions(true)
+            .mentions(false)
             .model("testString")
-            .sentiment(true)
-            .emotion(true)
+            .sentiment(false)
+            .emotion(false)
             .build();
     assertEquals(entitiesOptionsModel.limit(), Long.valueOf("250"));
-    assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModel.model(), "testString");
-    assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(true));
-    assertEquals(entitiesOptionsModel.emotion(), Boolean.valueOf(true));
+    assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(false));
+    assertEquals(entitiesOptionsModel.emotion(), Boolean.valueOf(false));
 
     KeywordsOptions keywordsOptionsModel =
         new KeywordsOptions.Builder()
             .limit(Long.valueOf("250"))
-            .sentiment(true)
-            .emotion(true)
+            .sentiment(false)
+            .emotion(false)
             .build();
     assertEquals(keywordsOptionsModel.limit(), Long.valueOf("250"));
-    assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(true));
-    assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(true));
+    assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(false));
+    assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(false));
 
     HashMap<String, Object> metadataOptionsModel = new HashMap<String, Object>();
 
@@ -81,12 +81,12 @@ public class FeaturesTest {
     SemanticRolesOptions semanticRolesOptionsModel =
         new SemanticRolesOptions.Builder()
             .limit(Long.valueOf("26"))
-            .keywords(true)
-            .entities(true)
+            .keywords(false)
+            .entities(false)
             .build();
     assertEquals(semanticRolesOptionsModel.limit(), Long.valueOf("26"));
-    assertEquals(semanticRolesOptionsModel.keywords(), Boolean.valueOf(true));
-    assertEquals(semanticRolesOptionsModel.entities(), Boolean.valueOf(true));
+    assertEquals(semanticRolesOptionsModel.keywords(), Boolean.valueOf(false));
+    assertEquals(semanticRolesOptionsModel.entities(), Boolean.valueOf(false));
 
     SentimentOptions sentimentOptionsModel =
         new SentimentOptions.Builder()
@@ -106,11 +106,11 @@ public class FeaturesTest {
 
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
-            .explanation(true)
+            .explanation(false)
             .limit(Long.valueOf("10"))
             .model("testString")
             .build();
-    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(true));
+    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(false));
     assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
     assertEquals(categoriesOptionsModel.model(), "testString");
 

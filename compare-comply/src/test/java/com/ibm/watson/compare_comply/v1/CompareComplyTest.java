@@ -295,8 +295,8 @@ public class CompareComplyTest {
             .file2(TestUtilities.createMockStream("This is a mock file."))
             .file1ContentType("application/pdf")
             .file2ContentType("application/pdf")
-            .file1Label("testString")
-            .file2Label("testString")
+            .file1Label("file_1")
+            .file2Label("file_2")
             .model("contracts")
             .build();
 
@@ -317,8 +317,8 @@ public class CompareComplyTest {
     assertNotNull(query);
     // Get query params
     assertEquals(query.get("version"), "testString");
-    assertEquals(query.get("file_1_label"), "testString");
-    assertEquals(query.get("file_2_label"), "testString");
+    assertEquals(query.get("file_1_label"), "file_1");
+    assertEquals(query.get("file_2_label"), "file_2");
     assertEquals(query.get("model"), "contracts");
     // Check request path
     String parsedPath = TestUtilities.parseReqPath(request);

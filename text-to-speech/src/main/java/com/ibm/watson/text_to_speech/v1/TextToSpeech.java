@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.text_to_speech.v1;
@@ -91,14 +91,17 @@ import okhttp3.WebSocket;
  * when combined, sound like the word. A phonetic translation is based on the SSML phoneme format
  * for representing a word. You can specify a phonetic translation in standard International
  * Phonetic Alphabet (IPA) representation or in the proprietary IBM Symbolic Phonetic Representation
- * (SPR). The Arabic, Chinese, Dutch, Australian English, and Korean languages support only IPA.
+ * (SPR).
  *
  * <p>The service also offers a Tune by Example feature that lets you define custom prompts. You can
  * also define speaker models to improve the quality of your custom prompts. The service support
  * custom prompts only for US English custom models and voices.
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/text-to-speech">Text to Speech</a>
+ * <p>**IBM Cloud&amp;reg;.** The Arabic, Chinese, Dutch, Australian English, and Korean languages
+ * and voices are supported only for IBM Cloud. For phonetic translation, they support only IPA, not
+ * SPR.
+ *
+ * <p>API Version: 1.0.0 See: https://cloud.ibm.com/docs/text-to-speech
  */
 public class TextToSpeech extends BaseService {
 
@@ -156,7 +159,7 @@ public class TextToSpeech extends BaseService {
    * <p>Lists all voices available for use with the service. The information includes the name,
    * language, gender, and other details about the voice. The ordering of the list of voices can
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
-   * information about a specific voice, use the **Get a voice** method.
+   * information about a specific voice, use the [Get a voice](#getvoice).
    *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
@@ -184,7 +187,7 @@ public class TextToSpeech extends BaseService {
    * <p>Lists all voices available for use with the service. The information includes the name,
    * language, gender, and other details about the voice. The ordering of the list of voices can
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
-   * information about a specific voice, use the **Get a voice** method.
+   * information about a specific voice, use the [Get a voice](#getvoice).
    *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
@@ -201,12 +204,12 @@ public class TextToSpeech extends BaseService {
    * <p>Gets information about the specified voice. The information includes the name, language,
    * gender, and other details about the voice. Specify a customization ID to obtain information for
    * a custom model that is defined for the language of the specified voice. To list information
-   * about all available voices, use the **List voices** method.
+   * about all available voices, use the [List voices](#listvoices) method.
    *
    * <p>**See also:** [Listing a specific
    * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoice).
    *
-   * <p>### Important voice updates
+   * <p>### Important voice updates for IBM Cloud
    *
    * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
    * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
@@ -224,7 +227,7 @@ public class TextToSpeech extends BaseService {
    * your earliest convenience. For more information about all voice updates, see the [2 December
    * 2020 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes.
+   * in the release notes for IBM Cloud.
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Voice}
@@ -297,10 +300,10 @@ public class TextToSpeech extends BaseService {
    * optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
    *
    * <p>For more information about specifying an audio format, including additional details about
-   * some of the formats, see [Audio
-   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
+   * some of the formats, see [Using audio
+   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audio-formats).
    *
-   * <p>### Important voice updates
+   * <p>### Important voice updates for IBM Cloud
    *
    * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
    * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
@@ -318,7 +321,7 @@ public class TextToSpeech extends BaseService {
    * your earliest convenience. For more information about all voice updates, see the [2 December
    * 2020 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes.
+   * in the release notes for IBM Cloud.
    *
    * <p>### Warning messages
    *
@@ -414,7 +417,7 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Querying a word from a
    * language](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
-   * <p>### Important voice updates
+   * <p>### Important voice updates for IBM Cloud
    *
    * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
    * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
@@ -432,7 +435,7 @@ public class TextToSpeech extends BaseService {
    * your earliest convenience. For more information about all voice updates, see the [2 December
    * 2020 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes.
+   * in the release notes for IBM Cloud.
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for
    *     the call
@@ -476,7 +479,7 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
    *
-   * <p>### Important voice updates
+   * <p>### Important voice updates for IBM Cloud
    *
    * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
    * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
@@ -494,7 +497,7 @@ public class TextToSpeech extends BaseService {
    * your earliest convenience. For more information about all voice updates, see the [2 December
    * 2020 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes.
+   * in the release notes for IBM Cloud.
    *
    * @param createCustomModelOptions the {@link CreateCustomModelOptions} containing the options for
    *     the call
@@ -534,8 +537,8 @@ public class TextToSpeech extends BaseService {
    * <p>Lists metadata such as the name and description for all custom models that are owned by an
    * instance of the service. Specify a language to list the custom models for that language only.
    * To see the words and prompts in addition to the metadata for a specific custom model, use the
-   * **Get a custom model** method. You must use credentials for the instance of the service that
-   * owns a model to list information about it.
+   * [Get a custom model](#getcustommodel) method. You must use credentials for the instance of the
+   * service that owns a model to list information about it.
    *
    * <p>**See also:** [Querying all custom
    * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
@@ -572,8 +575,8 @@ public class TextToSpeech extends BaseService {
    * <p>Lists metadata such as the name and description for all custom models that are owned by an
    * instance of the service. Specify a language to list the custom models for that language only.
    * To see the words and prompts in addition to the metadata for a specific custom model, use the
-   * **Get a custom model** method. You must use credentials for the instance of the service that
-   * owns a model to list information about it.
+   * [Get a custom model](#getcustommodel) method. You must use credentials for the instance of the
+   * service that owns a model to list information about it.
    *
    * <p>**See also:** [Querying all custom
    * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQueryAll).
@@ -657,7 +660,7 @@ public class TextToSpeech extends BaseService {
    * <p>Gets all information about a specified custom model. In addition to metadata such as the
    * name and description of the custom model, the output includes the words and their translations
    * that are defined for the model, as well as any prompts that are defined for the model. To see
-   * just the metadata for a model, use the **List custom models** method.
+   * just the metadata for a model, use the [List custom models](#listcustommodels) method.
    *
    * <p>**See also:** [Querying a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsQuery).
@@ -935,11 +938,9 @@ public class TextToSpeech extends BaseService {
    * information includes the prompt ID, prompt text, status, and optional speaker ID for each
    * prompt of the custom model. You must use credentials for the instance of the service that owns
    * the custom model. The same information about all of the prompts for a custom model is also
-   * provided by the **Get a custom model** method. That method provides complete details about a
-   * specified custom model, including its language, owner, custom words, and more.
-   *
-   * <p>**Beta:** Custom prompts are beta functionality that is supported only for use with US
-   * English custom models and voices.
+   * provided by the [Get a custom model](#getcustommodel) method. That method provides complete
+   * details about a specified custom model, including its language, owner, custom words, and more.
+   * Custom prompts are supported only for use with US English custom models and voices.
    *
    * <p>**See also:** [Listing custom
    * prompts](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-custom-prompts#tbe-custom-prompts-list).
@@ -998,10 +999,11 @@ public class TextToSpeech extends BaseService {
    * 20-second prompt).
    *
    * <p>For shorter prompts, you can wait for a reasonable amount of time and then check the status
-   * of the prompt with the **Get a custom prompt** method. For longer prompts, consider using that
-   * method to poll the service every few seconds to determine when the prompt becomes available. No
-   * prompt can be used for speech synthesis if it is in the `processing` or `failed` state. Only
-   * prompts that are in the `available` state can be used for speech synthesis.
+   * of the prompt with the [Get a custom prompt](#getcustomprompt) method. For longer prompts,
+   * consider using that method to poll the service every few seconds to determine when the prompt
+   * becomes available. No prompt can be used for speech synthesis if it is in the `processing` or
+   * `failed` state. Only prompts that are in the `available` state can be used for speech
+   * synthesis.
    *
    * <p>When it processes a request, the service attempts to align the text and the audio that are
    * provided for the prompt. The text that is passed with a prompt must match the spoken audio as
@@ -1032,10 +1034,8 @@ public class TextToSpeech extends BaseService {
    * prosody, enrolling the speaker and providing a speaker ID for the prompt is one recommended
    * means of potentially improving the quality of the prompt. This is especially important for
    * shorter prompts such as "good-bye" or "thank you," where less audio data makes it more
-   * difficult to match the prosody of the speaker.
-   *
-   * <p>**Beta:** Custom prompts are beta functionality that is supported only for use with US
-   * English custom models and voices.
+   * difficult to match the prosody of the speaker. Custom prompts are supported only for use with
+   * US English custom models and voices.
    *
    * <p>**See also:** * [Add a custom
    * prompt](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-create#tbe-create-add-prompt)
@@ -1085,10 +1085,8 @@ public class TextToSpeech extends BaseService {
    * <p>Gets information about a specified custom prompt for a specified custom model. The
    * information includes the prompt ID, prompt text, status, and optional speaker ID for each
    * prompt of the custom model. You must use credentials for the instance of the service that owns
-   * the custom model.
-   *
-   * <p>**Beta:** Custom prompts are beta functionality that is supported only for use with US
-   * English custom models and voices.
+   * the custom model. Custom prompts are supported only for use with US English custom models and
+   * voices.
    *
    * <p>**See also:** [Listing custom
    * prompts](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-custom-prompts#tbe-custom-prompts-list).
@@ -1130,10 +1128,8 @@ public class TextToSpeech extends BaseService {
    *
    * <p>**Caution:** Deleting a custom prompt elicits a 400 response code from synthesis requests
    * that attempt to use the prompt. Make sure that you do not attempt to use a deleted prompt in a
-   * production application.
-   *
-   * <p>**Beta:** Custom prompts are beta functionality that is supported only for use with US
-   * English custom models and voices.
+   * production application. Custom prompts are supported only for use with US English custom models
+   * and voices.
    *
    * <p>**See also:** [Deleting a custom
    * prompt](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-custom-prompts#tbe-custom-prompts-delete).
@@ -1168,10 +1164,9 @@ public class TextToSpeech extends BaseService {
    *
    * <p>Lists information about all speaker models that are defined for a service instance. The
    * information includes the speaker ID and speaker name of each defined speaker. You must use
-   * credentials for the instance of a service to list its speakers.
-   *
-   * <p>**Beta:** Speaker models and the custom prompts with which they are used are beta
-   * functionality that is supported only for use with US English custom models and voices.
+   * credentials for the instance of a service to list its speakers. Speaker models and the custom
+   * prompts with which they are used are supported only for use with US English custom models and
+   * voices.
    *
    * <p>**See also:** [Listing speaker
    * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-speaker-models#tbe-speaker-models-list).
@@ -1201,10 +1196,9 @@ public class TextToSpeech extends BaseService {
    *
    * <p>Lists information about all speaker models that are defined for a service instance. The
    * information includes the speaker ID and speaker name of each defined speaker. You must use
-   * credentials for the instance of a service to list its speakers.
-   *
-   * <p>**Beta:** Speaker models and the custom prompts with which they are used are beta
-   * functionality that is supported only for use with US English custom models and voices.
+   * credentials for the instance of a service to list its speakers. Speaker models and the custom
+   * prompts with which they are used are supported only for use with US English custom models and
+   * voices.
    *
    * <p>**See also:** [Listing speaker
    * models](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-speaker-models#tbe-speaker-models-list).
@@ -1252,9 +1246,8 @@ public class TextToSpeech extends BaseService {
    *
    * <p>The service returns a speaker ID with the request. A speaker ID is globally unique
    * identifier (GUID) that you use to identify the speaker in subsequent requests to the service.
-   *
-   * <p>**Beta:** Speaker models and the custom prompts with which they are used are beta
-   * functionality that is supported only for use with US English custom models and voices.
+   * Speaker models and the custom prompts with which they are used are supported only for use with
+   * US English custom models and voices.
    *
    * <p>**See also:** * [Create a speaker
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-create#tbe-create-speaker-model)
@@ -1292,10 +1285,9 @@ public class TextToSpeech extends BaseService {
    * models that are owned by a service instance. The information is grouped by the customization
    * IDs of the custom models. For each custom model, the information lists information about each
    * prompt that is defined for that custom model by the speaker. You must use credentials for the
-   * instance of the service that owns a speaker model to list its prompts.
-   *
-   * <p>**Beta:** Speaker models and the custom prompts with which they are used are beta
-   * functionality that is supported only for use with US English custom models and voices.
+   * instance of the service that owns a speaker model to list its prompts. Speaker models and the
+   * custom prompts with which they are used are supported only for use with US English custom
+   * models and voices.
    *
    * <p>**See also:** [Listing the custom prompts for a speaker
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-speaker-models#tbe-speaker-models-list-prompts).
@@ -1337,10 +1329,8 @@ public class TextToSpeech extends BaseService {
    * deletion. The prosodic data that defines the quality of a prompt is established when the prompt
    * is created. A prompt is static and remains unaffected by deletion of its associated speaker.
    * However, the prompt cannot be resubmitted or updated with its original speaker once that
-   * speaker is deleted.
-   *
-   * <p>**Beta:** Speaker models and the custom prompts with which they are used are beta
-   * functionality that is supported only for use with US English custom models and voices.
+   * speaker is deleted. Speaker models and the custom prompts with which they are used are
+   * supported only for use with US English custom models and voices.
    *
    * <p>**See also:** [Deleting a speaker
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-tbe-speaker-models#tbe-speaker-models-delete).

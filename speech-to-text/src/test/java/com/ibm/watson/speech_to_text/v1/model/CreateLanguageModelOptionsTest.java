@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,12 @@ public class CreateLanguageModelOptionsTest {
     CreateLanguageModelOptions createLanguageModelOptionsModel =
         new CreateLanguageModelOptions.Builder()
             .name("testString")
-            .baseModelName("de-DE_BroadbandModel")
+            .baseModelName("ar-MS_Telephony")
             .dialect("testString")
             .description("testString")
             .build();
     assertEquals(createLanguageModelOptionsModel.name(), "testString");
-    assertEquals(createLanguageModelOptionsModel.baseModelName(), "de-DE_BroadbandModel");
+    assertEquals(createLanguageModelOptionsModel.baseModelName(), "ar-MS_Telephony");
     assertEquals(createLanguageModelOptionsModel.dialect(), "testString");
     assertEquals(createLanguageModelOptionsModel.description(), "testString");
   }

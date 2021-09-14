@@ -37,8 +37,9 @@ public class CustomModel extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of the custom model. The **Create a custom model** method
-   * returns only this field. It does not not return the other fields of this object.
+   * <p>The customization ID (GUID) of the custom model. The [Create a custom
+   * model](#createcustommodel) method returns only this field. It does not not return the other
+   * fields of this object.
    *
    * @return the customizationId
    */
@@ -121,7 +122,7 @@ public class CustomModel extends GenericModel {
    * <p>An array of `Word` objects that lists the words and their translations from the custom
    * model. The words are listed in alphabetical order, with uppercase letters listed before
    * lowercase letters. The array is empty if no words are defined for the custom model. This field
-   * is returned only by the **Get a custom model** method.
+   * is returned only by the [Get a custom model](#getcustommodel) method.
    *
    * @return the words
    */
@@ -134,7 +135,7 @@ public class CustomModel extends GenericModel {
    *
    * <p>An array of `Prompt` objects that provides information about the prompts that are defined
    * for the specified custom model. The array is empty if no prompts are defined for the custom
-   * model. This field is returned only by the **Get a custom model** method.
+   * model. This field is returned only by the [Get a custom model](#getcustommodel) method.
    *
    * @return the prompts
    */

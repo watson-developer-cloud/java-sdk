@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,7 +47,7 @@ public class UpdateExampleOptionsTest {
             .text("testString")
             .newText("testString")
             .newMentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(updateExampleOptionsModel.workspaceId(), "testString");
     assertEquals(updateExampleOptionsModel.intent(), "testString");
@@ -56,7 +56,7 @@ public class UpdateExampleOptionsTest {
     assertEquals(
         updateExampleOptionsModel.newMentions(),
         new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)));
-    assertEquals(updateExampleOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateExampleOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

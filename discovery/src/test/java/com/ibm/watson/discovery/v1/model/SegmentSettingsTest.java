@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,14 +32,14 @@ public class SegmentSettingsTest {
   public void testSegmentSettings() throws Throwable {
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
-            .enabled(true)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .enabled(false)
+            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
             .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .build();
-    assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(true));
+    assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(false));
     assertEquals(
         segmentSettingsModel.selectorTags(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")));
     assertEquals(
         segmentSettingsModel.annotatedFields(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
@@ -49,6 +49,6 @@ public class SegmentSettingsTest {
     SegmentSettings segmentSettingsModelNew =
         TestUtilities.deserialize(json, SegmentSettings.class);
     assertTrue(segmentSettingsModelNew instanceof SegmentSettings);
-    assertEquals(segmentSettingsModelNew.enabled(), Boolean.valueOf(true));
+    assertEquals(segmentSettingsModelNew.enabled(), Boolean.valueOf(false));
   }
 }

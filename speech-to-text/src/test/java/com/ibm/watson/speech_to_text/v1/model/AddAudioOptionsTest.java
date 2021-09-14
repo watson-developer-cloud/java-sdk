@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,7 +38,7 @@ public class AddAudioOptionsTest {
             .audioResource(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/zip")
             .containedContentType("audio/alaw")
-            .allowOverwrite(true)
+            .allowOverwrite(false)
             .build();
     assertEquals(addAudioOptionsModel.customizationId(), "testString");
     assertEquals(addAudioOptionsModel.audioName(), "testString");
@@ -47,7 +47,7 @@ public class AddAudioOptionsTest {
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(addAudioOptionsModel.contentType(), "application/zip");
     assertEquals(addAudioOptionsModel.containedContentType(), "audio/alaw");
-    assertEquals(addAudioOptionsModel.allowOverwrite(), Boolean.valueOf(true));
+    assertEquals(addAudioOptionsModel.allowOverwrite(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

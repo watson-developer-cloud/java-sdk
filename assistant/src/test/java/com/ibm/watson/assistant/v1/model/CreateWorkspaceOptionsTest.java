@@ -41,7 +41,7 @@ public class CreateWorkspaceOptionsTest {
             .query("testString")
             .queryType("natural_language")
             .filter("testString")
-            .discoveryVersion("testString")
+            .discoveryVersion("2018-12-03")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
@@ -50,7 +50,7 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
     assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
@@ -193,7 +193,7 @@ public class CreateWorkspaceOptionsTest {
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
             .userLabel("testString")
-            .disambiguationOptOut(true)
+            .disambiguationOptOut(false)
             .build();
     assertEquals(dialogNodeModel.dialogNode(), "testString");
     assertEquals(dialogNodeModel.description(), "testString");
@@ -221,7 +221,7 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(dialogNodeModel.digressOut(), "allow_returning");
     assertEquals(dialogNodeModel.digressOutSlots(), "not_allowed");
     assertEquals(dialogNodeModel.userLabel(), "testString");
-    assertEquals(dialogNodeModel.disambiguationOptOut(), Boolean.valueOf(true));
+    assertEquals(dialogNodeModel.disambiguationOptOut(), Boolean.valueOf(false));
 
     Counterexample counterexampleModel = new Counterexample.Builder().text("testString").build();
     assertEquals(counterexampleModel.text(), "testString");
@@ -235,7 +235,7 @@ public class CreateWorkspaceOptionsTest {
         new WorkspaceSystemSettingsDisambiguation.Builder()
             .prompt("testString")
             .noneOfTheAbovePrompt("testString")
-            .enabled(true)
+            .enabled(false)
             .sensitivity("auto")
             .randomize(true)
             .maxSuggestions(Long.valueOf("1"))
@@ -243,19 +243,19 @@ public class CreateWorkspaceOptionsTest {
             .build();
     assertEquals(workspaceSystemSettingsDisambiguationModel.prompt(), "testString");
     assertEquals(workspaceSystemSettingsDisambiguationModel.noneOfTheAbovePrompt(), "testString");
-    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsDisambiguationModel.enabled(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsDisambiguationModel.sensitivity(), "auto");
     assertEquals(workspaceSystemSettingsDisambiguationModel.randomize(), Boolean.valueOf(true));
     assertEquals(workspaceSystemSettingsDisambiguationModel.maxSuggestions(), Long.valueOf("1"));
     assertEquals(workspaceSystemSettingsDisambiguationModel.suggestionTextPolicy(), "testString");
 
     WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
-        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(true).build();
-    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(true));
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
+    assertEquals(workspaceSystemSettingsSystemEntitiesModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
-        new WorkspaceSystemSettingsOffTopic.Builder().enabled(true).build();
-    assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(true));
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
+    assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
@@ -267,8 +267,8 @@ public class CreateWorkspaceOptionsTest {
                     put("foo", "testString");
                   }
                 })
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
             .build();
@@ -282,8 +282,8 @@ public class CreateWorkspaceOptionsTest {
             put("foo", "testString");
           }
         });
-    assertEquals(workspaceSystemSettingsModel.spellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(workspaceSystemSettingsModel.spellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(workspaceSystemSettingsModel.spellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModel.spellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
         workspaceSystemSettingsModel.systemEntities(), workspaceSystemSettingsSystemEntitiesModel);
     assertEquals(workspaceSystemSettingsModel.offTopic(), workspaceSystemSettingsOffTopicModel);
@@ -410,14 +410,14 @@ public class CreateWorkspaceOptionsTest {
                     put("foo", "testString");
                   }
                 })
-            .learningOptOut(true)
+            .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
             .intents(
                 new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
             .entities(
                 new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(createWorkspaceOptionsModel.name(), "testString");
     assertEquals(createWorkspaceOptionsModel.description(), "testString");
@@ -435,7 +435,7 @@ public class CreateWorkspaceOptionsTest {
             put("foo", "testString");
           }
         });
-    assertEquals(createWorkspaceOptionsModel.learningOptOut(), Boolean.valueOf(true));
+    assertEquals(createWorkspaceOptionsModel.learningOptOut(), Boolean.valueOf(false));
     assertEquals(createWorkspaceOptionsModel.systemSettings(), workspaceSystemSettingsModel);
     assertEquals(
         createWorkspaceOptionsModel.webhooks(),
@@ -446,6 +446,6 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(
         createWorkspaceOptionsModel.entities(),
         new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)));
-    assertEquals(createWorkspaceOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(createWorkspaceOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 }

@@ -44,6 +44,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
                 .channels(
                     new java.util.ArrayList<ResponseGenericChannel>(
                         java.util.Arrays.asList(responseGenericChannelModel)))
+                .altText("testString")
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.responseType(), "image");
@@ -57,6 +58,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
             java.util.Arrays.asList(responseGenericChannelModel)));
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel.altText(), "testString");
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModel);
@@ -77,6 +80,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeImageTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModelNew.description(),
         "testString");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeImageModelNew.altText(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

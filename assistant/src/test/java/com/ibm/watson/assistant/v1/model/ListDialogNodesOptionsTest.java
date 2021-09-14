@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,17 +34,17 @@ public class ListDialogNodesOptionsTest {
         new ListDialogNodesOptions.Builder()
             .workspaceId("testString")
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("dialog_node")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listDialogNodesOptionsModel.workspaceId(), "testString");
     assertEquals(listDialogNodesOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listDialogNodesOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listDialogNodesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listDialogNodesOptionsModel.sort(), "dialog_node");
     assertEquals(listDialogNodesOptionsModel.cursor(), "testString");
-    assertEquals(listDialogNodesOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listDialogNodesOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

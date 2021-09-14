@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,7 +33,7 @@ public class AudioDetails extends GenericModel {
   }
 
   /**
-   * **For an archive-type resource,** the format of the compressed archive: * `zip` for a **.zip**
+   * _For an archive-type resource_, the format of the compressed archive: * `zip` for a **.zip**
    * file * `gzip` for a **.tar.gz** file
    *
    * <p>Omitted for an audio-type resource.
@@ -67,7 +67,7 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the codec.
    *
-   * <p>**For an audio-type resource,** the codec in which the audio is encoded. Omitted for an
+   * <p>_For an audio-type resource_, the codec in which the audio is encoded. Omitted for an
    * archive-type resource.
    *
    * @return the codec
@@ -79,8 +79,8 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the frequency.
    *
-   * <p>**For an audio-type resource,** the sampling rate of the audio in Hertz (samples per
-   * second). Omitted for an archive-type resource.
+   * <p>_For an audio-type resource_, the sampling rate of the audio in Hertz (samples per second).
+   * Omitted for an archive-type resource.
    *
    * @return the frequency
    */
@@ -91,8 +91,8 @@ public class AudioDetails extends GenericModel {
   /**
    * Gets the compression.
    *
-   * <p>**For an archive-type resource,** the format of the compressed archive: * `zip` for a
-   * **.zip** file * `gzip` for a **.tar.gz** file
+   * <p>_For an archive-type resource_, the format of the compressed archive: * `zip` for a **.zip**
+   * file * `gzip` for a **.tar.gz** file
    *
    * <p>Omitted for an audio-type resource.
    *

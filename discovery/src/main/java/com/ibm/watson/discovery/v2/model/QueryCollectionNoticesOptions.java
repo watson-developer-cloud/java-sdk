@@ -171,8 +171,8 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
-   * administrative tooling.
+   * <p>The ID of the project. This information can be found from the *Integrate and Deploy* page in
+   * Discovery.
    *
    * @return the projectId
    */

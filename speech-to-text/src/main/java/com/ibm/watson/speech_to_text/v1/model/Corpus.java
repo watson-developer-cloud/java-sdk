@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,7 +71,11 @@ public class Corpus extends GenericModel {
   /**
    * Gets the outOfVocabularyWords.
    *
-   * <p>The number of OOV words in the corpus. The value is `0` while the corpus is being processed.
+   * <p>_For custom models that are based on previous-generation models_, the number of OOV words
+   * extracted from the corpus. The value is `0` while the corpus is being processed.
+   *
+   * <p>_For custom models that are based on next-generation models_, no OOV words are extracted
+   * from corpora, so the value is always `0`.
    *
    * @return the outOfVocabularyWords
    */

@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.compare_comply.v1;
@@ -64,9 +64,7 @@ import okhttp3.MultipartBody;
  * <p>Compare and Comply analyzes governing documents to provide details about critical aspects of
  * the documents.
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about">Compare
- *     Comply</a>
+ * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/compare-comply?topic=compare-comply-about
  */
 
  /**

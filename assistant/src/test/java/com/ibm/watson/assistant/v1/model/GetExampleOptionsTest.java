@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,12 +35,12 @@ public class GetExampleOptionsTest {
             .workspaceId("testString")
             .intent("testString")
             .text("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(getExampleOptionsModel.workspaceId(), "testString");
     assertEquals(getExampleOptionsModel.intent(), "testString");
     assertEquals(getExampleOptionsModel.text(), "testString");
-    assertEquals(getExampleOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(getExampleOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -38,5 +38,6 @@ public class RuntimeResponseGenericRuntimeResponseTypeImageTest {
     assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.title());
     assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.description());
     assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.channels());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeImageModel.altText());
   }
 }

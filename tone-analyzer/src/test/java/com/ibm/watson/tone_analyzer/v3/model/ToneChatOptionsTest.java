@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,13 +39,13 @@ public class ToneChatOptionsTest {
         new ToneChatOptions.Builder()
             .utterances(new java.util.ArrayList<Utterance>(java.util.Arrays.asList(utteranceModel)))
             .contentLanguage("en")
-            .acceptLanguage("ar")
+            .acceptLanguage("en")
             .build();
     assertEquals(
         toneChatOptionsModel.utterances(),
         new java.util.ArrayList<Utterance>(java.util.Arrays.asList(utteranceModel)));
     assertEquals(toneChatOptionsModel.contentLanguage(), "en");
-    assertEquals(toneChatOptionsModel.acceptLanguage(), "ar");
+    assertEquals(toneChatOptionsModel.acceptLanguage(), "en");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

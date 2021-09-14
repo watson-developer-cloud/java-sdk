@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,8 +45,8 @@ public class UpdateValueOptionsTest {
             .newType("synonyms")
             .newSynonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .newPatterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .append(true)
-            .includeAudit(true)
+            .append(false)
+            .includeAudit(false)
             .build();
     assertEquals(updateValueOptionsModel.workspaceId(), "testString");
     assertEquals(updateValueOptionsModel.entity(), "testString");
@@ -66,8 +66,8 @@ public class UpdateValueOptionsTest {
     assertEquals(
         updateValueOptionsModel.newPatterns(),
         new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(updateValueOptionsModel.append(), Boolean.valueOf(true));
-    assertEquals(updateValueOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(updateValueOptionsModel.append(), Boolean.valueOf(false));
+    assertEquals(updateValueOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

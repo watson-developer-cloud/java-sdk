@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -319,8 +319,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The ID of the project. This information can be found from the deploy page of the Discovery
-   * administrative tooling.
+   * <p>The ID of the project. This information can be found from the *Integrate and Deploy* page in
+   * Discovery.
    *
    * @return the projectId
    */
@@ -403,8 +403,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * <p>A list of the fields in the document hierarchy to return. If this parameter not specified,
-   * then all top-level fields are returned.
+   * <p>A list of the fields in the document hierarchy to return. If this parameter is an empty
+   * list, then all fields are returned.
    *
    * @return the xReturn
    */
@@ -429,8 +429,7 @@ public class QueryOptions extends GenericModel {
    *
    * <p>A comma-separated list of fields in the document to sort on. You can optionally specify a
    * sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending
-   * is the default sort direction if no prefix is specified. This parameter cannot be used in the
-   * same query as the **bias** parameter.
+   * is the default sort direction if no prefix is specified.
    *
    * @return the sort
    */
@@ -477,7 +476,7 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the suggestedRefinements.
    *
-   * <p>Configuration for suggested refinements.
+   * <p>Configuration for suggested refinements. Available with Premium plans only.
    *
    * @return the suggestedRefinements
    */

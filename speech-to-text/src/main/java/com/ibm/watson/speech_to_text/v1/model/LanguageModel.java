@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,8 +66,9 @@ public class LanguageModel extends GenericModel {
   /**
    * Gets the customizationId.
    *
-   * <p>The customization ID (GUID) of the custom language model. The **Create a custom language
-   * model** method returns only this field of the object; it does not return the other fields.
+   * <p>The customization ID (GUID) of the custom language model. The [Create a custom language
+   * model](#createlanguagemodel) method returns only this field of the object; it does not return
+   * the other fields.
    *
    * @return the customizationId
    */
@@ -133,10 +134,14 @@ public class LanguageModel extends GenericModel {
   /**
    * Gets the versions.
    *
-   * <p>A list of the available versions of the custom language model. Each element of the array
-   * indicates a version of the base model with which the custom model can be used. Multiple
-   * versions exist only if the custom model has been upgraded; otherwise, only a single version is
-   * shown.
+   * <p>_For custom models that are based on previous-generation models_, a list of the available
+   * versions of the custom language model. Each element of the array indicates a version of the
+   * base model with which the custom model can be used. Multiple versions exist only if the custom
+   * model has been upgraded; otherwise, only a single version is shown.
+   *
+   * <p>_For custom models that are based on next-generation models_, a single version of the custom
+   * model. Only one version of a custom model that is based on a next-generation model is ever
+   * available, and upgrading does not apply.
    *
    * @return the versions
    */

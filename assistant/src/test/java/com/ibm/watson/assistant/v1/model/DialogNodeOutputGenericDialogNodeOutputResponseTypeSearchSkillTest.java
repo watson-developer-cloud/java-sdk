@@ -42,7 +42,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillTest 
                 .query("testString")
                 .queryType("natural_language")
                 .filter("testString")
-                .discoveryVersion("testString")
+                .discoveryVersion("2018-12-03")
                 .channels(
                     new java.util.ArrayList<ResponseGenericChannel>(
                         java.util.Arrays.asList(responseGenericChannelModel)))
@@ -59,7 +59,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillTest 
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModel.filter(), "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModel.discoveryVersion(),
-        "testString");
+        "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
@@ -90,7 +90,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillTest 
         "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModelNew.discoveryVersion(),
-        "testString");
+        "2018-12-03");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

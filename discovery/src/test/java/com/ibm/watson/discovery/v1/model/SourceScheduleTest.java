@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,11 +33,11 @@ public class SourceScheduleTest {
     SourceSchedule sourceScheduleModel =
         new SourceSchedule.Builder()
             .enabled(true)
-            .timeZone("testString")
+            .timeZone("America/New_York")
             .frequency("daily")
             .build();
     assertEquals(sourceScheduleModel.enabled(), Boolean.valueOf(true));
-    assertEquals(sourceScheduleModel.timeZone(), "testString");
+    assertEquals(sourceScheduleModel.timeZone(), "America/New_York");
     assertEquals(sourceScheduleModel.frequency(), "daily");
 
     String json = TestUtilities.serialize(sourceScheduleModel);
@@ -45,7 +45,7 @@ public class SourceScheduleTest {
     SourceSchedule sourceScheduleModelNew = TestUtilities.deserialize(json, SourceSchedule.class);
     assertTrue(sourceScheduleModelNew instanceof SourceSchedule);
     assertEquals(sourceScheduleModelNew.enabled(), Boolean.valueOf(true));
-    assertEquals(sourceScheduleModelNew.timeZone(), "testString");
+    assertEquals(sourceScheduleModelNew.timeZone(), "America/New_York");
     assertEquals(sourceScheduleModelNew.frequency(), "daily");
   }
 }

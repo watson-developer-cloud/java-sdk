@@ -198,9 +198,9 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     // get session ID
     CreateSessionOptions createSessionOptions =
-            new CreateSessionOptions.Builder().assistantId(assistantId).build();
+        new CreateSessionOptions.Builder().assistantId(assistantId).build();
     SessionResponse sessionResponse =
-            service.createSession(createSessionOptions).execute().getResult();
+        service.createSession(createSessionOptions).execute().getResult();
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages = Arrays.asList("test sdk");
@@ -208,26 +208,26 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     MessageInputOptions inputOptions = new MessageInputOptions.Builder().debug(true).build();
     MessageInput input =
-            new MessageInput.Builder()
-                    .text("test sdk")
-                    .messageType(MessageInput.MessageType.TEXT)
-                    .options(inputOptions)
-                    .build();
+        new MessageInput.Builder()
+            .text("test sdk")
+            .messageType(MessageInput.MessageType.TEXT)
+            .options(inputOptions)
+            .build();
     MessageOptions messageOptions =
-            new MessageOptions.Builder()
-                    .assistantId(assistantId)
-                    .sessionId(sessionId)
-                    .input(input)
-                    .context(context)
-                    .build();
+        new MessageOptions.Builder()
+            .assistantId(assistantId)
+            .sessionId(sessionId)
+            .input(input)
+            .context(context)
+            .build();
     MessageResponse response = service.message(messageOptions).execute().getResult();
 
     RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
-            runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
+        runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
             (RuntimeResponseGenericRuntimeResponseTypeChannelTransfer)
-                    response.getOutput().getGeneric().get(0);
+                response.getOutput().getGeneric().get(0);
 
-    assertNotNull(null);
+    assertNotNull(runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo());
   }
   /** Test Delete User Data. */
   /*

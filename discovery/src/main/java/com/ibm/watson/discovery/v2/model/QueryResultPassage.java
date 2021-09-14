@@ -57,7 +57,7 @@ public class QueryResultPassage extends GenericModel {
   /**
    * Gets the endOffset.
    *
-   * <p>The position of the last character of the extracted passage in the originating field.
+   * <p>The position after the last character of the extracted passage in the originating field.
    *
    * @return the endOffset
    */

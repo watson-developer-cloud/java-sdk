@@ -163,15 +163,15 @@ public class MessageStatelessOptionsTest {
 
     MessageInputOptionsStateless messageInputOptionsStatelessModel =
         new MessageInputOptionsStateless.Builder()
-            .restart(true)
-            .alternateIntents(true)
+            .restart(false)
+            .alternateIntents(false)
             .spelling(messageInputOptionsSpellingModel)
-            .debug(true)
+            .debug(false)
             .build();
-    assertEquals(messageInputOptionsStatelessModel.restart(), Boolean.valueOf(true));
-    assertEquals(messageInputOptionsStatelessModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModel.restart(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsStatelessModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsStatelessModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsStatelessModel.debug(), Boolean.valueOf(true));
+    assertEquals(messageInputOptionsStatelessModel.debug(), Boolean.valueOf(false));
 
     MessageInputStateless messageInputStatelessModel =
         new MessageInputStateless.Builder()
@@ -202,12 +202,16 @@ public class MessageStatelessOptionsTest {
             .turnCount(Long.valueOf("26"))
             .locale("en-us")
             .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
     assertEquals(messageContextGlobalSystemModel.turnCount(), Long.valueOf("26"));
     assertEquals(messageContextGlobalSystemModel.locale(), "en-us");
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
+    assertEquals(messageContextGlobalSystemModel.state(), "testString");
 
     MessageContextGlobalStateless messageContextGlobalStatelessModel =
         new MessageContextGlobalStateless.Builder()

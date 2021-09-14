@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,11 +32,11 @@ public class CategoriesOptionsTest {
   public void testCategoriesOptions() throws Throwable {
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
-            .explanation(true)
+            .explanation(false)
             .limit(Long.valueOf("10"))
             .model("testString")
             .build();
-    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(true));
+    assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(false));
     assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
     assertEquals(categoriesOptionsModel.model(), "testString");
 
@@ -45,7 +45,7 @@ public class CategoriesOptionsTest {
     CategoriesOptions categoriesOptionsModelNew =
         TestUtilities.deserialize(json, CategoriesOptions.class);
     assertTrue(categoriesOptionsModelNew instanceof CategoriesOptions);
-    assertEquals(categoriesOptionsModelNew.explanation(), Boolean.valueOf(true));
+    assertEquals(categoriesOptionsModelNew.explanation(), Boolean.valueOf(false));
     assertEquals(categoriesOptionsModelNew.limit(), Long.valueOf("10"));
     assertEquals(categoriesOptionsModelNew.model(), "testString");
   }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,17 +43,17 @@ public class FederatedQueryOptionsTest {
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
-            .highlight(true)
+            .highlight(false)
             .passagesFields("testString")
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
-            .deduplicate(true)
+            .deduplicate(false)
             .deduplicateField("testString")
-            .similar(true)
+            .similar(false)
             .similarDocumentIds("testString")
             .similarFields("testString")
             .bias("testString")
-            .xWatsonLoggingOptOut(true)
+            .xWatsonLoggingOptOut(false)
             .build();
     assertEquals(federatedQueryOptionsModel.environmentId(), "testString");
     assertEquals(federatedQueryOptionsModel.collectionIds(), "testString");
@@ -66,17 +66,17 @@ public class FederatedQueryOptionsTest {
     assertEquals(federatedQueryOptionsModel.xReturn(), "testString");
     assertEquals(federatedQueryOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(federatedQueryOptionsModel.sort(), "testString");
-    assertEquals(federatedQueryOptionsModel.highlight(), Boolean.valueOf(true));
+    assertEquals(federatedQueryOptionsModel.highlight(), Boolean.valueOf(false));
     assertEquals(federatedQueryOptionsModel.passagesFields(), "testString");
     assertEquals(federatedQueryOptionsModel.passagesCount(), Long.valueOf("100"));
     assertEquals(federatedQueryOptionsModel.passagesCharacters(), Long.valueOf("50"));
-    assertEquals(federatedQueryOptionsModel.deduplicate(), Boolean.valueOf(true));
+    assertEquals(federatedQueryOptionsModel.deduplicate(), Boolean.valueOf(false));
     assertEquals(federatedQueryOptionsModel.deduplicateField(), "testString");
-    assertEquals(federatedQueryOptionsModel.similar(), Boolean.valueOf(true));
+    assertEquals(federatedQueryOptionsModel.similar(), Boolean.valueOf(false));
     assertEquals(federatedQueryOptionsModel.similarDocumentIds(), "testString");
     assertEquals(federatedQueryOptionsModel.similarFields(), "testString");
     assertEquals(federatedQueryOptionsModel.bias(), "testString");
-    assertEquals(federatedQueryOptionsModel.xWatsonLoggingOptOut(), Boolean.valueOf(true));
+    assertEquals(federatedQueryOptionsModel.xWatsonLoggingOptOut(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

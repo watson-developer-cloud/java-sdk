@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,7 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-/** An object containing an array of autocompletion suggestions. */
+/** An object that contains an array of autocompletion suggestions. */
 public class Completions extends GenericModel {
 
   protected List<String> completions;

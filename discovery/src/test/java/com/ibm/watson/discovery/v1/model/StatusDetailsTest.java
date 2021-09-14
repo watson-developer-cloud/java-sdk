@@ -11,27 +11,35 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.natural_language_understanding.v1.model;
+package com.ibm.watson.discovery.v1.model;
 
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.watson.natural_language_understanding.v1.utils.TestUtilities;
+import com.ibm.watson.discovery.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListClassificationsModelsResponse model. */
-public class ListClassificationsModelsResponseTest {
+/** Unit test class for the StatusDetails model. */
+public class StatusDetailsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListClassificationsModelsResponse() throws Throwable {
-    ListClassificationsModelsResponse listClassificationsModelsResponseModel =
-        new ListClassificationsModelsResponse();
-    assertNull(listClassificationsModelsResponseModel.getModels());
+  public void testStatusDetails() throws Throwable {
+    StatusDetails statusDetailsModel =
+        new StatusDetails.Builder().authenticated(true).errorMessage("testString").build();
+    assertEquals(statusDetailsModel.authenticated(), Boolean.valueOf(true));
+    assertEquals(statusDetailsModel.errorMessage(), "testString");
+
+    String json = TestUtilities.serialize(statusDetailsModel);
+
+    StatusDetails statusDetailsModelNew = TestUtilities.deserialize(json, StatusDetails.class);
+    assertTrue(statusDetailsModelNew instanceof StatusDetails);
+    assertEquals(statusDetailsModelNew.authenticated(), Boolean.valueOf(true));
+    assertEquals(statusDetailsModelNew.errorMessage(), "testString");
   }
 }

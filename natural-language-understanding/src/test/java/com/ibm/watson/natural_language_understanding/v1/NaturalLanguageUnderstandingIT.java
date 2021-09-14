@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -999,25 +999,21 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void testListClassificationModels() throws Exception {
-    ListClassificationsModelsResponse response =
+    ClassificationsModelList response =
         service.listClassificationsModels().execute().getResult();
     assertNotNull(response.getModels());
 
-    for (ClassificationsModelList classificationsModelList : response.getModels()) {
-      if (classificationsModelList.getModels() != null) {
-        for (ClassificationsModel classificationsModel : classificationsModelList.getModels()) {
-          if (classificationsModel.getName().startsWith("testString")) {
-            DeleteClassificationsModelOptions deleteClassificationsModelOptions =
-                new DeleteClassificationsModelOptions.Builder()
-                    .modelId(classificationsModel.getModelId())
-                    .build();
-            DeleteModelResults deleteModelResults =
-                service
-                    .deleteClassificationsModel(deleteClassificationsModelOptions)
-                    .execute()
-                    .getResult();
-          }
-        }
+    for (ClassificationsModel classificationsModel : response.getModels()) {
+      if (classificationsModel.getName().startsWith("testString")) {
+        DeleteClassificationsModelOptions deleteClassificationsModelOptions =
+            new DeleteClassificationsModelOptions.Builder()
+                .modelId(classificationsModel.getModelId())
+                .build();
+        DeleteModelResults deleteModelResults =
+            service
+                .deleteClassificationsModel(deleteClassificationsModelOptions)
+                .execute()
+                .getResult();
       }
     }
   }

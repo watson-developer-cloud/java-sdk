@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class GetIntentOptionsTest {
         new GetIntentOptions.Builder()
             .workspaceId("testString")
             .intent("testString")
-            .export(true)
-            .includeAudit(true)
+            .export(false)
+            .includeAudit(false)
             .build();
     assertEquals(getIntentOptionsModel.workspaceId(), "testString");
     assertEquals(getIntentOptionsModel.intent(), "testString");
-    assertEquals(getIntentOptionsModel.export(), Boolean.valueOf(true));
-    assertEquals(getIntentOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(getIntentOptionsModel.export(), Boolean.valueOf(false));
+    assertEquals(getIntentOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

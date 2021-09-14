@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,7 +37,7 @@ public class AddGrammarOptionsTest {
             .grammarName("testString")
             .grammarFile(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/srgs")
-            .allowOverwrite(true)
+            .allowOverwrite(false)
             .build();
     assertEquals(addGrammarOptionsModel.customizationId(), "testString");
     assertEquals(addGrammarOptionsModel.grammarName(), "testString");
@@ -45,7 +45,7 @@ public class AddGrammarOptionsTest {
         IOUtils.toString(addGrammarOptionsModel.grammarFile()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(addGrammarOptionsModel.contentType(), "application/srgs");
-    assertEquals(addGrammarOptionsModel.allowOverwrite(), Boolean.valueOf(true));
+    assertEquals(addGrammarOptionsModel.allowOverwrite(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

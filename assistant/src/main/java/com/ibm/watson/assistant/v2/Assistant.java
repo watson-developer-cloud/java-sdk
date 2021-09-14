@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.assistant.v2;
@@ -50,8 +50,7 @@ import java.util.Map.Entry;
  * <p>The Assistant v2 API provides runtime methods your client application can use to send user
  * input to an assistant and receive a response.
  *
- * @version v2
- * @see <a href="https://cloud.ibm.com/docs/assistant">Assistant</a>
+ * <p>API Version: 2.0 See: https://cloud.ibm.com/docs/assistant
  */
 public class Assistant extends BaseService {
 
@@ -67,7 +66,7 @@ public class Assistant extends BaseService {
    * the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-09-24`.
+   *     format. The current version is `2021-06-14`.
    */
   public Assistant(String version) {
     this(
@@ -81,7 +80,7 @@ public class Assistant extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-09-24`.
+   *     format. The current version is `2021-06-14`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Assistant(String version, Authenticator authenticator) {
@@ -93,7 +92,7 @@ public class Assistant extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-09-24`.
+   *     format. The current version is `2021-06-14`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Assistant(String version, String serviceName) {
@@ -105,7 +104,7 @@ public class Assistant extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2020-09-24`.
+   *     format. The current version is `2021-06-14`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -120,7 +119,7 @@ public class Assistant extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2020-09-24`.
+   * current version is `2021-06-14`.
    *
    * @return the version
    */

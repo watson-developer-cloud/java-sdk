@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,20 +33,20 @@ public class ListEntitiesOptionsTest {
     ListEntitiesOptions listEntitiesOptionsModel =
         new ListEntitiesOptions.Builder()
             .workspaceId("testString")
-            .export(true)
+            .export(false)
             .pageLimit(Long.valueOf("26"))
-            .includeCount(true)
+            .includeCount(false)
             .sort("entity")
             .cursor("testString")
-            .includeAudit(true)
+            .includeAudit(false)
             .build();
     assertEquals(listEntitiesOptionsModel.workspaceId(), "testString");
-    assertEquals(listEntitiesOptionsModel.export(), Boolean.valueOf(true));
+    assertEquals(listEntitiesOptionsModel.export(), Boolean.valueOf(false));
     assertEquals(listEntitiesOptionsModel.pageLimit(), Long.valueOf("26"));
-    assertEquals(listEntitiesOptionsModel.includeCount(), Boolean.valueOf(true));
+    assertEquals(listEntitiesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listEntitiesOptionsModel.sort(), "entity");
     assertEquals(listEntitiesOptionsModel.cursor(), "testString");
-    assertEquals(listEntitiesOptionsModel.includeAudit(), Boolean.valueOf(true));
+    assertEquals(listEntitiesOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

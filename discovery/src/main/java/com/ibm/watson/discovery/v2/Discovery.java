@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.discovery.v2;
@@ -86,8 +86,7 @@ import okhttp3.MultipartBody;
  * decision-making. Securely unify structured and unstructured data with pre-enriched content, and
  * use a simplified query language to eliminate the need for manual filtering of results.
  *
- * @version v2
- * @see <a href="https://cloud.ibm.com/docs/discovery-data">Discovery</a>
+ * <p>API Version: 2.0 See: https://cloud.ibm.com/docs/discovery-data
  */
 public class Discovery extends BaseService {
 
@@ -103,7 +102,7 @@ public class Discovery extends BaseService {
    * the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2019-11-22`.
+   *     YYYY-MM-DD format. The current version is `2020-08-30`.
    */
   public Discovery(String version) {
     this(
@@ -117,7 +116,7 @@ public class Discovery extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2019-11-22`.
+   *     YYYY-MM-DD format. The current version is `2020-08-30`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Discovery(String version, Authenticator authenticator) {
@@ -129,7 +128,7 @@ public class Discovery extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2019-11-22`.
+   *     YYYY-MM-DD format. The current version is `2020-08-30`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Discovery(String version, String serviceName) {
@@ -141,7 +140,7 @@ public class Discovery extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2019-11-22`.
+   *     YYYY-MM-DD format. The current version is `2020-08-30`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -156,7 +155,7 @@ public class Discovery extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format.
-   * The current version is `2019-11-22`.
+   * The current version is `2020-08-30`.
    *
    * @return the version
    */
@@ -669,28 +668,28 @@ public class Discovery extends BaseService {
    * <p>* The user must provide document content, metadata, or both. If the request is missing both
    * document content and metadata, it is rejected.
    *
-   * <p>* The user can set the **Content-Type** parameter on the **file** part to indicate the media
-   * type of the document. If the **Content-Type** parameter is missing or is one of the generic
-   * media types (for example, `application/octet-stream`), then the service attempts to
-   * automatically detect the document's media type.
+   * <p>* You can set the **Content-Type** parameter on the **file** part to indicate the media type
+   * of the document. If the **Content-Type** parameter is missing or is one of the generic media
+   * types (for example, `application/octet-stream`), then the service attempts to automatically
+   * detect the document's media type.
    *
-   * <p>* The following field names are reserved and will be filtered out if present after
+   * <p>* The following field names are reserved and are filtered out if present after
    * normalization: `id`, `score`, `highlight`, and any field with the prefix of: `_`, `+`, or `-`
    *
    * <p>* Fields with empty name values after normalization are filtered out before indexing.
    *
-   * <p>* Fields containing the following characters after normalization are filtered out before
+   * <p>* Fields that contain the following characters after normalization are filtered out before
    * indexing: `#` and `,`
    *
-   * <p>If the document is uploaded to a collection that has it's data shared with another
-   * collection, the **X-Watson-Discovery-Force** header must be set to `true`.
+   * <p>If the document is uploaded to a collection that shares its data with another collection,
+   * the **X-Watson-Discovery-Force** header must be set to `true`.
    *
-   * <p>**Note:** Documents can be added with a specific **document_id** by using the
-   * **_/v2/projects/{project_id}/collections/{collection_id}/documents** method.
+   * <p>**Note:** You can assign an ID to a document that you add by appending the ID to the
+   * endpoint (`/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}`). If
+   * a document already exists with the specified ID, it is replaced.
    *
-   * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
-   * cannot be used to modify a collection that connects to an external source such as Microsoft
-   * SharePoint.
+   * <p>**Note:** This operation works with a file upload collection. It cannot be used to modify a
+   * collection that crawls an external data source.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DocumentAccepted}
@@ -743,8 +742,8 @@ public class Discovery extends BaseService {
    * <p>Replace an existing document or add a document with a specified **document_id**. Starts
    * ingesting a document with optional metadata.
    *
-   * <p>If the document is uploaded to a collection that has it's data shared with another
-   * collection, the **X-Watson-Discovery-Force** header must be set to `true`.
+   * <p>If the document is uploaded to a collection that shares its data with another collection,
+   * the **X-Watson-Discovery-Force** header must be set to `true`.
    *
    * <p>**Note:** When uploading a new document with this method it automatically replaces any
    * document stored with the same **document_id** if it exists.
@@ -753,8 +752,8 @@ public class Discovery extends BaseService {
    * cannot be used to modify a collection that connects to an external source such as Microsoft
    * SharePoint.
    *
-   * <p>**Note:** If an uploaded document is segmented, all segments will be overwritten, even if
-   * the updated version of the document has fewer segments.
+   * <p>**Note:** If an uploaded document is segmented, all segments are overwritten, even if the
+   * updated version of the document has fewer segments.
    *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the
    *     call
@@ -1069,11 +1068,12 @@ public class Discovery extends BaseService {
   /**
    * Analyze a Document.
    *
-   * <p>Process a document using the specified collection's settings and return it for realtime use.
+   * <p>Process a document and return it for realtime use. Supports JSON files only.
    *
-   * <p>**Note:** Documents processed using this method are not added to the specified collection.
+   * <p>The document is processed according to the collection's configuration settings but is not
+   * stored in the collection.
    *
-   * <p>**Note:** This method is only supported on IBM Cloud Pak for Data instances of Discovery.
+   * <p>**Note:** This method is supported on installed instances of Discovery only.
    *
    * @param analyzeDocumentOptions the {@link AnalyzeDocumentOptions} containing the options for the
    *     call
@@ -1122,7 +1122,8 @@ public class Discovery extends BaseService {
   /**
    * List Enrichments.
    *
-   * <p>List the enrichments available to this project.
+   * <p>Lists the enrichments available to this project. The *Part of Speech* and *Sentiment of
+   * Phrases* enrichments might be listed, but are reserved for internal use only.
    *
    * @param listEnrichmentsOptions the {@link ListEnrichmentsOptions} containing the options for the
    *     call
@@ -1152,7 +1153,7 @@ public class Discovery extends BaseService {
   /**
    * Create an enrichment.
    *
-   * <p>Create an enrichment for use with the specified project/.
+   * <p>Create an enrichment for use with the specified project.
    *
    * @param createEnrichmentOptions the {@link CreateEnrichmentOptions} containing the options for
    *     the call

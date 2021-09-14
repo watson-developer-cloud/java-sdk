@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-902c9336-20210513-140138
+ * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
  */
 
 package com.ibm.watson.natural_language_understanding.v1;
@@ -32,6 +32,7 @@ import com.ibm.watson.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModel;
 import com.ibm.watson.natural_language_understanding.v1.model.CategoriesModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModel;
+import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateClassificationsModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateSentimentModelOptions;
@@ -45,7 +46,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.GetClassifications
 import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsOptions;
@@ -70,9 +70,7 @@ import okhttp3.MultipartBody;
  * with Watson Knowledge Studio to detect custom entities and relations in Natural Language
  * Understanding.
  *
- * @version v1
- * @see <a href="https://cloud.ibm.com/docs/natural-language-understanding">Natural Language
- *     Understanding</a>
+ * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/natural-language-understanding
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
@@ -88,7 +86,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * is used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-03-25`.
+   *     format. The current version is `2021-08-01`.
    */
   public NaturalLanguageUnderstanding(String version) {
     this(
@@ -102,7 +100,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * and specified authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-03-25`.
+   *     format. The current version is `2021-08-01`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public NaturalLanguageUnderstanding(String version, Authenticator authenticator) {
@@ -114,7 +112,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * is used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-03-25`.
+   *     format. The current version is `2021-08-01`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public NaturalLanguageUnderstanding(String version, String serviceName) {
@@ -126,7 +124,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * and authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-03-25`.
+   *     format. The current version is `2021-08-01`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -142,7 +140,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2021-03-25`.
+   * current version is `2021-08-01`.
    *
    * @return the version
    */
@@ -727,9 +725,9 @@ public class NaturalLanguageUnderstanding extends BaseService {
   /**
    * Create classifications model.
    *
-   * <p>(Beta) Creates a custom classifications model by uploading training data and associated
-   * metadata. The model begins the training and deploying process and is ready to use when the
-   * `status` is `available`.
+   * <p>Creates a custom classifications model by uploading training data and associated metadata.
+   * The model begins the training and deploying process and is ready to use when the `status` is
+   * `available`.
    *
    * @param createClassificationsModelOptions the {@link CreateClassificationsModelOptions}
    *     containing the options for the call
@@ -787,13 +785,13 @@ public class NaturalLanguageUnderstanding extends BaseService {
   /**
    * List classifications models.
    *
-   * <p>(Beta) Returns all custom classifications models associated with this service instance.
+   * <p>Returns all custom classifications models associated with this service instance.
    *
    * @param listClassificationsModelsOptions the {@link ListClassificationsModelsOptions} containing
    *     the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ListClassificationsModelsResponse}
+   * @return a {@link ServiceCall} with a result of type {@link ClassificationsModelList}
    */
-  public ServiceCall<ListClassificationsModelsResponse> listClassificationsModels(
+  public ServiceCall<ClassificationsModelList> listClassificationsModels(
       ListClassificationsModelsOptions listClassificationsModelsOptions) {
     RequestBuilder builder =
         RequestBuilder.get(
@@ -806,28 +804,27 @@ public class NaturalLanguageUnderstanding extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
-    ResponseConverter<ListClassificationsModelsResponse> responseConverter =
+    ResponseConverter<ClassificationsModelList> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<
-                ListClassificationsModelsResponse>() {}.getType());
+            new com.google.gson.reflect.TypeToken<ClassificationsModelList>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
    * List classifications models.
    *
-   * <p>(Beta) Returns all custom classifications models associated with this service instance.
+   * <p>Returns all custom classifications models associated with this service instance.
    *
-   * @return a {@link ServiceCall} with a result of type {@link ListClassificationsModelsResponse}
+   * @return a {@link ServiceCall} with a result of type {@link ClassificationsModelList}
    */
-  public ServiceCall<ListClassificationsModelsResponse> listClassificationsModels() {
+  public ServiceCall<ClassificationsModelList> listClassificationsModels() {
     return listClassificationsModels(null);
   }
 
   /**
    * Get classifications model details.
    *
-   * <p>(Beta) Returns the status of the classifications model with the given model ID.
+   * <p>Returns the status of the classifications model with the given model ID.
    *
    * @param getClassificationsModelOptions the {@link GetClassificationsModelOptions} containing the
    *     options for the call
@@ -859,8 +856,8 @@ public class NaturalLanguageUnderstanding extends BaseService {
   /**
    * Update classifications model.
    *
-   * <p>(Beta) Overwrites the training data associated with this custom classifications model and
-   * retrains the model. The new model replaces the current deployment.
+   * <p>Overwrites the training data associated with this custom classifications model and retrains
+   * the model. The new model replaces the current deployment.
    *
    * @param updateClassificationsModelOptions the {@link UpdateClassificationsModelOptions}
    *     containing the options for the call
@@ -921,7 +918,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
   /**
    * Delete classifications model.
    *
-   * <p>(Beta) Un-deploys the custom classifications model with the given model ID and deletes all
+   * <p>Un-deploys the custom classifications model with the given model ID and deletes all
    * associated customer data, including any training data or binary artifacts.
    *
    * @param deleteClassificationsModelOptions the {@link DeleteClassificationsModelOptions}

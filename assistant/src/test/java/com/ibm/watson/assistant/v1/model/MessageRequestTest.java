@@ -33,13 +33,13 @@ public class MessageRequestTest {
     MessageInput messageInputModel =
         new MessageInput.Builder()
             .text("testString")
-            .spellingSuggestions(true)
-            .spellingAutoCorrect(true)
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
             .add("foo", "testString")
             .build();
     assertEquals(messageInputModel.getText(), "testString");
-    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(true));
-    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(true));
+    assertEquals(messageInputModel.isSpellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(messageInputModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(messageInputModel.get("foo"), "testString");
 
     RuntimeIntent runtimeIntentModel =
@@ -318,7 +318,7 @@ public class MessageRequestTest {
                 new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
-            .alternateIntents(true)
+            .alternateIntents(false)
             .context(contextModel)
             .output(outputDataModel)
             .userId("testString")
@@ -330,7 +330,7 @@ public class MessageRequestTest {
     assertEquals(
         messageRequestModel.entities(),
         new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
-    assertEquals(messageRequestModel.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageRequestModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageRequestModel.context(), contextModel);
     assertEquals(messageRequestModel.output(), outputDataModel);
     assertEquals(messageRequestModel.userId(), "testString");
@@ -340,7 +340,7 @@ public class MessageRequestTest {
     MessageRequest messageRequestModelNew = TestUtilities.deserialize(json, MessageRequest.class);
     assertTrue(messageRequestModelNew instanceof MessageRequest);
     assertEquals(messageRequestModelNew.input().toString(), messageInputModel.toString());
-    assertEquals(messageRequestModelNew.alternateIntents(), Boolean.valueOf(true));
+    assertEquals(messageRequestModelNew.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageRequestModelNew.context().toString(), contextModel.toString());
     assertEquals(messageRequestModelNew.output().toString(), outputDataModel.toString());
     assertEquals(messageRequestModelNew.userId(), "testString");
