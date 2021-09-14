@@ -18,18 +18,18 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** Object that contains details about the status of the authentication process. */
 public class StatusDetails extends GenericModel {
 
-  protected Boolean authentication;
+  protected Boolean authenticated;
 
   @SerializedName("error_message")
   protected String errorMessage;
 
   /** Builder. */
   public static class Builder {
-    private Boolean authentication;
+    private Boolean authenticated;
     private String errorMessage;
 
     private Builder(StatusDetails statusDetails) {
-      this.authentication = statusDetails.authentication;
+      this.authenticated = statusDetails.authenticated;
       this.errorMessage = statusDetails.errorMessage;
     }
 
@@ -46,13 +46,13 @@ public class StatusDetails extends GenericModel {
     }
 
     /**
-     * Set the authentication.
+     * Set the authenticated.
      *
-     * @param authentication the authentication
+     * @param authenticated the authenticated
      * @return the StatusDetails builder
      */
-    public Builder authentication(Boolean authentication) {
-      this.authentication = authentication;
+    public Builder authenticated(Boolean authenticated) {
+      this.authenticated = authenticated;
       return this;
     }
 
@@ -69,7 +69,7 @@ public class StatusDetails extends GenericModel {
   }
 
   protected StatusDetails(Builder builder) {
-    authentication = builder.authentication;
+    authenticated = builder.authenticated;
     errorMessage = builder.errorMessage;
   }
 
@@ -83,20 +83,20 @@ public class StatusDetails extends GenericModel {
   }
 
   /**
-   * Gets the authentication.
+   * Gets the authenticated.
    *
    * <p>Indicates whether the credential is accepted by the target data source.
    *
-   * @return the authentication
+   * @return the authenticated
    */
-  public Boolean authentication() {
-    return authentication;
+  public Boolean authenticated() {
+    return authenticated;
   }
 
   /**
    * Gets the errorMessage.
    *
-   * <p>If `authentication` is `false`, a message describes why the authentication was unsuccessful.
+   * <p>If `authenticated` is `false`, a message describes why the authentication was unsuccessful.
    *
    * @return the errorMessage
    */
