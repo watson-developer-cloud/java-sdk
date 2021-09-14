@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>tone-analyzer</artifactId>
-  <version>9.2.2</version>
+  <version>9.3.0</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:tone-analyzer:9.2.2'
+'com.ibm.watson:tone-analyzer:9.3.0'
 ```
 
 ## Usage
