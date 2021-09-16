@@ -27,10 +27,10 @@ printf "\n>>>>> Generating gh-pages index.html...\n"
 
 # Update the 'latest' symlink to point to this branch if it's a tagged release.
 pushd docs
-# rm latest
-# ln -s ./${GHA_TAG} latest
-# printf "\n>>>>> Updated 'docs/latest' symlink:\n"
-# ls -l latest
+rm latest
+ln -s ./${GHA_TAG} latest
+printf "\n>>>>> Updated 'docs/latest' symlink:\n"
+ls -l latest
 popd
 
 printf "\n>>>>> Committing new javadoc for commit: %s\n" ${GHA_COMMIT}
