@@ -9,6 +9,8 @@ printf "\n>>>>> Publishing javadoc for release build: %s\n" ${GHA_TAG}
 
 printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'\n"
 rm -fr ./gh-pages
+git config --global user.email "watdevex@us.ibm.com"
+git config --global user.name "watdevex"
 git clone --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk.git gh-pages > /dev/null
 printf "\n>>>>> Finished cloning...\n"
 
@@ -25,10 +27,10 @@ printf "\n>>>>> Generating gh-pages index.html...\n"
 
 # Update the 'latest' symlink to point to this branch if it's a tagged release.
 pushd docs
-rm latest
-ln -s ./${GHA_TAG} latest
-printf "\n>>>>> Updated 'docs/latest' symlink:\n"
-ls -l latest
+# rm latest
+# ln -s ./${GHA_TAG} latest
+# printf "\n>>>>> Updated 'docs/latest' symlink:\n"
+# ls -l latest
 popd
 
 printf "\n>>>>> Committing new javadoc for commit: %s\n" ${GHA_COMMIT}
