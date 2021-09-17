@@ -9,6 +9,8 @@ printf "\n>>>>> Publishing javadoc for release build: %s\n" ${GHA_TAG}
 
 printf "\n>>>>> Cloning repository's gh-pages branch into directory 'gh-pages'\n"
 rm -fr ./gh-pages
+git config --global user.email "watdevex@us.ibm.com"
+git config --global user.name "watdevex"
 git clone --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk.git gh-pages > /dev/null
 printf "\n>>>>> Finished cloning...\n"
 
