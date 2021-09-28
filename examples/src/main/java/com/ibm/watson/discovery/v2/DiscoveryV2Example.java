@@ -1,3 +1,5 @@
+package com.ibm.watson.discovery.v2;
+
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
 import com.ibm.watson.discovery.v2.Discovery;
@@ -39,14 +41,14 @@ public class DiscoveryV2Example {
     String documentId = addResponse.getDocumentId();
 
     // Query your collection with the new document inside.
-    QueryOptions queryOptoins =
+    QueryOptions queryOptions =
         new QueryOptions.Builder()
             .projectId(projectId)
             .addCollectionIds(collectionId)
             .naturalLanguageQuery(
                 "Watson") // Feel free to replace this to query something different.
             .build();
-    QueryResponse queryResponse = service.query(options).execute().getResult();
+    QueryResponse queryResponse = service.query(queryOptions).execute().getResult();
 
     System.out.println(queryResponse.getMatchingResults() + " results were returned by the query!");
 
