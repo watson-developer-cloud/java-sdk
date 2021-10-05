@@ -89,6 +89,9 @@ If you have more than one plan, you can use `CredentialUtils` to get the service
 
 Watson services are migrating to token-based Identity and Access Management (IAM) authentication.
 
+- There are two ways of initializing an authenticator:
+    1.  Using the builder of the authenticator (builder pattern).
+    2.  Using the constructor of the authenticator (deprecated, but it is still available).
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
 - If you're using a Watson service on Cloud Pak for Data, you'll need to authenticate in a [specific way](#cloud-pak-for-data).
@@ -152,6 +155,18 @@ You supply either an IAM service **API key** or an **access token**:
 
 Supplying the IAM API key:
 
+Builder pattern approach:
+
+```java
+// letting the SDK manage the IAM token
+Authenticator authenticator = new IamAuthenticator.Builder()
+            .apikey("<iam_api_key>")
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+```
+
+Deprecated constructor approach:
+
 ```java
 // letting the SDK manage the IAM token
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
@@ -167,6 +182,18 @@ Discovery service = new Discovery("2019-04-30", authenticator);
 ```
 
 #### Username and password
+
+Builder pattern approach:
+
+```java
+Authenticator authenticator = new BasicAuthenticator.Builder()
+            .username("<username>")
+            .password("<password>")
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+```
+
+Deprecated constructor approach:
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
@@ -189,6 +216,23 @@ service.configureClient(options);
 
 #### Cloud Pak for Data
 Like IAM, you can pass in credentials to let the SDK manage an access token for you or directly supply an access token to do it yourself.
+
+Builder pattern approach:
+
+```java
+// letting the SDK manage the token
+Authenticator authenticator = new CloudPakForDataAuthenticator.Builder()
+            .url("<CP4D token exchange base URL>")
+            .username("<username>")
+            .password("<password>")
+            .disableSSLVerification(true)
+            .headers(null)
+            .build();
+Discovery service = new Discovery("2019-04-30", authenticator);
+service.setServiceUrl("<service CP4D URL>");
+```
+
+Deprecated constructor approach:
 
 ```java
 // letting the SDK manage the token
