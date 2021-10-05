@@ -89,9 +89,9 @@ If you have more than one plan, you can use `CredentialUtils` to get the service
 
 Watson services are migrating to token-based Identity and Access Management (IAM) authentication.
 
-- There are two ways of initializing an authenticator:
-    1.  Using the builder of the authenticator (builder pattern).
-    2.  Using the constructor of the authenticator (deprecated, but it is still available).
+- You can initialize the authenticator with either of the following approaches:
+    - In the builder of the authenticator (builder pattern).
+    - In the constructor of the authenticator (deprecated, but still available).
 - With some service instances, you authenticate to the API by using **[IAM](#iam)**.
 - In other instances, you authenticate by providing the **[username and password](#username-and-password)** for the service instance.
 - If you're using a Watson service on Cloud Pak for Data, you'll need to authenticate in a [specific way](#cloud-pak-for-data).
