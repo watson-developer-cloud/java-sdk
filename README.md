@@ -89,11 +89,9 @@ If you have more than one plan, you can use `CredentialUtils` to get the service
 
 Watson services are migrating to token-based Identity and Access Management (IAM) authentication.
 
-As of `v9.2.1` the preferred approach of initializing an authenticator is by using the builder pattern. 
-The main reason is to give us flexibility to add new properties to the authenticator in the future if and when needed, 
-and to make it easier for users to construct an authenticator instance using the precise set of properties they need to 
-set for their use-case rather than being forced to use one of the multi-arg constructors (i.e. the one that most closely 
-matches their requirements).
+As of `v9.2.1`, the preferred approach of initializing an authenticator is the builder pattern. This pattern supports 
+constructing the authenticator with only the properties that you need. Also, if you're authenticating to a Watson service 
+on Cloud Pak for Data that supports IAM, you must use the builder pattern.
 
 - You can initialize the authenticator with either of the following approaches:
     - In the builder of the authenticator (builder pattern).
