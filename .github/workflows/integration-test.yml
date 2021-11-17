@@ -71,7 +71,7 @@ jobs:
         DISCOVERY_V2_COLLECTION_ID: ${{ secrets.D2_COLLECTION_ID }}
         DISCOVERY_V2_URL: "https://api.us-south.discovery.watson.cloud.ibm.com"
       run: |
-        mvn test -Dtest=NaturalLanguageClassifierIT -DfailIfNoTests=false -pl natural-language-classifier,common
+        mvn test -Dtest=NaturalLanguageClassifierIT -DfailIfNoTests=false -pl natural-language-classifier,common $MVN_ARGS
 
       # Do not notify on success.  We will leave the code here just in case we decide to switch gears
     - name: Notify slack on success
