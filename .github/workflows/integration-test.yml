@@ -31,7 +31,7 @@ jobs:
         distribution: 'adopt'
 
     - name: Execute Java integration tests
-      continue-on-error: true
+      # continue-on-error: true
       env:
         MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
         NATURAL_LANGUAGE_CLASSIFIER_URL: "https://api.us-south.natural-language-classifier.watson.cloud.ibm.com"

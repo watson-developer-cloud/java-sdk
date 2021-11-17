@@ -73,7 +73,8 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
             .build();
     HTMLReturn response = service.convertToHtml(convertToHtmlOptions).execute().getResult();
 
-    System.out.println(response);
+    assertNotNull(response);
+    // System.out.println(response);
   }
 
   @Test
@@ -86,7 +87,8 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     ClassifyReturn response =
         service.classifyElements(classifyElementsOptions).execute().getResult();
 
-    System.out.println(response);
+    assertNotNull(response);
+    // System.out.println(response);
   }
 
   @Test
@@ -95,7 +97,8 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
         new ExtractTablesOptions.Builder().file(TABLE_FILE).fileContentType("image/png").build();
     TableReturn response = service.extractTables(extractTablesOptions).execute().getResult();
 
-    System.out.println(response);
+    assertNotNull(response);
+    // System.out.println(response);
   }
 
   @Test
@@ -110,7 +113,8 @@ public class CompareComplyServiceIT extends CompareComplyServiceTest {
     CompareReturn response =
         service.compareDocuments(compareDocumentsOptions).execute().getResult();
 
-    System.out.println(response);
+    assertNotNull(response);
+    // System.out.println(response);
   }
 
   @Test
