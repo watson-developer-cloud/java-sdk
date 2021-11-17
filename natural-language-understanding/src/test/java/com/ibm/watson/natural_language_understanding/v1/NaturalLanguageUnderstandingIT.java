@@ -57,14 +57,14 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("natural_language_understanding.apikey");
+    String apiKey = System.getenv("NATURAL_LANGUAGE_UNDERSTANDING_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    assertNotNull("NATURAL_LANGUAGE_UNDERSTANDING_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setServiceUrl(getProperty("natural_language_understanding.url"));
+    service.setServiceUrl(System.getenv("NATURAL_LANGUAGE_UNDERSTANDING_URL"));
   }
 
   /**
