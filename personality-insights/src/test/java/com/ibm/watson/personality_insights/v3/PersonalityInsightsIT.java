@@ -61,7 +61,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     super.setUp();
     String apiKey = System.getenv("PERSONALITY_INSIGHTS_APIKEY");
 
-    assertNotNull("PERSONALITY_INSIGHTS_APIKEY is not defined", apiKey);
+    Assert.assertNotNull("PERSONALITY_INSIGHTS_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new PersonalityInsights(VERSION, authenticator);
@@ -93,7 +93,9 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
     ProfileOptions options = new ProfileOptions.Builder().text(text).build();
     Profile profile = service.profile(options).execute().getResult();
-    System.out.println(profile);
+    Assert.assertNotNull(profile);
+
+    // System.out.println(profile);
   }
 
   /**
