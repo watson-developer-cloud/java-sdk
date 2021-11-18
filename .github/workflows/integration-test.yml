@@ -31,7 +31,7 @@ jobs:
         distribution: 'adopt'
 
     - name: Execute Java integration tests
-      # continue-on-error: true
+      continue-on-error: true
       env:
         MVN_ARGS: '-B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
         NATURAL_LANGUAGE_CLASSIFIER_URL: "https://api.us-south.natural-language-classifier.watson.cloud.ibm.com"
@@ -68,9 +68,12 @@ jobs:
         DISCOVERY_V2_COLLECTION_ID: ${{ secrets.D2_COLLECTION_ID }}
         DISCOVERY_V2_URL: "https://api.us-south.discovery.watson.cloud.ibm.com"
       run: |
-        mvn test -Dtest=CompareComplyServiceIT.java -DfailIfNoTests=false -pl compare-comply,common $MVN_ARGS
+        mvn test -Dtest=CompareComplyServiceIT -DfailIfNoTests=false -pl compare-comply,common $MVN_ARGS
+        mvn test -Dtest=LanguageTranslatorIT -DfailIfNoTests=false -pl language-translator,common $MVN_ARGS
         mvn test -Dtest=NaturalLanguageClassifierIT -DfailIfNoTests=false -pl natural-language-classifier,common $MVN_ARGS
-        mvn test -Dtest=NaturalLanguageUnderstandingIT.java -DfailIfNoTests=false -pl natural-language-understanding,common $MVN_ARGS
+        mvn test -Dtest=NaturalLanguageUnderstandingIT -DfailIfNoTests=false -pl natural-language-understanding,common $MVN_ARGS
+        mvn test -Dtest=PersonalityInsightsIT -DfailIfNoTests=false -pl personality-insights,common $MVN_ARGS
+        mvn test -Dtest=ToneAnalyzerIT.java -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
 
       # Do not notify on success.  We will leave the code here just in case we decide to switch gears
     - name: Notify slack on success

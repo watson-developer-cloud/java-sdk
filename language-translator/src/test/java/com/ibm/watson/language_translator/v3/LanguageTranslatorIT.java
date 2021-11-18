@@ -68,13 +68,13 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String iamApiKey = getProperty("language_translator.apikey");
+    String iamApiKey = System.getenv("LANGUAGE_TRANSLATOR_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", (iamApiKey == null));
+    assertNotNull("LANGUAGE_TRANSLATOR_APIKEY is not defined", iamApiKey);
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new LanguageTranslator("2018-05-01", authenticator);
-    service.setServiceUrl(getProperty("language_translator.url"));
+    service.setServiceUrl(System.getenv("LANGUAGE_TRANSLATOR_URL"));
 
     // issue currently where document translation fails with learning opt-out
     Map<String, String> headers = new HashMap<>();

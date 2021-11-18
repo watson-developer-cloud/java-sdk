@@ -62,13 +62,13 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String apiKey = getProperty("tone_analyzer.apikey");
+    String apiKey = System.getenv("TONE_ANALYZER_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    assertNotNull("TONE_ANALYZER_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new ToneAnalyzer(VERSION_DATE_VALUE, authenticator);
-    service.setServiceUrl(getProperty("tone_analyzer.url"));
+    service.setServiceUrl(System.getenv("TONE_ANALYZER_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

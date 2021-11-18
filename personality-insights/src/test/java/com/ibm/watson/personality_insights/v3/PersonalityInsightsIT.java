@@ -59,13 +59,13 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("personality_insights.apikey");
+    String apiKey = System.getenv("PERSONALITY_INSIGHTS_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    assertNotNull("PERSONALITY_INSIGHTS_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new PersonalityInsights(VERSION, authenticator);
-    service.setServiceUrl(getProperty("personality_insights.url"));
+    service.setServiceUrl(System.getenv("PERSONALITY_INSIGHTS_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
