@@ -81,6 +81,7 @@ jobs:
         mvn test -Dtest=PersonalityInsightsIT -DfailIfNoTests=false -pl personality-insights,common $MVN_ARGS
         mvn test -Dtest=SpeechToTextIT -DfailIfNoTests=false -pl speech-to-text,common $MVN_ARGS
         mvn test -Dtest=TextToSpeechIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
+#        mvn test -Dtest=CustomizationsIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
         mvn test -Dtest=ToneAnalyzerIT -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
         mvn test -Dtest=v3/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS
         mvn test -Dtest=v4/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS
