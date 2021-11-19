@@ -82,7 +82,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     input.setText("Hi");
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
     MessageResponse response = service.message(options).execute().getResult();
-    System.out.println(response);
+    // System.out.println(response);
 
     RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeText =
         response.getOutput().getGeneric().get(0);
@@ -97,7 +97,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     input.setText("test sdk");
     MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
     MessageResponse response = service.message(options).execute().getResult();
-    System.out.println(response);
+    // System.out.println(response);
 
     RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
         runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
@@ -122,7 +122,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     // sync
     MessageResponse response = service.message(options).execute().getResult();
-    System.out.println(response);
+    // System.out.println(response);
 
     // async
     service
@@ -131,7 +131,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             new ServiceCallback<MessageResponse>() {
               @Override
               public void onResponse(Response<MessageResponse> response) {
-                System.out.println(response.getResult());
+                 /*System.out.println(response.getResult()); */
               }
 
               @Override
@@ -147,7 +147,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             new Consumer<Response<MessageResponse>>() {
               @Override
               public void accept(Response<MessageResponse> response) throws Exception {
-                System.out.println(response.getResult());
+                // System.out.println(response.getResult());
               }
             });
 
@@ -1324,6 +1324,11 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().build();
     WorkspaceCollection response = service.listWorkspaces(listOptions).execute().getResult();
+    /** System.out.println(response);
+    DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder("5b586426-c587-4775-950c-59b58db84b14").build();
+    service.deleteWorkspace(deleteOptions).execute();
+    DeleteWorkspaceOptions deleteOptions1 = new DeleteWorkspaceOptions.Builder("661d9f74-9d3a-4655-bee4-84e16bd25d00").build();
+    service.deleteWorkspace(deleteOptions1).execute(); **/
 
     assertNotNull(response);
     assertNotNull(response.getWorkspaces());
