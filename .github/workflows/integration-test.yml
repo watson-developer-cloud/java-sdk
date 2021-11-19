@@ -73,6 +73,8 @@ jobs:
         mvn test -Dtest=v1/AssistantServiceIT -DfailIfNoTests=false -pl assistant,common $MVN_ARGS
         mvn test -Dtest=v2/AssistantServiceIT -DfailIfNoTests=false -pl assistant,common $MVN_ARGS
         mvn test -Dtest=CompareComplyServiceIT -DfailIfNoTests=false -pl compare-comply,common $MVN_ARGS
+        mvn test -Dtest=v1/DiscoveryServiceIT -DfailIfNoTests=false -pl discovery,common $MVN_ARGS
+        mvn test -Dtest=v2/DiscoveryIT -DfailIfNoTests=false -pl discovery,common $MVN_ARGS
         mvn test -Dtest=LanguageTranslatorIT -DfailIfNoTests=false -pl language-translator,common $MVN_ARGS
         mvn test -Dtest=NaturalLanguageClassifierIT -DfailIfNoTests=false -pl natural-language-classifier,common $MVN_ARGS
         mvn test -Dtest=NaturalLanguageUnderstandingIT -DfailIfNoTests=false -pl natural-language-understanding,common $MVN_ARGS

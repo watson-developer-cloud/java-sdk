@@ -41,12 +41,11 @@ import org.junit.runner.RunWith;
 
 /** The Class DiscoveryIT. */
 @RunWith(RetryRunner.class)
-@Ignore
 public class DiscoveryIT extends WatsonServiceTest {
   private static final String VERSION = "2019-11-22";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
-  private static final String PROJECT_ID = "6e714330-80fe-4582-a500-6a4a9f066183";
-  private static final String COLLECTION_ID = "1adfe5d3-4eb5-a9bc-0000-01795d0c6d60";
+  private static final String PROJECT_ID = System.getenv("DISCOVERY_V2_PROJECT_ID");
+  private static final String COLLECTION_ID = System.getenv("DISCOVERY_V2_COLLECTION_ID");
 
   private Discovery service;
 
@@ -65,11 +64,13 @@ public class DiscoveryIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String apiKey = getProperty("discovery_v2.apikey");
+    String apiKey = System.getenv("DISCOVERY_V2_APIKEY");
+    assertNotNull("DISCOVERY_V2_APIKEY is not defined", apiKey);
+
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setServiceUrl(getProperty("discovery_v2.url"));
+    service.setServiceUrl(System.getenv("DISCOVERY_V2_URL"));
 
     HttpConfigOptions configOptions =
         new HttpConfigOptions.Builder().disableSslVerification(true).build();
