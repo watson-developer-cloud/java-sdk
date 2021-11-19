@@ -78,8 +78,7 @@ jobs:
         mvn test -Dtest=SpeechToTextIT -DfailIfNoTests=false -pl speech-to-text,common $MVN_ARGS
         mvn test -Dtest=TextToSpeechIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
         mvn test -Dtest=ToneAnalyzerIT -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
-#        mvn test -Dtest=VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition.v3,common $MVN_ARGS
-#        mvn test -Dtest=VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition.v4,common $MVN_ARGS
+        mvn test -Dtest=VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS
 
       # Do not notify on success.  We will leave the code here just in case we decide to switch gears
     - name: Notify slack on success
