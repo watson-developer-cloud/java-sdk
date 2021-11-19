@@ -47,6 +47,8 @@ jobs:
         TONE_ANALYZER_URL: "https://api.us-south.tone-analyzer.watson.cloud.ibm.com"
         SPEECH_TO_TEXT_APIKEY: ${{ secrets.STT_APIKEY }}
         SPEECH_TO_TEXT_URL: "https://api.us-south.speech-to-text.watson.cloud.ibm.com"
+        SPEECH_TO_TEXT_CUSTOM_ID: ${{ secrets.STT_APIKEY_CUSTOM_ID }}
+        SPEECH_TO_TEXT_ACOUSTIC_CUSTOM_ID: ${{ secrets.STT_APIKEY_ACOUSTIC_CUSTOM_ID }}
         TEXT_TO_SPEECH_APIKEY: ${{ secrets.TTS_APIKEY }}
         TEXT_TO_SPEECH_URL: "https://api.us-south.text-to-speech.watson.cloud.ibm.com"
         VISUAL_RECOGNITION_APIKEY: ${{ secrets.VR_APIKEY }}
@@ -73,7 +75,11 @@ jobs:
         mvn test -Dtest=NaturalLanguageClassifierIT -DfailIfNoTests=false -pl natural-language-classifier,common $MVN_ARGS
         mvn test -Dtest=NaturalLanguageUnderstandingIT -DfailIfNoTests=false -pl natural-language-understanding,common $MVN_ARGS
         mvn test -Dtest=PersonalityInsightsIT -DfailIfNoTests=false -pl personality-insights,common $MVN_ARGS
-        mvn test -Dtest=ToneAnalyzerIT.java -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
+        mvn test -Dtest=SpeechToTextIT -DfailIfNoTests=false -pl speech-to-text,common $MVN_ARGS
+        mvn test -Dtest=TextToSpeechIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
+        mvn test -Dtest=ToneAnalyzerIT -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
+#        mvn test -Dtest=VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition.v3,common $MVN_ARGS
+#        mvn test -Dtest=VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition.v4,common $MVN_ARGS
 
       # Do not notify on success.  We will leave the code here just in case we decide to switch gears
     - name: Notify slack on success

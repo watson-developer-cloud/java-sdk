@@ -67,6 +67,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.testng.annotations.Ignore;
 
 /** Text to Speech integration tests. */
 @RunWith(RetryRunner.class)
@@ -96,14 +97,14 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("text_to_speech.apikey");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    String apiKey = System.getenv("TEXT_TO_SPEECH_APIKEY");
+    assertNotNull("TEXT_TO_SPEECH_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);
-    service.setServiceUrl(getProperty("text_to_speech.url"));
+    service.setServiceUrl(System.getenv("TEXT_TO_SPEECH_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
-    voiceName = getProperty("text_to_speech.voice_name");
+    voiceName = "en-US_MichaelVoice";
 
     byteArrayOutputStream = new ByteArrayOutputStream();
     returnedTimings = new ArrayList<>();

@@ -129,16 +129,16 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    this.customizationId = getProperty("speech_to_text.customization_id");
-    this.acousticCustomizationId = getProperty("speech_to_text.acoustic_customization_id");
+    this.customizationId = System.getenv("SPEECH_TO_TEXT_CUSTOM_ID");
+    this.acousticCustomizationId = System.getenv("SPEECH_TO_TEXT_ACOUSTIC_CUSTOM_ID");
 
-    String apiKey = getProperty("speech_to_text.apikey");
+    String apiKey = System.getenv("SPEECH_TO_TEXT_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    assertNotNull("SPEECH_TO_TEXT_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new SpeechToText(authenticator);
-    service.setServiceUrl(getProperty("speech_to_text.url"));
+    service.setServiceUrl(System.getenv("SPEECH_TO_TEXT_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -366,7 +366,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
           @Override
           public void onError(Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             lock.countDown();
           }
 
@@ -380,7 +380,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
               if (speechResults.getAudioMetrics() != null) {
                 asyncAudioMetricsResults = speechResults;
               }
-              System.out.println(speechResults);
+              // System.out.println(speechResults);
             }
           }
         });
@@ -435,7 +435,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
           @Override
           public void onError(Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             lock.countDown();
           }
 
@@ -487,7 +487,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
           @Override
           public void onError(Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             lock.countDown();
           }
 
