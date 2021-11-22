@@ -55,12 +55,12 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("text_to_speech.apikey");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    String apiKey = System.getenv("TEXT_TO_SPEECH_APIKEY");
+    assertNotNull("TEXT_TO_SPEECH_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);
-    service.setServiceUrl(getProperty("text_to_speech.url"));
+    service.setServiceUrl(System.getenv("TEXT_TO_SPEECH_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
