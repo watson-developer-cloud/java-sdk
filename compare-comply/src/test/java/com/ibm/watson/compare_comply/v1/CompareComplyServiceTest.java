@@ -23,12 +23,12 @@ public class CompareComplyServiceTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String apiKey = getProperty("compare_comply.apikey");
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    String apiKey = System.getenv("COMPARE_COMPLY_APIKEY");
+    Assume.assumeFalse("COMPARE_COMPLY_APIKEY is not defined", apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new CompareComply(VERSION, authenticator);
-    service.setServiceUrl(getProperty("compare_comply.url"));
+    service.setServiceUrl(System.getenv("COMPARE_COMPLY_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 }

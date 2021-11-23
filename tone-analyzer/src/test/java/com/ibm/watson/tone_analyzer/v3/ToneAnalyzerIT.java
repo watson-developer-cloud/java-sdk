@@ -62,13 +62,13 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    String apiKey = getProperty("tone_analyzer.apikey");
+    String apiKey = System.getenv("TONE_ANALYZER_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    Assert.assertNotNull("TONE_ANALYZER_APIKEY is not defined", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new ToneAnalyzer(VERSION_DATE_VALUE, authenticator);
-    service.setServiceUrl(getProperty("tone_analyzer.url"));
+    service.setServiceUrl(System.getenv("TONE_ANALYZER_URL"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -90,7 +90,8 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     // Call the service and get the tone
     ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
     ToneAnalysis tone = service.tone(tonOptions).execute().getResult();
-    System.out.println(tone);
+    Assert.assertNotNull(tone);
+    // System.out.println(tone);
   }
 
   /** Test ChatExample. */
@@ -114,7 +115,8 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
     // Call the service
     UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute().getResult();
-    System.out.println(utterancesTone);
+    Assert.assertNotNull(utterancesTone);
+    // System.out.println(utterancesTone);
   }
 
   /** Test get tone from text. */

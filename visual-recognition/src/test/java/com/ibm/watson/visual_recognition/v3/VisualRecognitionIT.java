@@ -92,13 +92,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    String iamApiKey = getProperty("visual_recognition.apikey");
-    Assume.assumeFalse(
-        "config.properties doesn't have valid credentials.",
-        (iamApiKey == null) || iamApiKey.equals("API_KEY"));
+    String iamApiKey = System.getenv("VISUAL_RECOGNITION_APIKEY");
+    assertNotNull("VISUAL_RECOGNITION_APIKEY is not defined", iamApiKey);
 
-    String url = getProperty("visual_recognition.url");
-    classifierId = getProperty("visual_recognition.classifier_id");
+    String url = System.getenv("VISUAL_RECOGNITION_URL");
+    classifierId = "default";
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new VisualRecognition(VERSION, authenticator);

@@ -92,9 +92,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public static void setupClass() throws Exception {
     // get the properties
     dummyTest = new DiscoveryServiceIT();
-    String apiKey = dummyTest.getProperty("discovery.apikey");
+    String apiKey = System.getenv("DISCOVERY_APIKEY");
 
-    Assume.assumeFalse("config.properties doesn't have valid credentials.", apiKey == null);
+    assertNotNull("DISCOVERY_APIKEY is not defined", apiKey);
 
     dummyTest.setup();
 
@@ -142,8 +142,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    String apiKey = getProperty("discovery.apikey");
-    String url = getProperty("discovery.url");
+    String apiKey = System.getenv("DISCOVERY_APIKEY");
+    String url = System.getenv("DISCOVERY_URL");
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
     discovery.setServiceUrl(url);
@@ -161,7 +161,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         discovery.deleteCollection(deleteOptions).execute();
       } catch (NotFoundException ex) {
         // Ignore this failure - just print msg
-        System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
+        // System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
       }
     }
 
@@ -172,8 +172,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         discovery.deleteConfiguration(deleteOptions).execute();
       } catch (NotFoundException ex) {
         // Ignore this failure - just print msg
-        System.out.println(
-            "deleteConfiguration failed. Configuration " + configurationId + " not found");
+        // System.out.println("deleteConfiguration failed. Configuration " + configurationId + " not found");
       }
     }
 
@@ -194,7 +193,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           DeleteCollectionResponse deleteCollectionResponse =
               discovery.deleteCollection(deleteCollectionOptions).execute().getResult();
         } catch (NotFoundException ex) {
-          System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
+          // System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
         }
       }
     }
@@ -225,7 +224,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String documentId = null;
 
     // See if an environment already exists
-    System.out.println("Check if environment exists");
+    // System.out.println("Check if environment exists");
     ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
     ListEnvironmentsResponse listResponse =
         discovery.listEnvironments(listOptions).execute().getResult();
@@ -233,23 +232,23 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       // look for an existing environment that isn't read only
       if (!environment.isReadOnly()) {
         environmentId = environment.getEnvironmentId();
-        System.out.println("Found existing environment ID: " + environmentId);
+        // System.out.println("Found existing environment ID: " + environmentId);
         break;
       }
     }
 
     if (environmentId == null) {
-      System.out.println("No environment found, creating new one...");
+      // System.out.println("No environment found, creating new one...");
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions =
           new CreateEnvironmentOptions.Builder().name(environmentName).build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
-      System.out.println("Created new environment ID: " + environmentId);
+      // System.out.println("Created new environment ID: " + environmentId);
 
       // wait for environment to be ready
-      System.out.println("Waiting for environment to be ready...");
+      // System.out.println("Waiting for environment to be ready...");
       boolean environmentReady = false;
       while (!environmentReady) {
         GetEnvironmentOptions getEnvironmentOptions =
@@ -265,11 +264,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           throw new RuntimeException("Interrupted", e);
         }
       }
-      System.out.println("Environment Ready!");
+      // System.out.println("Environment Ready!");
     }
 
     // find the default configuration
-    System.out.println("Finding the default configuration");
+    // System.out.println("Finding the default configuration");
     ListConfigurationsOptions listConfigsOptions =
         new ListConfigurationsOptions.Builder(environmentId).build();
     ListConfigurationsResponse listConfigsResponse =
@@ -277,13 +276,13 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
       if (configuration.name().equals(DEFAULT_CONFIG_NAME)) {
         configurationId = configuration.configurationId();
-        System.out.println("Found default configuration ID: " + configurationId);
+        // System.out.println("Found default configuration ID: " + configurationId);
         break;
       }
     }
 
     // create a new collection
-    System.out.println("Creating a new collection...");
+    // System.out.println("Creating a new collection...");
     String collectionName = "my_watson_developer_cloud_collection" + UUID.randomUUID();
     CreateCollectionOptions createCollectionOptions =
         new CreateCollectionOptions.Builder(environmentId, collectionName)
@@ -292,10 +291,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Collection collection =
         discovery.createCollection(createCollectionOptions).execute().getResult();
     collectionId = collection.getCollectionId();
-    System.out.println("Created a collection ID: " + collectionId);
+    // System.out.println("Created a collection ID: " + collectionId);
 
     // wait for the collection to be "available"
-    System.out.println("Waiting for collection to be ready...");
+    // System.out.println("Waiting for collection to be ready...");
     boolean collectionReady = false;
     while (!collectionReady) {
       GetCollectionOptions getCollectionOptions =
@@ -311,10 +310,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         throw new RuntimeException("Interrupted", e);
       }
     }
-    System.out.println("Collection Ready!");
+    // System.out.println("Collection Ready!");
 
     // add a document
-    System.out.println("Creating a new document...");
+    // System.out.println("Creating a new document...");
     String documentJson = "{\"field\":\"value\"}";
     InputStream documentStream = new ByteArrayInputStream(documentJson.getBytes());
 
@@ -325,10 +324,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     DocumentAccepted createDocumentResponse =
         discovery.addDocument(createDocumentBuilder.build()).execute().getResult();
     documentId = createDocumentResponse.getDocumentId();
-    System.out.println("Created a document ID: " + documentId);
+    // System.out.println("Created a document ID: " + documentId);
 
     // wait for document to be ready
-    System.out.println("Waiting for document to be ready...");
+    // System.out.println("Waiting for document to be ready...");
     boolean documentReady = false;
     while (!documentReady) {
       GetDocumentStatusOptions getDocumentStatusOptions =
@@ -344,26 +343,26 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         throw new RuntimeException("Interrupted");
       }
     }
-    System.out.println("Document Ready!");
+    // System.out.println("Document Ready!");
 
     // query document
-    System.out.println("Querying the collection...");
+    // System.out.println("Querying the collection...");
     QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
     queryBuilder.query("field:value");
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
 
     // print out the results
-    System.out.println("Query Results:");
-    System.out.println(queryResponse);
+    // System.out.println("Query Results:");
+    // System.out.println(queryResponse);
 
     // cleanup the collection created
-    System.out.println("Deleting the collection...");
+    // System.out.println("Deleting the collection...");
     DeleteCollectionOptions deleteOptions =
         new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
     discovery.deleteCollection(deleteOptions).execute();
-    System.out.println("Collection deleted!");
+    // System.out.println("Collection deleted!");
 
-    System.out.println("Discovery example finished");
+    // System.out.println("Discovery example finished");
   }
 
   /** Ping is successful. */
@@ -1762,9 +1761,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           emptyListResults.expansions().get(0).expandedTerms() == null
               || emptyListResults.expansions().get(0).expandedTerms().get(0).isEmpty());
     } catch (InternalServerErrorException e) {
-      System.out.println(
+      /** System.out.println(
           "Internal server error while trying to create expansion  ¯\\_(ツ)_/¯   Probably not our issue"
-              + " but may be worth looking into.");
+              + " but may be worth looking into."); **/
       e.printStackTrace();
     }
   }
@@ -1967,7 +1966,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         discovery.createCollection(createCollectionOptions).execute().getResult();
     String testCollectionId = tokenDictTestCollection.getCollectionId();
 
-    System.out.println("Test collection created!");
+    // System.out.println("Test collection created!");
 
     try {
       TokenDictRule tokenDictRule =
@@ -2014,7 +2013,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     } catch (BadRequestException ex) {
       // this most likely means the environment wasn't ready to handle another tokenization file -
       // this is fine
-      System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
+      // System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
     } finally {
       // delete test collection
       DeleteCollectionOptions deleteCollectionOptions =
@@ -2024,7 +2023,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
               .build();
       discovery.deleteCollection(deleteCollectionOptions).execute();
 
-      System.out.println("Test collection deleted");
+      // System.out.println("Test collection deleted");
     }
   }
 
@@ -2046,7 +2045,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Collection tokenDictTestCollection =
         discovery.createCollection(createCollectionOptions).execute().getResult();
     String testCollectionId = tokenDictTestCollection.getCollectionId();
-    System.out.println("Test collection created!");
+    // System.out.println("Test collection created!");
 
     try {
       CreateStopwordListOptions createStopwordListOptions =
@@ -2078,7 +2077,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     } catch (BadRequestException ex) {
       // this most likely means the environment wasn't ready to handle another stopwords file - this
       // is fine
-      System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
+      // System.out.println("Service wasn't ready yet! Error: " + ex.getMessage());
     } finally {
       DeleteCollectionOptions deleteCollectionOptions =
           new DeleteCollectionOptions.Builder()
@@ -2086,7 +2085,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
               .collectionId(testCollectionId)
               .build();
       discovery.deleteCollection(deleteCollectionOptions).execute();
-      System.out.println("Test collection deleted");
+      // System.out.println("Test collection deleted");
     }
   }
 
@@ -2352,7 +2351,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             .collectionId("") // fill in
             .build();
     QueryResponse response = service.query(options).execute().getResult();
-    System.out.println(response);
+    // System.out.println(response);
   }
 
   /** This only works on a Cloud Pak for Data instance, so ignoring to just run manually. */
@@ -2375,6 +2374,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             .count(10L)
             .build();
     Completions response = service.getAutocompletion(options).execute().getResult();
-    System.out.println(response);
+    // System.out.println(response);
   }
 }
