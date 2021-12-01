@@ -60,6 +60,7 @@ jobs:
       id: is_new_release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npx semantic-release --dry-run --branches gha_test
 
