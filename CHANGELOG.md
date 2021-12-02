@@ -1,3 +1,11 @@
+## [9.3.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.3.0...v9.3.1) (2021-12-02)
+
+
+### Bug Fixes
+
+* **deploy.yml:** up the version for node to fix semantic-release ([bcda21d](https://github.com/watson-developer-cloud/java-sdk/commit/bcda21d843a55ff81894735c720dc47775890ae4))
+* **pom.xml:** update sdk-core version to fix Gson 2.8.9 java.lang.NoSuchFieldError ([40b287e](https://github.com/watson-developer-cloud/java-sdk/commit/40b287ecd79dfb898de3051d673cd406af7364a7))
+
 # [9.3.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.2.2...v9.3.0) (2021-09-14)
 
 
