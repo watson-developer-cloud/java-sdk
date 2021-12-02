@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>visual-recognition</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:visual-recognition:9.3.0'
+'com.ibm.watson:visual-recognition:9.3.1'
 ```
 
 ## Usage
