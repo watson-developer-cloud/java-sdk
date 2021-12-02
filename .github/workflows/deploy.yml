@@ -56,11 +56,8 @@ jobs:
         npm install -g @semantic-release/commit-analyzer
         npm install -g @semantic-release/release-notes-generator
 
-    - name: Check if semantic release generated a release
-      id: is_new_release
+    - name: Publish to Git Releases and Tags
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npx semantic-release --dry-run --branches gha_test
-
