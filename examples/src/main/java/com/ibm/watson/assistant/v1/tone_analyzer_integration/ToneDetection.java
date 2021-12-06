@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.assistant.v1.tone_analyzer_integration;
 
+import com.ibm.watson.assistant.v1.model.Context;
 import com.ibm.watson.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.tone_analyzer.v3.model.ToneCategory;
 import com.ibm.watson.tone_analyzer.v3.model.ToneScore;
@@ -58,14 +59,14 @@ public class ToneDetection {
    *     toneAnalyzerPayload
    */
   public static Map<String, Object> updateUserTone(
-      Context context, ToneAnalysis toneAnalyzerPayload, boolean maintainHistory) {
+          Context context, ToneAnalysis toneAnalyzerPayload, boolean maintainHistory) {
 
     List<ToneScore> emotionTone = new ArrayList<ToneScore>();
     List<ToneScore> languageTone = new ArrayList<ToneScore>();
     List<ToneScore> socialTone = new ArrayList<ToneScore>();
 
     // If the context doesn't already contain the user object, initialize it
-    if (context.containsKey("user") != null) {
+    if (context.getSystem().containsKey("user")) {
       context.put("user", initUser());
     }
 

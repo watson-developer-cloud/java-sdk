@@ -25,7 +25,7 @@ public class LanguageTranslatorExample {
     LanguageTranslator service = new LanguageTranslator("2018-05-01", authenticator);
 
     TranslateOptions translateOptions =
-        new TranslateOptions.Builder().addText(text).modelId("en-es").build();
+        new TranslateOptions.Builder().addText("text").modelId("en-es").build();
     TranslationResult translationResult = service.translate(translateOptions).execute().getResult();
 
     System.out.println(translationResult);

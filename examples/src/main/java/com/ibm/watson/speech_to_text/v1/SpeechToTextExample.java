@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.speech_to_text.v1;
 
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
@@ -33,7 +34,7 @@ public class SpeechToTextExample {
     RecognizeOptions options =
         new RecognizeOptions.Builder()
             .audio(audio)
-            .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+            .contentType(HttpMediaType.AUDIO_WAV)
             .build();
     SpeechRecognitionResults transcript = service.recognize(options).execute().getResult();
 

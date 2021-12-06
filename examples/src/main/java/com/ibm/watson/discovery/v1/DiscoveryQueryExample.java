@@ -68,7 +68,7 @@ public class DiscoveryQueryExample {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions =
-          new CreateEnvironmentOptions.Builder().name(environmentName).size(0L) /* FREE */.build();
+          new CreateEnvironmentOptions.Builder().name(environmentName).size(String.valueOf(0L)) /* FREE */.build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
       System.out.println("Created new environment ID: " + environmentId);
@@ -100,8 +100,8 @@ public class DiscoveryQueryExample {
     ListConfigurationsResponse listConfigsResponse =
         discovery.listConfigurations(listConfigsOptions).execute().getResult();
     for (Configuration configuration : listConfigsResponse.getConfigurations()) {
-      if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
-        configurationId = configuration.getConfigurationId();
+      if (configuration.name().equals(DEFAULT_CONFIG_NAME)) {
+        configurationId = configuration.configurationId();
         System.out.println("Found default configuration ID: " + configurationId);
         break;
       }

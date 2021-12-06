@@ -14,8 +14,11 @@ package com.ibm.watson.assistant.v1.tone_analyzer_integration;
 
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.http.ServiceCallback;
+import com.ibm.cloud.sdk.core.security.Authenticator;
+import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.watson.assistant.v1.Assistant;
 import com.ibm.watson.assistant.v1.model.Context;
+import com.ibm.watson.assistant.v1.model.MessageInput;
 import com.ibm.watson.assistant.v1.model.MessageOptions;
 import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.tone_analyzer.v3.ToneAnalyzer;
@@ -29,19 +32,19 @@ public class AssistantToneAnalyzerIntegrationExample {
 
     // instantiate the assistant service
     Authenticator assistantAuthenticator = new IamAuthenticator("<iam_api_key>");
-    Assistant assistantService = new Assistant("2019-02-28", assistantAuthenticator);
+    final Assistant assistantService = new Assistant("2019-02-28", assistantAuthenticator);
 
     // instantiate the tone analyzer service
     Authenticator toneAuthenticator = new IamAuthenticator("<iam_api_key>");
     ToneAnalyzer toneService = new ToneAnalyzer("2017-09-21", toneAuthenticator);
 
     // workspace id
-    String workspaceId = "<workspace-id>";
+    final String workspaceId = "<workspace-id>";
 
     // maintain history in the context variable - will add a history variable to
     // each of the emotion, social
     // and language tones
-    boolean maintainHistory = false;
+    final boolean maintainHistory = false;
 
     /**
      * Input for the Assistant service: text (String): an input string (the user's conversation
@@ -49,8 +52,8 @@ public class AssistantToneAnalyzerIntegrationExample {
      * client app or passed in the response from the Assistant service on the previous conversation
      * turn.
      */
-    String text = "I am happy";
-    Context context = null;
+    final String text = "I am happy";
+    final Context context = new Context();
 
     // UPDATE CONTEXT HERE IF CONTINUING AN ONGOING CONVERSATION
     // set local context variable to the context from the last response from the
@@ -59,7 +62,7 @@ public class AssistantToneAnalyzerIntegrationExample {
     // com.ibm.watson.assistant.v1.model)
 
     // async call to Tone Analyzer
-    ToneOptions toneOptions = new ToneOptions.Builder().text(input).build();
+    ToneOptions toneOptions = new ToneOptions.Builder().text(text).build();
     toneService
         .tone(toneOptions)
         .enqueue(
@@ -68,9 +71,9 @@ public class AssistantToneAnalyzerIntegrationExample {
               public void onResponse(Response<ToneAnalysis> toneResponsePayload) {
 
                 // update context with the tone data returned by the Tone Analyzer
-                context =
+                context.setSystem(
                     ToneDetection.updateUserTone(
-                        context, toneResponsePayload.getResult(), maintainHistory);
+                        context, toneResponsePayload.getResult(), maintainHistory));
 
                 // create input for message
                 MessageInput input = new MessageInput();
