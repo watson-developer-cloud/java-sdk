@@ -59,7 +59,7 @@ public class ToneDetection {
    *     toneAnalyzerPayload
    */
   public static Map<String, Object> updateUserTone(
-          Context context, ToneAnalysis toneAnalyzerPayload, boolean maintainHistory) {
+      Context context, ToneAnalysis toneAnalyzerPayload, boolean maintainHistory) {
 
     List<ToneScore> emotionTone = new ArrayList<ToneScore>();
     List<ToneScore> languageTone = new ArrayList<ToneScore>();
