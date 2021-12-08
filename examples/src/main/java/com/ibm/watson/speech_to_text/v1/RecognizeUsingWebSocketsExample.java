@@ -15,7 +15,7 @@ package com.ibm.watson.speech_to_text.v1;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import java.io.FileInputStream;
@@ -35,8 +35,8 @@ public class RecognizeUsingWebSocketsExample {
 
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
 
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .interimResults(true)
             .contentType(HttpMediaType.AUDIO_WAV)

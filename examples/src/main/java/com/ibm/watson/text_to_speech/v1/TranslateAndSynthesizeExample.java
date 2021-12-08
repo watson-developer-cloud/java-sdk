@@ -12,12 +12,13 @@
  */
 package com.ibm.watson.text_to_speech.v1;
 
+import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
-import com.ibm.watson.language_translator.v2.LanguageTranslator;
-import com.ibm.watson.language_translator.v2.model.TranslateOptions;
-import com.ibm.watson.language_translator.v2.model.TranslationResult;
-import com.ibm.watson.language_translator.v2.util.Language;
+import com.ibm.watson.language_translator.v3.LanguageTranslator;
+import com.ibm.watson.language_translator.v3.model.TranslateOptions;
+import com.ibm.watson.language_translator.v3.model.TranslationResult;
+import com.ibm.watson.language_translator.v3.util.Language;
 import com.ibm.watson.text_to_speech.v1.model.SynthesizeOptions;
 import com.ibm.watson.text_to_speech.v1.util.WaveUtils;
 import java.io.File;
@@ -31,7 +32,7 @@ public class TranslateAndSynthesizeExample {
 
   public static void main(String[] args) throws IOException {
     Authenticator ltAuthenticator = new IamAuthenticator("<iam_api_key>");
-    LanguageTranslator translator = new LanguageTranslator(ltAuthenticator);
+    LanguageTranslator translator = new LanguageTranslator("2019-11-22", ltAuthenticator);
 
     Authenticator ttsAuthenticator = new IamAuthenticator("<iam_api_key>");
     TextToSpeech synthesizer = new TextToSpeech(ttsAuthenticator);
@@ -54,7 +55,7 @@ public class TranslateAndSynthesizeExample {
         new SynthesizeOptions.Builder()
             .text(translation)
             .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
-            .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+            .accept(HttpMediaType.AUDIO_WAV)
             .build();
     InputStream in = synthesizer.synthesize(synthesizeOptions).execute().getResult();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));

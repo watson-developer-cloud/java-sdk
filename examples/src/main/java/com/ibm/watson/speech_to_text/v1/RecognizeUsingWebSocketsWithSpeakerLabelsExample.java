@@ -17,6 +17,7 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.SpeakerLabelsResult;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionAlternative;
 import com.ibm.watson.speech_to_text.v1.model.SpeechRecognitionResult;
@@ -119,7 +120,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
       if (speechResults.getResults() != null)
         for (int i = 0; i < speechResults.getResults().size(); i++) {
           SpeechRecognitionResult transcript = speechResults.getResults().get(i);
-          if (transcript.isFinalResults()) {
+          if (transcript.isXFinal()) {
             SpeechRecognitionAlternative speechAlternative = transcript.getAlternatives().get(0);
 
             for (int ts = 0; ts < speechAlternative.getTimestamps().size(); ts++) {
@@ -163,7 +164,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
         recoToken.updateFrom(speakerLabel);
       }
 
-      if (speakerLabel.isFinalResults()) {
+      if (speakerLabel.isXFinal()) {
         markTokensBeforeAsFinal(speakerLabel.getFrom());
         report();
         cleanFinal();
@@ -222,8 +223,8 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
     Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
     SpeechToText service = new SpeechToText(authenticator);
 
-    RecognizeOptions options =
-        new RecognizeOptions.Builder()
+    RecognizeWithWebsocketsOptions options =
+        new RecognizeWithWebsocketsOptions.Builder()
             .audio(audio)
             .interimResults(true)
             .speakerLabels(true)
