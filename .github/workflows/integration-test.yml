@@ -70,7 +70,7 @@ jobs:
       run: |
         mvn test -Dtest=v1/AssistantServiceIT -DfailIfNoTests=false -pl assistant,common $MVN_ARGS
         mvn test -Dtest=v2/AssistantServiceIT -DfailIfNoTests=false -pl assistant,common $MVN_ARGS
-        mvn test -Dtest=CompareComplyServiceIT -DfailIfNoTests=false -pl compare-comply,common $MVN_ARGS
+        echo -e "\n\033[0;35mSKIP: mvn test -Dtest=CompareComplyServiceIT -DfailIfNoTests=false -pl compare-comply,common $MVN_ARGS"
         mvn test -Dtest=v1/DiscoveryServiceIT -DfailIfNoTests=false -pl discovery,common $MVN_ARGS
         mvn test -Dtest=v2/DiscoveryIT -DfailIfNoTests=false -pl discovery,common $MVN_ARGS
         mvn test -Dtest=LanguageTranslatorIT -DfailIfNoTests=false -pl language-translator,common $MVN_ARGS
@@ -81,8 +81,8 @@ jobs:
         mvn test -Dtest=TextToSpeechIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
         mvn test -Dtest=CustomizationsIT -DfailIfNoTests=false -pl text-to-speech,common $MVN_ARGS
         mvn test -Dtest=ToneAnalyzerIT -DfailIfNoTests=false -pl tone-analyzer,common $MVN_ARGS
-        mvn test -Dtest=v3/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS
-        mvn test -Dtest=v4/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS
+        echo -e "\n\033[0;35mSKIP: mvn test -Dtest=v3/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS"
+        echo -e "\n\033[0;35mSKIP: mvn test -Dtest=v4/VisualRecognitionIT -DfailIfNoTests=false -pl visual-recognition,common $MVN_ARGS"
 
       # Do not notify on success.  We will leave the code here just in case we decide to switch gears
     - name: Notify slack on success
