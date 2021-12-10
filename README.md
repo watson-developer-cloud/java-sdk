@@ -283,8 +283,10 @@ System.out.println("Response header names: " + responseHeaders.names());
 
 ### Configuring the HTTP client
 
-The HTTP client can be configured by using the `setProxy()` method on your authenticator and using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. Currently, the following options are supported:
+The HTTP client can be configured by using the `setProxy()` method on your authenticator and using the `configureClient()` method on your service object, passing in an `HttpConfigOptions` object. For a full list of configurable options look at this linked Builder class for [HttpConfigOptions](https://github.com/IBM/java-sdk-core/blob/c053e1ccf4bc4267b0ce0be5538564fac088f57b/src/main/java/com/ibm/cloud/sdk/core/http/HttpConfigOptions.java#L95). Currently, the following options are supported:
 - Disabling SSL verification (only do this if you really mean to!) ⚠️
+- Setting gzip compression
+- Setting max retry and retry interval
 - Using a proxy (more info here: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564))
 - Setting HTTP logging verbosity
 
