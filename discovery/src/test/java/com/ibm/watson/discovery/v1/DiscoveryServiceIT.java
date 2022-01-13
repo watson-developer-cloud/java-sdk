@@ -147,16 +147,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void setup() throws Exception {
     super.setUp();
     String apiKey = System.getenv("DISCOVERY_APIKEY");
-    String url = System.getenv("DISCOVERY_URL");
+    String serviceUrl = System.getenv("DISCOVERY_URL");
 
     if (apiKey == null) {
       apiKey = getProperty("discovery.apikey");
-      url = getProperty("discovery.url");
+      serviceUrl = getProperty("discovery.url");
     }
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
-    discovery.setServiceUrl(url);
+    discovery.setServiceUrl(serviceUrl);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();

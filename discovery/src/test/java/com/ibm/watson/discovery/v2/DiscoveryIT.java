@@ -65,11 +65,11 @@ public class DiscoveryIT extends WatsonServiceTest {
     super.setUp();
 
     String apiKey = System.getenv("DISCOVERY_V2_APIKEY");
-    String url = System.getenv("DISCOVERY_V2_URL");
+    String serviceUrl = System.getenv("DISCOVERY_V2_URL");
 
     if (apiKey == null) {
       apiKey = getProperty("discovery_v2.apikey");
-      url = getProperty("discovery_v2.url");
+      serviceUrl = getProperty("discovery_v2.url");
     }
 
     assertNotNull("DISCOVERY_V2_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
@@ -77,7 +77,7 @@ public class DiscoveryIT extends WatsonServiceTest {
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setServiceUrl(url);
+    service.setServiceUrl(serviceUrl);
 
     HttpConfigOptions configOptions =
         new HttpConfigOptions.Builder().disableSslVerification(true).build();
