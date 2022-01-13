@@ -58,12 +58,19 @@ public class AssistantServiceTest extends WatsonServiceTest {
     super.setUp();
     String apiKey = System.getenv("ASSISTANT_APIKEY");
     workspaceId = System.getenv("ASSISTANT_WORKSPACE_ID");
+    String serviceUrl = System.getenv("ASSISTANT_URL");
 
-    Assume.assumeFalse("ASSISTANT_APIKEY is not defined", apiKey == null);
+    if (apiKey == null) {
+      apiKey = getProperty("assistant.apikey");
+      workspaceId = getProperty("assistant.workspace_id");
+      serviceUrl = getProperty("assistant.url");
+    }
+
+    Assume.assumeFalse("ASSISTANT_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2019-02-28", authenticator);
-    service.setServiceUrl(System.getenv("ASSISTANT_URL"));
+    service.setServiceUrl(serviceUrl);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

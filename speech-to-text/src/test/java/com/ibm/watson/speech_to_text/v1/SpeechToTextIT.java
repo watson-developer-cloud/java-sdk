@@ -133,12 +133,20 @@ public class SpeechToTextIT extends WatsonServiceTest {
     this.acousticCustomizationId = System.getenv("SPEECH_TO_TEXT_ACOUSTIC_CUSTOM_ID");
 
     String apiKey = System.getenv("SPEECH_TO_TEXT_APIKEY");
+    String serviceUrl = System.getenv("SPEECH_TO_TEXT_URL");
 
-    assertNotNull("SPEECH_TO_TEXT_APIKEY is not defined", apiKey);
+    if (apiKey == null) {
+      apiKey = getProperty("speech_to_text.apikey");
+      this.customizationId = getProperty("speech_to_text.customization_id");
+      this.acousticCustomizationId = getProperty("speech_to_text.acoustic_customization_id");
+      serviceUrl = getProperty("speech_to_text.url");
+    }
+
+    assertNotNull("SPEECH_TO_TEXT_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new SpeechToText(authenticator);
-    service.setServiceUrl(System.getenv("SPEECH_TO_TEXT_URL"));
+    service.setServiceUrl(serviceUrl);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

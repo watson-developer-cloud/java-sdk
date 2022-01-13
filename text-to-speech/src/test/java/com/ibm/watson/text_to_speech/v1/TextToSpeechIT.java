@@ -98,11 +98,18 @@ public class TextToSpeechIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     String apiKey = System.getenv("TEXT_TO_SPEECH_APIKEY");
-    assertNotNull("TEXT_TO_SPEECH_APIKEY is not defined", apiKey);
+    String serviceUrl = System.getenv("TEXT_TO_SPEECH_URL");
+
+    if (apiKey == null) {
+      apiKey = getProperty("text_to_speech.apikey");
+      serviceUrl = getProperty("text_to_speech.url");
+    }
+
+    assertNotNull("TEXT_TO_SPEECH_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);
-    service.setServiceUrl(System.getenv("TEXT_TO_SPEECH_URL"));
+    service.setServiceUrl(serviceUrl);
     service.setDefaultHeaders(getDefaultHeaders());
     voiceName = "en-US_MichaelVoice";
 
