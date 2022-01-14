@@ -94,7 +94,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     dummyTest = new DiscoveryServiceIT();
     String apiKey = System.getenv("DISCOVERY_APIKEY");
 
-    assertNotNull("DISCOVERY_APIKEY is not defined", apiKey);
+    if (apiKey == null) {
+      apiKey = dummyTest.getProperty("discovery.apikey");
+    }
+
+    assertNotNull("DISCOVERY_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
 
     dummyTest.setup();
 
@@ -143,10 +147,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void setup() throws Exception {
     super.setUp();
     String apiKey = System.getenv("DISCOVERY_APIKEY");
-    String url = System.getenv("DISCOVERY_URL");
+    String serviceUrl = System.getenv("DISCOVERY_URL");
+
+    if (apiKey == null) {
+      apiKey = getProperty("discovery.apikey");
+      serviceUrl = getProperty("discovery.url");
+    }
+
     Authenticator authenticator = new IamAuthenticator(apiKey);
     discovery = new Discovery("2019-04-30", authenticator);
-    discovery.setServiceUrl(url);
+    discovery.setServiceUrl(serviceUrl);
     discovery.setDefaultHeaders(getDefaultHeaders());
 
     uniqueName = UUID.randomUUID().toString();

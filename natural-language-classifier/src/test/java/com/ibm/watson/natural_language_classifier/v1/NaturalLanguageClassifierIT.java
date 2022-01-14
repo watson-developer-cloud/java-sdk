@@ -65,15 +65,23 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     String apiKey = System.getenv("NATURAL_LANGUAGE_CLASSIFIER_APIKEY");
+    String serviceUrl = System.getenv("NATURAL_LANGUAGE_CLASSIFIER_URL");
+    preCreatedClassifierId = System.getenv("NATURAL_LANGUAGE_CLASSIFIER_ID");
 
-    assertNotNull("NATURAL_LANGUAGE_CLASSIFIER_APIKEY is not defined", apiKey);
+    if (apiKey == null) {
+      apiKey = getProperty("natural_language_classifier.apikey");
+      serviceUrl = getProperty("natural_language_classifier.url");
+      preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
+    }
+
+    assertNotNull("NATURAL_LANGUAGE_CLASSIFIER_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageClassifier(authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setServiceUrl(System.getenv("NATURAL_LANGUAGE_CLASSIFIER_URL"));
+    service.setServiceUrl(serviceUrl);
 
-    preCreatedClassifierId = System.getenv("NATURAL_LANGUAGE_CLASSIFIER_ID");
+
   }
 
   /**
