@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -158,12 +158,6 @@ public class OutputDataTest {
             .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
             .groups(
                 new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
             .interpretation(runtimeEntityInterpretationModel)
@@ -178,13 +172,6 @@ public class OutputDataTest {
         new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
     assertEquals(runtimeEntityModel.value(), "testString");
     assertEquals(runtimeEntityModel.confidence(), Double.valueOf("72.5"));
-    assertEquals(
-        runtimeEntityModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
     assertEquals(
         runtimeEntityModel.groups(),
         new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)));
@@ -258,7 +245,6 @@ public class OutputDataTest {
                     java.util.Arrays.asList(dialogNodeVisitedDetailsModel)))
             .logMessages(
                 new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)))
-            .text(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
             .generic(
                 new java.util.ArrayList<RuntimeResponseGeneric>(
                     java.util.Arrays.asList(runtimeResponseGenericModel)))
@@ -274,9 +260,6 @@ public class OutputDataTest {
     assertEquals(
         outputDataModel.getLogMessages(),
         new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)));
-    assertEquals(
-        outputDataModel.getText(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
     assertEquals(
         outputDataModel.getGeneric(),
         new java.util.ArrayList<RuntimeResponseGeneric>(

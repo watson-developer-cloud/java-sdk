@@ -131,7 +131,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             new ServiceCallback<MessageResponse>() {
               @Override
               public void onResponse(Response<MessageResponse> response) {
-                 /*System.out.println(response.getResult()); */
+                /*System.out.println(response.getResult()); */
               }
 
               @Override
@@ -1324,12 +1324,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().build();
     WorkspaceCollection response = service.listWorkspaces(listOptions).execute().getResult();
-    /** System.out.println(response);
-    DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder("5b586426-c587-4775-950c-59b58db84b14").build();
-    service.deleteWorkspace(deleteOptions).execute();
-    DeleteWorkspaceOptions deleteOptions1 = new DeleteWorkspaceOptions.Builder("661d9f74-9d3a-4655-bee4-84e16bd25d00").build();
-    service.deleteWorkspace(deleteOptions1).execute(); **/
-
     assertNotNull(response);
     assertNotNull(response.getWorkspaces());
     assertTrue(response.getWorkspaces().size() > 0);

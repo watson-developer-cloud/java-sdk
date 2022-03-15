@@ -66,7 +66,9 @@ public class AssistantServiceTest extends WatsonServiceTest {
       serviceUrl = getProperty("assistant.url");
     }
 
-    Assume.assumeFalse("ASSISTANT_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey == null);
+    Assume.assumeFalse(
+        "ASSISTANT_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2019-02-28", authenticator);
