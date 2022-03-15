@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -119,12 +119,6 @@ public class MessageStatelessOptionsTest {
             .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
             .groups(
                 new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
             .interpretation(runtimeEntityInterpretationModel)
@@ -140,13 +134,6 @@ public class MessageStatelessOptionsTest {
     assertEquals(runtimeEntityModel.value(), "testString");
     assertEquals(runtimeEntityModel.confidence(), Double.valueOf("72.5"));
     assertEquals(
-        runtimeEntityModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
-    assertEquals(
         runtimeEntityModel.groups(),
         new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)));
     assertEquals(runtimeEntityModel.interpretation(), runtimeEntityInterpretationModel);
@@ -155,6 +142,11 @@ public class MessageStatelessOptionsTest {
         new java.util.ArrayList<RuntimeEntityAlternative>(
             java.util.Arrays.asList(runtimeEntityAlternativeModel)));
     assertEquals(runtimeEntityModel.role(), runtimeEntityRoleModel);
+
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
+    assertEquals(messageInputAttachmentModel.url(), "testString");
+    assertEquals(messageInputAttachmentModel.mediaType(), "testString");
 
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
@@ -182,6 +174,9 @@ public class MessageStatelessOptionsTest {
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
             .suggestionId("testString")
+            .attachments(
+                new java.util.ArrayList<MessageInputAttachment>(
+                    java.util.Arrays.asList(messageInputAttachmentModel)))
             .options(messageInputOptionsStatelessModel)
             .build();
     assertEquals(messageInputStatelessModel.messageType(), "text");
@@ -193,6 +188,10 @@ public class MessageStatelessOptionsTest {
         messageInputStatelessModel.entities(),
         new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
     assertEquals(messageInputStatelessModel.suggestionId(), "testString");
+    assertEquals(
+        messageInputStatelessModel.attachments(),
+        new java.util.ArrayList<MessageInputAttachment>(
+            java.util.Arrays.asList(messageInputAttachmentModel)));
     assertEquals(messageInputStatelessModel.options(), messageInputOptionsStatelessModel);
 
     MessageContextGlobalSystem messageContextGlobalSystemModel =
@@ -204,6 +203,7 @@ public class MessageStatelessOptionsTest {
             .referenceTime("testString")
             .sessionStartTime("testString")
             .state("testString")
+            .skipUserInput(true)
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
@@ -212,6 +212,7 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.state(), "testString");
+    assertEquals(messageContextGlobalSystemModel.skipUserInput(), Boolean.valueOf(true));
 
     MessageContextGlobalStateless messageContextGlobalStatelessModel =
         new MessageContextGlobalStateless.Builder()
@@ -257,6 +258,12 @@ public class MessageStatelessOptionsTest {
                     put("foo", messageContextSkillModel);
                   }
                 })
+            .integrations(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .build();
     assertEquals(messageContextStatelessModel.global(), messageContextGlobalStatelessModel);
     assertEquals(
@@ -264,6 +271,13 @@ public class MessageStatelessOptionsTest {
         new java.util.HashMap<String, MessageContextSkill>() {
           {
             put("foo", messageContextSkillModel);
+          }
+        });
+    assertEquals(
+        messageContextStatelessModel.integrations(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
           }
         });
 

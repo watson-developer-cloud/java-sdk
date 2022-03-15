@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,17 +22,23 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the DialogNodesVisited model. */
-public class DialogNodesVisitedTest {
+/** Unit test class for the RuntimeResponseGenericRuntimeResponseTypeAudio model. */
+public class RuntimeResponseGenericRuntimeResponseTypeAudioTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testDialogNodesVisited() throws Throwable {
-    DialogNodesVisited dialogNodesVisitedModel = new DialogNodesVisited();
-    assertNull(dialogNodesVisitedModel.getDialogNode());
-    assertNull(dialogNodesVisitedModel.getTitle());
-    assertNull(dialogNodesVisitedModel.getConditions());
+  public void testRuntimeResponseGenericRuntimeResponseTypeAudio() throws Throwable {
+    RuntimeResponseGenericRuntimeResponseTypeAudio
+        runtimeResponseGenericRuntimeResponseTypeAudioModel =
+            new RuntimeResponseGenericRuntimeResponseTypeAudio();
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.responseType());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.source());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.title());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.description());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.channels());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.channelOptions());
+    assertNull(runtimeResponseGenericRuntimeResponseTypeAudioModel.altText());
   }
 }

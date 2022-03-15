@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,6 +39,7 @@ public class MessageContextStatelessTest {
             .referenceTime("testString")
             .sessionStartTime("testString")
             .state("testString")
+            .skipUserInput(true)
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
@@ -47,6 +48,7 @@ public class MessageContextStatelessTest {
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.state(), "testString");
+    assertEquals(messageContextGlobalSystemModel.skipUserInput(), Boolean.valueOf(true));
 
     MessageContextGlobalStateless messageContextGlobalStatelessModel =
         new MessageContextGlobalStateless.Builder()
@@ -92,6 +94,12 @@ public class MessageContextStatelessTest {
                     put("foo", messageContextSkillModel);
                   }
                 })
+            .integrations(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .build();
     assertEquals(messageContextStatelessModel.global(), messageContextGlobalStatelessModel);
     assertEquals(
@@ -99,6 +107,13 @@ public class MessageContextStatelessTest {
         new java.util.HashMap<String, MessageContextSkill>() {
           {
             put("foo", messageContextSkillModel);
+          }
+        });
+    assertEquals(
+        messageContextStatelessModel.integrations(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
           }
         });
 
@@ -110,5 +125,12 @@ public class MessageContextStatelessTest {
     assertEquals(
         messageContextStatelessModelNew.global().toString(),
         messageContextGlobalStatelessModel.toString());
+    assertEquals(
+        messageContextStatelessModelNew.integrations().toString(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        }.toString());
   }
 }

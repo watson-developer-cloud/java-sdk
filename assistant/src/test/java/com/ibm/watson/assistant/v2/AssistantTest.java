@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,6 +35,7 @@ import com.ibm.watson.assistant.v2.model.MessageContextSkill;
 import com.ibm.watson.assistant.v2.model.MessageContextSkillSystem;
 import com.ibm.watson.assistant.v2.model.MessageContextStateless;
 import com.ibm.watson.assistant.v2.model.MessageInput;
+import com.ibm.watson.assistant.v2.model.MessageInputAttachment;
 import com.ibm.watson.assistant.v2.model.MessageInputOptions;
 import com.ibm.watson.assistant.v2.model.MessageInputOptionsSpelling;
 import com.ibm.watson.assistant.v2.model.MessageInputOptionsStateless;
@@ -72,95 +73,81 @@ public class AssistantTest {
   protected MockWebServer server;
   protected Assistant assistantService;
 
-  public void constructClientService() throws Throwable {
-    final String serviceName = "testService";
-    // set mock values for global params
-    String version = "testString";
-
-    final Authenticator authenticator = new NoAuthAuthenticator();
-
-    assistantService = new Assistant(version, serviceName, authenticator);
-    String url = server.url("/").toString();
-    assistantService.setServiceUrl(url);
-  }
-
-  /** Negative Test - construct the service with a null authenticator. */
+  // Construct the service with a null authenticator (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testConstructorWithNullAuthenticator() throws Throwable {
     final String serviceName = "testService";
-    // set mock values for global params
+    // Set mock values for global params
     String version = "testString";
-
     new Assistant(version, serviceName, null);
   }
 
+  // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    constructClientService();
     assertEquals(assistantService.getVersion(), "testString");
   }
 
+  // Test the createSession operation with a valid options model parameter
   @Test
   public void testCreateSessionWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "{\"session_id\": \"sessionId\"}";
     String createSessionPath = "/v2/assistants/testString/sessions";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(201)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the CreateSessionOptions model
     CreateSessionOptions createSessionOptionsModel =
         new CreateSessionOptions.Builder().assistantId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke createSession() with a valid options model and verify the result
     Response<SessionResponse> response =
         assistantService.createSession(createSessionOptionsModel).execute();
     assertNotNull(response);
     SessionResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createSessionPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the createSession operation with null options model parameter
+  // Test the createSession operation with and without retries enabled
+  @Test
+  public void testCreateSessionWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testCreateSessionWOptions();
+
+    assistantService.disableRetries();
+    testCreateSessionWOptions();
+  }
+
+  // Test the createSession operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCreateSessionNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.createSession(null).execute();
   }
 
+  // Test the deleteSession operation with a valid options model parameter
   @Test
   public void testDeleteSessionWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "";
     String deleteSessionPath = "/v2/assistants/testString/sessions/testString";
-
     server.enqueue(new MockResponse().setResponseCode(200).setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the DeleteSessionOptions model
     DeleteSessionOptions deleteSessionOptionsModel =
@@ -169,54 +156,54 @@ public class AssistantTest {
             .sessionId("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteSession() with a valid options model and verify the result
     Response<Void> response = assistantService.deleteSession(deleteSessionOptionsModel).execute();
     assertNotNull(response);
     Void responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
     assertNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteSessionPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the deleteSession operation with null options model parameter
+  // Test the deleteSession operation with and without retries enabled
+  @Test
+  public void testDeleteSessionWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testDeleteSessionWOptions();
+
+    assistantService.disableRetries();
+    testDeleteSessionWOptions();
+  }
+
+  // Test the deleteSession operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteSessionNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.deleteSession(null).execute();
   }
 
+  // Test the message operation with a valid options model parameter
   @Test
   public void testMessageWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
     String messagePath = "/v2/assistants/testString/sessions/testString/message";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the RuntimeIntent model
     RuntimeIntent runtimeIntentModel =
@@ -278,12 +265,6 @@ public class AssistantTest {
             .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
             .groups(
                 new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
             .interpretation(runtimeEntityInterpretationModel)
@@ -292,6 +273,10 @@ public class AssistantTest {
                     java.util.Arrays.asList(runtimeEntityAlternativeModel)))
             .role(runtimeEntityRoleModel)
             .build();
+
+    // Construct an instance of the MessageInputAttachment model
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
 
     // Construct an instance of the MessageInputOptionsSpelling model
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
@@ -318,6 +303,9 @@ public class AssistantTest {
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
             .suggestionId("testString")
+            .attachments(
+                new java.util.ArrayList<MessageInputAttachment>(
+                    java.util.Arrays.asList(messageInputAttachmentModel)))
             .options(messageInputOptionsModel)
             .build();
 
@@ -331,6 +319,7 @@ public class AssistantTest {
             .referenceTime("testString")
             .sessionStartTime("testString")
             .state("testString")
+            .skipUserInput(true)
             .build();
 
     // Construct an instance of the MessageContextGlobal model
@@ -366,6 +355,12 @@ public class AssistantTest {
                     put("foo", messageContextSkillModel);
                   }
                 })
+            .integrations(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .build();
 
     // Construct an instance of the MessageOptions model
@@ -378,53 +373,54 @@ public class AssistantTest {
             .userId("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke message() with a valid options model and verify the result
     Response<MessageResponse> response = assistantService.message(messageOptionsModel).execute();
     assertNotNull(response);
     MessageResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, messagePath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the message operation with null options model parameter
+  // Test the message operation with and without retries enabled
+  @Test
+  public void testMessageWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testMessageWOptions();
+
+    assistantService.disableRetries();
+    testMessageWOptions();
+  }
+
+  // Test the message operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testMessageNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.message(null).execute();
   }
 
+  // Test the messageStateless operation with a valid options model parameter
   @Test
   public void testMessageStatelessWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
     String messageStatelessPath = "/v2/assistants/testString/message";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the RuntimeIntent model
     RuntimeIntent runtimeIntentModel =
@@ -486,12 +482,6 @@ public class AssistantTest {
             .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
             .groups(
                 new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
             .interpretation(runtimeEntityInterpretationModel)
@@ -500,6 +490,10 @@ public class AssistantTest {
                     java.util.Arrays.asList(runtimeEntityAlternativeModel)))
             .role(runtimeEntityRoleModel)
             .build();
+
+    // Construct an instance of the MessageInputAttachment model
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
 
     // Construct an instance of the MessageInputOptionsSpelling model
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
@@ -524,6 +518,9 @@ public class AssistantTest {
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
             .suggestionId("testString")
+            .attachments(
+                new java.util.ArrayList<MessageInputAttachment>(
+                    java.util.Arrays.asList(messageInputAttachmentModel)))
             .options(messageInputOptionsStatelessModel)
             .build();
 
@@ -537,6 +534,7 @@ public class AssistantTest {
             .referenceTime("testString")
             .sessionStartTime("testString")
             .state("testString")
+            .skipUserInput(true)
             .build();
 
     // Construct an instance of the MessageContextGlobalStateless model
@@ -575,6 +573,12 @@ public class AssistantTest {
                     put("foo", messageContextSkillModel);
                   }
                 })
+            .integrations(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .build();
 
     // Construct an instance of the MessageStatelessOptions model
@@ -586,54 +590,55 @@ public class AssistantTest {
             .userId("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke messageStateless() with a valid options model and verify the result
     Response<MessageResponseStateless> response =
         assistantService.messageStateless(messageStatelessOptionsModel).execute();
     assertNotNull(response);
     MessageResponseStateless responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, messageStatelessPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the messageStateless operation with null options model parameter
+  // Test the messageStateless operation with and without retries enabled
+  @Test
+  public void testMessageStatelessWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testMessageStatelessWOptions();
+
+    assistantService.disableRetries();
+    testMessageStatelessWOptions();
+  }
+
+  // Test the messageStateless operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testMessageStatelessNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.messageStateless(null).execute();
   }
 
+  // Test the bulkClassify operation with a valid options model parameter
   @Test
   public void testBulkClassifyWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
-        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
+        "{\"output\": [{\"input\": {\"text\": \"text\"}, \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}]}]}";
     String bulkClassifyPath = "/v2/skills/testString/workspace/bulk_classify";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the BulkClassifyUtterance model
     BulkClassifyUtterance bulkClassifyUtteranceModel =
@@ -648,54 +653,55 @@ public class AssistantTest {
                     java.util.Arrays.asList(bulkClassifyUtteranceModel)))
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke bulkClassify() with a valid options model and verify the result
     Response<BulkClassifyResponse> response =
         assistantService.bulkClassify(bulkClassifyOptionsModel).execute();
     assertNotNull(response);
     BulkClassifyResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, bulkClassifyPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the bulkClassify operation with null options model parameter
+  // Test the bulkClassify operation with and without retries enabled
+  @Test
+  public void testBulkClassifyWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testBulkClassifyWOptions();
+
+    assistantService.disableRetries();
+    testBulkClassifyWOptions();
+  }
+
+  // Test the bulkClassify operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testBulkClassifyNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.bulkClassify(null).execute();
   }
 
+  // Test the listLogs operation with a valid options model parameter
   @Test
   public void testListLogsWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
-        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"metadata\": {\"mapKey\": \"anyValue\"}, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\"}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\"}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listLogsPath = "/v2/assistants/testString/logs";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the ListLogsOptions model
     ListLogsOptions listLogsOptionsModel =
@@ -707,107 +713,126 @@ public class AssistantTest {
             .cursor("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke listLogs() with a valid options model and verify the result
     Response<LogCollection> response = assistantService.listLogs(listLogsOptionsModel).execute();
     assertNotNull(response);
     LogCollection responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listLogsPath);
+    // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    // Get query params
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("sort"), "testString");
     assertEquals(query.get("filter"), "testString");
     assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
     assertEquals(query.get("cursor"), "testString");
-    // Check request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, listLogsPath);
   }
 
-  // Test the listLogs operation with null options model parameter
+  // Test the listLogs operation with and without retries enabled
+  @Test
+  public void testListLogsWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testListLogsWOptions();
+
+    assistantService.disableRetries();
+    testListLogsWOptions();
+  }
+
+  // Test the listLogs operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testListLogsNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.listLogs(null).execute();
   }
 
+  // Test the deleteUserData operation with a valid options model parameter
   @Test
   public void testDeleteUserDataWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "";
     String deleteUserDataPath = "/v2/user_data";
-
     server.enqueue(new MockResponse().setResponseCode(202).setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the DeleteUserDataOptions model
     DeleteUserDataOptions deleteUserDataOptionsModel =
         new DeleteUserDataOptions.Builder().customerId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteUserData() with a valid options model and verify the result
     Response<Void> response = assistantService.deleteUserData(deleteUserDataOptionsModel).execute();
     assertNotNull(response);
     Void responseObj = response.getResult();
-    // Response does not have a return type. Check that the result is null.
     assertNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    assertEquals(query.get("customer_id"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteUserDataPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(query.get("customer_id"), "testString");
   }
 
-  // Test the deleteUserData operation with null options model parameter
+  // Test the deleteUserData operation with and without retries enabled
+  @Test
+  public void testDeleteUserDataWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testDeleteUserDataWOptions();
+
+    assistantService.disableRetries();
+    testDeleteUserDataWOptions();
+  }
+
+  // Test the deleteUserData operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteUserDataNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     assistantService.deleteUserData(null).execute();
   }
 
-  /** Initialize the server */
+  // Perform setup needed before each test method
   @BeforeMethod
-  public void setUpMockServer() {
+  public void beforeEachTest() {
+    // Start the mock server.
     try {
       server = new MockWebServer();
-      // register handler
       server.start();
     } catch (IOException err) {
       fail("Failed to instantiate mock web server");
     }
+
+    // Construct an instance of the service
+    constructClientService();
   }
 
+  // Perform tear down after each test method
   @AfterMethod
-  public void tearDownMockServer() throws IOException {
+  public void afterEachTest() throws IOException {
     server.shutdown();
     assistantService = null;
+  }
+
+  // Constructs an instance of the service to be used by the tests
+  public void constructClientService() {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    final Authenticator authenticator = new NoAuthAuthenticator();
+    assistantService = new Assistant(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    assistantService.setServiceUrl(url);
   }
 }
