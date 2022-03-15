@@ -31,12 +31,6 @@
         </dependency>
         <dependency>
             <groupId>com.ibm.watson</groupId>
-            <artifactId>compare-comply</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
             <artifactId>discovery</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
@@ -49,19 +43,7 @@
         </dependency>
         <dependency>
             <groupId>com.ibm.watson</groupId>
-            <artifactId>natural-language-classifier</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
             <artifactId>natural-language-understanding</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
-            <artifactId>personality-insights</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
@@ -74,18 +56,6 @@
         <dependency>
             <groupId>com.ibm.watson</groupId>
             <artifactId>text-to-speech</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
-            <artifactId>tone-analyzer</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
-            <artifactId>visual-recognition</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
