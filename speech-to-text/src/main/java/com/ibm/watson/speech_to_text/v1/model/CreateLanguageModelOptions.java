@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,11 +24,13 @@ public class CreateLanguageModelOptions extends GenericModel {
    * <p>To determine whether a base model supports language model customization, use the [Get a
    * model](#getmodel) method and check that the attribute `custom_language_model` is set to `true`.
    * You can also refer to [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    */
   public interface BaseModelName {
     /** ar-MS_Telephony. */
     String AR_MS_TELEPHONY = "ar-MS_Telephony";
+    /** cs-CZ_Telephony. */
+    String CS_CZ_TELEPHONY = "cs-CZ_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
@@ -37,12 +39,16 @@ public class CreateLanguageModelOptions extends GenericModel {
     String DE_DE_TELEPHONY = "de-DE_Telephony";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_Multimedia. */
+    String EN_AU_MULTIMEDIA = "en-AU_Multimedia";
     /** en-AU_NarrowbandModel. */
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-AU_Telephony. */
     String EN_AU_TELEPHONY = "en-AU_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
+    /** en-GB_Multimedia. */
+    String EN_GB_MULTIMEDIA = "en-GB_Multimedia";
     /** en-GB_NarrowbandModel. */
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
     /** en-GB_Telephony. */
@@ -59,6 +65,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
     /** en-US_Telephony. */
     String EN_US_TELEPHONY = "en-US_Telephony";
+    /** en-WW_Medical_Telephony. */
+    String EN_WW_MEDICAL_TELEPHONY = "en-WW_Medical_Telephony";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
@@ -75,8 +83,12 @@ public class CreateLanguageModelOptions extends GenericModel {
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-ES_Multimedia. */
+    String ES_ES_MULTIMEDIA = "es-ES_Multimedia";
     /** es-ES_Telephony. */
     String ES_ES_TELEPHONY = "es-ES_Telephony";
+    /** es-LA_Telephony. */
+    String ES_LA_TELEPHONY = "es-LA_Telephony";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
@@ -127,12 +139,16 @@ public class CreateLanguageModelOptions extends GenericModel {
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
+    /** nl-NL_Telephony. */
+    String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
     String PT_BR_TELEPHONY = "pt-BR_Telephony";
+    /** zh-CN_Telephony. */
+    String ZH_CN_TELEPHONY = "zh-CN_Telephony";
   }
 
   protected String name;
@@ -264,7 +280,7 @@ public class CreateLanguageModelOptions extends GenericModel {
    * <p>To determine whether a base model supports language model customization, use the [Get a
    * model](#getmodel) method and check that the attribute `custom_language_model` is set to `true`.
    * You can also refer to [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * @return the baseModelName
    */
@@ -275,20 +291,19 @@ public class CreateLanguageModelOptions extends GenericModel {
   /**
    * Gets the dialect.
    *
-   * <p>The dialect of the specified language that is to be used with the custom language model. For
-   * most languages, the dialect matches the language of the base model by default. For example,
-   * `en-US` is used for the US English language models. All dialect values are case-insensitive.
+   * <p>The dialect of the specified language that is to be used with the custom language model.
+   * _For all languages, it is always safe to omit this field._ The service automatically uses the
+   * language identifier from the name of the base model. For example, the service automatically
+   * uses `en-US` for all US English models.
    *
-   * <p>The parameter is meaningful only for Spanish language models, for which you can always
-   * safely omit the parameter to have the service create the correct mapping. For Spanish, the
-   * service creates a custom language model that is suited for speech in one of the following
-   * dialects: * `es-ES` for Castilian Spanish (`es-ES` models) * `es-LA` for Latin American Spanish
-   * (`es-AR`, `es-CL`, `es-CO`, and `es-PE` models) * `es-US` for Mexican (North American) Spanish
-   * (`es-MX` models)
+   * <p>If you specify the `dialect` for a new custom model, follow these guidelines. _For
+   * non-Spanish previous-generation models and for next-generation models,_ you must specify a
+   * value that matches the five-character language identifier from the name of the base model. _For
+   * Spanish previous-generation models,_ you must specify one of the following values: * `es-ES`
+   * for Castilian Spanish (`es-ES` models) * `es-LA` for Latin American Spanish (`es-AR`, `es-CL`,
+   * `es-CO`, and `es-PE` models) * `es-US` for Mexican (North American) Spanish (`es-MX` models)
    *
-   * <p>If you specify the `dialect` parameter for a non-Spanish language model, its value must
-   * match the language of the base model. If you specify the `dialect` for a Spanish language
-   * model, its value must match one of the defined mappings (`es-ES`, `es-LA`, or `es-MX`).
+   * <p>All values that you pass for the `dialect` field are case-insensitive.
    *
    * @return the dialect
    */

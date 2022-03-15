@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,11 +25,9 @@ public class CreateJobOptions extends GenericModel {
 
   /**
    * The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See
-   * [Previous-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
-   * [Next-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Using a
+   * model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use).
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
@@ -38,6 +36,8 @@ public class CreateJobOptions extends GenericModel {
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** ar-MS_Telephony. */
     String AR_MS_TELEPHONY = "ar-MS_Telephony";
+    /** cs-CZ_Telephony. */
+    String CS_CZ_TELEPHONY = "cs-CZ_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */
@@ -46,6 +46,8 @@ public class CreateJobOptions extends GenericModel {
     String DE_DE_TELEPHONY = "de-DE_Telephony";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_Multimedia. */
+    String EN_AU_MULTIMEDIA = "en-AU_Multimedia";
     /** en-AU_NarrowbandModel. */
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-AU_Telephony. */
@@ -54,6 +56,8 @@ public class CreateJobOptions extends GenericModel {
     String EN_IN_TELEPHONY = "en-IN_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
+    /** en-GB_Multimedia. */
+    String EN_GB_MULTIMEDIA = "en-GB_Multimedia";
     /** en-GB_NarrowbandModel. */
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
     /** en-GB_Telephony. */
@@ -68,6 +72,8 @@ public class CreateJobOptions extends GenericModel {
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
     /** en-US_Telephony. */
     String EN_US_TELEPHONY = "en-US_Telephony";
+    /** en-WW_Medical_Telephony. */
+    String EN_WW_MEDICAL_TELEPHONY = "en-WW_Medical_Telephony";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
@@ -84,8 +90,12 @@ public class CreateJobOptions extends GenericModel {
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-ES_Multimedia. */
+    String ES_ES_MULTIMEDIA = "es-ES_Multimedia";
     /** es-ES_Telephony. */
     String ES_ES_TELEPHONY = "es-ES_Telephony";
+    /** es-LA_Telephony. */
+    String ES_LA_TELEPHONY = "es-LA_Telephony";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
@@ -136,6 +146,8 @@ public class CreateJobOptions extends GenericModel {
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
+    /** nl-NL_Telephony. */
+    String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
@@ -146,6 +158,8 @@ public class CreateJobOptions extends GenericModel {
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
+    /** zh-CN_Telephony. */
+    String ZH_CN_TELEPHONY = "zh-CN_Telephony";
   }
 
   /**
@@ -752,11 +766,9 @@ public class CreateJobOptions extends GenericModel {
    * Gets the model.
    *
    * <p>The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See
-   * [Previous-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models) and
-   * [Next-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
+   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Using a
+   * model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use).
    *
    * @return the model
    */
@@ -1020,7 +1032,9 @@ public class CreateJobOptions extends GenericModel {
    *
    * <p>If `true`, the service filters profanity from all output except for keyword results by
    * replacing inappropriate words with a series of asterisks. Set the parameter to `false` to
-   * return results with no censoring. Applies to US English and Japanese transcription only. See
+   * return results with no censoring.
+   *
+   * <p>**Note:** The parameter can be used with US English and Japanese transcription only. See
    * [Profanity
    * filtering](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#profanity-filtering).
    *
@@ -1038,7 +1052,7 @@ public class CreateJobOptions extends GenericModel {
    * final transcript of a recognition request. For US English, the service also converts certain
    * keyword strings to punctuation symbols. By default, the service performs no smart formatting.
    *
-   * <p>**Beta:** The parameter is beta functionality. Applies to US English, Japanese, and Spanish
+   * <p>**Note:** The parameter can be used with US English, Japanese, and Spanish (all dialects)
    * transcription only.
    *
    * <p>See [Smart
@@ -1056,16 +1070,13 @@ public class CreateJobOptions extends GenericModel {
    * <p>If `true`, the response includes labels that identify which words were spoken by which
    * participants in a multi-person exchange. By default, the service returns no speaker labels.
    * Setting `speaker_labels` to `true` forces the `timestamps` parameter to be `true`, regardless
-   * of whether you specify `false` for the parameter.
+   * of whether you specify `false` for the parameter. * _For previous-generation models,_ the
+   * parameter can be used with Australian English, US English, German, Japanese, Korean, and
+   * Spanish (both broadband and narrowband models) and UK English (narrowband model) transcription
+   * only. * _For next-generation models,_ the parameter can be used with Czech, English
+   * (Australian, Indian, UK, and US), German, Japanese, Korean, and Spanish transcription only.
    *
-   * <p>**Beta:** The parameter is beta functionality. * For previous-generation models, the
-   * parameter can be used for Australian English, US English, German, Japanese, Korean, and Spanish
-   * (both broadband and narrowband models) and UK English (narrowband model) transcription only. *
-   * For next-generation models, the parameter can be used for English (Australian, Indian, UK, and
-   * US), German, Japanese, Korean, and Spanish transcription only.
-   *
-   * <p>Restrictions and limitations apply to the use of speaker labels for both types of models.
-   * See [Speaker
+   * <p>See [Speaker
    * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speaker-labels).
    *
    * @return the speakerLabels
@@ -1096,8 +1107,6 @@ public class CreateJobOptions extends GenericModel {
    * that are recognized by the specified grammar; it does not recognize other custom words from the
    * model's words resource.
    *
-   * <p>**Beta:** The parameter is beta functionality.
-   *
    * <p>See [Using a grammar for speech
    * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarUse).
    *
@@ -1120,8 +1129,8 @@ public class CreateJobOptions extends GenericModel {
    * disables keyword spotting (ignores the `keywords` and `keywords_threshold` parameters) and
    * returns only a single final transcript (forces the `max_alternatives` parameter to be `1`).
    *
-   * <p>**Beta:** The parameter is beta functionality. Applies to US English, Japanese, and Korean
-   * transcription only.
+   * <p>**Note:** The parameter can be used with US English, Japanese, and Korean transcription
+   * only.
    *
    * <p>See [Numeric
    * redaction](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-formatting#numeric-redaction).
@@ -1222,8 +1231,11 @@ public class CreateJobOptions extends GenericModel {
    * semantic features of the input, for example, at the conclusion of meaningful phrases such as
    * sentences. The service bases its understanding of semantic features on the base language model
    * that you use with a request. Custom language models and grammars can also influence how and
-   * where the service splits a transcript. By default, the service splits transcripts based solely
-   * on the pause interval.
+   * where the service splits a transcript.
+   *
+   * <p>By default, the service splits transcripts based solely on the pause interval. If the
+   * parameters are used together on the same request, `end_of_phrase_silence_time` has precedence
+   * over `split_transcript_at_phrase_end`.
    *
    * <p>See [Split transcript at phrase
    * end](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#split-transcript).
@@ -1246,8 +1258,13 @@ public class CreateJobOptions extends GenericModel {
    * * 0.5 (the default) provides a reasonable compromise for the level of sensitivity. * 1.0
    * suppresses no audio (speech detection sensitivity is disabled).
    *
-   * <p>The values increase on a monotonic curve. See [Speech detector
-   * sensitivity](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-sensitivity).
+   * <p>The values increase on a monotonic curve.
+   *
+   * <p>The parameter is supported with all next-generation models and with most previous-generation
+   * models. See [Speech detector
+   * sensitivity](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-sensitivity)
+   * and [Language model
+   * support](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-support).
    *
    * @return the speechDetectorSensitivity
    */
@@ -1266,8 +1283,13 @@ public class CreateJobOptions extends GenericModel {
    * (background audio suppression is disabled). * 0.5 provides a reasonable level of audio
    * suppression for general usage. * 1.0 suppresses all audio (no audio is transcribed).
    *
-   * <p>The values increase on a monotonic curve. See [Background audio
-   * suppression](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-suppression).
+   * <p>The values increase on a monotonic curve.
+   *
+   * <p>The parameter is supported with all next-generation models and with most previous-generation
+   * models. See [Background audio
+   * suppression](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-suppression)
+   * and [Language model
+   * support](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-support).
    *
    * @return the backgroundAudioSuppression
    */

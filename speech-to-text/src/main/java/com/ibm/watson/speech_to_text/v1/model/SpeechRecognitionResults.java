@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,9 +40,16 @@ public class SpeechRecognitionResults extends GenericModel {
    *
    * <p>An array of `SpeechRecognitionResult` objects that can include interim and final results
    * (interim results are returned only if supported by the method). Final results are guaranteed
-   * not to change; interim results might be replaced by further interim results and final results.
-   * The service periodically sends updates to the results list; the `result_index` is set to the
-   * lowest index in the array that has changed; it is incremented for new results.
+   * not to change; interim results might be replaced by further interim results and eventually
+   * final results.
+   *
+   * <p>For the HTTP interfaces, all results arrive at the same time. For the WebSocket interface,
+   * results can be sent as multiple separate responses. The service periodically sends updates to
+   * the results list. The `result_index` is incremented to the lowest index in the array that has
+   * changed for new results.
+   *
+   * <p>For more information, see [Understanding speech recognition
+   * results](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-basic-response).
    *
    * @return the results
    */
@@ -54,7 +61,9 @@ public class SpeechRecognitionResults extends GenericModel {
    * Gets the resultIndex.
    *
    * <p>An index that indicates a change point in the `results` array. The service increments the
-   * index only for additional results that it sends for new audio for the same request.
+   * index for additional results that it sends for new audio for the same request. All results with
+   * the same index are delivered at the same time. The same index can include multiple final
+   * results that are delivered with the same response.
    *
    * @return the resultIndex
    */

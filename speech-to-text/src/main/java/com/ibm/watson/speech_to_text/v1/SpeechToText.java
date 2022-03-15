@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -111,6 +111,13 @@ import okhttp3.WebSocket;
  * sampling rates of 16 kHz. Narrowband and telephony models have minimum sampling rates of 8 kHz.
  * The next-generation models offer high throughput and greater transcription accuracy.
  *
+ * <p>Effective 15 March 2022, previous-generation models for all languages other than Arabic and
+ * Japanese are deprecated. The deprecated models remain available until 15 September 2022, when
+ * they will be removed from the service and the documentation. You must migrate to the equivalent
+ * next-generation model by the end of service date. For more information, see [Previous-generation
+ * languages and models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models).{:
+ * deprecated}
+ *
  * <p>For speech recognition, the service supports synchronous and asynchronous HTTP
  * Representational State Transfer (REST) interfaces. It also supports a WebSocket interface that
  * provides a full-duplex, low-latency communication channel: Clients send requests and audio to the
@@ -122,10 +129,8 @@ import okhttp3.WebSocket;
  * model customization, the service also supports grammars. A grammar is a formal language
  * specification that lets you restrict the phrases that the service can recognize.
  *
- * <p>Language model customization is available for most previous- and next-generation models.
- * Acoustic model customization is available for all previous-generation models. Grammars are beta
- * functionality that is available for all previous-generation models that support language model
- * customization.
+ * <p>Language model customization and grammars are available for most previous- and next-generation
+ * models. Acoustic model customization is available for all previous-generation models.
  *
  * <p>API Version: 1.0.0 See: https://cloud.ibm.com/docs/speech-to-text
  */
@@ -187,8 +192,8 @@ public class SpeechToText extends BaseService {
    * ordering of the list of models can change from call to call; do not rely on an alphabetized or
    * static list of models.
    *
-   * <p>**See also:** [Listing
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
+   * <p>**See also:** [Listing all
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list#models-list-all).
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
@@ -215,8 +220,8 @@ public class SpeechToText extends BaseService {
    * ordering of the list of models can change from call to call; do not rely on an alphabetized or
    * static list of models.
    *
-   * <p>**See also:** [Listing
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
+   * <p>**See also:** [Listing all
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list#models-list-all).
    *
    * @return a {@link ServiceCall} with a result of type {@link SpeechModels}
    */
@@ -231,8 +236,8 @@ public class SpeechToText extends BaseService {
    * service. The information includes the name of the model and its minimum sampling rate in Hertz,
    * among other things.
    *
-   * <p>**See also:** [Listing
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list).
+   * <p>**See also:** [Listing a specific
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-list#models-list-specific).
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SpeechModel}
@@ -323,19 +328,25 @@ public class SpeechToText extends BaseService {
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
    * previous-generation model. Many next-generation models also support the `low_latency`
-   * parameter, which is not available with previous-generation models.
+   * parameter, which is not available with previous-generation models. Next-generation models do
+   * not support all of the parameters that are available for use with previous-generation models.
    *
-   * <p>But next-generation models do not support all of the parameters that are available for use
-   * with previous-generation models. For more information about all parameters that are supported
-   * for use with next-generation models, see [Supported features for next-generation
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
+   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
+   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
+   * September 2022, when they will be removed from the service and the documentation. You must
+   * migrate to the equivalent next-generation model by the end of service date. For more
+   * information, see [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models).
    *
-   * <p>**See also:** [Next-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
+   * <p>**See also:** * [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng) * [Supported
+   * features for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features)
    *
    * <p>### Multipart speech recognition
    *
-   * <p>**Note:** The Watson SDKs do not support multipart speech recognition.
+   * <p>**Note:** The asynchronous HTTP interface, WebSocket interface, and Watson SDKs do not
+   * support multipart speech recognition.
    *
    * <p>The HTTP `POST` method of the service also supports multipart speech recognition. With
    * multipart requests, you pass all audio data as multipart form data. You specify some parameters
@@ -690,15 +701,20 @@ public class SpeechToText extends BaseService {
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
    * previous-generation model. Many next-generation models also support the `low_latency`
-   * parameter, which is not available with previous-generation models.
+   * parameter, which is not available with previous-generation models. Next-generation models do
+   * not support all of the parameters that are available for use with previous-generation models.
    *
-   * <p>But next-generation models do not support all of the parameters that are available for use
-   * with previous-generation models. For more information about all parameters that are supported
-   * for use with next-generation models, see [Supported features for next-generation
+   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
+   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
+   * September 2022, when they will be removed from the service and the documentation. You must
+   * migrate to the equivalent next-generation model by the end of service date. For more
+   * information, see [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models).
+   *
+   * <p>**See also:** * [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng) * [Supported
+   * features for next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
-   *
-   * <p>**See also:** [Next-generation languages and
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng).
    *
    * @param createJobOptions the {@link CreateJobOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link RecognitionJob}
@@ -958,6 +974,13 @@ public class SpeechToText extends BaseService {
    * <p>You can create a maximum of 1024 custom language models per owning credentials. The service
    * returns an error if you attempt to create more than 1024 models. You do not lose any models,
    * but you cannot create any more until your model count is below the limit.
+   *
+   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
+   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
+   * September 2022, when they will be removed from the service and the documentation. You must
+   * migrate to the equivalent next-generation model by the end of service date. For more
+   * information, see [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models).
    *
    * <p>**See also:** [Create a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#createModel-language).
@@ -1234,14 +1257,11 @@ public class SpeechToText extends BaseService {
    * successfully. You can monitor the status of the upgrade by using the [Get a custom language
    * model](#getlanguagemodel) method to poll the model's status. The method returns a
    * `LanguageModel` object that includes `status` and `progress` fields. Use a loop to check the
-   * status every 10 seconds. While it is being upgraded, the custom model has the status
-   * `upgrading`. When the upgrade is complete, the model resumes the status that it had prior to
-   * upgrade. The service cannot accept subsequent requests for the model until the upgrade
-   * completes.
+   * status every 10 seconds.
    *
-   * <p>**Note:** Upgrading is necessary only for custom language models that are based on
-   * previous-generation models. Only a single version of a custom model that is based on a
-   * next-generation model is ever available.
+   * <p>While it is being upgraded, the custom model has the status `upgrading`. When the upgrade is
+   * complete, the model resumes the status that it had prior to upgrade. The service cannot accept
+   * subsequent requests for the model until the upgrade completes.
    *
    * <p>**See also:** [Upgrading a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language).
@@ -1386,8 +1406,12 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
-
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    okhttp3.RequestBody corpusFileBody =
+        RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain");
+    multipartBuilder.addFormDataPart("corpus_file", "filename", corpusFileBody);
+    builder.body(multipartBuilder.build());
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1765,13 +1789,15 @@ public class SpeechToText extends BaseService {
   /**
    * List grammars.
    *
-   * <p>Lists information about all grammars from a custom language model. The information includes
-   * the total number of out-of-vocabulary (OOV) words, name, and status of each grammar. You must
-   * use credentials for the instance of the service that owns a model to list its grammars.
-   * Grammars are available for all languages and models that support language customization.
+   * <p>Lists information about all grammars from a custom language model. For each grammar, the
+   * information includes the name, status, and (for grammars that are based on previous-generation
+   * models) the total number of out-of-vocabulary (OOV) words. You must use credentials for the
+   * instance of the service that owns a model to list its grammars.
    *
-   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
-   * supported for next-generation models.
+   * <p>**Availability:** Grammars are available only for some previous- and next-generation models.
+   * Support differs between IBM Cloud and IBM Cloud Pak for Data. Grammars are generally available
+   * for some models and beta for other models. For more information, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * <p>**See also:** [Listing grammars from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
@@ -1817,11 +1843,13 @@ public class SpeechToText extends BaseService {
    * service's analysis of the grammar for the current request completes. Use the [Get a
    * grammar](#getgrammar) method to check the status of the analysis.
    *
-   * <p>The service populates the model's words resource with any word that is recognized by the
-   * grammar that is not found in the model's base vocabulary. These are referred to as
-   * out-of-vocabulary (OOV) words. You can use the [List custom words](#listwords) method to
-   * examine the words resource and use other words-related methods to eliminate typos and modify
-   * how words are pronounced as needed.
+   * <p>_For grammars that are based on previous-generation models,_ the service populates the
+   * model's words resource with any word that is recognized by the grammar that is not found in the
+   * model's base vocabulary. These are referred to as out-of-vocabulary (OOV) words. You can use
+   * the [List custom words](#listwords) method to examine the words resource and use other
+   * words-related methods to eliminate typos and modify how words are pronounced as needed. _For
+   * grammars that are based on next-generation models,_ the service extracts no OOV words from the
+   * grammars.
    *
    * <p>To add a grammar that has the same name as an existing grammar, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails. Overwriting an existing grammar causes the
@@ -1830,14 +1858,16 @@ public class SpeechToText extends BaseService {
    * also added by another resource or they have been modified in some way with the [Add custom
    * words](#addwords) or [Add a custom word](#addword) method.
    *
-   * <p>The service limits the overall amount of data that you can add to a custom model to a
-   * maximum of 10 million total words from all sources combined. Also, you can add no more than 90
-   * thousand OOV words to a model. This includes words that the service extracts from corpora and
-   * grammars and words that you add directly. Grammars are available for all languages and models
-   * that support language customization.
+   * <p>_For grammars that are based on previous-generation models,_ the service limits the overall
+   * amount of data that you can add to a custom model to a maximum of 10 million total words from
+   * all sources combined. Also, you can add no more than 90 thousand OOV words to a model. This
+   * includes words that the service extracts from corpora and grammars and words that you add
+   * directly.
    *
-   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
-   * supported for next-generation models.
+   * <p>**Availability:** Grammars are available only for some previous- and next-generation models.
+   * Support differs between IBM Cloud and IBM Cloud Pak for Data. Grammars are generally available
+   * for some models and beta for other models. For more information, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * <p>**See also:** * [Understanding
    * grammars](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-grammarUnderstand#grammarUnderstand)
@@ -1877,13 +1907,15 @@ public class SpeechToText extends BaseService {
   /**
    * Get a grammar.
    *
-   * <p>Gets information about a grammar from a custom language model. The information includes the
-   * total number of out-of-vocabulary (OOV) words, name, and status of the grammar. You must use
-   * credentials for the instance of the service that owns a model to list its grammars. Grammars
-   * are available for all languages and models that support language customization.
+   * <p>Gets information about a grammar from a custom language model. For each grammar, the
+   * information includes the name, status, and (for grammars that are based on previous-generation
+   * models) the total number of out-of-vocabulary (OOV) words. You must use credentials for the
+   * instance of the service that owns a model to list its grammars.
    *
-   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
-   * supported for next-generation models.
+   * <p>**Availability:** Grammars are available only for some previous- and next-generation models.
+   * Support differs between IBM Cloud and IBM Cloud Pak for Data. Grammars are generally available
+   * for some models and beta for other models. For more information, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * <p>**See also:** [Listing grammars from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#listGrammars).
@@ -1917,17 +1949,18 @@ public class SpeechToText extends BaseService {
   /**
    * Delete a grammar.
    *
-   * <p>Deletes an existing grammar from a custom language model. The service removes any
-   * out-of-vocabulary (OOV) words associated with the grammar from the custom model's words
-   * resource unless they were also added by another resource or they were modified in some way with
-   * the [Add custom words](#addwords) or [Add a custom word](#addword) method. Removing a grammar
-   * does not affect the custom model until you train the model with the [Train a custom language
-   * model](#trainlanguagemodel) method. You must use credentials for the instance of the service
-   * that owns a model to delete its grammar. Grammars are available for all languages and models
-   * that support language customization.
+   * <p>Deletes an existing grammar from a custom language model. _For grammars that are based on
+   * previous-generation models,_ the service removes any out-of-vocabulary (OOV) words associated
+   * with the grammar from the custom model's words resource unless they were also added by another
+   * resource or they were modified in some way with the [Add custom words](#addwords) or [Add a
+   * custom word](#addword) method. Removing a grammar does not affect the custom model until you
+   * train the model with the [Train a custom language model](#trainlanguagemodel) method. You must
+   * use credentials for the instance of the service that owns a model to delete its grammar.
    *
-   * <p>**Note:** Grammars are supported only for use with previous-generation models. They are not
-   * supported for next-generation models.
+   * <p>**Availability:** Grammars are available only for some previous- and next-generation models.
+   * Support differs between IBM Cloud and IBM Cloud Pak for Data. Grammars are generally available
+   * for some models and beta for other models. For more information, see [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * <p>**See also:** [Deleting a grammar from a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageGrammars#deleteGrammar).
@@ -1971,6 +2004,13 @@ public class SpeechToText extends BaseService {
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
    * models. It is not supported for next-generation models.
+   *
+   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
+   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
+   * September 2022, when they will be removed from the service and the documentation. You must
+   * migrate to the equivalent next-generation model by the end of service date. For more
+   * information, see [Previous-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models).
    *
    * <p>**See also:** [Create a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#createModel-acoustic).
@@ -2285,10 +2325,12 @@ public class SpeechToText extends BaseService {
    * successfully. You can monitor the status of the upgrade by using the [Get a custom acoustic
    * model](#getacousticmodel) method to poll the model's status. The method returns an
    * `AcousticModel` object that includes `status` and `progress` fields. Use a loop to check the
-   * status once a minute. While it is being upgraded, the custom model has the status `upgrading`.
-   * When the upgrade is complete, the model resumes the status that it had prior to upgrade. The
-   * service cannot upgrade a model while it is handling another request for the model. The service
-   * cannot accept subsequent requests for the model until the existing upgrade request completes.
+   * status once a minute.
+   *
+   * <p>While it is being upgraded, the custom model has the status `upgrading`. When the upgrade is
+   * complete, the model resumes the status that it had prior to upgrade. The service cannot upgrade
+   * a model while it is handling another request for the model. The service cannot accept
+   * subsequent requests for the model until the existing upgrade request completes.
    *
    * <p>If the custom acoustic model was trained with a separately created custom language model,
    * you must use the `custom_language_model_id` parameter to specify the GUID of that custom
