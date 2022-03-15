@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,15 +20,18 @@ public class MessageContext extends GenericModel {
 
   protected MessageContextGlobal global;
   protected Map<String, MessageContextSkill> skills;
+  protected Map<String, Object> integrations;
 
   /** Builder. */
   public static class Builder {
     private MessageContextGlobal global;
     private Map<String, MessageContextSkill> skills;
+    private Map<String, Object> integrations;
 
     private Builder(MessageContext messageContext) {
       this.global = messageContext.global;
       this.skills = messageContext.skills;
+      this.integrations = messageContext.integrations;
     }
 
     /** Instantiates a new builder. */
@@ -64,11 +67,23 @@ public class MessageContext extends GenericModel {
       this.skills = skills;
       return this;
     }
+
+    /**
+     * Set the integrations.
+     *
+     * @param integrations the integrations
+     * @return the MessageContext builder
+     */
+    public Builder integrations(Map<String, Object> integrations) {
+      this.integrations = integrations;
+      return this;
+    }
   }
 
   protected MessageContext(Builder builder) {
     global = builder.global;
     skills = builder.skills;
+    integrations = builder.integrations;
   }
 
   /**
@@ -83,7 +98,7 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the global.
    *
-   * <p>Session context data that is shared by all skills used by the Assistant.
+   * <p>Session context data that is shared by all skills used by the assistant.
    *
    * @return the global
    */
@@ -103,5 +118,18 @@ public class MessageContext extends GenericModel {
    */
   public Map<String, MessageContextSkill> skills() {
     return skills;
+  }
+
+  /**
+   * Gets the integrations.
+   *
+   * <p>An object containing context data that is specific to particular integrations. For more
+   * information, see the
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-dialog-integrations).
+   *
+   * @return the integrations
+   */
+  public Map<String, Object> integrations() {
+    return integrations;
   }
 }

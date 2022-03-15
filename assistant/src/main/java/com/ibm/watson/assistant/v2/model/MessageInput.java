@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,6 +46,7 @@ public class MessageInput extends GenericModel {
   @SerializedName("suggestion_id")
   protected String suggestionId;
 
+  protected List<MessageInputAttachment> attachments;
   protected MessageInputOptions options;
 
   /** Builder. */
@@ -55,6 +56,7 @@ public class MessageInput extends GenericModel {
     private List<RuntimeIntent> intents;
     private List<RuntimeEntity> entities;
     private String suggestionId;
+    private List<MessageInputAttachment> attachments;
     private MessageInputOptions options;
 
     private Builder(MessageInput messageInput) {
@@ -63,6 +65,7 @@ public class MessageInput extends GenericModel {
       this.intents = messageInput.intents;
       this.entities = messageInput.entities;
       this.suggestionId = messageInput.suggestionId;
+      this.attachments = messageInput.attachments;
       this.options = messageInput.options;
     }
 
@@ -105,6 +108,21 @@ public class MessageInput extends GenericModel {
         this.entities = new ArrayList<RuntimeEntity>();
       }
       this.entities.add(entity);
+      return this;
+    }
+
+    /**
+     * Adds an attachments to attachments.
+     *
+     * @param attachments the new attachments
+     * @return the MessageInput builder
+     */
+    public Builder addAttachments(MessageInputAttachment attachments) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(attachments, "attachments cannot be null");
+      if (this.attachments == null) {
+        this.attachments = new ArrayList<MessageInputAttachment>();
+      }
+      this.attachments.add(attachments);
       return this;
     }
 
@@ -164,6 +182,17 @@ public class MessageInput extends GenericModel {
     }
 
     /**
+     * Set the attachments. Existing attachments will be replaced.
+     *
+     * @param attachments the attachments
+     * @return the MessageInput builder
+     */
+    public Builder attachments(List<MessageInputAttachment> attachments) {
+      this.attachments = attachments;
+      return this;
+    }
+
+    /**
      * Set the options.
      *
      * @param options the options
@@ -181,6 +210,7 @@ public class MessageInput extends GenericModel {
     intents = builder.intents;
     entities = builder.entities;
     suggestionId = builder.suggestionId;
+    attachments = builder.attachments;
     options = builder.options;
   }
 
@@ -255,6 +285,20 @@ public class MessageInput extends GenericModel {
    */
   public String suggestionId() {
     return suggestionId;
+  }
+
+  /**
+   * Gets the attachments.
+   *
+   * <p>An array of multimedia attachments to be sent with the message.
+   *
+   * <p>**Note:** Attachments are not processed by the assistant itself, but can be sent to external
+   * services by webhooks.
+   *
+   * @return the attachments
+   */
+  public List<MessageInputAttachment> attachments() {
+    return attachments;
   }
 
   /**

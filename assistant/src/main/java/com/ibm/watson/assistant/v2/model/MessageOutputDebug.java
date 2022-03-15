@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,7 @@ import java.util.List;
 public class MessageOutputDebug extends GenericModel {
 
   /**
-   * When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies
+   * When `branch_exited` is set to `true` by the assistant, the `branch_exited_reason` specifies
    * whether the dialog completed by itself or got interrupted.
    */
   public interface BranchExitedReason {
@@ -31,7 +31,7 @@ public class MessageOutputDebug extends GenericModel {
   }
 
   @SerializedName("nodes_visited")
-  protected List<DialogNodesVisited> nodesVisited;
+  protected List<DialogNodeVisited> nodesVisited;
 
   @SerializedName("log_messages")
   protected List<DialogLogMessage> logMessages;
@@ -45,12 +45,12 @@ public class MessageOutputDebug extends GenericModel {
   /**
    * Gets the nodesVisited.
    *
-   * <p>An array of objects containing detailed diagnostic information about the nodes that were
+   * <p>An array of objects containing detailed diagnostic information about dialog nodes that were
    * triggered during processing of the input message.
    *
    * @return the nodesVisited
    */
-  public List<DialogNodesVisited> getNodesVisited() {
+  public List<DialogNodeVisited> getNodesVisited() {
     return nodesVisited;
   }
 
@@ -79,7 +79,7 @@ public class MessageOutputDebug extends GenericModel {
   /**
    * Gets the branchExitedReason.
    *
-   * <p>When `branch_exited` is set to `true` by the Assistant, the `branch_exited_reason` specifies
+   * <p>When `branch_exited` is set to `true` by the assistant, the `branch_exited_reason` specifies
    * whether the dialog completed by itself or got interrupted.
    *
    * @return the branchExitedReason
