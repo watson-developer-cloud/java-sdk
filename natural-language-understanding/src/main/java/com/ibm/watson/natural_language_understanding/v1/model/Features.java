@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,6 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-
 import java.util.Map;
 
 /** Analysis features and options. */
@@ -239,8 +238,6 @@ public class Features extends GenericModel {
    * Gets the classifications.
    *
    * <p>Returns text classifications for the content.
-   *
-   * <p>Supported languages: English only.
    *
    * @return the classifications
    */
