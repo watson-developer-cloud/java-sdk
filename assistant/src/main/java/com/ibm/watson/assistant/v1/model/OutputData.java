@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,9 +35,6 @@ public class OutputData extends DynamicModel<Object> {
   @SerializedName("log_messages")
   protected List<LogMessage> logMessages;
 
-  @SerializedName("text")
-  protected List<String> text;
-
   @SerializedName("generic")
   protected List<RuntimeResponseGeneric> generic;
 
@@ -50,7 +47,6 @@ public class OutputData extends DynamicModel<Object> {
     private List<String> nodesVisited;
     private List<DialogNodeVisitedDetails> nodesVisitedDetails;
     private List<LogMessage> logMessages;
-    private List<String> text;
     private List<RuntimeResponseGeneric> generic;
     private Map<String, Object> dynamicProperties;
 
@@ -58,7 +54,6 @@ public class OutputData extends DynamicModel<Object> {
       this.nodesVisited = outputData.nodesVisited;
       this.nodesVisitedDetails = outputData.nodesVisitedDetails;
       this.logMessages = outputData.logMessages;
-      this.text = outputData.text;
       this.generic = outputData.generic;
       this.dynamicProperties = outputData.getProperties();
     }
@@ -70,11 +65,9 @@ public class OutputData extends DynamicModel<Object> {
      * Instantiates a new builder with required properties.
      *
      * @param logMessages the logMessages
-     * @param text the text
      */
-    public Builder(List<LogMessage> logMessages, List<String> text) {
+    public Builder(List<LogMessage> logMessages) {
       this.logMessages = logMessages;
-      this.text = text;
     }
 
     /**
@@ -133,21 +126,6 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an text to text.
-     *
-     * @param text the new text
-     * @return the OutputData builder
-     */
-    public Builder addText(String text) {
-      com.ibm.cloud.sdk.core.util.Validator.notNull(text, "text cannot be null");
-      if (this.text == null) {
-        this.text = new ArrayList<String>();
-      }
-      this.text.add(text);
-      return this;
-    }
-
-    /**
      * Adds an generic to generic.
      *
      * @param generic the new generic
@@ -196,17 +174,6 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Set the text. Existing text will be replaced.
-     *
-     * @param text the text
-     * @return the OutputData builder
-     */
-    public Builder text(List<String> text) {
-      this.text = text;
-      return this;
-    }
-
-    /**
      * Set the generic. Existing generic will be replaced.
      *
      * @param generic the generic
@@ -238,11 +205,9 @@ public class OutputData extends DynamicModel<Object> {
     super(new TypeToken<Object>() {});
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.logMessages, "logMessages cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.text, "text cannot be null");
     nodesVisited = builder.nodesVisited;
     nodesVisitedDetails = builder.nodesVisitedDetails;
     logMessages = builder.logMessages;
-    text = builder.text;
     generic = builder.generic;
     this.setProperties(builder.dynamicProperties);
   }
@@ -318,26 +283,6 @@ public class OutputData extends DynamicModel<Object> {
    */
   public void setLogMessages(final List<LogMessage> logMessages) {
     this.logMessages = logMessages;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * <p>An array of responses to the user.
-   *
-   * @return the text
-   */
-  public List<String> getText() {
-    return this.text;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final List<String> text) {
-    this.text = text;
   }
 
   /**

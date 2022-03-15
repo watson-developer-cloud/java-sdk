@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,6 @@ package com.ibm.watson.assistant.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /** A term from the request that was identified as an entity. */
 public class RuntimeEntity extends GenericModel {
@@ -24,7 +23,6 @@ public class RuntimeEntity extends GenericModel {
   protected List<Long> location;
   protected String value;
   protected Double confidence;
-  protected Map<String, Object> metadata;
   protected List<CaptureGroup> groups;
   protected RuntimeEntityInterpretation interpretation;
   protected List<RuntimeEntityAlternative> alternatives;
@@ -36,7 +34,6 @@ public class RuntimeEntity extends GenericModel {
     private List<Long> location;
     private String value;
     private Double confidence;
-    private Map<String, Object> metadata;
     private List<CaptureGroup> groups;
     private RuntimeEntityInterpretation interpretation;
     private List<RuntimeEntityAlternative> alternatives;
@@ -47,7 +44,6 @@ public class RuntimeEntity extends GenericModel {
       this.location = runtimeEntity.location;
       this.value = runtimeEntity.value;
       this.confidence = runtimeEntity.confidence;
-      this.metadata = runtimeEntity.metadata;
       this.groups = runtimeEntity.groups;
       this.interpretation = runtimeEntity.interpretation;
       this.alternatives = runtimeEntity.alternatives;
@@ -167,17 +163,6 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the RuntimeEntity builder
-     */
-    public Builder metadata(Map<String, Object> metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
      * Set the groups. Existing groups will be replaced.
      *
      * @param groups the groups
@@ -229,7 +214,6 @@ public class RuntimeEntity extends GenericModel {
     location = builder.location;
     value = builder.value;
     confidence = builder.confidence;
-    metadata = builder.metadata;
     groups = builder.groups;
     interpretation = builder.interpretation;
     alternatives = builder.alternatives;
@@ -288,21 +272,6 @@ public class RuntimeEntity extends GenericModel {
    */
   public Double confidence() {
     return confidence;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * <p>**Deprecated.** Any metadata for the entity.
-   *
-   * <p>Beginning with the `2021-06-14` API version, the `metadata` property is no longer returned.
-   * For information about system entities recognized in the user input, see the `interpretation`
-   * property.
-   *
-   * @return the metadata
-   */
-  public Map<String, Object> metadata() {
-    return metadata;
   }
 
   /**
