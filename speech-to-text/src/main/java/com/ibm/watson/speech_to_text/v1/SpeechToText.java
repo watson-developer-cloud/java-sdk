@@ -94,6 +94,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import okhttp3.HttpUrl;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
