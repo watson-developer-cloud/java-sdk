@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,49 +81,33 @@ public class NaturalLanguageUnderstandingTest {
   protected MockWebServer server;
   protected NaturalLanguageUnderstanding naturalLanguageUnderstandingService;
 
-  public void constructClientService() throws Throwable {
-    final String serviceName = "testService";
-    // set mock values for global params
-    String version = "testString";
-
-    final Authenticator authenticator = new NoAuthAuthenticator();
-
-    naturalLanguageUnderstandingService =
-        new NaturalLanguageUnderstanding(version, serviceName, authenticator);
-    String url = server.url("/").toString();
-    naturalLanguageUnderstandingService.setServiceUrl(url);
-  }
-
-  /** Negative Test - construct the service with a null authenticator. */
+  // Construct the service with a null authenticator (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testConstructorWithNullAuthenticator() throws Throwable {
     final String serviceName = "testService";
-    // set mock values for global params
+    // Set mock values for global params
     String version = "testString";
-
     new NaturalLanguageUnderstanding(version, serviceName, null);
   }
 
+  // Test the getter for the version global parameter
   @Test
   public void testGetVersion() throws Throwable {
-    constructClientService();
     assertEquals(naturalLanguageUnderstandingService.getVersion(), "testString");
   }
 
+  // Test the analyze operation with a valid options model parameter
   @Test
   public void testAnalyzeWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"language\": \"language\", \"analyzed_text\": \"analyzedText\", \"retrieved_url\": \"retrievedUrl\", \"usage\": {\"features\": 8, \"text_characters\": 14, \"text_units\": 9}, \"concepts\": [{\"text\": \"text\", \"relevance\": 9, \"dbpedia_resource\": \"dbpediaResource\"}], \"entities\": [{\"type\": \"type\", \"text\": \"text\", \"relevance\": 9, \"confidence\": 10, \"mentions\": [{\"text\": \"text\", \"location\": [8], \"confidence\": 10}], \"count\": 5, \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}, \"sentiment\": {\"score\": 5}, \"disambiguation\": {\"name\": \"name\", \"dbpedia_resource\": \"dbpediaResource\", \"subtype\": [\"subtype\"]}}], \"keywords\": [{\"count\": 5, \"relevance\": 9, \"text\": \"text\", \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}, \"sentiment\": {\"score\": 5}}], \"categories\": [{\"label\": \"label\", \"score\": 5, \"explanation\": {\"relevant_text\": [{\"text\": \"text\"}]}}], \"classifications\": [{\"class_name\": \"className\", \"confidence\": 10}], \"emotion\": {\"document\": {\"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}}, \"targets\": [{\"text\": \"text\", \"emotion\": {\"anger\": 5, \"disgust\": 7, \"fear\": 4, \"joy\": 3, \"sadness\": 7}}]}, \"metadata\": {\"authors\": [{\"name\": \"name\"}], \"publication_date\": \"publicationDate\", \"title\": \"title\", \"image\": \"image\", \"feeds\": [{\"link\": \"link\"}]}, \"relations\": [{\"score\": 5, \"sentence\": \"sentence\", \"type\": \"type\", \"arguments\": [{\"entities\": [{\"text\": \"text\", \"type\": \"type\"}], \"location\": [8], \"text\": \"text\"}]}], \"semantic_roles\": [{\"sentence\": \"sentence\", \"subject\": {\"text\": \"text\", \"entities\": [{\"type\": \"type\", \"text\": \"text\"}], \"keywords\": [{\"text\": \"text\"}]}, \"action\": {\"text\": \"text\", \"normalized\": \"normalized\", \"verb\": {\"text\": \"text\", \"tense\": \"tense\"}}, \"object\": {\"text\": \"text\", \"keywords\": [{\"text\": \"text\"}]}}], \"sentiment\": {\"document\": {\"label\": \"label\", \"score\": 5}, \"targets\": [{\"text\": \"text\", \"score\": 5}]}, \"syntax\": {\"tokens\": [{\"text\": \"text\", \"part_of_speech\": \"ADJ\", \"location\": [8], \"lemma\": \"lemma\"}], \"sentences\": [{\"text\": \"text\", \"location\": [8]}]}}";
     String analyzePath = "/v1/analyze";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the ClassificationsOptions model
     ClassificationsOptions classificationsOptionsModel =
@@ -157,9 +141,6 @@ public class NaturalLanguageUnderstandingTest {
             .sentiment(false)
             .emotion(false)
             .build();
-
-    // Construct an instance of the MetadataOptions model
-    HashMap<String, Object> metadataOptionsModel = new HashMap<String, Object>();
 
     // Construct an instance of the RelationsOptions model
     RelationsOptions relationsOptionsModel =
@@ -209,7 +190,12 @@ public class NaturalLanguageUnderstandingTest {
             .emotion(emotionOptionsModel)
             .entities(entitiesOptionsModel)
             .keywords(keywordsOptionsModel)
-            .metadata(metadataOptionsModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
@@ -233,146 +219,154 @@ public class NaturalLanguageUnderstandingTest {
             .limitTextCharacters(Long.valueOf("26"))
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke analyze() with a valid options model and verify the result
     Response<AnalysisResults> response =
         naturalLanguageUnderstandingService.analyze(analyzeOptionsModel).execute();
     assertNotNull(response);
     AnalysisResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, analyzePath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the analyze operation with null options model parameter
+  // Test the analyze operation with and without retries enabled
+  @Test
+  public void testAnalyzeWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testAnalyzeWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testAnalyzeWOptions();
+  }
+
+  // Test the analyze operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testAnalyzeNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.analyze(null).execute();
   }
 
+  // Test the listModels operation with a valid options model parameter
   @Test
   public void testListModelsWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"models\": [{\"status\": \"starting\", \"model_id\": \"modelId\", \"language\": \"language\", \"description\": \"description\", \"workspace_id\": \"workspaceId\", \"model_version\": \"modelVersion\", \"version\": \"version\", \"version_description\": \"versionDescription\", \"created\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listModelsPath = "/v1/models";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the ListModelsOptions model
     ListModelsOptions listModelsOptionsModel = new ListModelsOptions();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke listModels() with a valid options model and verify the result
     Response<ListModelsResults> response =
         naturalLanguageUnderstandingService.listModels(listModelsOptionsModel).execute();
     assertNotNull(response);
     ListModelsResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listModelsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
+  // Test the listModels operation with and without retries enabled
+  @Test
+  public void testListModelsWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testListModelsWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testListModelsWOptions();
+  }
+
+  // Test the deleteModel operation with a valid options model parameter
   @Test
   public void testDeleteModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "{\"deleted\": \"deleted\"}";
     String deleteModelPath = "/v1/models/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the DeleteModelOptions model
     DeleteModelOptions deleteModelOptionsModel =
         new DeleteModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteModel() with a valid options model and verify the result
     Response<DeleteModelResults> response =
         naturalLanguageUnderstandingService.deleteModel(deleteModelOptionsModel).execute();
     assertNotNull(response);
     DeleteModelResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the deleteModel operation with null options model parameter
+  // Test the deleteModel operation with and without retries enabled
+  @Test
+  public void testDeleteModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testDeleteModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testDeleteModelWOptions();
+  }
+
+  // Test the deleteModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.deleteModel(null).execute();
   }
 
+  // Test the createSentimentModel operation with a valid options model parameter
   @Test
   public void testCreateSentimentModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
     String createSentimentModelPath = "/v1/models/sentiment";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(201)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the CreateSentimentModelOptions model
     CreateSentimentModelOptions createSentimentModelOptionsModel =
@@ -386,7 +380,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke createSentimentModel() with a valid options model and verify the result
     Response<SentimentModel> response =
         naturalLanguageUnderstandingService
             .createSentimentModel(createSentimentModelOptionsModel)
@@ -395,52 +389,53 @@ public class NaturalLanguageUnderstandingTest {
     SentimentModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createSentimentModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the createSentimentModel operation with null options model parameter
+  // Test the createSentimentModel operation with and without retries enabled
+  @Test
+  public void testCreateSentimentModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testCreateSentimentModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testCreateSentimentModelWOptions();
+  }
+
+  // Test the createSentimentModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCreateSentimentModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.createSentimentModel(null).execute();
   }
 
+  // Test the listSentimentModels operation with a valid options model parameter
   @Test
   public void testListSentimentModelsWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"models\": [{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}]}";
     String listSentimentModelsPath = "/v1/models/sentiment";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the ListSentimentModelsOptions model
     ListSentimentModelsOptions listSentimentModelsOptionsModel = new ListSentimentModelsOptions();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke listSentimentModels() with a valid options model and verify the result
     Response<ListSentimentModelsResponse> response =
         naturalLanguageUnderstandingService
             .listSentimentModels(listSentimentModelsOptionsModel)
@@ -449,41 +444,47 @@ public class NaturalLanguageUnderstandingTest {
     ListSentimentModelsResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listSentimentModelsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
+  // Test the listSentimentModels operation with and without retries enabled
+  @Test
+  public void testListSentimentModelsWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testListSentimentModelsWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testListSentimentModelsWOptions();
+  }
+
+  // Test the getSentimentModel operation with a valid options model parameter
   @Test
   public void testGetSentimentModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
     String getSentimentModelPath = "/v1/models/sentiment/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the GetSentimentModelOptions model
     GetSentimentModelOptions getSentimentModelOptionsModel =
         new GetSentimentModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke getSentimentModel() with a valid options model and verify the result
     Response<SentimentModel> response =
         naturalLanguageUnderstandingService
             .getSentimentModel(getSentimentModelOptionsModel)
@@ -492,47 +493,48 @@ public class NaturalLanguageUnderstandingTest {
     SentimentModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getSentimentModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the getSentimentModel operation with null options model parameter
+  // Test the getSentimentModel operation with and without retries enabled
+  @Test
+  public void testGetSentimentModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testGetSentimentModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testGetSentimentModelWOptions();
+  }
+
+  // Test the getSentimentModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testGetSentimentModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.getSentimentModel(null).execute();
   }
 
+  // Test the updateSentimentModel operation with a valid options model parameter
   @Test
   public void testUpdateSentimentModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
     String updateSentimentModelPath = "/v1/models/sentiment/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the UpdateSentimentModelOptions model
     UpdateSentimentModelOptions updateSentimentModelOptionsModel =
@@ -547,7 +549,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke updateSentimentModel() with a valid options model and verify the result
     Response<SentimentModel> response =
         naturalLanguageUnderstandingService
             .updateSentimentModel(updateSentimentModelOptionsModel)
@@ -556,52 +558,53 @@ public class NaturalLanguageUnderstandingTest {
     SentimentModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "PUT");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateSentimentModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the updateSentimentModel operation with null options model parameter
+  // Test the updateSentimentModel operation with and without retries enabled
+  @Test
+  public void testUpdateSentimentModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testUpdateSentimentModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testUpdateSentimentModelWOptions();
+  }
+
+  // Test the updateSentimentModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testUpdateSentimentModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.updateSentimentModel(null).execute();
   }
 
+  // Test the deleteSentimentModel operation with a valid options model parameter
   @Test
   public void testDeleteSentimentModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "{\"deleted\": \"deleted\"}";
     String deleteSentimentModelPath = "/v1/models/sentiment/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the DeleteSentimentModelOptions model
     DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
         new DeleteSentimentModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteSentimentModel() with a valid options model and verify the result
     Response<DeleteModelResults> response =
         naturalLanguageUnderstandingService
             .deleteSentimentModel(deleteSentimentModelOptionsModel)
@@ -610,47 +613,48 @@ public class NaturalLanguageUnderstandingTest {
     DeleteModelResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteSentimentModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the deleteSentimentModel operation with null options model parameter
+  // Test the deleteSentimentModel operation with and without retries enabled
+  @Test
+  public void testDeleteSentimentModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testDeleteSentimentModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testDeleteSentimentModelWOptions();
+  }
+
+  // Test the deleteSentimentModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteSentimentModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.deleteSentimentModel(null).execute();
   }
 
+  // Test the createCategoriesModel operation with a valid options model parameter
   @Test
   public void testCreateCategoriesModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createCategoriesModelPath = "/v1/models/categories";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(201)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the CreateCategoriesModelOptions model
     CreateCategoriesModelOptions createCategoriesModelOptionsModel =
@@ -665,7 +669,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke createCategoriesModel() with a valid options model and verify the result
     Response<CategoriesModel> response =
         naturalLanguageUnderstandingService
             .createCategoriesModel(createCategoriesModelOptionsModel)
@@ -674,53 +678,54 @@ public class NaturalLanguageUnderstandingTest {
     CategoriesModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createCategoriesModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the createCategoriesModel operation with null options model parameter
+  // Test the createCategoriesModel operation with and without retries enabled
+  @Test
+  public void testCreateCategoriesModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testCreateCategoriesModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testCreateCategoriesModelWOptions();
+  }
+
+  // Test the createCategoriesModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCreateCategoriesModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.createCategoriesModel(null).execute();
   }
 
+  // Test the listCategoriesModels operation with a valid options model parameter
   @Test
   public void testListCategoriesModelsWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listCategoriesModelsPath = "/v1/models/categories";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the ListCategoriesModelsOptions model
     ListCategoriesModelsOptions listCategoriesModelsOptionsModel =
         new ListCategoriesModelsOptions();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke listCategoriesModels() with a valid options model and verify the result
     Response<CategoriesModelList> response =
         naturalLanguageUnderstandingService
             .listCategoriesModels(listCategoriesModelsOptionsModel)
@@ -729,41 +734,47 @@ public class NaturalLanguageUnderstandingTest {
     CategoriesModelList responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listCategoriesModelsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
+  // Test the listCategoriesModels operation with and without retries enabled
+  @Test
+  public void testListCategoriesModelsWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testListCategoriesModelsWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testListCategoriesModelsWOptions();
+  }
+
+  // Test the getCategoriesModel operation with a valid options model parameter
   @Test
   public void testGetCategoriesModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getCategoriesModelPath = "/v1/models/categories/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the GetCategoriesModelOptions model
     GetCategoriesModelOptions getCategoriesModelOptionsModel =
         new GetCategoriesModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke getCategoriesModel() with a valid options model and verify the result
     Response<CategoriesModel> response =
         naturalLanguageUnderstandingService
             .getCategoriesModel(getCategoriesModelOptionsModel)
@@ -772,47 +783,48 @@ public class NaturalLanguageUnderstandingTest {
     CategoriesModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getCategoriesModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the getCategoriesModel operation with null options model parameter
+  // Test the getCategoriesModel operation with and without retries enabled
+  @Test
+  public void testGetCategoriesModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testGetCategoriesModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testGetCategoriesModelWOptions();
+  }
+
+  // Test the getCategoriesModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testGetCategoriesModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.getCategoriesModel(null).execute();
   }
 
+  // Test the updateCategoriesModel operation with a valid options model parameter
   @Test
   public void testUpdateCategoriesModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateCategoriesModelPath = "/v1/models/categories/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the UpdateCategoriesModelOptions model
     UpdateCategoriesModelOptions updateCategoriesModelOptionsModel =
@@ -828,7 +840,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke updateCategoriesModel() with a valid options model and verify the result
     Response<CategoriesModel> response =
         naturalLanguageUnderstandingService
             .updateCategoriesModel(updateCategoriesModelOptionsModel)
@@ -837,52 +849,53 @@ public class NaturalLanguageUnderstandingTest {
     CategoriesModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "PUT");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateCategoriesModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the updateCategoriesModel operation with null options model parameter
+  // Test the updateCategoriesModel operation with and without retries enabled
+  @Test
+  public void testUpdateCategoriesModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testUpdateCategoriesModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testUpdateCategoriesModelWOptions();
+  }
+
+  // Test the updateCategoriesModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testUpdateCategoriesModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.updateCategoriesModel(null).execute();
   }
 
+  // Test the deleteCategoriesModel operation with a valid options model parameter
   @Test
   public void testDeleteCategoriesModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "{\"deleted\": \"deleted\"}";
     String deleteCategoriesModelPath = "/v1/models/categories/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the DeleteCategoriesModelOptions model
     DeleteCategoriesModelOptions deleteCategoriesModelOptionsModel =
         new DeleteCategoriesModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteCategoriesModel() with a valid options model and verify the result
     Response<DeleteModelResults> response =
         naturalLanguageUnderstandingService
             .deleteCategoriesModel(deleteCategoriesModelOptionsModel)
@@ -891,47 +904,48 @@ public class NaturalLanguageUnderstandingTest {
     DeleteModelResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteCategoriesModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the deleteCategoriesModel operation with null options model parameter
+  // Test the deleteCategoriesModel operation with and without retries enabled
+  @Test
+  public void testDeleteCategoriesModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testDeleteCategoriesModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testDeleteCategoriesModelWOptions();
+  }
+
+  // Test the deleteCategoriesModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteCategoriesModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.deleteCategoriesModel(null).execute();
   }
 
+  // Test the createClassificationsModel operation with a valid options model parameter
   @Test
   public void testCreateClassificationsModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createClassificationsModelPath = "/v1/models/classifications";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(201)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the CreateClassificationsModelOptions model
     CreateClassificationsModelOptions createClassificationsModelOptionsModel =
@@ -946,7 +960,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke createClassificationsModel() with a valid options model and verify the result
     Response<ClassificationsModel> response =
         naturalLanguageUnderstandingService
             .createClassificationsModel(createClassificationsModelOptionsModel)
@@ -955,53 +969,54 @@ public class NaturalLanguageUnderstandingTest {
     ClassificationsModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "POST");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, createClassificationsModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the createClassificationsModel operation with null options model parameter
+  // Test the createClassificationsModel operation with and without retries enabled
+  @Test
+  public void testCreateClassificationsModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testCreateClassificationsModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testCreateClassificationsModelWOptions();
+  }
+
+  // Test the createClassificationsModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testCreateClassificationsModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.createClassificationsModel(null).execute();
   }
 
+  // Test the listClassificationsModels operation with a valid options model parameter
   @Test
   public void testListClassificationsModelsWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listClassificationsModelsPath = "/v1/models/classifications";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the ListClassificationsModelsOptions model
     ListClassificationsModelsOptions listClassificationsModelsOptionsModel =
         new ListClassificationsModelsOptions();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke listClassificationsModels() with a valid options model and verify the result
     Response<ClassificationsModelList> response =
         naturalLanguageUnderstandingService
             .listClassificationsModels(listClassificationsModelsOptionsModel)
@@ -1010,41 +1025,47 @@ public class NaturalLanguageUnderstandingTest {
     ClassificationsModelList responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, listClassificationsModelsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
+  // Test the listClassificationsModels operation with and without retries enabled
+  @Test
+  public void testListClassificationsModelsWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testListClassificationsModelsWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testListClassificationsModelsWOptions();
+  }
+
+  // Test the getClassificationsModel operation with a valid options model parameter
   @Test
   public void testGetClassificationsModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getClassificationsModelPath = "/v1/models/classifications/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the GetClassificationsModelOptions model
     GetClassificationsModelOptions getClassificationsModelOptionsModel =
         new GetClassificationsModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke getClassificationsModel() with a valid options model and verify the result
     Response<ClassificationsModel> response =
         naturalLanguageUnderstandingService
             .getClassificationsModel(getClassificationsModelOptionsModel)
@@ -1053,47 +1074,48 @@ public class NaturalLanguageUnderstandingTest {
     ClassificationsModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "GET");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, getClassificationsModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the getClassificationsModel operation with null options model parameter
+  // Test the getClassificationsModel operation with and without retries enabled
+  @Test
+  public void testGetClassificationsModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testGetClassificationsModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testGetClassificationsModelWOptions();
+  }
+
+  // Test the getClassificationsModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testGetClassificationsModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.getClassificationsModel(null).execute();
   }
 
+  // Test the updateClassificationsModel operation with a valid options model parameter
   @Test
   public void testUpdateClassificationsModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateClassificationsModelPath = "/v1/models/classifications/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
-
-    constructClientService();
 
     // Construct an instance of the UpdateClassificationsModelOptions model
     UpdateClassificationsModelOptions updateClassificationsModelOptionsModel =
@@ -1109,7 +1131,7 @@ public class NaturalLanguageUnderstandingTest {
             .versionDescription("testString")
             .build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke updateClassificationsModel() with a valid options model and verify the result
     Response<ClassificationsModel> response =
         naturalLanguageUnderstandingService
             .updateClassificationsModel(updateClassificationsModelOptionsModel)
@@ -1118,52 +1140,53 @@ public class NaturalLanguageUnderstandingTest {
     ClassificationsModel responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "PUT");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, updateClassificationsModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the updateClassificationsModel operation with null options model parameter
+  // Test the updateClassificationsModel operation with and without retries enabled
+  @Test
+  public void testUpdateClassificationsModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testUpdateClassificationsModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testUpdateClassificationsModelWOptions();
+  }
+
+  // Test the updateClassificationsModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testUpdateClassificationsModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.updateClassificationsModel(null).execute();
   }
 
+  // Test the deleteClassificationsModel operation with a valid options model parameter
   @Test
   public void testDeleteClassificationsModelWOptions() throws Throwable {
-    // Schedule some responses.
+    // Register a mock response
     String mockResponseBody = "{\"deleted\": \"deleted\"}";
     String deleteClassificationsModelPath = "/v1/models/classifications/testString";
-
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    constructClientService();
-
     // Construct an instance of the DeleteClassificationsModelOptions model
     DeleteClassificationsModelOptions deleteClassificationsModelOptionsModel =
         new DeleteClassificationsModelOptions.Builder().modelId("testString").build();
 
-    // Invoke operation with valid options model (positive test)
+    // Invoke deleteClassificationsModel() with a valid options model and verify the result
     Response<DeleteModelResults> response =
         naturalLanguageUnderstandingService
             .deleteClassificationsModel(deleteClassificationsModelOptionsModel)
@@ -1172,48 +1195,68 @@ public class NaturalLanguageUnderstandingTest {
     DeleteModelResults responseObj = response.getResult();
     assertNotNull(responseObj);
 
-    // Verify the contents of the request
+    // Verify the contents of the request sent to the mock server
     RecordedRequest request = server.takeRequest();
     assertNotNull(request);
     assertEquals(request.getMethod(), "DELETE");
-
-    // Check query
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    // Get query params
-    assertEquals(query.get("version"), "testString");
-    // Check request path
+    // Verify request path
     String parsedPath = TestUtilities.parseReqPath(request);
     assertEquals(parsedPath, deleteClassificationsModelPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
   }
 
-  // Test the deleteClassificationsModel operation with null options model parameter
+  // Test the deleteClassificationsModel operation with and without retries enabled
+  @Test
+  public void testDeleteClassificationsModelWRetries() throws Throwable {
+    naturalLanguageUnderstandingService.enableRetries(4, 30);
+    testDeleteClassificationsModelWOptions();
+
+    naturalLanguageUnderstandingService.disableRetries();
+    testDeleteClassificationsModelWOptions();
+  }
+
+  // Test the deleteClassificationsModel operation with a null options model (negative test)
   @Test(expectedExceptions = IllegalArgumentException.class)
   public void testDeleteClassificationsModelNoOptions() throws Throwable {
-    // construct the service
-    constructClientService();
-
     server.enqueue(new MockResponse());
-
-    // Invoke operation with null options model (negative test)
     naturalLanguageUnderstandingService.deleteClassificationsModel(null).execute();
   }
 
-  /** Initialize the server */
+  // Perform setup needed before each test method
   @BeforeMethod
-  public void setUpMockServer() {
+  public void beforeEachTest() {
+    // Start the mock server.
     try {
       server = new MockWebServer();
-      // register handler
       server.start();
     } catch (IOException err) {
       fail("Failed to instantiate mock web server");
     }
+
+    // Construct an instance of the service
+    constructClientService();
   }
 
+  // Perform tear down after each test method
   @AfterMethod
-  public void tearDownMockServer() throws IOException {
+  public void afterEachTest() throws IOException {
     server.shutdown();
     naturalLanguageUnderstandingService = null;
+  }
+
+  // Constructs an instance of the service to be used by the tests
+  public void constructClientService() {
+    final String serviceName = "testService";
+    // set mock values for global params
+    String version = "testString";
+
+    final Authenticator authenticator = new NoAuthAuthenticator();
+    naturalLanguageUnderstandingService =
+        new NaturalLanguageUnderstanding(version, serviceName, authenticator);
+    String url = server.url("/").toString();
+    naturalLanguageUnderstandingService.setServiceUrl(url);
   }
 }

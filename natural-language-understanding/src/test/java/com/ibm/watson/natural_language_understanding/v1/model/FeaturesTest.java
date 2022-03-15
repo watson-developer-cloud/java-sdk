@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,8 +72,6 @@ public class FeaturesTest {
     assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(false));
     assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(false));
 
-    HashMap<String, Object> metadataOptionsModel = new HashMap<String, Object>();
-
     RelationsOptions relationsOptionsModel =
         new RelationsOptions.Builder().model("testString").build();
     assertEquals(relationsOptionsModel.model(), "testString");
@@ -131,7 +129,12 @@ public class FeaturesTest {
             .emotion(emotionOptionsModel)
             .entities(entitiesOptionsModel)
             .keywords(keywordsOptionsModel)
-            .metadata(metadataOptionsModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
@@ -144,7 +147,13 @@ public class FeaturesTest {
     assertEquals(featuresModel.emotion(), emotionOptionsModel);
     assertEquals(featuresModel.entities(), entitiesOptionsModel);
     assertEquals(featuresModel.keywords(), keywordsOptionsModel);
-    assertEquals(featuresModel.metadata(), metadataOptionsModel);
+    assertEquals(
+        featuresModel.metadata(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
     assertEquals(featuresModel.relations(), relationsOptionsModel);
     assertEquals(featuresModel.semanticRoles(), semanticRolesOptionsModel);
     assertEquals(featuresModel.sentiment(), sentimentOptionsModel);
@@ -162,7 +171,6 @@ public class FeaturesTest {
     assertEquals(featuresModelNew.emotion().toString(), emotionOptionsModel.toString());
     assertEquals(featuresModelNew.entities().toString(), entitiesOptionsModel.toString());
     assertEquals(featuresModelNew.keywords().toString(), keywordsOptionsModel.toString());
-    assertEquals(featuresModelNew.metadata().toString(), metadataOptionsModel.toString());
     assertEquals(featuresModelNew.relations().toString(), relationsOptionsModel.toString());
     assertEquals(featuresModelNew.semanticRoles().toString(), semanticRolesOptionsModel.toString());
     assertEquals(featuresModelNew.sentiment().toString(), sentimentOptionsModel.toString());
