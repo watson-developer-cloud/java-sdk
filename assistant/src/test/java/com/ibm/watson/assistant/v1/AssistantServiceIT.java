@@ -28,9 +28,12 @@ import com.ibm.watson.common.RetryRunner;
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1866,6 +1869,25 @@ public class AssistantServiceIT extends AssistantServiceTest {
     EntityMentionCollection collection =
         service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
+  }
+
+  @Test
+  public void testRuntimeResponseGeneric() {
+    try {
+      ArrayList<String>inputStrings = new ArrayList<>(Arrays.asList("audio", "iframe", "video"));
+      for (String inputMessage: inputStrings) {
+        MessageInput input = new MessageInput();
+        input.setText(inputMessage);
+
+        MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+        MessageResponse response = service.message(options).execute().getResult();
+
+        assertNotNull(response);
+        assertTrue(response.getOutput().getGeneric().get(0).responseType().contains(inputMessage));
+      }
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    }
   }
 
   /** Test bulk classify */
