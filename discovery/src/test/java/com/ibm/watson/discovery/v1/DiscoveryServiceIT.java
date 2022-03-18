@@ -1123,7 +1123,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Term term = (Term) queryResponse.getAggregations().get(0);
+    QueryTermAggregation term = (QueryTermAggregation) queryResponse.getAggregations().get(0);
     assertEquals(1, queryResponse.getAggregations().size());
     assertEquals(new Long(10), term.getCount());
   }
@@ -1146,7 +1146,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Histogram histogram = (Histogram) queryResponse.getAggregations().get(0);
+    QueryHistogramAggregation histogram = (QueryHistogramAggregation) queryResponse.getAggregations().get(0);
     Long interval = histogram.getInterval();
     assertEquals(new Long(5), interval);
     assertEquals(2, histogram.getResults().size());
@@ -1168,7 +1168,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Calculation max = (Calculation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation max = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
     assertEquals(new Double(9), max.getValue());
   }
@@ -1189,7 +1189,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Calculation min = (Calculation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation min = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
     assertEquals(new Double(0), min.getValue());
   }
@@ -1210,7 +1210,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Calculation sum = (Calculation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation sum = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
     assertEquals(new Double(45), sum.getValue());
   }
@@ -1231,7 +1231,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Calculation avg = (Calculation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation avg = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.getValue());
   }
@@ -1248,7 +1248,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Filter filter = (Filter) queryResponse.getAggregations().get(0);
+    QueryFilterAggregation filter = (QueryFilterAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.FILTER.getName(), filter.getType());
     assertEquals("field:9", filter.getMatch());
     assertEquals(new Long(1), filter.getMatchingResults());
@@ -1333,7 +1333,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Timeslice timeslice = (Timeslice) queryResponse.getAggregations().get(0);
+    QueryTimesliceAggregation timeslice = (QueryTimesliceAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.TIMESLICE.getName(), timeslice.getType());
     assertNotNull(timeslice.getResults());
   }
@@ -1355,8 +1355,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Term term = (Term) queryResponse.getAggregations().get(0);
-    TopHits topHits = (TopHits) term.getResults().get(0).getAggregations().get(0);
+    QueryTermAggregation term = (QueryTermAggregation) queryResponse.getAggregations().get(0);
+    QueryTopHitsAggregation topHits = (QueryTopHitsAggregation) term.getResults().get(0).getAggregations().get(0);
     assertEquals(new Long(3), topHits.getSize());
     assertNotNull(topHits.getHits());
   }
@@ -1372,7 +1372,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    Calculation uniqueCount = (Calculation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation uniqueCount = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(new Double(10), uniqueCount.getValue());
   }
 

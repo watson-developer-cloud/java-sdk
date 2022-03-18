@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,17 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the Term model. */
-public class TermTest {
+/** Unit test class for the QueryFilterAggregation model. */
+public class QueryFilterAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testTerm() throws Throwable {
-    Term termModel = new Term();
-    assertNull(termModel.getType());
-    assertNull(termModel.getMatchingResults());
-    assertNull(termModel.getField());
-    assertNull(termModel.getCount());
+  public void testQueryFilterAggregation() throws Throwable {
+    QueryFilterAggregation queryFilterAggregationModel = new QueryFilterAggregation();
+    assertNull(queryFilterAggregationModel.getType());
+    assertNull(queryFilterAggregationModel.getMatch());
+    assertNull(queryFilterAggregationModel.getMatchingResults());
   }
 }

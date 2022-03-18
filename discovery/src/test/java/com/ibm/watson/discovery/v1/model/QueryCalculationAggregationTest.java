@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the Histogram model. */
-public class HistogramTest {
+/** Unit test class for the QueryCalculationAggregation model. */
+public class QueryCalculationAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testHistogram() throws Throwable {
-    Histogram histogramModel = new Histogram();
-    assertNull(histogramModel.getType());
-    assertNull(histogramModel.getMatchingResults());
-    assertNull(histogramModel.getField());
-    assertNull(histogramModel.getInterval());
+  public void testQueryCalculationAggregation() throws Throwable {
+    QueryCalculationAggregation queryCalculationAggregationModel =
+        new QueryCalculationAggregation();
+    assertNull(queryCalculationAggregationModel.getType());
+    assertNull(queryCalculationAggregationModel.getField());
+    assertNull(queryCalculationAggregationModel.getValue());
   }
 }

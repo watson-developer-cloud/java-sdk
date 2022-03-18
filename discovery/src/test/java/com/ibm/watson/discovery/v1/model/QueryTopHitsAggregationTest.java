@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,17 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the Filter model. */
-public class FilterTest {
+/** Unit test class for the QueryTopHitsAggregation model. */
+public class QueryTopHitsAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testFilter() throws Throwable {
-    Filter filterModel = new Filter();
-    assertNull(filterModel.getType());
-    assertNull(filterModel.getMatchingResults());
-    assertNull(filterModel.getMatch());
+  public void testQueryTopHitsAggregation() throws Throwable {
+    QueryTopHitsAggregation queryTopHitsAggregationModel = new QueryTopHitsAggregation();
+    assertNull(queryTopHitsAggregationModel.getType());
+    assertNull(queryTopHitsAggregationModel.getSize());
+    assertNull(queryTopHitsAggregationModel.getName());
+    assertNull(queryTopHitsAggregationModel.getHits());
   }
 }
