@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,26 +35,39 @@ public class UpdateDialogNodeOptionsTest {
         new ResponseGenericChannel.Builder().channel("chat").build();
     assertEquals(responseGenericChannelModel.channel(), "chat");
 
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
-            .responseType("search_skill")
-            .query("testString")
-            .queryType("natural_language")
-            .filter("testString")
-            .discoveryVersion("2018-12-03")
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
+            .responseType("video")
+            .source("testString")
+            .title("testString")
+            .description("testString")
             .channels(
                 new java.util.ArrayList<ResponseGenericChannel>(
                     java.util.Arrays.asList(responseGenericChannelModel)))
+            .channelOptions(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .altText("testString")
             .build();
-    assertEquals(dialogNodeOutputGenericModel.responseType(), "search_skill");
-    assertEquals(dialogNodeOutputGenericModel.query(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
-    assertEquals(dialogNodeOutputGenericModel.filter(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "2018-12-03");
+    assertEquals(dialogNodeOutputGenericModel.responseType(), "video");
+    assertEquals(dialogNodeOutputGenericModel.source(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.title(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.description(), "testString");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         new java.util.ArrayList<ResponseGenericChannel>(
             java.util.Arrays.asList(responseGenericChannelModel)));
+    assertEquals(
+        dialogNodeOutputGenericModel.channelOptions(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
+    assertEquals(dialogNodeOutputGenericModel.altText(), "testString");
 
     DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
         new DialogNodeOutputModifiers.Builder().overwrite(true).build();

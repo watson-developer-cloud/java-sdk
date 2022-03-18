@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -75,22 +75,26 @@ public class WorkspaceSystemSettingsTest {
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
+            .add("foo", "testString")
             .build();
-    assertEquals(workspaceSystemSettingsModel.tooling(), workspaceSystemSettingsToolingModel);
+    assertEquals(workspaceSystemSettingsModel.getTooling(), workspaceSystemSettingsToolingModel);
     assertEquals(
-        workspaceSystemSettingsModel.disambiguation(), workspaceSystemSettingsDisambiguationModel);
+        workspaceSystemSettingsModel.getDisambiguation(),
+        workspaceSystemSettingsDisambiguationModel);
     assertEquals(
-        workspaceSystemSettingsModel.humanAgentAssist(),
+        workspaceSystemSettingsModel.getHumanAgentAssist(),
         new java.util.HashMap<String, Object>() {
           {
             put("foo", "testString");
           }
         });
-    assertEquals(workspaceSystemSettingsModel.spellingSuggestions(), Boolean.valueOf(false));
-    assertEquals(workspaceSystemSettingsModel.spellingAutoCorrect(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModel.isSpellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
-        workspaceSystemSettingsModel.systemEntities(), workspaceSystemSettingsSystemEntitiesModel);
-    assertEquals(workspaceSystemSettingsModel.offTopic(), workspaceSystemSettingsOffTopicModel);
+        workspaceSystemSettingsModel.getSystemEntities(),
+        workspaceSystemSettingsSystemEntitiesModel);
+    assertEquals(workspaceSystemSettingsModel.getOffTopic(), workspaceSystemSettingsOffTopicModel);
+    assertEquals(workspaceSystemSettingsModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(workspaceSystemSettingsModel);
 
@@ -98,18 +102,19 @@ public class WorkspaceSystemSettingsTest {
         TestUtilities.deserialize(json, WorkspaceSystemSettings.class);
     assertTrue(workspaceSystemSettingsModelNew instanceof WorkspaceSystemSettings);
     assertEquals(
-        workspaceSystemSettingsModelNew.tooling().toString(),
+        workspaceSystemSettingsModelNew.getTooling().toString(),
         workspaceSystemSettingsToolingModel.toString());
     assertEquals(
-        workspaceSystemSettingsModelNew.disambiguation().toString(),
+        workspaceSystemSettingsModelNew.getDisambiguation().toString(),
         workspaceSystemSettingsDisambiguationModel.toString());
-    assertEquals(workspaceSystemSettingsModelNew.spellingSuggestions(), Boolean.valueOf(false));
-    assertEquals(workspaceSystemSettingsModelNew.spellingAutoCorrect(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModelNew.isSpellingSuggestions(), Boolean.valueOf(false));
+    assertEquals(workspaceSystemSettingsModelNew.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
-        workspaceSystemSettingsModelNew.systemEntities().toString(),
+        workspaceSystemSettingsModelNew.getSystemEntities().toString(),
         workspaceSystemSettingsSystemEntitiesModel.toString());
     assertEquals(
-        workspaceSystemSettingsModelNew.offTopic().toString(),
+        workspaceSystemSettingsModelNew.getOffTopic().toString(),
         workspaceSystemSettingsOffTopicModel.toString());
+    assertEquals(workspaceSystemSettingsModelNew.get("foo"), "testString");
   }
 }

@@ -1226,17 +1226,17 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // systemSettings
       assertNotNull(exResponse.getSystemSettings());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().noneOfTheAbovePrompt(),
+          exResponse.getSystemSettings().getDisambiguation().noneOfTheAbovePrompt(),
           disambiguation.noneOfTheAbovePrompt());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().sensitivity(),
+          exResponse.getSystemSettings().getDisambiguation().sensitivity(),
           disambiguation.sensitivity());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().prompt(), disambiguation.prompt());
+          exResponse.getSystemSettings().getDisambiguation().prompt(), disambiguation.prompt());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().enabled(), disambiguation.enabled());
+          exResponse.getSystemSettings().getDisambiguation().enabled(), disambiguation.enabled());
       assertEquals(
-          exResponse.getSystemSettings().tooling().storeGenericResponses(),
+          exResponse.getSystemSettings().getTooling().storeGenericResponses(),
           tooling.storeGenericResponses());
 
       // webhooks
