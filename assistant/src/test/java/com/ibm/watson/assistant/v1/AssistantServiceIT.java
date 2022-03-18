@@ -28,7 +28,6 @@ import com.ibm.watson.common.RetryRunner;
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1874,8 +1873,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
   @Test
   public void testRuntimeResponseGeneric() {
     try {
-      ArrayList<String>inputStrings = new ArrayList<>(Arrays.asList("audio", "iframe", "video"));
-      for (String inputMessage: inputStrings) {
+      ArrayList<String> inputStrings = new ArrayList<>(Arrays.asList("audio", "iframe", "video"));
+      for (String inputMessage : inputStrings) {
         MessageInput input = new MessageInput();
         input.setText(inputMessage);
 

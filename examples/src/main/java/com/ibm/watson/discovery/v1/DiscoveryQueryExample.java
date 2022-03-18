@@ -68,7 +68,10 @@ public class DiscoveryQueryExample {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions =
-          new CreateEnvironmentOptions.Builder().name(environmentName).size(String.valueOf(0L)) /* FREE */.build();
+          new CreateEnvironmentOptions.Builder()
+              .name(environmentName)
+              .size(String.valueOf(0L)) /* FREE */
+              .build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
       System.out.println("Created new environment ID: " + environmentId);

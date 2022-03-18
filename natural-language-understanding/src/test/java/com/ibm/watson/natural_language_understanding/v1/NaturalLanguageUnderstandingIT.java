@@ -27,7 +27,6 @@ import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -65,7 +64,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       serviceUrl = getProperty("natural_language_understanding.url");
     }
 
-    assertNotNull("NATURAL_LANGUAGE_UNDERSTANDING_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
+    assertNotNull(
+        "NATURAL_LANGUAGE_UNDERSTANDING_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new NaturalLanguageUnderstanding("2019-07-12", authenticator);
@@ -1005,8 +1006,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void testListClassificationModels() throws Exception {
-    ClassificationsModelList response =
-        service.listClassificationsModels().execute().getResult();
+    ClassificationsModelList response = service.listClassificationsModels().execute().getResult();
     assertNotNull(response.getModels());
 
     for (ClassificationsModel classificationsModel : response.getModels()) {

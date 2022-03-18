@@ -72,7 +72,9 @@ public class DiscoveryIT extends WatsonServiceTest {
       serviceUrl = getProperty("discovery_v2.url");
     }
 
-    assertNotNull("DISCOVERY_V2_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
+    assertNotNull(
+        "DISCOVERY_V2_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Discovery(VERSION, authenticator);

@@ -27,18 +27,18 @@ import org.testng.annotations.Test;
 public class UpdateDialogNodeTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
-          TestUtilities.creatMockListFileWithMetadata();
+      TestUtilities.creatMockListFileWithMetadata();
 
   @Test
   public void testUpdateDialogNode() throws Throwable {
     DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
-            new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
-                    .responseType("search_skill")
-                    .query("testString")
-                    .queryType("natural_language")
-                    .filter("testString")
-                    .discoveryVersion("testString")
-                    .build();
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
     assertEquals(dialogNodeOutputGenericModel.responseType(), "search_skill");
     assertEquals(dialogNodeOutputGenericModel.query(), "testString");
     assertEquals(dialogNodeOutputGenericModel.queryType(), "natural_language");
@@ -46,144 +46,144 @@ public class UpdateDialogNodeTest {
     assertEquals(dialogNodeOutputGenericModel.discoveryVersion(), "testString");
 
     DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
-            new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
     assertEquals(dialogNodeOutputModifiersModel.overwrite(), Boolean.valueOf(true));
 
     DialogNodeOutput dialogNodeOutputModel =
-            new DialogNodeOutput.Builder()
-                    .generic(
-                            new java.util.ArrayList<DialogNodeOutputGeneric>(
-                                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
-                    .integrations(
-                            new java.util.HashMap<String, Map<String, Object>>() {
-                              {
-                                put(
-                                        "foo",
-                                        new java.util.HashMap<String, Object>() {
-                                          {
-                                            put("foo", "testString");
-                                          }
-                                        });
-                              }
-                            })
-                    .modifiers(dialogNodeOutputModifiersModel)
-                    .add("foo", "testString")
-                    .build();
-    assertEquals(
-            dialogNodeOutputModel.getGeneric(),
-            new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)));
-    assertEquals(
-            dialogNodeOutputModel.getIntegrations(),
-            new java.util.HashMap<String, Map<String, Object>>() {
-              {
-                put(
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
                         "foo",
                         new java.util.HashMap<String, Object>() {
                           {
                             put("foo", "testString");
                           }
                         });
-              }
-            });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+    assertEquals(
+        dialogNodeOutputModel.getGeneric(),
+        new java.util.ArrayList<DialogNodeOutputGeneric>(
+            java.util.Arrays.asList(dialogNodeOutputGenericModel)));
+    assertEquals(
+        dialogNodeOutputModel.getIntegrations(),
+        new java.util.HashMap<String, Map<String, Object>>() {
+          {
+            put(
+                "foo",
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                });
+          }
+        });
     assertEquals(dialogNodeOutputModel.getModifiers(), dialogNodeOutputModifiersModel);
     assertEquals(dialogNodeOutputModel.get("foo"), "testString");
 
     DialogNodeContext dialogNodeContextModel =
-            new DialogNodeContext.Builder()
-                    .integrations(
-                            new java.util.HashMap<String, Map<String, Object>>() {
-                              {
-                                put(
-                                        "foo",
-                                        new java.util.HashMap<String, Object>() {
-                                          {
-                                            put("foo", "testString");
-                                          }
-                                        });
-                              }
-                            })
-                    .add("foo", "testString")
-                    .build();
-    assertEquals(
-            dialogNodeContextModel.getIntegrations(),
-            new java.util.HashMap<String, Map<String, Object>>() {
-              {
-                put(
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
                         "foo",
                         new java.util.HashMap<String, Object>() {
                           {
                             put("foo", "testString");
                           }
                         });
-              }
-            });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+    assertEquals(
+        dialogNodeContextModel.getIntegrations(),
+        new java.util.HashMap<String, Map<String, Object>>() {
+          {
+            put(
+                "foo",
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                });
+          }
+        });
     assertEquals(dialogNodeContextModel.get("foo"), "testString");
 
     DialogNodeNextStep dialogNodeNextStepModel =
-            new DialogNodeNextStep.Builder()
-                    .behavior("get_user_input")
-                    .dialogNode("testString")
-                    .selector("condition")
-                    .build();
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
     assertEquals(dialogNodeNextStepModel.behavior(), "get_user_input");
     assertEquals(dialogNodeNextStepModel.dialogNode(), "testString");
     assertEquals(dialogNodeNextStepModel.selector(), "condition");
 
     DialogNodeAction dialogNodeActionModel =
-            new DialogNodeAction.Builder()
-                    .name("testString")
-                    .type("client")
-                    .parameters(
-                            new java.util.HashMap<String, Object>() {
-                              {
-                                put("foo", "testString");
-                              }
-                            })
-                    .resultVariable("testString")
-                    .credentials("testString")
-                    .build();
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
     assertEquals(dialogNodeActionModel.name(), "testString");
     assertEquals(dialogNodeActionModel.type(), "client");
     assertEquals(
-            dialogNodeActionModel.parameters(),
-            new java.util.HashMap<String, Object>() {
-              {
-                put("foo", "testString");
-              }
-            });
+        dialogNodeActionModel.parameters(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
     assertEquals(dialogNodeActionModel.resultVariable(), "testString");
     assertEquals(dialogNodeActionModel.credentials(), "testString");
 
     UpdateDialogNode updateDialogNodeModel =
-            new UpdateDialogNode.Builder()
-                    .dialogNode("testString")
-                    .description("testString")
-                    .conditions("testString")
-                    .parent("testString")
-                    .previousSibling("testString")
-                    .output(dialogNodeOutputModel)
-                    .context(dialogNodeContextModel)
-                    .metadata(
-                            new java.util.HashMap<String, Object>() {
-                              {
-                                put("foo", "testString");
-                              }
-                            })
-                    .nextStep(dialogNodeNextStepModel)
-                    .title("testString")
-                    .type("standard")
-                    .eventName("focus")
-                    .variable("testString")
-                    .actions(
-                            new java.util.ArrayList<DialogNodeAction>(
-                                    java.util.Arrays.asList(dialogNodeActionModel)))
-                    .digressIn("not_available")
-                    .digressOut("allow_returning")
-                    .digressOutSlots("not_allowed")
-                    .userLabel("testString")
-                    .disambiguationOptOut(true)
-                    .build();
+        new UpdateDialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .build();
     assertEquals(updateDialogNodeModel.dialogNode(), "testString");
     assertEquals(updateDialogNodeModel.description(), "testString");
     assertEquals(updateDialogNodeModel.conditions(), "testString");
@@ -192,20 +192,20 @@ public class UpdateDialogNodeTest {
     assertEquals(updateDialogNodeModel.output(), dialogNodeOutputModel);
     assertEquals(updateDialogNodeModel.context(), dialogNodeContextModel);
     assertEquals(
-            updateDialogNodeModel.metadata(),
-            new java.util.HashMap<String, Object>() {
-              {
-                put("foo", "testString");
-              }
-            });
+        updateDialogNodeModel.metadata(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
     assertEquals(updateDialogNodeModel.nextStep(), dialogNodeNextStepModel);
     assertEquals(updateDialogNodeModel.title(), "testString");
     assertEquals(updateDialogNodeModel.type(), "standard");
     assertEquals(updateDialogNodeModel.eventName(), "focus");
     assertEquals(updateDialogNodeModel.variable(), "testString");
     assertEquals(
-            updateDialogNodeModel.actions(),
-            new java.util.ArrayList<DialogNodeAction>(java.util.Arrays.asList(dialogNodeActionModel)));
+        updateDialogNodeModel.actions(),
+        new java.util.ArrayList<DialogNodeAction>(java.util.Arrays.asList(dialogNodeActionModel)));
     assertEquals(updateDialogNodeModel.digressIn(), "not_available");
     assertEquals(updateDialogNodeModel.digressOut(), "allow_returning");
     assertEquals(updateDialogNodeModel.digressOutSlots(), "not_allowed");
@@ -215,7 +215,7 @@ public class UpdateDialogNodeTest {
     String json = TestUtilities.serialize(updateDialogNodeModel);
 
     UpdateDialogNode updateDialogNodeModelNew =
-            TestUtilities.deserialize(json, UpdateDialogNode.class);
+        TestUtilities.deserialize(json, UpdateDialogNode.class);
     assertTrue(updateDialogNodeModelNew instanceof UpdateDialogNode);
     assertEquals(updateDialogNodeModelNew.dialogNode(), "testString");
     assertEquals(updateDialogNodeModelNew.description(), "testString");
@@ -225,7 +225,7 @@ public class UpdateDialogNodeTest {
     assertEquals(updateDialogNodeModelNew.output().toString(), dialogNodeOutputModel.toString());
     assertEquals(updateDialogNodeModelNew.context().toString(), dialogNodeContextModel.toString());
     assertEquals(
-            updateDialogNodeModelNew.nextStep().toString(), dialogNodeNextStepModel.toString());
+        updateDialogNodeModelNew.nextStep().toString(), dialogNodeNextStepModel.toString());
     assertEquals(updateDialogNodeModelNew.title(), "testString");
     assertEquals(updateDialogNodeModelNew.type(), "standard");
     assertEquals(updateDialogNodeModelNew.eventName(), "focus");
@@ -241,105 +241,105 @@ public class UpdateDialogNodeTest {
   public void testUpdateDialogNodeNullable() throws Throwable {
 
     DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
-            new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
-                    .responseType("search_skill")
-                    .query("testString")
-                    .queryType("natural_language")
-                    .filter("testString")
-                    .discoveryVersion("testString")
-                    .build();
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
 
     DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
-            new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
 
     DialogNodeOutput dialogNodeOutputModel =
-            new DialogNodeOutput.Builder()
-                    .generic(
-                            new java.util.ArrayList<DialogNodeOutputGeneric>(
-                                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
-                    .integrations(
-                            new java.util.HashMap<String, Map<String, Object>>() {
-                              {
-                                put(
-                                        "foo",
-                                        new java.util.HashMap<String, Object>() {
-                                          {
-                                            put("foo", "testString");
-                                          }
-                                        });
-                              }
-                            })
-                    .modifiers(dialogNodeOutputModifiersModel)
-                    .add("foo", "testString")
-                    .build();
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
 
     DialogNodeContext dialogNodeContextModel =
-            new DialogNodeContext.Builder()
-                    .integrations(
-                            new java.util.HashMap<String, Map<String, Object>>() {
-                              {
-                                put(
-                                        "foo",
-                                        new java.util.HashMap<String, Object>() {
-                                          {
-                                            put("foo", "testString");
-                                          }
-                                        });
-                              }
-                            })
-                    .add("foo", "testString")
-                    .build();
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
 
     DialogNodeNextStep dialogNodeNextStepModel =
-            new DialogNodeNextStep.Builder()
-                    .behavior("get_user_input")
-                    .dialogNode("testString")
-                    .selector("condition")
-                    .build();
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
 
     DialogNodeAction dialogNodeActionModel =
-            new DialogNodeAction.Builder()
-                    .name("testString")
-                    .type("client")
-                    .parameters(
-                            new java.util.HashMap<String, Object>() {
-                              {
-                                put("foo", "testString");
-                              }
-                            })
-                    .resultVariable("testString")
-                    .credentials("testString")
-                    .build();
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
 
     UpdateDialogNode updateDialogNodeModel =
-            new UpdateDialogNode.Builder()
-                    .dialogNode("testString")
-                    .description("testString")
-                    .conditions("testString")
-                    .parent("testString")
-                    .previousSibling("testString")
-                    .output(dialogNodeOutputModel)
-                    .context(dialogNodeContextModel)
-                    .metadata(
-                            new java.util.HashMap<String, Object>() {
-                              {
-                                put("foo", "testString");
-                              }
-                            })
-                    .nextStep(dialogNodeNextStepModel)
-                    .title("testString")
-                    .type("standard")
-                    .eventName("focus")
-                    .variable("testString")
-                    .actions(
-                            new java.util.ArrayList<DialogNodeAction>(
-                                    java.util.Arrays.asList(dialogNodeActionModel)))
-                    .digressIn("not_available")
-                    .digressOut("allow_returning")
-                    .digressOutSlots("not_allowed")
-                    .userLabel("testString")
-                    .disambiguationOptOut(true)
-                    .build();
+        new UpdateDialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .build();
 
     Map<String, Object> mergePatch = updateDialogNodeModel.asPatch();
 

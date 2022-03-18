@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -76,7 +75,9 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
       serviceUrl = getProperty("language_translator.url");
     }
 
-    assertNotNull("LANGUAGE_TRANSLATOR_APIKEY is not defined and config.properties doesn't have valid credentials.", iamApiKey);
+    assertNotNull(
+        "LANGUAGE_TRANSLATOR_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        iamApiKey);
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new LanguageTranslator("2018-05-01", authenticator);

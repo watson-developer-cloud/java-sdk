@@ -32,10 +32,7 @@ public class SpeechToTextExample {
 
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     RecognizeOptions options =
-        new RecognizeOptions.Builder()
-            .audio(audio)
-            .contentType(HttpMediaType.AUDIO_WAV)
-            .build();
+        new RecognizeOptions.Builder().audio(audio).contentType(HttpMediaType.AUDIO_WAV).build();
     SpeechRecognitionResults transcript = service.recognize(options).execute().getResult();
 
     System.out.println(transcript);

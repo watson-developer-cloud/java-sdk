@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import org.junit.After;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -63,7 +62,9 @@ public class CustomizationsIT extends WatsonServiceTest {
       serviceUrl = getProperty("text_to_speech.url");
     }
 
-    assertNotNull("TEXT_TO_SPEECH_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
+    assertNotNull(
+        "TEXT_TO_SPEECH_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new TextToSpeech(authenticator);

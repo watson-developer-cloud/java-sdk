@@ -53,7 +53,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.junit.AfterClass;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -98,7 +97,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       apiKey = dummyTest.getProperty("discovery.apikey");
     }
 
-    assertNotNull("DISCOVERY_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey);
+    assertNotNull(
+        "DISCOVERY_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey);
 
     dummyTest.setup();
 
@@ -182,7 +183,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         discovery.deleteConfiguration(deleteOptions).execute();
       } catch (NotFoundException ex) {
         // Ignore this failure - just print msg
-        // System.out.println("deleteConfiguration failed. Configuration " + configurationId + " not found");
+        // System.out.println("deleteConfiguration failed. Configuration " + configurationId + " not
+        // found");
       }
     }
 
@@ -203,7 +205,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           DeleteCollectionResponse deleteCollectionResponse =
               discovery.deleteCollection(deleteCollectionOptions).execute().getResult();
         } catch (NotFoundException ex) {
-          // System.out.println("deleteCollection failed. Collection " + collectionId + " not found");
+          // System.out.println("deleteCollection failed. Collection " + collectionId + " not
+          // found");
         }
       }
     }
@@ -1146,7 +1149,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryHistogramAggregation histogram = (QueryHistogramAggregation) queryResponse.getAggregations().get(0);
+    QueryHistogramAggregation histogram =
+        (QueryHistogramAggregation) queryResponse.getAggregations().get(0);
     Long interval = histogram.getInterval();
     assertEquals(new Long(5), interval);
     assertEquals(2, histogram.getResults().size());
@@ -1168,7 +1172,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryCalculationAggregation max = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation max =
+        (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
     assertEquals(new Double(9), max.getValue());
   }
@@ -1189,7 +1194,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryCalculationAggregation min = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation min =
+        (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
     assertEquals(new Double(0), min.getValue());
   }
@@ -1210,7 +1216,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryCalculationAggregation sum = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation sum =
+        (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
     assertEquals(new Double(45), sum.getValue());
   }
@@ -1231,7 +1238,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryCalculationAggregation avg = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation avg =
+        (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.getValue());
   }
@@ -1333,7 +1341,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryTimesliceAggregation timeslice = (QueryTimesliceAggregation) queryResponse.getAggregations().get(0);
+    QueryTimesliceAggregation timeslice =
+        (QueryTimesliceAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.TIMESLICE.getName(), timeslice.getType());
     assertNotNull(timeslice.getResults());
   }
@@ -1356,7 +1365,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
     QueryTermAggregation term = (QueryTermAggregation) queryResponse.getAggregations().get(0);
-    QueryTopHitsAggregation topHits = (QueryTopHitsAggregation) term.getResults().get(0).getAggregations().get(0);
+    QueryTopHitsAggregation topHits =
+        (QueryTopHitsAggregation) term.getResults().get(0).getAggregations().get(0);
     assertEquals(new Long(3), topHits.getSize());
     assertNotNull(topHits.getHits());
   }
@@ -1372,7 +1382,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute().getResult();
-    QueryCalculationAggregation uniqueCount = (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
+    QueryCalculationAggregation uniqueCount =
+        (QueryCalculationAggregation) queryResponse.getAggregations().get(0);
     assertEquals(new Double(10), uniqueCount.getValue());
   }
 
@@ -1771,9 +1782,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
           emptyListResults.expansions().get(0).expandedTerms() == null
               || emptyListResults.expansions().get(0).expandedTerms().get(0).isEmpty());
     } catch (InternalServerErrorException e) {
-      /** System.out.println(
-          "Internal server error while trying to create expansion  ¯\\_(ツ)_/¯   Probably not our issue"
-              + " but may be worth looking into."); **/
+      /**
+       * System.out.println( "Internal server error while trying to create expansion ¯\\_(ツ)_/¯
+       * Probably not our issue" + " but may be worth looking into."); *
+       */
       e.printStackTrace();
     }
   }
