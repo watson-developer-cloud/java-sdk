@@ -193,7 +193,7 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>The description to show with the the response.
+   * <p>The description to show with the response.
    *
    * @return the description
    */

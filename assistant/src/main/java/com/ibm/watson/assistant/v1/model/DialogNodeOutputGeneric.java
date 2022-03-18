@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,7 +27,10 @@ import java.util.Map;
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent -
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill -
  * DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer -
- * DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeAudio -
+ * DialogNodeOutputGenericDialogNodeOutputResponseTypeIframe
  */
 public class DialogNodeOutputGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -38,11 +41,15 @@ public class DialogNodeOutputGeneric extends GenericModel {
   static {
     discriminatorMapping = new java.util.HashMap<>();
     discriminatorMapping.put(
+        "audio", DialogNodeOutputGenericDialogNodeOutputResponseTypeAudio.class);
+    discriminatorMapping.put(
         "channel_transfer",
         DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.class);
     discriminatorMapping.put(
         "connect_to_agent",
         DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent.class);
+    discriminatorMapping.put(
+        "iframe", DialogNodeOutputGenericDialogNodeOutputResponseTypeIframe.class);
     discriminatorMapping.put(
         "image", DialogNodeOutputGenericDialogNodeOutputResponseTypeImage.class);
     discriminatorMapping.put(
@@ -54,6 +61,8 @@ public class DialogNodeOutputGeneric extends GenericModel {
     discriminatorMapping.put("text", DialogNodeOutputGenericDialogNodeOutputResponseTypeText.class);
     discriminatorMapping.put(
         "user_defined", DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.class);
+    discriminatorMapping.put(
+        "video", DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.class);
   }
 
   /** How a response is selected from the list, if more than one response is specified. */
@@ -128,6 +137,12 @@ public class DialogNodeOutputGeneric extends GenericModel {
 
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
+
+  @SerializedName("channel_options")
+  protected Map<String, Object> channelOptions;
+
+  @SerializedName("image_url")
+  protected String imageUrl;
 
   protected DialogNodeOutputGeneric() {}
 
@@ -383,5 +398,27 @@ public class DialogNodeOutputGeneric extends GenericModel {
    */
   public Map<String, Object> userDefined() {
     return userDefined;
+  }
+
+  /**
+   * Gets the channelOptions.
+   *
+   * <p>For internal use only.
+   *
+   * @return the channelOptions
+   */
+  public Map<String, Object> channelOptions() {
+    return channelOptions;
+  }
+
+  /**
+   * Gets the imageUrl.
+   *
+   * <p>The URL of an image that shows a preview of the embedded content.
+   *
+   * @return the imageUrl
+   */
+  public String imageUrl() {
+    return imageUrl;
   }
 }

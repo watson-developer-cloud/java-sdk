@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,13 +13,18 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.cloud.sdk.core.service.model.DynamicModel;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Global settings for the workspace. */
-public class WorkspaceSystemSettings extends GenericModel {
+public class WorkspaceSystemSettings extends DynamicModel<Object> {
 
+  @SerializedName("tooling")
   protected WorkspaceSystemSettingsTooling tooling;
+
+  @SerializedName("disambiguation")
   protected WorkspaceSystemSettingsDisambiguation disambiguation;
 
   @SerializedName("human_agent_assist")
@@ -37,6 +42,10 @@ public class WorkspaceSystemSettings extends GenericModel {
   @SerializedName("off_topic")
   protected WorkspaceSystemSettingsOffTopic offTopic;
 
+  public WorkspaceSystemSettings() {
+    super(new TypeToken<Object>() {});
+  }
+
   /** Builder. */
   public static class Builder {
     private WorkspaceSystemSettingsTooling tooling;
@@ -46,6 +55,7 @@ public class WorkspaceSystemSettings extends GenericModel {
     private Boolean spellingAutoCorrect;
     private WorkspaceSystemSettingsSystemEntities systemEntities;
     private WorkspaceSystemSettingsOffTopic offTopic;
+    private Map<String, Object> dynamicProperties;
 
     private Builder(WorkspaceSystemSettings workspaceSystemSettings) {
       this.tooling = workspaceSystemSettings.tooling;
@@ -55,6 +65,7 @@ public class WorkspaceSystemSettings extends GenericModel {
       this.spellingAutoCorrect = workspaceSystemSettings.spellingAutoCorrect;
       this.systemEntities = workspaceSystemSettings.systemEntities;
       this.offTopic = workspaceSystemSettings.offTopic;
+      this.dynamicProperties = workspaceSystemSettings.getProperties();
     }
 
     /** Instantiates a new builder. */
@@ -145,9 +156,26 @@ public class WorkspaceSystemSettings extends GenericModel {
       this.offTopic = offTopic;
       return this;
     }
+
+    /**
+     * Add an arbitrary property.
+     *
+     * @param name the name of the property to add
+     * @param value the value of the property to add
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder add(String name, Object value) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(name, "name cannot be null");
+      if (this.dynamicProperties == null) {
+        this.dynamicProperties = new HashMap<String, Object>();
+      }
+      this.dynamicProperties.put(name, value);
+      return this;
+    }
   }
 
   protected WorkspaceSystemSettings(Builder builder) {
+    super(new TypeToken<Object>() {});
     tooling = builder.tooling;
     disambiguation = builder.disambiguation;
     humanAgentAssist = builder.humanAgentAssist;
@@ -155,6 +183,7 @@ public class WorkspaceSystemSettings extends GenericModel {
     spellingAutoCorrect = builder.spellingAutoCorrect;
     systemEntities = builder.systemEntities;
     offTopic = builder.offTopic;
+    this.setProperties(builder.dynamicProperties);
   }
 
   /**
@@ -173,8 +202,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the tooling
    */
-  public WorkspaceSystemSettingsTooling tooling() {
-    return tooling;
+  public WorkspaceSystemSettingsTooling getTooling() {
+    return this.tooling;
+  }
+
+  /**
+   * Sets the tooling.
+   *
+   * @param tooling the new tooling
+   */
+  public void setTooling(final WorkspaceSystemSettingsTooling tooling) {
+    this.tooling = tooling;
   }
 
   /**
@@ -184,8 +222,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the disambiguation
    */
-  public WorkspaceSystemSettingsDisambiguation disambiguation() {
-    return disambiguation;
+  public WorkspaceSystemSettingsDisambiguation getDisambiguation() {
+    return this.disambiguation;
+  }
+
+  /**
+   * Sets the disambiguation.
+   *
+   * @param disambiguation the new disambiguation
+   */
+  public void setDisambiguation(final WorkspaceSystemSettingsDisambiguation disambiguation) {
+    this.disambiguation = disambiguation;
   }
 
   /**
@@ -195,8 +242,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the humanAgentAssist
    */
-  public Map<String, Object> humanAgentAssist() {
-    return humanAgentAssist;
+  public Map<String, Object> getHumanAgentAssist() {
+    return this.humanAgentAssist;
+  }
+
+  /**
+   * Sets the humanAgentAssist.
+   *
+   * @param humanAgentAssist the new humanAgentAssist
+   */
+  public void setHumanAgentAssist(final Map<String, Object> humanAgentAssist) {
+    this.humanAgentAssist = humanAgentAssist;
   }
 
   /**
@@ -206,8 +262,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the spellingSuggestions
    */
-  public Boolean spellingSuggestions() {
-    return spellingSuggestions;
+  public Boolean isSpellingSuggestions() {
+    return this.spellingSuggestions;
+  }
+
+  /**
+   * Sets the spellingSuggestions.
+   *
+   * @param spellingSuggestions the new spellingSuggestions
+   */
+  public void setSpellingSuggestions(final Boolean spellingSuggestions) {
+    this.spellingSuggestions = spellingSuggestions;
   }
 
   /**
@@ -221,8 +286,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the spellingAutoCorrect
    */
-  public Boolean spellingAutoCorrect() {
-    return spellingAutoCorrect;
+  public Boolean isSpellingAutoCorrect() {
+    return this.spellingAutoCorrect;
+  }
+
+  /**
+   * Sets the spellingAutoCorrect.
+   *
+   * @param spellingAutoCorrect the new spellingAutoCorrect
+   */
+  public void setSpellingAutoCorrect(final Boolean spellingAutoCorrect) {
+    this.spellingAutoCorrect = spellingAutoCorrect;
   }
 
   /**
@@ -232,8 +306,17 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the systemEntities
    */
-  public WorkspaceSystemSettingsSystemEntities systemEntities() {
-    return systemEntities;
+  public WorkspaceSystemSettingsSystemEntities getSystemEntities() {
+    return this.systemEntities;
+  }
+
+  /**
+   * Sets the systemEntities.
+   *
+   * @param systemEntities the new systemEntities
+   */
+  public void setSystemEntities(final WorkspaceSystemSettingsSystemEntities systemEntities) {
+    this.systemEntities = systemEntities;
   }
 
   /**
@@ -243,7 +326,16 @@ public class WorkspaceSystemSettings extends GenericModel {
    *
    * @return the offTopic
    */
-  public WorkspaceSystemSettingsOffTopic offTopic() {
-    return offTopic;
+  public WorkspaceSystemSettingsOffTopic getOffTopic() {
+    return this.offTopic;
+  }
+
+  /**
+   * Sets the offTopic.
+   *
+   * @param offTopic the new offTopic
+   */
+  public void setOffTopic(final WorkspaceSystemSettingsOffTopic offTopic) {
+    this.offTopic = offTopic;
   }
 }
