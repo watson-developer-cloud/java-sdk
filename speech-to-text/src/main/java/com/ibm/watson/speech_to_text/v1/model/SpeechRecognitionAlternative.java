@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -69,7 +69,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * <p>A confidence score for each word of the transcript as a list of lists. Each inner list
    * consists of two elements: the word and its confidence score in the range of 0.0 to 1.0, for
-   * example: `[["hello",0.95],["world",0.866]]`. Confidence scores are returned only for the best
+   * example: `[["hello",0.95],["world",0.86]]`. Confidence scores are returned only for the best
    * alternative and only with results marked as final.
    *
    * @return the wordConfidence

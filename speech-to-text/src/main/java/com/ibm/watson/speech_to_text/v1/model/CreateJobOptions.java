@@ -40,6 +40,8 @@ public class CreateJobOptions extends GenericModel {
     String CS_CZ_TELEPHONY = "cs-CZ_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
+    /** de-DE_Multimedia. */
+    String DE_DE_MULTIMEDIA = "de-DE_Multimedia";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
     /** de-DE_Telephony. */
