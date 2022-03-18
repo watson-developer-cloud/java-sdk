@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,19 +12,34 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/** Filter. */
-public class Filter extends QueryAggregation {
+/**
+ * Returns a scalar calculation across all documents for the field specified. Possible calculations
+ * include min, max, sum, average, and unique_count.
+ */
+public class QueryCalculationAggregation extends QueryAggregation {
 
-  protected String match;
+  protected String field;
+  protected Double value;
 
   /**
-   * Gets the match.
+   * Gets the field.
    *
-   * <p>The match the aggregated results queried for.
+   * <p>The field to perform the calculation on.
    *
-   * @return the match
+   * @return the field
    */
-  public String getMatch() {
-    return match;
+  public String getField() {
+    return field;
+  }
+
+  /**
+   * Gets the value.
+   *
+   * <p>The value of the calculation.
+   *
+   * @return the value
+   */
+  public Double getValue() {
+    return value;
   }
 }

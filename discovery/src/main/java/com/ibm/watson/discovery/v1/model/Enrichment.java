@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -237,16 +237,11 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the enrichment.
    *
-   * <p>Name of the enrichment service to call. Current options are `natural_language_understanding`
-   * and `elements`.
+   * <p>Name of the enrichment service to call. The only supported option is
+   * `natural_language_understanding`. The `elements` option is deprecated and support ended on 10
+   * July 2020.
    *
-   * <p>When using `natual_language_understanding`, the **options** object must contain Natural
-   * Language Understanding options.
-   *
-   * <p>When using `elements` the **options** object must contain Element Classification options.
-   * Additionally, when using the `elements` enrichment the configuration specified and files
-   * ingested must meet all the criteria specified in [the
-   * documentation](https://cloud.ibm.com/docs/discovery?topic=discovery-element-classification#element-classification).
+   * <p>The **options** object must contain Natural Language Understanding options.
    *
    * @return the enrichment
    */
@@ -269,7 +264,11 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * <p>Options which are specific to a particular enrichment.
+   * <p>Options that are specific to a particular enrichment.
+   *
+   * <p>The `elements` enrichment type is deprecated. Use the [Create a
+   * project](https://cloud.ibm.com/apidocs/discovery-data#createproject) method of the Discovery v2
+   * API to create a `content_intelligence` project type instead.
    *
    * @return the options
    */

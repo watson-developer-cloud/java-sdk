@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.List;
 
 /** An aggregation produced by Discovery to analyze the input provided. */
 public class QueryAggregation extends GenericModel {
@@ -25,26 +23,20 @@ public class QueryAggregation extends GenericModel {
 
   static {
     discriminatorMapping = new java.util.HashMap<>();
-    discriminatorMapping.put("histogram", Histogram.class);
-    discriminatorMapping.put("max", Calculation.class);
-    discriminatorMapping.put("min", Calculation.class);
-    discriminatorMapping.put("average", Calculation.class);
-    discriminatorMapping.put("sum", Calculation.class);
-    discriminatorMapping.put("unique_count", Calculation.class);
-    discriminatorMapping.put("term", Term.class);
-    discriminatorMapping.put("filter", Filter.class);
-    discriminatorMapping.put("nested", Nested.class);
-    discriminatorMapping.put("timeslice", Timeslice.class);
-    discriminatorMapping.put("top_hits", TopHits.class);
+    discriminatorMapping.put("histogram", QueryHistogramAggregation.class);
+    discriminatorMapping.put("max", QueryCalculationAggregation.class);
+    discriminatorMapping.put("min", QueryCalculationAggregation.class);
+    discriminatorMapping.put("average", QueryCalculationAggregation.class);
+    discriminatorMapping.put("sum", QueryCalculationAggregation.class);
+    discriminatorMapping.put("unique_count", QueryCalculationAggregation.class);
+    discriminatorMapping.put("term", QueryTermAggregation.class);
+    discriminatorMapping.put("filter", QueryFilterAggregation.class);
+    discriminatorMapping.put("nested", QueryNestedAggregation.class);
+    discriminatorMapping.put("timeslice", QueryTimesliceAggregation.class);
+    discriminatorMapping.put("top_hits", QueryTopHitsAggregation.class);
   }
 
   protected String type;
-  protected List<AggregationResult> results;
-
-  @SerializedName("matching_results")
-  protected Long matchingResults;
-
-  protected List<QueryAggregation> aggregations;
 
   /**
    * Gets the type.
@@ -55,38 +47,5 @@ public class QueryAggregation extends GenericModel {
    */
   public String getType() {
     return type;
-  }
-
-  /**
-   * Gets the results.
-   *
-   * <p>Array of aggregation results.
-   *
-   * @return the results
-   */
-  public List<AggregationResult> getResults() {
-    return results;
-  }
-
-  /**
-   * Gets the matchingResults.
-   *
-   * <p>Number of matching results.
-   *
-   * @return the matchingResults
-   */
-  public Long getMatchingResults() {
-    return matchingResults;
-  }
-
-  /**
-   * Gets the aggregations.
-   *
-   * <p>Aggregations returned by Discovery.
-   *
-   * @return the aggregations
-   */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,8 +18,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class UpdateEnvironmentOptions extends GenericModel {
 
   /**
-   * Size that the environment should be increased to. Environment size cannot be modified when
-   * using a Lite plan. Environment size can only increased and not decreased.
+   * Size to change the environment to. **Note:** Lite plan users cannot change the environment
+   * size.
    */
   public interface Size {
     /** S. */
@@ -179,8 +179,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
-   * <p>Size that the environment should be increased to. Environment size cannot be modified when
-   * using a Lite plan. Environment size can only increased and not decreased.
+   * <p>Size to change the environment to. **Note:** Lite plan users cannot change the environment
+   * size.
    *
    * @return the size
    */

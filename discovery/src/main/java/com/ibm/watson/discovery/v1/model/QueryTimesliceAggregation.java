@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,17 +12,20 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/** Timeslice. */
-public class Timeslice extends QueryAggregation {
+import java.util.List;
+
+/** A specialized histogram aggregation that uses dates to create interval segments. */
+public class QueryTimesliceAggregation extends QueryAggregation {
 
   protected String field;
   protected String interval;
-  protected Boolean anomaly;
+  protected String name;
+  protected List<QueryTimesliceAggregationResult> results;
 
   /**
    * Gets the field.
    *
-   * <p>The field where the aggregation is located in the document.
+   * <p>The date field name used to create the timeslice.
    *
    * @return the field
    */
@@ -33,8 +36,7 @@ public class Timeslice extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * <p>Interval of the aggregation. Valid date interval values are second/seconds minute/minutes,
-   * hour/hours, day/days, week/weeks, month/months, and year/years.
+   * <p>The date interval value. Valid values are seconds, minutes, hours, days, weeks, and years.
    *
    * @return the interval
    */
@@ -43,14 +45,24 @@ public class Timeslice extends QueryAggregation {
   }
 
   /**
-   * Gets the anomaly.
+   * Gets the name.
    *
-   * <p>Used to indicate that anomaly detection should be performed. Anomaly detection is used to
-   * locate unusual datapoints within a time series.
+   * <p>Identifier specified in the query request of this aggregation.
    *
-   * @return the anomaly
+   * @return the name
    */
-  public Boolean isAnomaly() {
-    return anomaly;
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the results.
+   *
+   * <p>Array of aggregation results.
+   *
+   * @return the results
+   */
+  public List<QueryTimesliceAggregationResult> getResults() {
+    return results;
   }
 }

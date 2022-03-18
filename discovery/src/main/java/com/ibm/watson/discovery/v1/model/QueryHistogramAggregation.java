@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,23 @@
  */
 package com.ibm.watson.discovery.v1.model;
 
-/** Histogram. */
-public class Histogram extends QueryAggregation {
+import java.util.List;
+
+/**
+ * Numeric interval segments to categorize documents by using field values from a single numeric
+ * field to describe the category.
+ */
+public class QueryHistogramAggregation extends QueryAggregation {
 
   protected String field;
   protected Long interval;
+  protected String name;
+  protected List<QueryHistogramAggregationResult> results;
 
   /**
    * Gets the field.
    *
-   * <p>The field where the aggregation is located in the document.
+   * <p>The numeric field name used to create the histogram.
    *
    * @return the field
    */
@@ -32,11 +39,33 @@ public class Histogram extends QueryAggregation {
   /**
    * Gets the interval.
    *
-   * <p>Interval of the aggregation. (For 'histogram' type).
+   * <p>The size of the sections that the results are split into.
    *
    * @return the interval
    */
   public Long getInterval() {
     return interval;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * <p>Identifier specified in the query request of this aggregation.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the results.
+   *
+   * <p>Array of numeric intervals.
+   *
+   * @return the results
+   */
+  public List<QueryHistogramAggregationResult> getResults() {
+    return results;
   }
 }
