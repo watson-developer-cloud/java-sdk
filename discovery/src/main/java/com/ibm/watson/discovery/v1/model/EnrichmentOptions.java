@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2021.
+ * (C) Copyright IBM Corp. 2017, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,13 @@ package com.ibm.watson.discovery.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Options which are specific to a particular enrichment. */
+/**
+ * Options that are specific to a particular enrichment.
+ *
+ * <p>The `elements` enrichment type is deprecated. Use the [Create a
+ * project](https://cloud.ibm.com/apidocs/discovery-data#createproject) method of the Discovery v2
+ * API to create a `content_intelligence` project type instead.
+ */
 public class EnrichmentOptions extends GenericModel {
 
   /**
@@ -151,8 +157,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>For use with `elements` enrichments only. The element extraction model to use. The only
-   * model available is `contract`.
+   * <p>The element extraction model to use, which can be `contract` only. The `elements` enrichment
+   * is deprecated.
    *
    * @return the model
    */

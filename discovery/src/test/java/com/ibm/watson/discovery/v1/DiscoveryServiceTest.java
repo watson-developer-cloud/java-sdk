@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,8 @@ import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import com.ibm.watson.common.WatsonServiceUnitTest;
+import com.ibm.watson.discovery.query.AggregationType;
+import com.ibm.watson.discovery.query.Operator;
 import com.ibm.watson.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.discovery.v1.model.Collection;
@@ -128,8 +130,6 @@ import com.ibm.watson.discovery.v1.model.UpdateCredentialsOptions;
 import com.ibm.watson.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.discovery.v1.model.UpdateTrainingExampleOptions;
-import com.ibm.watson.discovery.v1.query.AggregationType;
-import com.ibm.watson.discovery.v1.query.Operator;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

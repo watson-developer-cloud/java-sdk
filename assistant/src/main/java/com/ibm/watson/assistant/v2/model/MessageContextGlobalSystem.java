@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -77,6 +77,9 @@ public class MessageContextGlobalSystem extends GenericModel {
 
   protected String state;
 
+  @SerializedName("skip_user_input")
+  protected Boolean skipUserInput;
+
   /** Builder. */
   public static class Builder {
     private String timezone;
@@ -86,6 +89,7 @@ public class MessageContextGlobalSystem extends GenericModel {
     private String referenceTime;
     private String sessionStartTime;
     private String state;
+    private Boolean skipUserInput;
 
     private Builder(MessageContextGlobalSystem messageContextGlobalSystem) {
       this.timezone = messageContextGlobalSystem.timezone;
@@ -95,6 +99,7 @@ public class MessageContextGlobalSystem extends GenericModel {
       this.referenceTime = messageContextGlobalSystem.referenceTime;
       this.sessionStartTime = messageContextGlobalSystem.sessionStartTime;
       this.state = messageContextGlobalSystem.state;
+      this.skipUserInput = messageContextGlobalSystem.skipUserInput;
     }
 
     /** Instantiates a new builder. */
@@ -185,6 +190,17 @@ public class MessageContextGlobalSystem extends GenericModel {
       this.state = state;
       return this;
     }
+
+    /**
+     * Set the skipUserInput.
+     *
+     * @param skipUserInput the skipUserInput
+     * @return the MessageContextGlobalSystem builder
+     */
+    public Builder skipUserInput(Boolean skipUserInput) {
+      this.skipUserInput = skipUserInput;
+      return this;
+    }
   }
 
   protected MessageContextGlobalSystem(Builder builder) {
@@ -195,6 +211,7 @@ public class MessageContextGlobalSystem extends GenericModel {
     referenceTime = builder.referenceTime;
     sessionStartTime = builder.sessionStartTime;
     state = builder.state;
+    skipUserInput = builder.skipUserInput;
   }
 
   /**
@@ -315,5 +332,16 @@ public class MessageContextGlobalSystem extends GenericModel {
    */
   public String state() {
     return state;
+  }
+
+  /**
+   * Gets the skipUserInput.
+   *
+   * <p>For internal use only.
+   *
+   * @return the skipUserInput
+   */
+  public Boolean skipUserInput() {
+    return skipUserInput;
   }
 }

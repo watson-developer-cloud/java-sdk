@@ -2,7 +2,6 @@ package com.ibm.watson.discovery.v2;
 
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.BearerTokenAuthenticator;
-import com.ibm.watson.discovery.v2.Discovery;
 import com.ibm.watson.discovery.v2.model.AddDocumentOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentOptions;
 import com.ibm.watson.discovery.v2.model.DocumentAccepted;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2019, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,9 +28,11 @@ import com.ibm.watson.common.RetryRunner;
 import io.reactivex.Single;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -131,7 +133,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             new ServiceCallback<MessageResponse>() {
               @Override
               public void onResponse(Response<MessageResponse> response) {
-                 /*System.out.println(response.getResult()); */
+                /*System.out.println(response.getResult()); */
               }
 
               @Override
@@ -1223,17 +1225,17 @@ public class AssistantServiceIT extends AssistantServiceTest {
       // systemSettings
       assertNotNull(exResponse.getSystemSettings());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().noneOfTheAbovePrompt(),
+          exResponse.getSystemSettings().getDisambiguation().noneOfTheAbovePrompt(),
           disambiguation.noneOfTheAbovePrompt());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().sensitivity(),
+          exResponse.getSystemSettings().getDisambiguation().sensitivity(),
           disambiguation.sensitivity());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().prompt(), disambiguation.prompt());
+          exResponse.getSystemSettings().getDisambiguation().prompt(), disambiguation.prompt());
       assertEquals(
-          exResponse.getSystemSettings().disambiguation().enabled(), disambiguation.enabled());
+          exResponse.getSystemSettings().getDisambiguation().enabled(), disambiguation.enabled());
       assertEquals(
-          exResponse.getSystemSettings().tooling().storeGenericResponses(),
+          exResponse.getSystemSettings().getTooling().storeGenericResponses(),
           tooling.storeGenericResponses());
 
       // webhooks
@@ -1324,12 +1326,6 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().build();
     WorkspaceCollection response = service.listWorkspaces(listOptions).execute().getResult();
-    /** System.out.println(response);
-    DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder("5b586426-c587-4775-950c-59b58db84b14").build();
-    service.deleteWorkspace(deleteOptions).execute();
-    DeleteWorkspaceOptions deleteOptions1 = new DeleteWorkspaceOptions.Builder("661d9f74-9d3a-4655-bee4-84e16bd25d00").build();
-    service.deleteWorkspace(deleteOptions1).execute(); **/
-
     assertNotNull(response);
     assertNotNull(response.getWorkspaces());
     assertTrue(response.getWorkspaces().size() > 0);
@@ -1872,6 +1868,25 @@ public class AssistantServiceIT extends AssistantServiceTest {
     EntityMentionCollection collection =
         service.listMentions(listMentionsOptions).execute().getResult();
     assertNotNull(collection);
+  }
+
+  @Test
+  public void testRuntimeResponseGeneric() {
+    try {
+      ArrayList<String> inputStrings = new ArrayList<>(Arrays.asList("audio", "iframe", "video"));
+      for (String inputMessage : inputStrings) {
+        MessageInput input = new MessageInput();
+        input.setText(inputMessage);
+
+        MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+        MessageResponse response = service.message(options).execute().getResult();
+
+        assertNotNull(response);
+        assertTrue(response.getOutput().getGeneric().get(0).responseType().contains(inputMessage));
+      }
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    }
   }
 
   /** Test bulk classify */

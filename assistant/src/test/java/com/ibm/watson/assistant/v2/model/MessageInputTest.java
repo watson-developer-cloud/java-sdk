@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -119,12 +119,6 @@ public class MessageInputTest {
             .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
             .groups(
                 new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
             .interpretation(runtimeEntityInterpretationModel)
@@ -140,13 +134,6 @@ public class MessageInputTest {
     assertEquals(runtimeEntityModel.value(), "testString");
     assertEquals(runtimeEntityModel.confidence(), Double.valueOf("72.5"));
     assertEquals(
-        runtimeEntityModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
-    assertEquals(
         runtimeEntityModel.groups(),
         new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)));
     assertEquals(runtimeEntityModel.interpretation(), runtimeEntityInterpretationModel);
@@ -155,6 +142,11 @@ public class MessageInputTest {
         new java.util.ArrayList<RuntimeEntityAlternative>(
             java.util.Arrays.asList(runtimeEntityAlternativeModel)));
     assertEquals(runtimeEntityModel.role(), runtimeEntityRoleModel);
+
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
+    assertEquals(messageInputAttachmentModel.url(), "testString");
+    assertEquals(messageInputAttachmentModel.mediaType(), "testString");
 
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
@@ -186,6 +178,9 @@ public class MessageInputTest {
             .entities(
                 new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
             .suggestionId("testString")
+            .attachments(
+                new java.util.ArrayList<MessageInputAttachment>(
+                    java.util.Arrays.asList(messageInputAttachmentModel)))
             .options(messageInputOptionsModel)
             .build();
     assertEquals(messageInputModel.messageType(), "text");
@@ -197,6 +192,10 @@ public class MessageInputTest {
         messageInputModel.entities(),
         new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
     assertEquals(messageInputModel.suggestionId(), "testString");
+    assertEquals(
+        messageInputModel.attachments(),
+        new java.util.ArrayList<MessageInputAttachment>(
+            java.util.Arrays.asList(messageInputAttachmentModel)));
     assertEquals(messageInputModel.options(), messageInputOptionsModel);
 
     String json = TestUtilities.serialize(messageInputModel);

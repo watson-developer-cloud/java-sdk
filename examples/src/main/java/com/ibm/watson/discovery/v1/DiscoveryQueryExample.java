@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -68,7 +68,10 @@ public class DiscoveryQueryExample {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
       CreateEnvironmentOptions createOptions =
-          new CreateEnvironmentOptions.Builder().name(environmentName).size(String.valueOf(0L)) /* FREE */.build();
+          new CreateEnvironmentOptions.Builder()
+              .name(environmentName)
+              .size(String.valueOf(0L)) /* FREE */
+              .build();
       Environment createResponse = discovery.createEnvironment(createOptions).execute().getResult();
       environmentId = createResponse.getEnvironmentId();
       System.out.println("Created new environment ID: " + environmentId);

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2019, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
 package com.ibm.watson.text_to_speech.v1;
@@ -91,15 +91,12 @@ import okhttp3.WebSocket;
  * when combined, sound like the word. A phonetic translation is based on the SSML phoneme format
  * for representing a word. You can specify a phonetic translation in standard International
  * Phonetic Alphabet (IPA) representation or in the proprietary IBM Symbolic Phonetic Representation
- * (SPR).
+ * (SPR). For phonetic translation, the Arabic, Chinese, Dutch, Australian English, Korean, and
+ * Swedish voices support only IPA, not SPR.
  *
  * <p>The service also offers a Tune by Example feature that lets you define custom prompts. You can
  * also define speaker models to improve the quality of your custom prompts. The service support
  * custom prompts only for US English custom models and voices.
- *
- * <p>**IBM Cloud&amp;reg;.** The Arabic, Chinese, Dutch, Australian English, and Korean languages
- * and voices are supported only for IBM Cloud. For phonetic translation, they support only IPA, not
- * SPR.
  *
  * <p>API Version: 1.0.0 See: https://cloud.ibm.com/docs/text-to-speech
  */
@@ -209,25 +206,10 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Listing a specific
    * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoice).
    *
-   * <p>### Important voice updates for IBM Cloud
-   *
-   * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
-   * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
-   * `ar-AR_OmarVoice` voice is deprecated. Use `ar-MS_OmarVoice` voice instead. * The `ar-AR`
-   * language identifier cannot be used to create a custom model. Use the `ar-MS` identifier
-   * instead. * The standard concatenative voices for the following languages are now deprecated:
-   * Brazilian Portuguese, United Kingdom and United States English, French, German, Italian,
-   * Japanese, and Spanish (all dialects). * The features expressive SSML, voice transformation
-   * SSML, and use of the `volume` attribute of the `&lt;prosody&gt;` element are deprecated and are
-   * not supported with any of the service's neural voices. * All of the service's voices are now
-   * customizable and generally available (GA) for production use.
-   *
-   * <p>The deprecated voices and features will continue to function for at least one year but might
-   * be removed at a future date. You are encouraged to migrate to the equivalent neural voices at
-   * your earliest convenience. For more information about all voice updates, see the [2 December
-   * 2020 service
-   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes for IBM Cloud.
+   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
+   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
+   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
+   * `ar-MS_OmarVoice` voice instead.
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Voice}
@@ -268,6 +250,11 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [The HTTP
    * interface](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-usingHTTP#usingHTTP).
    *
+   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
+   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
+   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
+   * `ar-MS_OmarVoice` voice instead.
+   *
    * <p>### Audio formats (accept types)
    *
    * <p>The service can return audio in the following formats (MIME types). * Where indicated, you
@@ -302,26 +289,6 @@ public class TextToSpeech extends BaseService {
    * <p>For more information about specifying an audio format, including additional details about
    * some of the formats, see [Using audio
    * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audio-formats).
-   *
-   * <p>### Important voice updates for IBM Cloud
-   *
-   * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
-   * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
-   * `ar-AR_OmarVoice` voice is deprecated. Use `ar-MS_OmarVoice` voice instead. * The `ar-AR`
-   * language identifier cannot be used to create a custom model. Use the `ar-MS` identifier
-   * instead. * The standard concatenative voices for the following languages are now deprecated:
-   * Brazilian Portuguese, United Kingdom and United States English, French, German, Italian,
-   * Japanese, and Spanish (all dialects). * The features expressive SSML, voice transformation
-   * SSML, and use of the `volume` attribute of the `&lt;prosody&gt;` element are deprecated and are
-   * not supported with any of the service's neural voices. * All of the service's voices are now
-   * customizable and generally available (GA) for production use.
-   *
-   * <p>The deprecated voices and features will continue to function for at least one year but might
-   * be removed at a future date. You are encouraged to migrate to the equivalent neural voices at
-   * your earliest convenience. For more information about all voice updates, see the [2 December
-   * 2020 service
-   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes for IBM Cloud.
    *
    * <p>### Warning messages
    *
@@ -417,25 +384,10 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Querying a word from a
    * language](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
    *
-   * <p>### Important voice updates for IBM Cloud
-   *
-   * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
-   * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
-   * `ar-AR_OmarVoice` voice is deprecated. Use `ar-MS_OmarVoice` voice instead. * The `ar-AR`
-   * language identifier cannot be used to create a custom model. Use the `ar-MS` identifier
-   * instead. * The standard concatenative voices for the following languages are now deprecated:
-   * Brazilian Portuguese, United Kingdom and United States English, French, German, Italian,
-   * Japanese, and Spanish (all dialects). * The features expressive SSML, voice transformation
-   * SSML, and use of the `volume` attribute of the `&lt;prosody&gt;` element are deprecated and are
-   * not supported with any of the service's neural voices. * All of the service's voices are now
-   * customizable and generally available (GA) for production use.
-   *
-   * <p>The deprecated voices and features will continue to function for at least one year but might
-   * be removed at a future date. You are encouraged to migrate to the equivalent neural voices at
-   * your earliest convenience. For more information about all voice updates, see the [2 December
-   * 2020 service
-   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes for IBM Cloud.
+   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
+   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
+   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
+   * `ar-MS_OmarVoice` voice instead.
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for
    *     the call
@@ -479,25 +431,10 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
    *
-   * <p>### Important voice updates for IBM Cloud
-   *
-   * <p>The service's voices underwent significant change on 2 December 2020. * The Arabic, Chinese,
-   * Dutch, Australian English, and Korean voices are now neural instead of concatenative. * The
-   * `ar-AR_OmarVoice` voice is deprecated. Use `ar-MS_OmarVoice` voice instead. * The `ar-AR`
-   * language identifier cannot be used to create a custom model. Use the `ar-MS` identifier
-   * instead. * The standard concatenative voices for the following languages are now deprecated:
-   * Brazilian Portuguese, United Kingdom and United States English, French, German, Italian,
-   * Japanese, and Spanish (all dialects). * The features expressive SSML, voice transformation
-   * SSML, and use of the `volume` attribute of the `&lt;prosody&gt;` element are deprecated and are
-   * not supported with any of the service's neural voices. * All of the service's voices are now
-   * customizable and generally available (GA) for production use.
-   *
-   * <p>The deprecated voices and features will continue to function for at least one year but might
-   * be removed at a future date. You are encouraged to migrate to the equivalent neural voices at
-   * your earliest convenience. For more information about all voice updates, see the [2 December
-   * 2020 service
-   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#December2020)
-   * in the release notes for IBM Cloud.
+   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
+   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
+   * for IBM Cloud Pak for Data. Also, the `ar-AR` language identifier cannot be used to create a
+   * custom model; use the `ar-MS` identifier instead.
    *
    * @param createCustomModelOptions the {@link CreateCustomModelOptions} containing the options for
    *     the call

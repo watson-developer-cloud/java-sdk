@@ -51,16 +51,11 @@
 
         <!-- >>> List each service's module here -->
         <module>/assistant</module>
-        <module>/compare-comply</module>
         <module>/discovery</module>
         <module>/language-translator</module>
-        <module>/natural-language-classifier</module>
         <module>/natural-language-understanding</module>
-        <module>/personality-insights</module>
         <module>/speech-to-text</module>
         <module>/text-to-speech</module>
-        <module>/tone-analyzer</module>
-        <module>/visual-recognition</module>
 
         <module>/ibm-watson</module>
         <!-- This module should be listed after all the service-related modules above -->

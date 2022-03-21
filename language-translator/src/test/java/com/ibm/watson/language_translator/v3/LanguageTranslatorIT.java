@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,7 +35,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -76,7 +75,9 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
       serviceUrl = getProperty("language_translator.url");
     }
 
-    assertNotNull("LANGUAGE_TRANSLATOR_APIKEY is not defined and config.properties doesn't have valid credentials.", iamApiKey);
+    assertNotNull(
+        "LANGUAGE_TRANSLATOR_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        iamApiKey);
 
     Authenticator authenticator = new IamAuthenticator(iamApiKey);
     service = new LanguageTranslator("2018-05-01", authenticator);

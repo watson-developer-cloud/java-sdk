@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,6 +39,7 @@ public class MessageContextTest {
             .referenceTime("testString")
             .sessionStartTime("testString")
             .state("testString")
+            .skipUserInput(true)
             .build();
     assertEquals(messageContextGlobalSystemModel.timezone(), "testString");
     assertEquals(messageContextGlobalSystemModel.userId(), "testString");
@@ -47,6 +48,7 @@ public class MessageContextTest {
     assertEquals(messageContextGlobalSystemModel.referenceTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.sessionStartTime(), "testString");
     assertEquals(messageContextGlobalSystemModel.state(), "testString");
+    assertEquals(messageContextGlobalSystemModel.skipUserInput(), Boolean.valueOf(true));
 
     MessageContextGlobal messageContextGlobalModel =
         new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();
@@ -88,6 +90,12 @@ public class MessageContextTest {
                     put("foo", messageContextSkillModel);
                   }
                 })
+            .integrations(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
             .build();
     assertEquals(messageContextModel.global(), messageContextGlobalModel);
     assertEquals(
@@ -97,11 +105,25 @@ public class MessageContextTest {
             put("foo", messageContextSkillModel);
           }
         });
+    assertEquals(
+        messageContextModel.integrations(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        });
 
     String json = TestUtilities.serialize(messageContextModel);
 
     MessageContext messageContextModelNew = TestUtilities.deserialize(json, MessageContext.class);
     assertTrue(messageContextModelNew instanceof MessageContext);
     assertEquals(messageContextModelNew.global().toString(), messageContextGlobalModel.toString());
+    assertEquals(
+        messageContextModelNew.integrations().toString(),
+        new java.util.HashMap<String, Object>() {
+          {
+            put("foo", "testString");
+          }
+        }.toString());
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2019, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,7 +26,9 @@ import java.util.Map;
  * RuntimeResponseGenericRuntimeResponseTypeConnectToAgent -
  * RuntimeResponseGenericRuntimeResponseTypeSuggestion -
  * RuntimeResponseGenericRuntimeResponseTypeChannelTransfer -
- * RuntimeResponseGenericRuntimeResponseTypeUserDefined
+ * RuntimeResponseGenericRuntimeResponseTypeUserDefined -
+ * RuntimeResponseGenericRuntimeResponseTypeVideo - RuntimeResponseGenericRuntimeResponseTypeAudio -
+ * RuntimeResponseGenericRuntimeResponseTypeIframe
  */
 public class RuntimeResponseGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -36,10 +38,12 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   static {
     discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put("audio", RuntimeResponseGenericRuntimeResponseTypeAudio.class);
     discriminatorMapping.put(
         "channel_transfer", RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.class);
     discriminatorMapping.put(
         "connect_to_agent", RuntimeResponseGenericRuntimeResponseTypeConnectToAgent.class);
+    discriminatorMapping.put("iframe", RuntimeResponseGenericRuntimeResponseTypeIframe.class);
     discriminatorMapping.put("image", RuntimeResponseGenericRuntimeResponseTypeImage.class);
     discriminatorMapping.put("option", RuntimeResponseGenericRuntimeResponseTypeOption.class);
     discriminatorMapping.put(
@@ -48,6 +52,7 @@ public class RuntimeResponseGeneric extends GenericModel {
     discriminatorMapping.put("text", RuntimeResponseGenericRuntimeResponseTypeText.class);
     discriminatorMapping.put(
         "user_defined", RuntimeResponseGenericRuntimeResponseTypeUserDefined.class);
+    discriminatorMapping.put("video", RuntimeResponseGenericRuntimeResponseTypeVideo.class);
   }
 
   /** The preferred type of control to display. */
@@ -96,6 +101,12 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   @SerializedName("user_defined")
   protected Map<String, Object> userDefined;
+
+  @SerializedName("channel_options")
+  protected Map<String, Object> channelOptions;
+
+  @SerializedName("image_url")
+  protected String imageUrl;
 
   protected RuntimeResponseGeneric() {}
 
@@ -182,7 +193,7 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>The description to show with the the response.
+   * <p>The description to show with the response.
    *
    * @return the description
    */
@@ -315,5 +326,27 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public Map<String, Object> userDefined() {
     return userDefined;
+  }
+
+  /**
+   * Gets the channelOptions.
+   *
+   * <p>For internal use only.
+   *
+   * @return the channelOptions
+   */
+  public Map<String, Object> channelOptions() {
+    return channelOptions;
+  }
+
+  /**
+   * Gets the imageUrl.
+   *
+   * <p>The URL of an image that shows a preview of the embedded content.
+   *
+   * @return the imageUrl
+   */
+  public String imageUrl() {
+    return imageUrl;
   }
 }

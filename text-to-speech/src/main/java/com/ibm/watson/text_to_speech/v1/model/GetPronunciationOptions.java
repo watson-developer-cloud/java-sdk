@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,18 +19,15 @@ public class GetPronunciationOptions extends GenericModel {
 
   /**
    * A voice that specifies the language in which the pronunciation is to be returned. All voices
-   * for the same language (for example, `en-US`) return the same translation. For more information
-   * about specifying a voice, see **Important voice updates for IBM Cloud** in the method
-   * description.
-   *
-   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
-   * voices are supported only for IBM Cloud.
+   * for the same language (for example, `en-US`) return the same translation.
    */
   public interface Voice {
     /** ar-AR_OmarVoice. */
     String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
     /** ar-MS_OmarVoice. */
     String AR_MS_OMARVOICE = "ar-MS_OmarVoice";
+    /** cs-CZ_AlenaVoice. */
+    String CS_CZ_ALENAVOICE = "cs-CZ_AlenaVoice";
     /** de-DE_BirgitVoice. */
     String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
     /** de-DE_BirgitV3Voice. */
@@ -41,10 +38,12 @@ public class GetPronunciationOptions extends GenericModel {
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
-    /** en-AU-CraigVoice. */
-    String EN_AU_CRAIGVOICE = "en-AU-CraigVoice";
-    /** en-AU-MadisonVoice. */
-    String EN_AU_MADISONVOICE = "en-AU-MadisonVoice";
+    /** en-AU_CraigVoice. */
+    String EN_AU_CRAIGVOICE = "en-AU_CraigVoice";
+    /** en-AU_MadisonVoice. */
+    String EN_AU_MADISONVOICE = "en-AU_MadisonVoice";
+    /** en-AU_SteveVoice. */
+    String EN_AU_STEVEVOICE = "en-AU_SteveVoice";
     /** en-GB_CharlotteV3Voice. */
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
     /** en-GB_JamesV3Voice. */
@@ -115,6 +114,8 @@ public class GetPronunciationOptions extends GenericModel {
     String KO_KR_YUNAVOICE = "ko-KR_YunaVoice";
     /** nl-BE_AdeleVoice. */
     String NL_BE_ADELEVOICE = "nl-BE_AdeleVoice";
+    /** nl-BE_BramVoice. */
+    String NL_BE_BRAMVOICE = "nl-BE_BramVoice";
     /** nl-NL_EmmaVoice. */
     String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
     /** nl-NL_LiamVoice. */
@@ -123,6 +124,8 @@ public class GetPronunciationOptions extends GenericModel {
     String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
+    /** sv-SE_IngridVoice. */
+    String SV_SE_INGRIDVOICE = "sv-SE_IngridVoice";
     /** zh-CN_LiNaVoice. */
     String ZH_CN_LINAVOICE = "zh-CN_LiNaVoice";
     /** zh-CN_WangWeiVoice. */
@@ -260,12 +263,7 @@ public class GetPronunciationOptions extends GenericModel {
    * Gets the voice.
    *
    * <p>A voice that specifies the language in which the pronunciation is to be returned. All voices
-   * for the same language (for example, `en-US`) return the same translation. For more information
-   * about specifying a voice, see **Important voice updates for IBM Cloud** in the method
-   * description.
-   *
-   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
-   * voices are supported only for IBM Cloud.
+   * for the same language (for example, `en-US`) return the same translation.
    *
    * @return the voice
    */

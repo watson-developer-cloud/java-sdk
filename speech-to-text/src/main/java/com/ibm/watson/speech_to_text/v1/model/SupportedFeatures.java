@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,11 +15,14 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** Additional service features that are supported with the model. */
+/** Indicates whether select service features are supported with the model. */
 public class SupportedFeatures extends GenericModel {
 
   @SerializedName("custom_language_model")
   protected Boolean customLanguageModel;
+
+  @SerializedName("custom_acoustic_model")
+  protected Boolean customAcousticModel;
 
   @SerializedName("speaker_labels")
   protected Boolean speakerLabels;
@@ -40,18 +43,30 @@ public class SupportedFeatures extends GenericModel {
   }
 
   /**
+   * Gets the customAcousticModel.
+   *
+   * <p>Indicates whether the customization interface can be used to create a custom acoustic model
+   * based on the language model.
+   *
+   * @return the customAcousticModel
+   */
+  public Boolean isCustomAcousticModel() {
+    return customAcousticModel;
+  }
+
+  /**
    * Gets the speakerLabels.
    *
    * <p>Indicates whether the `speaker_labels` parameter can be used with the language model.
    *
-   * <p>**Note:** The field returns `true` for all models. However, speaker labels are supported as
-   * beta functionality only for the following languages and models: * For previous-generation
-   * models, the parameter can be used for Australian English, US English, German, Japanese, Korean,
-   * and Spanish (both broadband and narrowband models) and UK English (narrowband model)
-   * transcription only. * For next-generation models, the parameter can be used for English
+   * <p>**Note:** The field returns `true` for all models. However, speaker labels are supported for
+   * use only with the following languages and models: * _For previous-generation models,_ the
+   * parameter can be used with Australian English, US English, German, Japanese, Korean, and
+   * Spanish (both broadband and narrowband models) and UK English (narrowband model) transcription
+   * only. * _For next-generation models,_ the parameter can be used with Czech, English
    * (Australian, Indian, UK, and US), German, Japanese, Korean, and Spanish transcription only.
    *
-   * <p>Speaker labels are not supported for any other models.
+   * <p>Speaker labels are not supported for use with any other languages or models.
    *
    * @return the speakerLabels
    */

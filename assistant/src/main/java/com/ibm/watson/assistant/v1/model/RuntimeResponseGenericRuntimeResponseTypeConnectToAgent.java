@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     private String dialogNode;
     private List<ResponseGenericChannel> channels;
 
-    public Builder(RuntimeResponseGenericRuntimeResponseTypeConnectToAgent runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
+    public Builder(
+        RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
+            runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.responseType;
       this.messageToHumanAgent =
           runtimeResponseGenericRuntimeResponseTypeConnectToAgent.messageToHumanAgent;

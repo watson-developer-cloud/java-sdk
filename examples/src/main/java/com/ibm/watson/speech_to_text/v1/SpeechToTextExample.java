@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2019, 2021.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,10 +32,7 @@ public class SpeechToTextExample {
 
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     RecognizeOptions options =
-        new RecognizeOptions.Builder()
-            .audio(audio)
-            .contentType(HttpMediaType.AUDIO_WAV)
-            .build();
+        new RecognizeOptions.Builder().audio(audio).contentType(HttpMediaType.AUDIO_WAV).build();
     SpeechRecognitionResults transcript = service.recognize(options).execute().getResult();
 
     System.out.println(transcript);

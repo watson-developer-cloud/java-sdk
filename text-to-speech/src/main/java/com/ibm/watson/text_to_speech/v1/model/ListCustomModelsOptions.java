@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,8 @@ public class ListCustomModelsOptions extends GenericModel {
   public interface Language {
     /** ar-MS. */
     String AR_MS = "ar-MS";
+    /** cs-CZ. */
+    String CS_CZ = "cs-CZ";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-AU. */
@@ -54,6 +56,8 @@ public class ListCustomModelsOptions extends GenericModel {
     String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** sv-SE. */
+    String SV_SE = "sv-SE";
     /** zh-CN. */
     String ZH_CN = "zh-CN";
   }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,17 +20,22 @@ public class CreateCustomModelOptions extends GenericModel {
   /**
    * The language of the new custom model. You create a custom model for a specific language, not
    * for a specific voice. A custom model can be used with any voice for its specified language.
-   * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
-   * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
+   * Omit the parameter to use the the default language, `en-US`.
    *
-   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
-   * voices are supported only for IBM Cloud.
+   * <p>**Important:** If you are using the service on IBM Cloud Pak for Data _and_ you install the
+   * neural voices, the `language`parameter is required. You must specify the language for the
+   * custom model in the indicated format (for example, `en-AU` for Australian English). The request
+   * fails if you do not specify a language.
    */
   public interface Language {
     /** ar-MS. */
     String AR_MS = "ar-MS";
+    /** cs-CZ. */
+    String CS_CZ = "cs-CZ";
     /** de-DE. */
     String DE_DE = "de-DE";
+    /** en-AU. */
+    String EN_AU = "en-AU";
     /** en-GB. */
     String EN_GB = "en-GB";
     /** en-US. */
@@ -57,6 +62,8 @@ public class CreateCustomModelOptions extends GenericModel {
     String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** sv-SE. */
+    String SV_SE = "sv-SE";
     /** zh-CN. */
     String ZH_CN = "zh-CN";
   }
@@ -164,11 +171,12 @@ public class CreateCustomModelOptions extends GenericModel {
    *
    * <p>The language of the new custom model. You create a custom model for a specific language, not
    * for a specific voice. A custom model can be used with any voice for its specified language.
-   * Omit the parameter to use the the default language, `en-US`. **Note:** The `ar-AR` language
-   * identifier cannot be used to create a custom model. Use the `ar-MS` identifier instead.
+   * Omit the parameter to use the the default language, `en-US`.
    *
-   * <p>**IBM Cloud:** The Arabic, Chinese, Dutch, Australian English, and Korean languages and
-   * voices are supported only for IBM Cloud.
+   * <p>**Important:** If you are using the service on IBM Cloud Pak for Data _and_ you install the
+   * neural voices, the `language`parameter is required. You must specify the language for the
+   * custom model in the indicated format (for example, `en-AU` for Australian English). The request
+   * fails if you do not specify a language.
    *
    * @return the language
    */

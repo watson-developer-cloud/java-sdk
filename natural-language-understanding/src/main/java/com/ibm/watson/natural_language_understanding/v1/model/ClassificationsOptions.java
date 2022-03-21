@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2021, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,11 +14,7 @@ package com.ibm.watson.natural_language_understanding.v1.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/**
- * Returns text classifications for the content.
- *
- * <p>Supported languages: English only.
- */
+/** Returns text classifications for the content. */
 public class ClassificationsOptions extends GenericModel {
 
   protected String model;
@@ -73,7 +69,11 @@ public class ClassificationsOptions extends GenericModel {
    *
    * <p>Enter a [custom
    * model](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-customizing)
-   * ID of the classification model to be used.
+   * ID of the classifications model to be used.
+   *
+   * <p>You can analyze tone by using a language-specific model ID. See [Tone analytics
+   * (Classifications)](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-tone_analytics)
+   * for more information.
    *
    * @return the model
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -66,7 +66,9 @@ public class AssistantServiceTest extends WatsonServiceTest {
       serviceUrl = getProperty("assistant.url");
     }
 
-    Assume.assumeFalse("ASSISTANT_APIKEY is not defined and config.properties doesn't have valid credentials.", apiKey == null);
+    Assume.assumeFalse(
+        "ASSISTANT_APIKEY is not defined and config.properties doesn't have valid credentials.",
+        apiKey == null);
 
     Authenticator authenticator = new IamAuthenticator(apiKey);
     service = new Assistant("2019-02-28", authenticator);

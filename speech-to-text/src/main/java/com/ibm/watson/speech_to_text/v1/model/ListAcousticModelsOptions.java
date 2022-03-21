@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,18 +19,21 @@ public class ListAcousticModelsOptions extends GenericModel {
 
   /**
    * The identifier of the language for which custom language or custom acoustic models are to be
-   * returned. Omit the parameter to see all custom language or custom acoustic models that are
-   * owned by the requesting credentials. (**Note:** The identifier `ar-AR` is deprecated; use
-   * `ar-MS` instead.)
+   * returned. Specify the five-character language identifier; for example, specify `en-US` to see
+   * all custom language or custom acoustic models that are based on US English models. Omit the
+   * parameter to see all custom language or custom acoustic models that are owned by the requesting
+   * credentials. (**Note:** The identifier `ar-AR` is deprecated; use `ar-MS` instead.)
    *
    * <p>To determine the languages for which customization is available, see [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    */
   public interface Language {
     /** ar-AR. */
     String AR_AR = "ar-AR";
     /** ar-MS. */
     String AR_MS = "ar-MS";
+    /** cs-CZ. */
+    String CS_CZ = "cs-CZ";
     /** de-DE. */
     String DE_DE = "de-DE";
     /** en-AU. */
@@ -41,14 +44,18 @@ public class ListAcousticModelsOptions extends GenericModel {
     String EN_IN = "en-IN";
     /** en-US. */
     String EN_US = "en-US";
+    /** en-WW. */
+    String EN_WW = "en-WW";
     /** es-AR. */
     String ES_AR = "es-AR";
-    /** es-ES. */
-    String ES_ES = "es-ES";
     /** es-CL. */
     String ES_CL = "es-CL";
     /** es-CO. */
     String ES_CO = "es-CO";
+    /** es-ES. */
+    String ES_ES = "es-ES";
+    /** es-LA. */
+    String ES_LA = "es-LA";
     /** es-MX. */
     String ES_MX = "es-MX";
     /** es-PE. */
@@ -126,12 +133,13 @@ public class ListAcousticModelsOptions extends GenericModel {
    * Gets the language.
    *
    * <p>The identifier of the language for which custom language or custom acoustic models are to be
-   * returned. Omit the parameter to see all custom language or custom acoustic models that are
-   * owned by the requesting credentials. (**Note:** The identifier `ar-AR` is deprecated; use
-   * `ar-MS` instead.)
+   * returned. Specify the five-character language identifier; for example, specify `en-US` to see
+   * all custom language or custom acoustic models that are based on US English models. Omit the
+   * parameter to see all custom language or custom acoustic models that are owned by the requesting
+   * credentials. (**Note:** The identifier `ar-AR` is deprecated; use `ar-MS` instead.)
    *
    * <p>To determine the languages for which customization is available, see [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * @return the language
    */

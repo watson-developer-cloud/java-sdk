@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2020.
+ * (C) Copyright IBM Corp. 2016, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,7 +76,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Gets the supportedFeatures.
    *
-   * <p>Additional service features that are supported with the model.
+   * <p>Indicates whether select service features are supported with the model.
    *
    * @return the supportedFeatures
    */

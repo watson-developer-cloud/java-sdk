@@ -13,7 +13,6 @@
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     private List<ResponseGenericChannel> channels;
 
     public Builder(
-            RuntimeResponseGenericRuntimeResponseTypeChannelTransfer runtimeResponseGenericRuntimeResponseTypeChannelTransfer) {
+        RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.responseType;
       this.messageToUser = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.messageToUser;
       this.transferInfo = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo;

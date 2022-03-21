@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,20 +29,28 @@ public class GetModelOptions extends GenericModel {
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** ar-MS_Telephony. */
     String AR_MS_TELEPHONY = "ar-MS_Telephony";
+    /** cs-CZ_Telephony. */
+    String CS_CZ_TELEPHONY = "cs-CZ_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
+    /** de-DE_Multimedia. */
+    String DE_DE_MULTIMEDIA = "de-DE_Multimedia";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
     /** de-DE_Telephony. */
     String DE_DE_TELEPHONY = "de-DE_Telephony";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_Multimedia. */
+    String EN_AU_MULTIMEDIA = "en-AU_Multimedia";
     /** en-AU_NarrowbandModel. */
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-AU_Telephony. */
     String EN_AU_TELEPHONY = "en-AU_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
+    /** en-GB_Multimedia. */
+    String EN_GB_MULTIMEDIA = "en-GB_Multimedia";
     /** en-GB_NarrowbandModel. */
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
     /** en-GB_Telephony. */
@@ -59,6 +67,8 @@ public class GetModelOptions extends GenericModel {
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
     /** en-US_Telephony. */
     String EN_US_TELEPHONY = "en-US_Telephony";
+    /** en-WW_Medical_Telephony. */
+    String EN_WW_MEDICAL_TELEPHONY = "en-WW_Medical_Telephony";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
@@ -75,8 +85,12 @@ public class GetModelOptions extends GenericModel {
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-ES_Multimedia. */
+    String ES_ES_MULTIMEDIA = "es-ES_Multimedia";
     /** es-ES_Telephony. */
     String ES_ES_TELEPHONY = "es-ES_Telephony";
+    /** es-LA_Telephony. */
+    String ES_LA_TELEPHONY = "es-LA_Telephony";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
@@ -127,6 +141,8 @@ public class GetModelOptions extends GenericModel {
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
+    /** nl-NL_Telephony. */
+    String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
@@ -137,6 +153,8 @@ public class GetModelOptions extends GenericModel {
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
+    /** zh-CN_Telephony. */
+    String ZH_CN_TELEPHONY = "zh-CN_Telephony";
   }
 
   protected String modelId;

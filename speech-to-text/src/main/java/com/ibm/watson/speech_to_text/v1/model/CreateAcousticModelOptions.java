@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ public class CreateAcousticModelOptions extends GenericModel {
    *
    * <p>To determine whether a base model supports acoustic model customization, refer to [Language
    * support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    */
   public interface BaseModelName {
     /** ar-AR_BroadbandModel. */
@@ -221,7 +221,7 @@ public class CreateAcousticModelOptions extends GenericModel {
    *
    * <p>To determine whether a base model supports acoustic model customization, refer to [Language
    * support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support#custom-language-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    *
    * @return the baseModelName
    */
