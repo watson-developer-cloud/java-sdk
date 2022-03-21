@@ -1,3 +1,37 @@
+# [10.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.3.1...v10.0.0) (2022-03-21)
+
+
+### Bug Fixes
+
+* **bumpversion:** update bumpversion file ([ca7b4e8](https://github.com/watson-developer-cloud/java-sdk/commit/ca7b4e87279d63fea920e279de88c80516d3bca3))
+
+
+### Features
+
+* **assistant-v1:** add new DialogNodeOutputGeneric subclasses & additional properties in workspace ([dfeacca](https://github.com/watson-developer-cloud/java-sdk/commit/dfeacca3201245a1a5902669be9e051dcb320506))
+* **assistant-v1:** generated using api-def: master & generator: 3.46.0 ([dc7f6a4](https://github.com/watson-developer-cloud/java-sdk/commit/dc7f6a4acad722a507724732f7e17ffeb992d4ba))
+* **assistant-v2:** generated using api-def: master & generator: 3.46.0 ([4fdfb2f](https://github.com/watson-developer-cloud/java-sdk/commit/4fdfb2faca5a047d841de45cba0ca26633618ef3))
+* **deprecation:** remove CC, NLC, PI, Tone Analyzer, and Visual Recognition ([1b64285](https://github.com/watson-developer-cloud/java-sdk/commit/1b64285fd5b3d0765e2435627ae65ffcce097136))
+* **discovery-v1:** document status & query aggregation update ([776048c](https://github.com/watson-developer-cloud/java-sdk/commit/776048cbc7a2d2938d63bfb6eabcc4fded56a44b))
+* **speech-to-text-v1:** add de-de_multimedia & update comments ([0d32576](https://github.com/watson-developer-cloud/java-sdk/commit/0d32576bc7405e6a4c39f01688b41f1e5bab180b))
+* **speech-to-text-v1:** add missing import ([029fdfa](https://github.com/watson-developer-cloud/java-sdk/commit/029fdfa9afc51acc3f673daf07aa43dec6dd4691))
+* **speech-to-text-v1:** supportedFeatures: customAcousticModel property added & update comments ([62e4f8e](https://github.com/watson-developer-cloud/java-sdk/commit/62e4f8ec354d2746acdcd07bce28dec348214fba))
+* **text-to-speech-v1:** add voices and update comments ([40cd035](https://github.com/watson-developer-cloud/java-sdk/commit/40cd0358c131d2e3767b16d9bedf2ddd256e7fd2))
+
+
+### Reverts
+
+* **pom.xml:** revert change for root pom.xml ([5fecba8](https://github.com/watson-developer-cloud/java-sdk/commit/5fecba83ac663ceb6766061c81878369a46963f7))
+
+
+### BREAKING CHANGES
+
+* **discovery-v1:** QueryAggregation: BREAKING QueryAggregation subclasses changed.
+* **assistant-v2:** MessageOutputDebug: BREAKING nodesVisited type DialogNodesVisited changed to
+DialogNodeVisited, RuntimeEntity: BREAKING optional metadata property removed
+* **assistant-v1:** OutputData: BREAKING required text property removed, RuntimeEntity: BREAKING
+optional metadata property removed
+
 ## [9.3.1](https://github.com/watson-developer-cloud/java-sdk/compare/v9.3.0...v9.3.1) (2021-12-02)
 
 
