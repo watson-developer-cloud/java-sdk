@@ -12,24 +12,18 @@
 Java client library to use the [Watson APIs][wdc].
 
 ## Announcements
-### Natural Language Classifier deprecation
-On 9 August 2021, IBM announced the deprecation of the Natural Language Classifier service.The service will no longer be available from 8 August 2022. As of 9 September 2021, you will not be able to create new instances. Existing instances will be supported until 8 August 2022. Any instance that still exists on that date will be deleted.
+### Tone Analyzer Deprecation
+As of this major release, 10.0.0, the Tone Analyzer API has been removed in preparation for deprecation. If you wish to continue using this sdk to make calls to Tone Analyzer until its final deprecation, you will have to use a previous version.
+On 24 February 2022, IBM announced the deprecation of the Tone Analyzer service. The service will no longer be available as of 24 February 2023. As of 24 February 2022, you will not be able to create new instances. Existing instances will be supported until 24 February 2023.
+As an alternative, we encourage you to consider migrating to the Natural Language Understanding service on IBM Cloud. With Natural Language Understanding, tone analysis is done by using a pre-built classifications model, which provides an easy way to detect language tones in written text. For more information, see [Migrating from Watson Tone Analyzer Customer Engagement endpoint to Natural Language Understanding](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-tone_analytics).
 
+### Natural Language Classifier Deprecation
+As of this major release, 10.0.0, the NLC API has been removed in preparation for deprecation. If you wish to continue using this sdk to make calls to NLC until its final deprecation, you will have to use a previous version.
+On 9 August 2021, IBM announced the deprecation of the Natural Language Classifier service. The service will no longer be available from 8 August 2022. As of 9 September 2021, you will not be able to create new instances. Existing instances will be supported until 8 August 2022. Any instance that still exists on that date will be deleted.
 As an alternative, we encourage you to consider migrating to the Natural Language Understanding service on IBM Cloud that uses deep learning to extract data and insights from text such as keywords, categories, sentiment, emotion, and syntax, along with advanced multi-label text classification capabilities, to provide even richer insights for your business or industry. For more information, see [Migrating to Natural Language Understanding](https://cloud.ibm.com/docs/natural-language-classifier?topic=natural-language-classifier-migrating).
 
 ### Updating endpoint URLs from watsonplatform.net
 Watson API endpoint URLs at watsonplatform.net are changing and will not work after 26 May 2021. Update your calls to use the newer endpoint URLs. For more information, see https://cloud.ibm.com/docs/watson?topic=watson-endpoint-change.
-
-### Personality Insights deprecation
-IBM Watson™ Personality Insights is discontinued. For a period of one year from 1 December 2020, you will still be able to use Watson Personality Insights. However, as of 1 December 2021, the offering will no longer be available.
-
-As an alternative, we encourage you to consider migrating to IBM Watson™ [Natural Language Understanding](https://cloud.ibm.com/docs/natural-language-understanding), a service on IBM Cloud® that uses deep learning to extract data and insights from text such as keywords, categories, sentiment, emotion, and syntax to provide insights for your business or industry. For more information, see About Natural Language Understanding.
-
-### Visual Recognition deprecation
-IBM Watson™ Visual Recognition is discontinued. Existing instances are supported until 1 December 2021, but as of 7 January 2021, you can't create instances. Any instance that is provisioned on 1 December 2021 will be deleted.
-
-### Compare and Comply deprecation
-IBM Watson™ Compare and Comply is discontinued. Existing instances are supported until 30 November 2021, but as of 1 December 2020, you can't create instances. Any instance that exists on 30 November 2021 will be deleted. Consider migrating to Watson Discovery Premium on IBM Cloud for your Compare and Comply use cases. To start the migration process, visit https://ibm.biz/contact-wdc-premium.
 
 ## Before you begin
 * You need an [IBM Cloud][ibm-cloud-onboarding] account.
