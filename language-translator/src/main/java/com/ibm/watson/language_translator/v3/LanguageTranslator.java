@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
  */
 
 package com.ibm.watson.language_translator.v3;
@@ -440,13 +440,13 @@ public class LanguageTranslator extends BaseService {
     if (createModelOptions.forcedGlossary() != null) {
       okhttp3.RequestBody forcedGlossaryBody =
           RequestUtils.inputStreamBody(
-              createModelOptions.forcedGlossary(), "application/octet-stream");
+              createModelOptions.forcedGlossary(), createModelOptions.forcedGlossaryContentType());
       multipartBuilder.addFormDataPart("forced_glossary", "filename", forcedGlossaryBody);
     }
     if (createModelOptions.parallelCorpus() != null) {
       okhttp3.RequestBody parallelCorpusBody =
           RequestUtils.inputStreamBody(
-              createModelOptions.parallelCorpus(), "application/octet-stream");
+              createModelOptions.parallelCorpus(), createModelOptions.parallelCorpusContentType());
       multipartBuilder.addFormDataPart("parallel_corpus", "filename", parallelCorpusBody);
     }
     builder.body(multipartBuilder.build());
