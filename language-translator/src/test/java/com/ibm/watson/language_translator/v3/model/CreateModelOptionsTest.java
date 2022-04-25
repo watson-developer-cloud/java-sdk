@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,16 +35,20 @@ public class CreateModelOptionsTest {
         new CreateModelOptions.Builder()
             .baseModelId("testString")
             .forcedGlossary(TestUtilities.createMockStream("This is a mock file."))
+            .forcedGlossaryContentType("application/x-tmx+xml")
             .parallelCorpus(TestUtilities.createMockStream("This is a mock file."))
+            .parallelCorpusContentType("application/x-tmx+xml")
             .name("testString")
             .build();
     assertEquals(createModelOptionsModel.baseModelId(), "testString");
     assertEquals(
         IOUtils.toString(createModelOptionsModel.forcedGlossary()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createModelOptionsModel.forcedGlossaryContentType(), "application/x-tmx+xml");
     assertEquals(
         IOUtils.toString(createModelOptionsModel.parallelCorpus()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(createModelOptionsModel.parallelCorpusContentType(), "application/x-tmx+xml");
     assertEquals(createModelOptionsModel.name(), "testString");
   }
 

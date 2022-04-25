@@ -355,7 +355,9 @@ public class LanguageTranslatorTest {
         new CreateModelOptions.Builder()
             .baseModelId("testString")
             .forcedGlossary(TestUtilities.createMockStream("This is a mock file."))
+            .forcedGlossaryContentType("application/x-tmx+xml")
             .parallelCorpus(TestUtilities.createMockStream("This is a mock file."))
+            .parallelCorpusContentType("application/x-tmx+xml")
             .name("testString")
             .build();
 

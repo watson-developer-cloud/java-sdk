@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2018, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,20 +23,26 @@ public class CreateModelOptions extends GenericModel {
 
   protected String baseModelId;
   protected InputStream forcedGlossary;
+  protected String forcedGlossaryContentType;
   protected InputStream parallelCorpus;
+  protected String parallelCorpusContentType;
   protected String name;
 
   /** Builder. */
   public static class Builder {
     private String baseModelId;
     private InputStream forcedGlossary;
+    private String forcedGlossaryContentType;
     private InputStream parallelCorpus;
+    private String parallelCorpusContentType;
     private String name;
 
     private Builder(CreateModelOptions createModelOptions) {
       this.baseModelId = createModelOptions.baseModelId;
       this.forcedGlossary = createModelOptions.forcedGlossary;
+      this.forcedGlossaryContentType = createModelOptions.forcedGlossaryContentType;
       this.parallelCorpus = createModelOptions.parallelCorpus;
+      this.parallelCorpusContentType = createModelOptions.parallelCorpusContentType;
       this.name = createModelOptions.name;
     }
 
@@ -84,6 +90,17 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
+     * Set the forcedGlossaryContentType.
+     *
+     * @param forcedGlossaryContentType the forcedGlossaryContentType
+     * @return the CreateModelOptions builder
+     */
+    public Builder forcedGlossaryContentType(String forcedGlossaryContentType) {
+      this.forcedGlossaryContentType = forcedGlossaryContentType;
+      return this;
+    }
+
+    /**
      * Set the parallelCorpus.
      *
      * @param parallelCorpus the parallelCorpus
@@ -91,6 +108,17 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder parallelCorpus(InputStream parallelCorpus) {
       this.parallelCorpus = parallelCorpus;
+      return this;
+    }
+
+    /**
+     * Set the parallelCorpusContentType.
+     *
+     * @param parallelCorpusContentType the parallelCorpusContentType
+     * @return the CreateModelOptions builder
+     */
+    public Builder parallelCorpusContentType(String parallelCorpusContentType) {
+      this.parallelCorpusContentType = parallelCorpusContentType;
       return this;
     }
 
@@ -135,7 +163,9 @@ public class CreateModelOptions extends GenericModel {
         builder.baseModelId, "baseModelId cannot be null");
     baseModelId = builder.baseModelId;
     forcedGlossary = builder.forcedGlossary;
+    forcedGlossaryContentType = builder.forcedGlossaryContentType;
     parallelCorpus = builder.parallelCorpus;
+    parallelCorpusContentType = builder.parallelCorpusContentType;
     name = builder.name;
   }
 
@@ -182,6 +212,18 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
+   * Gets the forcedGlossaryContentType.
+   *
+   * <p>The content type of forcedGlossary. Values for this parameter can be obtained from the
+   * HttpMediaType class.
+   *
+   * @return the forcedGlossaryContentType
+   */
+  public String forcedGlossaryContentType() {
+    return forcedGlossaryContentType;
+  }
+
+  /**
    * Gets the parallelCorpus.
    *
    * <p>A file with parallel sentences for the source and target languages. You can upload multiple
@@ -199,6 +241,18 @@ public class CreateModelOptions extends GenericModel {
    */
   public InputStream parallelCorpus() {
     return parallelCorpus;
+  }
+
+  /**
+   * Gets the parallelCorpusContentType.
+   *
+   * <p>The content type of parallelCorpus. Values for this parameter can be obtained from the
+   * HttpMediaType class.
+   *
+   * @return the parallelCorpusContentType
+   */
+  public String parallelCorpusContentType() {
+    return parallelCorpusContentType;
   }
 
   /**
