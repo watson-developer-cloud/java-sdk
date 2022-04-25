@@ -1,3 +1,10 @@
+## [10.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v10.0.0...v10.0.1) (2022-04-25)
+
+
+### Bug Fixes
+
+* **language-translator-v3:** add content-type to createModelOptions model properties ([afd1086](https://github.com/watson-developer-cloud/java-sdk/commit/afd1086ccbb30fa1d84b83e19c9d9a7bf472b4bc))
+
 # [10.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v9.3.1...v10.0.0) (2022-03-21)
 
 
