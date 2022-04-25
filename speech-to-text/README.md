@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>speech-to-text</artifactId>
-  <version>10.0.0</version>
+  <version>10.0.1</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:speech-to-text:10.0.0'
+'com.ibm.watson:speech-to-text:10.0.1'
 ```
 
 ## Usage
