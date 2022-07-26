@@ -140,7 +140,7 @@ public class LanguageTranslatorTest {
     // Construct an instance of the TranslateOptions model
     TranslateOptions translateOptionsModel =
         new TranslateOptions.Builder()
-            .text(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .text(java.util.Arrays.asList("testString"))
             .modelId("testString")
             .source("testString")
             .target("testString")

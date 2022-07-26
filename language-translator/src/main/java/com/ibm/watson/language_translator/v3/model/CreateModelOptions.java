@@ -158,6 +158,8 @@ public class CreateModelOptions extends GenericModel {
     }
   }
 
+  protected CreateModelOptions() {}
+
   protected CreateModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.baseModelId, "baseModelId cannot be null");

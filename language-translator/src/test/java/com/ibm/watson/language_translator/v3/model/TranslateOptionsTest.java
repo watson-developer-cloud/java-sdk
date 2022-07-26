@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2020, 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,14 +32,12 @@ public class TranslateOptionsTest {
   public void testTranslateOptions() throws Throwable {
     TranslateOptions translateOptionsModel =
         new TranslateOptions.Builder()
-            .text(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .text(java.util.Arrays.asList("testString"))
             .modelId("testString")
             .source("testString")
             .target("testString")
             .build();
-    assertEquals(
-        translateOptionsModel.text(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(translateOptionsModel.text(), java.util.Arrays.asList("testString"));
     assertEquals(translateOptionsModel.modelId(), "testString");
     assertEquals(translateOptionsModel.source(), "testString");
     assertEquals(translateOptionsModel.target(), "testString");
