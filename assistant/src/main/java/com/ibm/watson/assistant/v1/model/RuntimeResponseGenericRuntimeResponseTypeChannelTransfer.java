@@ -124,6 +124,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     }
   }
 
+  protected RuntimeResponseGenericRuntimeResponseTypeChannelTransfer() {}
+
   protected RuntimeResponseGenericRuntimeResponseTypeChannelTransfer(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.responseType, "responseType cannot be null");

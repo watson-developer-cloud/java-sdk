@@ -42,9 +42,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeIframeTest {
                 .title("testString")
                 .description("testString")
                 .imageUrl("testString")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(runtimeResponseGenericRuntimeResponseTypeIframeModel.responseType(), "iframe");
     assertEquals(runtimeResponseGenericRuntimeResponseTypeIframeModel.source(), "testString");
@@ -53,8 +51,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeIframeTest {
     assertEquals(runtimeResponseGenericRuntimeResponseTypeIframeModel.imageUrl(), "testString");
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeIframeModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     String json = TestUtilities.serialize(runtimeResponseGenericRuntimeResponseTypeIframeModel);
 

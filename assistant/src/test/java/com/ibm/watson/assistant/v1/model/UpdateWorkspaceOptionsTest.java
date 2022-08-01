@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,9 +41,7 @@ public class UpdateWorkspaceOptionsTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -58,8 +56,7 @@ public class UpdateWorkspaceOptionsTest {
     assertEquals(dialogNodeOutputGenericModel.description(), "testString");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         dialogNodeOutputGenericModel.channelOptions(),
         new java.util.HashMap<String, Object>() {
@@ -75,9 +72,7 @@ public class UpdateWorkspaceOptionsTest {
 
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -94,9 +89,7 @@ public class UpdateWorkspaceOptionsTest {
             .add("foo", "testString")
             .build();
     assertEquals(
-        dialogNodeOutputModel.getGeneric(),
-        new java.util.ArrayList<DialogNodeOutputGeneric>(
-            java.util.Arrays.asList(dialogNodeOutputGenericModel)));
+        dialogNodeOutputModel.getGeneric(), java.util.Arrays.asList(dialogNodeOutputGenericModel));
     assertEquals(
         dialogNodeOutputModel.getIntegrations(),
         new java.util.HashMap<String, Map<String, Object>>() {
@@ -199,9 +192,7 @@ public class UpdateWorkspaceOptionsTest {
             .type("standard")
             .eventName("focus")
             .variable("testString")
-            .actions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
             .digressIn("not_available")
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
@@ -227,9 +218,7 @@ public class UpdateWorkspaceOptionsTest {
     assertEquals(dialogNodeModel.type(), "standard");
     assertEquals(dialogNodeModel.eventName(), "focus");
     assertEquals(dialogNodeModel.variable(), "testString");
-    assertEquals(
-        dialogNodeModel.actions(),
-        new java.util.ArrayList<DialogNodeAction>(java.util.Arrays.asList(dialogNodeActionModel)));
+    assertEquals(dialogNodeModel.actions(), java.util.Arrays.asList(dialogNodeActionModel));
     assertEquals(dialogNodeModel.digressIn(), "not_available");
     assertEquals(dialogNodeModel.digressOut(), "allow_returning");
     assertEquals(dialogNodeModel.digressOutSlots(), "not_allowed");
@@ -270,6 +259,10 @@ public class UpdateWorkspaceOptionsTest {
         new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
     assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+    assertEquals(workspaceSystemSettingsNlpModel.model(), "baseline");
+
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
@@ -284,6 +277,7 @@ public class UpdateWorkspaceOptionsTest {
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
             .add("foo", "testString")
             .build();
     assertEquals(workspaceSystemSettingsModel.getTooling(), workspaceSystemSettingsToolingModel);
@@ -303,6 +297,7 @@ public class UpdateWorkspaceOptionsTest {
         workspaceSystemSettingsModel.getSystemEntities(),
         workspaceSystemSettingsSystemEntitiesModel);
     assertEquals(workspaceSystemSettingsModel.getOffTopic(), workspaceSystemSettingsOffTopicModel);
+    assertEquals(workspaceSystemSettingsModel.getNlp(), workspaceSystemSettingsNlpModel);
     assertEquals(workspaceSystemSettingsModel.get("foo"), "testString");
 
     WebhookHeader webhookHeaderModel =
@@ -314,46 +309,37 @@ public class UpdateWorkspaceOptionsTest {
         new Webhook.Builder()
             .url("testString")
             .name("testString")
-            .headers(
-                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
             .build();
     assertEquals(webhookModel.url(), "testString");
     assertEquals(webhookModel.name(), "testString");
-    assertEquals(
-        webhookModel.headers(),
-        new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)));
+    assertEquals(webhookModel.headers(), java.util.Arrays.asList(webhookHeaderModel));
 
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(mentionModel.entity(), "testString");
-    assertEquals(
-        mentionModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(mentionModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
     assertEquals(exampleModel.text(), "testString");
-    assertEquals(
-        exampleModel.mentions(),
-        new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)));
+    assertEquals(exampleModel.mentions(), java.util.Arrays.asList(mentionModel));
 
     CreateIntent createIntentModel =
         new CreateIntent.Builder()
             .intent("testString")
             .description("testString")
-            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .examples(java.util.Arrays.asList(exampleModel))
             .build();
     assertEquals(createIntentModel.intent(), "testString");
     assertEquals(createIntentModel.description(), "testString");
-    assertEquals(
-        createIntentModel.examples(),
-        new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)));
+    assertEquals(createIntentModel.examples(), java.util.Arrays.asList(exampleModel));
 
     CreateValue createValueModel =
         new CreateValue.Builder()
@@ -365,8 +351,8 @@ public class UpdateWorkspaceOptionsTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
@@ -377,12 +363,8 @@ public class UpdateWorkspaceOptionsTest {
           }
         });
     assertEquals(createValueModel.type(), "synonyms");
-    assertEquals(
-        createValueModel.synonyms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        createValueModel.patterns(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
+    assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
 
     CreateEntity createEntityModel =
         new CreateEntity.Builder()
@@ -395,7 +377,7 @@ public class UpdateWorkspaceOptionsTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .build();
     assertEquals(createEntityModel.entity(), "testString");
     assertEquals(createEntityModel.description(), "testString");
@@ -407,9 +389,7 @@ public class UpdateWorkspaceOptionsTest {
           }
         });
     assertEquals(createEntityModel.fuzzyMatch(), Boolean.valueOf(true));
-    assertEquals(
-        createEntityModel.values(),
-        new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)));
+    assertEquals(createEntityModel.values(), java.util.Arrays.asList(createValueModel));
 
     UpdateWorkspaceOptions updateWorkspaceOptionsModel =
         new UpdateWorkspaceOptions.Builder()
@@ -417,11 +397,8 @@ public class UpdateWorkspaceOptionsTest {
             .name("testString")
             .description("testString")
             .language("testString")
-            .dialogNodes(
-                new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)))
-            .counterexamples(
-                new java.util.ArrayList<Counterexample>(
-                    java.util.Arrays.asList(counterexampleModel)))
+            .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
+            .counterexamples(java.util.Arrays.asList(counterexampleModel))
             .metadata(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -430,11 +407,9 @@ public class UpdateWorkspaceOptionsTest {
                 })
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
-            .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
-            .intents(
-                new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
-            .entities(
-                new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
+            .webhooks(java.util.Arrays.asList(webhookModel))
+            .intents(java.util.Arrays.asList(createIntentModel))
+            .entities(java.util.Arrays.asList(createEntityModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -443,11 +418,10 @@ public class UpdateWorkspaceOptionsTest {
     assertEquals(updateWorkspaceOptionsModel.description(), "testString");
     assertEquals(updateWorkspaceOptionsModel.language(), "testString");
     assertEquals(
-        updateWorkspaceOptionsModel.dialogNodes(),
-        new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)));
+        updateWorkspaceOptionsModel.dialogNodes(), java.util.Arrays.asList(dialogNodeModel));
     assertEquals(
         updateWorkspaceOptionsModel.counterexamples(),
-        new java.util.ArrayList<Counterexample>(java.util.Arrays.asList(counterexampleModel)));
+        java.util.Arrays.asList(counterexampleModel));
     assertEquals(
         updateWorkspaceOptionsModel.metadata(),
         new java.util.HashMap<String, Object>() {
@@ -457,15 +431,10 @@ public class UpdateWorkspaceOptionsTest {
         });
     assertEquals(updateWorkspaceOptionsModel.learningOptOut(), Boolean.valueOf(false));
     assertEquals(updateWorkspaceOptionsModel.systemSettings(), workspaceSystemSettingsModel);
+    assertEquals(updateWorkspaceOptionsModel.webhooks(), java.util.Arrays.asList(webhookModel));
+    assertEquals(updateWorkspaceOptionsModel.intents(), java.util.Arrays.asList(createIntentModel));
     assertEquals(
-        updateWorkspaceOptionsModel.webhooks(),
-        new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)));
-    assertEquals(
-        updateWorkspaceOptionsModel.intents(),
-        new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)));
-    assertEquals(
-        updateWorkspaceOptionsModel.entities(),
-        new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)));
+        updateWorkspaceOptionsModel.entities(), java.util.Arrays.asList(createEntityModel));
     assertEquals(updateWorkspaceOptionsModel.append(), Boolean.valueOf(false));
     assertEquals(updateWorkspaceOptionsModel.includeAudit(), Boolean.valueOf(false));
   }

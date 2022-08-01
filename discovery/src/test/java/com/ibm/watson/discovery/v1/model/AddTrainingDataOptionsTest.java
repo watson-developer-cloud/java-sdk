@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,17 +46,14 @@ public class AddTrainingDataOptionsTest {
             .collectionId("testString")
             .naturalLanguageQuery("testString")
             .filter("testString")
-            .examples(
-                new java.util.ArrayList<TrainingExample>(
-                    java.util.Arrays.asList(trainingExampleModel)))
+            .examples(java.util.Arrays.asList(trainingExampleModel))
             .build();
     assertEquals(addTrainingDataOptionsModel.environmentId(), "testString");
     assertEquals(addTrainingDataOptionsModel.collectionId(), "testString");
     assertEquals(addTrainingDataOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(addTrainingDataOptionsModel.filter(), "testString");
     assertEquals(
-        addTrainingDataOptionsModel.examples(),
-        new java.util.ArrayList<TrainingExample>(java.util.Arrays.asList(trainingExampleModel)));
+        addTrainingDataOptionsModel.examples(), java.util.Arrays.asList(trainingExampleModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

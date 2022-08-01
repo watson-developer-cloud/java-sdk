@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.natural_language_understanding.v1;
@@ -86,7 +86,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * is used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-08-01`.
+   *     format. The current version is `2022-04-07`.
    */
   public NaturalLanguageUnderstanding(String version) {
     this(
@@ -100,7 +100,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * and specified authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-08-01`.
+   *     format. The current version is `2022-04-07`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public NaturalLanguageUnderstanding(String version, Authenticator authenticator) {
@@ -112,7 +112,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * is used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-08-01`.
+   *     format. The current version is `2022-04-07`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public NaturalLanguageUnderstanding(String version, String serviceName) {
@@ -124,7 +124,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * and authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-08-01`.
+   *     format. The current version is `2022-04-07`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -140,7 +140,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2021-08-01`.
+   * current version is `2022-04-07`.
    *
    * @return the version
    */
@@ -775,6 +775,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
       multipartBuilder.addFormDataPart(
           "version_description", createClassificationsModelOptions.versionDescription());
     }
+    if (createClassificationsModelOptions.trainingParameters() != null) {
+      multipartBuilder.addFormDataPart(
+          "training_parameters", createClassificationsModelOptions.trainingParameters().toString());
+    }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassificationsModel> responseConverter =
         ResponseConverterUtils.getValue(
@@ -907,6 +911,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     if (updateClassificationsModelOptions.versionDescription() != null) {
       multipartBuilder.addFormDataPart(
           "version_description", updateClassificationsModelOptions.versionDescription());
+    }
+    if (updateClassificationsModelOptions.trainingParameters() != null) {
+      multipartBuilder.addFormDataPart(
+          "training_parameters", updateClassificationsModelOptions.trainingParameters().toString());
     }
     builder.body(multipartBuilder.build());
     ResponseConverter<ClassificationsModel> responseConverter =

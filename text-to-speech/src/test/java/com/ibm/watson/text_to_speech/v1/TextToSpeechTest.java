@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -135,7 +135,7 @@ public class TextToSpeechTest {
     // Register a mock response
     String mockResponseBody =
         "{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}}";
-    String getVoicePath = "/v1/voices/ar-AR_OmarVoice";
+    String getVoicePath = "/v1/voices/ar-MS_OmarVoice";
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
@@ -145,7 +145,7 @@ public class TextToSpeechTest {
     // Construct an instance of the GetVoiceOptions model
     GetVoiceOptions getVoiceOptionsModel =
         new GetVoiceOptions.Builder()
-            .voice("ar-AR_OmarVoice")
+            .voice("ar-MS_OmarVoice")
             .customizationId("testString")
             .build();
 
@@ -193,7 +193,7 @@ public class TextToSpeechTest {
     String synthesizePath = "/v1/synthesize";
     server.enqueue(
         new MockResponse()
-            .setHeader("Content-type", "audio/basic")
+            .setHeader("Content-type", "audio/alaw")
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
@@ -204,6 +204,7 @@ public class TextToSpeechTest {
             .accept("audio/ogg;codecs=opus")
             .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
+            .spellOutMode("default")
             .build();
 
     // Invoke synthesize() with a valid options model and verify the result
@@ -226,6 +227,7 @@ public class TextToSpeechTest {
     assertNotNull(query);
     assertEquals(query.get("voice"), "en-US_MichaelV3Voice");
     assertEquals(query.get("customization_id"), "testString");
+    assertEquals(query.get("spell_out_mode"), "default");
   }
 
   // Test the synthesize operation with and without retries enabled
@@ -432,7 +434,7 @@ public class TextToSpeechTest {
             .customizationId("testString")
             .name("testString")
             .description("testString")
-            .words(new java.util.ArrayList<Word>(java.util.Arrays.asList(wordModel)))
+            .words(java.util.Arrays.asList(wordModel))
             .build();
 
     // Invoke updateCustomModel() with a valid options model and verify the result
@@ -592,7 +594,7 @@ public class TextToSpeechTest {
     AddWordsOptions addWordsOptionsModel =
         new AddWordsOptions.Builder()
             .customizationId("testString")
-            .words(new java.util.ArrayList<Word>(java.util.Arrays.asList(wordModel)))
+            .words(java.util.Arrays.asList(wordModel))
             .build();
 
     // Invoke addWords() with a valid options model and verify the result

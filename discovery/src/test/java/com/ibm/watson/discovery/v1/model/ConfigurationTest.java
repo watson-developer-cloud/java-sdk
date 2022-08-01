@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,12 +47,8 @@ public class ConfigurationTest {
     assertEquals(fontSettingModel.name(), "testString");
 
     PdfHeadingDetection pdfHeadingDetectionModel =
-        new PdfHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .build();
-    assertEquals(
-        pdfHeadingDetectionModel.fonts(),
-        new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)));
+        new PdfHeadingDetection.Builder().fonts(java.util.Arrays.asList(fontSettingModel)).build();
+    assertEquals(pdfHeadingDetectionModel.fonts(), java.util.Arrays.asList(fontSettingModel));
 
     PdfSettings pdfSettingsModel =
         new PdfSettings.Builder().heading(pdfHeadingDetectionModel).build();
@@ -61,81 +57,54 @@ public class ConfigurationTest {
     WordStyle wordStyleModel =
         new WordStyle.Builder()
             .level(Long.valueOf("26"))
-            .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .names(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(wordStyleModel.level(), Long.valueOf("26"));
-    assertEquals(
-        wordStyleModel.names(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(wordStyleModel.names(), java.util.Arrays.asList("testString"));
 
     WordHeadingDetection wordHeadingDetectionModel =
         new WordHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .styles(new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)))
+            .fonts(java.util.Arrays.asList(fontSettingModel))
+            .styles(java.util.Arrays.asList(wordStyleModel))
             .build();
-    assertEquals(
-        wordHeadingDetectionModel.fonts(),
-        new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)));
-    assertEquals(
-        wordHeadingDetectionModel.styles(),
-        new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)));
+    assertEquals(wordHeadingDetectionModel.fonts(), java.util.Arrays.asList(fontSettingModel));
+    assertEquals(wordHeadingDetectionModel.styles(), java.util.Arrays.asList(wordStyleModel));
 
     WordSettings wordSettingsModel =
         new WordSettings.Builder().heading(wordHeadingDetectionModel).build();
     assertEquals(wordSettingsModel.heading(), wordHeadingDetectionModel);
 
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
-    assertEquals(
-        xPathPatternsModel.xpaths(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
+    assertEquals(xPathPatternsModel.xpaths(), java.util.Arrays.asList("testString"));
 
     HtmlSettings htmlSettingsModel =
         new HtmlSettings.Builder()
-            .excludeTagsCompletely(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("span")))
+            .excludeTagsCompletely(java.util.Arrays.asList("testString"))
+            .excludeTagsKeepContent(java.util.Arrays.asList("span"))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
-            .keepTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keepTagAttributes(java.util.Arrays.asList("testString"))
+            .excludeTagAttributes(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(
-        htmlSettingsModel.excludeTagsCompletely(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagsKeepContent(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("span")));
+    assertEquals(htmlSettingsModel.excludeTagsCompletely(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagsKeepContent(), java.util.Arrays.asList("span"));
     assertEquals(htmlSettingsModel.keepContent(), xPathPatternsModel);
     assertEquals(htmlSettingsModel.excludeContent(), xPathPatternsModel);
-    assertEquals(
-        htmlSettingsModel.keepTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(htmlSettingsModel.keepTagAttributes(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagAttributes(), java.util.Arrays.asList("testString"));
 
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
             .enabled(true)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
-            .annotatedFields(
-                new java.util.ArrayList<String>(
-                    java.util.Arrays.asList("custom-field-1", "custom-field-2")))
+            .selectorTags(java.util.Arrays.asList("h1", "h2"))
+            .annotatedFields(java.util.Arrays.asList("custom-field-1", "custom-field-2"))
             .build();
     assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(true));
-    assertEquals(
-        segmentSettingsModel.selectorTags(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")));
+    assertEquals(segmentSettingsModel.selectorTags(), java.util.Arrays.asList("h1", "h2"));
     assertEquals(
         segmentSettingsModel.annotatedFields(),
-        new java.util.ArrayList<String>(
-            java.util.Arrays.asList("custom-field-1", "custom-field-2")));
+        java.util.Arrays.asList("custom-field-1", "custom-field-2"));
 
     NormalizationOperation normalizationOperationModel =
         new NormalizationOperation.Builder()
@@ -153,9 +122,7 @@ public class ConfigurationTest {
             .word(wordSettingsModel)
             .html(htmlSettingsModel)
             .segment(segmentSettingsModel)
-            .jsonNormalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .jsonNormalizations(java.util.Arrays.asList(normalizationOperationModel))
             .imageTextRecognition(true)
             .build();
     assertEquals(conversionsModel.pdf(), pdfSettingsModel);
@@ -164,8 +131,7 @@ public class ConfigurationTest {
     assertEquals(conversionsModel.segment(), segmentSettingsModel);
     assertEquals(
         conversionsModel.jsonNormalizations(),
-        new java.util.ArrayList<NormalizationOperation>(
-            java.util.Arrays.asList(normalizationOperationModel)));
+        java.util.Arrays.asList(normalizationOperationModel));
     assertEquals(conversionsModel.imageTextRecognition(), Boolean.valueOf(true));
 
     NluEnrichmentKeywords nluEnrichmentKeywordsModel =
@@ -199,22 +165,18 @@ public class ConfigurationTest {
     NluEnrichmentSentiment nluEnrichmentSentimentModel =
         new NluEnrichmentSentiment.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")))
+            .targets(java.util.Arrays.asList("IBM", "Watson"))
             .build();
     assertEquals(nluEnrichmentSentimentModel.document(), Boolean.valueOf(true));
-    assertEquals(
-        nluEnrichmentSentimentModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")));
+    assertEquals(nluEnrichmentSentimentModel.targets(), java.util.Arrays.asList("IBM", "Watson"));
 
     NluEnrichmentEmotion nluEnrichmentEmotionModel =
         new NluEnrichmentEmotion.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")))
+            .targets(java.util.Arrays.asList("IBM", "Watson"))
             .build();
     assertEquals(nluEnrichmentEmotionModel.document(), Boolean.valueOf(true));
-    assertEquals(
-        nluEnrichmentEmotionModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("IBM", "Watson")));
+    assertEquals(nluEnrichmentEmotionModel.targets(), java.util.Arrays.asList("IBM", "Watson"));
 
     NluEnrichmentSemanticRoles nluEnrichmentSemanticRolesModel =
         new NluEnrichmentSemanticRoles.Builder()
@@ -335,7 +297,7 @@ public class ConfigurationTest {
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
             .overrideRobotsTxt(false)
-            .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .blacklist(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(sourceOptionsWebCrawlModel.url(), "testString");
     assertEquals(sourceOptionsWebCrawlModel.limitToStartingHosts(), Boolean.valueOf(true));
@@ -344,9 +306,7 @@ public class ConfigurationTest {
     assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(false));
-    assertEquals(
-        sourceOptionsWebCrawlModel.blacklist(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(sourceOptionsWebCrawlModel.blacklist(), java.util.Arrays.asList("testString"));
 
     SourceOptionsBuckets sourceOptionsBucketsModel =
         new SourceOptionsBuckets.Builder().name("testString").limit(Long.valueOf("26")).build();
@@ -355,43 +315,19 @@ public class ConfigurationTest {
 
     SourceOptions sourceOptionsModel =
         new SourceOptions.Builder()
-            .folders(
-                new java.util.ArrayList<SourceOptionsFolder>(
-                    java.util.Arrays.asList(sourceOptionsFolderModel)))
-            .objects(
-                new java.util.ArrayList<SourceOptionsObject>(
-                    java.util.Arrays.asList(sourceOptionsObjectModel)))
-            .siteCollections(
-                new java.util.ArrayList<SourceOptionsSiteColl>(
-                    java.util.Arrays.asList(sourceOptionsSiteCollModel)))
-            .urls(
-                new java.util.ArrayList<SourceOptionsWebCrawl>(
-                    java.util.Arrays.asList(sourceOptionsWebCrawlModel)))
-            .buckets(
-                new java.util.ArrayList<SourceOptionsBuckets>(
-                    java.util.Arrays.asList(sourceOptionsBucketsModel)))
+            .folders(java.util.Arrays.asList(sourceOptionsFolderModel))
+            .objects(java.util.Arrays.asList(sourceOptionsObjectModel))
+            .siteCollections(java.util.Arrays.asList(sourceOptionsSiteCollModel))
+            .urls(java.util.Arrays.asList(sourceOptionsWebCrawlModel))
+            .buckets(java.util.Arrays.asList(sourceOptionsBucketsModel))
             .crawlAllBuckets(true)
             .build();
+    assertEquals(sourceOptionsModel.folders(), java.util.Arrays.asList(sourceOptionsFolderModel));
+    assertEquals(sourceOptionsModel.objects(), java.util.Arrays.asList(sourceOptionsObjectModel));
     assertEquals(
-        sourceOptionsModel.folders(),
-        new java.util.ArrayList<SourceOptionsFolder>(
-            java.util.Arrays.asList(sourceOptionsFolderModel)));
-    assertEquals(
-        sourceOptionsModel.objects(),
-        new java.util.ArrayList<SourceOptionsObject>(
-            java.util.Arrays.asList(sourceOptionsObjectModel)));
-    assertEquals(
-        sourceOptionsModel.siteCollections(),
-        new java.util.ArrayList<SourceOptionsSiteColl>(
-            java.util.Arrays.asList(sourceOptionsSiteCollModel)));
-    assertEquals(
-        sourceOptionsModel.urls(),
-        new java.util.ArrayList<SourceOptionsWebCrawl>(
-            java.util.Arrays.asList(sourceOptionsWebCrawlModel)));
-    assertEquals(
-        sourceOptionsModel.buckets(),
-        new java.util.ArrayList<SourceOptionsBuckets>(
-            java.util.Arrays.asList(sourceOptionsBucketsModel)));
+        sourceOptionsModel.siteCollections(), java.util.Arrays.asList(sourceOptionsSiteCollModel));
+    assertEquals(sourceOptionsModel.urls(), java.util.Arrays.asList(sourceOptionsWebCrawlModel));
+    assertEquals(sourceOptionsModel.buckets(), java.util.Arrays.asList(sourceOptionsBucketsModel));
     assertEquals(sourceOptionsModel.crawlAllBuckets(), Boolean.valueOf(true));
 
     Source sourceModel =
@@ -411,23 +347,16 @@ public class ConfigurationTest {
             .name("testString")
             .description("testString")
             .conversions(conversionsModel)
-            .enrichments(
-                new java.util.ArrayList<Enrichment>(java.util.Arrays.asList(enrichmentModel)))
-            .normalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .enrichments(java.util.Arrays.asList(enrichmentModel))
+            .normalizations(java.util.Arrays.asList(normalizationOperationModel))
             .source(sourceModel)
             .build();
     assertEquals(configurationModel.name(), "testString");
     assertEquals(configurationModel.description(), "testString");
     assertEquals(configurationModel.conversions(), conversionsModel);
+    assertEquals(configurationModel.enrichments(), java.util.Arrays.asList(enrichmentModel));
     assertEquals(
-        configurationModel.enrichments(),
-        new java.util.ArrayList<Enrichment>(java.util.Arrays.asList(enrichmentModel)));
-    assertEquals(
-        configurationModel.normalizations(),
-        new java.util.ArrayList<NormalizationOperation>(
-            java.util.Arrays.asList(normalizationOperationModel)));
+        configurationModel.normalizations(), java.util.Arrays.asList(normalizationOperationModel));
     assertEquals(configurationModel.source(), sourceModel);
 
     String json = TestUtilities.serialize(configurationModel);

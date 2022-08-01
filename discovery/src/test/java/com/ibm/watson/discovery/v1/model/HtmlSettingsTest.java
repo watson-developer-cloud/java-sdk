@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,40 +31,24 @@ public class HtmlSettingsTest {
   @Test
   public void testHtmlSettings() throws Throwable {
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
-    assertEquals(
-        xPathPatternsModel.xpaths(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
+    assertEquals(xPathPatternsModel.xpaths(), java.util.Arrays.asList("testString"));
 
     HtmlSettings htmlSettingsModel =
         new HtmlSettings.Builder()
-            .excludeTagsCompletely(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .excludeTagsCompletely(java.util.Arrays.asList("testString"))
+            .excludeTagsKeepContent(java.util.Arrays.asList("testString"))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
-            .keepTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keepTagAttributes(java.util.Arrays.asList("testString"))
+            .excludeTagAttributes(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(
-        htmlSettingsModel.excludeTagsCompletely(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagsKeepContent(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(htmlSettingsModel.excludeTagsCompletely(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagsKeepContent(), java.util.Arrays.asList("testString"));
     assertEquals(htmlSettingsModel.keepContent(), xPathPatternsModel);
     assertEquals(htmlSettingsModel.excludeContent(), xPathPatternsModel);
-    assertEquals(
-        htmlSettingsModel.keepTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(htmlSettingsModel.keepTagAttributes(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagAttributes(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(htmlSettingsModel);
 

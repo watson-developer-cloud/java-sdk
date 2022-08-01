@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -474,7 +474,7 @@ public class DiscoveryTest {
     ListFieldsOptions listFieldsOptionsModel =
         new ListFieldsOptions.Builder()
             .environmentId("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .build();
 
     // Invoke listFields() with a valid options model and verify the result
@@ -496,9 +496,7 @@ public class DiscoveryTest {
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
     assertEquals(
-        query.get("collection_ids"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("collection_ids"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
   }
 
   // Test the listFields operation with and without retries enabled
@@ -544,9 +542,7 @@ public class DiscoveryTest {
 
     // Construct an instance of the PdfHeadingDetection model
     PdfHeadingDetection pdfHeadingDetectionModel =
-        new PdfHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .build();
+        new PdfHeadingDetection.Builder().fonts(java.util.Arrays.asList(fontSettingModel)).build();
 
     // Construct an instance of the PdfSettings model
     PdfSettings pdfSettingsModel =
@@ -556,14 +552,14 @@ public class DiscoveryTest {
     WordStyle wordStyleModel =
         new WordStyle.Builder()
             .level(Long.valueOf("26"))
-            .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .names(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the WordHeadingDetection model
     WordHeadingDetection wordHeadingDetectionModel =
         new WordHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .styles(new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)))
+            .fonts(java.util.Arrays.asList(fontSettingModel))
+            .styles(java.util.Arrays.asList(wordStyleModel))
             .build();
 
     // Construct an instance of the WordSettings model
@@ -572,31 +568,25 @@ public class DiscoveryTest {
 
     // Construct an instance of the XPathPatterns model
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
 
     // Construct an instance of the HtmlSettings model
     HtmlSettings htmlSettingsModel =
         new HtmlSettings.Builder()
-            .excludeTagsCompletely(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .excludeTagsCompletely(java.util.Arrays.asList("testString"))
+            .excludeTagsKeepContent(java.util.Arrays.asList("testString"))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
-            .keepTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keepTagAttributes(java.util.Arrays.asList("testString"))
+            .excludeTagAttributes(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the SegmentSettings model
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
             .enabled(false)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
-            .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .selectorTags(java.util.Arrays.asList("h1", "h2"))
+            .annotatedFields(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NormalizationOperation model
@@ -614,9 +604,7 @@ public class DiscoveryTest {
             .word(wordSettingsModel)
             .html(htmlSettingsModel)
             .segment(segmentSettingsModel)
-            .jsonNormalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .jsonNormalizations(java.util.Arrays.asList(normalizationOperationModel))
             .imageTextRecognition(true)
             .build();
 
@@ -644,14 +632,14 @@ public class DiscoveryTest {
     NluEnrichmentSentiment nluEnrichmentSentimentModel =
         new NluEnrichmentSentiment.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NluEnrichmentEmotion model
     NluEnrichmentEmotion nluEnrichmentEmotionModel =
         new NluEnrichmentEmotion.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NluEnrichmentSemanticRoles model
@@ -745,7 +733,7 @@ public class DiscoveryTest {
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
             .overrideRobotsTxt(false)
-            .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .blacklist(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the SourceOptionsBuckets model
@@ -755,21 +743,11 @@ public class DiscoveryTest {
     // Construct an instance of the SourceOptions model
     SourceOptions sourceOptionsModel =
         new SourceOptions.Builder()
-            .folders(
-                new java.util.ArrayList<SourceOptionsFolder>(
-                    java.util.Arrays.asList(sourceOptionsFolderModel)))
-            .objects(
-                new java.util.ArrayList<SourceOptionsObject>(
-                    java.util.Arrays.asList(sourceOptionsObjectModel)))
-            .siteCollections(
-                new java.util.ArrayList<SourceOptionsSiteColl>(
-                    java.util.Arrays.asList(sourceOptionsSiteCollModel)))
-            .urls(
-                new java.util.ArrayList<SourceOptionsWebCrawl>(
-                    java.util.Arrays.asList(sourceOptionsWebCrawlModel)))
-            .buckets(
-                new java.util.ArrayList<SourceOptionsBuckets>(
-                    java.util.Arrays.asList(sourceOptionsBucketsModel)))
+            .folders(java.util.Arrays.asList(sourceOptionsFolderModel))
+            .objects(java.util.Arrays.asList(sourceOptionsObjectModel))
+            .siteCollections(java.util.Arrays.asList(sourceOptionsSiteCollModel))
+            .urls(java.util.Arrays.asList(sourceOptionsWebCrawlModel))
+            .buckets(java.util.Arrays.asList(sourceOptionsBucketsModel))
             .crawlAllBuckets(true)
             .build();
 
@@ -789,11 +767,8 @@ public class DiscoveryTest {
             .name("testString")
             .description("testString")
             .conversions(conversionsModel)
-            .enrichments(
-                new java.util.ArrayList<Enrichment>(java.util.Arrays.asList(enrichmentModel)))
-            .normalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .enrichments(java.util.Arrays.asList(enrichmentModel))
+            .normalizations(java.util.Arrays.asList(normalizationOperationModel))
             .source(sourceModel)
             .build();
 
@@ -975,9 +950,7 @@ public class DiscoveryTest {
 
     // Construct an instance of the PdfHeadingDetection model
     PdfHeadingDetection pdfHeadingDetectionModel =
-        new PdfHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .build();
+        new PdfHeadingDetection.Builder().fonts(java.util.Arrays.asList(fontSettingModel)).build();
 
     // Construct an instance of the PdfSettings model
     PdfSettings pdfSettingsModel =
@@ -987,14 +960,14 @@ public class DiscoveryTest {
     WordStyle wordStyleModel =
         new WordStyle.Builder()
             .level(Long.valueOf("26"))
-            .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .names(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the WordHeadingDetection model
     WordHeadingDetection wordHeadingDetectionModel =
         new WordHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .styles(new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)))
+            .fonts(java.util.Arrays.asList(fontSettingModel))
+            .styles(java.util.Arrays.asList(wordStyleModel))
             .build();
 
     // Construct an instance of the WordSettings model
@@ -1003,31 +976,25 @@ public class DiscoveryTest {
 
     // Construct an instance of the XPathPatterns model
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
 
     // Construct an instance of the HtmlSettings model
     HtmlSettings htmlSettingsModel =
         new HtmlSettings.Builder()
-            .excludeTagsCompletely(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .excludeTagsCompletely(java.util.Arrays.asList("testString"))
+            .excludeTagsKeepContent(java.util.Arrays.asList("testString"))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
-            .keepTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keepTagAttributes(java.util.Arrays.asList("testString"))
+            .excludeTagAttributes(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the SegmentSettings model
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
             .enabled(false)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
-            .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .selectorTags(java.util.Arrays.asList("h1", "h2"))
+            .annotatedFields(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NormalizationOperation model
@@ -1045,9 +1012,7 @@ public class DiscoveryTest {
             .word(wordSettingsModel)
             .html(htmlSettingsModel)
             .segment(segmentSettingsModel)
-            .jsonNormalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .jsonNormalizations(java.util.Arrays.asList(normalizationOperationModel))
             .imageTextRecognition(true)
             .build();
 
@@ -1075,14 +1040,14 @@ public class DiscoveryTest {
     NluEnrichmentSentiment nluEnrichmentSentimentModel =
         new NluEnrichmentSentiment.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NluEnrichmentEmotion model
     NluEnrichmentEmotion nluEnrichmentEmotionModel =
         new NluEnrichmentEmotion.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the NluEnrichmentSemanticRoles model
@@ -1176,7 +1141,7 @@ public class DiscoveryTest {
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
             .overrideRobotsTxt(false)
-            .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .blacklist(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the SourceOptionsBuckets model
@@ -1186,21 +1151,11 @@ public class DiscoveryTest {
     // Construct an instance of the SourceOptions model
     SourceOptions sourceOptionsModel =
         new SourceOptions.Builder()
-            .folders(
-                new java.util.ArrayList<SourceOptionsFolder>(
-                    java.util.Arrays.asList(sourceOptionsFolderModel)))
-            .objects(
-                new java.util.ArrayList<SourceOptionsObject>(
-                    java.util.Arrays.asList(sourceOptionsObjectModel)))
-            .siteCollections(
-                new java.util.ArrayList<SourceOptionsSiteColl>(
-                    java.util.Arrays.asList(sourceOptionsSiteCollModel)))
-            .urls(
-                new java.util.ArrayList<SourceOptionsWebCrawl>(
-                    java.util.Arrays.asList(sourceOptionsWebCrawlModel)))
-            .buckets(
-                new java.util.ArrayList<SourceOptionsBuckets>(
-                    java.util.Arrays.asList(sourceOptionsBucketsModel)))
+            .folders(java.util.Arrays.asList(sourceOptionsFolderModel))
+            .objects(java.util.Arrays.asList(sourceOptionsObjectModel))
+            .siteCollections(java.util.Arrays.asList(sourceOptionsSiteCollModel))
+            .urls(java.util.Arrays.asList(sourceOptionsWebCrawlModel))
+            .buckets(java.util.Arrays.asList(sourceOptionsBucketsModel))
             .crawlAllBuckets(true)
             .build();
 
@@ -1221,11 +1176,8 @@ public class DiscoveryTest {
             .name("testString")
             .description("testString")
             .conversions(conversionsModel)
-            .enrichments(
-                new java.util.ArrayList<Enrichment>(java.util.Arrays.asList(enrichmentModel)))
-            .normalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .enrichments(java.util.Arrays.asList(enrichmentModel))
+            .normalizations(java.util.Arrays.asList(normalizationOperationModel))
             .source(sourceModel)
             .build();
 
@@ -1740,8 +1692,8 @@ public class DiscoveryTest {
     // Construct an instance of the Expansion model
     Expansion expansionModel =
         new Expansion.Builder()
-            .inputTerms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .expandedTerms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .inputTerms(java.util.Arrays.asList("testString"))
+            .expandedTerms(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the CreateExpansionsOptions model
@@ -1749,7 +1701,7 @@ public class DiscoveryTest {
         new CreateExpansionsOptions.Builder()
             .environmentId("testString")
             .collectionId("testString")
-            .expansions(new java.util.ArrayList<Expansion>(java.util.Arrays.asList(expansionModel)))
+            .expansions(java.util.Arrays.asList(expansionModel))
             .build();
 
     // Invoke createExpansions() with a valid options model and verify the result
@@ -1917,8 +1869,8 @@ public class DiscoveryTest {
     TokenDictRule tokenDictRuleModel =
         new TokenDictRule.Builder()
             .text("testString")
-            .tokens(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .readings(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .tokens(java.util.Arrays.asList("testString"))
+            .readings(java.util.Arrays.asList("testString"))
             .partOfSpeech("testString")
             .build();
 
@@ -1927,8 +1879,7 @@ public class DiscoveryTest {
         new CreateTokenizationDictionaryOptions.Builder()
             .environmentId("testString")
             .collectionId("testString")
-            .tokenizationRules(
-                new java.util.ArrayList<TokenDictRule>(java.util.Arrays.asList(tokenDictRuleModel)))
+            .tokenizationRules(java.util.Arrays.asList(tokenDictRuleModel))
             .build();
 
     // Invoke createTokenizationDictionary() with a valid options model and verify the result
@@ -2536,18 +2487,17 @@ public class DiscoveryTest {
             .passages(true)
             .aggregation("testString")
             .count(Long.valueOf("26"))
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
-            .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
-            .passagesFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .passagesFields(java.util.Arrays.asList("testString"))
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
             .deduplicateField("testString")
             .similar(false)
-            .similarDocumentIds(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .similarDocumentIds(java.util.Arrays.asList("testString"))
+            .similarFields(java.util.Arrays.asList("testString"))
             .build();
 
     // Invoke queryNotices() with a valid options model and verify the result
@@ -2575,31 +2525,22 @@ public class DiscoveryTest {
     assertEquals(query.get("aggregation"), "testString");
     assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
     assertEquals(
-        query.get("return"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("return"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
-    assertEquals(
-        query.get("sort"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+    assertEquals(query.get("sort"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(false));
     assertEquals(
         query.get("passages.fields"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Long.valueOf(query.get("passages.count")), Long.valueOf("100"));
     assertEquals(Long.valueOf(query.get("passages.characters")), Long.valueOf("50"));
     assertEquals(query.get("deduplicate.field"), "testString");
     assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(false));
     assertEquals(
         query.get("similar.document_ids"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(
-        query.get("similar.fields"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("similar.fields"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
   }
 
   // Test the queryNotices operation with and without retries enabled
@@ -2713,21 +2654,20 @@ public class DiscoveryTest {
     FederatedQueryNoticesOptions federatedQueryNoticesOptionsModel =
         new FederatedQueryNoticesOptions.Builder()
             .environmentId("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
             .aggregation("testString")
             .count(Long.valueOf("26"))
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
-            .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
             .deduplicateField("testString")
             .similar(false)
-            .similarDocumentIds(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .similarDocumentIds(java.util.Arrays.asList("testString"))
+            .similarFields(java.util.Arrays.asList("testString"))
             .build();
 
     // Invoke federatedQueryNotices() with a valid options model and verify the result
@@ -2749,34 +2689,24 @@ public class DiscoveryTest {
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
     assertEquals(
-        query.get("collection_ids"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("collection_ids"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(query.get("filter"), "testString");
     assertEquals(query.get("query"), "testString");
     assertEquals(query.get("natural_language_query"), "testString");
     assertEquals(query.get("aggregation"), "testString");
     assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
     assertEquals(
-        query.get("return"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("return"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
-    assertEquals(
-        query.get("sort"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+    assertEquals(query.get("sort"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Boolean.valueOf(query.get("highlight")), Boolean.valueOf(false));
     assertEquals(query.get("deduplicate.field"), "testString");
     assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(false));
     assertEquals(
         query.get("similar.document_ids"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(
-        query.get("similar.fields"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+        query.get("similar.fields"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
   }
 
   // Test the federatedQueryNotices operation with and without retries enabled
@@ -2945,9 +2875,7 @@ public class DiscoveryTest {
             .collectionId("testString")
             .naturalLanguageQuery("testString")
             .filter("testString")
-            .examples(
-                new java.util.ArrayList<TrainingExample>(
-                    java.util.Arrays.asList(trainingExampleModel)))
+            .examples(java.util.Arrays.asList(trainingExampleModel))
             .build();
 
     // Invoke addTrainingData() with a valid options model and verify the result
@@ -3585,7 +3513,7 @@ public class DiscoveryTest {
             .query("testString")
             .count(Long.valueOf("26"))
             .offset(Long.valueOf("26"))
-            .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .sort(java.util.Arrays.asList("testString"))
             .build();
 
     // Invoke queryLog() with a valid options model and verify the result
@@ -3609,10 +3537,7 @@ public class DiscoveryTest {
     assertEquals(query.get("query"), "testString");
     assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
-    assertEquals(
-        query.get("sort"),
-        RequestUtils.join(
-            new java.util.ArrayList<String>(java.util.Arrays.asList("testString")), ","));
+    assertEquals(query.get("sort"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
   }
 
   // Test the queryLog operation with and without retries enabled

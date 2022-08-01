@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -163,6 +163,8 @@ public class AddDocumentOptions extends GenericModel {
     }
   }
 
+  protected AddDocumentOptions() {}
+
   protected AddDocumentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
@@ -214,8 +216,14 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * <p>The content of the document to ingest. For maximum supported file size limits, see [the
+   * <p>When adding a document, the content of the document to ingest. For maximum supported file
+   * size limits, see [the
    * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-collections#collections-doc-limits).
+   *
+   * <p>When analyzing a document, the content of the document to analyze but not ingest. Only the
+   * `application/json` content type is supported currently. For maximum supported file size limits,
+   * see [the product
+   * documentation](/docs/discovery-data?topic=discovery-data-analyzeapi#analyzeapi-limits).
    *
    * @return the file
    */
@@ -249,10 +257,14 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
+   * <p>Add information about the file that you want to include in the response.
+   *
    * <p>The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are
    * rejected.
    *
-   * <p>Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
+   * <p>Example:
+   *
+   * <p>``` { "filename": "favorites2.json", "file_type": "json" }.
    *
    * @return the metadata
    */

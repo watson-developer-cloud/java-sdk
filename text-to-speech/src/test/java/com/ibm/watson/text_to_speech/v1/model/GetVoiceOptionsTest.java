@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,10 +32,10 @@ public class GetVoiceOptionsTest {
   public void testGetVoiceOptions() throws Throwable {
     GetVoiceOptions getVoiceOptionsModel =
         new GetVoiceOptions.Builder()
-            .voice("ar-AR_OmarVoice")
+            .voice("ar-MS_OmarVoice")
             .customizationId("testString")
             .build();
-    assertEquals(getVoiceOptionsModel.voice(), "ar-AR_OmarVoice");
+    assertEquals(getVoiceOptionsModel.voice(), "ar-MS_OmarVoice");
     assertEquals(getVoiceOptionsModel.customizationId(), "testString");
   }
 

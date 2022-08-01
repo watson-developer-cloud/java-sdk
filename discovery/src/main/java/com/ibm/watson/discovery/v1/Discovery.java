@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.discovery.v1;
@@ -128,8 +128,8 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&amp;trade; Discovery is a cognitive search and content analytics engine that you can
- * add to applications to identify patterns, trends and actionable insights to drive better
+ * IBM Watson&amp;trade; Discovery v1 is a cognitive search and content analytics engine that you
+ * can add to applications to identify patterns, trends and actionable insights to drive better
  * decision-making. Securely unify structured and unstructured data with pre-enriched content, and
  * use a simplified query language to eliminate the need for manual filtering of results.
  *

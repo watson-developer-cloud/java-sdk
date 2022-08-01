@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -146,6 +146,8 @@ public class QueryCollectionNoticesOptions extends GenericModel {
     }
   }
 
+  protected QueryCollectionNoticesOptions() {}
+
   protected QueryCollectionNoticesOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
@@ -194,8 +196,11 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
-   * searches are better for metadata-type searches and for assessing the concepts in the data set.
+   * <p>Searches for documents that match the Discovery Query Language criteria that is specified as
+   * input. Filter calls are cached and are faster than query calls because the results are not
+   * ordered by relevance. When used with the `aggregation`, `query`, or `natural_language_query`
+   * parameters, the `filter` parameter runs first. This parameter is useful for limiting results to
+   * those that contain specific metadata values.
    *
    * @return the filter
    */
@@ -206,8 +211,9 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * <p>A query search returns all documents in your data set with full enrichments and full text,
-   * but with the most relevant documents listed first.
+   * <p>A query search that is written in the Discovery Query Language and returns all matching
+   * documents in your data set with full enrichments and full text, and with the most relevant
+   * documents listed first.
    *
    * @return the query
    */
@@ -218,8 +224,8 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * <p>A natural language query that returns relevant documents by utilizing training data and
-   * natural language understanding.
+   * <p>A natural language query that returns relevant documents by using training data and natural
+   * language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -231,7 +237,7 @@ public class QueryCollectionNoticesOptions extends GenericModel {
    * Gets the count.
    *
    * <p>Number of results to return. The maximum for the **count** and **offset** values together in
-   * any one query is **10000**.
+   * any one query is **10,000**.
    *
    * @return the count
    */

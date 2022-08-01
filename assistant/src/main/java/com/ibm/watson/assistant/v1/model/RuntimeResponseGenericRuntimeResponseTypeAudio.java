@@ -155,6 +155,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeAudio extends RuntimeRespo
     }
   }
 
+  protected RuntimeResponseGenericRuntimeResponseTypeAudio() {}
+
   protected RuntimeResponseGenericRuntimeResponseTypeAudio(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.responseType, "responseType cannot be null");

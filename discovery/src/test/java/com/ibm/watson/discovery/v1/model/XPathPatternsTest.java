@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,12 +31,8 @@ public class XPathPatternsTest {
   @Test
   public void testXPathPatterns() throws Throwable {
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
-    assertEquals(
-        xPathPatternsModel.xpaths(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
+    assertEquals(xPathPatternsModel.xpaths(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(xPathPatternsModel);
 

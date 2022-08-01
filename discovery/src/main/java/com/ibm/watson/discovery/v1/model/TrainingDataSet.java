@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -52,7 +52,8 @@ public class TrainingDataSet extends GenericModel {
   /**
    * Gets the queries.
    *
-   * <p>Array of training queries.
+   * <p>Array of training queries. At least 50 queries are required for training to begin. A maximum
+   * of 10,000 queries are returned.
    *
    * @return the queries
    */

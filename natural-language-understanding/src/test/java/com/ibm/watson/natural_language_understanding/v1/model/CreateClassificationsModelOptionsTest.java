@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,10 @@ public class CreateClassificationsModelOptionsTest {
 
   @Test
   public void testCreateClassificationsModelOptions() throws Throwable {
+    ClassificationsTrainingParameters classificationsTrainingParametersModel =
+        new ClassificationsTrainingParameters.Builder().modelType("single_label").build();
+    assertEquals(classificationsTrainingParametersModel.modelType(), "single_label");
+
     CreateClassificationsModelOptions createClassificationsModelOptionsModel =
         new CreateClassificationsModelOptions.Builder()
             .language("testString")
@@ -47,6 +51,7 @@ public class CreateClassificationsModelOptionsTest {
             .modelVersion("testString")
             .workspaceId("testString")
             .versionDescription("testString")
+            .trainingParameters(classificationsTrainingParametersModel)
             .build();
     assertEquals(createClassificationsModelOptionsModel.language(), "testString");
     assertEquals(
@@ -65,6 +70,9 @@ public class CreateClassificationsModelOptionsTest {
     assertEquals(createClassificationsModelOptionsModel.modelVersion(), "testString");
     assertEquals(createClassificationsModelOptionsModel.workspaceId(), "testString");
     assertEquals(createClassificationsModelOptionsModel.versionDescription(), "testString");
+    assertEquals(
+        createClassificationsModelOptionsModel.trainingParameters(),
+        classificationsTrainingParametersModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

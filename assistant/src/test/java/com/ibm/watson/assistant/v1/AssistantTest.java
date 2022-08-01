@@ -35,6 +35,7 @@ import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
 import com.ibm.watson.assistant.v1.model.CreateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.CreateValue;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
+import com.ibm.watson.assistant.v1.model.CreateWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.DeleteCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.DeleteDialogNodeOptions;
@@ -51,7 +52,6 @@ import com.ibm.watson.assistant.v1.model.DialogNodeCollection;
 import com.ibm.watson.assistant.v1.model.DialogNodeContext;
 import com.ibm.watson.assistant.v1.model.DialogNodeNextStep;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutput;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputGeneric;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutputModifiers;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutputOptionsElement;
@@ -62,6 +62,7 @@ import com.ibm.watson.assistant.v1.model.EntityCollection;
 import com.ibm.watson.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.assistant.v1.model.Example;
 import com.ibm.watson.assistant.v1.model.ExampleCollection;
+import com.ibm.watson.assistant.v1.model.ExportWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.GetCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.GetDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.GetEntityOptions;
@@ -98,7 +99,6 @@ import com.ibm.watson.assistant.v1.model.RuntimeEntityAlternative;
 import com.ibm.watson.assistant.v1.model.RuntimeEntityInterpretation;
 import com.ibm.watson.assistant.v1.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
-import com.ibm.watson.assistant.v1.model.RuntimeResponseGeneric;
 import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeOption;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
@@ -109,6 +109,7 @@ import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.assistant.v1.model.UpdateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
+import com.ibm.watson.assistant.v1.model.UpdateWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
@@ -118,6 +119,7 @@ import com.ibm.watson.assistant.v1.model.Workspace;
 import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
+import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsNlp;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsOffTopic;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsSystemEntities;
 import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
@@ -189,7 +191,7 @@ public class AssistantTest {
     CaptureGroup captureGroupModel =
         new CaptureGroup.Builder()
             .group("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the RuntimeEntityInterpretation model
@@ -238,15 +240,12 @@ public class AssistantTest {
     RuntimeEntity runtimeEntityModel =
         new RuntimeEntity.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .groups(
-                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .groups(java.util.Arrays.asList(captureGroupModel))
             .interpretation(runtimeEntityInterpretationModel)
-            .alternatives(
-                new java.util.ArrayList<RuntimeEntityAlternative>(
-                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .alternatives(java.util.Arrays.asList(runtimeEntityAlternativeModel))
             .role(runtimeEntityRoleModel)
             .build();
 
@@ -293,10 +292,8 @@ public class AssistantTest {
     DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
         new DialogNodeOutputOptionsElementValue.Builder()
             .input(messageInputModel)
-            .intents(
-                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
-            .entities(
-                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
             .build();
 
     // Construct an instance of the DialogNodeOutputOptionsElement model
@@ -317,26 +314,17 @@ public class AssistantTest {
             .title("testString")
             .description("testString")
             .preference("dropdown")
-            .options(
-                new java.util.ArrayList<DialogNodeOutputOptionsElement>(
-                    java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)))
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .options(java.util.Arrays.asList(dialogNodeOutputOptionsElementModel))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
     // Construct an instance of the OutputData model
     OutputData outputDataModel =
         new OutputData.Builder()
-            .nodesVisited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .nodesVisitedDetails(
-                new java.util.ArrayList<DialogNodeVisitedDetails>(
-                    java.util.Arrays.asList(dialogNodeVisitedDetailsModel)))
-            .logMessages(
-                new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)))
-            .generic(
-                new java.util.ArrayList<RuntimeResponseGeneric>(
-                    java.util.Arrays.asList(runtimeResponseGenericModel)))
+            .nodesVisited(java.util.Arrays.asList("testString"))
+            .nodesVisitedDetails(java.util.Arrays.asList(dialogNodeVisitedDetailsModel))
+            .logMessages(java.util.Arrays.asList(logMessageModel))
+            .generic(java.util.Arrays.asList(runtimeResponseGenericModel))
             .add("foo", "testString")
             .build();
 
@@ -345,10 +333,8 @@ public class AssistantTest {
         new MessageOptions.Builder()
             .workspaceId("testString")
             .input(messageInputModel)
-            .intents(
-                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
-            .entities(
-                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
             .alternateIntents(false)
             .context(contextModel)
             .output(outputDataModel)
@@ -414,9 +400,7 @@ public class AssistantTest {
     BulkClassifyOptions bulkClassifyOptionsModel =
         new BulkClassifyOptions.Builder()
             .workspaceId("testString")
-            .input(
-                new java.util.ArrayList<BulkClassifyUtterance>(
-                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
+            .input(java.util.Arrays.asList(bulkClassifyUtteranceModel))
             .build();
 
     // Invoke bulkClassify() with a valid options model and verify the result
@@ -461,7 +445,7 @@ public class AssistantTest {
   public void testListWorkspacesWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listWorkspacesPath = "/v1/workspaces";
     server.enqueue(
         new MockResponse()
@@ -519,7 +503,7 @@ public class AssistantTest {
   public void testCreateWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String createWorkspacePath = "/v1/workspaces";
     server.enqueue(
         new MockResponse()
@@ -538,9 +522,7 @@ public class AssistantTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -557,9 +539,7 @@ public class AssistantTest {
     // Construct an instance of the DialogNodeOutput model
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -638,9 +618,7 @@ public class AssistantTest {
             .type("standard")
             .eventName("focus")
             .variable("testString")
-            .actions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
             .digressIn("not_available")
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
@@ -675,6 +653,10 @@ public class AssistantTest {
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
         new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
 
+    // Construct an instance of the WorkspaceSystemSettingsNlp model
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
@@ -690,6 +672,7 @@ public class AssistantTest {
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
             .add("foo", "testString")
             .build();
 
@@ -702,22 +685,21 @@ public class AssistantTest {
         new Webhook.Builder()
             .url("testString")
             .name("testString")
-            .headers(
-                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
             .build();
 
     // Construct an instance of the Mention model
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the Example model
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
 
     // Construct an instance of the CreateIntent model
@@ -725,7 +707,7 @@ public class AssistantTest {
         new CreateIntent.Builder()
             .intent("testString")
             .description("testString")
-            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .examples(java.util.Arrays.asList(exampleModel))
             .build();
 
     // Construct an instance of the CreateValue model
@@ -739,8 +721,8 @@ public class AssistantTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the CreateEntity model
@@ -755,7 +737,7 @@ public class AssistantTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .build();
 
     // Construct an instance of the CreateWorkspaceOptions model
@@ -764,11 +746,8 @@ public class AssistantTest {
             .name("testString")
             .description("testString")
             .language("testString")
-            .dialogNodes(
-                new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)))
-            .counterexamples(
-                new java.util.ArrayList<Counterexample>(
-                    java.util.Arrays.asList(counterexampleModel)))
+            .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
+            .counterexamples(java.util.Arrays.asList(counterexampleModel))
             .metadata(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -777,11 +756,9 @@ public class AssistantTest {
                 })
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
-            .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
-            .intents(
-                new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
-            .entities(
-                new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
+            .webhooks(java.util.Arrays.asList(webhookModel))
+            .intents(java.util.Arrays.asList(createIntentModel))
+            .entities(java.util.Arrays.asList(createEntityModel))
             .includeAudit(false)
             .build();
 
@@ -821,7 +798,7 @@ public class AssistantTest {
   public void testGetWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String getWorkspacePath = "/v1/workspaces/testString";
     server.enqueue(
         new MockResponse()
@@ -883,7 +860,7 @@ public class AssistantTest {
   public void testUpdateWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}}, \"status\": \"Non Existent\", \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}]}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String updateWorkspacePath = "/v1/workspaces/testString";
     server.enqueue(
         new MockResponse()
@@ -902,9 +879,7 @@ public class AssistantTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -921,9 +896,7 @@ public class AssistantTest {
     // Construct an instance of the DialogNodeOutput model
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -1002,9 +975,7 @@ public class AssistantTest {
             .type("standard")
             .eventName("focus")
             .variable("testString")
-            .actions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
             .digressIn("not_available")
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
@@ -1039,6 +1010,10 @@ public class AssistantTest {
     WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
         new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
 
+    // Construct an instance of the WorkspaceSystemSettingsNlp model
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
@@ -1054,6 +1029,7 @@ public class AssistantTest {
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
             .add("foo", "testString")
             .build();
 
@@ -1066,22 +1042,21 @@ public class AssistantTest {
         new Webhook.Builder()
             .url("testString")
             .name("testString")
-            .headers(
-                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
             .build();
 
     // Construct an instance of the Mention model
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the Example model
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
 
     // Construct an instance of the CreateIntent model
@@ -1089,7 +1064,7 @@ public class AssistantTest {
         new CreateIntent.Builder()
             .intent("testString")
             .description("testString")
-            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .examples(java.util.Arrays.asList(exampleModel))
             .build();
 
     // Construct an instance of the CreateValue model
@@ -1103,8 +1078,8 @@ public class AssistantTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the CreateEntity model
@@ -1119,7 +1094,7 @@ public class AssistantTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .build();
 
     // Construct an instance of the UpdateWorkspaceOptions model
@@ -1129,11 +1104,8 @@ public class AssistantTest {
             .name("testString")
             .description("testString")
             .language("testString")
-            .dialogNodes(
-                new java.util.ArrayList<DialogNode>(java.util.Arrays.asList(dialogNodeModel)))
-            .counterexamples(
-                new java.util.ArrayList<Counterexample>(
-                    java.util.Arrays.asList(counterexampleModel)))
+            .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
+            .counterexamples(java.util.Arrays.asList(counterexampleModel))
             .metadata(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -1142,11 +1114,9 @@ public class AssistantTest {
                 })
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
-            .webhooks(new java.util.ArrayList<Webhook>(java.util.Arrays.asList(webhookModel)))
-            .intents(
-                new java.util.ArrayList<CreateIntent>(java.util.Arrays.asList(createIntentModel)))
-            .entities(
-                new java.util.ArrayList<CreateEntity>(java.util.Arrays.asList(createEntityModel)))
+            .webhooks(java.util.Arrays.asList(webhookModel))
+            .intents(java.util.Arrays.asList(createIntentModel))
+            .entities(java.util.Arrays.asList(createEntityModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -1239,6 +1209,664 @@ public class AssistantTest {
     assistantService.deleteWorkspace(null).execute();
   }
 
+  // Test the createWorkspaceAsync operation with a valid options model parameter
+  @Test
+  public void testCreateWorkspaceAsyncWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+    String createWorkspaceAsyncPath = "/v1/workspaces_async";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ResponseGenericChannel model
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
+            .responseType("video")
+            .source("testString")
+            .title("testString")
+            .description("testString")
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
+            .channelOptions(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .altText("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the DialogNode model
+    DialogNode dialogNodeModel =
+        new DialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(false)
+            .build();
+
+    // Construct an instance of the Counterexample model
+    Counterexample counterexampleModel = new Counterexample.Builder().text("testString").build();
+
+    // Construct an instance of the WorkspaceSystemSettingsTooling model
+    WorkspaceSystemSettingsTooling workspaceSystemSettingsToolingModel =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsDisambiguation model
+    WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguationModel =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .prompt("testString")
+            .noneOfTheAbovePrompt("testString")
+            .enabled(false)
+            .sensitivity("auto")
+            .randomize(true)
+            .maxSuggestions(Long.valueOf("1"))
+            .suggestionTextPolicy("testString")
+            .build();
+
+    // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
+    WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsOffTopic model
+    WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsNlp model
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+
+    // Construct an instance of the WorkspaceSystemSettings model
+    WorkspaceSystemSettings workspaceSystemSettingsModel =
+        new WorkspaceSystemSettings.Builder()
+            .tooling(workspaceSystemSettingsToolingModel)
+            .disambiguation(workspaceSystemSettingsDisambiguationModel)
+            .humanAgentAssist(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
+            .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
+            .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the WebhookHeader model
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
+
+    // Construct an instance of the Webhook model
+    Webhook webhookModel =
+        new Webhook.Builder()
+            .url("testString")
+            .name("testString")
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
+            .build();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(java.util.Arrays.asList(mentionModel))
+            .build();
+
+    // Construct an instance of the CreateIntent model
+    CreateIntent createIntentModel =
+        new CreateIntent.Builder()
+            .intent("testString")
+            .description("testString")
+            .examples(java.util.Arrays.asList(exampleModel))
+            .build();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
+            .build();
+
+    // Construct an instance of the CreateEntity model
+    CreateEntity createEntityModel =
+        new CreateEntity.Builder()
+            .entity("testString")
+            .description("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .fuzzyMatch(true)
+            .values(java.util.Arrays.asList(createValueModel))
+            .build();
+
+    // Construct an instance of the CreateWorkspaceAsyncOptions model
+    CreateWorkspaceAsyncOptions createWorkspaceAsyncOptionsModel =
+        new CreateWorkspaceAsyncOptions.Builder()
+            .name("testString")
+            .description("testString")
+            .language("testString")
+            .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
+            .counterexamples(java.util.Arrays.asList(counterexampleModel))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .learningOptOut(false)
+            .systemSettings(workspaceSystemSettingsModel)
+            .webhooks(java.util.Arrays.asList(webhookModel))
+            .intents(java.util.Arrays.asList(createIntentModel))
+            .entities(java.util.Arrays.asList(createEntityModel))
+            .build();
+
+    // Invoke createWorkspaceAsync() with a valid options model and verify the result
+    Response<Workspace> response =
+        assistantService.createWorkspaceAsync(createWorkspaceAsyncOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createWorkspaceAsyncPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the createWorkspaceAsync operation with and without retries enabled
+  @Test
+  public void testCreateWorkspaceAsyncWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testCreateWorkspaceAsyncWOptions();
+
+    assistantService.disableRetries();
+    testCreateWorkspaceAsyncWOptions();
+  }
+
+  // Test the updateWorkspaceAsync operation with a valid options model parameter
+  @Test
+  public void testUpdateWorkspaceAsyncWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+    String updateWorkspaceAsyncPath = "/v1/workspaces_async/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ResponseGenericChannel model
+    ResponseGenericChannel responseGenericChannelModel =
+        new ResponseGenericChannel.Builder().channel("chat").build();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
+            .responseType("video")
+            .source("testString")
+            .title("testString")
+            .description("testString")
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
+            .channelOptions(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .altText("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the DialogNode model
+    DialogNode dialogNodeModel =
+        new DialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(false)
+            .build();
+
+    // Construct an instance of the Counterexample model
+    Counterexample counterexampleModel = new Counterexample.Builder().text("testString").build();
+
+    // Construct an instance of the WorkspaceSystemSettingsTooling model
+    WorkspaceSystemSettingsTooling workspaceSystemSettingsToolingModel =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsDisambiguation model
+    WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguationModel =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .prompt("testString")
+            .noneOfTheAbovePrompt("testString")
+            .enabled(false)
+            .sensitivity("auto")
+            .randomize(true)
+            .maxSuggestions(Long.valueOf("1"))
+            .suggestionTextPolicy("testString")
+            .build();
+
+    // Construct an instance of the WorkspaceSystemSettingsSystemEntities model
+    WorkspaceSystemSettingsSystemEntities workspaceSystemSettingsSystemEntitiesModel =
+        new WorkspaceSystemSettingsSystemEntities.Builder().enabled(false).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsOffTopic model
+    WorkspaceSystemSettingsOffTopic workspaceSystemSettingsOffTopicModel =
+        new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
+
+    // Construct an instance of the WorkspaceSystemSettingsNlp model
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+
+    // Construct an instance of the WorkspaceSystemSettings model
+    WorkspaceSystemSettings workspaceSystemSettingsModel =
+        new WorkspaceSystemSettings.Builder()
+            .tooling(workspaceSystemSettingsToolingModel)
+            .disambiguation(workspaceSystemSettingsDisambiguationModel)
+            .humanAgentAssist(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .spellingSuggestions(false)
+            .spellingAutoCorrect(false)
+            .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
+            .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the WebhookHeader model
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
+
+    // Construct an instance of the Webhook model
+    Webhook webhookModel =
+        new Webhook.Builder()
+            .url("testString")
+            .name("testString")
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
+            .build();
+
+    // Construct an instance of the Mention model
+    Mention mentionModel =
+        new Mention.Builder()
+            .entity("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .build();
+
+    // Construct an instance of the Example model
+    Example exampleModel =
+        new Example.Builder()
+            .text("testString")
+            .mentions(java.util.Arrays.asList(mentionModel))
+            .build();
+
+    // Construct an instance of the CreateIntent model
+    CreateIntent createIntentModel =
+        new CreateIntent.Builder()
+            .intent("testString")
+            .description("testString")
+            .examples(java.util.Arrays.asList(exampleModel))
+            .build();
+
+    // Construct an instance of the CreateValue model
+    CreateValue createValueModel =
+        new CreateValue.Builder()
+            .value("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .type("synonyms")
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
+            .build();
+
+    // Construct an instance of the CreateEntity model
+    CreateEntity createEntityModel =
+        new CreateEntity.Builder()
+            .entity("testString")
+            .description("testString")
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .fuzzyMatch(true)
+            .values(java.util.Arrays.asList(createValueModel))
+            .build();
+
+    // Construct an instance of the UpdateWorkspaceAsyncOptions model
+    UpdateWorkspaceAsyncOptions updateWorkspaceAsyncOptionsModel =
+        new UpdateWorkspaceAsyncOptions.Builder()
+            .workspaceId("testString")
+            .name("testString")
+            .description("testString")
+            .language("testString")
+            .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
+            .counterexamples(java.util.Arrays.asList(counterexampleModel))
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .learningOptOut(false)
+            .systemSettings(workspaceSystemSettingsModel)
+            .webhooks(java.util.Arrays.asList(webhookModel))
+            .intents(java.util.Arrays.asList(createIntentModel))
+            .entities(java.util.Arrays.asList(createEntityModel))
+            .append(false)
+            .build();
+
+    // Invoke updateWorkspaceAsync() with a valid options model and verify the result
+    Response<Workspace> response =
+        assistantService.updateWorkspaceAsync(updateWorkspaceAsyncOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateWorkspaceAsyncPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("append")), Boolean.valueOf(false));
+  }
+
+  // Test the updateWorkspaceAsync operation with and without retries enabled
+  @Test
+  public void testUpdateWorkspaceAsyncWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testUpdateWorkspaceAsyncWOptions();
+
+    assistantService.disableRetries();
+    testUpdateWorkspaceAsyncWOptions();
+  }
+
+  // Test the updateWorkspaceAsync operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateWorkspaceAsyncNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.updateWorkspaceAsync(null).execute();
+  }
+
+  // Test the exportWorkspaceAsync operation with a valid options model parameter
+  @Test
+  public void testExportWorkspaceAsyncWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+    String exportWorkspaceAsyncPath = "/v1/workspaces_async/testString/export";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ExportWorkspaceAsyncOptions model
+    ExportWorkspaceAsyncOptions exportWorkspaceAsyncOptionsModel =
+        new ExportWorkspaceAsyncOptions.Builder()
+            .workspaceId("testString")
+            .includeAudit(false)
+            .sort("stable")
+            .verbose(false)
+            .build();
+
+    // Invoke exportWorkspaceAsync() with a valid options model and verify the result
+    Response<Workspace> response =
+        assistantService.exportWorkspaceAsync(exportWorkspaceAsyncOptionsModel).execute();
+    assertNotNull(response);
+    Workspace responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, exportWorkspaceAsyncPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+    assertEquals(query.get("sort"), "stable");
+    assertEquals(Boolean.valueOf(query.get("verbose")), Boolean.valueOf(false));
+  }
+
+  // Test the exportWorkspaceAsync operation with and without retries enabled
+  @Test
+  public void testExportWorkspaceAsyncWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testExportWorkspaceAsyncWOptions();
+
+    assistantService.disableRetries();
+    testExportWorkspaceAsyncWOptions();
+  }
+
+  // Test the exportWorkspaceAsync operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testExportWorkspaceAsyncNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.exportWorkspaceAsync(null).execute();
+  }
+
   // Test the listIntents operation with a valid options model parameter
   @Test
   public void testListIntentsWOptions() throws Throwable {
@@ -1324,14 +1952,14 @@ public class AssistantTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the Example model
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
 
     // Construct an instance of the CreateIntentOptions model
@@ -1340,7 +1968,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .intent("testString")
             .description("testString")
-            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .examples(java.util.Arrays.asList(exampleModel))
             .includeAudit(false)
             .build();
 
@@ -1458,14 +2086,14 @@ public class AssistantTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the Example model
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
 
     // Construct an instance of the UpdateIntentOptions model
@@ -1475,7 +2103,7 @@ public class AssistantTest {
             .intent("testString")
             .newIntent("testString")
             .newDescription("testString")
-            .newExamples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .newExamples(java.util.Arrays.asList(exampleModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -1650,7 +2278,7 @@ public class AssistantTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the CreateExampleOptions model
@@ -1659,7 +2287,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .intent("testString")
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .includeAudit(false)
             .build();
 
@@ -1777,7 +2405,7 @@ public class AssistantTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
 
     // Construct an instance of the UpdateExampleOptions model
@@ -1787,7 +2415,7 @@ public class AssistantTest {
             .intent("testString")
             .text("testString")
             .newText("testString")
-            .newMentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .newMentions(java.util.Arrays.asList(mentionModel))
             .includeAudit(false)
             .build();
 
@@ -2269,8 +2897,8 @@ public class AssistantTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the CreateEntityOptions model
@@ -2286,7 +2914,7 @@ public class AssistantTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .includeAudit(false)
             .build();
 
@@ -2411,8 +3039,8 @@ public class AssistantTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the UpdateEntityOptions model
@@ -2429,8 +3057,7 @@ public class AssistantTest {
                   }
                 })
             .newFuzzyMatch(true)
-            .newValues(
-                new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .newValues(java.util.Arrays.asList(createValueModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -2677,8 +3304,8 @@ public class AssistantTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .includeAudit(false)
             .build();
 
@@ -2807,8 +3434,8 @@ public class AssistantTest {
                   }
                 })
             .newType("synonyms")
-            .newSynonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .newPatterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .newSynonyms(java.util.Arrays.asList("testString"))
+            .newPatterns(java.util.Arrays.asList("testString"))
             .append(false)
             .includeAudit(false)
             .build();
@@ -3302,9 +3929,7 @@ public class AssistantTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -3321,9 +3946,7 @@ public class AssistantTest {
     // Construct an instance of the DialogNodeOutput model
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -3403,9 +4026,7 @@ public class AssistantTest {
             .type("standard")
             .eventName("focus")
             .variable("testString")
-            .actions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .actions(java.util.Arrays.asList(dialogNodeActionModel))
             .digressIn("not_available")
             .digressOut("allow_returning")
             .digressOutSlots("not_allowed")
@@ -3535,9 +4156,7 @@ public class AssistantTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -3554,9 +4173,7 @@ public class AssistantTest {
     // Construct an instance of the DialogNodeOutput model
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -3637,9 +4254,7 @@ public class AssistantTest {
             .newType("standard")
             .newEventName("focus")
             .newVariable("testString")
-            .newActions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .newActions(java.util.Arrays.asList(dialogNodeActionModel))
             .newDigressIn("not_available")
             .newDigressOut("allow_returning")
             .newDigressOutSlots("not_allowed")

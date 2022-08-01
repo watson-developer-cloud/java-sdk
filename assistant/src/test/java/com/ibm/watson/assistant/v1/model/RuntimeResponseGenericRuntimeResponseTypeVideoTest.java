@@ -41,9 +41,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeVideoTest {
                 .source("testString")
                 .title("testString")
                 .description("testString")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .channelOptions(
                     new java.util.HashMap<String, Object>() {
                       {
@@ -58,8 +56,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeVideoTest {
     assertEquals(runtimeResponseGenericRuntimeResponseTypeVideoModel.description(), "testString");
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeVideoModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeVideoModel.channelOptions(),
         new java.util.HashMap<String, Object>() {

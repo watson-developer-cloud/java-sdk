@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -62,7 +62,7 @@ public class SourceOptionsTest {
             .maximumHops(Long.valueOf("26"))
             .requestTimeout(Long.valueOf("26"))
             .overrideRobotsTxt(false)
-            .blacklist(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .blacklist(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(sourceOptionsWebCrawlModel.url(), "testString");
     assertEquals(sourceOptionsWebCrawlModel.limitToStartingHosts(), Boolean.valueOf(true));
@@ -71,9 +71,7 @@ public class SourceOptionsTest {
     assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("26"));
     assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(false));
-    assertEquals(
-        sourceOptionsWebCrawlModel.blacklist(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(sourceOptionsWebCrawlModel.blacklist(), java.util.Arrays.asList("testString"));
 
     SourceOptionsBuckets sourceOptionsBucketsModel =
         new SourceOptionsBuckets.Builder().name("testString").limit(Long.valueOf("26")).build();
@@ -82,43 +80,19 @@ public class SourceOptionsTest {
 
     SourceOptions sourceOptionsModel =
         new SourceOptions.Builder()
-            .folders(
-                new java.util.ArrayList<SourceOptionsFolder>(
-                    java.util.Arrays.asList(sourceOptionsFolderModel)))
-            .objects(
-                new java.util.ArrayList<SourceOptionsObject>(
-                    java.util.Arrays.asList(sourceOptionsObjectModel)))
-            .siteCollections(
-                new java.util.ArrayList<SourceOptionsSiteColl>(
-                    java.util.Arrays.asList(sourceOptionsSiteCollModel)))
-            .urls(
-                new java.util.ArrayList<SourceOptionsWebCrawl>(
-                    java.util.Arrays.asList(sourceOptionsWebCrawlModel)))
-            .buckets(
-                new java.util.ArrayList<SourceOptionsBuckets>(
-                    java.util.Arrays.asList(sourceOptionsBucketsModel)))
+            .folders(java.util.Arrays.asList(sourceOptionsFolderModel))
+            .objects(java.util.Arrays.asList(sourceOptionsObjectModel))
+            .siteCollections(java.util.Arrays.asList(sourceOptionsSiteCollModel))
+            .urls(java.util.Arrays.asList(sourceOptionsWebCrawlModel))
+            .buckets(java.util.Arrays.asList(sourceOptionsBucketsModel))
             .crawlAllBuckets(true)
             .build();
+    assertEquals(sourceOptionsModel.folders(), java.util.Arrays.asList(sourceOptionsFolderModel));
+    assertEquals(sourceOptionsModel.objects(), java.util.Arrays.asList(sourceOptionsObjectModel));
     assertEquals(
-        sourceOptionsModel.folders(),
-        new java.util.ArrayList<SourceOptionsFolder>(
-            java.util.Arrays.asList(sourceOptionsFolderModel)));
-    assertEquals(
-        sourceOptionsModel.objects(),
-        new java.util.ArrayList<SourceOptionsObject>(
-            java.util.Arrays.asList(sourceOptionsObjectModel)));
-    assertEquals(
-        sourceOptionsModel.siteCollections(),
-        new java.util.ArrayList<SourceOptionsSiteColl>(
-            java.util.Arrays.asList(sourceOptionsSiteCollModel)));
-    assertEquals(
-        sourceOptionsModel.urls(),
-        new java.util.ArrayList<SourceOptionsWebCrawl>(
-            java.util.Arrays.asList(sourceOptionsWebCrawlModel)));
-    assertEquals(
-        sourceOptionsModel.buckets(),
-        new java.util.ArrayList<SourceOptionsBuckets>(
-            java.util.Arrays.asList(sourceOptionsBucketsModel)));
+        sourceOptionsModel.siteCollections(), java.util.Arrays.asList(sourceOptionsSiteCollModel));
+    assertEquals(sourceOptionsModel.urls(), java.util.Arrays.asList(sourceOptionsWebCrawlModel));
+    assertEquals(sourceOptionsModel.buckets(), java.util.Arrays.asList(sourceOptionsBucketsModel));
     assertEquals(sourceOptionsModel.crawlAllBuckets(), Boolean.valueOf(true));
 
     String json = TestUtilities.serialize(sourceOptionsModel);

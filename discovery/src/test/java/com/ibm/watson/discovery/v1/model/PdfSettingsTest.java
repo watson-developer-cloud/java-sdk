@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,12 +47,8 @@ public class PdfSettingsTest {
     assertEquals(fontSettingModel.name(), "testString");
 
     PdfHeadingDetection pdfHeadingDetectionModel =
-        new PdfHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .build();
-    assertEquals(
-        pdfHeadingDetectionModel.fonts(),
-        new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)));
+        new PdfHeadingDetection.Builder().fonts(java.util.Arrays.asList(fontSettingModel)).build();
+    assertEquals(pdfHeadingDetectionModel.fonts(), java.util.Arrays.asList(fontSettingModel));
 
     PdfSettings pdfSettingsModel =
         new PdfSettings.Builder().heading(pdfHeadingDetectionModel).build();

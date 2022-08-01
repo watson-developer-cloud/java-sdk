@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,10 +35,12 @@ public class TrainLanguageModelOptionsTest {
             .customizationId("testString")
             .wordTypeToAdd("all")
             .customizationWeight(Double.valueOf("72.5"))
+            .strict(true)
             .build();
     assertEquals(trainLanguageModelOptionsModel.customizationId(), "testString");
     assertEquals(trainLanguageModelOptionsModel.wordTypeToAdd(), "all");
     assertEquals(trainLanguageModelOptionsModel.customizationWeight(), Double.valueOf("72.5"));
+    assertEquals(trainLanguageModelOptionsModel.strict(), Boolean.valueOf(true));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

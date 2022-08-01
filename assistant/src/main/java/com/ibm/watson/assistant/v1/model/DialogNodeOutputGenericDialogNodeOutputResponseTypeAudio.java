@@ -157,6 +157,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudio
     }
   }
 
+  protected DialogNodeOutputGenericDialogNodeOutputResponseTypeAudio() {}
+
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeAudio(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.responseType, "responseType cannot be null");

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -116,12 +116,14 @@ public class SpeechRecognitionResults extends GenericModel {
    * <p>An array of warning messages associated with the request: * Warnings for invalid parameters
    * or fields can include a descriptive message and a list of invalid argument strings, for
    * example, `"Unknown arguments:"` or `"Unknown url query arguments:"` followed by a list of the
-   * form `"{invalid_arg_1}, {invalid_arg_2}."` * The following warning is returned if the request
-   * passes a custom model that is based on an older version of a base model for which an updated
-   * version is available: `"Using previous version of base model, because your custom model has
-   * been built with it. Please note that this version will be supported only for a limited time.
-   * Consider updating your custom model to the new base model. If you do not do that you will be
-   * automatically switched to base model when you used the non-updated custom model."`
+   * form `"{invalid_arg_1}, {invalid_arg_2}."` (If you use the `character_insertion_bias` parameter
+   * with a previous-generation model, the warning message refers to the parameter as `lambdaBias`.)
+   * * The following warning is returned if the request passes a custom model that is based on an
+   * older version of a base model for which an updated version is available: `"Using previous
+   * version of base model, because your custom model has been built with it. Please note that this
+   * version will be supported only for a limited time. Consider updating your custom model to the
+   * new base model. If you do not do that you will be automatically switched to base model when you
+   * used the non-updated custom model."`
    *
    * <p>In both cases, the request succeeds despite the warnings.
    *

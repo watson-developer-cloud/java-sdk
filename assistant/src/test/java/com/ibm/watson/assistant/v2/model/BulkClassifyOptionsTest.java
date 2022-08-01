@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,15 +37,11 @@ public class BulkClassifyOptionsTest {
     BulkClassifyOptions bulkClassifyOptionsModel =
         new BulkClassifyOptions.Builder()
             .skillId("testString")
-            .input(
-                new java.util.ArrayList<BulkClassifyUtterance>(
-                    java.util.Arrays.asList(bulkClassifyUtteranceModel)))
+            .input(java.util.Arrays.asList(bulkClassifyUtteranceModel))
             .build();
     assertEquals(bulkClassifyOptionsModel.skillId(), "testString");
     assertEquals(
-        bulkClassifyOptionsModel.input(),
-        new java.util.ArrayList<BulkClassifyUtterance>(
-            java.util.Arrays.asList(bulkClassifyUtteranceModel)));
+        bulkClassifyOptionsModel.input(), java.util.Arrays.asList(bulkClassifyUtteranceModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

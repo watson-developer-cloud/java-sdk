@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,8 +40,8 @@ public class UpdateEntityOptionsTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
@@ -52,12 +52,8 @@ public class UpdateEntityOptionsTest {
           }
         });
     assertEquals(createValueModel.type(), "synonyms");
-    assertEquals(
-        createValueModel.synonyms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        createValueModel.patterns(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
+    assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
 
     UpdateEntityOptions updateEntityOptionsModel =
         new UpdateEntityOptions.Builder()
@@ -72,8 +68,7 @@ public class UpdateEntityOptionsTest {
                   }
                 })
             .newFuzzyMatch(true)
-            .newValues(
-                new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .newValues(java.util.Arrays.asList(createValueModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -89,9 +84,7 @@ public class UpdateEntityOptionsTest {
           }
         });
     assertEquals(updateEntityOptionsModel.newFuzzyMatch(), Boolean.valueOf(true));
-    assertEquals(
-        updateEntityOptionsModel.newValues(),
-        new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)));
+    assertEquals(updateEntityOptionsModel.newValues(), java.util.Arrays.asList(createValueModel));
     assertEquals(updateEntityOptionsModel.append(), Boolean.valueOf(false));
     assertEquals(updateEntityOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
