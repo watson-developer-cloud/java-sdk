@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,18 +40,17 @@ public class QueryNoticesOptionsTest {
             .passages(true)
             .aggregation("testString")
             .count(Long.valueOf("26"))
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
-            .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
-            .passagesFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .passagesFields(java.util.Arrays.asList("testString"))
             .passagesCount(Long.valueOf("100"))
             .passagesCharacters(Long.valueOf("50"))
             .deduplicateField("testString")
             .similar(false)
-            .similarDocumentIds(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .similarDocumentIds(java.util.Arrays.asList("testString"))
+            .similarFields(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(queryNoticesOptionsModel.environmentId(), "testString");
     assertEquals(queryNoticesOptionsModel.collectionId(), "testString");
@@ -61,27 +60,18 @@ public class QueryNoticesOptionsTest {
     assertEquals(queryNoticesOptionsModel.passages(), Boolean.valueOf(true));
     assertEquals(queryNoticesOptionsModel.aggregation(), "testString");
     assertEquals(queryNoticesOptionsModel.count(), Long.valueOf("26"));
-    assertEquals(
-        queryNoticesOptionsModel.xReturn(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryNoticesOptionsModel.xReturn(), java.util.Arrays.asList("testString"));
     assertEquals(queryNoticesOptionsModel.offset(), Long.valueOf("26"));
-    assertEquals(
-        queryNoticesOptionsModel.sort(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryNoticesOptionsModel.sort(), java.util.Arrays.asList("testString"));
     assertEquals(queryNoticesOptionsModel.highlight(), Boolean.valueOf(false));
-    assertEquals(
-        queryNoticesOptionsModel.passagesFields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryNoticesOptionsModel.passagesFields(), java.util.Arrays.asList("testString"));
     assertEquals(queryNoticesOptionsModel.passagesCount(), Long.valueOf("100"));
     assertEquals(queryNoticesOptionsModel.passagesCharacters(), Long.valueOf("50"));
     assertEquals(queryNoticesOptionsModel.deduplicateField(), "testString");
     assertEquals(queryNoticesOptionsModel.similar(), Boolean.valueOf(false));
     assertEquals(
-        queryNoticesOptionsModel.similarDocumentIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        queryNoticesOptionsModel.similarFields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        queryNoticesOptionsModel.similarDocumentIds(), java.util.Arrays.asList("testString"));
+    assertEquals(queryNoticesOptionsModel.similarFields(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

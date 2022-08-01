@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,7 +41,7 @@ public class RecognizeOptionsTest {
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
             .inactivityTimeout(Long.valueOf("26"))
-            .keywords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
             .maxAlternatives(Long.valueOf("26"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
@@ -50,7 +50,6 @@ public class RecognizeOptionsTest {
             .profanityFilter(true)
             .smartFormatting(false)
             .speakerLabels(false)
-            .customizationId("testString")
             .grammarName("testString")
             .redaction(false)
             .audioMetrics(false)
@@ -59,6 +58,7 @@ public class RecognizeOptionsTest {
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
             .lowLatency(false)
+            .characterInsertionBias(Float.valueOf("36.0"))
             .build();
     assertEquals(
         IOUtils.toString(recognizeOptionsModel.audio()),
@@ -70,9 +70,7 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.baseModelVersion(), "testString");
     assertEquals(recognizeOptionsModel.customizationWeight(), Double.valueOf("72.5"));
     assertEquals(recognizeOptionsModel.inactivityTimeout(), Long.valueOf("26"));
-    assertEquals(
-        recognizeOptionsModel.keywords(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(recognizeOptionsModel.keywords(), java.util.Arrays.asList("testString"));
     assertEquals(recognizeOptionsModel.keywordsThreshold(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.maxAlternatives(), Long.valueOf("26"));
     assertEquals(recognizeOptionsModel.wordAlternativesThreshold(), Float.valueOf("36.0"));
@@ -81,7 +79,6 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(recognizeOptionsModel.smartFormatting(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.speakerLabels(), Boolean.valueOf(false));
-    assertEquals(recognizeOptionsModel.customizationId(), "testString");
     assertEquals(recognizeOptionsModel.grammarName(), "testString");
     assertEquals(recognizeOptionsModel.redaction(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.audioMetrics(), Boolean.valueOf(false));
@@ -90,6 +87,7 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.lowLatency(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.characterInsertionBias(), Float.valueOf("36.0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

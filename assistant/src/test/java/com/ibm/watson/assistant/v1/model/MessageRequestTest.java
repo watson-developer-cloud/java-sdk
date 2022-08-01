@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -50,12 +50,10 @@ public class MessageRequestTest {
     CaptureGroup captureGroupModel =
         new CaptureGroup.Builder()
             .group("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(captureGroupModel.group(), "testString");
-    assertEquals(
-        captureGroupModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(captureGroupModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     RuntimeEntityInterpretation runtimeEntityInterpretationModel =
         new RuntimeEntityInterpretation.Builder()
@@ -128,31 +126,22 @@ public class MessageRequestTest {
     RuntimeEntity runtimeEntityModel =
         new RuntimeEntity.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .groups(
-                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .groups(java.util.Arrays.asList(captureGroupModel))
             .interpretation(runtimeEntityInterpretationModel)
-            .alternatives(
-                new java.util.ArrayList<RuntimeEntityAlternative>(
-                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .alternatives(java.util.Arrays.asList(runtimeEntityAlternativeModel))
             .role(runtimeEntityRoleModel)
             .build();
     assertEquals(runtimeEntityModel.entity(), "testString");
-    assertEquals(
-        runtimeEntityModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(runtimeEntityModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
     assertEquals(runtimeEntityModel.value(), "testString");
     assertEquals(runtimeEntityModel.confidence(), Double.valueOf("72.5"));
-    assertEquals(
-        runtimeEntityModel.groups(),
-        new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)));
+    assertEquals(runtimeEntityModel.groups(), java.util.Arrays.asList(captureGroupModel));
     assertEquals(runtimeEntityModel.interpretation(), runtimeEntityInterpretationModel);
     assertEquals(
-        runtimeEntityModel.alternatives(),
-        new java.util.ArrayList<RuntimeEntityAlternative>(
-            java.util.Arrays.asList(runtimeEntityAlternativeModel)));
+        runtimeEntityModel.alternatives(), java.util.Arrays.asList(runtimeEntityAlternativeModel));
     assertEquals(runtimeEntityModel.role(), runtimeEntityRoleModel);
 
     MessageContextMetadata messageContextMetadataModel =
@@ -213,18 +202,16 @@ public class MessageRequestTest {
     DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
         new DialogNodeOutputOptionsElementValue.Builder()
             .input(messageInputModel)
-            .intents(
-                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
-            .entities(
-                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
             .build();
     assertEquals(dialogNodeOutputOptionsElementValueModel.input(), messageInputModel);
     assertEquals(
         dialogNodeOutputOptionsElementValueModel.intents(),
-        new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)));
+        java.util.Arrays.asList(runtimeIntentModel));
     assertEquals(
         dialogNodeOutputOptionsElementValueModel.entities(),
-        new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
+        java.util.Arrays.asList(runtimeEntityModel));
 
     DialogNodeOutputOptionsElement dialogNodeOutputOptionsElementModel =
         new DialogNodeOutputOptionsElement.Builder()
@@ -245,12 +232,8 @@ public class MessageRequestTest {
             .title("testString")
             .description("testString")
             .preference("dropdown")
-            .options(
-                new java.util.ArrayList<DialogNodeOutputOptionsElement>(
-                    java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)))
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .options(java.util.Arrays.asList(dialogNodeOutputOptionsElementModel))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
     assertEquals(runtimeResponseGenericModel.responseType(), "option");
     assertEquals(runtimeResponseGenericModel.title(), "testString");
@@ -258,61 +241,41 @@ public class MessageRequestTest {
     assertEquals(runtimeResponseGenericModel.preference(), "dropdown");
     assertEquals(
         runtimeResponseGenericModel.options(),
-        new java.util.ArrayList<DialogNodeOutputOptionsElement>(
-            java.util.Arrays.asList(dialogNodeOutputOptionsElementModel)));
+        java.util.Arrays.asList(dialogNodeOutputOptionsElementModel));
     assertEquals(
         runtimeResponseGenericModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     OutputData outputDataModel =
         new OutputData.Builder()
-            .nodesVisited(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .nodesVisitedDetails(
-                new java.util.ArrayList<DialogNodeVisitedDetails>(
-                    java.util.Arrays.asList(dialogNodeVisitedDetailsModel)))
-            .logMessages(
-                new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)))
-            .generic(
-                new java.util.ArrayList<RuntimeResponseGeneric>(
-                    java.util.Arrays.asList(runtimeResponseGenericModel)))
+            .nodesVisited(java.util.Arrays.asList("testString"))
+            .nodesVisitedDetails(java.util.Arrays.asList(dialogNodeVisitedDetailsModel))
+            .logMessages(java.util.Arrays.asList(logMessageModel))
+            .generic(java.util.Arrays.asList(runtimeResponseGenericModel))
             .add("foo", "testString")
             .build();
-    assertEquals(
-        outputDataModel.getNodesVisited(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(outputDataModel.getNodesVisited(), java.util.Arrays.asList("testString"));
     assertEquals(
         outputDataModel.getNodesVisitedDetails(),
-        new java.util.ArrayList<DialogNodeVisitedDetails>(
-            java.util.Arrays.asList(dialogNodeVisitedDetailsModel)));
+        java.util.Arrays.asList(dialogNodeVisitedDetailsModel));
+    assertEquals(outputDataModel.getLogMessages(), java.util.Arrays.asList(logMessageModel));
     assertEquals(
-        outputDataModel.getLogMessages(),
-        new java.util.ArrayList<LogMessage>(java.util.Arrays.asList(logMessageModel)));
-    assertEquals(
-        outputDataModel.getGeneric(),
-        new java.util.ArrayList<RuntimeResponseGeneric>(
-            java.util.Arrays.asList(runtimeResponseGenericModel)));
+        outputDataModel.getGeneric(), java.util.Arrays.asList(runtimeResponseGenericModel));
     assertEquals(outputDataModel.get("foo"), "testString");
 
     MessageRequest messageRequestModel =
         new MessageRequest.Builder()
             .input(messageInputModel)
-            .intents(
-                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
-            .entities(
-                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
             .alternateIntents(false)
             .context(contextModel)
             .output(outputDataModel)
             .userId("testString")
             .build();
     assertEquals(messageRequestModel.input(), messageInputModel);
-    assertEquals(
-        messageRequestModel.intents(),
-        new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)));
-    assertEquals(
-        messageRequestModel.entities(),
-        new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
+    assertEquals(messageRequestModel.intents(), java.util.Arrays.asList(runtimeIntentModel));
+    assertEquals(messageRequestModel.entities(), java.util.Arrays.asList(runtimeEntityModel));
     assertEquals(messageRequestModel.alternateIntents(), Boolean.valueOf(false));
     assertEquals(messageRequestModel.context(), contextModel);
     assertEquals(messageRequestModel.output(), outputDataModel);

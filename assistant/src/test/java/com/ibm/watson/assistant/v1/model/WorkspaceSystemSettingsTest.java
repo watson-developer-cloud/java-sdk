@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,6 +61,10 @@ public class WorkspaceSystemSettingsTest {
         new WorkspaceSystemSettingsOffTopic.Builder().enabled(false).build();
     assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
+    WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
+        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+    assertEquals(workspaceSystemSettingsNlpModel.model(), "baseline");
+
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
@@ -75,6 +79,7 @@ public class WorkspaceSystemSettingsTest {
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
             .offTopic(workspaceSystemSettingsOffTopicModel)
+            .nlp(workspaceSystemSettingsNlpModel)
             .add("foo", "testString")
             .build();
     assertEquals(workspaceSystemSettingsModel.getTooling(), workspaceSystemSettingsToolingModel);
@@ -94,6 +99,7 @@ public class WorkspaceSystemSettingsTest {
         workspaceSystemSettingsModel.getSystemEntities(),
         workspaceSystemSettingsSystemEntitiesModel);
     assertEquals(workspaceSystemSettingsModel.getOffTopic(), workspaceSystemSettingsOffTopicModel);
+    assertEquals(workspaceSystemSettingsModel.getNlp(), workspaceSystemSettingsNlpModel);
     assertEquals(workspaceSystemSettingsModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(workspaceSystemSettingsModel);
@@ -115,6 +121,9 @@ public class WorkspaceSystemSettingsTest {
     assertEquals(
         workspaceSystemSettingsModelNew.getOffTopic().toString(),
         workspaceSystemSettingsOffTopicModel.toString());
+    assertEquals(
+        workspaceSystemSettingsModelNew.getNlp().toString(),
+        workspaceSystemSettingsNlpModel.toString());
     assertEquals(workspaceSystemSettingsModelNew.get("foo"), "testString");
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,23 +32,15 @@ public class ExpansionsTest {
   public void testExpansions() throws Throwable {
     Expansion expansionModel =
         new Expansion.Builder()
-            .inputTerms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .expandedTerms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .inputTerms(java.util.Arrays.asList("testString"))
+            .expandedTerms(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(
-        expansionModel.inputTerms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        expansionModel.expandedTerms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(expansionModel.inputTerms(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.expandedTerms(), java.util.Arrays.asList("testString"));
 
     Expansions expansionsModel =
-        new Expansions.Builder()
-            .expansions(new java.util.ArrayList<Expansion>(java.util.Arrays.asList(expansionModel)))
-            .build();
-    assertEquals(
-        expansionsModel.expansions(),
-        new java.util.ArrayList<Expansion>(java.util.Arrays.asList(expansionModel)));
+        new Expansions.Builder().expansions(java.util.Arrays.asList(expansionModel)).build();
+    assertEquals(expansionsModel.expansions(), java.util.Arrays.asList(expansionModel));
 
     String json = TestUtilities.serialize(expansionsModel);
 

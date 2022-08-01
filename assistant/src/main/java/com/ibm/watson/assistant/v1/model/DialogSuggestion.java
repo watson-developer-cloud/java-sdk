@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -107,6 +107,8 @@ public class DialogSuggestion extends GenericModel {
       return this;
     }
   }
+
+  protected DialogSuggestion() {}
 
   protected DialogSuggestion(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.label, "label cannot be null");

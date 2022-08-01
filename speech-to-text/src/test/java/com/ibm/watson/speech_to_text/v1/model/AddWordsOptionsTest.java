@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,24 +33,20 @@ public class AddWordsOptionsTest {
     CustomWord customWordModel =
         new CustomWord.Builder()
             .word("testString")
-            .soundsLike(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .soundsLike(java.util.Arrays.asList("testString"))
             .displayAs("testString")
             .build();
     assertEquals(customWordModel.word(), "testString");
-    assertEquals(
-        customWordModel.soundsLike(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(customWordModel.soundsLike(), java.util.Arrays.asList("testString"));
     assertEquals(customWordModel.displayAs(), "testString");
 
     AddWordsOptions addWordsOptionsModel =
         new AddWordsOptions.Builder()
             .customizationId("testString")
-            .words(new java.util.ArrayList<CustomWord>(java.util.Arrays.asList(customWordModel)))
+            .words(java.util.Arrays.asList(customWordModel))
             .build();
     assertEquals(addWordsOptionsModel.customizationId(), "testString");
-    assertEquals(
-        addWordsOptionsModel.words(),
-        new java.util.ArrayList<CustomWord>(java.util.Arrays.asList(customWordModel)));
+    assertEquals(addWordsOptionsModel.words(), java.util.Arrays.asList(customWordModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

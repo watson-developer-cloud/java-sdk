@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,17 +33,13 @@ public class TokenDictRuleTest {
     TokenDictRule tokenDictRuleModel =
         new TokenDictRule.Builder()
             .text("testString")
-            .tokens(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .readings(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .tokens(java.util.Arrays.asList("testString"))
+            .readings(java.util.Arrays.asList("testString"))
             .partOfSpeech("testString")
             .build();
     assertEquals(tokenDictRuleModel.text(), "testString");
-    assertEquals(
-        tokenDictRuleModel.tokens(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        tokenDictRuleModel.readings(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(tokenDictRuleModel.tokens(), java.util.Arrays.asList("testString"));
+    assertEquals(tokenDictRuleModel.readings(), java.util.Arrays.asList("testString"));
     assertEquals(tokenDictRuleModel.partOfSpeech(), "testString");
 
     String json = TestUtilities.serialize(tokenDictRuleModel);

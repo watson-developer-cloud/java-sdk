@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -198,6 +198,8 @@ public class HtmlSettings extends GenericModel {
       return this;
     }
   }
+
+  protected HtmlSettings() {}
 
   protected HtmlSettings(Builder builder) {
     excludeTagsCompletely = builder.excludeTagsCompletely;

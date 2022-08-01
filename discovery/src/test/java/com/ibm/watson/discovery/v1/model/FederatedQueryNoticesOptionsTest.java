@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,47 +33,41 @@ public class FederatedQueryNoticesOptionsTest {
     FederatedQueryNoticesOptions federatedQueryNoticesOptionsModel =
         new FederatedQueryNoticesOptions.Builder()
             .environmentId("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
             .aggregation("testString")
             .count(Long.valueOf("26"))
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
-            .sort(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
             .deduplicateField("testString")
             .similar(false)
-            .similarDocumentIds(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .similarFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .similarDocumentIds(java.util.Arrays.asList("testString"))
+            .similarFields(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(federatedQueryNoticesOptionsModel.environmentId(), "testString");
     assertEquals(
-        federatedQueryNoticesOptionsModel.collectionIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        federatedQueryNoticesOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
     assertEquals(federatedQueryNoticesOptionsModel.filter(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.query(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.aggregation(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.count(), Long.valueOf("26"));
     assertEquals(
-        federatedQueryNoticesOptionsModel.xReturn(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        federatedQueryNoticesOptionsModel.xReturn(), java.util.Arrays.asList("testString"));
     assertEquals(federatedQueryNoticesOptionsModel.offset(), Long.valueOf("26"));
-    assertEquals(
-        federatedQueryNoticesOptionsModel.sort(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(federatedQueryNoticesOptionsModel.sort(), java.util.Arrays.asList("testString"));
     assertEquals(federatedQueryNoticesOptionsModel.highlight(), Boolean.valueOf(false));
     assertEquals(federatedQueryNoticesOptionsModel.deduplicateField(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.similar(), Boolean.valueOf(false));
     assertEquals(
         federatedQueryNoticesOptionsModel.similarDocumentIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        java.util.Arrays.asList("testString"));
     assertEquals(
-        federatedQueryNoticesOptionsModel.similarFields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        federatedQueryNoticesOptionsModel.similarFields(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

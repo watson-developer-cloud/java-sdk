@@ -41,9 +41,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeAudioTest {
                 .source("testString")
                 .title("testString")
                 .description("testString")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .channelOptions(
                     new java.util.HashMap<String, Object>() {
                       {
@@ -58,8 +56,7 @@ public class RuntimeResponseGenericRuntimeResponseTypeAudioTest {
     assertEquals(runtimeResponseGenericRuntimeResponseTypeAudioModel.description(), "testString");
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeAudioModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypeAudioModel.channelOptions(),
         new java.util.HashMap<String, Object>() {

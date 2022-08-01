@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,9 +40,7 @@ public class RuntimeResponseGenericRuntimeResponseTypePauseTest {
                 .responseType("pause")
                 .time(Long.valueOf("26"))
                 .typing(true)
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(runtimeResponseGenericRuntimeResponseTypePauseModel.responseType(), "pause");
     assertEquals(runtimeResponseGenericRuntimeResponseTypePauseModel.time(), Long.valueOf("26"));
@@ -50,8 +48,7 @@ public class RuntimeResponseGenericRuntimeResponseTypePauseTest {
         runtimeResponseGenericRuntimeResponseTypePauseModel.typing(), Boolean.valueOf(true));
     assertEquals(
         runtimeResponseGenericRuntimeResponseTypePauseModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     String json = TestUtilities.serialize(runtimeResponseGenericRuntimeResponseTypePauseModel);
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -106,6 +106,8 @@ public class CreateEnrichmentOptions extends GenericModel {
     }
   }
 
+  protected CreateEnrichmentOptions() {}
+
   protected CreateEnrichmentOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.enrichment, "enrichment cannot be null");
@@ -149,7 +151,13 @@ public class CreateEnrichmentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * <p>The enrichment file to upload.
+   * <p>The enrichment file to upload. Expected file types per enrichment are as follows:
+   *
+   * <p>* CSV for `dictionary`
+   *
+   * <p>* PEAR for `uima_annotator` and `rule_based` (Explorer)
+   *
+   * <p>* ZIP for `watson_knowledge_studio_model` and `rule_based` (Studio Advanced Rule Editor).
    *
    * @return the file
    */

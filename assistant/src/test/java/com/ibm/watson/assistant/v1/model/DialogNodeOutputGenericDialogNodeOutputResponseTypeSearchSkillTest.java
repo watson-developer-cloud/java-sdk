@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,9 +43,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillTest 
                 .queryType("natural_language")
                 .filter("testString")
                 .discoveryVersion("2018-12-03")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModel.responseType(),
@@ -62,8 +60,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillTest 
         "2018-12-03");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkillModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     String json =
         TestUtilities.serialize(

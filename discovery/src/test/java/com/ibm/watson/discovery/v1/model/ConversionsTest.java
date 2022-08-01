@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,12 +47,8 @@ public class ConversionsTest {
     assertEquals(fontSettingModel.name(), "testString");
 
     PdfHeadingDetection pdfHeadingDetectionModel =
-        new PdfHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .build();
-    assertEquals(
-        pdfHeadingDetectionModel.fonts(),
-        new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)));
+        new PdfHeadingDetection.Builder().fonts(java.util.Arrays.asList(fontSettingModel)).build();
+    assertEquals(pdfHeadingDetectionModel.fonts(), java.util.Arrays.asList(fontSettingModel));
 
     PdfSettings pdfSettingsModel =
         new PdfSettings.Builder().heading(pdfHeadingDetectionModel).build();
@@ -61,78 +57,52 @@ public class ConversionsTest {
     WordStyle wordStyleModel =
         new WordStyle.Builder()
             .level(Long.valueOf("26"))
-            .names(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .names(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(wordStyleModel.level(), Long.valueOf("26"));
-    assertEquals(
-        wordStyleModel.names(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(wordStyleModel.names(), java.util.Arrays.asList("testString"));
 
     WordHeadingDetection wordHeadingDetectionModel =
         new WordHeadingDetection.Builder()
-            .fonts(new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)))
-            .styles(new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)))
+            .fonts(java.util.Arrays.asList(fontSettingModel))
+            .styles(java.util.Arrays.asList(wordStyleModel))
             .build();
-    assertEquals(
-        wordHeadingDetectionModel.fonts(),
-        new java.util.ArrayList<FontSetting>(java.util.Arrays.asList(fontSettingModel)));
-    assertEquals(
-        wordHeadingDetectionModel.styles(),
-        new java.util.ArrayList<WordStyle>(java.util.Arrays.asList(wordStyleModel)));
+    assertEquals(wordHeadingDetectionModel.fonts(), java.util.Arrays.asList(fontSettingModel));
+    assertEquals(wordHeadingDetectionModel.styles(), java.util.Arrays.asList(wordStyleModel));
 
     WordSettings wordSettingsModel =
         new WordSettings.Builder().heading(wordHeadingDetectionModel).build();
     assertEquals(wordSettingsModel.heading(), wordHeadingDetectionModel);
 
     XPathPatterns xPathPatternsModel =
-        new XPathPatterns.Builder()
-            .xpaths(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .build();
-    assertEquals(
-        xPathPatternsModel.xpaths(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        new XPathPatterns.Builder().xpaths(java.util.Arrays.asList("testString")).build();
+    assertEquals(xPathPatternsModel.xpaths(), java.util.Arrays.asList("testString"));
 
     HtmlSettings htmlSettingsModel =
         new HtmlSettings.Builder()
-            .excludeTagsCompletely(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagsKeepContent(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .excludeTagsCompletely(java.util.Arrays.asList("testString"))
+            .excludeTagsKeepContent(java.util.Arrays.asList("testString"))
             .keepContent(xPathPatternsModel)
             .excludeContent(xPathPatternsModel)
-            .keepTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .excludeTagAttributes(
-                new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keepTagAttributes(java.util.Arrays.asList("testString"))
+            .excludeTagAttributes(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(
-        htmlSettingsModel.excludeTagsCompletely(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagsKeepContent(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(htmlSettingsModel.excludeTagsCompletely(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagsKeepContent(), java.util.Arrays.asList("testString"));
     assertEquals(htmlSettingsModel.keepContent(), xPathPatternsModel);
     assertEquals(htmlSettingsModel.excludeContent(), xPathPatternsModel);
-    assertEquals(
-        htmlSettingsModel.keepTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        htmlSettingsModel.excludeTagAttributes(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(htmlSettingsModel.keepTagAttributes(), java.util.Arrays.asList("testString"));
+    assertEquals(htmlSettingsModel.excludeTagAttributes(), java.util.Arrays.asList("testString"));
 
     SegmentSettings segmentSettingsModel =
         new SegmentSettings.Builder()
             .enabled(false)
-            .selectorTags(new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")))
-            .annotatedFields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .selectorTags(java.util.Arrays.asList("h1", "h2"))
+            .annotatedFields(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(segmentSettingsModel.enabled(), Boolean.valueOf(false));
-    assertEquals(
-        segmentSettingsModel.selectorTags(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("h1", "h2")));
-    assertEquals(
-        segmentSettingsModel.annotatedFields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(segmentSettingsModel.selectorTags(), java.util.Arrays.asList("h1", "h2"));
+    assertEquals(segmentSettingsModel.annotatedFields(), java.util.Arrays.asList("testString"));
 
     NormalizationOperation normalizationOperationModel =
         new NormalizationOperation.Builder()
@@ -150,9 +120,7 @@ public class ConversionsTest {
             .word(wordSettingsModel)
             .html(htmlSettingsModel)
             .segment(segmentSettingsModel)
-            .jsonNormalizations(
-                new java.util.ArrayList<NormalizationOperation>(
-                    java.util.Arrays.asList(normalizationOperationModel)))
+            .jsonNormalizations(java.util.Arrays.asList(normalizationOperationModel))
             .imageTextRecognition(true)
             .build();
     assertEquals(conversionsModel.pdf(), pdfSettingsModel);
@@ -161,8 +129,7 @@ public class ConversionsTest {
     assertEquals(conversionsModel.segment(), segmentSettingsModel);
     assertEquals(
         conversionsModel.jsonNormalizations(),
-        new java.util.ArrayList<NormalizationOperation>(
-            java.util.Arrays.asList(normalizationOperationModel)));
+        java.util.Arrays.asList(normalizationOperationModel));
     assertEquals(conversionsModel.imageTextRecognition(), Boolean.valueOf(true));
 
     String json = TestUtilities.serialize(conversionsModel);

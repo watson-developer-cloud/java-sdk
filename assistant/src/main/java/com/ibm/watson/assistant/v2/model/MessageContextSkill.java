@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,10 @@ import java.util.Map;
 
 /**
  * Contains information specific to a particular skill used by the assistant. The property name must
- * be the same as the name of the skill (for example, `main skill`).
+ * be the same as the name of the skill.
+ *
+ * <p>**Note:** The default skill names are `main skill` for the dialog skill (if enabled), and
+ * `actions skill` for the actions skill.
  */
 public class MessageContextSkill extends GenericModel {
 
@@ -71,6 +74,8 @@ public class MessageContextSkill extends GenericModel {
       return this;
     }
   }
+
+  protected MessageContextSkill() {}
 
   protected MessageContextSkill(Builder builder) {
     userDefined = builder.userDefined;

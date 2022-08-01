@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ import com.ibm.watson.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModel;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsOptions;
+import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsTrainingParameters;
 import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateClassificationsModelOptions;
@@ -121,7 +122,7 @@ public class NaturalLanguageUnderstandingTest {
     EmotionOptions emotionOptionsModel =
         new EmotionOptions.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
 
     // Construct an instance of the EntitiesOptions model
@@ -158,7 +159,7 @@ public class NaturalLanguageUnderstandingTest {
     SentimentOptions sentimentOptionsModel =
         new SentimentOptions.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .model("testString")
             .build();
 
@@ -947,6 +948,10 @@ public class NaturalLanguageUnderstandingTest {
             .setResponseCode(201)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the ClassificationsTrainingParameters model
+    ClassificationsTrainingParameters classificationsTrainingParametersModel =
+        new ClassificationsTrainingParameters.Builder().modelType("single_label").build();
+
     // Construct an instance of the CreateClassificationsModelOptions model
     CreateClassificationsModelOptions createClassificationsModelOptionsModel =
         new CreateClassificationsModelOptions.Builder()
@@ -958,6 +963,7 @@ public class NaturalLanguageUnderstandingTest {
             .modelVersion("testString")
             .workspaceId("testString")
             .versionDescription("testString")
+            .trainingParameters(classificationsTrainingParametersModel)
             .build();
 
     // Invoke createClassificationsModel() with a valid options model and verify the result
@@ -1117,6 +1123,10 @@ public class NaturalLanguageUnderstandingTest {
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the ClassificationsTrainingParameters model
+    ClassificationsTrainingParameters classificationsTrainingParametersModel =
+        new ClassificationsTrainingParameters.Builder().modelType("single_label").build();
+
     // Construct an instance of the UpdateClassificationsModelOptions model
     UpdateClassificationsModelOptions updateClassificationsModelOptionsModel =
         new UpdateClassificationsModelOptions.Builder()
@@ -1129,6 +1139,7 @@ public class NaturalLanguageUnderstandingTest {
             .modelVersion("testString")
             .workspaceId("testString")
             .versionDescription("testString")
+            .trainingParameters(classificationsTrainingParametersModel)
             .build();
 
     // Invoke updateClassificationsModel() with a valid options model and verify the result

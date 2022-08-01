@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -176,6 +176,8 @@ public class QueryLargePassages extends GenericModel {
     }
   }
 
+  protected QueryLargePassages() {}
+
   protected QueryLargePassages(Builder builder) {
     enabled = builder.enabled;
     perDocument = builder.perDocument;
@@ -227,7 +229,7 @@ public class QueryLargePassages extends GenericModel {
    * Gets the maxPerDocument.
    *
    * <p>Maximum number of passages to return per document in the result. Ignored if
-   * `passages.per_document` is `false`.
+   * **passages.per_document** is `false`.
    *
    * @return the maxPerDocument
    */
@@ -250,7 +252,7 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the count.
    *
-   * <p>The maximum number of passages to return. Ignored if `passages.per_document` is `true`.
+   * <p>The maximum number of passages to return. Ignored if **passages.per_document** is `true`.
    *
    * @return the count
    */

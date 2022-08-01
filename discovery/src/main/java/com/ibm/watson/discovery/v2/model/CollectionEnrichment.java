@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/** An object describing an Enrichment for a collection. */
+/** An object describing an enrichment for a collection. */
 public class CollectionEnrichment extends GenericModel {
 
   @SerializedName("enrichment_id")
@@ -85,6 +85,8 @@ public class CollectionEnrichment extends GenericModel {
     }
   }
 
+  protected CollectionEnrichment() {}
+
   protected CollectionEnrichment(Builder builder) {
     enrichmentId = builder.enrichmentId;
     fields = builder.fields;
@@ -102,7 +104,9 @@ public class CollectionEnrichment extends GenericModel {
   /**
    * Gets the enrichmentId.
    *
-   * <p>The unique identifier of this enrichment.
+   * <p>The unique identifier of this enrichment. For more information about how to determine the ID
+   * of an enrichment, see [the product
+   * documentation](/docs/discovery-data?topic=discovery-data-manage-enrichments#enrichments-ids).
    *
    * @return the enrichmentId
    */

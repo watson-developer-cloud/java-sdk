@@ -41,9 +41,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudioTest {
                 .source("testString")
                 .title("testString")
                 .description("testString")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .channelOptions(
                     new java.util.HashMap<String, Object>() {
                       {
@@ -62,8 +60,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudioTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModel.description(), "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModel.channelOptions(),
         new java.util.HashMap<String, Object>() {

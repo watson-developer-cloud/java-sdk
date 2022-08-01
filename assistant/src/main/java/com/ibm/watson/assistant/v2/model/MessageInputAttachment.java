@@ -77,6 +77,8 @@ public class MessageInputAttachment extends GenericModel {
     }
   }
 
+  protected MessageInputAttachment() {}
+
   protected MessageInputAttachment(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.url, "url cannot be null");
     url = builder.url;

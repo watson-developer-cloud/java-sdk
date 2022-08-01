@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,34 +33,28 @@ public class CreateIntentTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(mentionModel.entity(), "testString");
-    assertEquals(
-        mentionModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(mentionModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
     assertEquals(exampleModel.text(), "testString");
-    assertEquals(
-        exampleModel.mentions(),
-        new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)));
+    assertEquals(exampleModel.mentions(), java.util.Arrays.asList(mentionModel));
 
     CreateIntent createIntentModel =
         new CreateIntent.Builder()
             .intent("testString")
             .description("testString")
-            .examples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .examples(java.util.Arrays.asList(exampleModel))
             .build();
     assertEquals(createIntentModel.intent(), "testString");
     assertEquals(createIntentModel.description(), "testString");
-    assertEquals(
-        createIntentModel.examples(),
-        new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)));
+    assertEquals(createIntentModel.examples(), java.util.Arrays.asList(exampleModel));
 
     String json = TestUtilities.serialize(createIntentModel);
 

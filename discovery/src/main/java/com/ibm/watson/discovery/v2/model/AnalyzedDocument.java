@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,10 @@ package com.ibm.watson.discovery.v2.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
-/** An object that contains the converted document and any identified enrichments. */
+/**
+ * An object that contains the converted document and any identified enrichments. Root-level fields
+ * from the original file are returned also.
+ */
 public class AnalyzedDocument extends GenericModel {
 
   protected List<Notice> notices;
@@ -24,7 +27,7 @@ public class AnalyzedDocument extends GenericModel {
   /**
    * Gets the notices.
    *
-   * <p>Array of document results that match the query.
+   * <p>Array of notices that are triggered when the files are processed.
    *
    * @return the notices
    */

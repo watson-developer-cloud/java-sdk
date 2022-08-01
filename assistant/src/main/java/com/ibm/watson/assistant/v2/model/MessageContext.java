@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,6 +80,8 @@ public class MessageContext extends GenericModel {
     }
   }
 
+  protected MessageContext() {}
+
   protected MessageContext(Builder builder) {
     global = builder.global;
     skills = builder.skills;
@@ -110,9 +112,6 @@ public class MessageContext extends GenericModel {
    * Gets the skills.
    *
    * <p>Information specific to particular skills used by the assistant.
-   *
-   * <p>**Note:** Currently, only a single child property is supported, containing variables that
-   * apply to the dialog skill used by the assistant.
    *
    * @return the skills
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,8 +40,8 @@ public class CreateEntityTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
@@ -52,12 +52,8 @@ public class CreateEntityTest {
           }
         });
     assertEquals(createValueModel.type(), "synonyms");
-    assertEquals(
-        createValueModel.synonyms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        createValueModel.patterns(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
+    assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
 
     CreateEntity createEntityModel =
         new CreateEntity.Builder()
@@ -70,7 +66,7 @@ public class CreateEntityTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .build();
     assertEquals(createEntityModel.entity(), "testString");
     assertEquals(createEntityModel.description(), "testString");
@@ -82,9 +78,7 @@ public class CreateEntityTest {
           }
         });
     assertEquals(createEntityModel.fuzzyMatch(), Boolean.valueOf(true));
-    assertEquals(
-        createEntityModel.values(),
-        new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)));
+    assertEquals(createEntityModel.values(), java.util.Arrays.asList(createValueModel));
 
     String json = TestUtilities.serialize(createEntityModel);
 

@@ -151,6 +151,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     }
   }
 
+  protected DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent() {}
+
   protected DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.responseType, "responseType cannot be null");

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,9 +31,14 @@ public class RuntimeIntentTest {
   @Test
   public void testRuntimeIntent() throws Throwable {
     RuntimeIntent runtimeIntentModel =
-        new RuntimeIntent.Builder().intent("testString").confidence(Double.valueOf("72.5")).build();
+        new RuntimeIntent.Builder()
+            .intent("testString")
+            .confidence(Double.valueOf("72.5"))
+            .skill("testString")
+            .build();
     assertEquals(runtimeIntentModel.intent(), "testString");
     assertEquals(runtimeIntentModel.confidence(), Double.valueOf("72.5"));
+    assertEquals(runtimeIntentModel.skill(), "testString");
 
     String json = TestUtilities.serialize(runtimeIntentModel);
 
@@ -41,6 +46,7 @@ public class RuntimeIntentTest {
     assertTrue(runtimeIntentModelNew instanceof RuntimeIntent);
     assertEquals(runtimeIntentModelNew.intent(), "testString");
     assertEquals(runtimeIntentModelNew.confidence(), Double.valueOf("72.5"));
+    assertEquals(runtimeIntentModelNew.skill(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

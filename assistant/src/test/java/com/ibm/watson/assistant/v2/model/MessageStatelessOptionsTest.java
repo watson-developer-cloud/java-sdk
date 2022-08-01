@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,19 +31,22 @@ public class MessageStatelessOptionsTest {
   @Test
   public void testMessageStatelessOptions() throws Throwable {
     RuntimeIntent runtimeIntentModel =
-        new RuntimeIntent.Builder().intent("testString").confidence(Double.valueOf("72.5")).build();
+        new RuntimeIntent.Builder()
+            .intent("testString")
+            .confidence(Double.valueOf("72.5"))
+            .skill("testString")
+            .build();
     assertEquals(runtimeIntentModel.intent(), "testString");
     assertEquals(runtimeIntentModel.confidence(), Double.valueOf("72.5"));
+    assertEquals(runtimeIntentModel.skill(), "testString");
 
     CaptureGroup captureGroupModel =
         new CaptureGroup.Builder()
             .group("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(captureGroupModel.group(), "testString");
-    assertEquals(
-        captureGroupModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(captureGroupModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     RuntimeEntityInterpretation runtimeEntityInterpretationModel =
         new RuntimeEntityInterpretation.Builder()
@@ -116,32 +119,25 @@ public class MessageStatelessOptionsTest {
     RuntimeEntity runtimeEntityModel =
         new RuntimeEntity.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .value("testString")
             .confidence(Double.valueOf("72.5"))
-            .groups(
-                new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)))
+            .groups(java.util.Arrays.asList(captureGroupModel))
             .interpretation(runtimeEntityInterpretationModel)
-            .alternatives(
-                new java.util.ArrayList<RuntimeEntityAlternative>(
-                    java.util.Arrays.asList(runtimeEntityAlternativeModel)))
+            .alternatives(java.util.Arrays.asList(runtimeEntityAlternativeModel))
             .role(runtimeEntityRoleModel)
+            .skill("testString")
             .build();
     assertEquals(runtimeEntityModel.entity(), "testString");
-    assertEquals(
-        runtimeEntityModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(runtimeEntityModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
     assertEquals(runtimeEntityModel.value(), "testString");
     assertEquals(runtimeEntityModel.confidence(), Double.valueOf("72.5"));
-    assertEquals(
-        runtimeEntityModel.groups(),
-        new java.util.ArrayList<CaptureGroup>(java.util.Arrays.asList(captureGroupModel)));
+    assertEquals(runtimeEntityModel.groups(), java.util.Arrays.asList(captureGroupModel));
     assertEquals(runtimeEntityModel.interpretation(), runtimeEntityInterpretationModel);
     assertEquals(
-        runtimeEntityModel.alternatives(),
-        new java.util.ArrayList<RuntimeEntityAlternative>(
-            java.util.Arrays.asList(runtimeEntityAlternativeModel)));
+        runtimeEntityModel.alternatives(), java.util.Arrays.asList(runtimeEntityAlternativeModel));
     assertEquals(runtimeEntityModel.role(), runtimeEntityRoleModel);
+    assertEquals(runtimeEntityModel.skill(), "testString");
 
     MessageInputAttachment messageInputAttachmentModel =
         new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
@@ -169,29 +165,21 @@ public class MessageStatelessOptionsTest {
         new MessageInputStateless.Builder()
             .messageType("text")
             .text("testString")
-            .intents(
-                new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)))
-            .entities(
-                new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)))
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
             .suggestionId("testString")
-            .attachments(
-                new java.util.ArrayList<MessageInputAttachment>(
-                    java.util.Arrays.asList(messageInputAttachmentModel)))
+            .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
             .options(messageInputOptionsStatelessModel)
             .build();
     assertEquals(messageInputStatelessModel.messageType(), "text");
     assertEquals(messageInputStatelessModel.text(), "testString");
+    assertEquals(messageInputStatelessModel.intents(), java.util.Arrays.asList(runtimeIntentModel));
     assertEquals(
-        messageInputStatelessModel.intents(),
-        new java.util.ArrayList<RuntimeIntent>(java.util.Arrays.asList(runtimeIntentModel)));
-    assertEquals(
-        messageInputStatelessModel.entities(),
-        new java.util.ArrayList<RuntimeEntity>(java.util.Arrays.asList(runtimeEntityModel)));
+        messageInputStatelessModel.entities(), java.util.Arrays.asList(runtimeEntityModel));
     assertEquals(messageInputStatelessModel.suggestionId(), "testString");
     assertEquals(
         messageInputStatelessModel.attachments(),
-        new java.util.ArrayList<MessageInputAttachment>(
-            java.util.Arrays.asList(messageInputAttachmentModel)));
+        java.util.Arrays.asList(messageInputAttachmentModel));
     assertEquals(messageInputStatelessModel.options(), messageInputOptionsStatelessModel);
 
     MessageContextGlobalSystem messageContextGlobalSystemModel =

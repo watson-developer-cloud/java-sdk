@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,29 +42,23 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel =
             new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
                 .responseType("text")
-                .values(
-                    new java.util.ArrayList<DialogNodeOutputTextValuesElement>(
-                        java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel)))
+                .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
                 .selectionPolicy("sequential")
                 .delimiter("\n")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.responseType(), "text");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.values(),
-        new java.util.ArrayList<DialogNodeOutputTextValuesElement>(
-            java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel)));
+        java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel));
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.selectionPolicy(),
         "sequential");
     assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "\n");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel);

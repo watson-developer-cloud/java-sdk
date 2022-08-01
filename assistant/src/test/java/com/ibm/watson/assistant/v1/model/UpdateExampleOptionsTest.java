@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,10 @@ public class UpdateExampleOptionsTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(mentionModel.entity(), "testString");
-    assertEquals(
-        mentionModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(mentionModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     UpdateExampleOptions updateExampleOptionsModel =
         new UpdateExampleOptions.Builder()
@@ -46,16 +44,14 @@ public class UpdateExampleOptionsTest {
             .intent("testString")
             .text("testString")
             .newText("testString")
-            .newMentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .newMentions(java.util.Arrays.asList(mentionModel))
             .includeAudit(false)
             .build();
     assertEquals(updateExampleOptionsModel.workspaceId(), "testString");
     assertEquals(updateExampleOptionsModel.intent(), "testString");
     assertEquals(updateExampleOptionsModel.text(), "testString");
     assertEquals(updateExampleOptionsModel.newText(), "testString");
-    assertEquals(
-        updateExampleOptionsModel.newMentions(),
-        new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)));
+    assertEquals(updateExampleOptionsModel.newMentions(), java.util.Arrays.asList(mentionModel));
     assertEquals(updateExampleOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,14 +39,11 @@ public class WebhookTest {
         new Webhook.Builder()
             .url("testString")
             .name("testString")
-            .headers(
-                new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)))
+            .headers(java.util.Arrays.asList(webhookHeaderModel))
             .build();
     assertEquals(webhookModel.url(), "testString");
     assertEquals(webhookModel.name(), "testString");
-    assertEquals(
-        webhookModel.headers(),
-        new java.util.ArrayList<WebhookHeader>(java.util.Arrays.asList(webhookHeaderModel)));
+    assertEquals(webhookModel.headers(), java.util.Arrays.asList(webhookHeaderModel));
 
     String json = TestUtilities.serialize(webhookModel);
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,22 +33,18 @@ public class UpdateIntentOptionsTest {
     Mention mentionModel =
         new Mention.Builder()
             .entity("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(mentionModel.entity(), "testString");
-    assertEquals(
-        mentionModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(mentionModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     Example exampleModel =
         new Example.Builder()
             .text("testString")
-            .mentions(new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)))
+            .mentions(java.util.Arrays.asList(mentionModel))
             .build();
     assertEquals(exampleModel.text(), "testString");
-    assertEquals(
-        exampleModel.mentions(),
-        new java.util.ArrayList<Mention>(java.util.Arrays.asList(mentionModel)));
+    assertEquals(exampleModel.mentions(), java.util.Arrays.asList(mentionModel));
 
     UpdateIntentOptions updateIntentOptionsModel =
         new UpdateIntentOptions.Builder()
@@ -56,7 +52,7 @@ public class UpdateIntentOptionsTest {
             .intent("testString")
             .newIntent("testString")
             .newDescription("testString")
-            .newExamples(new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)))
+            .newExamples(java.util.Arrays.asList(exampleModel))
             .append(false)
             .includeAudit(false)
             .build();
@@ -64,9 +60,7 @@ public class UpdateIntentOptionsTest {
     assertEquals(updateIntentOptionsModel.intent(), "testString");
     assertEquals(updateIntentOptionsModel.newIntent(), "testString");
     assertEquals(updateIntentOptionsModel.newDescription(), "testString");
-    assertEquals(
-        updateIntentOptionsModel.newExamples(),
-        new java.util.ArrayList<Example>(java.util.Arrays.asList(exampleModel)));
+    assertEquals(updateIntentOptionsModel.newExamples(), java.util.Arrays.asList(exampleModel));
     assertEquals(updateIntentOptionsModel.append(), Boolean.valueOf(false));
     assertEquals(updateIntentOptionsModel.includeAudit(), Boolean.valueOf(false));
   }

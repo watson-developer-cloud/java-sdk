@@ -141,6 +141,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeIframe extends RuntimeResp
     }
   }
 
+  protected RuntimeResponseGenericRuntimeResponseTypeIframe() {}
+
   protected RuntimeResponseGenericRuntimeResponseTypeIframe(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.responseType, "responseType cannot be null");

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,10 @@ public class ListFieldsOptionsTest {
     ListFieldsOptions listFieldsOptionsModel =
         new ListFieldsOptions.Builder()
             .environmentId("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(listFieldsOptionsModel.environmentId(), "testString");
-    assertEquals(
-        listFieldsOptionsModel.collectionIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

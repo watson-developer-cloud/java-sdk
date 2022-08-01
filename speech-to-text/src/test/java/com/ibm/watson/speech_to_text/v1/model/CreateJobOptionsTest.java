@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,7 +45,7 @@ public class CreateJobOptionsTest {
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
             .inactivityTimeout(Long.valueOf("26"))
-            .keywords(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
             .maxAlternatives(Long.valueOf("26"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
@@ -54,7 +54,6 @@ public class CreateJobOptionsTest {
             .profanityFilter(true)
             .smartFormatting(false)
             .speakerLabels(false)
-            .customizationId("testString")
             .grammarName("testString")
             .redaction(false)
             .processingMetrics(false)
@@ -65,6 +64,7 @@ public class CreateJobOptionsTest {
             .speechDetectorSensitivity(Float.valueOf("36.0"))
             .backgroundAudioSuppression(Float.valueOf("36.0"))
             .lowLatency(false)
+            .characterInsertionBias(Float.valueOf("36.0"))
             .build();
     assertEquals(
         IOUtils.toString(createJobOptionsModel.audio()),
@@ -80,9 +80,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.baseModelVersion(), "testString");
     assertEquals(createJobOptionsModel.customizationWeight(), Double.valueOf("72.5"));
     assertEquals(createJobOptionsModel.inactivityTimeout(), Long.valueOf("26"));
-    assertEquals(
-        createJobOptionsModel.keywords(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(createJobOptionsModel.keywords(), java.util.Arrays.asList("testString"));
     assertEquals(createJobOptionsModel.keywordsThreshold(), Float.valueOf("36.0"));
     assertEquals(createJobOptionsModel.maxAlternatives(), Long.valueOf("26"));
     assertEquals(createJobOptionsModel.wordAlternativesThreshold(), Float.valueOf("36.0"));
@@ -91,7 +89,6 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(createJobOptionsModel.smartFormatting(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.speakerLabels(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.customizationId(), "testString");
     assertEquals(createJobOptionsModel.grammarName(), "testString");
     assertEquals(createJobOptionsModel.redaction(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.processingMetrics(), Boolean.valueOf(false));
@@ -102,6 +99,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
     assertEquals(createJobOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
     assertEquals(createJobOptionsModel.lowLatency(), Boolean.valueOf(false));
+    assertEquals(createJobOptionsModel.characterInsertionBias(), Float.valueOf("36.0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

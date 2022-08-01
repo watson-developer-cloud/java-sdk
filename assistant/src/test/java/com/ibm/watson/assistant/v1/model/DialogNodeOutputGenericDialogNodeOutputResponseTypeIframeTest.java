@@ -42,9 +42,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeIframeTest {
                 .title("testString")
                 .description("testString")
                 .imageUrl("testString")
-                .channels(
-                    new java.util.ArrayList<ResponseGenericChannel>(
-                        java.util.Arrays.asList(responseGenericChannelModel)))
+                .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeIframeModel.responseType(), "iframe");
@@ -58,8 +56,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeIframeTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeIframeModel.imageUrl(), "testString");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeIframeModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
 
     String json =
         TestUtilities.serialize(dialogNodeOutputGenericDialogNodeOutputResponseTypeIframeModel);

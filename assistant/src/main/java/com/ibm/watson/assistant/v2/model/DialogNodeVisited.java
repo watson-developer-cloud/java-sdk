@@ -16,8 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /**
- * An objects containing detailed diagnostic information about a dialog node that was triggered
- * during processing of the input message.
+ * An objects containing detailed diagnostic information about a dialog node that was visited during
+ * processing of the input message.
  */
 public class DialogNodeVisited extends GenericModel {
 
@@ -30,7 +30,7 @@ public class DialogNodeVisited extends GenericModel {
   /**
    * Gets the dialogNode.
    *
-   * <p>A dialog node that was triggered during processing of the input message.
+   * <p>A dialog node that was visited during processing of the input message.
    *
    * @return the dialogNode
    */

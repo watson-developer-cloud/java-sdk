@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,10 @@ public class CaptureGroupTest {
     CaptureGroup captureGroupModel =
         new CaptureGroup.Builder()
             .group("testString")
-            .location(new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))))
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
             .build();
     assertEquals(captureGroupModel.group(), "testString");
-    assertEquals(
-        captureGroupModel.location(),
-        new java.util.ArrayList<Long>(java.util.Arrays.asList(Long.valueOf("26"))));
+    assertEquals(captureGroupModel.location(), java.util.Arrays.asList(Long.valueOf("26")));
 
     String json = TestUtilities.serialize(captureGroupModel);
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,11 +36,13 @@ public class SynthesizeOptionsTest {
             .accept("audio/ogg;codecs=opus")
             .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
+            .spellOutMode("default")
             .build();
     assertEquals(synthesizeOptionsModel.text(), "testString");
     assertEquals(synthesizeOptionsModel.accept(), "audio/ogg;codecs=opus");
     assertEquals(synthesizeOptionsModel.voice(), "en-US_MichaelV3Voice");
     assertEquals(synthesizeOptionsModel.customizationId(), "testString");
+    assertEquals(synthesizeOptionsModel.spellOutMode(), "default");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

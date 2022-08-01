@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,9 +41,7 @@ public class UpdateDialogNodeOptionsTest {
             .source("testString")
             .title("testString")
             .description("testString")
-            .channels(
-                new java.util.ArrayList<ResponseGenericChannel>(
-                    java.util.Arrays.asList(responseGenericChannelModel)))
+            .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .channelOptions(
                 new java.util.HashMap<String, Object>() {
                   {
@@ -58,8 +56,7 @@ public class UpdateDialogNodeOptionsTest {
     assertEquals(dialogNodeOutputGenericModel.description(), "testString");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
-        new java.util.ArrayList<ResponseGenericChannel>(
-            java.util.Arrays.asList(responseGenericChannelModel)));
+        java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         dialogNodeOutputGenericModel.channelOptions(),
         new java.util.HashMap<String, Object>() {
@@ -75,9 +72,7 @@ public class UpdateDialogNodeOptionsTest {
 
     DialogNodeOutput dialogNodeOutputModel =
         new DialogNodeOutput.Builder()
-            .generic(
-                new java.util.ArrayList<DialogNodeOutputGeneric>(
-                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 new java.util.HashMap<String, Map<String, Object>>() {
                   {
@@ -94,9 +89,7 @@ public class UpdateDialogNodeOptionsTest {
             .add("foo", "testString")
             .build();
     assertEquals(
-        dialogNodeOutputModel.getGeneric(),
-        new java.util.ArrayList<DialogNodeOutputGeneric>(
-            java.util.Arrays.asList(dialogNodeOutputGenericModel)));
+        dialogNodeOutputModel.getGeneric(), java.util.Arrays.asList(dialogNodeOutputGenericModel));
     assertEquals(
         dialogNodeOutputModel.getIntegrations(),
         new java.util.HashMap<String, Map<String, Object>>() {
@@ -201,9 +194,7 @@ public class UpdateDialogNodeOptionsTest {
             .newType("standard")
             .newEventName("focus")
             .newVariable("testString")
-            .newActions(
-                new java.util.ArrayList<DialogNodeAction>(
-                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .newActions(java.util.Arrays.asList(dialogNodeActionModel))
             .newDigressIn("not_available")
             .newDigressOut("allow_returning")
             .newDigressOutSlots("not_allowed")
@@ -233,8 +224,7 @@ public class UpdateDialogNodeOptionsTest {
     assertEquals(updateDialogNodeOptionsModel.newEventName(), "focus");
     assertEquals(updateDialogNodeOptionsModel.newVariable(), "testString");
     assertEquals(
-        updateDialogNodeOptionsModel.newActions(),
-        new java.util.ArrayList<DialogNodeAction>(java.util.Arrays.asList(dialogNodeActionModel)));
+        updateDialogNodeOptionsModel.newActions(), java.util.Arrays.asList(dialogNodeActionModel));
     assertEquals(updateDialogNodeOptionsModel.newDigressIn(), "not_available");
     assertEquals(updateDialogNodeOptionsModel.newDigressOut(), "allow_returning");
     assertEquals(updateDialogNodeOptionsModel.newDigressOutSlots(), "not_allowed");

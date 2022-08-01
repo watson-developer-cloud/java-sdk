@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,22 +61,18 @@ public class EnrichmentTest {
     NluEnrichmentSentiment nluEnrichmentSentimentModel =
         new NluEnrichmentSentiment.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(nluEnrichmentSentimentModel.document(), Boolean.valueOf(true));
-    assertEquals(
-        nluEnrichmentSentimentModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(nluEnrichmentSentimentModel.targets(), java.util.Arrays.asList("testString"));
 
     NluEnrichmentEmotion nluEnrichmentEmotionModel =
         new NluEnrichmentEmotion.Builder()
             .document(true)
-            .targets(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .targets(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(nluEnrichmentEmotionModel.document(), Boolean.valueOf(true));
-    assertEquals(
-        nluEnrichmentEmotionModel.targets(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(nluEnrichmentEmotionModel.targets(), java.util.Arrays.asList("testString"));
 
     NluEnrichmentSemanticRoles nluEnrichmentSemanticRolesModel =
         new NluEnrichmentSemanticRoles.Builder()

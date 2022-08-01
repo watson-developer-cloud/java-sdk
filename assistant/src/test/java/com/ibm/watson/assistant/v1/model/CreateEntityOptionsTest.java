@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,8 +40,8 @@ public class CreateEntityOptionsTest {
                   }
                 })
             .type("synonyms")
-            .synonyms(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
-            .patterns(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .synonyms(java.util.Arrays.asList("testString"))
+            .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
@@ -52,12 +52,8 @@ public class CreateEntityOptionsTest {
           }
         });
     assertEquals(createValueModel.type(), "synonyms");
-    assertEquals(
-        createValueModel.synonyms(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
-    assertEquals(
-        createValueModel.patterns(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
+    assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
 
     CreateEntityOptions createEntityOptionsModel =
         new CreateEntityOptions.Builder()
@@ -71,7 +67,7 @@ public class CreateEntityOptionsTest {
                   }
                 })
             .fuzzyMatch(true)
-            .values(new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)))
+            .values(java.util.Arrays.asList(createValueModel))
             .includeAudit(false)
             .build();
     assertEquals(createEntityOptionsModel.workspaceId(), "testString");
@@ -85,9 +81,7 @@ public class CreateEntityOptionsTest {
           }
         });
     assertEquals(createEntityOptionsModel.fuzzyMatch(), Boolean.valueOf(true));
-    assertEquals(
-        createEntityOptionsModel.values(),
-        new java.util.ArrayList<CreateValue>(java.util.Arrays.asList(createValueModel)));
+    assertEquals(createEntityOptionsModel.values(), java.util.Arrays.asList(createValueModel));
     assertEquals(createEntityOptionsModel.includeAudit(), Boolean.valueOf(false));
   }
 
