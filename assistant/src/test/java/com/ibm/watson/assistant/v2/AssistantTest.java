@@ -25,7 +25,14 @@ import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v2.model.DeployReleaseOptions;
+import com.ibm.watson.assistant.v2.model.Environment;
+import com.ibm.watson.assistant.v2.model.EnvironmentCollection;
+import com.ibm.watson.assistant.v2.model.GetEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.GetReleaseOptions;
+import com.ibm.watson.assistant.v2.model.ListEnvironmentsOptions;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageContext;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
@@ -44,6 +51,8 @@ import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
+import com.ibm.watson.assistant.v2.model.Release;
+import com.ibm.watson.assistant.v2.model.ReleaseCollection;
 import com.ibm.watson.assistant.v2.model.RuntimeEntity;
 import com.ibm.watson.assistant.v2.model.RuntimeEntityAlternative;
 import com.ibm.watson.assistant.v2.model.RuntimeEntityInterpretation;
@@ -197,7 +206,7 @@ public class AssistantTest {
   public void testMessageWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"action\", \"action\": \"action\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
     String messagePath = "/v2/assistants/testString/sessions/testString/message";
     server.enqueue(
         new MockResponse()
@@ -412,7 +421,7 @@ public class AssistantTest {
   public void testMessageStatelessWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"action\", \"action\": \"action\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
     String messageStatelessPath = "/v2/assistants/testString/message";
     server.enqueue(
         new MockResponse()
@@ -689,7 +698,7 @@ public class AssistantTest {
   public void testListLogsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}}], \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"action\", \"action\": \"action\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\"}]}, \"user_defined\": {\"mapKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"mapKey\": {\"user_defined\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"system\": {\"state\": \"state\"}}}, \"integrations\": {\"mapKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listLogsPath = "/v2/assistants/testString/logs";
     server.enqueue(
         new MockResponse()
@@ -794,6 +803,315 @@ public class AssistantTest {
   public void testDeleteUserDataNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     assistantService.deleteUserData(null).execute();
+  }
+
+  // Test the listEnvironments operation with a valid options model parameter
+  @Test
+  public void testListEnvironmentsWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"environments\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"assistant_id\": \"assistantId\", \"environment_id\": \"environmentId\", \"environment\": \"environment\", \"release_reference\": {\"release\": \"release\"}, \"orchestration\": {\"search_skill_fallback\": false}, \"session_timeout\": 14, \"integration_references\": [{\"integration_id\": \"integrationId\", \"type\": \"type\"}], \"skill_references\": [{\"skill_id\": \"skillId\", \"type\": \"dialog\", \"disabled\": true, \"snapshot\": \"snapshot\", \"skill_reference\": \"skillReference\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listEnvironmentsPath = "/v2/assistants/testString/environments";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ListEnvironmentsOptions model
+    ListEnvironmentsOptions listEnvironmentsOptionsModel =
+        new ListEnvironmentsOptions.Builder()
+            .assistantId("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(false)
+            .sort("name")
+            .cursor("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke listEnvironments() with a valid options model and verify the result
+    Response<EnvironmentCollection> response =
+        assistantService.listEnvironments(listEnvironmentsOptionsModel).execute();
+    assertNotNull(response);
+    EnvironmentCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listEnvironmentsPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
+    assertEquals(query.get("sort"), "name");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the listEnvironments operation with and without retries enabled
+  @Test
+  public void testListEnvironmentsWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testListEnvironmentsWOptions();
+
+    assistantService.disableRetries();
+    testListEnvironmentsWOptions();
+  }
+
+  // Test the listEnvironments operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListEnvironmentsNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.listEnvironments(null).execute();
+  }
+
+  // Test the getEnvironment operation with a valid options model parameter
+  @Test
+  public void testGetEnvironmentWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"assistant_id\": \"assistantId\", \"environment_id\": \"environmentId\", \"environment\": \"environment\", \"release_reference\": {\"release\": \"release\"}, \"orchestration\": {\"search_skill_fallback\": false}, \"session_timeout\": 14, \"integration_references\": [{\"integration_id\": \"integrationId\", \"type\": \"type\"}], \"skill_references\": [{\"skill_id\": \"skillId\", \"type\": \"dialog\", \"disabled\": true, \"snapshot\": \"snapshot\", \"skill_reference\": \"skillReference\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+    String getEnvironmentPath = "/v2/assistants/testString/environments/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the GetEnvironmentOptions model
+    GetEnvironmentOptions getEnvironmentOptionsModel =
+        new GetEnvironmentOptions.Builder()
+            .assistantId("testString")
+            .environmentId("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke getEnvironment() with a valid options model and verify the result
+    Response<Environment> response =
+        assistantService.getEnvironment(getEnvironmentOptionsModel).execute();
+    assertNotNull(response);
+    Environment responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getEnvironmentPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the getEnvironment operation with and without retries enabled
+  @Test
+  public void testGetEnvironmentWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testGetEnvironmentWOptions();
+
+    assistantService.disableRetries();
+    testGetEnvironmentWOptions();
+  }
+
+  // Test the getEnvironment operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetEnvironmentNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.getEnvironment(null).execute();
+  }
+
+  // Test the listReleases operation with a valid options model parameter
+  @Test
+  public void testListReleasesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"releases\": [{\"release\": \"release\", \"description\": \"description\", \"environment_references\": [{\"name\": \"name\", \"environment_id\": \"environmentId\", \"environment\": \"draft\"}], \"content\": {\"skills\": [{\"skill_id\": \"skillId\", \"type\": \"dialog\", \"snapshot\": \"snapshot\"}]}, \"status\": \"Available\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listReleasesPath = "/v2/assistants/testString/releases";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ListReleasesOptions model
+    ListReleasesOptions listReleasesOptionsModel =
+        new ListReleasesOptions.Builder()
+            .assistantId("testString")
+            .pageLimit(Long.valueOf("26"))
+            .includeCount(false)
+            .sort("name")
+            .cursor("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke listReleases() with a valid options model and verify the result
+    Response<ReleaseCollection> response =
+        assistantService.listReleases(listReleasesOptionsModel).execute();
+    assertNotNull(response);
+    ReleaseCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listReleasesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
+    assertEquals(query.get("sort"), "name");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the listReleases operation with and without retries enabled
+  @Test
+  public void testListReleasesWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testListReleasesWOptions();
+
+    assistantService.disableRetries();
+    testListReleasesWOptions();
+  }
+
+  // Test the listReleases operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListReleasesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.listReleases(null).execute();
+  }
+
+  // Test the getRelease operation with a valid options model parameter
+  @Test
+  public void testGetReleaseWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"release\": \"release\", \"description\": \"description\", \"environment_references\": [{\"name\": \"name\", \"environment_id\": \"environmentId\", \"environment\": \"draft\"}], \"content\": {\"skills\": [{\"skill_id\": \"skillId\", \"type\": \"dialog\", \"snapshot\": \"snapshot\"}]}, \"status\": \"Available\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+    String getReleasePath = "/v2/assistants/testString/releases/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the GetReleaseOptions model
+    GetReleaseOptions getReleaseOptionsModel =
+        new GetReleaseOptions.Builder()
+            .assistantId("testString")
+            .release("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke getRelease() with a valid options model and verify the result
+    Response<Release> response = assistantService.getRelease(getReleaseOptionsModel).execute();
+    assertNotNull(response);
+    Release responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getReleasePath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the getRelease operation with and without retries enabled
+  @Test
+  public void testGetReleaseWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testGetReleaseWOptions();
+
+    assistantService.disableRetries();
+    testGetReleaseWOptions();
+  }
+
+  // Test the getRelease operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetReleaseNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.getRelease(null).execute();
+  }
+
+  // Test the deployRelease operation with a valid options model parameter
+  @Test
+  public void testDeployReleaseWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"assistant_id\": \"assistantId\", \"environment_id\": \"environmentId\", \"environment\": \"environment\", \"release_reference\": {\"release\": \"release\"}, \"orchestration\": {\"search_skill_fallback\": false}, \"session_timeout\": 14, \"integration_references\": [{\"integration_id\": \"integrationId\", \"type\": \"type\"}], \"skill_references\": [{\"skill_id\": \"skillId\", \"type\": \"dialog\", \"disabled\": true, \"snapshot\": \"snapshot\", \"skill_reference\": \"skillReference\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+    String deployReleasePath = "/v2/assistants/testString/releases/testString/deploy";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the DeployReleaseOptions model
+    DeployReleaseOptions deployReleaseOptionsModel =
+        new DeployReleaseOptions.Builder()
+            .assistantId("testString")
+            .release("testString")
+            .environmentId("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke deployRelease() with a valid options model and verify the result
+    Response<Environment> response =
+        assistantService.deployRelease(deployReleaseOptionsModel).execute();
+    assertNotNull(response);
+    Environment responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, deployReleasePath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the deployRelease operation with and without retries enabled
+  @Test
+  public void testDeployReleaseWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testDeployReleaseWOptions();
+
+    assistantService.disableRetries();
+    testDeployReleaseWOptions();
+  }
+
+  // Test the deployRelease operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDeployReleaseNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.deployRelease(null).execute();
   }
 
   // Perform setup needed before each test method
