@@ -38,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -52,6 +54,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
   private String workspaceId;
 
   private DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+  private CountDownLatch lock = new CountDownLatch(1);
 
   /**
    * Sets up the tests.
@@ -1451,6 +1454,226 @@ public class AssistantServiceIT extends AssistantServiceTest {
       assertEquals(webhookHeaderName, updateResponse.getWebhooks().get(0).headers().get(0).name());
       assertEquals(
           webhookHeaderValue, updateResponse.getWebhooks().get(0).headers().get(0).value());
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      if (workspaceId != null) {
+        DeleteWorkspaceOptions deleteOptions =
+            new DeleteWorkspaceOptions.Builder(workspaceId).build();
+        service.deleteWorkspace(deleteOptions).execute();
+      }
+    }
+  }
+
+  /** Test createWorkspaceAsync, exportWorkspaceAsync, and updateWorkspaceAsync */
+  @Test
+  public void testWorkspaceAsyncSuite() {
+
+    String workspaceName = "API Test " + UUID.randomUUID().toString(); // gotta be unique
+    String workspaceDescription = "Description of " + workspaceName;
+    String workspaceLanguage = "en";
+
+    // metadata
+    Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
+    String metadataValue = "value for " + workspaceName;
+    workspaceMetadata.put("key", metadataValue);
+
+    // intents
+    List<CreateIntent> workspaceIntents = new ArrayList<CreateIntent>();
+    String intentName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
+    String intentDescription = "Description of " + intentName;
+    String intentExample = "Example of " + intentName;
+    List<Example> intentExamples = new ArrayList<>();
+    intentExamples.add(new Example.Builder().text(intentExample).build());
+    workspaceIntents.add(
+        new CreateIntent.Builder()
+            .intent(intentName)
+            .description(intentDescription)
+            .examples(intentExamples)
+            .build());
+
+    // entities
+    List<CreateEntity> workspaceEntities = new ArrayList<CreateEntity>();
+    String entityName = "Hello" + UUID.randomUUID().toString(); // gotta be unique
+    String entityDescription = "Description of " + entityName;
+    String entityValue = "Value of " + entityName;
+    String entityValueSynonym = "Synonym for Value of " + entityName;
+    List<CreateValue> entityValues = new ArrayList<CreateValue>();
+    entityValues.add(
+        new CreateValue.Builder().value(entityValue).addSynonym(entityValueSynonym).build());
+    workspaceEntities.add(
+        new CreateEntity.Builder()
+            .entity(entityName)
+            .description(entityDescription)
+            .values(entityValues)
+            .build());
+
+    // counterexamples
+    List<Counterexample> workspaceCounterExamples = new ArrayList<>();
+    String counterExampleText = "Counterexample for " + workspaceName;
+    workspaceCounterExamples.add(new Counterexample.Builder().text(counterExampleText).build());
+
+    // systemSettings
+    WorkspaceSystemSettingsDisambiguation disambiguation =
+        new WorkspaceSystemSettingsDisambiguation.Builder()
+            .enabled(true)
+            .noneOfTheAbovePrompt("none of the above")
+            .prompt("prompt")
+            .sensitivity(WorkspaceSystemSettingsDisambiguation.Sensitivity.HIGH)
+            .build();
+    WorkspaceSystemSettingsTooling tooling =
+        new WorkspaceSystemSettingsTooling.Builder().storeGenericResponses(true).build();
+    WorkspaceSystemSettings systemSettings =
+        new WorkspaceSystemSettings.Builder()
+            .disambiguation(disambiguation)
+            .tooling(tooling)
+            .build();
+
+    // webhooks
+    String webhookHeaderName = "Webhook-Header";
+    String webhookHeaderValue = "webhook_header_value";
+    String webhookName = "java-sdk-test-webhook";
+    String webhookUrl = "https://github.com/watson-developer-cloud/java-sdk";
+    WebhookHeader webhookHeader =
+        new WebhookHeader.Builder().name(webhookHeaderName).value(webhookHeaderValue).build();
+    Webhook webhook =
+        new Webhook.Builder().name(webhookName).url(webhookUrl).addHeaders(webhookHeader).build();
+
+    CreateWorkspaceAsyncOptions createAsyncOptions =
+        new CreateWorkspaceAsyncOptions.Builder()
+            .name(workspaceName)
+            .description(workspaceDescription)
+            .language(workspaceLanguage)
+            .metadata(workspaceMetadata)
+            .intents(workspaceIntents)
+            .entities(workspaceEntities)
+            .counterexamples(workspaceCounterExamples)
+            .systemSettings(systemSettings)
+            .addWebhooks(webhook)
+            .build();
+
+    String workspaceId = null;
+    try {
+      Workspace response = service.createWorkspaceAsync(createAsyncOptions).execute().getResult();
+      assertNotNull(response);
+      assertNotNull(response.getWorkspaceId());
+      ExportWorkspaceAsyncOptions exportWorkspaceAsyncOptions =
+          new ExportWorkspaceAsyncOptions.Builder().workspaceId(response.getWorkspaceId()).build();
+      Workspace exportResponse =
+          service.exportWorkspaceAsync(exportWorkspaceAsyncOptions).execute().getResult();
+
+      for (int seconds = 0;
+          exportResponse.getStatus().equals("Processing") && seconds <= 60;
+          seconds += 5) {
+        lock.await(5, TimeUnit.SECONDS);
+        exportResponse =
+            service.exportWorkspaceAsync(exportWorkspaceAsyncOptions).execute().getResult();
+      }
+
+      workspaceId = exportResponse.getWorkspaceId();
+      assertNotNull(exportResponse.getName());
+      assertEquals(exportResponse.getName(), workspaceName);
+      assertNotNull(exportResponse.getDescription());
+      assertEquals(exportResponse.getDescription(), workspaceDescription);
+      assertNotNull(exportResponse.getLanguage());
+      assertEquals(exportResponse.getLanguage(), workspaceLanguage);
+
+      // metadata
+      assertNotNull(exportResponse.getMetadata());
+      assertNotNull(exportResponse.getMetadata().get("key"));
+      assertEquals(exportResponse.getMetadata().get("key"), metadataValue);
+
+      GetWorkspaceOptions getOptions =
+          new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
+      Workspace exResponse = service.getWorkspace(getOptions).execute().getResult();
+      assertNotNull(exResponse);
+
+      // intents
+      assertNotNull(exResponse.getIntents());
+      assertTrue(exResponse.getIntents().size() == 1);
+      assertNotNull(exResponse.getIntents().get(0).getIntent());
+      assertEquals(exResponse.getIntents().get(0).getIntent(), intentName);
+      assertNotNull(exResponse.getIntents().get(0).getDescription());
+      assertEquals(exResponse.getIntents().get(0).getDescription(), intentDescription);
+      assertNotNull(exResponse.getIntents().get(0).getExamples());
+      assertTrue(exResponse.getIntents().get(0).getExamples().size() == 1);
+      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0));
+      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0).text());
+      assertEquals(exResponse.getIntents().get(0).getExamples().get(0).text(), intentExample);
+
+      // entities
+      assertNotNull(exResponse.getEntities());
+      assertTrue(exResponse.getEntities().size() == 1);
+      assertNotNull(exResponse.getEntities().get(0).getEntity());
+      assertEquals(exResponse.getEntities().get(0).getEntity(), entityName);
+      assertNotNull(exResponse.getEntities().get(0).getDescription());
+      assertEquals(exResponse.getEntities().get(0).getDescription(), entityDescription);
+      assertNotNull(exResponse.getEntities().get(0).getValues());
+      assertTrue(exResponse.getEntities().get(0).getValues().size() == 1);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).value());
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).value(), entityValue);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).synonyms());
+      assertTrue(exResponse.getEntities().get(0).getValues().get(0).synonyms().size() == 1);
+      assertEquals(
+          exResponse.getEntities().get(0).getValues().get(0).synonyms().get(0), entityValueSynonym);
+
+      // counterexamples
+      assertNotNull(exResponse.getCounterexamples());
+      assertTrue(exResponse.getCounterexamples().size() == 1);
+      assertNotNull(exResponse.getCounterexamples().get(0).text());
+      assertEquals(exResponse.getCounterexamples().get(0).text(), counterExampleText);
+
+      // systemSettings
+      assertNotNull(exResponse.getSystemSettings());
+      assertEquals(
+          exResponse.getSystemSettings().getDisambiguation().noneOfTheAbovePrompt(),
+          disambiguation.noneOfTheAbovePrompt());
+      assertEquals(
+          exResponse.getSystemSettings().getDisambiguation().sensitivity(),
+          disambiguation.sensitivity());
+      assertEquals(
+          exResponse.getSystemSettings().getDisambiguation().prompt(), disambiguation.prompt());
+      assertEquals(
+          exResponse.getSystemSettings().getDisambiguation().enabled(), disambiguation.enabled());
+      assertEquals(
+          exResponse.getSystemSettings().getTooling().storeGenericResponses(),
+          tooling.storeGenericResponses());
+
+      // webhooks
+      assertNotNull(exResponse.getWebhooks());
+      assertEquals(webhookName, exResponse.getWebhooks().get(0).name());
+      assertEquals(webhookUrl, exResponse.getWebhooks().get(0).url());
+      assertEquals(webhookHeaderName, exResponse.getWebhooks().get(0).headers().get(0).name());
+      assertEquals(webhookHeaderValue, exResponse.getWebhooks().get(0).headers().get(0).value());
+
+      String updatedDescription = "Angelo's First Java SDK IT";
+      UpdateWorkspaceAsyncOptions updateAsyncOptions =
+          new UpdateWorkspaceAsyncOptions.Builder()
+              .workspaceId(workspaceId)
+              .description(updatedDescription)
+              .build();
+
+      Workspace updateResponse =
+          service.updateWorkspaceAsync(updateAsyncOptions).execute().getResult();
+
+      assertNotNull(updateResponse);
+      assertNotNull(updateResponse.getWorkspaceId());
+      ExportWorkspaceAsyncOptions newExportWorkspaceAsyncOptions =
+          new ExportWorkspaceAsyncOptions.Builder()
+              .workspaceId(updateResponse.getWorkspaceId())
+              .build();
+
+      for (int seconds = 0;
+          updateResponse.getStatus().equals("Processing") && seconds <= 60;
+          seconds += 5) {
+        lock.await(5, TimeUnit.SECONDS);
+        updateResponse =
+            service.exportWorkspaceAsync(newExportWorkspaceAsyncOptions).execute().getResult();
+      }
+
+      assertEquals(updatedDescription, updateResponse.getDescription());
 
     } catch (Exception ex) {
       fail(ex.getMessage());
