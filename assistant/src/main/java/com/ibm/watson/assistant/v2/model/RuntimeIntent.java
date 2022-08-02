@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,15 +19,18 @@ public class RuntimeIntent extends GenericModel {
 
   protected String intent;
   protected Double confidence;
+  protected String skill;
 
   /** Builder. */
   public static class Builder {
     private String intent;
     private Double confidence;
+    private String skill;
 
     private Builder(RuntimeIntent runtimeIntent) {
       this.intent = runtimeIntent.intent;
       this.confidence = runtimeIntent.confidence;
+      this.skill = runtimeIntent.skill;
     }
 
     /** Instantiates a new builder. */
@@ -37,11 +40,9 @@ public class RuntimeIntent extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param intent the intent
-     * @param confidence the confidence
      */
-    public Builder(String intent, Double confidence) {
+    public Builder(String intent) {
       this.intent = intent;
-      this.confidence = confidence;
     }
 
     /**
@@ -74,13 +75,26 @@ public class RuntimeIntent extends GenericModel {
       this.confidence = confidence;
       return this;
     }
+
+    /**
+     * Set the skill.
+     *
+     * @param skill the skill
+     * @return the RuntimeIntent builder
+     */
+    public Builder skill(String skill) {
+      this.skill = skill;
+      return this;
+    }
   }
+
+  protected RuntimeIntent() {}
 
   protected RuntimeIntent(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence, "confidence cannot be null");
     intent = builder.intent;
     confidence = builder.confidence;
+    skill = builder.skill;
   }
 
   /**
@@ -106,11 +120,27 @@ public class RuntimeIntent extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * <p>A decimal percentage that represents Watson's confidence in the intent.
+   * <p>A decimal percentage that represents Watson's confidence in the intent. If you are
+   * specifying an intent as part of a request, but you do not have a calculated confidence value,
+   * specify `1`.
    *
    * @return the confidence
    */
   public Double confidence() {
     return confidence;
+  }
+
+  /**
+   * Gets the skill.
+   *
+   * <p>The skill that identified the intent. Currently, the only possible values are `main skill`
+   * for the dialog skill (if enabled) and `actions skill` for the actions skill.
+   *
+   * <p>This property is present only if the assistant has both a dialog skill and an actions skill.
+   *
+   * @return the skill
+   */
+  public String skill() {
+    return skill;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,11 +42,14 @@ public class MessageOutputDebug extends GenericModel {
   @SerializedName("branch_exited_reason")
   protected String branchExitedReason;
 
+  @SerializedName("turn_events")
+  protected List<MessageOutputDebugTurnEvent> turnEvents;
+
   /**
    * Gets the nodesVisited.
    *
    * <p>An array of objects containing detailed diagnostic information about dialog nodes that were
-   * triggered during processing of the input message.
+   * visited during processing of the input message.
    *
    * @return the nodesVisited
    */
@@ -86,5 +89,19 @@ public class MessageOutputDebug extends GenericModel {
    */
   public String getBranchExitedReason() {
     return branchExitedReason;
+  }
+
+  /**
+   * Gets the turnEvents.
+   *
+   * <p>An array of objects containing detailed diagnostic information about dialog nodes and
+   * actions that were visited during processing of the input message.
+   *
+   * <p>This property is present only if the assistant has an actions skill.
+   *
+   * @return the turnEvents
+   */
+  public List<MessageOutputDebugTurnEvent> getTurnEvents() {
+    return turnEvents;
   }
 }

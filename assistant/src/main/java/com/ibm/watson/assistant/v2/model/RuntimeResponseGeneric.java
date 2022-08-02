@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,7 +29,7 @@ import java.util.Map;
  * RuntimeResponseGenericRuntimeResponseTypeSearch -
  * RuntimeResponseGenericRuntimeResponseTypeUserDefined -
  * RuntimeResponseGenericRuntimeResponseTypeVideo - RuntimeResponseGenericRuntimeResponseTypeAudio -
- * RuntimeResponseGenericRuntimeResponseTypeIframe
+ * RuntimeResponseGenericRuntimeResponseTypeIframe - RuntimeResponseGenericRuntimeResponseTypeDate
  */
 public class RuntimeResponseGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -44,6 +44,7 @@ public class RuntimeResponseGeneric extends GenericModel {
         "channel_transfer", RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.class);
     discriminatorMapping.put(
         "connect_to_agent", RuntimeResponseGenericRuntimeResponseTypeConnectToAgent.class);
+    discriminatorMapping.put("date", RuntimeResponseGenericRuntimeResponseTypeDate.class);
     discriminatorMapping.put("iframe", RuntimeResponseGenericRuntimeResponseTypeIframe.class);
     discriminatorMapping.put("image", RuntimeResponseGenericRuntimeResponseTypeImage.class);
     discriminatorMapping.put("option", RuntimeResponseGenericRuntimeResponseTypeOption.class);

@@ -39,9 +39,11 @@ public class BulkClassifyOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param skillId the skillId
+     * @param input the input
      */
-    public Builder(String skillId) {
+    public Builder(String skillId, List<BulkClassifyUtterance> input) {
       this.skillId = skillId;
+      this.input = input;
     }
 
     /**
@@ -95,6 +97,7 @@ public class BulkClassifyOptions extends GenericModel {
 
   protected BulkClassifyOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.skillId, "skillId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.input, "input cannot be null");
     skillId = builder.skillId;
     input = builder.input;
   }
