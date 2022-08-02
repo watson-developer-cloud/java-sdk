@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,16 +21,26 @@ import java.util.Map;
 /** Workspace. */
 public class Workspace extends GenericModel {
 
-  /** The current status of the workspace. */
+  /**
+   * The current status of the workspace: - **Available**: The workspace is available and ready to
+   * process messages. - **Failed**: An asynchronous operation has failed. See the **status_errors**
+   * property for more information about the cause of the failure. Returned only by the **Export
+   * workspace asynchronously** method. - **Non Existent**: The workspace does not exist. -
+   * **Processing**: An asynchronous operation has not yet completed. Returned only by the **Export
+   * workspace asynchronously** method. - **Training**: The workspace is training based on new data
+   * such as intents or examples.
+   */
   public interface Status {
-    /** Non Existent. */
-    String NON_EXISTENT = "Non Existent";
-    /** Training. */
-    String TRAINING = "Training";
-    /** Failed. */
-    String FAILED = "Failed";
     /** Available. */
     String AVAILABLE = "Available";
+    /** Failed. */
+    String FAILED = "Failed";
+    /** Non Existent. */
+    String NON_EXISTENT = "Non Existent";
+    /** Processing. */
+    String PROCESSING = "Processing";
+    /** Training. */
+    String TRAINING = "Training";
     /** Unavailable. */
     String UNAVAILABLE = "Unavailable";
   }
@@ -57,9 +67,14 @@ public class Workspace extends GenericModel {
   protected WorkspaceSystemSettings systemSettings;
 
   protected String status;
+
+  @SerializedName("status_errors")
+  protected List<StatusError> statusErrors;
+
   protected List<Webhook> webhooks;
   protected List<Intent> intents;
   protected List<Entity> entities;
+  protected WorkspaceCounts counts;
 
   /**
    * Gets the name.
@@ -189,12 +204,29 @@ public class Workspace extends GenericModel {
   /**
    * Gets the status.
    *
-   * <p>The current status of the workspace.
+   * <p>The current status of the workspace: - **Available**: The workspace is available and ready
+   * to process messages. - **Failed**: An asynchronous operation has failed. See the
+   * **status_errors** property for more information about the cause of the failure. Returned only
+   * by the **Export workspace asynchronously** method. - **Non Existent**: The workspace does not
+   * exist. - **Processing**: An asynchronous operation has not yet completed. Returned only by the
+   * **Export workspace asynchronously** method. - **Training**: The workspace is training based on
+   * new data such as intents or examples.
    *
    * @return the status
    */
   public String getStatus() {
     return status;
+  }
+
+  /**
+   * Gets the statusErrors.
+   *
+   * <p>An array of messages about errors that caused an asynchronous operation to fail.
+   *
+   * @return the statusErrors
+   */
+  public List<StatusError> getStatusErrors() {
+    return statusErrors;
   }
 
   /**
@@ -226,5 +258,19 @@ public class Workspace extends GenericModel {
    */
   public List<Entity> getEntities() {
     return entities;
+  }
+
+  /**
+   * Gets the counts.
+   *
+   * <p>An object containing properties that indicate how many intents, entities, and dialog nodes
+   * are defined in the workspace. This property is included only in responses from the **Export
+   * workspace asynchronously** method, and only when the **verbose** query parameter is set to
+   * `true`.
+   *
+   * @return the counts
+   */
+  public WorkspaceCounts getCounts() {
+    return counts;
   }
 }

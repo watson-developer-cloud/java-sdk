@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.assistant.v1;
@@ -36,6 +36,7 @@ import com.ibm.watson.assistant.v1.model.CreateExampleOptions;
 import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
 import com.ibm.watson.assistant.v1.model.CreateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.CreateValueOptions;
+import com.ibm.watson.assistant.v1.model.CreateWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.DeleteCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.DeleteDialogNodeOptions;
@@ -53,6 +54,7 @@ import com.ibm.watson.assistant.v1.model.EntityCollection;
 import com.ibm.watson.assistant.v1.model.EntityMentionCollection;
 import com.ibm.watson.assistant.v1.model.Example;
 import com.ibm.watson.assistant.v1.model.ExampleCollection;
+import com.ibm.watson.assistant.v1.model.ExportWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.GetCounterexampleOptions;
 import com.ibm.watson.assistant.v1.model.GetDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.GetEntityOptions;
@@ -87,6 +89,7 @@ import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
 import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
 import com.ibm.watson.assistant.v1.model.UpdateSynonymOptions;
 import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
+import com.ibm.watson.assistant.v1.model.UpdateWorkspaceAsyncOptions;
 import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.assistant.v1.model.Value;
 import com.ibm.watson.assistant.v1.model.ValueCollection;
@@ -364,6 +367,9 @@ public class Assistant extends BaseService {
    * <p>Create a workspace based on component objects. You must provide workspace components
    * defining the content of the new workspace.
    *
+   * <p>**Note:** The new workspace data cannot be larger than 1.5 MB. For larger requests, use the
+   * **Create workspace asynchronously** method.
+   *
    * @param createWorkspaceOptions the {@link CreateWorkspaceOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a result of type {@link Workspace}
@@ -456,6 +462,9 @@ public class Assistant extends BaseService {
    * <p>Create a workspace based on component objects. You must provide workspace components
    * defining the content of the new workspace.
    *
+   * <p>**Note:** The new workspace data cannot be larger than 1.5 MB. For larger requests, use the
+   * **Create workspace asynchronously** method.
+   *
    * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
   public ServiceCall<Workspace> createWorkspace() {
@@ -505,6 +514,9 @@ public class Assistant extends BaseService {
    *
    * <p>Update an existing workspace with new or modified data. You must provide component objects
    * defining the content of the updated workspace.
+   *
+   * <p>**Note:** The new workspace data cannot be larger than 1.5 MB. For larger requests, use the
+   * **Update workspace asynchronously** method.
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the
    *     call
@@ -620,6 +632,260 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create workspace asynchronously.
+   *
+   * <p>Create a workspace asynchronously based on component objects. You must provide workspace
+   * components defining the content of the new workspace.
+   *
+   * <p>A successful call to this method only initiates asynchronous creation of the workspace. The
+   * new workspace is not available until processing completes. To check the status of the
+   * asynchronous operation, use the **Export workspace asynchronously** method.
+   *
+   * @param createWorkspaceAsyncOptions the {@link CreateWorkspaceAsyncOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
+   */
+  public ServiceCall<Workspace> createWorkspaceAsync(
+      CreateWorkspaceAsyncOptions createWorkspaceAsyncOptions) {
+    boolean skipBody = false;
+    if (createWorkspaceAsyncOptions == null) {
+      createWorkspaceAsyncOptions = new CreateWorkspaceAsyncOptions.Builder().build();
+      skipBody = true;
+    }
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/workspaces_async"));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v1", "createWorkspaceAsync");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (!skipBody) {
+      final JsonObject contentJson = new JsonObject();
+      if (createWorkspaceAsyncOptions.name() != null) {
+        contentJson.addProperty("name", createWorkspaceAsyncOptions.name());
+      }
+      if (createWorkspaceAsyncOptions.description() != null) {
+        contentJson.addProperty("description", createWorkspaceAsyncOptions.description());
+      }
+      if (createWorkspaceAsyncOptions.language() != null) {
+        contentJson.addProperty("language", createWorkspaceAsyncOptions.language());
+      }
+      if (createWorkspaceAsyncOptions.dialogNodes() != null) {
+        contentJson.add(
+            "dialog_nodes",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.dialogNodes()));
+      }
+      if (createWorkspaceAsyncOptions.counterexamples() != null) {
+        contentJson.add(
+            "counterexamples",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.counterexamples()));
+      }
+      if (createWorkspaceAsyncOptions.metadata() != null) {
+        contentJson.add(
+            "metadata",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.metadata()));
+      }
+      if (createWorkspaceAsyncOptions.learningOptOut() != null) {
+        contentJson.addProperty("learning_opt_out", createWorkspaceAsyncOptions.learningOptOut());
+      }
+      if (createWorkspaceAsyncOptions.systemSettings() != null) {
+        contentJson.add(
+            "system_settings",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.systemSettings()));
+      }
+      if (createWorkspaceAsyncOptions.webhooks() != null) {
+        contentJson.add(
+            "webhooks",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.webhooks()));
+      }
+      if (createWorkspaceAsyncOptions.intents() != null) {
+        contentJson.add(
+            "intents",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.intents()));
+      }
+      if (createWorkspaceAsyncOptions.entities() != null) {
+        contentJson.add(
+            "entities",
+            com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+                .toJsonTree(createWorkspaceAsyncOptions.entities()));
+      }
+      builder.bodyJson(contentJson);
+    }
+    ResponseConverter<Workspace> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Workspace>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create workspace asynchronously.
+   *
+   * <p>Create a workspace asynchronously based on component objects. You must provide workspace
+   * components defining the content of the new workspace.
+   *
+   * <p>A successful call to this method only initiates asynchronous creation of the workspace. The
+   * new workspace is not available until processing completes. To check the status of the
+   * asynchronous operation, use the **Export workspace asynchronously** method.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
+   */
+  public ServiceCall<Workspace> createWorkspaceAsync() {
+    return createWorkspaceAsync(null);
+  }
+
+  /**
+   * Update workspace asynchronously.
+   *
+   * <p>Update an existing workspace asynchronously with new or modified data. You must provide
+   * component objects defining the content of the updated workspace.
+   *
+   * <p>A successful call to this method only initiates an asynchronous update of the workspace. The
+   * updated workspace is not available until processing completes. To check the status of the
+   * asynchronous operation, use the **Export workspace asynchronously** method.
+   *
+   * @param updateWorkspaceAsyncOptions the {@link UpdateWorkspaceAsyncOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
+   */
+  public ServiceCall<Workspace> updateWorkspaceAsync(
+      UpdateWorkspaceAsyncOptions updateWorkspaceAsyncOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateWorkspaceAsyncOptions, "updateWorkspaceAsyncOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", updateWorkspaceAsyncOptions.workspaceId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces_async/{workspace_id}", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v1", "updateWorkspaceAsync");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (updateWorkspaceAsyncOptions.append() != null) {
+      builder.query("append", String.valueOf(updateWorkspaceAsyncOptions.append()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    if (updateWorkspaceAsyncOptions.name() != null) {
+      contentJson.addProperty("name", updateWorkspaceAsyncOptions.name());
+    }
+    if (updateWorkspaceAsyncOptions.description() != null) {
+      contentJson.addProperty("description", updateWorkspaceAsyncOptions.description());
+    }
+    if (updateWorkspaceAsyncOptions.language() != null) {
+      contentJson.addProperty("language", updateWorkspaceAsyncOptions.language());
+    }
+    if (updateWorkspaceAsyncOptions.dialogNodes() != null) {
+      contentJson.add(
+          "dialog_nodes",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.dialogNodes()));
+    }
+    if (updateWorkspaceAsyncOptions.counterexamples() != null) {
+      contentJson.add(
+          "counterexamples",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.counterexamples()));
+    }
+    if (updateWorkspaceAsyncOptions.metadata() != null) {
+      contentJson.add(
+          "metadata",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.metadata()));
+    }
+    if (updateWorkspaceAsyncOptions.learningOptOut() != null) {
+      contentJson.addProperty("learning_opt_out", updateWorkspaceAsyncOptions.learningOptOut());
+    }
+    if (updateWorkspaceAsyncOptions.systemSettings() != null) {
+      contentJson.add(
+          "system_settings",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.systemSettings()));
+    }
+    if (updateWorkspaceAsyncOptions.webhooks() != null) {
+      contentJson.add(
+          "webhooks",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.webhooks()));
+    }
+    if (updateWorkspaceAsyncOptions.intents() != null) {
+      contentJson.add(
+          "intents",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.intents()));
+    }
+    if (updateWorkspaceAsyncOptions.entities() != null) {
+      contentJson.add(
+          "entities",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateWorkspaceAsyncOptions.entities()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Workspace> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Workspace>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Export workspace asynchronously.
+   *
+   * <p>Export the entire workspace asynchronously, including all workspace content.
+   *
+   * <p>A successful call to this method only initiates an asynchronous export. The exported JSON
+   * data is not available until processing completes. After the initial request is submitted, you
+   * can continue to poll by calling the same request again and checking the value of the **status**
+   * property. When processing has completed, the request returns the exported JSON data. Remember
+   * that the usual rate limits apply.
+   *
+   * @param exportWorkspaceAsyncOptions the {@link ExportWorkspaceAsyncOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Workspace}
+   */
+  public ServiceCall<Workspace> exportWorkspaceAsync(
+      ExportWorkspaceAsyncOptions exportWorkspaceAsyncOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        exportWorkspaceAsyncOptions, "exportWorkspaceAsyncOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", exportWorkspaceAsyncOptions.workspaceId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v1/workspaces_async/{workspace_id}/export", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v1", "exportWorkspaceAsync");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (exportWorkspaceAsyncOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(exportWorkspaceAsyncOptions.includeAudit()));
+    }
+    if (exportWorkspaceAsyncOptions.sort() != null) {
+      builder.query("sort", String.valueOf(exportWorkspaceAsyncOptions.sort()));
+    }
+    if (exportWorkspaceAsyncOptions.verbose() != null) {
+      builder.query("verbose", String.valueOf(exportWorkspaceAsyncOptions.verbose()));
+    }
+    ResponseConverter<Workspace> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Workspace>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -2377,6 +2643,11 @@ public class Assistant extends BaseService {
    *
    * <p>This method requires Manager access.
    *
+   * <p>**Note:** If you use the **cursor** parameter to retrieve results one page at a time,
+   * subsequent requests must be no more than 5 minutes apart. Any returned value for the **cursor**
+   * parameter becomes invalid after 5 minutes. For more information about using pagination, see
+   * [Pagination](#pagination).
+   *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
    */
@@ -2417,6 +2688,11 @@ public class Assistant extends BaseService {
    * List log events in all workspaces.
    *
    * <p>List the events from the logs of all workspaces in the service instance.
+   *
+   * <p>**Note:** If you use the **cursor** parameter to retrieve results one page at a time,
+   * subsequent requests must be no more than 5 minutes apart. Any returned value for the **cursor**
+   * parameter becomes invalid after 5 minutes. For more information about using pagination, see
+   * [Pagination](#pagination).
    *
    * @param listAllLogsOptions the {@link ListAllLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
