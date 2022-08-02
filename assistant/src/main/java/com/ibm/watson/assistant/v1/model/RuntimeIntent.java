@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,11 +37,9 @@ public class RuntimeIntent extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param intent the intent
-     * @param confidence the confidence
      */
-    public Builder(String intent, Double confidence) {
+    public Builder(String intent) {
       this.intent = intent;
-      this.confidence = confidence;
     }
 
     /**
@@ -76,9 +74,10 @@ public class RuntimeIntent extends GenericModel {
     }
   }
 
+  protected RuntimeIntent() {}
+
   protected RuntimeIntent(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.intent, "intent cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.confidence, "confidence cannot be null");
     intent = builder.intent;
     confidence = builder.confidence;
   }
@@ -106,7 +105,9 @@ public class RuntimeIntent extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * <p>A decimal percentage that represents Watson's confidence in the intent.
+   * <p>A decimal percentage that represents Watson's confidence in the intent. If you are
+   * specifying an intent as part of a request, but you do not have a calculated confidence value,
+   * specify `1`.
    *
    * @return the confidence
    */

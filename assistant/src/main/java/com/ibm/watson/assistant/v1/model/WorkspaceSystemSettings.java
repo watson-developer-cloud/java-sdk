@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,6 +42,9 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
   @SerializedName("off_topic")
   protected WorkspaceSystemSettingsOffTopic offTopic;
 
+  @SerializedName("nlp")
+  protected WorkspaceSystemSettingsNlp nlp;
+
   public WorkspaceSystemSettings() {
     super(new TypeToken<Object>() {});
   }
@@ -55,6 +58,7 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
     private Boolean spellingAutoCorrect;
     private WorkspaceSystemSettingsSystemEntities systemEntities;
     private WorkspaceSystemSettingsOffTopic offTopic;
+    private WorkspaceSystemSettingsNlp nlp;
     private Map<String, Object> dynamicProperties;
 
     private Builder(WorkspaceSystemSettings workspaceSystemSettings) {
@@ -65,6 +69,7 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
       this.spellingAutoCorrect = workspaceSystemSettings.spellingAutoCorrect;
       this.systemEntities = workspaceSystemSettings.systemEntities;
       this.offTopic = workspaceSystemSettings.offTopic;
+      this.nlp = workspaceSystemSettings.nlp;
       this.dynamicProperties = workspaceSystemSettings.getProperties();
     }
 
@@ -158,6 +163,17 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
     }
 
     /**
+     * Set the nlp.
+     *
+     * @param nlp the nlp
+     * @return the WorkspaceSystemSettings builder
+     */
+    public Builder nlp(WorkspaceSystemSettingsNlp nlp) {
+      this.nlp = nlp;
+      return this;
+    }
+
+    /**
      * Add an arbitrary property.
      *
      * @param name the name of the property to add
@@ -183,6 +199,7 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
     spellingAutoCorrect = builder.spellingAutoCorrect;
     systemEntities = builder.systemEntities;
     offTopic = builder.offTopic;
+    nlp = builder.nlp;
     this.setProperties(builder.dynamicProperties);
   }
 
@@ -337,5 +354,26 @@ public class WorkspaceSystemSettings extends DynamicModel<Object> {
    */
   public void setOffTopic(final WorkspaceSystemSettingsOffTopic offTopic) {
     this.offTopic = offTopic;
+  }
+
+  /**
+   * Gets the nlp.
+   *
+   * <p>Workspace settings related to the version of the training algorithms currently used by the
+   * skill.
+   *
+   * @return the nlp
+   */
+  public WorkspaceSystemSettingsNlp getNlp() {
+    return this.nlp;
+  }
+
+  /**
+   * Sets the nlp.
+   *
+   * @param nlp the new nlp
+   */
+  public void setNlp(final WorkspaceSystemSettingsNlp nlp) {
+    this.nlp = nlp;
   }
 }
