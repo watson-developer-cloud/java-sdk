@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.assistant.v2;
@@ -30,12 +30,21 @@ import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
+import com.ibm.watson.assistant.v2.model.DeployReleaseOptions;
+import com.ibm.watson.assistant.v2.model.Environment;
+import com.ibm.watson.assistant.v2.model.EnvironmentCollection;
+import com.ibm.watson.assistant.v2.model.GetEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.GetReleaseOptions;
+import com.ibm.watson.assistant.v2.model.ListEnvironmentsOptions;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageResponse;
 import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
+import com.ibm.watson.assistant.v2.model.Release;
+import com.ibm.watson.assistant.v2.model.ReleaseCollection;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.common.SdkCommon;
 import java.util.HashMap;
@@ -164,6 +173,8 @@ public class Assistant extends BaseService {
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    builder.bodyJson(contentJson);
     ResponseConverter<SessionResponse> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SessionResponse>() {}.getType());
@@ -328,12 +339,10 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
-    if (bulkClassifyOptions.input() != null) {
-      contentJson.add(
-          "input",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(bulkClassifyOptions.input()));
-    }
+    contentJson.add(
+        "input",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(bulkClassifyOptions.input()));
     builder.bodyJson(contentJson);
     ResponseConverter<BulkClassifyResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -347,6 +356,11 @@ public class Assistant extends BaseService {
    * <p>List the events from the log of an assistant.
    *
    * <p>This method requires Manager access, and is available only with Enterprise plans.
+   *
+   * <p>**Note:** If you use the **cursor** parameter to retrieve results one page at a time,
+   * subsequent requests must be no more than 5 minutes apart. Any returned value for the **cursor**
+   * parameter becomes invalid after 5 minutes. For more information about using pagination, see
+   * [Pagination](#pagination).
    *
    * @param listLogsOptions the {@link ListLogsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link LogCollection}
@@ -418,6 +432,216 @@ public class Assistant extends BaseService {
     builder.query("version", String.valueOf(this.version));
     builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List environments.
+   *
+   * <p>List the environments associated with an assistant.
+   *
+   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a result of type {@link EnvironmentCollection}
+   */
+  public ServiceCall<EnvironmentCollection> listEnvironments(
+      ListEnvironmentsOptions listEnvironmentsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listEnvironmentsOptions, "listEnvironmentsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", listEnvironmentsOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/environments", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "listEnvironments");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listEnvironmentsOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listEnvironmentsOptions.pageLimit()));
+    }
+    if (listEnvironmentsOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listEnvironmentsOptions.includeCount()));
+    }
+    if (listEnvironmentsOptions.sort() != null) {
+      builder.query("sort", String.valueOf(listEnvironmentsOptions.sort()));
+    }
+    if (listEnvironmentsOptions.cursor() != null) {
+      builder.query("cursor", String.valueOf(listEnvironmentsOptions.cursor()));
+    }
+    if (listEnvironmentsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listEnvironmentsOptions.includeAudit()));
+    }
+    ResponseConverter<EnvironmentCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<EnvironmentCollection>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get environment.
+   *
+   * <p>Get information about an environment. For more information about environments, see
+   * [Environments](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#environments).
+   *
+   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link Environment}
+   */
+  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", getEnvironmentOptions.assistantId());
+    pathParamsMap.put("environment_id", getEnvironmentOptions.environmentId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "getEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (getEnvironmentOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getEnvironmentOptions.includeAudit()));
+    }
+    ResponseConverter<Environment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Environment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List releases.
+   *
+   * <p>List the releases associated with an assistant. (In the Watson Assistant user interface, a
+   * release is called a *version*.).
+   *
+   * @param listReleasesOptions the {@link ListReleasesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ReleaseCollection}
+   */
+  public ServiceCall<ReleaseCollection> listReleases(ListReleasesOptions listReleasesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listReleasesOptions, "listReleasesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", listReleasesOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/releases", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listReleases");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listReleasesOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listReleasesOptions.pageLimit()));
+    }
+    if (listReleasesOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listReleasesOptions.includeCount()));
+    }
+    if (listReleasesOptions.sort() != null) {
+      builder.query("sort", String.valueOf(listReleasesOptions.sort()));
+    }
+    if (listReleasesOptions.cursor() != null) {
+      builder.query("cursor", String.valueOf(listReleasesOptions.cursor()));
+    }
+    if (listReleasesOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listReleasesOptions.includeAudit()));
+    }
+    ResponseConverter<ReleaseCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ReleaseCollection>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get release.
+   *
+   * <p>Get information about a release.
+   *
+   * <p>Release data is not available until publishing of the release completes. If publishing is
+   * still in progress, you can continue to poll by calling the same request again and checking the
+   * value of the **status** property. When processing has completed, the request returns the
+   * release data.
+   *
+   * @param getReleaseOptions the {@link GetReleaseOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Release}
+   */
+  public ServiceCall<Release> getRelease(GetReleaseOptions getReleaseOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getReleaseOptions, "getReleaseOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", getReleaseOptions.assistantId());
+    pathParamsMap.put("release", getReleaseOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "getRelease");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (getReleaseOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getReleaseOptions.includeAudit()));
+    }
+    ResponseConverter<Release> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Release>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Deploy release.
+   *
+   * <p>Update the environment with the content of the release. All snapshots saved as part of the
+   * release become active in the environment.
+   *
+   * @param deployReleaseOptions the {@link DeployReleaseOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link Environment}
+   */
+  public ServiceCall<Environment> deployRelease(DeployReleaseOptions deployReleaseOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deployReleaseOptions, "deployReleaseOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", deployReleaseOptions.assistantId());
+    pathParamsMap.put("release", deployReleaseOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}/deploy",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deployRelease");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (deployReleaseOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(deployReleaseOptions.includeAudit()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("environment_id", deployReleaseOptions.environmentId());
+    builder.bodyJson(contentJson);
+    ResponseConverter<Environment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Environment>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

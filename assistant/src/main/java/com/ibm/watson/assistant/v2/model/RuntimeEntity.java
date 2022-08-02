@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,7 @@ public class RuntimeEntity extends GenericModel {
   protected RuntimeEntityInterpretation interpretation;
   protected List<RuntimeEntityAlternative> alternatives;
   protected RuntimeEntityRole role;
+  protected String skill;
 
   /** Builder. */
   public static class Builder {
@@ -38,6 +39,7 @@ public class RuntimeEntity extends GenericModel {
     private RuntimeEntityInterpretation interpretation;
     private List<RuntimeEntityAlternative> alternatives;
     private RuntimeEntityRole role;
+    private String skill;
 
     private Builder(RuntimeEntity runtimeEntity) {
       this.entity = runtimeEntity.entity;
@@ -48,6 +50,7 @@ public class RuntimeEntity extends GenericModel {
       this.interpretation = runtimeEntity.interpretation;
       this.alternatives = runtimeEntity.alternatives;
       this.role = runtimeEntity.role;
+      this.skill = runtimeEntity.skill;
     }
 
     /** Instantiates a new builder. */
@@ -205,7 +208,20 @@ public class RuntimeEntity extends GenericModel {
       this.role = role;
       return this;
     }
+
+    /**
+     * Set the skill.
+     *
+     * @param skill the skill
+     * @return the RuntimeEntity builder
+     */
+    public Builder skill(String skill) {
+      this.skill = skill;
+      return this;
+    }
   }
+
+  protected RuntimeEntity() {}
 
   protected RuntimeEntity(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.entity, "entity cannot be null");
@@ -218,6 +234,7 @@ public class RuntimeEntity extends GenericModel {
     interpretation = builder.interpretation;
     alternatives = builder.alternatives;
     role = builder.role;
+    skill = builder.skill;
   }
 
   /**
@@ -326,5 +343,19 @@ public class RuntimeEntity extends GenericModel {
    */
   public RuntimeEntityRole role() {
     return role;
+  }
+
+  /**
+   * Gets the skill.
+   *
+   * <p>The skill that recognized the entity value. Currently, the only possible values are `main
+   * skill` for the dialog skill (if enabled) and `actions skill` for the actions skill.
+   *
+   * <p>This property is present only if the assistant has both a dialog skill and an actions skill.
+   *
+   * @return the skill
+   */
+  public String skill() {
+    return skill;
   }
 }
