@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -119,6 +119,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
     String IT_IT_NARROWBANDMODEL = "it-IT_NarrowbandModel";
+    /** it-IT_Multimedia. */
+    String IT_IT_MULTIMEDIA = "it-IT_Multimedia";
     /** it-IT_Telephony. */
     String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
@@ -145,6 +147,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
+    /** pt-BR_Multimedia. */
+    String PT_BR_MULTIMEDIA = "pt-BR_Multimedia";
     /** pt-BR_NarrowbandModel. */
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
@@ -239,6 +243,8 @@ public class CreateLanguageModelOptions extends GenericModel {
       return this;
     }
   }
+
+  protected CreateLanguageModelOptions() {}
 
   protected CreateLanguageModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");

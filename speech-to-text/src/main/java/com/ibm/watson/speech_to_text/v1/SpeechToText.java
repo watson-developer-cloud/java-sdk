@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -329,9 +329,15 @@ public class SpeechToText extends BaseService {
    * accuracy.
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Many next-generation models also support the `low_latency`
-   * parameter, which is not available with previous-generation models. Next-generation models do
-   * not support all of the parameters that are available for use with previous-generation models.
+   * previous-generation model. Most next-generation models support the `low_latency` parameter, and
+   * all next-generation models support the `character_insertion_bias` parameter. These parameters
+   * are not available with previous-generation models.
+   *
+   * <p>Next-generation models do not support all of the speech recognition parameters that are
+   * available for use with previous-generation models. Next-generation models do not support the
+   * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
+   * `max_alternatives` * `processing_metrics` and `processing_metrics_interval` *
+   * `word_alternatives_threshold`
    *
    * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
    * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
@@ -429,9 +435,6 @@ public class SpeechToText extends BaseService {
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
-    if (recognizeOptions.customizationId() != null) {
-      builder.query("customization_id", String.valueOf(recognizeOptions.customizationId()));
-    }
     if (recognizeOptions.grammarName() != null) {
       builder.query("grammar_name", String.valueOf(recognizeOptions.grammarName()));
     }
@@ -462,6 +465,10 @@ public class SpeechToText extends BaseService {
     }
     if (recognizeOptions.lowLatency() != null) {
       builder.query("low_latency", String.valueOf(recognizeOptions.lowLatency()));
+    }
+    if (recognizeOptions.characterInsertionBias() != null) {
+      builder.query(
+          "character_insertion_bias", String.valueOf(recognizeOptions.characterInsertionBias()));
     }
     builder.bodyContent(recognizeOptions.contentType(), null, null, recognizeOptions.audio());
     ResponseConverter<SpeechRecognitionResults> responseConverter =
@@ -702,9 +709,15 @@ public class SpeechToText extends BaseService {
    * accuracy.
    *
    * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Many next-generation models also support the `low_latency`
-   * parameter, which is not available with previous-generation models. Next-generation models do
-   * not support all of the parameters that are available for use with previous-generation models.
+   * previous-generation model. Most next-generation models support the `low_latency` parameter, and
+   * all next-generation models support the `character_insertion_bias` parameter. These parameters
+   * are not available with previous-generation models.
+   *
+   * <p>Next-generation models do not support all of the speech recognition parameters that are
+   * available for use with previous-generation models. Next-generation models do not support the
+   * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
+   * `max_alternatives` * `processing_metrics` and `processing_metrics_interval` *
+   * `word_alternatives_threshold`
    *
    * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
    * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
@@ -795,9 +808,6 @@ public class SpeechToText extends BaseService {
     if (createJobOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(createJobOptions.speakerLabels()));
     }
-    if (createJobOptions.customizationId() != null) {
-      builder.query("customization_id", String.valueOf(createJobOptions.customizationId()));
-    }
     if (createJobOptions.grammarName() != null) {
       builder.query("grammar_name", String.valueOf(createJobOptions.grammarName()));
     }
@@ -836,6 +846,10 @@ public class SpeechToText extends BaseService {
     }
     if (createJobOptions.lowLatency() != null) {
       builder.query("low_latency", String.valueOf(createJobOptions.lowLatency()));
+    }
+    if (createJobOptions.characterInsertionBias() != null) {
+      builder.query(
+          "character_insertion_bias", String.valueOf(createJobOptions.characterInsertionBias()));
     }
     builder.bodyContent(createJobOptions.contentType(), null, null, createJobOptions.audio());
     ResponseConverter<RecognitionJob> responseConverter =
@@ -1217,6 +1231,9 @@ public class SpeechToText extends BaseService {
       builder.query(
           "customization_weight", String.valueOf(trainLanguageModelOptions.customizationWeight()));
     }
+    if (trainLanguageModelOptions.strict() != null) {
+      builder.query("strict", String.valueOf(trainLanguageModelOptions.strict()));
+    }
     ResponseConverter<TrainingResponse> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<TrainingResponse>() {}.getType());
@@ -1374,7 +1391,7 @@ public class SpeechToText extends BaseService {
    * corpus, you must validate the words resource to ensure that each OOV word's definition is
    * complete and valid. You can use the [List custom words](#listwords) method to examine the words
    * resource. You can use other words method to eliminate typos and modify how words are pronounced
-   * as needed.
+   * and displayed as needed.
    *
    * <p>To add a corpus file that has the same name as an existing corpus, set the `allow_overwrite`
    * parameter to `true`; otherwise, the request fails. Overwriting an existing corpus causes the
@@ -1520,7 +1537,10 @@ public class SpeechToText extends BaseService {
    * from the custom model's words resource, only custom words that were added or modified by the
    * user, or, _for a custom model that is based on a previous-generation model_, only
    * out-of-vocabulary (OOV) words that were extracted from corpora or are recognized by grammars.
-   * You can also indicate the order in which the service is to return words; by default, the
+   * _For a custom model that is based on a next-generation model_, you can list all words or only
+   * those words that were added directly by a user, which return the same results.
+   *
+   * <p>You can also indicate the order in which the service is to return words; by default, the
    * service lists words in ascending alphabetical order. You must use credentials for the instance
    * of the service that owns a model to list information about its words.
    *
@@ -1580,15 +1600,15 @@ public class SpeechToText extends BaseService {
    * for each word. * The `display_as` field provides a different way of spelling the word in a
    * transcript. Use the parameter when you want the word to appear different from its usual
    * representation or from its spelling in training data. For example, you might indicate that the
-   * word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field, _which can be
-   * used only with a custom model that is based on a previous-generation model_, provides an array
+   * word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field provides an array
    * of one or more pronunciations for the word. Use the parameter to specify how the word can be
    * pronounced by users. Use the parameter for words that are difficult to pronounce, foreign
    * words, acronyms, and so on. For example, you might specify that the word `IEEE` can sound like
-   * `i triple e`. You can specify a maximum of five sounds-like pronunciations for a word. If you
-   * omit the `sounds_like` field, the service attempts to set the field to its pronunciation of the
-   * word. It cannot generate a pronunciation for all words, so you must review the word's
-   * definition to ensure that it is complete and valid.
+   * `I triple E`. You can specify a maximum of five sounds-like pronunciations for a word. _For a
+   * custom model that is based on a previous-generation model_, if you omit the `sounds_like`
+   * field, the service attempts to set the field to its pronunciation of the word. It cannot
+   * generate a pronunciation for all words, so you must review the word's definition to ensure that
+   * it is complete and valid.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error
@@ -1671,15 +1691,15 @@ public class SpeechToText extends BaseService {
    * `sounds_like` fields for the word. * The `display_as` field provides a different way of
    * spelling the word in a transcript. Use the parameter when you want the word to appear different
    * from its usual representation or from its spelling in training data. For example, you might
-   * indicate that the word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field,
-   * _which can be used only with a custom model that is based on a previous-generation model_,
+   * indicate that the word `IBM` is to be displayed as `IBM&amp;trade;`. * The `sounds_like` field
    * provides an array of one or more pronunciations for the word. Use the parameter to specify how
    * the word can be pronounced by users. Use the parameter for words that are difficult to
    * pronounce, foreign words, acronyms, and so on. For example, you might specify that the word
    * `IEEE` can sound like `i triple e`. You can specify a maximum of five sounds-like
-   * pronunciations for a word. If you omit the `sounds_like` field, the service attempts to set the
-   * field to its pronunciation of the word. It cannot generate a pronunciation for all words, so
-   * you must review the word's definition to ensure that it is complete and valid.
+   * pronunciations for a word. _For custom models that are based on previous-generation models_, if
+   * you omit the `sounds_like` field, the service attempts to set the field to its pronunciation of
+   * the word. It cannot generate a pronunciation for all words, so you must review the word's
+   * definition to ensure that it is complete and valid.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error,
@@ -2268,6 +2288,9 @@ public class SpeechToText extends BaseService {
       builder.query(
           "custom_language_model_id",
           String.valueOf(trainAcousticModelOptions.customLanguageModelId()));
+    }
+    if (trainAcousticModelOptions.strict() != null) {
+      builder.query("strict", String.valueOf(trainAcousticModelOptions.strict()));
     }
     ResponseConverter<TrainingResponse> responseConverter =
         ResponseConverterUtils.getValue(
