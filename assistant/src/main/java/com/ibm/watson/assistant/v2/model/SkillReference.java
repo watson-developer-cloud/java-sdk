@@ -87,7 +87,8 @@ public class SkillReference extends GenericModel {
   /**
    * Gets the skillReference.
    *
-   * <p>The type of skill identified by the skill reference.
+   * <p>The type of skill identified by the skill reference. The possible values are `main skill`
+   * (for a dialog skill), `actions skill`, and `search skill`.
    *
    * @return the skillReference
    */

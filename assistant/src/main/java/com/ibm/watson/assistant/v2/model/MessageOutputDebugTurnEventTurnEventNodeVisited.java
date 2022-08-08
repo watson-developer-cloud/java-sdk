@@ -15,6 +15,8 @@ package com.ibm.watson.assistant.v2.model;
 /** MessageOutputDebugTurnEventTurnEventNodeVisited. */
 public class MessageOutputDebugTurnEventTurnEventNodeVisited extends MessageOutputDebugTurnEvent {
 
+  private TurnEventNodeSource source;
+
   /** The reason the dialog node was visited. */
   public interface Reason {
     /** welcome. */
@@ -29,5 +31,14 @@ public class MessageOutputDebugTurnEventTurnEventNodeVisited extends MessageOutp
     String TOPIC_SWITCH_WITHOUT_RETURN = "topic_switch_without_return";
     /** jump. */
     String JUMP = "jump";
+  }
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventNodeSource getSource() {
+    return source;
   }
 }

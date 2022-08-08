@@ -13,4 +13,26 @@
 package com.ibm.watson.assistant.v2.model;
 
 /** MessageOutputDebugTurnEventTurnEventSearch. */
-public class MessageOutputDebugTurnEventTurnEventSearch extends MessageOutputDebugTurnEvent {}
+public class MessageOutputDebugTurnEventTurnEventSearch extends MessageOutputDebugTurnEvent {
+
+  private TurnEventActionSource source;
+  private TurnEventSearchError error;
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
+
+  /**
+   * Gets the error.
+   *
+   * @return the error
+   */
+  public TurnEventSearchError getError() {
+    return error;
+  }
+}

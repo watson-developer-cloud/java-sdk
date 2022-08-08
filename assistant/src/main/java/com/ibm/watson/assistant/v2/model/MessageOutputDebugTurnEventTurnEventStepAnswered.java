@@ -15,6 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 /** MessageOutputDebugTurnEventTurnEventStepAnswered. */
 public class MessageOutputDebugTurnEventTurnEventStepAnswered extends MessageOutputDebugTurnEvent {
 
+  private TurnEventActionSource source;
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
     /** user_defined. */
@@ -23,5 +24,14 @@ public class MessageOutputDebugTurnEventTurnEventStepAnswered extends MessageOut
     String WELCOME = "welcome";
     /** anything_else. */
     String ANYTHING_ELSE = "anything_else";
+  }
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
   }
 }

@@ -15,6 +15,8 @@ package com.ibm.watson.assistant.v2.model;
 /** MessageOutputDebugTurnEventTurnEventActionVisited. */
 public class MessageOutputDebugTurnEventTurnEventActionVisited extends MessageOutputDebugTurnEvent {
 
+  private TurnEventActionSource source;
+  
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
     /** user_defined. */
@@ -45,5 +47,14 @@ public class MessageOutputDebugTurnEventTurnEventActionVisited extends MessageOu
     String STEP_VALIDATION_FAILED = "step_validation_failed";
     /** no_action_matches. */
     String NO_ACTION_MATCHES = "no_action_matches";
+  }
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
   }
 }
