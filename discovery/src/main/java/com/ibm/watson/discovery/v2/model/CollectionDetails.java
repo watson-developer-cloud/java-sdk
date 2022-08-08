@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,18 +30,23 @@ public class CollectionDetails extends GenericModel {
   protected String language;
   protected List<CollectionEnrichment> enrichments;
 
+  @SerializedName("smart_document_understanding")
+  protected CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
+
   /** Builder. */
   public static class Builder {
     private String name;
     private String description;
     private String language;
     private List<CollectionEnrichment> enrichments;
+    private CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
     private Builder(CollectionDetails collectionDetails) {
       this.name = collectionDetails.name;
       this.description = collectionDetails.description;
       this.language = collectionDetails.language;
       this.enrichments = collectionDetails.enrichments;
+      this.smartDocumentUnderstanding = collectionDetails.smartDocumentUnderstanding;
     }
 
     /** Instantiates a new builder. */
@@ -123,7 +128,21 @@ public class CollectionDetails extends GenericModel {
       this.enrichments = enrichments;
       return this;
     }
+
+    /**
+     * Set the smartDocumentUnderstanding.
+     *
+     * @param smartDocumentUnderstanding the smartDocumentUnderstanding
+     * @return the CollectionDetails builder
+     */
+    public Builder smartDocumentUnderstanding(
+        CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding) {
+      this.smartDocumentUnderstanding = smartDocumentUnderstanding;
+      return this;
+    }
   }
+
+  protected CollectionDetails() {}
 
   protected CollectionDetails(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.name, "name cannot be null");
@@ -131,6 +150,7 @@ public class CollectionDetails extends GenericModel {
     description = builder.description;
     language = builder.language;
     enrichments = builder.enrichments;
+    smartDocumentUnderstanding = builder.smartDocumentUnderstanding;
   }
 
   /**
@@ -189,7 +209,8 @@ public class CollectionDetails extends GenericModel {
   /**
    * Gets the language.
    *
-   * <p>The language of the collection.
+   * <p>The language of the collection. For a list of supported languages, see the [product
+   * documentation](/docs/discovery-data?topic=discovery-data-language-support).
    *
    * @return the language
    */
@@ -200,11 +221,27 @@ public class CollectionDetails extends GenericModel {
   /**
    * Gets the enrichments.
    *
-   * <p>An array of enrichments that are applied to this collection.
+   * <p>An array of enrichments that are applied to this collection. To get a list of enrichments
+   * that are available for a project, use the [List enrichments](#listenrichments) method.
+   *
+   * <p>If no enrichments are specified when the collection is created, the default enrichments for
+   * the project type are applied. For more information about project default settings, see the
+   * [product documentation](/docs/discovery-data?topic=discovery-data-project-defaults).
    *
    * @return the enrichments
    */
   public List<CollectionEnrichment> enrichments() {
     return enrichments;
+  }
+
+  /**
+   * Gets the smartDocumentUnderstanding.
+   *
+   * <p>An object that describes the Smart Document Understanding model for a collection.
+   *
+   * @return the smartDocumentUnderstanding
+   */
+  public CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding() {
+    return smartDocumentUnderstanding;
   }
 }

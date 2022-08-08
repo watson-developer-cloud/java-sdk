@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,7 @@ public class QueryOptions extends GenericModel {
   protected QueryLargeTableResults tableResults;
   protected QueryLargeSuggestedRefinements suggestedRefinements;
   protected QueryLargePassages passages;
+  protected QueryLargeSimilar similar;
 
   /** Builder. */
   public static class Builder {
@@ -52,6 +53,7 @@ public class QueryOptions extends GenericModel {
     private QueryLargeTableResults tableResults;
     private QueryLargeSuggestedRefinements suggestedRefinements;
     private QueryLargePassages passages;
+    private QueryLargeSimilar similar;
 
     private Builder(QueryOptions queryOptions) {
       this.projectId = queryOptions.projectId;
@@ -69,6 +71,7 @@ public class QueryOptions extends GenericModel {
       this.tableResults = queryOptions.tableResults;
       this.suggestedRefinements = queryOptions.suggestedRefinements;
       this.passages = queryOptions.passages;
+      this.similar = queryOptions.similar;
     }
 
     /** Instantiates a new builder. */
@@ -286,7 +289,20 @@ public class QueryOptions extends GenericModel {
       this.passages = passages;
       return this;
     }
+
+    /**
+     * Set the similar.
+     *
+     * @param similar the similar
+     * @return the QueryOptions builder
+     */
+    public Builder similar(QueryLargeSimilar similar) {
+      this.similar = similar;
+      return this;
+    }
   }
+
+  protected QueryOptions() {}
 
   protected QueryOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
@@ -305,6 +321,7 @@ public class QueryOptions extends GenericModel {
     tableResults = builder.tableResults;
     suggestedRefinements = builder.suggestedRefinements;
     passages = builder.passages;
+    similar = builder.similar;
   }
 
   /**
@@ -342,8 +359,11 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * <p>A cacheable query that excludes documents that don't mention the query content. Filter
-   * searches are better for metadata-type searches and for assessing the concepts in the data set.
+   * <p>Searches for documents that match the Discovery Query Language criteria that is specified as
+   * input. Filter calls are cached and are faster than query calls because the results are not
+   * ordered by relevance. When used with the **aggregation**, **query**, or
+   * **natural_language_query** parameters, the **filter** parameter runs first. This parameter is
+   * useful for limiting results to those that contain specific metadata values.
    *
    * @return the filter
    */
@@ -354,9 +374,10 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * <p>A query search returns all documents in your data set with full enrichments and full text,
-   * but with the most relevant documents listed first. Use a query search when you want to find the
-   * most relevant search results.
+   * <p>A query search that is written in the Discovery Query Language and returns all matching
+   * documents in your data set with full enrichments and full text, and with the most relevant
+   * documents listed first. Use a query search when you want to find the most relevant search
+   * results.
    *
    * @return the query
    */
@@ -367,8 +388,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * <p>A natural language query that returns relevant documents by utilizing training data and
-   * natural language understanding.
+   * <p>A natural language query that returns relevant documents by using training data and natural
+   * language understanding.
    *
    * @return the naturalLanguageQuery
    */
@@ -380,8 +401,9 @@ public class QueryOptions extends GenericModel {
    * Gets the aggregation.
    *
    * <p>An aggregation search that returns an exact answer by combining query search with filters.
-   * Useful for applications to build lists, tables, and time series. For a full list of possible
-   * aggregations, see the Query reference.
+   * Useful for applications to build lists, tables, and time series. For more information about the
+   * supported types of aggregations, see the [Discovery
+   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-aggregations).
    *
    * @return the aggregation
    */
@@ -403,8 +425,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the xReturn.
    *
-   * <p>A list of the fields in the document hierarchy to return. If this parameter is an empty
-   * list, then all fields are returned.
+   * <p>A list of the fields in the document hierarchy to return. You can specify both root-level
+   * (`text`) and nested (`extracted_metadata.filename`) fields. If this parameter is an empty list,
+   * then all fields are returned.
    *
    * @return the xReturn
    */
@@ -440,8 +463,10 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * <p>When `true`, a highlight field is returned for each result which contains the fields which
-   * match the query with `&lt;em&gt;&lt;/em&gt;` tags around the matching query terms.
+   * <p>When `true`, a highlight field is returned for each result that contains fields that match
+   * the query. The matching query terms are emphasized with surrounding `&lt;em&gt;&lt;/em&gt;`
+   * tags. This parameter is ignored if **passages.enabled** and **passages.per_document** are
+   * `true`, in which case passages are returned for each document instead of highlights.
    *
    * @return the highlight
    */
@@ -476,7 +501,10 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the suggestedRefinements.
    *
-   * <p>Configuration for suggested refinements. Available with Premium plans only.
+   * <p>Configuration for suggested refinements.
+   *
+   * <p>**Note**: The **suggested_refinements** parameter that identified dynamic facets from the
+   * data is deprecated.
    *
    * @return the suggestedRefinements
    */
@@ -493,5 +521,18 @@ public class QueryOptions extends GenericModel {
    */
   public QueryLargePassages passages() {
     return passages;
+  }
+
+  /**
+   * Gets the similar.
+   *
+   * <p>Finds results from documents that are similar to documents of interest. Use this parameter
+   * to add a *More like these* function to your search. You can include this parameter with or
+   * without a **query**, **filter** or **natural_language_query** parameter.
+   *
+   * @return the similar
+   */
+  public QueryLargeSimilar similar() {
+    return similar;
   }
 }

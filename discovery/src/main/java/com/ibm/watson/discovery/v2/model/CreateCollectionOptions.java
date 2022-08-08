@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ public class CreateCollectionOptions extends GenericModel {
   protected String description;
   protected String language;
   protected List<CollectionEnrichment> enrichments;
+  protected CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
   /** Builder. */
   public static class Builder {
@@ -32,6 +33,7 @@ public class CreateCollectionOptions extends GenericModel {
     private String description;
     private String language;
     private List<CollectionEnrichment> enrichments;
+    private CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
     private Builder(CreateCollectionOptions createCollectionOptions) {
       this.projectId = createCollectionOptions.projectId;
@@ -39,6 +41,7 @@ public class CreateCollectionOptions extends GenericModel {
       this.description = createCollectionOptions.description;
       this.language = createCollectionOptions.language;
       this.enrichments = createCollectionOptions.enrichments;
+      this.smartDocumentUnderstanding = createCollectionOptions.smartDocumentUnderstanding;
     }
 
     /** Instantiates a new builder. */
@@ -135,6 +138,18 @@ public class CreateCollectionOptions extends GenericModel {
     }
 
     /**
+     * Set the smartDocumentUnderstanding.
+     *
+     * @param smartDocumentUnderstanding the smartDocumentUnderstanding
+     * @return the CreateCollectionOptions builder
+     */
+    public Builder smartDocumentUnderstanding(
+        CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding) {
+      this.smartDocumentUnderstanding = smartDocumentUnderstanding;
+      return this;
+    }
+
+    /**
      * Set the collectionDetails.
      *
      * @param collectionDetails the collectionDetails
@@ -145,9 +160,12 @@ public class CreateCollectionOptions extends GenericModel {
       this.description = collectionDetails.description();
       this.language = collectionDetails.language();
       this.enrichments = collectionDetails.enrichments();
+      this.smartDocumentUnderstanding = collectionDetails.smartDocumentUnderstanding();
       return this;
     }
   }
+
+  protected CreateCollectionOptions() {}
 
   protected CreateCollectionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.projectId, "projectId cannot be empty");
@@ -157,6 +175,7 @@ public class CreateCollectionOptions extends GenericModel {
     description = builder.description;
     language = builder.language;
     enrichments = builder.enrichments;
+    smartDocumentUnderstanding = builder.smartDocumentUnderstanding;
   }
 
   /**
@@ -205,7 +224,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * <p>The language of the collection.
+   * <p>The language of the collection. For a list of supported languages, see the [product
+   * documentation](/docs/discovery-data?topic=discovery-data-language-support).
    *
    * @return the language
    */
@@ -216,11 +236,27 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the enrichments.
    *
-   * <p>An array of enrichments that are applied to this collection.
+   * <p>An array of enrichments that are applied to this collection. To get a list of enrichments
+   * that are available for a project, use the [List enrichments](#listenrichments) method.
+   *
+   * <p>If no enrichments are specified when the collection is created, the default enrichments for
+   * the project type are applied. For more information about project default settings, see the
+   * [product documentation](/docs/discovery-data?topic=discovery-data-project-defaults).
    *
    * @return the enrichments
    */
   public List<CollectionEnrichment> enrichments() {
     return enrichments;
+  }
+
+  /**
+   * Gets the smartDocumentUnderstanding.
+   *
+   * <p>An object that describes the Smart Document Understanding model for a collection.
+   *
+   * @return the smartDocumentUnderstanding
+   */
+  public CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding() {
+    return smartDocumentUnderstanding;
   }
 }

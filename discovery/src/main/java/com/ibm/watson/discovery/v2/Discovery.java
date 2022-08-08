@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.38.0-07189efd-20210827-205025
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.discovery.v2;
@@ -34,29 +34,52 @@ import com.ibm.watson.discovery.v2.model.CollectionDetails;
 import com.ibm.watson.discovery.v2.model.Completions;
 import com.ibm.watson.discovery.v2.model.ComponentSettingsResponse;
 import com.ibm.watson.discovery.v2.model.CreateCollectionOptions;
+import com.ibm.watson.discovery.v2.model.CreateDocumentClassifierModelOptions;
+import com.ibm.watson.discovery.v2.model.CreateDocumentClassifierOptions;
 import com.ibm.watson.discovery.v2.model.CreateEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.CreateExpansionsOptions;
 import com.ibm.watson.discovery.v2.model.CreateProjectOptions;
+import com.ibm.watson.discovery.v2.model.CreateStopwordListOptions;
 import com.ibm.watson.discovery.v2.model.CreateTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.DeleteCollectionOptions;
+import com.ibm.watson.discovery.v2.model.DeleteDocumentClassifierModelOptions;
+import com.ibm.watson.discovery.v2.model.DeleteDocumentClassifierOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentOptions;
 import com.ibm.watson.discovery.v2.model.DeleteDocumentResponse;
 import com.ibm.watson.discovery.v2.model.DeleteEnrichmentOptions;
+import com.ibm.watson.discovery.v2.model.DeleteExpansionsOptions;
 import com.ibm.watson.discovery.v2.model.DeleteProjectOptions;
+import com.ibm.watson.discovery.v2.model.DeleteStopwordListOptions;
 import com.ibm.watson.discovery.v2.model.DeleteTrainingQueriesOptions;
 import com.ibm.watson.discovery.v2.model.DeleteTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.discovery.v2.model.DocumentAccepted;
+import com.ibm.watson.discovery.v2.model.DocumentClassifier;
+import com.ibm.watson.discovery.v2.model.DocumentClassifierModel;
+import com.ibm.watson.discovery.v2.model.DocumentClassifierModels;
+import com.ibm.watson.discovery.v2.model.DocumentClassifiers;
+import com.ibm.watson.discovery.v2.model.DocumentDetails;
 import com.ibm.watson.discovery.v2.model.Enrichment;
 import com.ibm.watson.discovery.v2.model.Enrichments;
+import com.ibm.watson.discovery.v2.model.Expansions;
 import com.ibm.watson.discovery.v2.model.GetAutocompletionOptions;
 import com.ibm.watson.discovery.v2.model.GetCollectionOptions;
 import com.ibm.watson.discovery.v2.model.GetComponentSettingsOptions;
+import com.ibm.watson.discovery.v2.model.GetDocumentClassifierModelOptions;
+import com.ibm.watson.discovery.v2.model.GetDocumentClassifierOptions;
+import com.ibm.watson.discovery.v2.model.GetDocumentOptions;
 import com.ibm.watson.discovery.v2.model.GetEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.GetProjectOptions;
+import com.ibm.watson.discovery.v2.model.GetStopwordListOptions;
 import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
+import com.ibm.watson.discovery.v2.model.ListDocumentClassifierModelsOptions;
+import com.ibm.watson.discovery.v2.model.ListDocumentClassifiersOptions;
+import com.ibm.watson.discovery.v2.model.ListDocumentsOptions;
+import com.ibm.watson.discovery.v2.model.ListDocumentsResponse;
 import com.ibm.watson.discovery.v2.model.ListEnrichmentsOptions;
+import com.ibm.watson.discovery.v2.model.ListExpansionsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsOptions;
 import com.ibm.watson.discovery.v2.model.ListFieldsResponse;
 import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
@@ -68,9 +91,12 @@ import com.ibm.watson.discovery.v2.model.QueryNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryNoticesResponse;
 import com.ibm.watson.discovery.v2.model.QueryOptions;
 import com.ibm.watson.discovery.v2.model.QueryResponse;
+import com.ibm.watson.discovery.v2.model.StopWordList;
 import com.ibm.watson.discovery.v2.model.TrainingQuery;
 import com.ibm.watson.discovery.v2.model.TrainingQuerySet;
 import com.ibm.watson.discovery.v2.model.UpdateCollectionOptions;
+import com.ibm.watson.discovery.v2.model.UpdateDocumentClassifierModelOptions;
+import com.ibm.watson.discovery.v2.model.UpdateDocumentClassifierOptions;
 import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateProjectOptions;
@@ -174,6 +200,202 @@ public class Discovery extends BaseService {
   }
 
   /**
+   * List projects.
+   *
+   * <p>Lists existing projects for this instance.
+   *
+   * @param listProjectsOptions the {@link ListProjectsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ListProjectsResponse}
+   */
+  public ServiceCall<ListProjectsResponse> listProjects(ListProjectsOptions listProjectsOptions) {
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/projects"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listProjects");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<ListProjectsResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ListProjectsResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List projects.
+   *
+   * <p>Lists existing projects for this instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link ListProjectsResponse}
+   */
+  public ServiceCall<ListProjectsResponse> listProjects() {
+    return listProjects(null);
+  }
+
+  /**
+   * Create a project.
+   *
+   * <p>Create a new project for this instance.
+   *
+   * @param createProjectOptions the {@link CreateProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> createProject(CreateProjectOptions createProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createProjectOptions, "createProjectOptions cannot be null");
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/projects"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createProjectOptions.name());
+    contentJson.addProperty("type", createProjectOptions.type());
+    if (createProjectOptions.defaultQueryParameters() != null) {
+      contentJson.add(
+          "default_query_parameters",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createProjectOptions.defaultQueryParameters()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get project.
+   *
+   * <p>Get details on the specified project.
+   *
+   * @param getProjectOptions the {@link GetProjectOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> getProject(GetProjectOptions getProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getProjectOptions, "getProjectOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getProjectOptions.projectId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a project.
+   *
+   * <p>Update the specified project's name.
+   *
+   * @param updateProjectOptions the {@link UpdateProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
+   */
+  public ServiceCall<ProjectDetails> updateProject(UpdateProjectOptions updateProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateProjectOptions, "updateProjectOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateProjectOptions.projectId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (updateProjectOptions.name() != null) {
+      contentJson.addProperty("name", updateProjectOptions.name());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProjectDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a project.
+   *
+   * <p>Deletes the specified project.
+   *
+   * <p>**Important:** Deleting a project deletes everything that is part of the specified project,
+   * including all collections.
+   *
+   * @param deleteProjectOptions the {@link DeleteProjectOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteProject(DeleteProjectOptions deleteProjectOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteProjectOptions, "deleteProjectOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteProjectOptions.projectId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteProject");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List fields.
+   *
+   * <p>Gets a list of the unique fields (and their types) stored in the specified collections.
+   *
+   * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ListFieldsResponse}
+   */
+  public ServiceCall<ListFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listFieldsOptions, "listFieldsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listFieldsOptions.projectId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/projects/{project_id}/fields", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listFields");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listFieldsOptions.collectionIds() != null) {
+      builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
+    }
+    ResponseConverter<ListFieldsResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ListFieldsResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List collections.
    *
    * <p>Lists existing collections for the specified project.
@@ -242,6 +464,12 @@ public class Discovery extends BaseService {
           "enrichments",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
               .toJsonTree(createCollectionOptions.enrichments()));
+    }
+    if (createCollectionOptions.smartDocumentUnderstanding() != null) {
+      contentJson.add(
+          "smart_document_understanding",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createCollectionOptions.smartDocumentUnderstanding()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<CollectionDetails> responseConverter =
@@ -363,14 +591,304 @@ public class Discovery extends BaseService {
   }
 
   /**
+   * List documents.
+   *
+   * <p>Lists the documents in the specified collection. The list includes only the document ID of
+   * each document and returns information for up to 10,000 documents.
+   *
+   * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
+   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances.
+   *
+   * @param listDocumentsOptions the {@link ListDocumentsOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ListDocumentsResponse}
+   */
+  public ServiceCall<ListDocumentsResponse> listDocuments(
+      ListDocumentsOptions listDocumentsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listDocumentsOptions, "listDocumentsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listDocumentsOptions.projectId());
+    pathParamsMap.put("collection_id", listDocumentsOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/documents",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listDocuments");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listDocumentsOptions.count() != null) {
+      builder.query("count", String.valueOf(listDocumentsOptions.count()));
+    }
+    if (listDocumentsOptions.status() != null) {
+      builder.query("status", String.valueOf(listDocumentsOptions.status()));
+    }
+    if (listDocumentsOptions.hasNotices() != null) {
+      builder.query("has_notices", String.valueOf(listDocumentsOptions.hasNotices()));
+    }
+    if (listDocumentsOptions.isParent() != null) {
+      builder.query("is_parent", String.valueOf(listDocumentsOptions.isParent()));
+    }
+    if (listDocumentsOptions.parentDocumentId() != null) {
+      builder.query("parent_document_id", String.valueOf(listDocumentsOptions.parentDocumentId()));
+    }
+    if (listDocumentsOptions.sha256() != null) {
+      builder.query("sha256", String.valueOf(listDocumentsOptions.sha256()));
+    }
+    ResponseConverter<ListDocumentsResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ListDocumentsResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Add a document.
+   *
+   * <p>Add a document to a collection with optional metadata.
+   *
+   * <p>Returns immediately after the system has accepted the document for processing.
+   *
+   * <p>This operation works with a file upload collection. It cannot be used to modify a collection
+   * that crawls an external data source.
+   *
+   * <p>* For a list of supported file types, see the [product
+   * documentation](/docs/discovery-data?topic=discovery-data-collections#supportedfiletypes).
+   *
+   * <p>* You must provide document content, metadata, or both. If the request is missing both
+   * document content and metadata, it is rejected.
+   *
+   * <p>* You can set the **Content-Type** parameter on the **file** part to indicate the media type
+   * of the document. If the **Content-Type** parameter is missing or is one of the generic media
+   * types (for example, `application/octet-stream`), then the service attempts to automatically
+   * detect the document's media type.
+   *
+   * <p>* If the document is uploaded to a collection that shares its data with another collection,
+   * the **X-Watson-Discovery-Force** header must be set to `true`.
+   *
+   * <p>* In curl requests only, you can assign an ID to a document that you add by appending the ID
+   * to the endpoint
+   * (`/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}`). If a
+   * document already exists with the specified ID, it is replaced.
+   *
+   * <p>For more information about how certain file types and field names are handled when a file is
+   * added to a collection, see the [product
+   * documentation](/docs/discovery-data?topic=discovery-data-index-overview#field-name-limits).
+   *
+   * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentAccepted}
+   */
+  public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        addDocumentOptions, "addDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
+        "At least one of file or metadata must be supplied.");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", addDocumentOptions.projectId());
+    pathParamsMap.put("collection_id", addDocumentOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/documents",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "addDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (addDocumentOptions.xWatsonDiscoveryForce() != null) {
+      builder.header("X-Watson-Discovery-Force", addDocumentOptions.xWatsonDiscoveryForce());
+    }
+    builder.query("version", String.valueOf(this.version));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (addDocumentOptions.file() != null) {
+      okhttp3.RequestBody fileBody =
+          RequestUtils.inputStreamBody(
+              addDocumentOptions.file(), addDocumentOptions.fileContentType());
+      multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
+    }
+    if (addDocumentOptions.metadata() != null) {
+      multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentAccepted> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentAccepted>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get document details.
+   *
+   * <p>Get details about a specific document, whether the document is added by uploading a file or
+   * by crawling an external data source.
+   *
+   * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
+   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances.
+   *
+   * @param getDocumentOptions the {@link GetDocumentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentDetails}
+   */
+  public ServiceCall<DocumentDetails> getDocument(GetDocumentOptions getDocumentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getDocumentOptions, "getDocumentOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getDocumentOptions.projectId());
+    pathParamsMap.put("collection_id", getDocumentOptions.collectionId());
+    pathParamsMap.put("document_id", getDocumentOptions.documentId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<DocumentDetails> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentDetails>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a document.
+   *
+   * <p>Replace an existing document or add a document with a specified document ID. Starts
+   * ingesting a document with optional metadata.
+   *
+   * <p>This operation works with a file upload collection. It cannot be used to modify a collection
+   * that crawls an external data source.
+   *
+   * <p>If the document is uploaded to a collection that shares its data with another collection,
+   * the **X-Watson-Discovery-Force** header must be set to `true`.
+   *
+   * <p>**Notes:**
+   *
+   * <p>* Uploading a new document with this method automatically replaces any existing document
+   * stored with the same document ID.
+   *
+   * <p>* If an uploaded document is split into child documents during ingestion, all existing child
+   * documents are overwritten, even if the updated version of the document has fewer child
+   * documents.
+   *
+   * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentAccepted}
+   */
+  public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateDocumentOptions, "updateDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
+        "At least one of file or metadata must be supplied.");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateDocumentOptions.projectId());
+    pathParamsMap.put("collection_id", updateDocumentOptions.collectionId());
+    pathParamsMap.put("document_id", updateDocumentOptions.documentId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (updateDocumentOptions.xWatsonDiscoveryForce() != null) {
+      builder.header("X-Watson-Discovery-Force", updateDocumentOptions.xWatsonDiscoveryForce());
+    }
+    builder.query("version", String.valueOf(this.version));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (updateDocumentOptions.file() != null) {
+      okhttp3.RequestBody fileBody =
+          RequestUtils.inputStreamBody(
+              updateDocumentOptions.file(), updateDocumentOptions.fileContentType());
+      multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
+    }
+    if (updateDocumentOptions.metadata() != null) {
+      multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentAccepted> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentAccepted>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a document.
+   *
+   * <p>If the given document ID is invalid, or if the document is not found, then the a success
+   * response is returned (HTTP status code `200`) with the status set to 'deleted'.
+   *
+   * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
+   * cannot be used to modify a collection that connects to an external source such as Microsoft
+   * SharePoint.
+   *
+   * <p>**Note:** Segments of an uploaded document cannot be deleted individually. Delete all
+   * segments by deleting using the `parent_document_id` of a segment result.
+   *
+   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link DeleteDocumentResponse}
+   */
+  public ServiceCall<DeleteDocumentResponse> deleteDocument(
+      DeleteDocumentOptions deleteDocumentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteDocumentOptions.projectId());
+    pathParamsMap.put("collection_id", deleteDocumentOptions.collectionId());
+    pathParamsMap.put("document_id", deleteDocumentOptions.documentId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (deleteDocumentOptions.xWatsonDiscoveryForce() != null) {
+      builder.header("X-Watson-Discovery-Force", deleteDocumentOptions.xWatsonDiscoveryForce());
+    }
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<DeleteDocumentResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Query a project.
    *
-   * <p>By using this method, you can construct queries. For details, see the [Discovery
+   * <p>Search your data by submitting queries that are written in natural language or formatted in
+   * the Discovery Query Language. For more information, see the [Discovery
    * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-concepts).
-   * The default query parameters are defined by the settings for this project, see the [Discovery
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-project-defaults)
-   * for an overview of the standard default settings, and see [the Projects API
-   * documentation](#create-project) for details about how to set custom default query settings.
+   * The default query parameters differ by project type. For more information about the project
+   * default settings, see the [Discovery
+   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-defaults).
+   * See [the Projects API documentation](#create-project) for details about how to set custom
+   * default query settings.
+   *
+   * <p>The length of the UTF-8 encoding of the POST body cannot exceed 10,000 bytes, which is
+   * roughly equivalent to 10,000 characters in English.
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link QueryResponse}
@@ -444,6 +962,11 @@ public class Discovery extends BaseService {
       contentJson.add(
           "passages",
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.passages()));
+    }
+    if (queryOptions.similar() != null) {
+      contentJson.add(
+          "similar",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson().toJsonTree(queryOptions.similar()));
     }
     builder.bodyJson(contentJson);
     ResponseConverter<QueryResponse> responseConverter =
@@ -595,34 +1118,231 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * List fields.
+   * Get a custom stop words list.
    *
-   * <p>Gets a list of the unique fields (and their types) stored in the the specified collections.
+   * <p>Returns the custom stop words list that is used by the collection. For information about the
+   * default stop words lists that are applied to queries, see [the product
+   * documentation](/docs/discovery-data?topic=discovery-data-stopwords).
    *
-   * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ListFieldsResponse}
+   * @param getStopwordListOptions the {@link GetStopwordListOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link StopWordList}
    */
-  public ServiceCall<ListFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
+  public ServiceCall<StopWordList> getStopwordList(GetStopwordListOptions getStopwordListOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-        listFieldsOptions, "listFieldsOptions cannot be null");
+        getStopwordListOptions, "getStopwordListOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", listFieldsOptions.projectId());
+    pathParamsMap.put("project_id", getStopwordListOptions.projectId());
+    pathParamsMap.put("collection_id", getStopwordListOptions.collectionId());
     RequestBuilder builder =
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/projects/{project_id}/fields", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listFields");
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/stopwords",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getStopwordList");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
-    if (listFieldsOptions.collectionIds() != null) {
-      builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
-    }
-    ResponseConverter<ListFieldsResponse> responseConverter =
+    ResponseConverter<StopWordList> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ListFieldsResponse>() {}.getType());
+            new com.google.gson.reflect.TypeToken<StopWordList>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a custom stop words list.
+   *
+   * <p>Adds a list of custom stop words. Stop words are words that you want the service to ignore
+   * when they occur in a query because they're not useful in distinguishing the semantic meaning of
+   * the query. The stop words list cannot contain more than 1 million characters.
+   *
+   * <p>A default stop words list is used by all collections. The default list is applied both at
+   * indexing time and at query time. A custom stop words list that you add is used at query time
+   * only.
+   *
+   * <p>The custom stop words list replaces the default stop words list. Therefore, if you want to
+   * keep the stop words that were used when the collection was indexed, get the default stop words
+   * list for the language of the collection first and edit it to create your custom list. For
+   * information about the default stop words lists per language, see [the product
+   * documentation](/docs/discovery-data?topic=discovery-data-stopwords).
+   *
+   * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options
+   *     for the call
+   * @return a {@link ServiceCall} with a result of type {@link StopWordList}
+   */
+  public ServiceCall<StopWordList> createStopwordList(
+      CreateStopwordListOptions createStopwordListOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createStopwordListOptions, "createStopwordListOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createStopwordListOptions.projectId());
+    pathParamsMap.put("collection_id", createStopwordListOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/stopwords",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "createStopwordList");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (createStopwordListOptions.stopwords() != null) {
+      contentJson.add(
+          "stopwords",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createStopwordListOptions.stopwords()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<StopWordList> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<StopWordList>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a custom stop words list.
+   *
+   * <p>Deletes a custom stop words list to stop using it in queries against the collection. After a
+   * custom stop words list is deleted, the default stop words list is used.
+   *
+   * @param deleteStopwordListOptions the {@link DeleteStopwordListOptions} containing the options
+   *     for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteStopwordList(DeleteStopwordListOptions deleteStopwordListOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteStopwordListOptions, "deleteStopwordListOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteStopwordListOptions.projectId());
+    pathParamsMap.put("collection_id", deleteStopwordListOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/stopwords",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "deleteStopwordList");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get the expansion list.
+   *
+   * <p>Returns the current expansion list for the specified collection. If an expansion list is not
+   * specified, an empty expansions array is returned.
+   *
+   * @param listExpansionsOptions the {@link ListExpansionsOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link Expansions}
+   */
+  public ServiceCall<Expansions> listExpansions(ListExpansionsOptions listExpansionsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listExpansionsOptions, "listExpansionsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listExpansionsOptions.projectId());
+    pathParamsMap.put("collection_id", listExpansionsOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/expansions",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Expansions> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Expansions>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create or update an expansion list.
+   *
+   * <p>Creates or replaces the expansion list for this collection. An expansion list introduces
+   * alternative wording for key terms that are mentioned in your collection. By identifying
+   * synonyms or common misspellings, you expand the scope of a query beyond exact matches. The
+   * maximum number of expanded terms allowed per collection is 5,000.
+   *
+   * @param createExpansionsOptions the {@link CreateExpansionsOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a result of type {@link Expansions}
+   */
+  public ServiceCall<Expansions> createExpansions(CreateExpansionsOptions createExpansionsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createExpansionsOptions, "createExpansionsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createExpansionsOptions.projectId());
+    pathParamsMap.put("collection_id", createExpansionsOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/expansions",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add(
+        "expansions",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(createExpansionsOptions.expansions()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<Expansions> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Expansions>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete the expansion list.
+   *
+   * <p>Removes the expansion information for this collection. To disable query expansion for a
+   * collection, delete the expansion list.
+   *
+   * @param deleteExpansionsOptions the {@link DeleteExpansionsOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteExpansions(DeleteExpansionsOptions deleteExpansionsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteExpansionsOptions, "deleteExpansionsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteExpansionsOptions.projectId());
+    pathParamsMap.put("collection_id", deleteExpansionsOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/expansions",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteExpansions");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -655,196 +1375,6 @@ public class Discovery extends BaseService {
     ResponseConverter<ComponentSettingsResponse> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<ComponentSettingsResponse>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Add a document.
-   *
-   * <p>Add a document to a collection with optional metadata.
-   *
-   * <p>Returns immediately after the system has accepted the document for processing.
-   *
-   * <p>* The user must provide document content, metadata, or both. If the request is missing both
-   * document content and metadata, it is rejected.
-   *
-   * <p>* You can set the **Content-Type** parameter on the **file** part to indicate the media type
-   * of the document. If the **Content-Type** parameter is missing or is one of the generic media
-   * types (for example, `application/octet-stream`), then the service attempts to automatically
-   * detect the document's media type.
-   *
-   * <p>* The following field names are reserved and are filtered out if present after
-   * normalization: `id`, `score`, `highlight`, and any field with the prefix of: `_`, `+`, or `-`
-   *
-   * <p>* Fields with empty name values after normalization are filtered out before indexing.
-   *
-   * <p>* Fields that contain the following characters after normalization are filtered out before
-   * indexing: `#` and `,`
-   *
-   * <p>If the document is uploaded to a collection that shares its data with another collection,
-   * the **X-Watson-Discovery-Force** header must be set to `true`.
-   *
-   * <p>**Note:** You can assign an ID to a document that you add by appending the ID to the
-   * endpoint (`/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}`). If
-   * a document already exists with the specified ID, it is replaced.
-   *
-   * <p>**Note:** This operation works with a file upload collection. It cannot be used to modify a
-   * collection that crawls an external data source.
-   *
-   * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DocumentAccepted}
-   */
-  public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        addDocumentOptions, "addDocumentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
-        "At least one of file or metadata must be supplied.");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", addDocumentOptions.projectId());
-    pathParamsMap.put("collection_id", addDocumentOptions.collectionId());
-    RequestBuilder builder =
-        RequestBuilder.post(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(),
-                "/v2/projects/{project_id}/collections/{collection_id}/documents",
-                pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "addDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (addDocumentOptions.xWatsonDiscoveryForce() != null) {
-      builder.header("X-Watson-Discovery-Force", addDocumentOptions.xWatsonDiscoveryForce());
-    }
-    builder.query("version", String.valueOf(this.version));
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (addDocumentOptions.file() != null) {
-      okhttp3.RequestBody fileBody =
-          RequestUtils.inputStreamBody(
-              addDocumentOptions.file(), addDocumentOptions.fileContentType());
-      multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
-    }
-    if (addDocumentOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<DocumentAccepted> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<DocumentAccepted>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Update a document.
-   *
-   * <p>Replace an existing document or add a document with a specified **document_id**. Starts
-   * ingesting a document with optional metadata.
-   *
-   * <p>If the document is uploaded to a collection that shares its data with another collection,
-   * the **X-Watson-Discovery-Force** header must be set to `true`.
-   *
-   * <p>**Note:** When uploading a new document with this method it automatically replaces any
-   * document stored with the same **document_id** if it exists.
-   *
-   * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
-   * cannot be used to modify a collection that connects to an external source such as Microsoft
-   * SharePoint.
-   *
-   * <p>**Note:** If an uploaded document is segmented, all segments are overwritten, even if the
-   * updated version of the document has fewer segments.
-   *
-   * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the
-   *     call
-   * @return a {@link ServiceCall} with a result of type {@link DocumentAccepted}
-   */
-  public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        updateDocumentOptions, "updateDocumentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
-        "At least one of file or metadata must be supplied.");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", updateDocumentOptions.projectId());
-    pathParamsMap.put("collection_id", updateDocumentOptions.collectionId());
-    pathParamsMap.put("document_id", updateDocumentOptions.documentId());
-    RequestBuilder builder =
-        RequestBuilder.post(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(),
-                "/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}",
-                pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (updateDocumentOptions.xWatsonDiscoveryForce() != null) {
-      builder.header("X-Watson-Discovery-Force", updateDocumentOptions.xWatsonDiscoveryForce());
-    }
-    builder.query("version", String.valueOf(this.version));
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (updateDocumentOptions.file() != null) {
-      okhttp3.RequestBody fileBody =
-          RequestUtils.inputStreamBody(
-              updateDocumentOptions.file(), updateDocumentOptions.fileContentType());
-      multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
-    }
-    if (updateDocumentOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<DocumentAccepted> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<DocumentAccepted>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete a document.
-   *
-   * <p>If the given document ID is invalid, or if the document is not found, then the a success
-   * response is returned (HTTP status code `200`) with the status set to 'deleted'.
-   *
-   * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
-   * cannot be used to modify a collection that connects to an external source such as Microsoft
-   * SharePoint.
-   *
-   * <p>**Note:** Segments of an uploaded document cannot be deleted individually. Delete all
-   * segments by deleting using the `parent_document_id` of a segment result.
-   *
-   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the
-   *     call
-   * @return a {@link ServiceCall} with a result of type {@link DeleteDocumentResponse}
-   */
-  public ServiceCall<DeleteDocumentResponse> deleteDocument(
-      DeleteDocumentOptions deleteDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        deleteDocumentOptions, "deleteDocumentOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteDocumentOptions.projectId());
-    pathParamsMap.put("collection_id", deleteDocumentOptions.collectionId());
-    pathParamsMap.put("document_id", deleteDocumentOptions.documentId());
-    RequestBuilder builder =
-        RequestBuilder.delete(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(),
-                "/v2/projects/{project_id}/collections/{collection_id}/documents/{document_id}",
-                pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    if (deleteDocumentOptions.xWatsonDiscoveryForce() != null) {
-      builder.header("X-Watson-Discovery-Force", deleteDocumentOptions.xWatsonDiscoveryForce());
-    }
-    builder.query("version", String.valueOf(this.version));
-    ResponseConverter<DeleteDocumentResponse> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<DeleteDocumentResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -1066,61 +1596,7 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Analyze a Document.
-   *
-   * <p>Process a document and return it for realtime use. Supports JSON files only.
-   *
-   * <p>The document is processed according to the collection's configuration settings but is not
-   * stored in the collection.
-   *
-   * <p>**Note:** This method is supported on installed instances of Discovery only.
-   *
-   * @param analyzeDocumentOptions the {@link AnalyzeDocumentOptions} containing the options for the
-   *     call
-   * @return a {@link ServiceCall} with a result of type {@link AnalyzedDocument}
-   */
-  public ServiceCall<AnalyzedDocument> analyzeDocument(
-      AnalyzeDocumentOptions analyzeDocumentOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        analyzeDocumentOptions, "analyzeDocumentOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.isTrue(
-        (analyzeDocumentOptions.file() != null) || (analyzeDocumentOptions.metadata() != null),
-        "At least one of file or metadata must be supplied.");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", analyzeDocumentOptions.projectId());
-    pathParamsMap.put("collection_id", analyzeDocumentOptions.collectionId());
-    RequestBuilder builder =
-        RequestBuilder.post(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(),
-                "/v2/projects/{project_id}/collections/{collection_id}/analyze",
-                pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "analyzeDocument");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (analyzeDocumentOptions.file() != null) {
-      okhttp3.RequestBody fileBody =
-          RequestUtils.inputStreamBody(
-              analyzeDocumentOptions.file(), analyzeDocumentOptions.fileContentType());
-      multipartBuilder.addFormDataPart("file", analyzeDocumentOptions.filename(), fileBody);
-    }
-    if (analyzeDocumentOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", analyzeDocumentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<AnalyzedDocument> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<AnalyzedDocument>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List Enrichments.
+   * List enrichments.
    *
    * <p>Lists the enrichments available to this project. The *Part of Speech* and *Sentiment of
    * Phrases* enrichments might be listed, but are reserved for internal use only.
@@ -1153,7 +1629,8 @@ public class Discovery extends BaseService {
   /**
    * Create an enrichment.
    *
-   * <p>Create an enrichment for use with the specified project.
+   * <p>Create an enrichment for use with the specified project. To apply the enrichment to a
+   * collection in the project, use the [Collections API](/apidocs/discovery-data#createcollection).
    *
    * @param createEnrichmentOptions the {@link CreateEnrichmentOptions} containing the options for
    *     the call
@@ -1294,166 +1771,483 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * List projects.
+   * List document classifiers.
    *
-   * <p>Lists existing projects for this instance.
+   * <p>Get a list of the document classifiers in a project. Returns only the name and classifier ID
+   * of each document classifier.
    *
-   * @param listProjectsOptions the {@link ListProjectsOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ListProjectsResponse}
+   * @param listDocumentClassifiersOptions the {@link ListDocumentClassifiersOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifiers}
    */
-  public ServiceCall<ListProjectsResponse> listProjects(ListProjectsOptions listProjectsOptions) {
-    RequestBuilder builder =
-        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/projects"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listProjects");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    ResponseConverter<ListProjectsResponse> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ListProjectsResponse>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List projects.
-   *
-   * <p>Lists existing projects for this instance.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link ListProjectsResponse}
-   */
-  public ServiceCall<ListProjectsResponse> listProjects() {
-    return listProjects(null);
-  }
-
-  /**
-   * Create a Project.
-   *
-   * <p>Create a new project for this instance.
-   *
-   * @param createProjectOptions the {@link CreateProjectOptions} containing the options for the
-   *     call
-   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
-   */
-  public ServiceCall<ProjectDetails> createProject(CreateProjectOptions createProjectOptions) {
+  public ServiceCall<DocumentClassifiers> listDocumentClassifiers(
+      ListDocumentClassifiersOptions listDocumentClassifiersOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-        createProjectOptions, "createProjectOptions cannot be null");
-    RequestBuilder builder =
-        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/projects"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "createProject");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("name", createProjectOptions.name());
-    contentJson.addProperty("type", createProjectOptions.type());
-    if (createProjectOptions.defaultQueryParameters() != null) {
-      contentJson.add(
-          "default_query_parameters",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(createProjectOptions.defaultQueryParameters()));
-    }
-    builder.bodyJson(contentJson);
-    ResponseConverter<ProjectDetails> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Get project.
-   *
-   * <p>Get details on the specified project.
-   *
-   * @param getProjectOptions the {@link GetProjectOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
-   */
-  public ServiceCall<ProjectDetails> getProject(GetProjectOptions getProjectOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        getProjectOptions, "getProjectOptions cannot be null");
+        listDocumentClassifiersOptions, "listDocumentClassifiersOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", getProjectOptions.projectId());
+    pathParamsMap.put("project_id", listDocumentClassifiersOptions.projectId());
     RequestBuilder builder =
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "getProject");
+                getServiceUrl(), "/v2/projects/{project_id}/document_classifiers", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "listDocumentClassifiers");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
-    ResponseConverter<ProjectDetails> responseConverter =
+    ResponseConverter<DocumentClassifiers> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+            new com.google.gson.reflect.TypeToken<DocumentClassifiers>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Update a project.
+   * Create a document classifier.
    *
-   * <p>Update the specified project's name.
+   * <p>Create a document classifier. You can use the API to create a document classifier in any
+   * project type. After you create a document classifier, you can use the Enrichments API to create
+   * a classifier enrichment, and then the Collections API to apply the enrichment to a collection
+   * in the project.
    *
-   * @param updateProjectOptions the {@link UpdateProjectOptions} containing the options for the
-   *     call
-   * @return a {@link ServiceCall} with a result of type {@link ProjectDetails}
+   * <p>**Note:** This method is supported on installed instances (IBM Cloud Pak for Data) or IBM
+   * Cloud-managed Premium or Enterprise plan instances.
+   *
+   * @param createDocumentClassifierOptions the {@link CreateDocumentClassifierOptions} containing
+   *     the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifier}
    */
-  public ServiceCall<ProjectDetails> updateProject(UpdateProjectOptions updateProjectOptions) {
+  public ServiceCall<DocumentClassifier> createDocumentClassifier(
+      CreateDocumentClassifierOptions createDocumentClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-        updateProjectOptions, "updateProjectOptions cannot be null");
+        createDocumentClassifierOptions, "createDocumentClassifierOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", updateProjectOptions.projectId());
+    pathParamsMap.put("project_id", createDocumentClassifierOptions.projectId());
     RequestBuilder builder =
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "updateProject");
+                getServiceUrl(), "/v2/projects/{project_id}/document_classifiers", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "createDocumentClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
-    final JsonObject contentJson = new JsonObject();
-    if (updateProjectOptions.name() != null) {
-      contentJson.addProperty("name", updateProjectOptions.name());
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    okhttp3.RequestBody trainingDataBody =
+        RequestUtils.inputStreamBody(createDocumentClassifierOptions.trainingData(), "text/csv");
+    multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
+    multipartBuilder.addFormDataPart(
+        "classifier", createDocumentClassifierOptions.classifier().toString());
+    if (createDocumentClassifierOptions.testData() != null) {
+      okhttp3.RequestBody testDataBody =
+          RequestUtils.inputStreamBody(createDocumentClassifierOptions.testData(), "text/csv");
+      multipartBuilder.addFormDataPart("test_data", "filename", testDataBody);
     }
-    builder.bodyJson(contentJson);
-    ResponseConverter<ProjectDetails> responseConverter =
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentClassifier> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ProjectDetails>() {}.getType());
+            new com.google.gson.reflect.TypeToken<DocumentClassifier>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
-   * Delete a project.
+   * Get a document classifier.
    *
-   * <p>Deletes the specified project.
+   * <p>Get details about a specific document classifier.
    *
-   * <p>**Important:** Deleting a project deletes everything that is part of the specified project,
-   * including all collections.
+   * @param getDocumentClassifierOptions the {@link GetDocumentClassifierOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifier}
+   */
+  public ServiceCall<DocumentClassifier> getDocumentClassifier(
+      GetDocumentClassifierOptions getDocumentClassifierOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getDocumentClassifierOptions, "getDocumentClassifierOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getDocumentClassifierOptions.projectId());
+    pathParamsMap.put("classifier_id", getDocumentClassifierOptions.classifierId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "getDocumentClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<DocumentClassifier> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifier>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a document classifier.
    *
-   * @param deleteProjectOptions the {@link DeleteProjectOptions} containing the options for the
-   *     call
+   * <p>Update the document classifier name or description, update the training data, or add or
+   * update the test data.
+   *
+   * @param updateDocumentClassifierOptions the {@link UpdateDocumentClassifierOptions} containing
+   *     the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifier}
+   */
+  public ServiceCall<DocumentClassifier> updateDocumentClassifier(
+      UpdateDocumentClassifierOptions updateDocumentClassifierOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateDocumentClassifierOptions, "updateDocumentClassifierOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateDocumentClassifierOptions.projectId());
+    pathParamsMap.put("classifier_id", updateDocumentClassifierOptions.classifierId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "updateDocumentClassifier");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    multipartBuilder.addFormDataPart(
+        "classifier", updateDocumentClassifierOptions.classifier().toString());
+    if (updateDocumentClassifierOptions.trainingData() != null) {
+      okhttp3.RequestBody trainingDataBody =
+          RequestUtils.inputStreamBody(updateDocumentClassifierOptions.trainingData(), "text/csv");
+      multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
+    }
+    if (updateDocumentClassifierOptions.testData() != null) {
+      okhttp3.RequestBody testDataBody =
+          RequestUtils.inputStreamBody(updateDocumentClassifierOptions.testData(), "text/csv");
+      multipartBuilder.addFormDataPart("test_data", "filename", testDataBody);
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<DocumentClassifier> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifier>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a document classifier.
+   *
+   * <p>Deletes an existing document classifier from the specified project.
+   *
+   * @param deleteDocumentClassifierOptions the {@link DeleteDocumentClassifierOptions} containing
+   *     the options for the call
    * @return a {@link ServiceCall} with a void result
    */
-  public ServiceCall<Void> deleteProject(DeleteProjectOptions deleteProjectOptions) {
+  public ServiceCall<Void> deleteDocumentClassifier(
+      DeleteDocumentClassifierOptions deleteDocumentClassifierOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
-        deleteProjectOptions, "deleteProjectOptions cannot be null");
+        deleteDocumentClassifierOptions, "deleteDocumentClassifierOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("project_id", deleteProjectOptions.projectId());
+    pathParamsMap.put("project_id", deleteDocumentClassifierOptions.projectId());
+    pathParamsMap.put("classifier_id", deleteDocumentClassifierOptions.classifierId());
     RequestBuilder builder =
         RequestBuilder.delete(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/projects/{project_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "deleteProject");
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "deleteDocumentClassifier");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
     builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List document classifier models.
+   *
+   * <p>Get a list of the document classifier models in a project. Returns only the name and model
+   * ID of each document classifier model.
+   *
+   * @param listDocumentClassifierModelsOptions the {@link ListDocumentClassifierModelsOptions}
+   *     containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifierModels}
+   */
+  public ServiceCall<DocumentClassifierModels> listDocumentClassifierModels(
+      ListDocumentClassifierModelsOptions listDocumentClassifierModelsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listDocumentClassifierModelsOptions, "listDocumentClassifierModelsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listDocumentClassifierModelsOptions.projectId());
+    pathParamsMap.put("classifier_id", listDocumentClassifierModelsOptions.classifierId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}/models",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "listDocumentClassifierModels");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<DocumentClassifierModels> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifierModels>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create a document classifier model.
+   *
+   * <p>Create a document classifier model by training a model that uses the data and classifier
+   * settings defined in the specified document classifier.
+   *
+   * <p>**Note:** This method is supported on installed intances (IBM Cloud Pak for Data) or IBM
+   * Cloud-managed Premium or Enterprise plan instances.
+   *
+   * @param createDocumentClassifierModelOptions the {@link CreateDocumentClassifierModelOptions}
+   *     containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifierModel}
+   */
+  public ServiceCall<DocumentClassifierModel> createDocumentClassifierModel(
+      CreateDocumentClassifierModelOptions createDocumentClassifierModelOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createDocumentClassifierModelOptions,
+        "createDocumentClassifierModelOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", createDocumentClassifierModelOptions.projectId());
+    pathParamsMap.put("classifier_id", createDocumentClassifierModelOptions.classifierId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}/models",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "createDocumentClassifierModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createDocumentClassifierModelOptions.name());
+    if (createDocumentClassifierModelOptions.description() != null) {
+      contentJson.addProperty("description", createDocumentClassifierModelOptions.description());
+    }
+    if (createDocumentClassifierModelOptions.learningRate() != null) {
+      contentJson.addProperty("learning_rate", createDocumentClassifierModelOptions.learningRate());
+    }
+    if (createDocumentClassifierModelOptions.l1RegularizationStrengths() != null) {
+      contentJson.add(
+          "l1_regularization_strengths",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createDocumentClassifierModelOptions.l1RegularizationStrengths()));
+    }
+    if (createDocumentClassifierModelOptions.l2RegularizationStrengths() != null) {
+      contentJson.add(
+          "l2_regularization_strengths",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createDocumentClassifierModelOptions.l2RegularizationStrengths()));
+    }
+    if (createDocumentClassifierModelOptions.trainingMaxSteps() != null) {
+      contentJson.addProperty(
+          "training_max_steps", createDocumentClassifierModelOptions.trainingMaxSteps());
+    }
+    if (createDocumentClassifierModelOptions.improvementRatio() != null) {
+      contentJson.addProperty(
+          "improvement_ratio", createDocumentClassifierModelOptions.improvementRatio());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<DocumentClassifierModel> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifierModel>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get a document classifier model.
+   *
+   * <p>Get details about a specific document classifier model.
+   *
+   * @param getDocumentClassifierModelOptions the {@link GetDocumentClassifierModelOptions}
+   *     containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifierModel}
+   */
+  public ServiceCall<DocumentClassifierModel> getDocumentClassifierModel(
+      GetDocumentClassifierModelOptions getDocumentClassifierModelOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getDocumentClassifierModelOptions, "getDocumentClassifierModelOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", getDocumentClassifierModelOptions.projectId());
+    pathParamsMap.put("classifier_id", getDocumentClassifierModelOptions.classifierId());
+    pathParamsMap.put("model_id", getDocumentClassifierModelOptions.modelId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}/models/{model_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "getDocumentClassifierModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<DocumentClassifierModel> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifierModel>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update a document classifier model.
+   *
+   * <p>Update the document classifier model name or description.
+   *
+   * @param updateDocumentClassifierModelOptions the {@link UpdateDocumentClassifierModelOptions}
+   *     containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DocumentClassifierModel}
+   */
+  public ServiceCall<DocumentClassifierModel> updateDocumentClassifierModel(
+      UpdateDocumentClassifierModelOptions updateDocumentClassifierModelOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateDocumentClassifierModelOptions,
+        "updateDocumentClassifierModelOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", updateDocumentClassifierModelOptions.projectId());
+    pathParamsMap.put("classifier_id", updateDocumentClassifierModelOptions.classifierId());
+    pathParamsMap.put("model_id", updateDocumentClassifierModelOptions.modelId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}/models/{model_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "updateDocumentClassifierModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (updateDocumentClassifierModelOptions.name() != null) {
+      contentJson.addProperty("name", updateDocumentClassifierModelOptions.name());
+    }
+    if (updateDocumentClassifierModelOptions.description() != null) {
+      contentJson.addProperty("description", updateDocumentClassifierModelOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<DocumentClassifierModel> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DocumentClassifierModel>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Delete a document classifier model.
+   *
+   * <p>Deletes an existing document classifier model from the specified project.
+   *
+   * @param deleteDocumentClassifierModelOptions the {@link DeleteDocumentClassifierModelOptions}
+   *     containing the options for the call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteDocumentClassifierModel(
+      DeleteDocumentClassifierModelOptions deleteDocumentClassifierModelOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteDocumentClassifierModelOptions,
+        "deleteDocumentClassifierModelOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", deleteDocumentClassifierModelOptions.projectId());
+    pathParamsMap.put("classifier_id", deleteDocumentClassifierModelOptions.classifierId());
+    pathParamsMap.put("model_id", deleteDocumentClassifierModelOptions.modelId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/document_classifiers/{classifier_id}/models/{model_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("discovery", "v2", "deleteDocumentClassifierModel");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Analyze a Document.
+   *
+   * <p>Process a document and return it for realtime use. Supports JSON files only.
+   *
+   * <p>The file is not stored in the collection, but is processed according to the collection's
+   * configuration settings. To get results, enrichments must be applied to a field in the
+   * collection that also exists in the file that you want to analyze. For example, to analyze text
+   * in a `Quote` field, you must apply enrichments to the `Quote` field in the collection
+   * configuration. Then, when you analyze the file, the text in the `Quote` field is analyzed and
+   * results are written to a field named `enriched_Quote`.
+   *
+   * <p>**Note:** This method is supported with Enterprise plan deployments and installed
+   * deployments only.
+   *
+   * @param analyzeDocumentOptions the {@link AnalyzeDocumentOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link AnalyzedDocument}
+   */
+  public ServiceCall<AnalyzedDocument> analyzeDocument(
+      AnalyzeDocumentOptions analyzeDocumentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        analyzeDocumentOptions, "analyzeDocumentOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (analyzeDocumentOptions.file() != null) || (analyzeDocumentOptions.metadata() != null),
+        "At least one of file or metadata must be supplied.");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", analyzeDocumentOptions.projectId());
+    pathParamsMap.put("collection_id", analyzeDocumentOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/analyze",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "analyzeDocument");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (analyzeDocumentOptions.file() != null) {
+      okhttp3.RequestBody fileBody =
+          RequestUtils.inputStreamBody(
+              analyzeDocumentOptions.file(), analyzeDocumentOptions.fileContentType());
+      multipartBuilder.addFormDataPart("file", analyzeDocumentOptions.filename(), fileBody);
+    }
+    if (analyzeDocumentOptions.metadata() != null) {
+      multipartBuilder.addFormDataPart("metadata", analyzeDocumentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<AnalyzedDocument> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<AnalyzedDocument>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
