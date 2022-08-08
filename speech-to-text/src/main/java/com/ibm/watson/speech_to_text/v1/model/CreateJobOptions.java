@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,10 +24,18 @@ import java.util.List;
 public class CreateJobOptions extends GenericModel {
 
   /**
-   * The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Using a
-   * model for speech
-   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use).
+   * The model to use for speech recognition. If you omit the `model` parameter, the service uses
+   * the US English `en-US_BroadbandModel` by default. (The model `ar-AR_BroadbandModel` is
+   * deprecated; use `ar-MS_BroadbandModel` instead.)
+   *
+   * <p>_For IBM Cloud Pak for Data,_ if you do not install the `en-US_BroadbandModel`, you must
+   * either specify a model with the request or specify a new default model for your installation of
+   * the service.
+   *
+   * <p>**See also:** * [Using a model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) * [The
+   * default
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use#models-use-default).
    */
   public interface Model {
     /** ar-AR_BroadbandModel. */
@@ -126,6 +134,8 @@ public class CreateJobOptions extends GenericModel {
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
     String IT_IT_NARROWBANDMODEL = "it-IT_NarrowbandModel";
+    /** it-IT_Multimedia. */
+    String IT_IT_MULTIMEDIA = "it-IT_Multimedia";
     /** it-IT_Telephony. */
     String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
@@ -152,6 +162,8 @@ public class CreateJobOptions extends GenericModel {
     String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
+    /** pt-BR_Multimedia. */
+    String PT_BR_MULTIMEDIA = "pt-BR_Multimedia";
     /** pt-BR_NarrowbandModel. */
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
@@ -213,7 +225,6 @@ public class CreateJobOptions extends GenericModel {
   protected Boolean profanityFilter;
   protected Boolean smartFormatting;
   protected Boolean speakerLabels;
-  protected String customizationId;
   protected String grammarName;
   protected Boolean redaction;
   protected Boolean processingMetrics;
@@ -224,6 +235,7 @@ public class CreateJobOptions extends GenericModel {
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
   protected Boolean lowLatency;
+  protected Float characterInsertionBias;
 
   /** Builder. */
   public static class Builder {
@@ -248,7 +260,6 @@ public class CreateJobOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
-    private String customizationId;
     private String grammarName;
     private Boolean redaction;
     private Boolean processingMetrics;
@@ -259,6 +270,7 @@ public class CreateJobOptions extends GenericModel {
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
     private Boolean lowLatency;
+    private Float characterInsertionBias;
 
     private Builder(CreateJobOptions createJobOptions) {
       this.audio = createJobOptions.audio;
@@ -282,7 +294,6 @@ public class CreateJobOptions extends GenericModel {
       this.profanityFilter = createJobOptions.profanityFilter;
       this.smartFormatting = createJobOptions.smartFormatting;
       this.speakerLabels = createJobOptions.speakerLabels;
-      this.customizationId = createJobOptions.customizationId;
       this.grammarName = createJobOptions.grammarName;
       this.redaction = createJobOptions.redaction;
       this.processingMetrics = createJobOptions.processingMetrics;
@@ -293,6 +304,7 @@ public class CreateJobOptions extends GenericModel {
       this.speechDetectorSensitivity = createJobOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = createJobOptions.backgroundAudioSuppression;
       this.lowLatency = createJobOptions.lowLatency;
+      this.characterInsertionBias = createJobOptions.characterInsertionBias;
     }
 
     /** Instantiates a new builder. */
@@ -563,17 +575,6 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Set the customizationId.
-     *
-     * @param customizationId the customizationId
-     * @return the CreateJobOptions builder
-     */
-    public Builder customizationId(String customizationId) {
-      this.customizationId = customizationId;
-      return this;
-    }
-
-    /**
      * Set the grammarName.
      *
      * @param grammarName the grammarName
@@ -684,6 +685,17 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the characterInsertionBias.
+     *
+     * @param characterInsertionBias the characterInsertionBias
+     * @return the CreateJobOptions builder
+     */
+    public Builder characterInsertionBias(Float characterInsertionBias) {
+      this.characterInsertionBias = characterInsertionBias;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -695,6 +707,8 @@ public class CreateJobOptions extends GenericModel {
       return this;
     }
   }
+
+  protected CreateJobOptions() {}
 
   protected CreateJobOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.audio, "audio cannot be null");
@@ -719,7 +733,6 @@ public class CreateJobOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
-    customizationId = builder.customizationId;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
     processingMetrics = builder.processingMetrics;
@@ -730,6 +743,7 @@ public class CreateJobOptions extends GenericModel {
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
     lowLatency = builder.lowLatency;
+    characterInsertionBias = builder.characterInsertionBias;
   }
 
   /**
@@ -767,10 +781,18 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>The identifier of the model that is to be used for the recognition request. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.) See [Using a
-   * model for speech
-   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use).
+   * <p>The model to use for speech recognition. If you omit the `model` parameter, the service uses
+   * the US English `en-US_BroadbandModel` by default. (The model `ar-AR_BroadbandModel` is
+   * deprecated; use `ar-MS_BroadbandModel` instead.)
+   *
+   * <p>_For IBM Cloud Pak for Data,_ if you do not install the `en-US_BroadbandModel`, you must
+   * either specify a model with the request or specify a new default model for your installation of
+   * the service.
+   *
+   * <p>**See also:** * [Using a model for speech
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) * [The
+   * default
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use#models-use-default).
    *
    * @return the model
    */
@@ -1088,19 +1110,6 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * Gets the customizationId.
-   *
-   * <p>**Deprecated.** Use the `language_customization_id` parameter to specify the customization
-   * ID (GUID) of a custom language model that is to be used with the recognition request. Do not
-   * specify both parameters with a request.
-   *
-   * @return the customizationId
-   */
-  public String customizationId() {
-    return customizationId;
-  }
-
-  /**
    * Gets the grammarName.
    *
    * <p>The name of a grammar that is to be used with the recognition request. If you specify a
@@ -1260,7 +1269,8 @@ public class CreateJobOptions extends GenericModel {
    * * 0.5 (the default) provides a reasonable compromise for the level of sensitivity. * 1.0
    * suppresses no audio (speech detection sensitivity is disabled).
    *
-   * <p>The values increase on a monotonic curve.
+   * <p>The values increase on a monotonic curve. Specifying one or two decimal places of precision
+   * (for example, `0.55`) is typically more than sufficient.
    *
    * <p>The parameter is supported with all next-generation models and with most previous-generation
    * models. See [Speech detector
@@ -1285,7 +1295,8 @@ public class CreateJobOptions extends GenericModel {
    * (background audio suppression is disabled). * 0.5 provides a reasonable level of audio
    * suppression for general usage. * 1.0 suppresses all audio (no audio is transcribed).
    *
-   * <p>The values increase on a monotonic curve.
+   * <p>The values increase on a monotonic curve. Specifying one or two decimal places of precision
+   * (for example, `0.55`) is typically more than sufficient.
    *
    * <p>The parameter is supported with all next-generation models and with most previous-generation
    * models. See [Background audio
@@ -1309,7 +1320,7 @@ public class CreateJobOptions extends GenericModel {
    * less accurate when the parameter is used.
    *
    * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
-   * It is available only for some next-generation models. For a list of next-generation models that
+   * It is available for most next-generation models. * For a list of next-generation models that
    * support low latency, see [Supported next-generation language
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported).
    * * For more information about the `low_latency` parameter, see [Low
@@ -1319,5 +1330,36 @@ public class CreateJobOptions extends GenericModel {
    */
   public Boolean lowLatency() {
     return lowLatency;
+  }
+
+  /**
+   * Gets the characterInsertionBias.
+   *
+   * <p>For next-generation `Multimedia` and `Telephony` models, an indication of whether the
+   * service is biased to recognize shorter or longer strings of characters when developing
+   * transcription hypotheses. By default, the service is optimized for each individual model to
+   * balance its recognition of strings of different lengths. The model-specific bias is equivalent
+   * to 0.0.
+   *
+   * <p>The value that you specify represents a change from a model's default bias. The allowable
+   * range of values is -1.0 to 1.0. * Negative values bias the service to favor hypotheses with
+   * shorter strings of characters. * Positive values bias the service to favor hypotheses with
+   * longer strings of characters.
+   *
+   * <p>As the value approaches -1.0 or 1.0, the impact of the parameter becomes more pronounced. To
+   * determine the most effective value for your scenario, start by setting the value of the
+   * parameter to a small increment, such as -0.1, -0.05, 0.05, or 0.1, and assess how the value
+   * impacts the transcription results. Then experiment with different values as necessary,
+   * adjusting the value by small increments.
+   *
+   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
+   *
+   * <p>See [Character insertion
+   * bias](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#insertion-bias).
+   *
+   * @return the characterInsertionBias
+   */
+  public Float characterInsertionBias() {
+    return characterInsertionBias;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,15 +19,18 @@ public class TrainAcousticModelOptions extends GenericModel {
 
   protected String customizationId;
   protected String customLanguageModelId;
+  protected Boolean strict;
 
   /** Builder. */
   public static class Builder {
     private String customizationId;
     private String customLanguageModelId;
+    private Boolean strict;
 
     private Builder(TrainAcousticModelOptions trainAcousticModelOptions) {
       this.customizationId = trainAcousticModelOptions.customizationId;
       this.customLanguageModelId = trainAcousticModelOptions.customLanguageModelId;
+      this.strict = trainAcousticModelOptions.strict;
     }
 
     /** Instantiates a new builder. */
@@ -72,13 +75,27 @@ public class TrainAcousticModelOptions extends GenericModel {
       this.customLanguageModelId = customLanguageModelId;
       return this;
     }
+
+    /**
+     * Set the strict.
+     *
+     * @param strict the strict
+     * @return the TrainAcousticModelOptions builder
+     */
+    public Builder strict(Boolean strict) {
+      this.strict = strict;
+      return this;
+    }
   }
+
+  protected TrainAcousticModelOptions() {}
 
   protected TrainAcousticModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.customizationId, "customizationId cannot be empty");
     customizationId = builder.customizationId;
     customLanguageModelId = builder.customLanguageModelId;
+    strict = builder.strict;
   }
 
   /**
@@ -117,5 +134,19 @@ public class TrainAcousticModelOptions extends GenericModel {
    */
   public String customLanguageModelId() {
     return customLanguageModelId;
+  }
+
+  /**
+   * Gets the strict.
+   *
+   * <p>If `false`, allows training of the custom acoustic model to proceed as long as the model
+   * contains at least one valid audio resource. The method returns an array of `TrainingWarning`
+   * objects that lists any invalid resources. By default (`true`), training of a custom acoustic
+   * model fails (status code 400) if the model contains one or more invalid audio resources.
+   *
+   * @return the strict
+   */
+  public Boolean strict() {
+    return strict;
   }
 }

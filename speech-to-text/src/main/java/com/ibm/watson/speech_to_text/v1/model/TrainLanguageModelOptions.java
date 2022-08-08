@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,17 +39,20 @@ public class TrainLanguageModelOptions extends GenericModel {
   protected String customizationId;
   protected String wordTypeToAdd;
   protected Double customizationWeight;
+  protected Boolean strict;
 
   /** Builder. */
   public static class Builder {
     private String customizationId;
     private String wordTypeToAdd;
     private Double customizationWeight;
+    private Boolean strict;
 
     private Builder(TrainLanguageModelOptions trainLanguageModelOptions) {
       this.customizationId = trainLanguageModelOptions.customizationId;
       this.wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
       this.customizationWeight = trainLanguageModelOptions.customizationWeight;
+      this.strict = trainLanguageModelOptions.strict;
     }
 
     /** Instantiates a new builder. */
@@ -105,7 +108,20 @@ public class TrainLanguageModelOptions extends GenericModel {
       this.customizationWeight = customizationWeight;
       return this;
     }
+
+    /**
+     * Set the strict.
+     *
+     * @param strict the strict
+     * @return the TrainLanguageModelOptions builder
+     */
+    public Builder strict(Boolean strict) {
+      this.strict = strict;
+      return this;
+    }
   }
+
+  protected TrainLanguageModelOptions() {}
 
   protected TrainLanguageModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
@@ -113,6 +129,7 @@ public class TrainLanguageModelOptions extends GenericModel {
     customizationId = builder.customizationId;
     wordTypeToAdd = builder.wordTypeToAdd;
     customizationWeight = builder.customizationWeight;
+    strict = builder.strict;
   }
 
   /**
@@ -180,5 +197,20 @@ public class TrainLanguageModelOptions extends GenericModel {
    */
   public Double customizationWeight() {
     return customizationWeight;
+  }
+
+  /**
+   * Gets the strict.
+   *
+   * <p>If `false`, allows training of the custom language model to proceed as long as the model
+   * contains at least one valid resource. The method returns an array of `TrainingWarning` objects
+   * that lists any invalid resources. By default (`true`), training of a custom language model
+   * fails (status code 400) if the model contains one or more invalid resources (corpus files,
+   * grammar files, or custom words).
+   *
+   * @return the strict
+   */
+  public Boolean strict() {
+    return strict;
   }
 }
