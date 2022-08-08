@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,8 +17,36 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** Information about a specific enrichment. */
 public class CreateEnrichment extends GenericModel {
 
-  /** The type of this enrichment. */
+  /**
+   * The type of this enrichment. The following types are supported:
+   *
+   * <p>* `classifier`: Creates a document classifier enrichment from a document classifier model
+   * that you create by using the [Document classifier
+   * API](/apidocs/discovery-data#createdocumentclassifier). **Note**: A text classifier enrichment
+   * can be created only from the product user interface.
+   *
+   * <p>* `dictionary`: Creates a custom dictionary enrichment that you define in a CSV file.
+   *
+   * <p>* `regular_expression`: Creates a custom regular expression enrichment from regex syntax
+   * that you specify in the request.
+   *
+   * <p>* `rule_based`: Creates an enrichment from an advanced rules model that is created and
+   * exported as a ZIP file from Watson Knowledge Studio.
+   *
+   * <p>* `uima_annotator`: Creates an enrichment from a custom UIMA text analysis model that is
+   * defined in a PEAR file created in one of the following ways:
+   *
+   * <p>* Watson Explorer Content Analytics Studio. **Note**: Supported in IBM Cloud Pak for Data
+   * instances only.
+   *
+   * <p>* Rule-based model that is created in Watson Knowledge Studio.
+   *
+   * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
+   * machine learning model that is defined in a ZIP file.
+   */
   public interface Type {
+    /** classifier. */
+    String CLASSIFIER = "classifier";
     /** dictionary. */
     String DICTIONARY = "dictionary";
     /** regular_expression. */
@@ -107,6 +135,8 @@ public class CreateEnrichment extends GenericModel {
     }
   }
 
+  protected CreateEnrichment() {}
+
   protected CreateEnrichment(Builder builder) {
     name = builder.name;
     description = builder.description;
@@ -148,7 +178,31 @@ public class CreateEnrichment extends GenericModel {
   /**
    * Gets the type.
    *
-   * <p>The type of this enrichment.
+   * <p>The type of this enrichment. The following types are supported:
+   *
+   * <p>* `classifier`: Creates a document classifier enrichment from a document classifier model
+   * that you create by using the [Document classifier
+   * API](/apidocs/discovery-data#createdocumentclassifier). **Note**: A text classifier enrichment
+   * can be created only from the product user interface.
+   *
+   * <p>* `dictionary`: Creates a custom dictionary enrichment that you define in a CSV file.
+   *
+   * <p>* `regular_expression`: Creates a custom regular expression enrichment from regex syntax
+   * that you specify in the request.
+   *
+   * <p>* `rule_based`: Creates an enrichment from an advanced rules model that is created and
+   * exported as a ZIP file from Watson Knowledge Studio.
+   *
+   * <p>* `uima_annotator`: Creates an enrichment from a custom UIMA text analysis model that is
+   * defined in a PEAR file created in one of the following ways:
+   *
+   * <p>* Watson Explorer Content Analytics Studio. **Note**: Supported in IBM Cloud Pak for Data
+   * instances only.
+   *
+   * <p>* Rule-based model that is created in Watson Knowledge Studio.
+   *
+   * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
+   * machine learning model that is defined in a ZIP file.
    *
    * @return the type
    */
