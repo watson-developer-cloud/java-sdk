@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.46.0-a4e29da0-20220224-210428
+ * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
  */
 
 package com.ibm.watson.text_to_speech.v1;
@@ -62,17 +62,11 @@ import com.ibm.watson.text_to_speech.v1.model.UpdateCustomModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.Voice;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
 
 /**
  * The IBM Watson&amp;trade; Text to Speech service provides APIs that use IBM's speech-synthesis
@@ -97,6 +91,15 @@ import okhttp3.WebSocket;
  * <p>The service also offers a Tune by Example feature that lets you define custom prompts. You can
  * also define speaker models to improve the quality of your custom prompts. The service support
  * custom prompts only for US English custom models and voices.
+ *
+ * <p>Effective 31 March 2022, all neural voices are deprecated. The deprecated voices remain
+ * available to existing users until 31 March 2023, when they will be removed from the service and
+ * the documentation. The neural voices are supported only for IBM Cloud; they are not available for
+ * IBM Cloud Pak for Data. All enhanced neural voices remain available to all users. For more
+ * information, see the [31 March 2022 service
+ * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+ * in the release notes for {{site.data.keyword.texttospeechshort}} for
+ * {{site.data.keyword.cloud_notm}}.{: deprecated}.
  *
  * <p>API Version: 1.0.0 See: https://cloud.ibm.com/docs/text-to-speech
  */
@@ -158,6 +161,14 @@ public class TextToSpeech extends BaseService {
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
    * information about a specific voice, use the [Get a voice](#getvoice).
    *
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
+   *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
    *
@@ -186,6 +197,14 @@ public class TextToSpeech extends BaseService {
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
    * information about a specific voice, use the [Get a voice](#getvoice).
    *
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
+   *
    * <p>**See also:** [Listing all available
    * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
    *
@@ -206,10 +225,13 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Listing a specific
    * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoice).
    *
-   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
-   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
-   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
-   * `ar-MS_OmarVoice` voice instead.
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
    *
    * @param getVoiceOptions the {@link GetVoiceOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Voice}
@@ -250,41 +272,45 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [The HTTP
    * interface](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-usingHTTP#usingHTTP).
    *
-   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
-   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
-   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
-   * `ar-MS_OmarVoice` voice instead.
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
    *
    * <p>### Audio formats (accept types)
    *
    * <p>The service can return audio in the following formats (MIME types). * Where indicated, you
    * can optionally specify the sampling rate (`rate`) of the audio. You must specify a sampling
-   * rate for the `audio/l16` and `audio/mulaw` formats. A specified sampling rate must lie in the
-   * range of 8 kHz to 192 kHz. Some formats restrict the sampling rate to certain values, as noted.
-   * * For the `audio/l16` format, you can optionally specify the endianness (`endianness`) of the
-   * audio: `endianness=big-endian` or `endianness=little-endian`.
+   * rate for the `audio/alaw`, `audio/l16`, and `audio/mulaw` formats. A specified sampling rate
+   * must lie in the range of 8 kHz to 192 kHz. Some formats restrict the sampling rate to certain
+   * values, as noted. * For the `audio/l16` format, you can optionally specify the endianness
+   * (`endianness`) of the audio: `endianness=big-endian` or `endianness=little-endian`.
    *
    * <p>Use the `Accept` header or the `accept` parameter to specify the requested format of the
    * response audio. If you omit an audio format altogether, the service returns the audio in Ogg
    * format with the Opus codec (`audio/ogg;codecs=opus`). The service always returns single-channel
-   * audio. * `audio/basic` - The service returns audio with a sampling rate of 8000 Hz. *
-   * `audio/flac` - You can optionally specify the `rate` of the audio. The default sampling rate is
-   * 22,050 Hz. * `audio/l16` - You must specify the `rate` of the audio. You can optionally specify
-   * the `endianness` of the audio. The default endianness is `little-endian`. * `audio/mp3` - You
-   * can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz. *
-   * `audio/mpeg` - You can optionally specify the `rate` of the audio. The default sampling rate is
-   * 22,050 Hz. * `audio/mulaw` - You must specify the `rate` of the audio. * `audio/ogg` - The
-   * service returns the audio in the `vorbis` codec. You can optionally specify the `rate` of the
-   * audio. The default sampling rate is 22,050 Hz. * `audio/ogg;codecs=opus` - You can optionally
-   * specify the `rate` of the audio. Only the following values are valid sampling rates: `48000`,
-   * `24000`, `16000`, `12000`, or `8000`. If you specify a value other than one of these, the
-   * service returns an error. The default sampling rate is 48,000 Hz. * `audio/ogg;codecs=vorbis` -
+   * audio. * `audio/alaw` - You must specify the `rate` of the audio. * `audio/basic` - The service
+   * returns audio with a sampling rate of 8000 Hz. * `audio/flac` - You can optionally specify the
+   * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/l16` - You must specify
+   * the `rate` of the audio. You can optionally specify the `endianness` of the audio. The default
+   * endianness is `little-endian`. * `audio/mp3` - You can optionally specify the `rate` of the
+   * audio. The default sampling rate is 22,050 Hz. * `audio/mpeg` - You can optionally specify the
+   * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/mulaw` - You must specify
+   * the `rate` of the audio. * `audio/ogg` - The service returns the audio in the `vorbis` codec.
    * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz. *
-   * `audio/wav` - You can optionally specify the `rate` of the audio. The default sampling rate is
-   * 22,050 Hz. * `audio/webm` - The service returns the audio in the `opus` codec. The service
-   * returns audio with a sampling rate of 48,000 Hz. * `audio/webm;codecs=opus` - The service
-   * returns audio with a sampling rate of 48,000 Hz. * `audio/webm;codecs=vorbis` - You can
-   * optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz.
+   * `audio/ogg;codecs=opus` - You can optionally specify the `rate` of the audio. Only the
+   * following values are valid sampling rates: `48000`, `24000`, `16000`, `12000`, or `8000`. If
+   * you specify a value other than one of these, the service returns an error. The default sampling
+   * rate is 48,000 Hz. * `audio/ogg;codecs=vorbis` - You can optionally specify the `rate` of the
+   * audio. The default sampling rate is 22,050 Hz. * `audio/wav` - You can optionally specify the
+   * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/webm` - The service
+   * returns the audio in the `opus` codec. The service returns audio with a sampling rate of 48,000
+   * Hz. * `audio/webm;codecs=opus` - The service returns audio with a sampling rate of 48,000 Hz. *
+   * `audio/webm;codecs=vorbis` - You can optionally specify the `rate` of the audio. The default
+   * sampling rate is 22,050 Hz.
    *
    * <p>For more information about specifying an audio format, including additional details about
    * some of the formats, see [Using audio
@@ -319,58 +345,14 @@ public class TextToSpeech extends BaseService {
     if (synthesizeOptions.customizationId() != null) {
       builder.query("customization_id", String.valueOf(synthesizeOptions.customizationId()));
     }
+    if (synthesizeOptions.spellOutMode() != null) {
+      builder.query("spell_out_mode", String.valueOf(synthesizeOptions.spellOutMode()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", synthesizeOptions.text());
     builder.bodyJson(contentJson);
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Synthesize audio.
-   *
-   * <p>Synthesizes text to audio that is spoken in the specified voice. The service bases its
-   * understanding of the language for the input text on the specified voice. Use a voice that
-   * matches the language of the input text.
-   *
-   * <p>The method accepts a maximum of 5 KB of input text in the body of the request, and 8 KB for
-   * the URL and headers. The 5 KB limit includes any SSML tags that you specify. The service
-   * returns the synthesized audio stream as an array of bytes.
-   *
-   * <p>### Audio formats (accept types)
-   *
-   * <p>For more information about specifying an audio format, including additional details about
-   * some of the formats, see [Audio
-   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
-   *
-   * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
-   * @param callback the {@link SynthesizeCallback} callback
-   * @return a {@link WebSocket} instance
-   */
-  public WebSocket synthesizeUsingWebSocket(
-      SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
@@ -381,13 +363,16 @@ public class TextToSpeech extends BaseService {
    * default translation for the language of that voice or for a specific custom model to see the
    * translation for that model.
    *
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
+   *
    * <p>**See also:** [Querying a word from a
    * language](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customWords#cuWordsQueryLanguage).
-   *
-   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
-   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
-   * for IBM Cloud Pak for Data. Also, the `ar-AR_OmarVoice` voice is deprecated; use the
-   * `ar-MS_OmarVoice` voice instead.
    *
    * @param getPronunciationOptions the {@link GetPronunciationOptions} containing the options for
    *     the call
@@ -431,10 +416,13 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
    *
-   * <p>**Note:** The Arabic, Chinese, Czech, Dutch (Belgian and Netherlands), Australian English,
-   * Korean, and Swedish languages and voices are supported only for IBM Cloud; they are deprecated
-   * for IBM Cloud Pak for Data. Also, the `ar-AR` language identifier cannot be used to create a
-   * custom model; use the `ar-MS` identifier instead.
+   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
+   * remain available to existing users until 31 March 2023, when they will be removed from the
+   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
+   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
+   * For more information, see the [31 March 2022 service
+   * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
+   * in the release notes.
    *
    * @param createCustomModelOptions the {@link CreateCustomModelOptions} containing the options for
    *     the call

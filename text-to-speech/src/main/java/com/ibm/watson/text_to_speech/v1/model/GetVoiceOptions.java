@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,18 +19,12 @@ public class GetVoiceOptions extends GenericModel {
 
   /** The voice for which information is to be returned. */
   public interface Voice {
-    /** ar-AR_OmarVoice. */
-    String AR_AR_OMARVOICE = "ar-AR_OmarVoice";
     /** ar-MS_OmarVoice. */
     String AR_MS_OMARVOICE = "ar-MS_OmarVoice";
     /** cs-CZ_AlenaVoice. */
     String CS_CZ_ALENAVOICE = "cs-CZ_AlenaVoice";
-    /** de-DE_BirgitVoice. */
-    String DE_DE_BIRGITVOICE = "de-DE_BirgitVoice";
     /** de-DE_BirgitV3Voice. */
     String DE_DE_BIRGITV3VOICE = "de-DE_BirgitV3Voice";
-    /** de-DE_DieterVoice. */
-    String DE_DE_DIETERVOICE = "de-DE_DieterVoice";
     /** de-DE_DieterV3Voice. */
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
@@ -45,12 +39,8 @@ public class GetVoiceOptions extends GenericModel {
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
     /** en-GB_JamesV3Voice. */
     String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
-    /** en-GB_KateVoice. */
-    String EN_GB_KATEVOICE = "en-GB_KateVoice";
     /** en-GB_KateV3Voice. */
     String EN_GB_KATEV3VOICE = "en-GB_KateV3Voice";
-    /** en-US_AllisonVoice. */
-    String EN_US_ALLISONVOICE = "en-US_AllisonVoice";
     /** en-US_AllisonV3Voice. */
     String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
     /** en-US_EmilyV3Voice. */
@@ -59,46 +49,28 @@ public class GetVoiceOptions extends GenericModel {
     String EN_US_HENRYV3VOICE = "en-US_HenryV3Voice";
     /** en-US_KevinV3Voice. */
     String EN_US_KEVINV3VOICE = "en-US_KevinV3Voice";
-    /** en-US_LisaVoice. */
-    String EN_US_LISAVOICE = "en-US_LisaVoice";
     /** en-US_LisaV3Voice. */
     String EN_US_LISAV3VOICE = "en-US_LisaV3Voice";
-    /** en-US_MichaelVoice. */
-    String EN_US_MICHAELVOICE = "en-US_MichaelVoice";
     /** en-US_MichaelV3Voice. */
     String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
     /** en-US_OliviaV3Voice. */
     String EN_US_OLIVIAV3VOICE = "en-US_OliviaV3Voice";
-    /** es-ES_EnriqueVoice. */
-    String ES_ES_ENRIQUEVOICE = "es-ES_EnriqueVoice";
     /** es-ES_EnriqueV3Voice. */
     String ES_ES_ENRIQUEV3VOICE = "es-ES_EnriqueV3Voice";
-    /** es-ES_LauraVoice. */
-    String ES_ES_LAURAVOICE = "es-ES_LauraVoice";
     /** es-ES_LauraV3Voice. */
     String ES_ES_LAURAV3VOICE = "es-ES_LauraV3Voice";
-    /** es-LA_SofiaVoice. */
-    String ES_LA_SOFIAVOICE = "es-LA_SofiaVoice";
     /** es-LA_SofiaV3Voice. */
     String ES_LA_SOFIAV3VOICE = "es-LA_SofiaV3Voice";
-    /** es-US_SofiaVoice. */
-    String ES_US_SOFIAVOICE = "es-US_SofiaVoice";
     /** es-US_SofiaV3Voice. */
     String ES_US_SOFIAV3VOICE = "es-US_SofiaV3Voice";
     /** fr-CA_LouiseV3Voice. */
     String FR_CA_LOUISEV3VOICE = "fr-CA_LouiseV3Voice";
     /** fr-FR_NicolasV3Voice. */
     String FR_FR_NICOLASV3VOICE = "fr-FR_NicolasV3Voice";
-    /** fr-FR_ReneeVoice. */
-    String FR_FR_RENEEVOICE = "fr-FR_ReneeVoice";
     /** fr-FR_ReneeV3Voice. */
     String FR_FR_RENEEV3VOICE = "fr-FR_ReneeV3Voice";
-    /** it-IT_FrancescaVoice. */
-    String IT_IT_FRANCESCAVOICE = "it-IT_FrancescaVoice";
     /** it-IT_FrancescaV3Voice. */
     String IT_IT_FRANCESCAV3VOICE = "it-IT_FrancescaV3Voice";
-    /** ja-JP_EmiVoice. */
-    String JA_JP_EMIVOICE = "ja-JP_EmiVoice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
     /** ko-KR_HyunjunVoice. */
@@ -117,8 +89,6 @@ public class GetVoiceOptions extends GenericModel {
     String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
     /** nl-NL_LiamVoice. */
     String NL_NL_LIAMVOICE = "nl-NL_LiamVoice";
-    /** pt-BR_IsabelaVoice. */
-    String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
     /** sv-SE_IngridVoice. */
@@ -187,6 +157,8 @@ public class GetVoiceOptions extends GenericModel {
       return this;
     }
   }
+
+  protected GetVoiceOptions() {}
 
   protected GetVoiceOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.voice, "voice cannot be empty");
