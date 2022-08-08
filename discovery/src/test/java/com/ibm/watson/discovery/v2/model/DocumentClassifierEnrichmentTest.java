@@ -22,25 +22,32 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the DocumentClassifierEnrichment model. */
+public class DocumentClassifierEnrichmentTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+  public void testDocumentClassifierEnrichment() throws Throwable {
+    DocumentClassifierEnrichment documentClassifierEnrichmentModel =
+        new DocumentClassifierEnrichment.Builder()
+            .enrichmentId("testString")
+            .fields(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(documentClassifierEnrichmentModel.enrichmentId(), "testString");
+    assertEquals(documentClassifierEnrichmentModel.fields(), java.util.Arrays.asList("testString"));
+
+    String json = TestUtilities.serialize(documentClassifierEnrichmentModel);
+
+    DocumentClassifierEnrichment documentClassifierEnrichmentModelNew =
+        TestUtilities.deserialize(json, DocumentClassifierEnrichment.class);
+    assertTrue(documentClassifierEnrichmentModelNew instanceof DocumentClassifierEnrichment);
+    assertEquals(documentClassifierEnrichmentModelNew.enrichmentId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testDocumentClassifierEnrichmentError() throws Throwable {
+    new DocumentClassifierEnrichment.Builder().build();
   }
 }

@@ -22,25 +22,25 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the ListDocumentClassifierModelsOptions model. */
+public class ListDocumentClassifierModelsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testListDocumentClassifierModelsOptions() throws Throwable {
+    ListDocumentClassifierModelsOptions listDocumentClassifierModelsOptionsModel =
+        new ListDocumentClassifierModelsOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .classifierId("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(listDocumentClassifierModelsOptionsModel.projectId(), "testString");
+    assertEquals(listDocumentClassifierModelsOptionsModel.classifierId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testListDocumentClassifierModelsOptionsError() throws Throwable {
+    new ListDocumentClassifierModelsOptions.Builder().build();
   }
 }

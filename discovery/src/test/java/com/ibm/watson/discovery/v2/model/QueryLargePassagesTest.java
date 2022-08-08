@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,7 +35,7 @@ public class QueryLargePassagesTest {
             .enabled(true)
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
             .findAnswers(false)
@@ -44,9 +44,7 @@ public class QueryLargePassagesTest {
     assertEquals(queryLargePassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.perDocument(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.maxPerDocument(), Long.valueOf("26"));
-    assertEquals(
-        queryLargePassagesModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryLargePassagesModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(queryLargePassagesModel.count(), Long.valueOf("400"));
     assertEquals(queryLargePassagesModel.characters(), Long.valueOf("50"));
     assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(false));

@@ -22,25 +22,36 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the CreateExpansionsOptions model. */
+public class CreateExpansionsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+  public void testCreateExpansionsOptions() throws Throwable {
+    Expansion expansionModel =
+        new Expansion.Builder()
+            .inputTerms(java.util.Arrays.asList("testString"))
+            .expandedTerms(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.inputTerms(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.expandedTerms(), java.util.Arrays.asList("testString"));
+
+    CreateExpansionsOptions createExpansionsOptionsModel =
+        new CreateExpansionsOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .expansions(java.util.Arrays.asList(expansionModel))
+            .build();
+    assertEquals(createExpansionsOptionsModel.projectId(), "testString");
+    assertEquals(createExpansionsOptionsModel.collectionId(), "testString");
+    assertEquals(
+        createExpansionsOptionsModel.expansions(), java.util.Arrays.asList(expansionModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testCreateExpansionsOptionsError() throws Throwable {
+    new CreateExpansionsOptions.Builder().build();
   }
 }

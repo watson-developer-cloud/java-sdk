@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,29 +33,35 @@ public class CollectionDetailsTest {
     CollectionEnrichment collectionEnrichmentModel =
         new CollectionEnrichment.Builder()
             .enrichmentId("testString")
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(collectionEnrichmentModel.enrichmentId(), "testString");
-    assertEquals(
-        collectionEnrichmentModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(collectionEnrichmentModel.fields(), java.util.Arrays.asList("testString"));
+
+    CollectionDetailsSmartDocumentUnderstanding collectionDetailsSmartDocumentUnderstandingModel =
+        new CollectionDetailsSmartDocumentUnderstanding.Builder()
+            .enabled(true)
+            .model("custom")
+            .build();
+    assertEquals(collectionDetailsSmartDocumentUnderstandingModel.enabled(), Boolean.valueOf(true));
+    assertEquals(collectionDetailsSmartDocumentUnderstandingModel.model(), "custom");
 
     CollectionDetails collectionDetailsModel =
         new CollectionDetails.Builder()
             .name("testString")
             .description("testString")
             .language("en")
-            .enrichments(
-                new java.util.ArrayList<CollectionEnrichment>(
-                    java.util.Arrays.asList(collectionEnrichmentModel)))
+            .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
+            .smartDocumentUnderstanding(collectionDetailsSmartDocumentUnderstandingModel)
             .build();
     assertEquals(collectionDetailsModel.name(), "testString");
     assertEquals(collectionDetailsModel.description(), "testString");
     assertEquals(collectionDetailsModel.language(), "en");
     assertEquals(
-        collectionDetailsModel.enrichments(),
-        new java.util.ArrayList<CollectionEnrichment>(
-            java.util.Arrays.asList(collectionEnrichmentModel)));
+        collectionDetailsModel.enrichments(), java.util.Arrays.asList(collectionEnrichmentModel));
+    assertEquals(
+        collectionDetailsModel.smartDocumentUnderstanding(),
+        collectionDetailsSmartDocumentUnderstandingModel);
 
     String json = TestUtilities.serialize(collectionDetailsModel);
 
@@ -65,6 +71,9 @@ public class CollectionDetailsTest {
     assertEquals(collectionDetailsModelNew.name(), "testString");
     assertEquals(collectionDetailsModelNew.description(), "testString");
     assertEquals(collectionDetailsModelNew.language(), "en");
+    assertEquals(
+        collectionDetailsModelNew.smartDocumentUnderstanding().toString(),
+        collectionDetailsSmartDocumentUnderstandingModel.toString());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

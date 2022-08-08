@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,16 +34,14 @@ public class DefaultQueryParamsPassagesTest {
         new DefaultQueryParamsPassages.Builder()
             .enabled(true)
             .count(Long.valueOf("26"))
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .characters(Long.valueOf("26"))
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
             .build();
     assertEquals(defaultQueryParamsPassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsPassagesModel.count(), Long.valueOf("26"));
-    assertEquals(
-        defaultQueryParamsPassagesModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(defaultQueryParamsPassagesModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(defaultQueryParamsPassagesModel.characters(), Long.valueOf("26"));
     assertEquals(defaultQueryParamsPassagesModel.perDocument(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsPassagesModel.maxPerDocument(), Long.valueOf("26"));

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,15 +34,14 @@ public class GetAutocompletionOptionsTest {
         new GetAutocompletionOptions.Builder()
             .projectId("testString")
             .prefix("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .field("testString")
             .count(Long.valueOf("26"))
             .build();
     assertEquals(getAutocompletionOptionsModel.projectId(), "testString");
     assertEquals(getAutocompletionOptionsModel.prefix(), "testString");
     assertEquals(
-        getAutocompletionOptionsModel.collectionIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+        getAutocompletionOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
     assertEquals(getAutocompletionOptionsModel.field(), "testString");
     assertEquals(getAutocompletionOptionsModel.count(), Long.valueOf("26"));
   }

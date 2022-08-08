@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,28 +32,34 @@ public class CreateEnrichmentTest {
   public void testCreateEnrichment() throws Throwable {
     EnrichmentOptions enrichmentOptionsModel =
         new EnrichmentOptions.Builder()
-            .languages(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .languages(java.util.Arrays.asList("testString"))
             .entityType("testString")
             .regularExpression("testString")
             .resultField("testString")
+            .classifierId("testString")
+            .modelId("testString")
+            .confidenceThreshold(Double.valueOf("0"))
+            .topK(Long.valueOf("26"))
             .build();
-    assertEquals(
-        enrichmentOptionsModel.languages(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(enrichmentOptionsModel.languages(), java.util.Arrays.asList("testString"));
     assertEquals(enrichmentOptionsModel.entityType(), "testString");
     assertEquals(enrichmentOptionsModel.regularExpression(), "testString");
     assertEquals(enrichmentOptionsModel.resultField(), "testString");
+    assertEquals(enrichmentOptionsModel.classifierId(), "testString");
+    assertEquals(enrichmentOptionsModel.modelId(), "testString");
+    assertEquals(enrichmentOptionsModel.confidenceThreshold(), Double.valueOf("0"));
+    assertEquals(enrichmentOptionsModel.topK(), Long.valueOf("26"));
 
     CreateEnrichment createEnrichmentModel =
         new CreateEnrichment.Builder()
             .name("testString")
             .description("testString")
-            .type("dictionary")
+            .type("classifier")
             .options(enrichmentOptionsModel)
             .build();
     assertEquals(createEnrichmentModel.name(), "testString");
     assertEquals(createEnrichmentModel.description(), "testString");
-    assertEquals(createEnrichmentModel.type(), "dictionary");
+    assertEquals(createEnrichmentModel.type(), "classifier");
     assertEquals(createEnrichmentModel.options(), enrichmentOptionsModel);
 
     String json = TestUtilities.serialize(createEnrichmentModel);
@@ -63,7 +69,7 @@ public class CreateEnrichmentTest {
     assertTrue(createEnrichmentModelNew instanceof CreateEnrichment);
     assertEquals(createEnrichmentModelNew.name(), "testString");
     assertEquals(createEnrichmentModelNew.description(), "testString");
-    assertEquals(createEnrichmentModelNew.type(), "dictionary");
+    assertEquals(createEnrichmentModelNew.type(), "classifier");
     assertEquals(createEnrichmentModelNew.options().toString(), enrichmentOptionsModel.toString());
   }
 }

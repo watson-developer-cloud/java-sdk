@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,16 +34,14 @@ public class DefaultQueryParamsTest {
         new DefaultQueryParamsPassages.Builder()
             .enabled(true)
             .count(Long.valueOf("26"))
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .characters(Long.valueOf("26"))
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
             .build();
     assertEquals(defaultQueryParamsPassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsPassagesModel.count(), Long.valueOf("26"));
-    assertEquals(
-        defaultQueryParamsPassagesModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(defaultQueryParamsPassagesModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(defaultQueryParamsPassagesModel.characters(), Long.valueOf("26"));
     assertEquals(defaultQueryParamsPassagesModel.perDocument(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsPassagesModel.maxPerDocument(), Long.valueOf("26"));
@@ -68,7 +66,7 @@ public class DefaultQueryParamsTest {
 
     DefaultQueryParams defaultQueryParamsModel =
         new DefaultQueryParams.Builder()
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .passages(defaultQueryParamsPassagesModel)
             .tableResults(defaultQueryParamsTableResultsModel)
             .aggregation("testString")
@@ -77,11 +75,9 @@ public class DefaultQueryParamsTest {
             .highlight(true)
             .count(Long.valueOf("26"))
             .sort("testString")
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(
-        defaultQueryParamsModel.collectionIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(defaultQueryParamsModel.collectionIds(), java.util.Arrays.asList("testString"));
     assertEquals(defaultQueryParamsModel.passages(), defaultQueryParamsPassagesModel);
     assertEquals(defaultQueryParamsModel.tableResults(), defaultQueryParamsTableResultsModel);
     assertEquals(defaultQueryParamsModel.aggregation(), "testString");
@@ -92,9 +88,7 @@ public class DefaultQueryParamsTest {
     assertEquals(defaultQueryParamsModel.highlight(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsModel.count(), Long.valueOf("26"));
     assertEquals(defaultQueryParamsModel.sort(), "testString");
-    assertEquals(
-        defaultQueryParamsModel.xReturn(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(defaultQueryParamsModel.xReturn(), java.util.Arrays.asList("testString"));
 
     String json = TestUtilities.serialize(defaultQueryParamsModel);
 

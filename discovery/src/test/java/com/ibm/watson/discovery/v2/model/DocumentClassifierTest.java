@@ -22,25 +22,23 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the DocumentClassifier model. */
+public class DocumentClassifierTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
-            .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
-  }
-
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testDocumentClassifier() throws Throwable {
+    DocumentClassifier documentClassifierModel = new DocumentClassifier();
+    assertNull(documentClassifierModel.getName());
+    assertNull(documentClassifierModel.getDescription());
+    assertNull(documentClassifierModel.getLanguage());
+    assertNull(documentClassifierModel.getEnrichments());
+    assertNull(documentClassifierModel.getRecognizedFields());
+    assertNull(documentClassifierModel.getAnswerField());
+    assertNull(documentClassifierModel.getTrainingDataFile());
+    assertNull(documentClassifierModel.getTestDataFile());
+    assertNull(documentClassifierModel.getFederatedClassification());
   }
 }

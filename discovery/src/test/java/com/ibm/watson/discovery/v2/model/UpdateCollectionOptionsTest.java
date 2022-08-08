@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,12 +33,10 @@ public class UpdateCollectionOptionsTest {
     CollectionEnrichment collectionEnrichmentModel =
         new CollectionEnrichment.Builder()
             .enrichmentId("testString")
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(collectionEnrichmentModel.enrichmentId(), "testString");
-    assertEquals(
-        collectionEnrichmentModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(collectionEnrichmentModel.fields(), java.util.Arrays.asList("testString"));
 
     UpdateCollectionOptions updateCollectionOptionsModel =
         new UpdateCollectionOptions.Builder()
@@ -46,9 +44,7 @@ public class UpdateCollectionOptionsTest {
             .collectionId("testString")
             .name("testString")
             .description("testString")
-            .enrichments(
-                new java.util.ArrayList<CollectionEnrichment>(
-                    java.util.Arrays.asList(collectionEnrichmentModel)))
+            .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
             .build();
     assertEquals(updateCollectionOptionsModel.projectId(), "testString");
     assertEquals(updateCollectionOptionsModel.collectionId(), "testString");
@@ -56,8 +52,7 @@ public class UpdateCollectionOptionsTest {
     assertEquals(updateCollectionOptionsModel.description(), "testString");
     assertEquals(
         updateCollectionOptionsModel.enrichments(),
-        new java.util.ArrayList<CollectionEnrichment>(
-            java.util.Arrays.asList(collectionEnrichmentModel)));
+        java.util.Arrays.asList(collectionEnrichmentModel));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

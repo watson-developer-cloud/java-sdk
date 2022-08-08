@@ -22,25 +22,31 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the UpdateDocumentClassifierModelOptions model. */
+public class UpdateDocumentClassifierModelOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testUpdateDocumentClassifierModelOptions() throws Throwable {
+    UpdateDocumentClassifierModelOptions updateDocumentClassifierModelOptionsModel =
+        new UpdateDocumentClassifierModelOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .classifierId("testString")
+            .modelId("testString")
+            .name("testString")
+            .description("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(updateDocumentClassifierModelOptionsModel.projectId(), "testString");
+    assertEquals(updateDocumentClassifierModelOptionsModel.classifierId(), "testString");
+    assertEquals(updateDocumentClassifierModelOptionsModel.modelId(), "testString");
+    assertEquals(updateDocumentClassifierModelOptionsModel.name(), "testString");
+    assertEquals(updateDocumentClassifierModelOptionsModel.description(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testUpdateDocumentClassifierModelOptionsError() throws Throwable {
+    new UpdateDocumentClassifierModelOptions.Builder().build();
   }
 }

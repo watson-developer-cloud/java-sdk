@@ -22,25 +22,25 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the UpdateDocumentClassifier model. */
+public class UpdateDocumentClassifierTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
-            .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
-  }
+  public void testUpdateDocumentClassifier() throws Throwable {
+    UpdateDocumentClassifier updateDocumentClassifierModel =
+        new UpdateDocumentClassifier.Builder().name("testString").description("testString").build();
+    assertEquals(updateDocumentClassifierModel.name(), "testString");
+    assertEquals(updateDocumentClassifierModel.description(), "testString");
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+    String json = TestUtilities.serialize(updateDocumentClassifierModel);
+
+    UpdateDocumentClassifier updateDocumentClassifierModelNew =
+        TestUtilities.deserialize(json, UpdateDocumentClassifier.class);
+    assertTrue(updateDocumentClassifierModelNew instanceof UpdateDocumentClassifier);
+    assertEquals(updateDocumentClassifierModelNew.name(), "testString");
+    assertEquals(updateDocumentClassifierModelNew.description(), "testString");
   }
 }
