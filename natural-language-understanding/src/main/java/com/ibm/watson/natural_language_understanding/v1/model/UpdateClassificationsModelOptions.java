@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ public class UpdateClassificationsModelOptions extends GenericModel {
   protected String modelVersion;
   protected String workspaceId;
   protected String versionDescription;
+  protected ClassificationsTrainingParameters trainingParameters;
 
   /** Builder. */
   public static class Builder {
@@ -45,6 +46,7 @@ public class UpdateClassificationsModelOptions extends GenericModel {
     private String modelVersion;
     private String workspaceId;
     private String versionDescription;
+    private ClassificationsTrainingParameters trainingParameters;
 
     private Builder(UpdateClassificationsModelOptions updateClassificationsModelOptions) {
       this.modelId = updateClassificationsModelOptions.modelId;
@@ -57,6 +59,7 @@ public class UpdateClassificationsModelOptions extends GenericModel {
       this.modelVersion = updateClassificationsModelOptions.modelVersion;
       this.workspaceId = updateClassificationsModelOptions.workspaceId;
       this.versionDescription = updateClassificationsModelOptions.versionDescription;
+      this.trainingParameters = updateClassificationsModelOptions.trainingParameters;
     }
 
     /** Instantiates a new builder. */
@@ -195,6 +198,17 @@ public class UpdateClassificationsModelOptions extends GenericModel {
     }
 
     /**
+     * Set the trainingParameters.
+     *
+     * @param trainingParameters the trainingParameters
+     * @return the UpdateClassificationsModelOptions builder
+     */
+    public Builder trainingParameters(ClassificationsTrainingParameters trainingParameters) {
+      this.trainingParameters = trainingParameters;
+      return this;
+    }
+
+    /**
      * Set the trainingData.
      *
      * @param trainingData the trainingData
@@ -206,6 +220,8 @@ public class UpdateClassificationsModelOptions extends GenericModel {
       return this;
     }
   }
+
+  protected UpdateClassificationsModelOptions() {}
 
   protected UpdateClassificationsModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.modelId, "modelId cannot be empty");
@@ -222,6 +238,7 @@ public class UpdateClassificationsModelOptions extends GenericModel {
     modelVersion = builder.modelVersion;
     workspaceId = builder.workspaceId;
     versionDescription = builder.versionDescription;
+    trainingParameters = builder.trainingParameters;
   }
 
   /**
@@ -344,5 +361,16 @@ public class UpdateClassificationsModelOptions extends GenericModel {
    */
   public String versionDescription() {
     return versionDescription;
+  }
+
+  /**
+   * Gets the trainingParameters.
+   *
+   * <p>Optional classifications training parameters along with model train requests.
+   *
+   * @return the trainingParameters
+   */
+  public ClassificationsTrainingParameters trainingParameters() {
+    return trainingParameters;
   }
 }

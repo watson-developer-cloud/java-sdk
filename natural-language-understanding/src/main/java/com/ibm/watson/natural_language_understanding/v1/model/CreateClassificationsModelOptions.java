@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,7 @@ public class CreateClassificationsModelOptions extends GenericModel {
   protected String modelVersion;
   protected String workspaceId;
   protected String versionDescription;
+  protected ClassificationsTrainingParameters trainingParameters;
 
   /** Builder. */
   public static class Builder {
@@ -43,6 +44,7 @@ public class CreateClassificationsModelOptions extends GenericModel {
     private String modelVersion;
     private String workspaceId;
     private String versionDescription;
+    private ClassificationsTrainingParameters trainingParameters;
 
     private Builder(CreateClassificationsModelOptions createClassificationsModelOptions) {
       this.language = createClassificationsModelOptions.language;
@@ -54,6 +56,7 @@ public class CreateClassificationsModelOptions extends GenericModel {
       this.modelVersion = createClassificationsModelOptions.modelVersion;
       this.workspaceId = createClassificationsModelOptions.workspaceId;
       this.versionDescription = createClassificationsModelOptions.versionDescription;
+      this.trainingParameters = createClassificationsModelOptions.trainingParameters;
     }
 
     /** Instantiates a new builder. */
@@ -179,6 +182,17 @@ public class CreateClassificationsModelOptions extends GenericModel {
     }
 
     /**
+     * Set the trainingParameters.
+     *
+     * @param trainingParameters the trainingParameters
+     * @return the CreateClassificationsModelOptions builder
+     */
+    public Builder trainingParameters(ClassificationsTrainingParameters trainingParameters) {
+      this.trainingParameters = trainingParameters;
+      return this;
+    }
+
+    /**
      * Set the trainingData.
      *
      * @param trainingData the trainingData
@@ -190,6 +204,8 @@ public class CreateClassificationsModelOptions extends GenericModel {
       return this;
     }
   }
+
+  protected CreateClassificationsModelOptions() {}
 
   protected CreateClassificationsModelOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.language, "language cannot be null");
@@ -204,6 +220,7 @@ public class CreateClassificationsModelOptions extends GenericModel {
     modelVersion = builder.modelVersion;
     workspaceId = builder.workspaceId;
     versionDescription = builder.versionDescription;
+    trainingParameters = builder.trainingParameters;
   }
 
   /**
@@ -315,5 +332,16 @@ public class CreateClassificationsModelOptions extends GenericModel {
    */
   public String versionDescription() {
     return versionDescription;
+  }
+
+  /**
+   * Gets the trainingParameters.
+   *
+   * <p>Optional classifications training parameters along with model train requests.
+   *
+   * @return the trainingParameters
+   */
+  public ClassificationsTrainingParameters trainingParameters() {
+    return trainingParameters;
   }
 }
