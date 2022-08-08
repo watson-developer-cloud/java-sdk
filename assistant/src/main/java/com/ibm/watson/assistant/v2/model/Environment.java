@@ -108,7 +108,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the environment.
    *
-   * <p>The type of the environment. All environments other than the draft and live environments
+   * <p>The type of the environment. All environments other than the `draft` and `live` environments
    * have the type `staging`.
    *
    * @return the environment
@@ -131,7 +131,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the orchestration.
    *
-   * <p>The search skill orchestration settings for message API.
+   * <p>The search skill orchestration settings for the environment.
    *
    * @return the orchestration
    */
@@ -142,7 +142,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the sessionTimeout.
    *
-   * <p>The session inactivity timeout setting of for the environment.
+   * <p>The session inactivity timeout setting for the environment.
    *
    * @return the sessionTimeout
    */

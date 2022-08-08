@@ -15,7 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** The search skill orchestration settings for message API. */
+/** The search skill orchestration settings for the environment. */
 public class EnvironmentOrchestration extends GenericModel {
 
   @SerializedName("search_skill_fallback")
@@ -24,8 +24,9 @@ public class EnvironmentOrchestration extends GenericModel {
   /**
    * Gets the searchSkillFallback.
    *
-   * <p>Whether to connect to discovery in the event a response cannot be matched. If search skill
-   * is not enabled for the environment, this property is ignored.
+   * <p>Whether assistants deployed to the environment fall back to a search skill when responding
+   * to messages that do not match any intent. If no search skill is configured for the assistant,
+   * this property is ignored.
    *
    * @return the searchSkillFallback
    */

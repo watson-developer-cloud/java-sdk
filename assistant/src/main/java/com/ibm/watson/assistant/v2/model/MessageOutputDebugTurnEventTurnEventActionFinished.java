@@ -16,6 +16,8 @@ package com.ibm.watson.assistant.v2.model;
 public class MessageOutputDebugTurnEventTurnEventActionFinished
     extends MessageOutputDebugTurnEvent {
 
+  private TurnEventActionSource source;
+
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
     /** user_defined. */
@@ -40,5 +42,14 @@ public class MessageOutputDebugTurnEventTurnEventActionFinished
     String MAX_RETRIES_REACHED = "max_retries_reached";
     /** fallback. */
     String FALLBACK = "fallback";
+  }
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
   }
 }
