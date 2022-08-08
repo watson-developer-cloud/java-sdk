@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,16 +44,13 @@ public class CreateTrainingQueryOptionsTest {
         new CreateTrainingQueryOptions.Builder()
             .projectId("testString")
             .naturalLanguageQuery("testString")
-            .examples(
-                new java.util.ArrayList<TrainingExample>(
-                    java.util.Arrays.asList(trainingExampleModel)))
+            .examples(java.util.Arrays.asList(trainingExampleModel))
             .filter("testString")
             .build();
     assertEquals(createTrainingQueryOptionsModel.projectId(), "testString");
     assertEquals(createTrainingQueryOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(
-        createTrainingQueryOptionsModel.examples(),
-        new java.util.ArrayList<TrainingExample>(java.util.Arrays.asList(trainingExampleModel)));
+        createTrainingQueryOptionsModel.examples(), java.util.Arrays.asList(trainingExampleModel));
     assertEquals(createTrainingQueryOptionsModel.filter(), "testString");
   }
 

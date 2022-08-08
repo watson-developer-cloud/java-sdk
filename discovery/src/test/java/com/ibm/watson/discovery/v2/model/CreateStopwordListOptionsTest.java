@@ -22,25 +22,27 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the CreateStopwordListOptions model. */
+public class CreateStopwordListOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testCreateStopwordListOptions() throws Throwable {
+    CreateStopwordListOptions createStopwordListOptionsModel =
+        new CreateStopwordListOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .collectionId("testString")
+            .stopwords(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(createStopwordListOptionsModel.projectId(), "testString");
+    assertEquals(createStopwordListOptionsModel.collectionId(), "testString");
+    assertEquals(createStopwordListOptionsModel.stopwords(), java.util.Arrays.asList("testString"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testCreateStopwordListOptionsError() throws Throwable {
+    new CreateStopwordListOptions.Builder().build();
   }
 }

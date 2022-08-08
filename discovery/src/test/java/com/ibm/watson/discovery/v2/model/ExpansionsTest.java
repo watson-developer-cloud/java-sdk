@@ -22,25 +22,34 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the Expansions model. */
+public class ExpansionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+  public void testExpansions() throws Throwable {
+    Expansion expansionModel =
+        new Expansion.Builder()
+            .inputTerms(java.util.Arrays.asList("testString"))
+            .expandedTerms(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.inputTerms(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.expandedTerms(), java.util.Arrays.asList("testString"));
+
+    Expansions expansionsModel =
+        new Expansions.Builder().expansions(java.util.Arrays.asList(expansionModel)).build();
+    assertEquals(expansionsModel.expansions(), java.util.Arrays.asList(expansionModel));
+
+    String json = TestUtilities.serialize(expansionsModel);
+
+    Expansions expansionsModelNew = TestUtilities.deserialize(json, Expansions.class);
+    assertTrue(expansionsModelNew instanceof Expansions);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testExpansionsError() throws Throwable {
+    new Expansions.Builder().build();
   }
 }

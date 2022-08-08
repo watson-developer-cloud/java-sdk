@@ -22,25 +22,30 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the Expansion model. */
+public class ExpansionTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+  public void testExpansion() throws Throwable {
+    Expansion expansionModel =
+        new Expansion.Builder()
+            .inputTerms(java.util.Arrays.asList("testString"))
+            .expandedTerms(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.inputTerms(), java.util.Arrays.asList("testString"));
+    assertEquals(expansionModel.expandedTerms(), java.util.Arrays.asList("testString"));
+
+    String json = TestUtilities.serialize(expansionModel);
+
+    Expansion expansionModelNew = TestUtilities.deserialize(json, Expansion.class);
+    assertTrue(expansionModelNew instanceof Expansion);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testExpansionError() throws Throwable {
+    new Expansion.Builder().build();
   }
 }

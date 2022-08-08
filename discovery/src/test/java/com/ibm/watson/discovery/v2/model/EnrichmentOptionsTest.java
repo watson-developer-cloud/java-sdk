@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,17 +32,23 @@ public class EnrichmentOptionsTest {
   public void testEnrichmentOptions() throws Throwable {
     EnrichmentOptions enrichmentOptionsModel =
         new EnrichmentOptions.Builder()
-            .languages(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .languages(java.util.Arrays.asList("testString"))
             .entityType("testString")
             .regularExpression("testString")
             .resultField("testString")
+            .classifierId("testString")
+            .modelId("testString")
+            .confidenceThreshold(Double.valueOf("0"))
+            .topK(Long.valueOf("26"))
             .build();
-    assertEquals(
-        enrichmentOptionsModel.languages(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(enrichmentOptionsModel.languages(), java.util.Arrays.asList("testString"));
     assertEquals(enrichmentOptionsModel.entityType(), "testString");
     assertEquals(enrichmentOptionsModel.regularExpression(), "testString");
     assertEquals(enrichmentOptionsModel.resultField(), "testString");
+    assertEquals(enrichmentOptionsModel.classifierId(), "testString");
+    assertEquals(enrichmentOptionsModel.modelId(), "testString");
+    assertEquals(enrichmentOptionsModel.confidenceThreshold(), Double.valueOf("0"));
+    assertEquals(enrichmentOptionsModel.topK(), Long.valueOf("26"));
 
     String json = TestUtilities.serialize(enrichmentOptionsModel);
 
@@ -52,5 +58,9 @@ public class EnrichmentOptionsTest {
     assertEquals(enrichmentOptionsModelNew.entityType(), "testString");
     assertEquals(enrichmentOptionsModelNew.regularExpression(), "testString");
     assertEquals(enrichmentOptionsModelNew.resultField(), "testString");
+    assertEquals(enrichmentOptionsModelNew.classifierId(), "testString");
+    assertEquals(enrichmentOptionsModelNew.modelId(), "testString");
+    assertEquals(enrichmentOptionsModelNew.confidenceThreshold(), Double.valueOf("0"));
+    assertEquals(enrichmentOptionsModelNew.topK(), Long.valueOf("26"));
   }
 }

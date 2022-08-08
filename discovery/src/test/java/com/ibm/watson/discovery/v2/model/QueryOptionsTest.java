@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,7 +45,7 @@ public class QueryOptionsTest {
             .enabled(true)
             .perDocument(true)
             .maxPerDocument(Long.valueOf("26"))
-            .fields(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .fields(java.util.Arrays.asList("testString"))
             .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
             .findAnswers(false)
@@ -54,24 +54,32 @@ public class QueryOptionsTest {
     assertEquals(queryLargePassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.perDocument(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.maxPerDocument(), Long.valueOf("26"));
-    assertEquals(
-        queryLargePassagesModel.fields(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryLargePassagesModel.fields(), java.util.Arrays.asList("testString"));
     assertEquals(queryLargePassagesModel.count(), Long.valueOf("400"));
     assertEquals(queryLargePassagesModel.characters(), Long.valueOf("50"));
     assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(false));
     assertEquals(queryLargePassagesModel.maxAnswersPerPassage(), Long.valueOf("26"));
 
+    QueryLargeSimilar queryLargeSimilarModel =
+        new QueryLargeSimilar.Builder()
+            .enabled(false)
+            .documentIds(java.util.Arrays.asList("testString"))
+            .fields(java.util.Arrays.asList("testString"))
+            .build();
+    assertEquals(queryLargeSimilarModel.enabled(), Boolean.valueOf(false));
+    assertEquals(queryLargeSimilarModel.documentIds(), java.util.Arrays.asList("testString"));
+    assertEquals(queryLargeSimilarModel.fields(), java.util.Arrays.asList("testString"));
+
     QueryOptions queryOptionsModel =
         new QueryOptions.Builder()
             .projectId("testString")
-            .collectionIds(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .collectionIds(java.util.Arrays.asList("testString"))
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
             .aggregation("testString")
             .count(Long.valueOf("26"))
-            .xReturn(new java.util.ArrayList<String>(java.util.Arrays.asList("testString")))
+            .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
             .sort("testString")
             .highlight(true)
@@ -79,19 +87,16 @@ public class QueryOptionsTest {
             .tableResults(queryLargeTableResultsModel)
             .suggestedRefinements(queryLargeSuggestedRefinementsModel)
             .passages(queryLargePassagesModel)
+            .similar(queryLargeSimilarModel)
             .build();
     assertEquals(queryOptionsModel.projectId(), "testString");
-    assertEquals(
-        queryOptionsModel.collectionIds(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
     assertEquals(queryOptionsModel.filter(), "testString");
     assertEquals(queryOptionsModel.query(), "testString");
     assertEquals(queryOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(queryOptionsModel.aggregation(), "testString");
     assertEquals(queryOptionsModel.count(), Long.valueOf("26"));
-    assertEquals(
-        queryOptionsModel.xReturn(),
-        new java.util.ArrayList<String>(java.util.Arrays.asList("testString")));
+    assertEquals(queryOptionsModel.xReturn(), java.util.Arrays.asList("testString"));
     assertEquals(queryOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(queryOptionsModel.sort(), "testString");
     assertEquals(queryOptionsModel.highlight(), Boolean.valueOf(true));
@@ -99,6 +104,7 @@ public class QueryOptionsTest {
     assertEquals(queryOptionsModel.tableResults(), queryLargeTableResultsModel);
     assertEquals(queryOptionsModel.suggestedRefinements(), queryLargeSuggestedRefinementsModel);
     assertEquals(queryOptionsModel.passages(), queryLargePassagesModel);
+    assertEquals(queryOptionsModel.similar(), queryLargeSimilarModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

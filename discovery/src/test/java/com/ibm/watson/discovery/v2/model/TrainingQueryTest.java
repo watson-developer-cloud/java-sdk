@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,15 +44,11 @@ public class TrainingQueryTest {
         new TrainingQuery.Builder()
             .naturalLanguageQuery("testString")
             .filter("testString")
-            .examples(
-                new java.util.ArrayList<TrainingExample>(
-                    java.util.Arrays.asList(trainingExampleModel)))
+            .examples(java.util.Arrays.asList(trainingExampleModel))
             .build();
     assertEquals(trainingQueryModel.naturalLanguageQuery(), "testString");
     assertEquals(trainingQueryModel.filter(), "testString");
-    assertEquals(
-        trainingQueryModel.examples(),
-        new java.util.ArrayList<TrainingExample>(java.util.Arrays.asList(trainingExampleModel)));
+    assertEquals(trainingQueryModel.examples(), java.util.Arrays.asList(trainingExampleModel));
 
     String json = TestUtilities.serialize(trainingQueryModel);
 

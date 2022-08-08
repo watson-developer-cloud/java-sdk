@@ -22,25 +22,25 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the GetStopwordListOptions model. */
+public class GetStopwordListOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testGetStopwordListOptions() throws Throwable {
+    GetStopwordListOptions getStopwordListOptionsModel =
+        new GetStopwordListOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .collectionId("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(getStopwordListOptionsModel.projectId(), "testString");
+    assertEquals(getStopwordListOptionsModel.collectionId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testGetStopwordListOptionsError() throws Throwable {
+    new GetStopwordListOptions.Builder().build();
   }
 }

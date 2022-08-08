@@ -22,25 +22,27 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the GetDocumentOptions model. */
+public class GetDocumentOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testGetDocumentOptions() throws Throwable {
+    GetDocumentOptions getDocumentOptionsModel =
+        new GetDocumentOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .collectionId("testString")
+            .documentId("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(getDocumentOptionsModel.projectId(), "testString");
+    assertEquals(getDocumentOptionsModel.collectionId(), "testString");
+    assertEquals(getDocumentOptionsModel.documentId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testGetDocumentOptionsError() throws Throwable {
+    new GetDocumentOptions.Builder().build();
   }
 }

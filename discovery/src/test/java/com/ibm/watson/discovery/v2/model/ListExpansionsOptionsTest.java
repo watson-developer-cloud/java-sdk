@@ -22,25 +22,25 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the ListExpansionsOptions model. */
+public class ListExpansionsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testListExpansionsOptions() throws Throwable {
+    ListExpansionsOptions listExpansionsOptionsModel =
+        new ListExpansionsOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .collectionId("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(listExpansionsOptionsModel.projectId(), "testString");
+    assertEquals(listExpansionsOptionsModel.collectionId(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testListExpansionsOptionsError() throws Throwable {
+    new ListExpansionsOptions.Builder().build();
   }
 }

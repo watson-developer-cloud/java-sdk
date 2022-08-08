@@ -22,25 +22,29 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the QueryLargeSimilar model. */
+public class QueryLargeSimilarTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
-            .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+  public void testQueryLargeSimilar() throws Throwable {
+    QueryLargeSimilar queryLargeSimilarModel =
+        new QueryLargeSimilar.Builder()
+            .enabled(false)
+            .documentIds(java.util.Arrays.asList("testString"))
+            .fields(java.util.Arrays.asList("testString"))
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
-  }
+    assertEquals(queryLargeSimilarModel.enabled(), Boolean.valueOf(false));
+    assertEquals(queryLargeSimilarModel.documentIds(), java.util.Arrays.asList("testString"));
+    assertEquals(queryLargeSimilarModel.fields(), java.util.Arrays.asList("testString"));
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+    String json = TestUtilities.serialize(queryLargeSimilarModel);
+
+    QueryLargeSimilar queryLargeSimilarModelNew =
+        TestUtilities.deserialize(json, QueryLargeSimilar.class);
+    assertTrue(queryLargeSimilarModelNew instanceof QueryLargeSimilar);
+    assertEquals(queryLargeSimilarModelNew.enabled(), Boolean.valueOf(false));
   }
 }

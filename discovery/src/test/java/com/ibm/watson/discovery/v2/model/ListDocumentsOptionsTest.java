@@ -22,25 +22,37 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the ListFieldsOptions model. */
-public class ListFieldsOptionsTest {
+/** Unit test class for the ListDocumentsOptions model. */
+public class ListDocumentsOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testListFieldsOptions() throws Throwable {
-    ListFieldsOptions listFieldsOptionsModel =
-        new ListFieldsOptions.Builder()
+  public void testListDocumentsOptions() throws Throwable {
+    ListDocumentsOptions listDocumentsOptionsModel =
+        new ListDocumentsOptions.Builder()
             .projectId("testString")
-            .collectionIds(java.util.Arrays.asList("testString"))
+            .collectionId("testString")
+            .count(Long.valueOf("26"))
+            .status("testString")
+            .hasNotices(true)
+            .isParent(true)
+            .parentDocumentId("testString")
+            .sha256("testString")
             .build();
-    assertEquals(listFieldsOptionsModel.projectId(), "testString");
-    assertEquals(listFieldsOptionsModel.collectionIds(), java.util.Arrays.asList("testString"));
+    assertEquals(listDocumentsOptionsModel.projectId(), "testString");
+    assertEquals(listDocumentsOptionsModel.collectionId(), "testString");
+    assertEquals(listDocumentsOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(listDocumentsOptionsModel.status(), "testString");
+    assertEquals(listDocumentsOptionsModel.hasNotices(), Boolean.valueOf(true));
+    assertEquals(listDocumentsOptionsModel.isParent(), Boolean.valueOf(true));
+    assertEquals(listDocumentsOptionsModel.parentDocumentId(), "testString");
+    assertEquals(listDocumentsOptionsModel.sha256(), "testString");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testListFieldsOptionsError() throws Throwable {
-    new ListFieldsOptions.Builder().build();
+  public void testListDocumentsOptionsError() throws Throwable {
+    new ListDocumentsOptions.Builder().build();
   }
 }
