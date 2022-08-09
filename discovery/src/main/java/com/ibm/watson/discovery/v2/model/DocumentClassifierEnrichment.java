@@ -44,9 +44,11 @@ public class DocumentClassifierEnrichment extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
+     * @param enrichmentId the enrichmentId
      * @param fields the fields
      */
-    public Builder(List<String> fields) {
+    public Builder(String enrichmentId, List<String> fields) {
+      this.enrichmentId = enrichmentId;
       this.fields = fields;
     }
 
@@ -100,6 +102,8 @@ public class DocumentClassifierEnrichment extends GenericModel {
   protected DocumentClassifierEnrichment() {}
 
   protected DocumentClassifierEnrichment(Builder builder) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.enrichmentId, "enrichmentId cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.fields, "fields cannot be null");
     enrichmentId = builder.enrichmentId;
     fields = builder.fields;

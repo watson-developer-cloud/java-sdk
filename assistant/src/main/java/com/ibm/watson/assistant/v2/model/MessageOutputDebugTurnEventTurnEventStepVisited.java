@@ -16,7 +16,7 @@ package com.ibm.watson.assistant.v2.model;
 public class MessageOutputDebugTurnEventTurnEventStepVisited extends MessageOutputDebugTurnEvent {
 
   private TurnEventActionSource source;
-  
+
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
     /** user_defined. */
