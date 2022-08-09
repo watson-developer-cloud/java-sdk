@@ -17,7 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <sdk-core-version>9.15.0</sdk-core-version>
+        <sdk-core-version>9.17.3</sdk-core-version>
 
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>java-sdk</git-repository-name>
