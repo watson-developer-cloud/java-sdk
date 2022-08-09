@@ -150,7 +150,7 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * <p>The natural text query for the training query.
+   * <p>The natural text query that is used as the training query.
    *
    * @return the naturalLanguageQuery
    */

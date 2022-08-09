@@ -246,10 +246,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String environmentId = environments.getEnvironments().get(1).getEnvironmentId();
 
     GetEnvironmentOptions getEnvironmentOptions =
-            new GetEnvironmentOptions.Builder()
-                    .assistantId(assistantId)
-                    .environmentId(environmentId)
-                    .build();
+        new GetEnvironmentOptions.Builder()
+            .assistantId(assistantId)
+            .environmentId(environmentId)
+            .build();
 
     Environment environment = service.getEnvironment(getEnvironmentOptions).execute().getResult();
 
@@ -273,7 +273,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String releaseId = releases.getReleases().get(0).getRelease();
 
     GetReleaseOptions getReleasesOptions =
-            new GetReleaseOptions.Builder().assistantId(assistantId).release(releaseId).build();
+        new GetReleaseOptions.Builder().assistantId(assistantId).release(releaseId).build();
 
     Release release = service.getRelease(getReleasesOptions).execute().getResult();
 
