@@ -205,7 +205,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     GetVoiceOptions getVoiceOptions =
         new GetVoiceOptions.Builder()
             .customizationId(model.getCustomizationId())
-            .voice(GetVoiceOptions.Voice.EN_US_ALLISONVOICE)
+            .voice(GetVoiceOptions.Voice.EN_US_ALLISONV3VOICE)
             .build();
     final Voice voice = service.getVoice(getVoiceOptions).execute().getResult();
 
@@ -477,14 +477,14 @@ public class CustomizationsIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions1 =
         new SynthesizeOptions.Builder()
             .text(expected.word())
-            .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_MICHAELV3VOICE)
             .accept(HttpMediaType.AUDIO_WAV)
             .build();
     final InputStream stream1 = service.synthesize(synthesizeOptions1).execute().getResult();
     SynthesizeOptions synthesizeOptions2 =
         new SynthesizeOptions.Builder()
             .text(expected.word())
-            .voice(SynthesizeOptions.Voice.EN_US_MICHAELVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_MICHAELV3VOICE)
             .accept(HttpMediaType.AUDIO_WAV)
             .customizationId(model.getCustomizationId())
             .build();

@@ -155,7 +155,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions =
         new SynthesizeOptions.Builder()
             .text(text)
-            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAV3VOICE)
             .accept(HttpMediaType.AUDIO_WAV)
             .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
@@ -169,7 +169,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     GetPronunciationOptions getOptions1 =
         new GetPronunciationOptions.Builder()
             .text(word)
-            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELV3VOICE)
             .format(GetPronunciationOptions.Format.IBM)
             .build();
     Pronunciation pronunciation = service.getPronunciation(getOptions1).execute().getResult();
@@ -188,7 +188,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     GetPronunciationOptions getOptions3 =
         new GetPronunciationOptions.Builder()
             .text(word)
-            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELV3VOICE)
             .build();
     pronunciation = service.getPronunciation(getOptions3).execute().getResult();
     assertNotNull(pronunciation);
@@ -197,7 +197,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     GetPronunciationOptions getOptions4 =
         new GetPronunciationOptions.Builder()
             .text(word)
-            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+            .voice(GetPronunciationOptions.Voice.EN_US_MICHAELV3VOICE)
             .format(GetPronunciationOptions.Format.IPA)
             .build();
     pronunciation = service.getPronunciation(getOptions4).execute().getResult();
@@ -217,7 +217,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions =
         new SynthesizeOptions.Builder()
             .text(text)
-            .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_LISAV3VOICE)
             .accept(HttpMediaType.AUDIO_WAV)
             .build();
     InputStream result = service.synthesize(synthesizeOptions).execute().getResult();
@@ -258,7 +258,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions =
         new SynthesizeOptions.Builder()
             .text(basicText)
-            .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_ALLISONV3VOICE)
             .accept(HttpMediaType.AUDIO_OGG)
             .timings(Collections.singletonList("words"))
             .build();
@@ -335,7 +335,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     SynthesizeOptions synthesizeOptions =
         new SynthesizeOptions.Builder()
             .text(ssmlText)
-            .voice(SynthesizeOptions.Voice.EN_US_ALLISONVOICE)
+            .voice(SynthesizeOptions.Voice.EN_US_ALLISONV3VOICE)
             .accept(HttpMediaType.AUDIO_OGG)
             .build();
 
