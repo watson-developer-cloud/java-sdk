@@ -930,6 +930,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Test
   public void testCreateClassificationModel() throws Exception {
     // Construct an instance of the CreateClassificationsModelOptions model
+    ClassificationsTrainingParameters trainingParameters =
+        new ClassificationsTrainingParameters.Builder().modelType("multi_label").build();
     CreateClassificationsModelOptions createClassificationsModelOptionsModel =
         new CreateClassificationsModelOptions.Builder()
             .language("en")
@@ -982,6 +984,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
             .description("testString")
             .modelVersion("testString")
             .versionDescription("testString")
+            .trainingParameters(trainingParameters)
             .build();
     ClassificationsModel response =
         service

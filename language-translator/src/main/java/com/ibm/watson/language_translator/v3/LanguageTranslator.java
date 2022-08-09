@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -560,7 +560,11 @@ public class LanguageTranslator extends BaseService {
    * <p>Submit a document for translation. You can submit the document contents in the `file`
    * parameter, or you can reference a previously submitted document by document ID. The maximum
    * file size for document translation is * 20 MB for service instances on the Standard, Advanced,
-   * and Premium plans * 2 MB for service instances on the Lite plan.
+   * and Premium plans * 2 MB for service instances on the Lite plan
+   *
+   * <p>**Note:** When translating a previously submitted document, the target language must be
+   * different from the target language of the original request when the document was initially
+   * submitted.
    *
    * @param translateDocumentOptions the {@link TranslateDocumentOptions} containing the options for
    *     the call

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2022.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -191,8 +191,8 @@ public class TranslateDocumentOptions extends GenericModel {
    *
    * <p>The contents of the source file to translate. The maximum file size for document translation
    * is 20 MB for service instances on the Standard, Advanced, and Premium plans, and 2 MB for
-   * service instances on the Lite plan. For more information, see [Supported file formats
-   * (Beta)](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats).
+   * service instances on the Lite plan. For more information, see [Supported file
+   * formats](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats).
    *
    * @return the file
    */

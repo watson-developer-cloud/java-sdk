@@ -42,12 +42,15 @@ import org.junit.runner.RunWith;
 /** The Class DiscoveryIT. */
 @RunWith(RetryRunner.class)
 public class DiscoveryIT extends WatsonServiceTest {
-  private static final String VERSION = "2019-11-22";
+  private static final String VERSION = "2022-07-29";
   private static final String RESOURCE = "src/test/resources/discovery/v2/";
-  private static final String PROJECT_ID = System.getenv("DISCOVERY_V2_PROJECT_ID");
-  private static final String COLLECTION_ID = System.getenv("DISCOVERY_V2_COLLECTION_ID");
+  private static final String PROJECT_ID = "ff7985e8-3bea-427a-8256-0327c73ec0c7";
+  private static final String COLLECTION_ID = "02cd572a-8e9d-0cb5-0000-017cf13ffc2b";
+  private static final String PREMIUM_PROJECT_ID = "feb5ab3a-1e22-4968-9c5e-021eeaabbf32";
+  private static final String PREMIUM_COLLECTION_ID = "0a7b633c-e41d-319c-0000-018264bf5fcd";
 
   private Discovery service;
+  private Discovery premiumService;
 
   /**
    * Sets up the tests.
@@ -65,6 +68,8 @@ public class DiscoveryIT extends WatsonServiceTest {
     super.setUp();
 
     String apiKey = System.getenv("DISCOVERY_V2_APIKEY");
+    // String premiumApiKey = getProperty("discovery_v2.apikeyPremium");
+    // String premiumUrl = getProperty("discovery_v2.urlPremium");
     String serviceUrl = System.getenv("DISCOVERY_V2_URL");
 
     if (apiKey == null) {
@@ -76,14 +81,21 @@ public class DiscoveryIT extends WatsonServiceTest {
         "DISCOVERY_V2_APIKEY is not defined and config.properties doesn't have valid credentials.",
         apiKey);
 
-    Authenticator authenticator = new IamAuthenticator(apiKey);
+    Authenticator authenticator = new IamAuthenticator.Builder().apikey(apiKey).build();
+    // Authenticator premiumAuthenticator =
+    //     new IamAuthenticator.Builder().apikey(premiumApiKey).build();
+
     service = new Discovery(VERSION, authenticator);
     service.setDefaultHeaders(getDefaultHeaders());
     service.setServiceUrl(serviceUrl);
+    // premiumService = new Discovery(VERSION, premiumAuthenticator);
+    // premiumService.setDefaultHeaders(getDefaultHeaders());
+    // premiumService.setServiceUrl(premiumUrl);
 
     HttpConfigOptions configOptions =
         new HttpConfigOptions.Builder().disableSslVerification(true).build();
     service.configureClient(configOptions);
+    // premiumService.configureClient(configOptions);
   }
 
   /** Test list collections. */
@@ -671,6 +683,26 @@ public class DiscoveryIT extends WatsonServiceTest {
     assertNotNull(addResponse);
     String documentId = addResponse.getDocumentId();
 
+    ListDocumentsOptions listDocumentsOptions =
+        new ListDocumentsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    ListDocumentsResponse documentList =
+        service.listDocuments(listDocumentsOptions).execute().getResult();
+
+    assertNotNull(documentList);
+    assertTrue(documentList.getDocuments().size() > 0);
+
+    GetDocumentOptions getDocumentOptions =
+        new GetDocumentOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .documentId(documentId)
+            .build();
+    DocumentDetails gotDocument = service.getDocument(getDocumentOptions).execute().getResult();
+
+    assertNotNull(gotDocument.getDocumentId());
     try {
       UpdateDocumentOptions updateDocumentOptions =
           new UpdateDocumentOptions.Builder()
@@ -1250,5 +1282,260 @@ public class DiscoveryIT extends WatsonServiceTest {
               .build();
       service.deleteDocument(deleteDocumentOptions).execute().getResult();
     }
+  }
+
+  /**
+   * Test document classifier operations.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  // @Test
+  public void testDocumentClassifierOperations() throws IOException, InterruptedException {
+    InputStream testFile = new FileInputStream(RESOURCE + "classification_training.csv");
+
+    DocumentClassifierEnrichment documentClassifierEnrichment =
+        new DocumentClassifierEnrichment.Builder()
+            .enrichmentId("701db916-fc83-57ab-0000-00000000001e")
+            .addFields("text")
+            .addFields("body")
+            .build();
+
+    CreateDocumentClassifier documentClassifier =
+        new CreateDocumentClassifier.Builder()
+            .name("sdk-test")
+            .description("a deletable sdk test classifier")
+            .language("en")
+            .answerField("label_answer")
+            .addEnrichments(documentClassifierEnrichment)
+            .build();
+
+    CreateDocumentClassifierOptions createClassifierOptions =
+        new CreateDocumentClassifierOptions.Builder()
+            .projectId(PREMIUM_PROJECT_ID)
+            .trainingData(testFile)
+            .testData(testFile)
+            .classifier(documentClassifier)
+            .build();
+
+    DocumentClassifier createResponse =
+        premiumService.createDocumentClassifier(createClassifierOptions).execute().getResult();
+
+    assertNotNull(createResponse.getClassifierId());
+    String classifierId = createResponse.getClassifierId();
+
+    ListDocumentClassifiersOptions listDocumentClassifierOptions =
+        new ListDocumentClassifiersOptions.Builder().projectId(PREMIUM_PROJECT_ID).build();
+
+    DocumentClassifiers listResponse =
+        premiumService.listDocumentClassifiers(listDocumentClassifierOptions).execute().getResult();
+    assertTrue(listResponse.getClassifiers().size() > 0);
+
+    GetDocumentClassifierOptions getDocumentClassifierOptions =
+        new GetDocumentClassifierOptions.Builder()
+            .projectId(PREMIUM_PROJECT_ID)
+            .classifierId(classifierId)
+            .build();
+
+    DocumentClassifier gotDocument =
+        premiumService.getDocumentClassifier(getDocumentClassifierOptions).execute().getResult();
+    assertNotNull(gotDocument);
+    try {
+      String updatedName = "new-sdk-test";
+      UpdateDocumentClassifier updateDocumentClassifier =
+          new UpdateDocumentClassifier.Builder().name("new-sdk-test").build();
+      UpdateDocumentClassifierOptions updateDocumentClassifierOptions =
+          new UpdateDocumentClassifierOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .classifier(updateDocumentClassifier)
+              .build();
+
+      DocumentClassifier updateResponse =
+          premiumService
+              .updateDocumentClassifier(updateDocumentClassifierOptions)
+              .execute()
+              .getResult();
+
+      assertNotNull(updateResponse);
+      assertEquals(updatedName, updateResponse.getName());
+
+      String classifierModelName = "classifier model sdk test";
+      CreateDocumentClassifierModelOptions createDocumentClassifierModelOptions =
+          new CreateDocumentClassifierModelOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .name(classifierModelName)
+              .learningRate(0.5)
+              .addL1RegularizationStrengths(0.0001)
+              .trainingMaxSteps(100000)
+              .build();
+      DocumentClassifierModel createModelResponse =
+          premiumService
+              .createDocumentClassifierModel(createDocumentClassifierModelOptions)
+              .execute()
+              .getResult();
+      assertNotNull(createModelResponse.getName());
+
+      ListDocumentClassifierModelsOptions listDocumentClassifierModelsOptions =
+          new ListDocumentClassifierModelsOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .build();
+
+      DocumentClassifierModels listModelsResponse =
+          premiumService
+              .listDocumentClassifierModels(listDocumentClassifierModelsOptions)
+              .execute()
+              .getResult();
+      assertTrue(listModelsResponse.getModels().size() > 0);
+      String modelID = listModelsResponse.getModels().get(0).getModelId();
+      assertNotNull(modelID);
+
+      GetDocumentClassifierModelOptions getDocumentClassifierModelOptions =
+          new GetDocumentClassifierModelOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .modelId(modelID)
+              .build();
+
+      DocumentClassifierModel getModelResponse =
+          premiumService
+              .getDocumentClassifierModel(getDocumentClassifierModelOptions)
+              .execute()
+              .getResult();
+      assertNotNull(getModelResponse.getName());
+
+      String updatedModelName = "new sdk test model";
+      UpdateDocumentClassifierModelOptions updateDocumentClassifierModelOptions =
+          new UpdateDocumentClassifierModelOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .modelId(modelID)
+              .name(updatedModelName)
+              .build();
+
+      DocumentClassifierModel updateModelResponse =
+          premiumService
+              .updateDocumentClassifierModel(updateDocumentClassifierModelOptions)
+              .execute()
+              .getResult();
+      assertEquals(updatedModelName, updateModelResponse.getName());
+
+      DeleteDocumentClassifierModelOptions deleteDocumentClassifierModelOptions =
+          new DeleteDocumentClassifierModelOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .modelId(modelID)
+              .build();
+      Response<Void> deleteModelResponse =
+          premiumService
+              .deleteDocumentClassifierModel(deleteDocumentClassifierModelOptions)
+              .execute();
+
+      assertTrue(deleteModelResponse.getStatusCode() == 204);
+
+    } finally {
+      DeleteDocumentClassifierOptions deleteDocumentClassifierOptions =
+          new DeleteDocumentClassifierOptions.Builder()
+              .projectId(PREMIUM_PROJECT_ID)
+              .classifierId(classifierId)
+              .build();
+      Response<Void> deleteResponse =
+          premiumService.deleteDocumentClassifier(deleteDocumentClassifierOptions).execute();
+
+      assertTrue(deleteResponse.getStatusCode() == 204);
+
+      testFile.close();
+    }
+  }
+
+  /** Test StopwordList operations. */
+  @Test
+  public void testStopwordLists() {
+    GetStopwordListOptions getStopwordListOptions =
+        new GetStopwordListOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    StopWordList getResponse =
+        service.getStopwordList(getStopwordListOptions).execute().getResult();
+
+    assertEquals(0, getResponse.stopwords().size());
+
+    CreateStopwordListOptions createstopwordListOptions =
+        new CreateStopwordListOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .addStopwords("it")
+            .addStopwords("the")
+            .build();
+    StopWordList createResponse =
+        service.createStopwordList(createstopwordListOptions).execute().getResult();
+
+    assertNotNull(createResponse);
+    assertEquals("it", createResponse.stopwords().get(0));
+    assertEquals("the", createResponse.stopwords().get(1));
+
+    StopWordList getResponse2 =
+        service.getStopwordList(getStopwordListOptions).execute().getResult();
+    assertEquals(2, getResponse2.stopwords().size());
+
+    DeleteStopwordListOptions deleteStopwordListOptions =
+        new DeleteStopwordListOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    Response<Void> deleteResponse = service.deleteStopwordList(deleteStopwordListOptions).execute();
+
+    assertTrue(deleteResponse.getStatusCode() == 204);
+  }
+
+  /** Test ExpansionList operations. */
+  @Test
+  public void testExpansionLists() {
+    ListExpansionsOptions listExpansionsOptions =
+        new ListExpansionsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    Expansions getResponse = service.listExpansions(listExpansionsOptions).execute().getResult();
+
+    assertEquals(0, getResponse.expansions().size());
+
+    String expandedTerm1 = "International Business Machines";
+    String expandedTerm2 = "Big Blue";
+    Expansion expansion =
+        new Expansion.Builder()
+            .addInputTerms("IBM")
+            .addExpandedTerms(expandedTerm1)
+            .addExpandedTerms(expandedTerm2)
+            .build();
+
+    CreateExpansionsOptions createExpansionsOptions =
+        new CreateExpansionsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .addExpansions(expansion)
+            .build();
+    Expansions createResponse =
+        service.createExpansions(createExpansionsOptions).execute().getResult();
+
+    assertNotNull(createResponse);
+    assertEquals(expandedTerm1, createResponse.expansions().get(0).expandedTerms().get(0));
+    assertEquals(expandedTerm2, createResponse.expansions().get(0).expandedTerms().get(1));
+
+    Expansions getResponse2 = service.listExpansions(listExpansionsOptions).execute().getResult();
+    assertEquals(1, getResponse2.expansions().size());
+    assertEquals(2, getResponse2.expansions().get(0).expandedTerms().size());
+
+    DeleteExpansionsOptions deleteExpansionOptions =
+        new DeleteExpansionsOptions.Builder()
+            .projectId(PROJECT_ID)
+            .collectionId(COLLECTION_ID)
+            .build();
+    Response<Void> deleteResponse = service.deleteExpansions(deleteExpansionOptions).execute();
+
+    assertTrue(deleteResponse.getStatusCode() == 204);
   }
 }
