@@ -1,0 +1,31 @@
+claim_id,date,claim_product_line,claim_product,client_segment,client_location,client_sex,client_age,body,label_answer
+0,2016/1/1,Tea,lemon tea,Not Member,Manhattan,Male,20,The straw was peeled off from the juice pack.,package_container
+1,2016/1/2,Ice cream,vanilla ice cream,Silver Card Member,Queens,Female,20,"I got some ice cream for my children, but there was something like a piece of thread inside the cup.",contamination_tampering
+2,2016/1/2,Jelly,apple jelly,Silver Card Member,Brooklyn,Male,40,I could only find 11 cups in the 12-pack.,amount.shortage
+3,2016/1/2,Juice,orange juice,Silver Card Member,Bronx,Female,50,There was a stain on the package that seemed to be caused by a leak. Is it safe to drink?,package_container.leak
+4,2016/1/3,Chocolate,milk chocolate,Silver Card Member,Manhattan,Male,30,I love the ads for the new milk chocolate. Could you tell me the name of the actor in the commercial?,ads
+5,2016/1/3,Ice cream,vanilla ice cream,Silver Card Member,Bronx,Female,20,The cup looked like it was already opened. Is it safe?,prank
+6,2016/1/3,Ice cream,chocolate ice cream,Silver Card Member,Manhattan,Male,40,It was a little more sour than when I ate it before.,other
+7,2016/1/4,Jelly,mint jelly,Golden Card Member,Queens,Female,20, I could only find 10 cups in the dozen pack.,amount.shortage
+8,2016/1/4,Juice,orange juice,Golden Card Member,Brooklyn,Male,20,Leaking (from the hole for the straw),package_container
+9,2016/1/5,Pastry,pastry,Silver Card Member,Queens,Female,30,"It is before the expiration date, but the pastry was moldy. Isn't this a problem?",change_of_properties
+10,2016/1/5,Muffin,muffin,Silver Card Member,Manhattan,Male,30,"I bought muffins for my children, but when I checked carefully, the bag looked like it was already opened.",prank
+11,2016/1/7,Ice cream,vanilla ice cream,Not Member,Bronx,Female,40,"The expiration date for the ice cream was passed, but is it okay to eat?",expiration_date
+12,2016/1/7,Chocolate,chocolate,Silver Card Member,Manhattan,Male,50,"In a dozen-pack of chocolate, I could only find 9 pieces.",amount.shortage
+13,2016/1/8,Ice cream,vanilla ice cream,Silver Card Member,Queens,Female,60,"I frequently buy vanilla ice cream from ABCDE confectionery company, but this time there were one cup missing from the half dozen pack.",amount.shortage
+14,2016/1/8,Ice cream,chocolate ice cream,Silver Card Member,Brooklyn,Male,70,The inside of the cup was dirty.,package_container.dirt
+15,2016/1/8,Minerals,minerals,Silver Card Member,Bronx,Female,40,Don't you think the bottle is bigger than it needs to be? It seems like such a waste.,package_container
+16,2016/1/8,Pastry,pastry,Silver Card Member,Manhattan,Male,20,"I bought pastry at my local store yesterday, but it tasted sour. The date hasn't expired yet.",other
+17,2016/1/9,Jelly,mint jelly,Silver Card Member,Bronx,Female,50,I frequently buy jelly made by ABCDE confectionery company. Could you please tell me what additives you are using?,ingredient.additives
+18,2016/1/10,Juice,orange juice,Golden Card Member,Manhattan,Male,30,I found a dark clump in the bottle.,package_container
+19,2016/1/10,Chocolate,chocolate muffin,Golden Card Member,Queens,Female,30,The bag was already torn. Is it okay to eat?,package_container.torn
+20,2016/1/10,Jelly,mint jelly,Silver Card Member,Brooklyn,Male,40,I felt that there was a sour taste. Is it just me?,other
+21,2016/1/11,Jelly,mint jelly,Silver Card Member,Bronx,Female,50,"I bought some mint jelly, but it was empty inside.",amount.empty
+22,2016/1/11,Ice cream,chocolate ice cream,Not Member,Manhattan,Male,50,I have a milk allergy. Is this safe to eat?,ingredient.allergy
+23,2016/1/11,Pastry,pastry,Silver Card Member,Bronx,Female,60,Do you use soy beans as an ingredient?,other
+24,2016/1/11,Jelly,mint jelly,Silver Card Member,Manhattan,Male,60,There were only 10 cups in the dozen pack.,amount.shortage
+25,2016/1/11,Juice,orange juice,Silver Card Member,Queens,Female,20,Orange juice leaked from the top.,package_container.leak
+26,2016/1/11,Minerals,minerals,Silver Card Member,Brooklyn,Male,20, I wish that you could see through the bottle to know how much is left.,package_container
+27,2016/1/12,Minerals,minerals,Silver Card Member,Bronx,Female,50,I can't open up the bottle since the cap is on too tight.,package_container
+28,2016/1/12,Jelly,mint jelly,Silver Card Member,Manhattan,Male,60,"I bought jelly yesterday, but it had a sour odor. Should I bring it back to the store?",other
+29,2016/1/13,Ice cream,vanilla ice cream,Golden Card Member,Manhattan,Female,70,Is this safe to eat? My wife is allergic to milk.,ingredient.allergy

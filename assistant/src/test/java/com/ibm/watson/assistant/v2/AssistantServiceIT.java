@@ -12,9 +12,9 @@
  */
 package com.ibm.watson.assistant.v2;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import com.ibm.cloud.sdk.core.security.*;
 import com.ibm.watson.assistant.v2.model.*;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
@@ -229,6 +229,79 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     assertNotNull(runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo());
   }
+
+  /** Test List Environments and Get Environment */
+  @Test
+  public void testGettingEnvironments() {
+    ListEnvironmentsOptions listEnvironmentOptions =
+        new ListEnvironmentsOptions.Builder().assistantId(assistantId).build();
+
+    EnvironmentCollection environments =
+        service.listEnvironments(listEnvironmentOptions).execute().getResult();
+
+    assertNotNull(environments);
+    assertNotNull(environments.getEnvironments().get(1).getName());
+    assertNotNull(environments.getEnvironments().get(1).getEnvironmentId());
+
+    String environmentId = environments.getEnvironments().get(1).getEnvironmentId();
+
+    GetEnvironmentOptions getEnvironmentOptions =
+            new GetEnvironmentOptions.Builder()
+                    .assistantId(assistantId)
+                    .environmentId(environmentId)
+                    .build();
+
+    Environment environment = service.getEnvironment(getEnvironmentOptions).execute().getResult();
+
+    assertNotNull(environment);
+    assertNotNull(environment.getName());
+    assertNotNull(environment.getEnvironmentId());
+  }
+
+  /** Test List Releases and Get Release */
+  @Test
+  public void testGettingReleases() {
+    ListReleasesOptions listReleasesOptions =
+        new ListReleasesOptions.Builder().assistantId(assistantId).build();
+
+    ReleaseCollection releases = service.listReleases(listReleasesOptions).execute().getResult();
+
+    assertNotNull(releases);
+    assertNotNull(releases.getReleases().get(0).getStatus());
+    assertNotNull(releases.getReleases().get(0).getRelease());
+
+    String releaseId = releases.getReleases().get(0).getRelease();
+
+    GetReleaseOptions getReleasesOptions =
+            new GetReleaseOptions.Builder().assistantId(assistantId).release(releaseId).build();
+
+    Release release = service.getRelease(getReleasesOptions).execute().getResult();
+
+    assertNotNull(release);
+    assertEquals("Available", release.getStatus());
+  }
+
+  /** Test Deploy Releases. */
+  // @Test
+  public void testDeployRelease() {
+    String environmentId = "TBD";
+    String releaseId = "TBD";
+
+    DeployReleaseOptions deployReleasesOptions =
+        new DeployReleaseOptions.Builder()
+            .assistantId(assistantId)
+            .release(releaseId)
+            .environmentId(environmentId)
+            .build();
+
+    Environment release = service.deployRelease(deployReleasesOptions).execute().getResult();
+
+    assertNotNull(release);
+    assertNotNull(release);
+    assertNotNull(release.getName());
+    assertNotNull(release.getEnvironmentId());
+  }
+
   /** Test Delete User Data. */
   /*
   @Test

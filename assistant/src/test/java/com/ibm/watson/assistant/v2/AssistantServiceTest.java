@@ -61,8 +61,8 @@ public class AssistantServiceTest extends WatsonServiceTest {
     String serviceUrl = System.getenv("ASSISTANT_URL");
 
     if (apiKey == null) {
-      apiKey = getProperty("assistant.apikey");
-      assistantId = getProperty("assistant.assistant_id");
+      apiKey = getProperty("assistant_v2.apikey");
+      assistantId = getProperty("assistant_v2.assistant_id");
       serviceUrl = getProperty("assistant.url");
     }
 
