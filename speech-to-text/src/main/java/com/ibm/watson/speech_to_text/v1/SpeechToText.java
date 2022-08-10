@@ -506,9 +506,6 @@ public class SpeechToText extends BaseService {
     if (recognizeOptions.model() != null) {
       urlBuilder.addQueryParameter("model", recognizeOptions.model());
     }
-    if (recognizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
-    }
     if (recognizeOptions.languageCustomizationId() != null) {
       urlBuilder.addQueryParameter(
           "language_customization_id", recognizeOptions.languageCustomizationId());
