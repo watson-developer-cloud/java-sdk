@@ -1,3 +1,22 @@
+# [10.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v10.0.1...v10.1.0) (2022-08-10)
+
+
+### Bug Fixes
+
+* **assistantv2:** add discrim bug hand edit for TurnEvent models ([4f4894f](https://github.com/watson-developer-cloud/java-sdk/commit/4f4894f17197d9bebf138e539758b5c072dcc36a))
+* **discov2:** make enrichement_id required and linting changes ([995e687](https://github.com/watson-developer-cloud/java-sdk/commit/995e687a07a1af9806b2f66dbcdeeaac03978d8b))
+
+
+### Features
+
+* **assistantv1:** update models and add new methods ([64a2622](https://github.com/watson-developer-cloud/java-sdk/commit/64a2622378df1874e3e259c09bceb9978a3a9aba))
+* **assistantv2:** update models and add new methods ([2f164cd](https://github.com/watson-developer-cloud/java-sdk/commit/2f164cd0a1f48749044c8b70f5e95ce72a3a69fc))
+* **discov2:** update models and add new methods ([a29cb73](https://github.com/watson-developer-cloud/java-sdk/commit/a29cb7311798d7023112773b930bde993be2d804))
+* **nlu:** add new parameter to create/updateClassificationsModel ([680d2c0](https://github.com/watson-developer-cloud/java-sdk/commit/680d2c0a94198ca4ec605755a89f47b4f8cca296))
+* **stt:** add and remove method parameters ([cdcc228](https://github.com/watson-developer-cloud/java-sdk/commit/cdcc2280e528ac5e2900b032a82dbb3020237b8f))
+* **tts:** add method parameters ([2a0c2f3](https://github.com/watson-developer-cloud/java-sdk/commit/2a0c2f3f64c07bed920639daa391e976f75d790f))
+* **wss:** add and remove websocket params ([bfd4b0d](https://github.com/watson-developer-cloud/java-sdk/commit/bfd4b0df203f3f0dac51c5b29bcb8895b7847b14))
+
 ## [10.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v10.0.0...v10.0.1) (2022-04-25)
 
 
