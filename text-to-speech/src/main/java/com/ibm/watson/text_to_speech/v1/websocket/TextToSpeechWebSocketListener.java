@@ -24,6 +24,7 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
 
   private static final String VOICE = "voice";
   private static final String CUSTOMIZATION_ID = "customization_id";
+  private static final String SPELL_OUT_MODE = "spell_out_mode";
   private static final String ACTION = "action";
   private static final String START = "start";
   private static final String STOP = "stop";
@@ -157,6 +158,7 @@ public class TextToSpeechWebSocketListener extends WebSocketListener {
     // remove options that are already in query string
     startMessage.remove(VOICE);
     startMessage.remove(CUSTOMIZATION_ID);
+    startMessage.remove(SPELL_OUT_MODE);
 
     startMessage.addProperty(ACTION, START);
     return startMessage.toString();

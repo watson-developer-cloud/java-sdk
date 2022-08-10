@@ -31,24 +31,50 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   public interface Model {
     /** ar-AR_BroadbandModel. */
     String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
+    /** ar-MS_BroadbandModel. */
+    String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
+    /** ar-MS_Telephony. */
+    String AR_MS_TELEPHONY = "ar-MS_Telephony";
+    /** cs-CZ_Telephony. */
+    String CS_CZ_TELEPHONY = "cs-CZ_Telephony";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
+    /** de-DE_Multimedia. */
+    String DE_DE_MULTIMEDIA = "de-DE_Multimedia";
     /** de-DE_NarrowbandModel. */
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
+    /** de-DE_Telephony. */
+    String DE_DE_TELEPHONY = "de-DE_Telephony";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
+    /** en-AU_Multimedia. */
+    String EN_AU_MULTIMEDIA = "en-AU_Multimedia";
     /** en-AU_NarrowbandModel. */
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
+    /** en-AU_Telephony. */
+    String EN_AU_TELEPHONY = "en-AU_Telephony";
+    /** en-IN_Telephony. */
+    String EN_IN_TELEPHONY = "en-IN_Telephony";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
+    /** en-GB_Multimedia. */
+    String EN_GB_MULTIMEDIA = "en-GB_Multimedia";
     /** en-GB_NarrowbandModel. */
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
+    /** en-GB_Telephony. */
+    String EN_GB_TELEPHONY = "en-GB_Telephony";
     /** en-US_BroadbandModel. */
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
+    /** en-US_Multimedia. */
+    String EN_US_MULTIMEDIA = "en-US_Multimedia";
     /** en-US_NarrowbandModel. */
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** en-US_Telephony. */
+    String EN_US_TELEPHONY = "en-US_Telephony";
+    /** en-WW_Medical_Telephony. */
+    String EN_WW_MEDICAL_TELEPHONY = "en-WW_Medical_Telephony";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
@@ -65,6 +91,12 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-ES_Multimedia. */
+    String ES_ES_MULTIMEDIA = "es-ES_Multimedia";
+    /** es-ES_Telephony. */
+    String ES_ES_TELEPHONY = "es-ES_Telephony";
+    /** es-LA_Telephony. */
+    String ES_LA_TELEPHONY = "es-LA_Telephony";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
@@ -77,34 +109,62 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
+    /** fr-CA_Telephony. */
+    String FR_CA_TELEPHONY = "fr-CA_Telephony";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
+    /** fr-FR_Multimedia. */
+    String FR_FR_MULTIMEDIA = "fr-FR_Multimedia";
     /** fr-FR_NarrowbandModel. */
     String FR_FR_NARROWBANDMODEL = "fr-FR_NarrowbandModel";
+    /** fr-FR_Telephony. */
+    String FR_FR_TELEPHONY = "fr-FR_Telephony";
+    /** hi-IN_Telephony. */
+    String HI_IN_TELEPHONY = "hi-IN_Telephony";
     /** it-IT_BroadbandModel. */
     String IT_IT_BROADBANDMODEL = "it-IT_BroadbandModel";
     /** it-IT_NarrowbandModel. */
     String IT_IT_NARROWBANDMODEL = "it-IT_NarrowbandModel";
+    /** it-IT_Multimedia. */
+    String IT_IT_MULTIMEDIA = "it-IT_Multimedia";
+    /** it-IT_Telephony. */
+    String IT_IT_TELEPHONY = "it-IT_Telephony";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
+    /** ja-JP_Multimedia. */
+    String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
+    /** ko-KR_Multimedia. */
+    String KO_KR_MULTIMEDIA = "ko-KR_Multimedia";
     /** ko-KR_NarrowbandModel. */
     String KO_KR_NARROWBANDMODEL = "ko-KR_NarrowbandModel";
+    /** ko-KR_Telephony. */
+    String KO_KR_TELEPHONY = "ko-KR_Telephony";
+    /** nl-BE_Telephony. */
+    String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
+    /** nl-NL_Telephony. */
+    String NL_NL_TELEPHONY = "nl-NL_Telephony";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
+    /** pt-BR_Multimedia. */
+    String PT_BR_MULTIMEDIA = "pt-BR_Multimedia";
     /** pt-BR_NarrowbandModel. */
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
+    /** pt-BR_Telephony. */
+    String PT_BR_TELEPHONY = "pt-BR_Telephony";
     /** zh-CN_BroadbandModel. */
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
     String ZH_CN_NARROWBANDMODEL = "zh-CN_NarrowbandModel";
+    /** zh-CN_Telephony. */
+    String ZH_CN_TELEPHONY = "zh-CN_Telephony";
   }
 
   protected transient InputStream audio;
@@ -127,7 +187,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   protected Boolean profanityFilter;
   protected Boolean smartFormatting;
   protected Boolean speakerLabels;
-  protected String customizationId;
   protected String grammarName;
   protected Boolean redaction;
   protected Boolean audioMetrics;
@@ -135,6 +194,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
+  protected Boolean lowLatency;
+  protected Float characterInsertionBias;
   private Boolean interimResults;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
@@ -158,7 +219,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
-    private String customizationId;
     private String grammarName;
     private Boolean redaction;
     private Boolean audioMetrics;
@@ -166,6 +226,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
+    private Boolean lowLatency;
+    private Float characterInsertionBias;
     private Boolean interimResults;
     private Boolean processingMetrics;
     private Float processingMetricsInterval;
@@ -188,7 +250,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
       this.profanityFilter = recognizeWithWebsocketsOptions.profanityFilter;
       this.smartFormatting = recognizeWithWebsocketsOptions.smartFormatting;
       this.speakerLabels = recognizeWithWebsocketsOptions.speakerLabels;
-      this.customizationId = recognizeWithWebsocketsOptions.customizationId;
       this.grammarName = recognizeWithWebsocketsOptions.grammarName;
       this.redaction = recognizeWithWebsocketsOptions.redaction;
       this.audioMetrics = recognizeWithWebsocketsOptions.audioMetrics;
@@ -196,6 +257,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
       this.splitTranscriptAtPhraseEnd = recognizeWithWebsocketsOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeWithWebsocketsOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = recognizeWithWebsocketsOptions.backgroundAudioSuppression;
+      this.lowLatency = recognizeWithWebsocketsOptions.lowLatency;
+      this.characterInsertionBias = recognizeWithWebsocketsOptions.characterInsertionBias;
       this.interimResults = recognizeWithWebsocketsOptions.interimResults;
       this.processingMetrics = recognizeWithWebsocketsOptions.processingMetrics;
       this.processingMetricsInterval = recognizeWithWebsocketsOptions.processingMetricsInterval;
@@ -425,17 +488,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     }
 
     /**
-     * Set the customizationId.
-     *
-     * @param customizationId the customizationId
-     * @return the RecognizeOptions builder
-     */
-    public Builder customizationId(String customizationId) {
-      this.customizationId = customizationId;
-      return this;
-    }
-
-    /**
      * Set the grammarName.
      *
      * @param grammarName the grammarName
@@ -513,6 +565,28 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     }
 
     /**
+     * Set the lowLatency.
+     *
+     * @param lowLatency the lowLatency
+     * @return the RecognizeOptions builder
+     */
+    public Builder lowLatency(Boolean lowLatency) {
+      this.lowLatency = lowLatency;
+      return this;
+    }
+
+    /**
+     * Set the characterInsertionBias.
+     *
+     * @param characterInsertionBias the characterInsertionBias
+     * @return the RecognizeOptions builder
+     */
+    public Builder characterInsertionBias(Float characterInsertionBias) {
+      this.characterInsertionBias = characterInsertionBias;
+      return this;
+    }
+
+    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -583,7 +657,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
-    customizationId = builder.customizationId;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
     audioMetrics = builder.audioMetrics;
@@ -591,6 +664,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
+    lowLatency = builder.lowLatency;
+    characterInsertionBias = builder.characterInsertionBias;
     interimResults = builder.interimResults;
     processingMetrics = builder.processingMetrics;
     processingMetricsInterval = builder.processingMetricsInterval;
@@ -875,19 +950,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   }
 
   /**
-   * Gets the customizationId.
-   *
-   * <p>**Deprecated.** Use the `language_customization_id` parameter to specify the customization
-   * ID (GUID) of a custom language model that is to be used with the recognition request. Do not
-   * specify both parameters with a request.
-   *
-   * @return the customizationId
-   */
-  public String customizationId() {
-    return customizationId;
-  }
-
-  /**
    * Gets the grammarName.
    *
    * <p>The name of a grammar that is to be used with the recognition request. If you specify a
@@ -1026,6 +1088,59 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
    */
   public Float backgroundAudioSuppression() {
     return backgroundAudioSuppression;
+  }
+
+  /**
+   * Gets the lowLatency.
+   *
+   * <p>If `true` for next-generation `Multimedia` and `Telephony` models that support low latency,
+   * directs the service to produce results even more quickly than it usually does. Next-generation
+   * models produce transcription results faster than previous-generation models. The `low_latency`
+   * parameter causes the models to produce results even more quickly, though the results might be
+   * less accurate when the parameter is used.
+   *
+   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
+   * It is available for most next-generation models. * For a list of next-generation models that
+   * support low latency, see [Supported next-generation language
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported).
+   * * For more information about the `low_latency` parameter, see [Low
+   * latency](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-interim#low-latency).
+   *
+   * @return the lowLatency
+   */
+  public Boolean lowLatency() {
+    return lowLatency;
+  }
+
+  /**
+   * Gets the characterInsertionBias.
+   *
+   * <p>For next-generation `Multimedia` and `Telephony` models, an indication of whether the
+   * service is biased to recognize shorter or longer strings of characters when developing
+   * transcription hypotheses. By default, the service is optimized for each individual model to
+   * balance its recognition of strings of different lengths. The model-specific bias is equivalent
+   * to 0.0.
+   *
+   * <p>The value that you specify represents a change from a model's default bias. The allowable
+   * range of values is -1.0 to 1.0. * Negative values bias the service to favor hypotheses with
+   * shorter strings of characters. * Positive values bias the service to favor hypotheses with
+   * longer strings of characters.
+   *
+   * <p>As the value approaches -1.0 or 1.0, the impact of the parameter becomes more pronounced. To
+   * determine the most effective value for your scenario, start by setting the value of the
+   * parameter to a small increment, such as -0.1, -0.05, 0.05, or 0.1, and assess how the value
+   * impacts the transcription results. Then experiment with different values as necessary,
+   * adjusting the value by small increments.
+   *
+   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
+   *
+   * <p>See [Character insertion
+   * bias](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#insertion-bias).
+   *
+   * @return the characterInsertionBias
+   */
+  public Float characterInsertionBias() {
+    return characterInsertionBias;
   }
 
   /**
