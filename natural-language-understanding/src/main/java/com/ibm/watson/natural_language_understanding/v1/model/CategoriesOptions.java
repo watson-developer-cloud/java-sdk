@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,11 @@ public class CategoriesOptions extends GenericModel {
     private Long limit;
     private String model;
 
+    /**
+     * Instantiates a new Builder from an existing CategoriesOptions instance.
+     *
+     * @param categoriesOptions the instance to initialize the Builder with
+     */
     private Builder(CategoriesOptions categoriesOptions) {
       this.explanation = categoriesOptions.explanation;
       this.limit = categoriesOptions.limit;
