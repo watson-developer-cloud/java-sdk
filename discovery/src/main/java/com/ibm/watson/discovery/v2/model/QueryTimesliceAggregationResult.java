@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,6 +15,7 @@ package com.ibm.watson.discovery.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
+import java.util.Map;
 
 /** A timeslice interval segment. */
 public class QueryTimesliceAggregationResult extends GenericModel {
@@ -27,7 +28,9 @@ public class QueryTimesliceAggregationResult extends GenericModel {
   @SerializedName("matching_results")
   protected Long matchingResults;
 
-  protected List<QueryAggregation> aggregations;
+  protected List<Map<String, Object>> aggregations;
+
+  protected QueryTimesliceAggregationResult() {}
 
   /**
    * Gets the keyAsString.
@@ -66,11 +69,12 @@ public class QueryTimesliceAggregationResult extends GenericModel {
   /**
    * Gets the aggregations.
    *
-   * <p>An array of sub-aggregations.
+   * <p>An array of subaggregations. Returned only when this aggregation is returned as a
+   * subaggregation.
    *
    * @return the aggregations
    */
-  public List<QueryAggregation> getAggregations() {
+  public List<Map<String, Object>> getAggregations() {
     return aggregations;
   }
 }

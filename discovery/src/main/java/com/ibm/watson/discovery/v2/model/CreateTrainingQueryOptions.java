@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,11 @@ public class CreateTrainingQueryOptions extends GenericModel {
     private List<TrainingExample> examples;
     private String filter;
 
+    /**
+     * Instantiates a new Builder from an existing CreateTrainingQueryOptions instance.
+     *
+     * @param createTrainingQueryOptions the instance to initialize the Builder with
+     */
     private Builder(CreateTrainingQueryOptions createTrainingQueryOptions) {
       this.projectId = createTrainingQueryOptions.projectId;
       this.naturalLanguageQuery = createTrainingQueryOptions.naturalLanguageQuery;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,6 +55,11 @@ public class QueryOptions extends GenericModel {
     private QueryLargePassages passages;
     private QueryLargeSimilar similar;
 
+    /**
+     * Instantiates a new Builder from an existing QueryOptions instance.
+     *
+     * @param queryOptions the instance to initialize the Builder with
+     */
     private Builder(QueryOptions queryOptions) {
       this.projectId = queryOptions.projectId;
       this.collectionIds = queryOptions.collectionIds;
@@ -403,7 +408,7 @@ public class QueryOptions extends GenericModel {
    * <p>An aggregation search that returns an exact answer by combining query search with filters.
    * Useful for applications to build lists, tables, and time series. For more information about the
    * supported types of aggregations, see the [Discovery
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-aggregations).
+   * documentation](/docs/discovery-data?topic=discovery-data-query-aggregations).
    *
    * @return the aggregation
    */

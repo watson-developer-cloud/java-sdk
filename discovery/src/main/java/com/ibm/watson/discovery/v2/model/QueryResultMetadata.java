@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,8 @@ public class QueryResultMetadata extends GenericModel {
 
   protected Double confidence;
 
+  protected QueryResultMetadata() {}
+
   /**
    * Gets the documentRetrievalSource.
    *
@@ -60,10 +62,10 @@ public class QueryResultMetadata extends GenericModel {
    * Gets the confidence.
    *
    * <p>The confidence score for the given result. Calculated based on how relevant the result is
-   * estimated to be. confidence can range from `0.0` to `1.0`. The higher the number, the more
+   * estimated to be. The score can range from `0.0` to `1.0`. The higher the number, the more
    * relevant the document. The `confidence` value for a result was calculated using the model
-   * specified in the `document_retrieval_strategy` field of the result set. This field is only
-   * returned if the **natural_language_query** parameter is specified in the query.
+   * specified in the `document_retrieval_strategy` field of the result set. This field is returned
+   * only if the **natural_language_query** parameter is specified in the query.
    *
    * @return the confidence
    */

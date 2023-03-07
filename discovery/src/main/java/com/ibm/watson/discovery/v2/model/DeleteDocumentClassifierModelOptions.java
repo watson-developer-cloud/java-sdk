@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class DeleteDocumentClassifierModelOptions extends GenericModel {
     private String classifierId;
     private String modelId;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteDocumentClassifierModelOptions instance.
+     *
+     * @param deleteDocumentClassifierModelOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteDocumentClassifierModelOptions deleteDocumentClassifierModelOptions) {
       this.projectId = deleteDocumentClassifierModelOptions.projectId;
       this.classifierId = deleteDocumentClassifierModelOptions.classifierId;

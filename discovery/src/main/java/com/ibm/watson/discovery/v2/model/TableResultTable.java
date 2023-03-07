@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,6 +43,8 @@ public class TableResultTable extends GenericModel {
   protected List<TableBodyCells> bodyCells;
 
   protected List<TableTextLocation> contexts;
+
+  protected TableResultTable() {}
 
   /**
    * Gets the location.

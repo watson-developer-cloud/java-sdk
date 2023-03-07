@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.discovery.v2;
@@ -107,8 +107,8 @@ import java.util.Map.Entry;
 import okhttp3.MultipartBody;
 
 /**
- * IBM Watson&amp;trade; Discovery is a cognitive search and content analytics engine that you can
- * add to applications to identify patterns, trends and actionable insights to drive better
+ * IBM Watson&amp;reg; Discovery is a cognitive search and content analytics engine that you can add
+ * to applications to identify patterns, trends and actionable insights to drive better
  * decision-making. Securely unify structured and unstructured data with pre-enriched content, and
  * use a simplified query language to eliminate the need for manual filtering of results.
  *
@@ -116,8 +116,10 @@ import okhttp3.MultipartBody;
  */
 public class Discovery extends BaseService {
 
+  /** Default service name used when configuring the `Discovery` client. */
   public static final String DEFAULT_SERVICE_NAME = "discovery";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.discovery.watson.cloud.ibm.com";
 
@@ -465,12 +467,6 @@ public class Discovery extends BaseService {
           com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
               .toJsonTree(createCollectionOptions.enrichments()));
     }
-    if (createCollectionOptions.smartDocumentUnderstanding() != null) {
-      contentJson.add(
-          "smart_document_understanding",
-          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
-              .toJsonTree(createCollectionOptions.smartDocumentUnderstanding()));
-    }
     builder.bodyJson(contentJson);
     ResponseConverter<CollectionDetails> responseConverter =
         ResponseConverterUtils.getValue(
@@ -597,7 +593,8 @@ public class Discovery extends BaseService {
    * each document and returns information for up to 10,000 documents.
    *
    * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
-   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances.
+   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances. It is not
+   * currently available from Premium plan instances.
    *
    * @param listDocumentsOptions the {@link ListDocumentsOptions} containing the options for the
    *     call
@@ -653,8 +650,8 @@ public class Discovery extends BaseService {
    *
    * <p>Returns immediately after the system has accepted the document for processing.
    *
-   * <p>This operation works with a file upload collection. It cannot be used to modify a collection
-   * that crawls an external data source.
+   * <p>Use this method to upload a file to the collection. You cannot use this method to crawl an
+   * external data source.
    *
    * <p>* For a list of supported file types, see the [product
    * documentation](/docs/discovery-data?topic=discovery-data-collections#supportedfiletypes).
@@ -731,7 +728,8 @@ public class Discovery extends BaseService {
    * by crawling an external data source.
    *
    * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
-   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances.
+   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances. It is not
+   * currently available from Premium plan instances.
    *
    * @param getDocumentOptions the {@link GetDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DocumentDetails}
@@ -767,8 +765,8 @@ public class Discovery extends BaseService {
    * <p>Replace an existing document or add a document with a specified document ID. Starts
    * ingesting a document with optional metadata.
    *
-   * <p>This operation works with a file upload collection. It cannot be used to modify a collection
-   * that crawls an external data source.
+   * <p>Use this method to upload a file to a collection. You cannot use this method to crawl an
+   * external data source.
    *
    * <p>If the document is uploaded to a collection that shares its data with another collection,
    * the **X-Watson-Discovery-Force** header must be set to `true`.
@@ -832,15 +830,17 @@ public class Discovery extends BaseService {
   /**
    * Delete a document.
    *
-   * <p>If the given document ID is invalid, or if the document is not found, then the a success
-   * response is returned (HTTP status code `200`) with the status set to 'deleted'.
+   * <p>Deletes the document with the document ID that you specify from the collection. Removes
+   * uploaded documents from the collection permanently. If you delete a document that was added by
+   * crawling an external data source, the document will be added again with the next scheduled
+   * crawl of the data source. The delete function removes the document from the collection, not
+   * from the external data source.
    *
-   * <p>**Note:** This operation only works on collections created to accept direct file uploads. It
-   * cannot be used to modify a collection that connects to an external source such as Microsoft
-   * SharePoint.
-   *
-   * <p>**Note:** Segments of an uploaded document cannot be deleted individually. Delete all
-   * segments by deleting using the `parent_document_id` of a segment result.
+   * <p>**Note:** Files such as CSV or JSON files generate subdocuments when they are added to a
+   * collection. If you delete a subdocument, and then repeat the action that created it, the
+   * deleted document is added back in to your collection. To remove subdocuments that are generated
+   * by an uploaded file, delete the original document instead. You can get the document ID of the
+   * original document from the `parent_document_id` of the subdocument result.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the
    *     call
@@ -880,12 +880,11 @@ public class Discovery extends BaseService {
    *
    * <p>Search your data by submitting queries that are written in natural language or formatted in
    * the Discovery Query Language. For more information, see the [Discovery
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-concepts).
-   * The default query parameters differ by project type. For more information about the project
-   * default settings, see the [Discovery
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-query-defaults).
-   * See [the Projects API documentation](#create-project) for details about how to set custom
-   * default query settings.
+   * documentation](/docs/discovery-data?topic=discovery-data-query-concepts). The default query
+   * parameters differ by project type. For more information about the project default settings, see
+   * the [Discovery documentation](/docs/discovery-data?topic=discovery-data-query-defaults). See
+   * [the Projects API documentation](#create-project) for details about how to set custom default
+   * query settings.
    *
    * <p>The length of the UTF-8 encoding of the POST body cannot exceed 10,000 bytes, which is
    * roughly equivalent to 10,000 characters in English.
@@ -1163,10 +1162,8 @@ public class Discovery extends BaseService {
    * indexing time and at query time. A custom stop words list that you add is used at query time
    * only.
    *
-   * <p>The custom stop words list replaces the default stop words list. Therefore, if you want to
-   * keep the stop words that were used when the collection was indexed, get the default stop words
-   * list for the language of the collection first and edit it to create your custom list. For
-   * information about the default stop words lists per language, see [the product
+   * <p>The custom stop words list augments the default stop words list; you cannot remove stop
+   * words. For information about the default stop words lists per language, see [the product
    * documentation](/docs/discovery-data?topic=discovery-data-stopwords).
    *
    * @param createStopwordListOptions the {@link CreateStopwordListOptions} containing the options
@@ -2260,7 +2257,7 @@ public class Discovery extends BaseService {
    * <p>You associate a customer ID with data by passing the **X-Watson-Metadata** header with a
    * request that passes data. For more information about personal data and customer IDs, see
    * [Information
-   * security](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-information-security#information-security).
+   * security](/docs/discovery-data?topic=discovery-data-information-security#information-security).
    *
    * <p>**Note:** This method is only supported on IBM Cloud instances of Discovery.
    *

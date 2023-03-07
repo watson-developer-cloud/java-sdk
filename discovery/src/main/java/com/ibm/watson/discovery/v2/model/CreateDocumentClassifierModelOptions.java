@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,11 @@ public class CreateDocumentClassifierModelOptions extends GenericModel {
     private Long trainingMaxSteps;
     private Double improvementRatio;
 
+    /**
+     * Instantiates a new Builder from an existing CreateDocumentClassifierModelOptions instance.
+     *
+     * @param createDocumentClassifierModelOptions the instance to initialize the Builder with
+     */
     private Builder(CreateDocumentClassifierModelOptions createDocumentClassifierModelOptions) {
       this.projectId = createDocumentClassifierModelOptions.projectId;
       this.classifierId = createDocumentClassifierModelOptions.classifierId;
