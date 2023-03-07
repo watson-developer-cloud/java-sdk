@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,11 @@ public class GetExampleOptions extends GenericModel {
     private String text;
     private Boolean includeAudit;
 
+    /**
+     * Instantiates a new Builder from an existing GetExampleOptions instance.
+     *
+     * @param getExampleOptions the instance to initialize the Builder with
+     */
     private Builder(GetExampleOptions getExampleOptions) {
       this.workspaceId = getExampleOptions.workspaceId;
       this.intent = getExampleOptions.intent;

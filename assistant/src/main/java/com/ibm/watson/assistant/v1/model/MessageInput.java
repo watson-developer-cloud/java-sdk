@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,6 +47,11 @@ public class MessageInput extends DynamicModel<Object> {
     private Boolean spellingAutoCorrect;
     private Map<String, Object> dynamicProperties;
 
+    /**
+     * Instantiates a new Builder from an existing MessageInput instance.
+     *
+     * @param messageInput the instance to initialize the Builder with
+     */
     private Builder(MessageInput messageInput) {
       this.text = messageInput.text;
       this.spellingSuggestions = messageInput.spellingSuggestions;

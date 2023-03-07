@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,6 +38,11 @@ public class ExportWorkspaceAsyncOptions extends GenericModel {
     private String sort;
     private Boolean verbose;
 
+    /**
+     * Instantiates a new Builder from an existing ExportWorkspaceAsyncOptions instance.
+     *
+     * @param exportWorkspaceAsyncOptions the instance to initialize the Builder with
+     */
     private Builder(ExportWorkspaceAsyncOptions exportWorkspaceAsyncOptions) {
       this.workspaceId = exportWorkspaceAsyncOptions.workspaceId;
       this.includeAudit = exportWorkspaceAsyncOptions.includeAudit;

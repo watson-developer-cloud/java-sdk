@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,11 @@ public class CreateSynonymOptions extends GenericModel {
     private String synonym;
     private Boolean includeAudit;
 
+    /**
+     * Instantiates a new Builder from an existing CreateSynonymOptions instance.
+     *
+     * @param createSynonymOptions the instance to initialize the Builder with
+     */
     private Builder(CreateSynonymOptions createSynonymOptions) {
       this.workspaceId = createSynonymOptions.workspaceId;
       this.entity = createSynonymOptions.entity;

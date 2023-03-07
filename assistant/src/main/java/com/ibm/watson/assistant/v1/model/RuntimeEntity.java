@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,6 +39,11 @@ public class RuntimeEntity extends GenericModel {
     private List<RuntimeEntityAlternative> alternatives;
     private RuntimeEntityRole role;
 
+    /**
+     * Instantiates a new Builder from an existing RuntimeEntity instance.
+     *
+     * @param runtimeEntity the instance to initialize the Builder with
+     */
     private Builder(RuntimeEntity runtimeEntity) {
       this.entity = runtimeEntity.entity;
       this.location = runtimeEntity.location;

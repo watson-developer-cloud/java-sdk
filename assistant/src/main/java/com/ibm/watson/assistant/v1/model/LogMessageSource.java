@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,11 @@ public class LogMessageSource extends GenericModel {
     private String type;
     private String dialogNode;
 
+    /**
+     * Instantiates a new Builder from an existing LogMessageSource instance.
+     *
+     * @param logMessageSource the instance to initialize the Builder with
+     */
     private Builder(LogMessageSource logMessageSource) {
       this.type = logMessageSource.type;
       this.dialogNode = logMessageSource.dialogNode;

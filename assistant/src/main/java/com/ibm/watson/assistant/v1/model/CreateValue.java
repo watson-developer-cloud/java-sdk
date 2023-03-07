@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,6 +45,11 @@ public class CreateValue extends GenericModel {
     private List<String> synonyms;
     private List<String> patterns;
 
+    /**
+     * Instantiates a new Builder from an existing CreateValue instance.
+     *
+     * @param createValue the instance to initialize the Builder with
+     */
     private Builder(CreateValue createValue) {
       this.value = createValue.value;
       this.metadata = createValue.metadata;

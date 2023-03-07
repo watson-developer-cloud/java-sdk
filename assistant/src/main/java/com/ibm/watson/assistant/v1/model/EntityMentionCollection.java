@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,8 @@ public class EntityMentionCollection extends GenericModel {
   protected List<EntityMention> examples;
   protected Pagination pagination;
 
+  protected EntityMentionCollection() {}
+
   /**
    * Gets the examples.
    *
@@ -35,7 +37,8 @@ public class EntityMentionCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * <p>The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects. For more information about using pagination,
+   * see [Pagination](#pagination).
    *
    * @return the pagination
    */

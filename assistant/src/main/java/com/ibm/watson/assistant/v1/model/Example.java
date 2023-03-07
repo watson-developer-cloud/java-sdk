@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,11 @@ public class Example extends GenericModel {
     private String text;
     private List<Mention> mentions;
 
+    /**
+     * Instantiates a new Builder from an existing Example instance.
+     *
+     * @param example the instance to initialize the Builder with
+     */
     private Builder(Example example) {
       this.text = example.text;
       this.mentions = example.mentions;

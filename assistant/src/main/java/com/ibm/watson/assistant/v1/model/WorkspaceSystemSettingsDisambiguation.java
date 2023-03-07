@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,6 +63,11 @@ public class WorkspaceSystemSettingsDisambiguation extends GenericModel {
     private Long maxSuggestions;
     private String suggestionTextPolicy;
 
+    /**
+     * Instantiates a new Builder from an existing WorkspaceSystemSettingsDisambiguation instance.
+     *
+     * @param workspaceSystemSettingsDisambiguation the instance to initialize the Builder with
+     */
     private Builder(WorkspaceSystemSettingsDisambiguation workspaceSystemSettingsDisambiguation) {
       this.prompt = workspaceSystemSettingsDisambiguation.prompt;
       this.noneOfTheAbovePrompt = workspaceSystemSettingsDisambiguation.noneOfTheAbovePrompt;

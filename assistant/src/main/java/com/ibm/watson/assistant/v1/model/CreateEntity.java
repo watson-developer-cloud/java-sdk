@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,11 @@ public class CreateEntity extends GenericModel {
     private Boolean fuzzyMatch;
     private List<CreateValue> values;
 
+    /**
+     * Instantiates a new Builder from an existing CreateEntity instance.
+     *
+     * @param createEntity the instance to initialize the Builder with
+     */
     private Builder(CreateEntity createEntity) {
       this.entity = createEntity.entity;
       this.description = createEntity.description;
