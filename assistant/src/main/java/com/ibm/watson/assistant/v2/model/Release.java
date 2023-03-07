@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,6 +45,58 @@ public class Release extends GenericModel {
   protected Date created;
   protected Date updated;
 
+  /** Builder. */
+  public static class Builder {
+    private String description;
+
+    /**
+     * Instantiates a new Builder from an existing Release instance.
+     *
+     * @param release the instance to initialize the Builder with
+     */
+    private Builder(Release release) {
+      this.description = release.description;
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a Release.
+     *
+     * @return the new Release instance
+     */
+    public Release build() {
+      return new Release(this);
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the Release builder
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+  }
+
+  protected Release() {}
+
+  protected Release(Builder builder) {
+    description = builder.description;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Release builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
   /**
    * Gets the release.
    *
@@ -52,7 +104,7 @@ public class Release extends GenericModel {
    *
    * @return the release
    */
-  public String getRelease() {
+  public String release() {
     return release;
   }
 
@@ -63,7 +115,7 @@ public class Release extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -74,19 +126,19 @@ public class Release extends GenericModel {
    *
    * @return the environmentReferences
    */
-  public List<EnvironmentReference> getEnvironmentReferences() {
+  public List<EnvironmentReference> environmentReferences() {
     return environmentReferences;
   }
 
   /**
    * Gets the content.
    *
-   * <p>An object describing the versionable content objects (such as skill snapshots) that are
+   * <p>An object identifying the versionable content objects (such as skill snapshots) that are
    * included in the release.
    *
    * @return the content
    */
-  public ReleaseContent getContent() {
+  public ReleaseContent content() {
     return content;
   }
 
@@ -99,7 +151,7 @@ public class Release extends GenericModel {
    *
    * @return the status
    */
-  public String getStatus() {
+  public String status() {
     return status;
   }
 
@@ -110,7 +162,7 @@ public class Release extends GenericModel {
    *
    * @return the created
    */
-  public Date getCreated() {
+  public Date created() {
     return created;
   }
 
@@ -121,7 +173,7 @@ public class Release extends GenericModel {
    *
    * @return the updated
    */
-  public Date getUpdated() {
+  public Date updated() {
     return updated;
   }
 }

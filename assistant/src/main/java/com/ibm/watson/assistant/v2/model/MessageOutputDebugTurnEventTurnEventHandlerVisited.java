@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,14 +16,5 @@ package com.ibm.watson.assistant.v2.model;
 public class MessageOutputDebugTurnEventTurnEventHandlerVisited
     extends MessageOutputDebugTurnEvent {
 
-  private TurnEventActionSource source;
-
-  /**
-   * Gets the source.
-   *
-   * @return the source
-   */
-  public TurnEventActionSource getSource() {
-    return source;
-  }
+  protected MessageOutputDebugTurnEventTurnEventHandlerVisited() {}
 }

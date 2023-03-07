@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.assistant.v2;
@@ -25,16 +25,27 @@ import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.ConfigBasedAuthenticatorFactory;
 import com.ibm.cloud.sdk.core.service.BaseService;
 import com.ibm.cloud.sdk.core.util.ResponseConverterUtils;
+import com.ibm.watson.assistant.v2.model.AssistantCollection;
+import com.ibm.watson.assistant.v2.model.AssistantData;
 import com.ibm.watson.assistant.v2.model.BulkClassifyOptions;
 import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
+import com.ibm.watson.assistant.v2.model.CreateAssistantOptions;
+import com.ibm.watson.assistant.v2.model.CreateReleaseOptions;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
+import com.ibm.watson.assistant.v2.model.DeleteAssistantOptions;
+import com.ibm.watson.assistant.v2.model.DeleteReleaseOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.assistant.v2.model.DeployReleaseOptions;
 import com.ibm.watson.assistant.v2.model.Environment;
 import com.ibm.watson.assistant.v2.model.EnvironmentCollection;
+import com.ibm.watson.assistant.v2.model.ExportSkillsOptions;
 import com.ibm.watson.assistant.v2.model.GetEnvironmentOptions;
 import com.ibm.watson.assistant.v2.model.GetReleaseOptions;
+import com.ibm.watson.assistant.v2.model.GetSkillOptions;
+import com.ibm.watson.assistant.v2.model.ImportSkillsOptions;
+import com.ibm.watson.assistant.v2.model.ImportSkillsStatusOptions;
+import com.ibm.watson.assistant.v2.model.ListAssistantsOptions;
 import com.ibm.watson.assistant.v2.model.ListEnvironmentsOptions;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions;
 import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
@@ -46,6 +57,11 @@ import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
 import com.ibm.watson.assistant.v2.model.Release;
 import com.ibm.watson.assistant.v2.model.ReleaseCollection;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
+import com.ibm.watson.assistant.v2.model.Skill;
+import com.ibm.watson.assistant.v2.model.SkillsAsyncRequestStatus;
+import com.ibm.watson.assistant.v2.model.SkillsExport;
+import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.UpdateSkillOptions;
 import com.ibm.watson.common.SdkCommon;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,8 +79,10 @@ import java.util.Map.Entry;
  */
 public class Assistant extends BaseService {
 
-  public static final String DEFAULT_SERVICE_NAME = "assistant";
+  /** Default service name used when configuring the `Assistant` client. */
+  public static final String DEFAULT_SERVICE_NAME = "conversation";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.assistant.watson.cloud.ibm.com";
 
@@ -147,6 +165,154 @@ public class Assistant extends BaseService {
   }
 
   /**
+   * Create an assistant.
+   *
+   * <p>Create a new assistant.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param createAssistantOptions the {@link CreateAssistantOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link AssistantData}
+   */
+  public ServiceCall<AssistantData> createAssistant(CreateAssistantOptions createAssistantOptions) {
+    boolean skipBody = false;
+    if (createAssistantOptions == null) {
+      createAssistantOptions = new CreateAssistantOptions.Builder().build();
+      skipBody = true;
+    }
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/assistants"));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "createAssistant");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (!skipBody) {
+      final JsonObject contentJson = new JsonObject();
+      if (createAssistantOptions.name() != null) {
+        contentJson.addProperty("name", createAssistantOptions.name());
+      }
+      if (createAssistantOptions.description() != null) {
+        contentJson.addProperty("description", createAssistantOptions.description());
+      }
+      if (createAssistantOptions.language() != null) {
+        contentJson.addProperty("language", createAssistantOptions.language());
+      }
+      builder.bodyJson(contentJson);
+    }
+    ResponseConverter<AssistantData> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<AssistantData>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create an assistant.
+   *
+   * <p>Create a new assistant.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link AssistantData}
+   */
+  public ServiceCall<AssistantData> createAssistant() {
+    return createAssistant(null);
+  }
+
+  /**
+   * List assistants.
+   *
+   * <p>List the assistants associated with a Watson Assistant service instance.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param listAssistantsOptions the {@link ListAssistantsOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link AssistantCollection}
+   */
+  public ServiceCall<AssistantCollection> listAssistants(
+      ListAssistantsOptions listAssistantsOptions) {
+    if (listAssistantsOptions == null) {
+      listAssistantsOptions = new ListAssistantsOptions.Builder().build();
+    }
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/assistants"));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "listAssistants");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listAssistantsOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listAssistantsOptions.pageLimit()));
+    }
+    if (listAssistantsOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listAssistantsOptions.includeCount()));
+    }
+    if (listAssistantsOptions.sort() != null) {
+      builder.query("sort", String.valueOf(listAssistantsOptions.sort()));
+    }
+    if (listAssistantsOptions.cursor() != null) {
+      builder.query("cursor", String.valueOf(listAssistantsOptions.cursor()));
+    }
+    if (listAssistantsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listAssistantsOptions.includeAudit()));
+    }
+    ResponseConverter<AssistantCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<AssistantCollection>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List assistants.
+   *
+   * <p>List the assistants associated with a Watson Assistant service instance.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link AssistantCollection}
+   */
+  public ServiceCall<AssistantCollection> listAssistants() {
+    return listAssistants(null);
+  }
+
+  /**
+   * Delete assistant.
+   *
+   * <p>Delete an assistant.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param deleteAssistantOptions the {@link DeleteAssistantOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteAssistant(DeleteAssistantOptions deleteAssistantOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteAssistantOptions, "deleteAssistantOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", deleteAssistantOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "deleteAssistant");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Create a session.
    *
    * <p>Create a new session. A session is used to send user input to a skill and receive responses.
@@ -174,6 +340,12 @@ public class Assistant extends BaseService {
     builder.header("Accept", "application/json");
     builder.query("version", String.valueOf(this.version));
     final JsonObject contentJson = new JsonObject();
+    if (createSessionOptions.analytics() != null) {
+      contentJson.add(
+          "analytics",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(createSessionOptions.analytics()));
+    }
     builder.bodyJson(contentJson);
     ResponseConverter<SessionResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -355,7 +527,7 @@ public class Assistant extends BaseService {
    *
    * <p>List the events from the log of an assistant.
    *
-   * <p>This method requires Manager access, and is available only with Enterprise plans.
+   * <p>This method requires Manager access, and is available only with Plus and Enterprise plans.
    *
    * <p>**Note:** If you use the **cursor** parameter to retrieve results one page at a time,
    * subsequent requests must be no more than 5 minutes apart. Any returned value for the **cursor**
@@ -440,6 +612,8 @@ public class Assistant extends BaseService {
    *
    * <p>List the environments associated with an assistant.
    *
+   * <p>This method is available only with Enterprise plans.
+   *
    * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for
    *     the call
    * @return a {@link ServiceCall} with a result of type {@link EnvironmentCollection}
@@ -488,6 +662,8 @@ public class Assistant extends BaseService {
    * <p>Get information about an environment. For more information about environments, see
    * [Environments](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#environments).
    *
+   * <p>This method is available only with Enterprise plans.
+   *
    * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a result of type {@link Environment}
@@ -521,10 +697,106 @@ public class Assistant extends BaseService {
   }
 
   /**
+   * Update environment.
+   *
+   * <p>Update an environment with new or modified data. For more information about environments,
+   * see
+   * [Environments](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#environments).
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for
+   *     the call
+   * @return a {@link ServiceCall} with a result of type {@link Environment}
+   */
+  public ServiceCall<Environment> updateEnvironment(
+      UpdateEnvironmentOptions updateEnvironmentOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", updateEnvironmentOptions.assistantId());
+    pathParamsMap.put("environment_id", updateEnvironmentOptions.environmentId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "updateEnvironment");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (updateEnvironmentOptions.name() != null) {
+      contentJson.addProperty("name", updateEnvironmentOptions.name());
+    }
+    if (updateEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", updateEnvironmentOptions.description());
+    }
+    if (updateEnvironmentOptions.sessionTimeout() != null) {
+      contentJson.addProperty("session_timeout", updateEnvironmentOptions.sessionTimeout());
+    }
+    if (updateEnvironmentOptions.skillReferences() != null) {
+      contentJson.add(
+          "skill_references",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateEnvironmentOptions.skillReferences()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Environment> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Environment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create release.
+   *
+   * <p>Create a new release using the current content of the dialog and action skills in the draft
+   * environment. (In the Watson Assistant user interface, a release is called a *version*.)
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param createReleaseOptions the {@link CreateReleaseOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link Release}
+   */
+  public ServiceCall<Release> createRelease(CreateReleaseOptions createReleaseOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createReleaseOptions, "createReleaseOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", createReleaseOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/releases", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createRelease");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (createReleaseOptions.description() != null) {
+      contentJson.addProperty("description", createReleaseOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Release> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Release>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * List releases.
    *
    * <p>List the releases associated with an assistant. (In the Watson Assistant user interface, a
-   * release is called a *version*.).
+   * release is called a *version*.)
+   *
+   * <p>This method is available only with Enterprise plans.
    *
    * @param listReleasesOptions the {@link ListReleasesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ReleaseCollection}
@@ -575,6 +847,8 @@ public class Assistant extends BaseService {
    * value of the **status** property. When processing has completed, the request returns the
    * release data.
    *
+   * <p>This method is available only with Enterprise plans.
+   *
    * @param getReleaseOptions the {@link GetReleaseOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Release}
    */
@@ -606,10 +880,45 @@ public class Assistant extends BaseService {
   }
 
   /**
+   * Delete release.
+   *
+   * <p>Delete a release. (In the Watson Assistant user interface, a release is called a *version*.)
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param deleteReleaseOptions the {@link DeleteReleaseOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a void result
+   */
+  public ServiceCall<Void> deleteRelease(DeleteReleaseOptions deleteReleaseOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        deleteReleaseOptions, "deleteReleaseOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", deleteReleaseOptions.assistantId());
+    pathParamsMap.put("release", deleteReleaseOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.delete(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteRelease");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
    * Deploy release.
    *
    * <p>Update the environment with the content of the release. All snapshots saved as part of the
    * release become active in the environment.
+   *
+   * <p>This method is available only with Enterprise plans.
    *
    * @param deployReleaseOptions the {@link DeployReleaseOptions} containing the options for the
    *     call
@@ -642,6 +951,236 @@ public class Assistant extends BaseService {
     ResponseConverter<Environment> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Environment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get skill.
+   *
+   * <p>Get information about a skill.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param getSkillOptions the {@link GetSkillOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Skill}
+   */
+  public ServiceCall<Skill> getSkill(GetSkillOptions getSkillOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getSkillOptions, "getSkillOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", getSkillOptions.assistantId());
+    pathParamsMap.put("skill_id", getSkillOptions.skillId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/skills/{skill_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "getSkill");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<Skill> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Skill>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Update skill.
+   *
+   * <p>Update a skill with new or modified data.
+   *
+   * <p>**Note:** The update is performed asynchronously; you can see the status of the update by
+   * calling the **Get skill** method and checking the value of the **status** property.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param updateSkillOptions the {@link UpdateSkillOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Skill}
+   */
+  public ServiceCall<Skill> updateSkill(UpdateSkillOptions updateSkillOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateSkillOptions, "updateSkillOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", updateSkillOptions.assistantId());
+    pathParamsMap.put("skill_id", updateSkillOptions.skillId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/skills/{skill_id}", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "updateSkill");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (updateSkillOptions.name() != null) {
+      contentJson.addProperty("name", updateSkillOptions.name());
+    }
+    if (updateSkillOptions.description() != null) {
+      contentJson.addProperty("description", updateSkillOptions.description());
+    }
+    if (updateSkillOptions.workspace() != null) {
+      contentJson.add(
+          "workspace",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateSkillOptions.workspace()));
+    }
+    if (updateSkillOptions.dialogSettings() != null) {
+      contentJson.add(
+          "dialog_settings",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateSkillOptions.dialogSettings()));
+    }
+    if (updateSkillOptions.searchSettings() != null) {
+      contentJson.add(
+          "search_settings",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateSkillOptions.searchSettings()));
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<Skill> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Skill>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Export skills.
+   *
+   * <p>Asynchronously export the action skill and dialog skill (if enabled) for the assistant. Use
+   * this method to save all skill data so that you can import it to a different assistant using the
+   * **Import skills** method.
+   *
+   * <p>A successful call to this method only initiates an asynchronous export. The exported JSON
+   * data is not available until processing completes.
+   *
+   * <p>After the initial request is submitted, you can poll the status of the operation by calling
+   * the same request again and checking the value of the **status** property. If an error occurs
+   * (indicated by a **status** value of `Failed`), the `status_description` property provides more
+   * information about the error, and the `status_errors` property contains an array of error
+   * messages that caused the failure.
+   *
+   * <p>When processing has completed, the request returns the exported JSON data. Remember that the
+   * usual rate limits apply.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param exportSkillsOptions the {@link ExportSkillsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SkillsExport}
+   */
+  public ServiceCall<SkillsExport> exportSkills(ExportSkillsOptions exportSkillsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        exportSkillsOptions, "exportSkillsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", exportSkillsOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/skills_export", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "exportSkills");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (exportSkillsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(exportSkillsOptions.includeAudit()));
+    }
+    ResponseConverter<SkillsExport> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<SkillsExport>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Import skills.
+   *
+   * <p>Asynchronously import skills into an existing assistant from a previously exported file.
+   *
+   * <p>The request body for this method should contain the response data that was received from a
+   * previous call to the **Export skills** method, without modification.
+   *
+   * <p>A successful call to this method initiates an asynchronous import. The updated skills
+   * belonging to the assistant are not available until processing completes. To check the status of
+   * the asynchronous import operation, use the **Get status of skills import** method.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param importSkillsOptions the {@link ImportSkillsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link SkillsAsyncRequestStatus}
+   */
+  public ServiceCall<SkillsAsyncRequestStatus> importSkills(
+      ImportSkillsOptions importSkillsOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        importSkillsOptions, "importSkillsOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", importSkillsOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/skills_import", pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "importSkills");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (importSkillsOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(importSkillsOptions.includeAudit()));
+    }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add(
+        "assistant_skills",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(importSkillsOptions.assistantSkills()));
+    contentJson.add(
+        "assistant_state",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(importSkillsOptions.assistantState()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<SkillsAsyncRequestStatus> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<SkillsAsyncRequestStatus>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get status of skills import.
+   *
+   * <p>Retrieve the status of an asynchronous import operation previously initiated by using the
+   * **Import skills** method.
+   *
+   * <p>This method is available only with Enterprise plans.
+   *
+   * @param importSkillsStatusOptions the {@link ImportSkillsStatusOptions} containing the options
+   *     for the call
+   * @return a {@link ServiceCall} with a result of type {@link SkillsAsyncRequestStatus}
+   */
+  public ServiceCall<SkillsAsyncRequestStatus> importSkillsStatus(
+      ImportSkillsStatusOptions importSkillsStatusOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        importSkillsStatusOptions, "importSkillsStatusOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", importSkillsStatusOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/skills_import/status",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "importSkillsStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<SkillsAsyncRequestStatus> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<SkillsAsyncRequestStatus>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

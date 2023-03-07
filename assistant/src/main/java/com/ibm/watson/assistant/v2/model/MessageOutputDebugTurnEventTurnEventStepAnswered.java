@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,6 @@ package com.ibm.watson.assistant.v2.model;
 /** MessageOutputDebugTurnEventTurnEventStepAnswered. */
 public class MessageOutputDebugTurnEventTurnEventStepAnswered extends MessageOutputDebugTurnEvent {
 
-  private TurnEventActionSource source;
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
     /** user_defined. */
@@ -26,12 +25,5 @@ public class MessageOutputDebugTurnEventTurnEventStepAnswered extends MessageOut
     String ANYTHING_ELSE = "anything_else";
   }
 
-  /**
-   * Gets the source.
-   *
-   * @return the source
-   */
-  public TurnEventActionSource getSource() {
-    return source;
-  }
+  protected MessageOutputDebugTurnEventTurnEventStepAnswered() {}
 }

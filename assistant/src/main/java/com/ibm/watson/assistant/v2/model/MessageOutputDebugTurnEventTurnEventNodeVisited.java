@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,8 +14,6 @@ package com.ibm.watson.assistant.v2.model;
 
 /** MessageOutputDebugTurnEventTurnEventNodeVisited. */
 public class MessageOutputDebugTurnEventTurnEventNodeVisited extends MessageOutputDebugTurnEvent {
-
-  private TurnEventNodeSource source;
 
   /** The reason the dialog node was visited. */
   public interface Reason {
@@ -33,12 +31,5 @@ public class MessageOutputDebugTurnEventTurnEventNodeVisited extends MessageOutp
     String JUMP = "jump";
   }
 
-  /**
-   * Gets the source.
-   *
-   * @return the source
-   */
-  public TurnEventNodeSource getSource() {
-    return source;
-  }
+  protected MessageOutputDebugTurnEventTurnEventNodeVisited() {}
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,11 @@ public class MessageInputOptionsSpelling extends GenericModel {
     private Boolean suggestions;
     private Boolean autoCorrect;
 
+    /**
+     * Instantiates a new Builder from an existing MessageInputOptionsSpelling instance.
+     *
+     * @param messageInputOptionsSpelling the instance to initialize the Builder with
+     */
     private Builder(MessageInputOptionsSpelling messageInputOptionsSpelling) {
       this.suggestions = messageInputOptionsSpelling.suggestions;
       this.autoCorrect = messageInputOptionsSpelling.autoCorrect;

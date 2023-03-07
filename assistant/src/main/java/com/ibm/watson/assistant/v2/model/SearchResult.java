@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,8 @@ public class SearchResult extends GenericModel {
   protected String url;
   protected SearchResultHighlight highlight;
   protected List<SearchResultAnswer> answers;
+
+  protected SearchResult() {}
 
   /**
    * Gets the id.
@@ -109,8 +111,8 @@ public class SearchResult extends GenericModel {
    * answers to the search query. Currently, only the single answer with the highest confidence (if
    * any) is returned.
    *
-   * <p>**Note:** This property uses the answer finding beta feature, and is available only if the
-   * search skill is connected to a Discovery v2 service instance.
+   * <p>**Notes:** - Answer finding is available only if the search skill is connected to a
+   * Discovery v2 service instance. - Answer finding is not supported on IBM Cloud Pak for Data.
    *
    * @return the answers
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,72 @@ public class IntegrationReference extends GenericModel {
 
   protected String type;
 
+  /** Builder. */
+  public static class Builder {
+    private String integrationId;
+    private String type;
+
+    /**
+     * Instantiates a new Builder from an existing IntegrationReference instance.
+     *
+     * @param integrationReference the instance to initialize the Builder with
+     */
+    private Builder(IntegrationReference integrationReference) {
+      this.integrationId = integrationReference.integrationId;
+      this.type = integrationReference.type;
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a IntegrationReference.
+     *
+     * @return the new IntegrationReference instance
+     */
+    public IntegrationReference build() {
+      return new IntegrationReference(this);
+    }
+
+    /**
+     * Set the integrationId.
+     *
+     * @param integrationId the integrationId
+     * @return the IntegrationReference builder
+     */
+    public Builder integrationId(String integrationId) {
+      this.integrationId = integrationId;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the IntegrationReference builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+  }
+
+  protected IntegrationReference() {}
+
+  protected IntegrationReference(Builder builder) {
+    integrationId = builder.integrationId;
+    type = builder.type;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a IntegrationReference builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
   /**
    * Gets the integrationId.
    *
@@ -30,7 +96,7 @@ public class IntegrationReference extends GenericModel {
    *
    * @return the integrationId
    */
-  public String getIntegrationId() {
+  public String integrationId() {
     return integrationId;
   }
 
@@ -41,7 +107,7 @@ public class IntegrationReference extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 }

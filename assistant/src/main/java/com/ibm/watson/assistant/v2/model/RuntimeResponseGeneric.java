@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -91,6 +91,9 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   @SerializedName("agent_unavailable")
   protected AgentAvailabilityMessage agentUnavailable;
+
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   protected String topic;
   protected List<DialogSuggestion> suggestions;
@@ -275,6 +278,17 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public AgentAvailabilityMessage agentUnavailable() {
     return agentUnavailable;
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 
   /**

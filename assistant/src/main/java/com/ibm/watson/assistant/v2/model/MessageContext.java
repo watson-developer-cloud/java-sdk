@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,15 +19,20 @@ import java.util.Map;
 public class MessageContext extends GenericModel {
 
   protected MessageContextGlobal global;
-  protected Map<String, MessageContextSkill> skills;
+  protected MessageContextSkills skills;
   protected Map<String, Object> integrations;
 
   /** Builder. */
   public static class Builder {
     private MessageContextGlobal global;
-    private Map<String, MessageContextSkill> skills;
+    private MessageContextSkills skills;
     private Map<String, Object> integrations;
 
+    /**
+     * Instantiates a new Builder from an existing MessageContext instance.
+     *
+     * @param messageContext the instance to initialize the Builder with
+     */
     private Builder(MessageContext messageContext) {
       this.global = messageContext.global;
       this.skills = messageContext.skills;
@@ -63,7 +68,7 @@ public class MessageContext extends GenericModel {
      * @param skills the skills
      * @return the MessageContext builder
      */
-    public Builder skills(Map<String, MessageContextSkill> skills) {
+    public Builder skills(MessageContextSkills skills) {
       this.skills = skills;
       return this;
     }
@@ -111,11 +116,11 @@ public class MessageContext extends GenericModel {
   /**
    * Gets the skills.
    *
-   * <p>Information specific to particular skills used by the assistant.
+   * <p>Context data specific to particular skills used by the assistant.
    *
    * @return the skills
    */
-  public Map<String, MessageContextSkill> skills() {
+  public MessageContextSkills skills() {
     return skills;
   }
 

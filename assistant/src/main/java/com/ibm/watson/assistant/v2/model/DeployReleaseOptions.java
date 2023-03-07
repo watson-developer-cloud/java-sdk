@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,11 @@ public class DeployReleaseOptions extends GenericModel {
     private String environmentId;
     private Boolean includeAudit;
 
+    /**
+     * Instantiates a new Builder from an existing DeployReleaseOptions instance.
+     *
+     * @param deployReleaseOptions the instance to initialize the Builder with
+     */
     private Builder(DeployReleaseOptions deployReleaseOptions) {
       this.assistantId = deployReleaseOptions.assistantId;
       this.release = deployReleaseOptions.release;
@@ -132,12 +137,17 @@ public class DeployReleaseOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * <p>Unique identifier of the assistant. To find the assistant ID in the Watson Assistant user
-   * interface, open the assistant settings and click **API Details**. For information about
-   * creating assistants, see the
-   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-add#assistant-add-task).
+   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed,
+   * depending on the type of request: - For message, session, and log requests, specify the
+   * environment ID of the environment where the assistant is deployed. - For all other requests,
+   * specify the assistant ID of the assistant.
    *
-   * <p>**Note:** Currently, the v2 API does not support creating assistants.
+   * <p>To find the environment ID or assistant ID in the Watson Assistant user interface, open the
+   * assistant settings and scroll to the **Environments** section.
+   *
+   * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
+   * ID. To find the assistant ID in the user interface, open the assistant settings and click API
+   * Details.
    *
    * @return the assistantId
    */

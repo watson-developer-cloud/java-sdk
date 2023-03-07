@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -91,6 +91,11 @@ public class MessageContextGlobalSystem extends GenericModel {
     private String state;
     private Boolean skipUserInput;
 
+    /**
+     * Instantiates a new Builder from an existing MessageContextGlobalSystem instance.
+     *
+     * @param messageContextGlobalSystem the instance to initialize the Builder with
+     */
     private Builder(MessageContextGlobalSystem messageContextGlobalSystem) {
       this.timezone = messageContextGlobalSystem.timezone;
       this.userId = messageContextGlobalSystem.userId;

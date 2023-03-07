@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class EnvironmentReference extends GenericModel {
 
   /**
-   * The type of the deployed environment. All environments other than the draft and live
-   * environments have the type `staging`.
+   * The type of the environment. All environments other than the draft and live environments have
+   * the type `staging`.
    */
   public interface Environment {
     /** draft. */
@@ -38,37 +38,89 @@ public class EnvironmentReference extends GenericModel {
 
   protected String environment;
 
+  /** Builder. */
+  public static class Builder {
+    private String name;
+
+    /**
+     * Instantiates a new Builder from an existing EnvironmentReference instance.
+     *
+     * @param environmentReference the instance to initialize the Builder with
+     */
+    private Builder(EnvironmentReference environmentReference) {
+      this.name = environmentReference.name;
+    }
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a EnvironmentReference.
+     *
+     * @return the new EnvironmentReference instance
+     */
+    public EnvironmentReference build() {
+      return new EnvironmentReference(this);
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the EnvironmentReference builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+  }
+
+  protected EnvironmentReference() {}
+
+  protected EnvironmentReference(Builder builder) {
+    name = builder.name;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a EnvironmentReference builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
   /**
    * Gets the name.
    *
-   * <p>The name of the deployed environment.
+   * <p>The name of the environment.
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 
   /**
    * Gets the environmentId.
    *
-   * <p>The environment ID of the deployed environment.
+   * <p>The unique identifier of the environment.
    *
    * @return the environmentId
    */
-  public String getEnvironmentId() {
+  public String environmentId() {
     return environmentId;
   }
 
   /**
    * Gets the environment.
    *
-   * <p>The type of the deployed environment. All environments other than the draft and live
-   * environments have the type `staging`.
+   * <p>The type of the environment. All environments other than the draft and live environments
+   * have the type `staging`.
    *
    * @return the environment
    */
-  public String getEnvironment() {
+  public String environment() {
     return environment;
   }
 }
