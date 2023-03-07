@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,21 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the QueryTopHitsAggregation model. */
-public class QueryTopHitsAggregationTest {
+/** Unit test class for the QueryAggregationQueryPairAggregation model. */
+public class QueryAggregationQueryPairAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testQueryTopHitsAggregation() throws Throwable {
-    QueryTopHitsAggregation queryTopHitsAggregationModel = new QueryTopHitsAggregation();
-    assertNull(queryTopHitsAggregationModel.getType());
-    assertNull(queryTopHitsAggregationModel.getSize());
-    assertNull(queryTopHitsAggregationModel.getName());
-    assertNull(queryTopHitsAggregationModel.getHits());
+  public void testQueryAggregationQueryPairAggregation() throws Throwable {
+    QueryAggregationQueryPairAggregation queryAggregationQueryPairAggregationModel =
+        new QueryAggregationQueryPairAggregation();
+    assertNull(queryAggregationQueryPairAggregationModel.getType());
+    assertNull(queryAggregationQueryPairAggregationModel.getFirst());
+    assertNull(queryAggregationQueryPairAggregationModel.getSecond());
+    assertNull(queryAggregationQueryPairAggregationModel.isShowEstimatedMatchingResults());
+    assertNull(queryAggregationQueryPairAggregationModel.isShowTotalMatchingDocuments());
+    assertNull(queryAggregationQueryPairAggregationModel.getResults());
   }
 }

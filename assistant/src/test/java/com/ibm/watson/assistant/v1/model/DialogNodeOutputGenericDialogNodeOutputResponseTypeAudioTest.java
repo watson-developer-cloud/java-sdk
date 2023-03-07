@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,12 +42,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudioTest {
                 .title("testString")
                 .description("testString")
                 .channels(java.util.Arrays.asList(responseGenericChannelModel))
-                .channelOptions(
-                    new java.util.HashMap<String, Object>() {
-                      {
-                        put("foo", "testString");
-                      }
-                    })
+                .channelOptions(java.util.Collections.singletonMap("anyKey", "anyValue"))
                 .altText("testString")
                 .build();
     assertEquals(
@@ -63,11 +58,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudioTest {
         java.util.Arrays.asList(responseGenericChannelModel));
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModel.channelOptions(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModel.altText(), "testString");
 
@@ -94,11 +85,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeAudioTest {
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModelNew
             .channelOptions()
             .toString(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        }.toString());
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeAudioModelNew.altText(), "testString");
   }

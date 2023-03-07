@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -144,6 +144,16 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageInputAttachmentModel.url(), "testString");
     assertEquals(messageInputAttachmentModel.mediaType(), "testString");
 
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+    assertEquals(requestAnalyticsModel.browser(), "testString");
+    assertEquals(requestAnalyticsModel.device(), "testString");
+    assertEquals(requestAnalyticsModel.pageUrl(), "testString");
+
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
     assertEquals(messageInputOptionsSpellingModel.suggestions(), Boolean.valueOf(true));
@@ -169,6 +179,7 @@ public class MessageStatelessOptionsTest {
             .entities(java.util.Arrays.asList(runtimeEntityModel))
             .suggestionId("testString")
             .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
+            .analytics(requestAnalyticsModel)
             .options(messageInputOptionsStatelessModel)
             .build();
     assertEquals(messageInputStatelessModel.messageType(), "text");
@@ -180,6 +191,7 @@ public class MessageStatelessOptionsTest {
     assertEquals(
         messageInputStatelessModel.attachments(),
         java.util.Arrays.asList(messageInputAttachmentModel));
+    assertEquals(messageInputStatelessModel.analytics(), requestAnalyticsModel);
     assertEquals(messageInputStatelessModel.options(), messageInputOptionsStatelessModel);
 
     MessageContextGlobalSystem messageContextGlobalSystemModel =
@@ -218,56 +230,53 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageContextSkillSystemModel.getState(), "testString");
     assertEquals(messageContextSkillSystemModel.get("foo"), "testString");
 
-    MessageContextSkill messageContextSkillModel =
-        new MessageContextSkill.Builder()
-            .userDefined(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", TestUtilities.createMockMap());
-                  }
-                })
+    MessageContextSkillDialog messageContextSkillDialogModel =
+        new MessageContextSkillDialog.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .build();
     assertEquals(
-        messageContextSkillModel.userDefined(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", TestUtilities.createMockMap());
-          }
-        });
-    assertEquals(messageContextSkillModel.system(), messageContextSkillSystemModel);
+        messageContextSkillDialogModel.userDefined(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(messageContextSkillDialogModel.system(), messageContextSkillSystemModel);
+
+    MessageContextSkillAction messageContextSkillActionModel =
+        new MessageContextSkillAction.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .system(messageContextSkillSystemModel)
+            .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+    assertEquals(
+        messageContextSkillActionModel.userDefined(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(messageContextSkillActionModel.system(), messageContextSkillSystemModel);
+    assertEquals(
+        messageContextSkillActionModel.actionVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        messageContextSkillActionModel.skillVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+
+    MessageContextSkills messageContextSkillsModel =
+        new MessageContextSkills.Builder()
+            .mainSkill(messageContextSkillDialogModel)
+            .actionsSkill(messageContextSkillActionModel)
+            .build();
+    assertEquals(messageContextSkillsModel.mainSkill(), messageContextSkillDialogModel);
+    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextSkillActionModel);
 
     MessageContextStateless messageContextStatelessModel =
         new MessageContextStateless.Builder()
             .global(messageContextGlobalStatelessModel)
-            .skills(
-                new java.util.HashMap<String, MessageContextSkill>() {
-                  {
-                    put("foo", messageContextSkillModel);
-                  }
-                })
-            .integrations(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .skills(messageContextSkillsModel)
+            .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
     assertEquals(messageContextStatelessModel.global(), messageContextGlobalStatelessModel);
-    assertEquals(
-        messageContextStatelessModel.skills(),
-        new java.util.HashMap<String, MessageContextSkill>() {
-          {
-            put("foo", messageContextSkillModel);
-          }
-        });
+    assertEquals(messageContextStatelessModel.skills(), messageContextSkillsModel);
     assertEquals(
         messageContextStatelessModel.integrations(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
 
     MessageStatelessOptions messageStatelessOptionsModel =
         new MessageStatelessOptions.Builder()

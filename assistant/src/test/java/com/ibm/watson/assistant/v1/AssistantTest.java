@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -52,10 +52,9 @@ import com.ibm.watson.assistant.v1.model.DialogNodeCollection;
 import com.ibm.watson.assistant.v1.model.DialogNodeContext;
 import com.ibm.watson.assistant.v1.model.DialogNodeNextStep;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutput;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputGenericDialogNodeOutputResponseTypeText;
 import com.ibm.watson.assistant.v1.model.DialogNodeOutputModifiers;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputOptionsElement;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputOptionsElementValue;
+import com.ibm.watson.assistant.v1.model.DialogNodeOutputTextValuesElement;
 import com.ibm.watson.assistant.v1.model.DialogNodeVisitedDetails;
 import com.ibm.watson.assistant.v1.model.Entity;
 import com.ibm.watson.assistant.v1.model.EntityCollection;
@@ -99,7 +98,7 @@ import com.ibm.watson.assistant.v1.model.RuntimeEntityAlternative;
 import com.ibm.watson.assistant.v1.model.RuntimeEntityInterpretation;
 import com.ibm.watson.assistant.v1.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v1.model.RuntimeIntent;
-import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeOption;
+import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeText;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
@@ -166,7 +165,7 @@ public class AssistantTest {
   public void testMessageWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}";
+        "{\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"anyKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}";
     String messagePath = "/v1/workspaces/testString/message";
     server.enqueue(
         new MockResponse()
@@ -257,12 +256,7 @@ public class AssistantTest {
     Context contextModel =
         new Context.Builder()
             .conversationId("testString")
-            .system(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .system(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .metadata(messageContextMetadataModel)
             .add("foo", "testString")
             .build();
@@ -288,33 +282,15 @@ public class AssistantTest {
             .source(logMessageSourceModel)
             .build();
 
-    // Construct an instance of the DialogNodeOutputOptionsElementValue model
-    DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
-        new DialogNodeOutputOptionsElementValue.Builder()
-            .input(messageInputModel)
-            .intents(java.util.Arrays.asList(runtimeIntentModel))
-            .entities(java.util.Arrays.asList(runtimeEntityModel))
-            .build();
-
-    // Construct an instance of the DialogNodeOutputOptionsElement model
-    DialogNodeOutputOptionsElement dialogNodeOutputOptionsElementModel =
-        new DialogNodeOutputOptionsElement.Builder()
-            .label("testString")
-            .value(dialogNodeOutputOptionsElementValueModel)
-            .build();
-
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the RuntimeResponseGenericRuntimeResponseTypeOption model
-    RuntimeResponseGenericRuntimeResponseTypeOption runtimeResponseGenericModel =
-        new RuntimeResponseGenericRuntimeResponseTypeOption.Builder()
-            .responseType("option")
-            .title("testString")
-            .description("testString")
-            .preference("dropdown")
-            .options(java.util.Arrays.asList(dialogNodeOutputOptionsElementModel))
+    // Construct an instance of the RuntimeResponseGenericRuntimeResponseTypeText model
+    RuntimeResponseGenericRuntimeResponseTypeText runtimeResponseGenericModel =
+        new RuntimeResponseGenericRuntimeResponseTypeText.Builder()
+            .responseType("text")
+            .text("testString")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -445,7 +421,7 @@ public class AssistantTest {
   public void testListWorkspacesWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"workspaces\": [{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listWorkspacesPath = "/v1/workspaces";
     server.enqueue(
         new MockResponse()
@@ -503,7 +479,7 @@ public class AssistantTest {
   public void testCreateWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String createWorkspacePath = "/v1/workspaces";
     server.enqueue(
         new MockResponse()
@@ -511,25 +487,22 @@ public class AssistantTest {
             .setResponseCode(201)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -541,17 +514,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -560,17 +524,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -587,12 +542,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -607,12 +557,7 @@ public class AssistantTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -655,19 +600,14 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsNlp model
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -714,12 +654,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -730,12 +665,7 @@ public class AssistantTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
@@ -748,12 +678,7 @@ public class AssistantTest {
             .language("testString")
             .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
             .counterexamples(java.util.Arrays.asList(counterexampleModel))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(java.util.Arrays.asList(webhookModel))
@@ -798,7 +723,7 @@ public class AssistantTest {
   public void testGetWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String getWorkspacePath = "/v1/workspaces/testString";
     server.enqueue(
         new MockResponse()
@@ -860,7 +785,7 @@ public class AssistantTest {
   public void testUpdateWorkspaceWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String updateWorkspacePath = "/v1/workspaces/testString";
     server.enqueue(
         new MockResponse()
@@ -868,25 +793,22 @@ public class AssistantTest {
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -898,17 +820,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -917,17 +830,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -944,12 +848,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -964,12 +863,7 @@ public class AssistantTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -1012,19 +906,14 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsNlp model
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -1071,12 +960,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -1087,12 +971,7 @@ public class AssistantTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
@@ -1106,12 +985,7 @@ public class AssistantTest {
             .language("testString")
             .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
             .counterexamples(java.util.Arrays.asList(counterexampleModel))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(java.util.Arrays.asList(webhookModel))
@@ -1214,7 +1088,7 @@ public class AssistantTest {
   public void testCreateWorkspaceAsyncWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String createWorkspaceAsyncPath = "/v1/workspaces_async";
     server.enqueue(
         new MockResponse()
@@ -1222,25 +1096,22 @@ public class AssistantTest {
             .setResponseCode(202)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -1252,17 +1123,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -1271,17 +1133,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -1298,12 +1151,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -1318,12 +1166,7 @@ public class AssistantTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -1366,19 +1209,14 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsNlp model
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -1425,12 +1263,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -1441,12 +1274,7 @@ public class AssistantTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
@@ -1459,12 +1287,7 @@ public class AssistantTest {
             .language("testString")
             .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
             .counterexamples(java.util.Arrays.asList(counterexampleModel))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(java.util.Arrays.asList(webhookModel))
@@ -1507,7 +1330,7 @@ public class AssistantTest {
   public void testUpdateWorkspaceAsyncWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String updateWorkspaceAsyncPath = "/v1/workspaces_async/testString";
     server.enqueue(
         new MockResponse()
@@ -1515,25 +1338,22 @@ public class AssistantTest {
             .setResponseCode(202)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -1545,17 +1365,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -1564,17 +1375,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -1591,12 +1393,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -1611,12 +1408,7 @@ public class AssistantTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -1659,19 +1451,14 @@ public class AssistantTest {
 
     // Construct an instance of the WorkspaceSystemSettingsNlp model
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
 
     // Construct an instance of the WorkspaceSystemSettings model
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -1718,12 +1505,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -1734,12 +1516,7 @@ public class AssistantTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
@@ -1753,12 +1530,7 @@ public class AssistantTest {
             .language("testString")
             .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
             .counterexamples(java.util.Arrays.asList(counterexampleModel))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(java.util.Arrays.asList(webhookModel))
@@ -1810,7 +1582,7 @@ public class AssistantTest {
   public void testExportWorkspaceAsyncWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"mapKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"baseline\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
+        "{\"name\": \"name\", \"description\": \"description\", \"language\": \"language\", \"workspace_id\": \"workspaceId\", \"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"counterexamples\": [{\"text\": \"text\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"learning_opt_out\": false, \"system_settings\": {\"tooling\": {\"store_generic_responses\": false}, \"disambiguation\": {\"prompt\": \"prompt\", \"none_of_the_above_prompt\": \"noneOfTheAbovePrompt\", \"enabled\": false, \"sensitivity\": \"auto\", \"randomize\": false, \"max_suggestions\": 1, \"suggestion_text_policy\": \"suggestionTextPolicy\"}, \"human_agent_assist\": {\"anyKey\": \"anyValue\"}, \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"system_entities\": {\"enabled\": false}, \"off_topic\": {\"enabled\": false}, \"nlp\": {\"model\": \"model\"}}, \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"webhooks\": [{\"url\": \"url\", \"name\": \"name\", \"headers\": [{\"name\": \"name\", \"value\": \"value\"}]}], \"intents\": [{\"intent\": \"intent\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"examples\": [{\"text\": \"text\", \"mentions\": [{\"entity\": \"entity\", \"location\": [8]}], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"counts\": {\"intent\": 6, \"entity\": 6, \"node\": 4}}";
     String exportWorkspaceAsyncPath = "/v1/workspaces_async/testString/export";
     server.enqueue(
         new MockResponse()
@@ -2810,7 +2582,7 @@ public class AssistantTest {
   public void testListEntitiesWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"entities\": [{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listEntitiesPath = "/v1/workspaces/testString/entities";
     server.enqueue(
         new MockResponse()
@@ -2878,7 +2650,7 @@ public class AssistantTest {
   public void testCreateEntityWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String createEntityPath = "/v1/workspaces/testString/entities";
     server.enqueue(
         new MockResponse()
@@ -2890,12 +2662,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -2907,12 +2674,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .includeAudit(false)
@@ -2960,7 +2722,7 @@ public class AssistantTest {
   public void testGetEntityWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String getEntityPath = "/v1/workspaces/testString/entities/testString";
     server.enqueue(
         new MockResponse()
@@ -3020,7 +2782,7 @@ public class AssistantTest {
   public void testUpdateEntityWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"entity\": \"entity\", \"description\": \"description\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"fuzzy_match\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}]}";
     String updateEntityPath = "/v1/workspaces/testString/entities/testString";
     server.enqueue(
         new MockResponse()
@@ -3032,12 +2794,7 @@ public class AssistantTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -3050,12 +2807,7 @@ public class AssistantTest {
             .entity("testString")
             .newEntity("testString")
             .newDescription("testString")
-            .newMetadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .newMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .newFuzzyMatch(true)
             .newValues(java.util.Arrays.asList(createValueModel))
             .append(false)
@@ -3214,7 +2966,7 @@ public class AssistantTest {
   public void testListValuesWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"values\": [{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"values\": [{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listValuesPath = "/v1/workspaces/testString/entities/testString/values";
     server.enqueue(
         new MockResponse()
@@ -3283,7 +3035,7 @@ public class AssistantTest {
   public void testCreateValueWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String createValuePath = "/v1/workspaces/testString/entities/testString/values";
     server.enqueue(
         new MockResponse()
@@ -3297,12 +3049,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .entity("testString")
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -3351,7 +3098,7 @@ public class AssistantTest {
   public void testGetValueWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String getValuePath = "/v1/workspaces/testString/entities/testString/values/testString";
     server.enqueue(
         new MockResponse()
@@ -3412,7 +3159,7 @@ public class AssistantTest {
   public void testUpdateValueWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"value\": \"value\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"value\": \"value\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"type\": \"synonyms\", \"synonyms\": [\"synonym\"], \"patterns\": [\"pattern\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String updateValuePath = "/v1/workspaces/testString/entities/testString/values/testString";
     server.enqueue(
         new MockResponse()
@@ -3427,12 +3174,7 @@ public class AssistantTest {
             .entity("testString")
             .value("testString")
             .newValue("testString")
-            .newMetadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .newMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .newType("synonyms")
             .newSynonyms(java.util.Arrays.asList("testString"))
             .newPatterns(java.util.Arrays.asList("testString"))
@@ -3844,7 +3586,7 @@ public class AssistantTest {
   public void testListDialogNodesWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+        "{\"dialog_nodes\": [{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
     String listDialogNodesPath = "/v1/workspaces/testString/dialog_nodes";
     server.enqueue(
         new MockResponse()
@@ -3910,7 +3652,7 @@ public class AssistantTest {
   public void testCreateDialogNodeWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String createDialogNodePath = "/v1/workspaces/testString/dialog_nodes";
     server.enqueue(
         new MockResponse()
@@ -3918,25 +3660,22 @@ public class AssistantTest {
             .setResponseCode(201)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -3948,17 +3687,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -3967,17 +3697,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -3994,12 +3715,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -4015,12 +3731,7 @@ public class AssistantTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -4078,7 +3789,7 @@ public class AssistantTest {
   public void testGetDialogNodeWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String getDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
     server.enqueue(
         new MockResponse()
@@ -4137,7 +3848,7 @@ public class AssistantTest {
   public void testUpdateDialogNodeWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"video\", \"source\": \"source\", \"title\": \"title\", \"description\": \"description\", \"channels\": [{\"channel\": \"chat\"}], \"channel_options\": {\"mapKey\": \"anyValue\"}, \"alt_text\": \"altText\"}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"text\", \"values\": [{\"text\": \"text\"}], \"selection_policy\": \"sequential\", \"delimiter\": \"\n\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": true}}, \"context\": {\"integrations\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}}, \"metadata\": {\"anyKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": false, \"disabled\": true, \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
     String updateDialogNodePath = "/v1/workspaces/testString/dialog_nodes/testString";
     server.enqueue(
         new MockResponse()
@@ -4145,25 +3856,22 @@ public class AssistantTest {
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the DialogNodeOutputTextValuesElement model
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+
     // Construct an instance of the ResponseGenericChannel model
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
 
-    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo model
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeText model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
 
     // Construct an instance of the DialogNodeOutputModifiers model
@@ -4175,17 +3883,8 @@ public class AssistantTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -4194,17 +3893,8 @@ public class AssistantTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -4221,12 +3911,7 @@ public class AssistantTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -4243,12 +3928,7 @@ public class AssistantTest {
             .newPreviousSibling("testString")
             .newOutput(dialogNodeOutputModel)
             .newContext(dialogNodeContextModel)
-            .newMetadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .newMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .newNextStep(dialogNodeNextStepModel)
             .newTitle("testString")
             .newType("standard")
@@ -4358,7 +4038,7 @@ public class AssistantTest {
   public void testListLogsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"anyKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"anyKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listLogsPath = "/v1/workspaces/testString/logs";
     server.enqueue(
         new MockResponse()
@@ -4421,7 +4101,7 @@ public class AssistantTest {
   public void testListAllLogsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"mapKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"option\", \"title\": \"title\", \"description\": \"description\", \"preference\": \"dropdown\", \"options\": [{\"label\": \"label\", \"value\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}]}}], \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"request\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"anyKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"response\": {\"input\": {\"text\": \"text\", \"spelling_suggestions\": false, \"spelling_auto_correct\": false, \"suggested_text\": \"suggestedText\", \"original_text\": \"originalText\"}, \"intents\": [{\"intent\": \"intent\", \"confidence\": 10}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}}], \"alternate_intents\": false, \"context\": {\"conversation_id\": \"conversationId\", \"system\": {\"anyKey\": \"anyValue\"}, \"metadata\": {\"deployment\": \"deployment\", \"user_id\": \"userId\"}}, \"output\": {\"nodes_visited\": [\"nodesVisited\"], \"nodes_visited_details\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"msg\": \"msg\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"chat\"}]}]}, \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"user_id\": \"userId\"}, \"log_id\": \"logId\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"workspace_id\": \"workspaceId\", \"language\": \"language\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listAllLogsPath = "/v1/logs";
     server.enqueue(
         new MockResponse()

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -144,6 +144,16 @@ public class MessageInputTest {
     assertEquals(messageInputAttachmentModel.url(), "testString");
     assertEquals(messageInputAttachmentModel.mediaType(), "testString");
 
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+    assertEquals(requestAnalyticsModel.browser(), "testString");
+    assertEquals(requestAnalyticsModel.device(), "testString");
+    assertEquals(requestAnalyticsModel.pageUrl(), "testString");
+
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
     assertEquals(messageInputOptionsSpellingModel.suggestions(), Boolean.valueOf(true));
@@ -173,6 +183,7 @@ public class MessageInputTest {
             .entities(java.util.Arrays.asList(runtimeEntityModel))
             .suggestionId("testString")
             .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
+            .analytics(requestAnalyticsModel)
             .options(messageInputOptionsModel)
             .build();
     assertEquals(messageInputModel.messageType(), "text");
@@ -182,6 +193,7 @@ public class MessageInputTest {
     assertEquals(messageInputModel.suggestionId(), "testString");
     assertEquals(
         messageInputModel.attachments(), java.util.Arrays.asList(messageInputAttachmentModel));
+    assertEquals(messageInputModel.analytics(), requestAnalyticsModel);
     assertEquals(messageInputModel.options(), messageInputOptionsModel);
 
     String json = TestUtilities.serialize(messageInputModel);
@@ -191,6 +203,7 @@ public class MessageInputTest {
     assertEquals(messageInputModelNew.messageType(), "text");
     assertEquals(messageInputModelNew.text(), "testString");
     assertEquals(messageInputModelNew.suggestionId(), "testString");
+    assertEquals(messageInputModelNew.analytics().toString(), requestAnalyticsModel.toString());
     assertEquals(messageInputModelNew.options().toString(), messageInputOptionsModel.toString());
   }
 }

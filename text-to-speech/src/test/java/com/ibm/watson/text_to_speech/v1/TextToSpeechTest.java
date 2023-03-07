@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -205,6 +205,8 @@ public class TextToSpeechTest {
             .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
             .spellOutMode("default")
+            .ratePercentage(Long.valueOf("26"))
+            .pitchPercentage(Long.valueOf("26"))
             .build();
 
     // Invoke synthesize() with a valid options model and verify the result
@@ -228,6 +230,8 @@ public class TextToSpeechTest {
     assertEquals(query.get("voice"), "en-US_MichaelV3Voice");
     assertEquals(query.get("customization_id"), "testString");
     assertEquals(query.get("spell_out_mode"), "default");
+    assertEquals(Long.valueOf(query.get("rate_percentage")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("pitch_percentage")), Long.valueOf("26"));
   }
 
   // Test the synthesize operation with and without retries enabled

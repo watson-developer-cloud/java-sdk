@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,35 +30,28 @@ import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsTra
 import com.ibm.watson.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.CreateSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteClassificationsModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelResults;
-import com.ibm.watson.natural_language_understanding.v1.model.DeleteSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.EmotionOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.EntitiesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.natural_language_understanding.v1.model.GetCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.GetClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
-import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsResponse;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.SentimentModel;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SummarizationOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptionsTokens;
 import com.ibm.watson.natural_language_understanding.v1.model.UpdateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.UpdateClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.UpdateSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
@@ -160,7 +153,6 @@ public class NaturalLanguageUnderstandingTest {
         new SentimentOptions.Builder()
             .document(true)
             .targets(java.util.Arrays.asList("testString"))
-            .model("testString")
             .build();
 
     // Construct an instance of the SummarizationOptions model
@@ -191,12 +183,7 @@ public class NaturalLanguageUnderstandingTest {
             .emotion(emotionOptionsModel)
             .entities(entitiesOptionsModel)
             .keywords(keywordsOptionsModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
@@ -356,300 +343,12 @@ public class NaturalLanguageUnderstandingTest {
     naturalLanguageUnderstandingService.deleteModel(null).execute();
   }
 
-  // Test the createSentimentModel operation with a valid options model parameter
-  @Test
-  public void testCreateSentimentModelWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody =
-        "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
-    String createSentimentModelPath = "/v1/models/sentiment";
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(201)
-            .setBody(mockResponseBody));
-
-    // Construct an instance of the CreateSentimentModelOptions model
-    CreateSentimentModelOptions createSentimentModelOptionsModel =
-        new CreateSentimentModelOptions.Builder()
-            .language("testString")
-            .trainingData(TestUtilities.createMockStream("This is a mock file."))
-            .name("testString")
-            .description("testString")
-            .modelVersion("testString")
-            .workspaceId("testString")
-            .versionDescription("testString")
-            .build();
-
-    // Invoke createSentimentModel() with a valid options model and verify the result
-    Response<SentimentModel> response =
-        naturalLanguageUnderstandingService
-            .createSentimentModel(createSentimentModelOptionsModel)
-            .execute();
-    assertNotNull(response);
-    SentimentModel responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "POST");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, createSentimentModelPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("version"), "testString");
-  }
-
-  // Test the createSentimentModel operation with and without retries enabled
-  @Test
-  public void testCreateSentimentModelWRetries() throws Throwable {
-    naturalLanguageUnderstandingService.enableRetries(4, 30);
-    testCreateSentimentModelWOptions();
-
-    naturalLanguageUnderstandingService.disableRetries();
-    testCreateSentimentModelWOptions();
-  }
-
-  // Test the createSentimentModel operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testCreateSentimentModelNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    naturalLanguageUnderstandingService.createSentimentModel(null).execute();
-  }
-
-  // Test the listSentimentModels operation with a valid options model parameter
-  @Test
-  public void testListSentimentModelsWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody =
-        "{\"models\": [{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}]}";
-    String listSentimentModelsPath = "/v1/models/sentiment";
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(200)
-            .setBody(mockResponseBody));
-
-    // Construct an instance of the ListSentimentModelsOptions model
-    ListSentimentModelsOptions listSentimentModelsOptionsModel = new ListSentimentModelsOptions();
-
-    // Invoke listSentimentModels() with a valid options model and verify the result
-    Response<ListSentimentModelsResponse> response =
-        naturalLanguageUnderstandingService
-            .listSentimentModels(listSentimentModelsOptionsModel)
-            .execute();
-    assertNotNull(response);
-    ListSentimentModelsResponse responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, listSentimentModelsPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("version"), "testString");
-  }
-
-  // Test the listSentimentModels operation with and without retries enabled
-  @Test
-  public void testListSentimentModelsWRetries() throws Throwable {
-    naturalLanguageUnderstandingService.enableRetries(4, 30);
-    testListSentimentModelsWOptions();
-
-    naturalLanguageUnderstandingService.disableRetries();
-    testListSentimentModelsWOptions();
-  }
-
-  // Test the getSentimentModel operation with a valid options model parameter
-  @Test
-  public void testGetSentimentModelWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody =
-        "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
-    String getSentimentModelPath = "/v1/models/sentiment/testString";
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(200)
-            .setBody(mockResponseBody));
-
-    // Construct an instance of the GetSentimentModelOptions model
-    GetSentimentModelOptions getSentimentModelOptionsModel =
-        new GetSentimentModelOptions.Builder().modelId("testString").build();
-
-    // Invoke getSentimentModel() with a valid options model and verify the result
-    Response<SentimentModel> response =
-        naturalLanguageUnderstandingService
-            .getSentimentModel(getSentimentModelOptionsModel)
-            .execute();
-    assertNotNull(response);
-    SentimentModel responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "GET");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, getSentimentModelPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("version"), "testString");
-  }
-
-  // Test the getSentimentModel operation with and without retries enabled
-  @Test
-  public void testGetSentimentModelWRetries() throws Throwable {
-    naturalLanguageUnderstandingService.enableRetries(4, 30);
-    testGetSentimentModelWOptions();
-
-    naturalLanguageUnderstandingService.disableRetries();
-    testGetSentimentModelWOptions();
-  }
-
-  // Test the getSentimentModel operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testGetSentimentModelNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    naturalLanguageUnderstandingService.getSentimentModel(null).execute();
-  }
-
-  // Test the updateSentimentModel operation with a valid options model parameter
-  @Test
-  public void testUpdateSentimentModelWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody =
-        "{\"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\", \"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"notices\": [{\"message\": \"message\"}], \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\"}";
-    String updateSentimentModelPath = "/v1/models/sentiment/testString";
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(200)
-            .setBody(mockResponseBody));
-
-    // Construct an instance of the UpdateSentimentModelOptions model
-    UpdateSentimentModelOptions updateSentimentModelOptionsModel =
-        new UpdateSentimentModelOptions.Builder()
-            .modelId("testString")
-            .language("testString")
-            .trainingData(TestUtilities.createMockStream("This is a mock file."))
-            .name("testString")
-            .description("testString")
-            .modelVersion("testString")
-            .workspaceId("testString")
-            .versionDescription("testString")
-            .build();
-
-    // Invoke updateSentimentModel() with a valid options model and verify the result
-    Response<SentimentModel> response =
-        naturalLanguageUnderstandingService
-            .updateSentimentModel(updateSentimentModelOptionsModel)
-            .execute();
-    assertNotNull(response);
-    SentimentModel responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "PUT");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, updateSentimentModelPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("version"), "testString");
-  }
-
-  // Test the updateSentimentModel operation with and without retries enabled
-  @Test
-  public void testUpdateSentimentModelWRetries() throws Throwable {
-    naturalLanguageUnderstandingService.enableRetries(4, 30);
-    testUpdateSentimentModelWOptions();
-
-    naturalLanguageUnderstandingService.disableRetries();
-    testUpdateSentimentModelWOptions();
-  }
-
-  // Test the updateSentimentModel operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testUpdateSentimentModelNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    naturalLanguageUnderstandingService.updateSentimentModel(null).execute();
-  }
-
-  // Test the deleteSentimentModel operation with a valid options model parameter
-  @Test
-  public void testDeleteSentimentModelWOptions() throws Throwable {
-    // Register a mock response
-    String mockResponseBody = "{\"deleted\": \"deleted\"}";
-    String deleteSentimentModelPath = "/v1/models/sentiment/testString";
-    server.enqueue(
-        new MockResponse()
-            .setHeader("Content-type", "application/json")
-            .setResponseCode(200)
-            .setBody(mockResponseBody));
-
-    // Construct an instance of the DeleteSentimentModelOptions model
-    DeleteSentimentModelOptions deleteSentimentModelOptionsModel =
-        new DeleteSentimentModelOptions.Builder().modelId("testString").build();
-
-    // Invoke deleteSentimentModel() with a valid options model and verify the result
-    Response<DeleteModelResults> response =
-        naturalLanguageUnderstandingService
-            .deleteSentimentModel(deleteSentimentModelOptionsModel)
-            .execute();
-    assertNotNull(response);
-    DeleteModelResults responseObj = response.getResult();
-    assertNotNull(responseObj);
-
-    // Verify the contents of the request sent to the mock server
-    RecordedRequest request = server.takeRequest();
-    assertNotNull(request);
-    assertEquals(request.getMethod(), "DELETE");
-    // Verify request path
-    String parsedPath = TestUtilities.parseReqPath(request);
-    assertEquals(parsedPath, deleteSentimentModelPath);
-    // Verify query params
-    Map<String, String> query = TestUtilities.parseQueryString(request);
-    assertNotNull(query);
-    assertEquals(query.get("version"), "testString");
-  }
-
-  // Test the deleteSentimentModel operation with and without retries enabled
-  @Test
-  public void testDeleteSentimentModelWRetries() throws Throwable {
-    naturalLanguageUnderstandingService.enableRetries(4, 30);
-    testDeleteSentimentModelWOptions();
-
-    naturalLanguageUnderstandingService.disableRetries();
-    testDeleteSentimentModelWOptions();
-  }
-
-  // Test the deleteSentimentModel operation with a null options model (negative test)
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void testDeleteSentimentModelNoOptions() throws Throwable {
-    server.enqueue(new MockResponse());
-    naturalLanguageUnderstandingService.deleteSentimentModel(null).execute();
-  }
-
   // Test the createCategoriesModel operation with a valid options model parameter
   @Test
   public void testCreateCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createCategoriesModelPath = "/v1/models/categories";
     server.enqueue(
         new MockResponse()
@@ -714,7 +413,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListCategoriesModelsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listCategoriesModelsPath = "/v1/models/categories";
     server.enqueue(
         new MockResponse()
@@ -763,7 +462,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testGetCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getCategoriesModelPath = "/v1/models/categories/testString";
     server.enqueue(
         new MockResponse()
@@ -819,7 +518,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testUpdateCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateCategoriesModelPath = "/v1/models/categories/testString";
     server.enqueue(
         new MockResponse()
@@ -940,7 +639,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testCreateClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createClassificationsModelPath = "/v1/models/classifications";
     server.enqueue(
         new MockResponse()
@@ -1010,7 +709,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListClassificationsModelsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listClassificationsModelsPath = "/v1/models/classifications";
     server.enqueue(
         new MockResponse()
@@ -1059,7 +758,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testGetClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getClassificationsModelPath = "/v1/models/classifications/testString";
     server.enqueue(
         new MockResponse()
@@ -1115,7 +814,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testUpdateClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": {\"anyKey\": \"anyValue\"}}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateClassificationsModelPath = "/v1/models/classifications/testString";
     server.enqueue(
         new MockResponse()

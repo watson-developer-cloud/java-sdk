@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,6 @@ import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.testng.annotations.Test;
 
 /** Unit test class for the RuntimeResponseGenericRuntimeResponseTypeConnectToAgent model. */
@@ -38,31 +37,13 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgentTest {
     DialogNodeOutputConnectToAgentTransferInfo dialogNodeOutputConnectToAgentTransferInfoModel =
         new DialogNodeOutputConnectToAgentTransferInfo.Builder()
             .target(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .build();
     assertEquals(
         dialogNodeOutputConnectToAgentTransferInfoModel.target(),
-        new java.util.HashMap<String, Map<String, Object>>() {
-          {
-            put(
-                "foo",
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                });
-          }
-        });
+        java.util.Collections.singletonMap(
+            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
 
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();

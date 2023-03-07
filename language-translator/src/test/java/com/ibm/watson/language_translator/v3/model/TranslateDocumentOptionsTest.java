@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,7 +35,7 @@ public class TranslateDocumentOptionsTest {
         new TranslateDocumentOptions.Builder()
             .file(TestUtilities.createMockStream("This is a mock file."))
             .filename("testString")
-            .fileContentType("application/powerpoint")
+            .fileContentType("application/mspowerpoint")
             .modelId("testString")
             .source("testString")
             .target("testString")
@@ -45,7 +45,7 @@ public class TranslateDocumentOptionsTest {
         IOUtils.toString(translateDocumentOptionsModel.file()),
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(translateDocumentOptionsModel.filename(), "testString");
-    assertEquals(translateDocumentOptionsModel.fileContentType(), "application/powerpoint");
+    assertEquals(translateDocumentOptionsModel.fileContentType(), "application/mspowerpoint");
     assertEquals(translateDocumentOptionsModel.modelId(), "testString");
     assertEquals(translateDocumentOptionsModel.source(), "testString");
     assertEquals(translateDocumentOptionsModel.target(), "testString");

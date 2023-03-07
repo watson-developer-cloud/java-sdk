@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,24 +33,14 @@ public class CreateEntityOptionsTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
-        createValueModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        createValueModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createValueModel.type(), "synonyms");
     assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
     assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
@@ -60,12 +50,7 @@ public class CreateEntityOptionsTest {
             .workspaceId("testString")
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .includeAudit(false)
@@ -75,11 +60,7 @@ public class CreateEntityOptionsTest {
     assertEquals(createEntityOptionsModel.description(), "testString");
     assertEquals(
         createEntityOptionsModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createEntityOptionsModel.fuzzyMatch(), Boolean.valueOf(true));
     assertEquals(createEntityOptionsModel.values(), java.util.Arrays.asList(createValueModel));
     assertEquals(createEntityOptionsModel.includeAudit(), Boolean.valueOf(false));

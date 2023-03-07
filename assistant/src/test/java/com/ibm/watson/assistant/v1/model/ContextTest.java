@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,23 +38,13 @@ public class ContextTest {
     Context contextModel =
         new Context.Builder()
             .conversationId("testString")
-            .system(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .system(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .metadata(messageContextMetadataModel)
             .add("foo", "testString")
             .build();
     assertEquals(contextModel.getConversationId(), "testString");
     assertEquals(
-        contextModel.getSystem(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        contextModel.getSystem(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(contextModel.getMetadata(), messageContextMetadataModel);
     assertEquals(contextModel.get("foo"), "testString");
 
@@ -63,6 +53,9 @@ public class ContextTest {
     Context contextModelNew = TestUtilities.deserialize(json, Context.class);
     assertTrue(contextModelNew instanceof Context);
     assertEquals(contextModelNew.getConversationId(), "testString");
+    assertEquals(
+        contextModelNew.getSystem().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(contextModelNew.getMetadata().toString(), messageContextMetadataModel.toString());
     assertEquals(contextModelNew.get("foo"), "testString");
   }

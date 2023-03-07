@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -152,23 +152,13 @@ public class MessageRequestTest {
     Context contextModel =
         new Context.Builder()
             .conversationId("testString")
-            .system(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .system(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .metadata(messageContextMetadataModel)
             .add("foo", "testString")
             .build();
     assertEquals(contextModel.getConversationId(), "testString");
     assertEquals(
-        contextModel.getSystem(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        contextModel.getSystem(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(contextModel.getMetadata(), messageContextMetadataModel);
     assertEquals(contextModel.get("foo"), "testString");
 
@@ -199,49 +189,18 @@ public class MessageRequestTest {
     assertEquals(logMessageModel.code(), "testString");
     assertEquals(logMessageModel.source(), logMessageSourceModel);
 
-    DialogNodeOutputOptionsElementValue dialogNodeOutputOptionsElementValueModel =
-        new DialogNodeOutputOptionsElementValue.Builder()
-            .input(messageInputModel)
-            .intents(java.util.Arrays.asList(runtimeIntentModel))
-            .entities(java.util.Arrays.asList(runtimeEntityModel))
-            .build();
-    assertEquals(dialogNodeOutputOptionsElementValueModel.input(), messageInputModel);
-    assertEquals(
-        dialogNodeOutputOptionsElementValueModel.intents(),
-        java.util.Arrays.asList(runtimeIntentModel));
-    assertEquals(
-        dialogNodeOutputOptionsElementValueModel.entities(),
-        java.util.Arrays.asList(runtimeEntityModel));
-
-    DialogNodeOutputOptionsElement dialogNodeOutputOptionsElementModel =
-        new DialogNodeOutputOptionsElement.Builder()
-            .label("testString")
-            .value(dialogNodeOutputOptionsElementValueModel)
-            .build();
-    assertEquals(dialogNodeOutputOptionsElementModel.label(), "testString");
-    assertEquals(
-        dialogNodeOutputOptionsElementModel.value(), dialogNodeOutputOptionsElementValueModel);
-
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
     assertEquals(responseGenericChannelModel.channel(), "chat");
 
-    RuntimeResponseGenericRuntimeResponseTypeOption runtimeResponseGenericModel =
-        new RuntimeResponseGenericRuntimeResponseTypeOption.Builder()
-            .responseType("option")
-            .title("testString")
-            .description("testString")
-            .preference("dropdown")
-            .options(java.util.Arrays.asList(dialogNodeOutputOptionsElementModel))
+    RuntimeResponseGenericRuntimeResponseTypeText runtimeResponseGenericModel =
+        new RuntimeResponseGenericRuntimeResponseTypeText.Builder()
+            .responseType("text")
+            .text("testString")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
-    assertEquals(runtimeResponseGenericModel.responseType(), "option");
-    assertEquals(runtimeResponseGenericModel.title(), "testString");
-    assertEquals(runtimeResponseGenericModel.description(), "testString");
-    assertEquals(runtimeResponseGenericModel.preference(), "dropdown");
-    assertEquals(
-        runtimeResponseGenericModel.options(),
-        java.util.Arrays.asList(dialogNodeOutputOptionsElementModel));
+    assertEquals(runtimeResponseGenericModel.responseType(), "text");
+    assertEquals(runtimeResponseGenericModel.text(), "testString");
     assertEquals(
         runtimeResponseGenericModel.channels(),
         java.util.Arrays.asList(responseGenericChannelModel));

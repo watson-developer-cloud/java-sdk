@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,24 +33,14 @@ public class CreateEntityTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
-        createValueModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        createValueModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createValueModel.type(), "synonyms");
     assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
     assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
@@ -59,24 +49,14 @@ public class CreateEntityTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
     assertEquals(createEntityModel.entity(), "testString");
     assertEquals(createEntityModel.description(), "testString");
     assertEquals(
-        createEntityModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        createEntityModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createEntityModel.fuzzyMatch(), Boolean.valueOf(true));
     assertEquals(createEntityModel.values(), java.util.Arrays.asList(createValueModel));
 
@@ -86,6 +66,9 @@ public class CreateEntityTest {
     assertTrue(createEntityModelNew instanceof CreateEntity);
     assertEquals(createEntityModelNew.entity(), "testString");
     assertEquals(createEntityModelNew.description(), "testString");
+    assertEquals(
+        createEntityModelNew.metadata().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(createEntityModelNew.fuzzyMatch(), Boolean.valueOf(true));
   }
 

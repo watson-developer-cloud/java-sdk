@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -144,6 +144,16 @@ public class MessageInputStatelessTest {
     assertEquals(messageInputAttachmentModel.url(), "testString");
     assertEquals(messageInputAttachmentModel.mediaType(), "testString");
 
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+    assertEquals(requestAnalyticsModel.browser(), "testString");
+    assertEquals(requestAnalyticsModel.device(), "testString");
+    assertEquals(requestAnalyticsModel.pageUrl(), "testString");
+
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
     assertEquals(messageInputOptionsSpellingModel.suggestions(), Boolean.valueOf(true));
@@ -169,6 +179,7 @@ public class MessageInputStatelessTest {
             .entities(java.util.Arrays.asList(runtimeEntityModel))
             .suggestionId("testString")
             .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
+            .analytics(requestAnalyticsModel)
             .options(messageInputOptionsStatelessModel)
             .build();
     assertEquals(messageInputStatelessModel.messageType(), "text");
@@ -180,6 +191,7 @@ public class MessageInputStatelessTest {
     assertEquals(
         messageInputStatelessModel.attachments(),
         java.util.Arrays.asList(messageInputAttachmentModel));
+    assertEquals(messageInputStatelessModel.analytics(), requestAnalyticsModel);
     assertEquals(messageInputStatelessModel.options(), messageInputOptionsStatelessModel);
 
     String json = TestUtilities.serialize(messageInputStatelessModel);
@@ -190,6 +202,8 @@ public class MessageInputStatelessTest {
     assertEquals(messageInputStatelessModelNew.messageType(), "text");
     assertEquals(messageInputStatelessModelNew.text(), "testString");
     assertEquals(messageInputStatelessModelNew.suggestionId(), "testString");
+    assertEquals(
+        messageInputStatelessModelNew.analytics().toString(), requestAnalyticsModel.toString());
     assertEquals(
         messageInputStatelessModelNew.options().toString(),
         messageInputOptionsStatelessModel.toString());

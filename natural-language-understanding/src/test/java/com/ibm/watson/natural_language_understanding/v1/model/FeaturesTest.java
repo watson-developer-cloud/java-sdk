@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -88,11 +88,9 @@ public class FeaturesTest {
         new SentimentOptions.Builder()
             .document(true)
             .targets(java.util.Arrays.asList("testString"))
-            .model("testString")
             .build();
     assertEquals(sentimentOptionsModel.document(), Boolean.valueOf(true));
     assertEquals(sentimentOptionsModel.targets(), java.util.Arrays.asList("testString"));
-    assertEquals(sentimentOptionsModel.model(), "testString");
 
     SummarizationOptions summarizationOptionsModel =
         new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
@@ -125,12 +123,7 @@ public class FeaturesTest {
             .emotion(emotionOptionsModel)
             .entities(entitiesOptionsModel)
             .keywords(keywordsOptionsModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
@@ -144,12 +137,7 @@ public class FeaturesTest {
     assertEquals(featuresModel.entities(), entitiesOptionsModel);
     assertEquals(featuresModel.keywords(), keywordsOptionsModel);
     assertEquals(
-        featuresModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        featuresModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(featuresModel.relations(), relationsOptionsModel);
     assertEquals(featuresModel.semanticRoles(), semanticRolesOptionsModel);
     assertEquals(featuresModel.sentiment(), sentimentOptionsModel);
@@ -167,6 +155,9 @@ public class FeaturesTest {
     assertEquals(featuresModelNew.emotion().toString(), emotionOptionsModel.toString());
     assertEquals(featuresModelNew.entities().toString(), entitiesOptionsModel.toString());
     assertEquals(featuresModelNew.keywords().toString(), keywordsOptionsModel.toString());
+    assertEquals(
+        featuresModelNew.metadata().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(featuresModelNew.relations().toString(), relationsOptionsModel.toString());
     assertEquals(featuresModelNew.semanticRoles().toString(), semanticRolesOptionsModel.toString());
     assertEquals(featuresModelNew.sentiment().toString(), sentimentOptionsModel.toString());

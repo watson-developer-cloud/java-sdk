@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,28 +11,36 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.discovery.v2.model;
+package com.ibm.watson.assistant.v2.model;
 
 import static org.testng.Assert.*;
 
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.watson.discovery.v2.utils.TestUtilities;
+import com.ibm.watson.assistant.v2.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the QueryFilterAggregation model. */
-public class QueryFilterAggregationTest {
+/** Unit test class for the CreateReleaseOptions model. */
+public class CreateReleaseOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testQueryFilterAggregation() throws Throwable {
-    QueryFilterAggregation queryFilterAggregationModel = new QueryFilterAggregation();
-    assertNull(queryFilterAggregationModel.getType());
-    assertNull(queryFilterAggregationModel.getMatch());
-    assertNull(queryFilterAggregationModel.getMatchingResults());
+  public void testCreateReleaseOptions() throws Throwable {
+    CreateReleaseOptions createReleaseOptionsModel =
+        new CreateReleaseOptions.Builder()
+            .assistantId("testString")
+            .description("testString")
+            .build();
+    assertEquals(createReleaseOptionsModel.assistantId(), "testString");
+    assertEquals(createReleaseOptionsModel.description(), "testString");
+  }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateReleaseOptionsError() throws Throwable {
+    new CreateReleaseOptions.Builder().build();
   }
 }
