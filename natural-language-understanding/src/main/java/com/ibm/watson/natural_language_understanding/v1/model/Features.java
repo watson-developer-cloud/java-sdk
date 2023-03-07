@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -50,6 +50,11 @@ public class Features extends GenericModel {
     private CategoriesOptions categories;
     private SyntaxOptions syntax;
 
+    /**
+     * Instantiates a new Builder from an existing Features instance.
+     *
+     * @param features the instance to initialize the Builder with
+     */
     private Builder(Features features) {
       this.classifications = features.classifications;
       this.concepts = features.concepts;
@@ -372,6 +377,8 @@ public class Features extends GenericModel {
    * <p>(Experimental) Returns a summary of content.
    *
    * <p>Supported languages: English only.
+   *
+   * <p>Supported regions: Dallas region only.
    *
    * @return the summarization
    */

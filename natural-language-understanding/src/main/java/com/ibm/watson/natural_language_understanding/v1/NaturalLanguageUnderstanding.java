@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.natural_language_understanding.v1;
@@ -35,25 +35,18 @@ import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsMod
 import com.ibm.watson.natural_language_understanding.v1.model.ClassificationsModelList;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.CreateClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.CreateSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteClassificationsModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.DeleteModelResults;
-import com.ibm.watson.natural_language_understanding.v1.model.DeleteSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.GetCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.GetClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.GetSentimentModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListCategoriesModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListClassificationsModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
-import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.ListSentimentModelsResponse;
-import com.ibm.watson.natural_language_understanding.v1.model.SentimentModel;
 import com.ibm.watson.natural_language_understanding.v1.model.UpdateCategoriesModelOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.UpdateClassificationsModelOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.UpdateSentimentModelOptions;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -70,12 +63,24 @@ import okhttp3.MultipartBody;
  * with Watson Knowledge Studio to detect custom entities and relations in Natural Language
  * Understanding.
  *
+ * <p>IBM is sunsetting Watson Natural Language Understanding Custom Sentiment (BETA). From **June
+ * 1, 2023** onward, you will no longer be able to use the Custom Sentiment feature.&lt;br
+ * /&gt;&lt;br /&gt;To ensure we continue providing our clients with robust and powerful text
+ * classification capabilities, IBM recently announced the general availability of a new
+ * [single-label text classification
+ * capability](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-classifications).
+ * This new feature includes extended language support and training data customizations suited for
+ * building a custom sentiment classifier.&lt;br /&gt;&lt;br /&gt;If you would like more information
+ * or further guidance, please contact IBM Cloud Support.{: deprecated}.
+ *
  * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/natural-language-understanding
  */
 public class NaturalLanguageUnderstanding extends BaseService {
 
+  /** Default service name used when configuring the `NaturalLanguageUnderstanding` client. */
   public static final String DEFAULT_SERVICE_NAME = "natural-language-understanding";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com";
 
@@ -279,219 +284,6 @@ public class NaturalLanguageUnderstanding extends BaseService {
                 getServiceUrl(), "/v1/models/{model_id}", pathParamsMap));
     Map<String, String> sdkHeaders =
         SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteModel");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    ResponseConverter<DeleteModelResults> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<DeleteModelResults>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Create sentiment model.
-   *
-   * <p>(Beta) Creates a custom sentiment model by uploading training data and associated metadata.
-   * The model begins the training and deploying process and is ready to use when the `status` is
-   * `available`.
-   *
-   * @param createSentimentModelOptions the {@link CreateSentimentModelOptions} containing the
-   *     options for the call
-   * @return a {@link ServiceCall} with a result of type {@link SentimentModel}
-   */
-  public ServiceCall<SentimentModel> createSentimentModel(
-      CreateSentimentModelOptions createSentimentModelOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        createSentimentModelOptions, "createSentimentModelOptions cannot be null");
-    RequestBuilder builder =
-        RequestBuilder.post(
-            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/models/sentiment"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "createSentimentModel");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart("language", createSentimentModelOptions.language());
-    okhttp3.RequestBody trainingDataBody =
-        RequestUtils.inputStreamBody(createSentimentModelOptions.trainingData(), "text/csv");
-    multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
-    if (createSentimentModelOptions.name() != null) {
-      multipartBuilder.addFormDataPart("name", createSentimentModelOptions.name());
-    }
-    if (createSentimentModelOptions.description() != null) {
-      multipartBuilder.addFormDataPart("description", createSentimentModelOptions.description());
-    }
-    if (createSentimentModelOptions.modelVersion() != null) {
-      multipartBuilder.addFormDataPart("model_version", createSentimentModelOptions.modelVersion());
-    }
-    if (createSentimentModelOptions.workspaceId() != null) {
-      multipartBuilder.addFormDataPart("workspace_id", createSentimentModelOptions.workspaceId());
-    }
-    if (createSentimentModelOptions.versionDescription() != null) {
-      multipartBuilder.addFormDataPart(
-          "version_description", createSentimentModelOptions.versionDescription());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<SentimentModel> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<SentimentModel>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List sentiment models.
-   *
-   * <p>(Beta) Returns all custom sentiment models associated with this service instance.
-   *
-   * @param listSentimentModelsOptions the {@link ListSentimentModelsOptions} containing the options
-   *     for the call
-   * @return a {@link ServiceCall} with a result of type {@link ListSentimentModelsResponse}
-   */
-  public ServiceCall<ListSentimentModelsResponse> listSentimentModels(
-      ListSentimentModelsOptions listSentimentModelsOptions) {
-    RequestBuilder builder =
-        RequestBuilder.get(
-            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/models/sentiment"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "listSentimentModels");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    ResponseConverter<ListSentimentModelsResponse> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<ListSentimentModelsResponse>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * List sentiment models.
-   *
-   * <p>(Beta) Returns all custom sentiment models associated with this service instance.
-   *
-   * @return a {@link ServiceCall} with a result of type {@link ListSentimentModelsResponse}
-   */
-  public ServiceCall<ListSentimentModelsResponse> listSentimentModels() {
-    return listSentimentModels(null);
-  }
-
-  /**
-   * Get sentiment model details.
-   *
-   * <p>(Beta) Returns the status of the sentiment model with the given model ID.
-   *
-   * @param getSentimentModelOptions the {@link GetSentimentModelOptions} containing the options for
-   *     the call
-   * @return a {@link ServiceCall} with a result of type {@link SentimentModel}
-   */
-  public ServiceCall<SentimentModel> getSentimentModel(
-      GetSentimentModelOptions getSentimentModelOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        getSentimentModelOptions, "getSentimentModelOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("model_id", getSentimentModelOptions.modelId());
-    RequestBuilder builder =
-        RequestBuilder.get(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v1/models/sentiment/{model_id}", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "getSentimentModel");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    ResponseConverter<SentimentModel> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<SentimentModel>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Update sentiment model.
-   *
-   * <p>(Beta) Overwrites the training data associated with this custom sentiment model and retrains
-   * the model. The new model replaces the current deployment.
-   *
-   * @param updateSentimentModelOptions the {@link UpdateSentimentModelOptions} containing the
-   *     options for the call
-   * @return a {@link ServiceCall} with a result of type {@link SentimentModel}
-   */
-  public ServiceCall<SentimentModel> updateSentimentModel(
-      UpdateSentimentModelOptions updateSentimentModelOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        updateSentimentModelOptions, "updateSentimentModelOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("model_id", updateSentimentModelOptions.modelId());
-    RequestBuilder builder =
-        RequestBuilder.put(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v1/models/sentiment/{model_id}", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "updateSentimentModel");
-    for (Entry<String, String> header : sdkHeaders.entrySet()) {
-      builder.header(header.getKey(), header.getValue());
-    }
-    builder.header("Accept", "application/json");
-    builder.query("version", String.valueOf(this.version));
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart("language", updateSentimentModelOptions.language());
-    okhttp3.RequestBody trainingDataBody =
-        RequestUtils.inputStreamBody(updateSentimentModelOptions.trainingData(), "text/csv");
-    multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
-    if (updateSentimentModelOptions.name() != null) {
-      multipartBuilder.addFormDataPart("name", updateSentimentModelOptions.name());
-    }
-    if (updateSentimentModelOptions.description() != null) {
-      multipartBuilder.addFormDataPart("description", updateSentimentModelOptions.description());
-    }
-    if (updateSentimentModelOptions.modelVersion() != null) {
-      multipartBuilder.addFormDataPart("model_version", updateSentimentModelOptions.modelVersion());
-    }
-    if (updateSentimentModelOptions.workspaceId() != null) {
-      multipartBuilder.addFormDataPart("workspace_id", updateSentimentModelOptions.workspaceId());
-    }
-    if (updateSentimentModelOptions.versionDescription() != null) {
-      multipartBuilder.addFormDataPart(
-          "version_description", updateSentimentModelOptions.versionDescription());
-    }
-    builder.body(multipartBuilder.build());
-    ResponseConverter<SentimentModel> responseConverter =
-        ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<SentimentModel>() {}.getType());
-    return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Delete sentiment model.
-   *
-   * <p>(Beta) Un-deploys the custom sentiment model with the given model ID and deletes all
-   * associated customer data, including any training data or binary artifacts.
-   *
-   * @param deleteSentimentModelOptions the {@link DeleteSentimentModelOptions} containing the
-   *     options for the call
-   * @return a {@link ServiceCall} with a result of type {@link DeleteModelResults}
-   */
-  public ServiceCall<DeleteModelResults> deleteSentimentModel(
-      DeleteSentimentModelOptions deleteSentimentModelOptions) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        deleteSentimentModelOptions, "deleteSentimentModelOptions cannot be null");
-    Map<String, String> pathParamsMap = new HashMap<String, String>();
-    pathParamsMap.put("model_id", deleteSentimentModelOptions.modelId());
-    RequestBuilder builder =
-        RequestBuilder.delete(
-            RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v1/models/sentiment/{model_id}", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("natural-language-understanding", "v1", "deleteSentimentModel");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
