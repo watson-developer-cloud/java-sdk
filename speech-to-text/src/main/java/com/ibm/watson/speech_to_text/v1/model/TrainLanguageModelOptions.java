@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,11 @@ public class TrainLanguageModelOptions extends GenericModel {
     private Double customizationWeight;
     private Boolean strict;
 
+    /**
+     * Instantiates a new Builder from an existing TrainLanguageModelOptions instance.
+     *
+     * @param trainLanguageModelOptions the instance to initialize the Builder with
+     */
     private Builder(TrainLanguageModelOptions trainLanguageModelOptions) {
       this.customizationId = trainLanguageModelOptions.customizationId;
       this.wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
@@ -179,8 +184,9 @@ public class TrainLanguageModelOptions extends GenericModel {
    *
    * <p>Specifies a customization weight for the custom language model. The customization weight
    * tells the service how much weight to give to words from the custom language model compared to
-   * those from the base model for speech recognition. Specify a value between 0.0 and 1.0; the
-   * default is 0.3.
+   * those from the base model for speech recognition. Specify a value between 0.0 and 1.0. The
+   * default value is: * 0.3 for previous-generation models * 0.2 for most next-generation models *
+   * 0.1 for next-generation English and Japanese models
    *
    * <p>The default value yields the best performance in general. Assign a higher value if your
    * audio makes frequent use of OOV words from the custom model. Use caution when setting the

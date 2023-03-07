@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -72,7 +72,6 @@ import com.ibm.watson.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.speech_to_text.v1.model.RecognizeWithWebsocketsOptions;
 import com.ibm.watson.speech_to_text.v1.model.RegisterCallbackOptions;
 import com.ibm.watson.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.speech_to_text.v1.model.ResetAcousticModelOptions;
@@ -88,16 +87,10 @@ import com.ibm.watson.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.Word;
 import com.ibm.watson.speech_to_text.v1.model.Words;
-import com.ibm.watson.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
 
 /**
  * The IBM Watson&amp;trade; Speech to Text service provides APIs that use IBM's speech-recognition
@@ -112,11 +105,10 @@ import okhttp3.WebSocket;
  * sampling rates of 16 kHz. Narrowband and telephony models have minimum sampling rates of 8 kHz.
  * The next-generation models offer high throughput and greater transcription accuracy.
  *
- * <p>Effective 15 March 2022, previous-generation models for all languages other than Arabic and
- * Japanese are deprecated. The deprecated models remain available until 15 September 2022, when
- * they will be removed from the service and the documentation. You must migrate to the equivalent
- * next-generation model by the end of service date. For more information, see [Migrating to
- * next-generation
+ * <p>Effective **31 July 2023**, all previous-generation models will be removed from the service
+ * and the documentation. Most previous-generation models were deprecated on 15 March 2022. You must
+ * migrate to the equivalent next-generation model by 31 July 2023. For more information, see
+ * [Migrating to next-generation
  * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).{:
  * deprecated}
  *
@@ -138,8 +130,10 @@ import okhttp3.WebSocket;
  */
 public class SpeechToText extends BaseService {
 
+  /** Default service name used when configuring the `SpeechToText` client. */
   public static final String DEFAULT_SERVICE_NAME = "speech_to_text";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.speech-to-text.watson.cloud.ibm.com";
 
@@ -336,13 +330,11 @@ public class SpeechToText extends BaseService {
    * <p>Next-generation models do not support all of the speech recognition parameters that are
    * available for use with previous-generation models. Next-generation models do not support the
    * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
-   * `max_alternatives` * `processing_metrics` and `processing_metrics_interval` *
-   * `word_alternatives_threshold`
+   * `processing_metrics` and `processing_metrics_interval` * `word_alternatives_threshold`
    *
-   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
-   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
-   * September 2022, when they will be removed from the service and the documentation. You must
-   * migrate to the equivalent next-generation model by the end of service date. For more
+   * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
+   * from the service and the documentation. Most previous-generation models were deprecated on 15
+   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
    * information, see [Migrating to next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
@@ -475,58 +467,6 @@ public class SpeechToText extends BaseService {
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<SpeechRecognitionResults>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Sends audio and returns transcription results for recognition requests over a WebSocket
-   * connection. Requests and responses are enabled over a single TCP connection that abstracts much
-   * of the complexity of the request to offer efficient implementation, low latency, high
-   * throughput, and an asynchronous response. By default, only final results are returned for any
-   * request; to enable interim results, set the interimResults parameter to true.
-   *
-   * <p>The service imposes a data size limit of 100 MB per utterance (per recognition request). You
-   * can send multiple utterances over a single WebSocket connection. The service automatically
-   * detects the endianness of the incoming audio and, for audio that includes multiple channels,
-   * downmixes the audio to one-channel mono during transcoding. (For the audio/l16 format, you can
-   * specify the endianness.)
-   *
-   * @param recognizeOptions the recognize options
-   * @param callback the {@link RecognizeCallback} instance where results will be sent
-   * @return the {@link WebSocket}
-   */
-  public WebSocket recognizeUsingWebSocket(
-      RecognizeWithWebsocketsOptions recognizeOptions, RecognizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        recognizeOptions, "recognizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/recognize").newBuilder();
-
-    if (recognizeOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.languageCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "language_customization_id", recognizeOptions.languageCustomizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.baseModelVersion() != null) {
-      urlBuilder.addQueryParameter("base_model_version", recognizeOptions.baseModelVersion());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -713,13 +653,11 @@ public class SpeechToText extends BaseService {
    * <p>Next-generation models do not support all of the speech recognition parameters that are
    * available for use with previous-generation models. Next-generation models do not support the
    * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
-   * `max_alternatives` * `processing_metrics` and `processing_metrics_interval` *
-   * `word_alternatives_threshold`
+   * `processing_metrics` and `processing_metrics_interval` * `word_alternatives_threshold`
    *
-   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
-   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
-   * September 2022, when they will be removed from the service and the documentation. You must
-   * migrate to the equivalent next-generation model by the end of service date. For more
+   * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
+   * from the service and the documentation. Most previous-generation models were deprecated on 15
+   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
    * information, see [Migrating to next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
@@ -988,10 +926,9 @@ public class SpeechToText extends BaseService {
    * returns an error if you attempt to create more than 1024 models. You do not lose any models,
    * but you cannot create any more until your model count is below the limit.
    *
-   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
-   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
-   * September 2022, when they will be removed from the service and the documentation. You must
-   * migrate to the equivalent next-generation model by the end of service date. For more
+   * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
+   * from the service and the documentation. Most previous-generation models were deprecated on 15
+   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
    * information, see [Migrating to next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
@@ -1181,10 +1118,13 @@ public class SpeechToText extends BaseService {
    *
    * <p>You can monitor the status of the training by using the [Get a custom language
    * model](#getlanguagemodel) method to poll the model's status. Use a loop to check the status
-   * every 10 seconds. The method returns a `LanguageModel` object that includes `status` and
-   * `progress` fields. A status of `available` means that the custom model is trained and ready to
-   * use. The service cannot accept subsequent training requests or requests to add new resources
-   * until the existing request completes.
+   * every 10 seconds. If you added custom words directly to a custom model that is based on a
+   * next-generation model, allow for some minutes of extra training time for the model.
+   *
+   * <p>The method returns a `LanguageModel` object that includes `status` and `progress` fields. A
+   * status of `available` means that the custom model is trained and ready to use. The service
+   * cannot accept subsequent training requests or requests to add new resources until the existing
+   * request completes.
    *
    * <p>**See also:** * [Train the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#trainModel-language)
@@ -2028,10 +1968,9 @@ public class SpeechToText extends BaseService {
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
    * models. It is not supported for next-generation models.
    *
-   * <p>**Important:** Effective 15 March 2022, previous-generation models for all languages other
-   * than Arabic and Japanese are deprecated. The deprecated models remain available until 15
-   * September 2022, when they will be removed from the service and the documentation. You must
-   * migrate to the equivalent next-generation model by the end of service date. For more
+   * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
+   * from the service and the documentation. Most previous-generation models were deprecated on 15
+   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
    * information, see [Migrating to next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
@@ -2249,15 +2188,20 @@ public class SpeechToText extends BaseService {
    *
    * <p>Training can fail to start for the following reasons: * The service is currently handling
    * another request for the custom model, such as another training request or a request to add
-   * audio resources to the model. * The custom model contains less than 10 minutes or more than 200
-   * hours of audio data. * You passed a custom language model with the `custom_language_model_id`
-   * query parameter that is not in the available state. A custom language model must be fully
-   * trained and available to be used to train a custom acoustic model. * You passed an incompatible
-   * custom language model with the `custom_language_model_id` query parameter. Both custom models
-   * must be based on the same version of the same base model. * The custom model contains one or
-   * more invalid audio resources. You can correct the invalid audio resources or set the `strict`
-   * parameter to `false` to exclude the invalid resources from the training. The model must contain
-   * at least one valid resource for training to succeed.
+   * audio resources to the model. * The custom model contains less than 10 minutes of audio that
+   * includes speech, not silence. * The custom model contains more than 50 hours of audio (for IBM
+   * Cloud) or more that 200 hours of audio (for IBM Cloud Pak for Data). **Note:** For IBM Cloud,
+   * the maximum hours of audio for a custom acoustic model was reduced from 200 to 50 hours in
+   * August and September 2022. For more information, see [Maximum hours of
+   * audio](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audioResources#audioMaximum).
+   * * You passed a custom language model with the `custom_language_model_id` query parameter that
+   * is not in the available state. A custom language model must be fully trained and available to
+   * be used to train a custom acoustic model. * You passed an incompatible custom language model
+   * with the `custom_language_model_id` query parameter. Both custom models must be based on the
+   * same version of the same base model. * The custom model contains one or more invalid audio
+   * resources. You can correct the invalid audio resources or set the `strict` parameter to `false`
+   * to exclude the invalid resources from the training. The model must contain at least one valid
+   * resource for training to succeed.
    *
    * @param trainAcousticModelOptions the {@link TrainAcousticModelOptions} containing the options
    *     for the call
@@ -2461,11 +2405,15 @@ public class SpeechToText extends BaseService {
    *
    * <p>You can use this method to add any number of audio resources to a custom model by calling
    * the method once for each audio or archive file. You can add multiple different audio resources
-   * at the same time. You must add a minimum of 10 minutes and a maximum of 200 hours of audio that
-   * includes speech, not just silence, to a custom acoustic model before you can train it. No audio
-   * resource, audio- or archive-type, can be larger than 100 MB. To add an audio resource that has
-   * the same name as an existing audio resource, set the `allow_overwrite` parameter to `true`;
-   * otherwise, the request fails.
+   * at the same time. You must add a minimum of 10 minutes of audio that includes speech, not just
+   * silence, to a custom acoustic model before you can train it. No audio resource, audio- or
+   * archive-type, can be larger than 100 MB. To add an audio resource that has the same name as an
+   * existing audio resource, set the `allow_overwrite` parameter to `true`; otherwise, the request
+   * fails. A custom model can contain no more than 50 hours of audio (for IBM Cloud) or 200 hours
+   * of audio (for IBM Cloud Pak for Data). **Note:** For IBM Cloud, the maximum hours of audio for
+   * a custom acoustic model was reduced from 200 to 50 hours in August and September 2022. For more
+   * information, see [Maximum hours of
+   * audio](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audioResources#audioMaximum).
    *
    * <p>The method is asynchronous. It can take several seconds or minutes to complete depending on
    * the duration of the audio and, in the case of an archive file, the total number of audio files

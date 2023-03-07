@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,14 +22,12 @@ public class ListLanguageModelsOptions extends GenericModel {
    * returned. Specify the five-character language identifier; for example, specify `en-US` to see
    * all custom language or custom acoustic models that are based on US English models. Omit the
    * parameter to see all custom language or custom acoustic models that are owned by the requesting
-   * credentials. (**Note:** The identifier `ar-AR` is deprecated; use `ar-MS` instead.)
+   * credentials.
    *
    * <p>To determine the languages for which customization is available, see [Language support for
    * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    */
   public interface Language {
-    /** ar-AR. */
-    String AR_AR = "ar-AR";
     /** ar-MS. */
     String AR_MS = "ar-MS";
     /** cs-CZ. */
@@ -78,6 +76,8 @@ public class ListLanguageModelsOptions extends GenericModel {
     String NL_NL = "nl-NL";
     /** pt-BR. */
     String PT_BR = "pt-BR";
+    /** sv-SE. */
+    String SV_SE = "sv-SE";
     /** zh-CN. */
     String ZH_CN = "zh-CN";
   }
@@ -88,6 +88,11 @@ public class ListLanguageModelsOptions extends GenericModel {
   public static class Builder {
     private String language;
 
+    /**
+     * Instantiates a new Builder from an existing ListLanguageModelsOptions instance.
+     *
+     * @param listLanguageModelsOptions the instance to initialize the Builder with
+     */
     private Builder(ListLanguageModelsOptions listLanguageModelsOptions) {
       this.language = listLanguageModelsOptions.language;
     }
@@ -138,7 +143,7 @@ public class ListLanguageModelsOptions extends GenericModel {
    * returned. Specify the five-character language identifier; for example, specify `en-US` to see
    * all custom language or custom acoustic models that are based on US English models. Omit the
    * parameter to see all custom language or custom acoustic models that are owned by the requesting
-   * credentials. (**Note:** The identifier `ar-AR` is deprecated; use `ar-MS` instead.)
+   * credentials.
    *
    * <p>To determine the languages for which customization is available, see [Language support for
    * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).

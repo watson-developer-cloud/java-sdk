@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,6 +101,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-CA_BroadbandModel. */
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_Multimedia. */
+    String FR_CA_MULTIMEDIA = "fr-CA_Multimedia";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-CA_Telephony. */
@@ -129,6 +131,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ja-JP_Telephony. */
+    String JA_JP_TELEPHONY = "ja-JP_Telephony";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_Multimedia. */
@@ -141,6 +145,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
+    /** nl-NL_Multimedia. */
+    String NL_NL_MULTIMEDIA = "nl-NL_Multimedia";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** nl-NL_Telephony. */
@@ -153,6 +159,8 @@ public class CreateLanguageModelOptions extends GenericModel {
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
     String PT_BR_TELEPHONY = "pt-BR_Telephony";
+    /** sv-SE_Telephony. */
+    String SV_SE_TELEPHONY = "sv-SE_Telephony";
     /** zh-CN_Telephony. */
     String ZH_CN_TELEPHONY = "zh-CN_Telephony";
   }
@@ -169,6 +177,11 @@ public class CreateLanguageModelOptions extends GenericModel {
     private String dialect;
     private String description;
 
+    /**
+     * Instantiates a new Builder from an existing CreateLanguageModelOptions instance.
+     *
+     * @param createLanguageModelOptions the instance to initialize the Builder with
+     */
     private Builder(CreateLanguageModelOptions createLanguageModelOptions) {
       this.name = createLanguageModelOptions.name;
       this.baseModelName = createLanguageModelOptions.baseModelName;
@@ -268,10 +281,13 @@ public class CreateLanguageModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * <p>A user-defined name for the new custom language model. Use a name that is unique among all
-   * custom language models that you own. Use a localized name that matches the language of the
-   * custom model. Use a name that describes the domain of the custom model, such as `Medical custom
-   * model` or `Legal custom model`.
+   * <p>A user-defined name for the new custom language model. Use a localized name that matches the
+   * language of the custom model. Use a name that describes the domain of the custom model, such as
+   * `Medical custom model` or `Legal custom model`. Use a name that is unique among all custom
+   * language models that you own.
+   *
+   * <p>Include a maximum of 256 characters in the name. Do not use backslashes, slashes, colons,
+   * equal signs, ampersands, or question marks in the name.
    *
    * @return the name
    */
@@ -322,8 +338,9 @@ public class CreateLanguageModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>A description of the new custom language model. Use a localized description that matches the
-   * language of the custom model.
+   * <p>A recommended description of the new custom language model. Use a localized description that
+   * matches the language of the custom model. Include a maximum of 128 characters in the
+   * description.
    *
    * @return the description
    */

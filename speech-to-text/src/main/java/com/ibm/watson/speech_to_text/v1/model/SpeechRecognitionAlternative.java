@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,10 +21,12 @@ public class SpeechRecognitionAlternative extends GenericModel {
 
   protected String transcript;
   protected Double confidence;
-  protected List<SpeechTimestamp> timestamps;
+  protected List<String> timestamps;
 
   @SerializedName("word_confidence")
-  protected List<SpeechWordConfidence> wordConfidence;
+  protected List<String> wordConfidence;
+
+  protected SpeechRecognitionAlternative() {}
 
   /**
    * Gets the transcript.
@@ -60,7 +62,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the timestamps
    */
-  public List<SpeechTimestamp> getTimestamps() {
+  public List<String> getTimestamps() {
     return timestamps;
   }
 
@@ -74,7 +76,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the wordConfidence
    */
-  public List<SpeechWordConfidence> getWordConfidence() {
+  public List<String> getWordConfidence() {
     return wordConfidence;
   }
 }

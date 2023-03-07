@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,12 +19,9 @@ public class GetModelOptions extends GenericModel {
 
   /**
    * The identifier of the model in the form of its name from the output of the [List
-   * models](#listmodels) method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use
-   * `ar-MS_BroadbandModel` instead.).
+   * models](#listmodels) method.
    */
   public interface ModelId {
-    /** ar-AR_BroadbandModel. */
-    String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** ar-MS_BroadbandModel. */
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** ar-MS_Telephony. */
@@ -101,6 +98,8 @@ public class GetModelOptions extends GenericModel {
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-CA_BroadbandModel. */
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_Multimedia. */
+    String FR_CA_MULTIMEDIA = "fr-CA_Multimedia";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-CA_Telephony. */
@@ -129,6 +128,8 @@ public class GetModelOptions extends GenericModel {
     String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ja-JP_Telephony. */
+    String JA_JP_TELEPHONY = "ja-JP_Telephony";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_Multimedia. */
@@ -141,6 +142,8 @@ public class GetModelOptions extends GenericModel {
     String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
+    /** nl-NL_Multimedia. */
+    String NL_NL_MULTIMEDIA = "nl-NL_Multimedia";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** nl-NL_Telephony. */
@@ -153,6 +156,8 @@ public class GetModelOptions extends GenericModel {
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
     String PT_BR_TELEPHONY = "pt-BR_Telephony";
+    /** sv-SE_Telephony. */
+    String SV_SE_TELEPHONY = "sv-SE_Telephony";
     /** zh-CN_BroadbandModel. */
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
@@ -167,6 +172,11 @@ public class GetModelOptions extends GenericModel {
   public static class Builder {
     private String modelId;
 
+    /**
+     * Instantiates a new Builder from an existing GetModelOptions instance.
+     *
+     * @param getModelOptions the instance to initialize the Builder with
+     */
     private Builder(GetModelOptions getModelOptions) {
       this.modelId = getModelOptions.modelId;
     }
@@ -224,8 +234,7 @@ public class GetModelOptions extends GenericModel {
    * Gets the modelId.
    *
    * <p>The identifier of the model in the form of its name from the output of the [List
-   * models](#listmodels) method. (**Note:** The model `ar-AR_BroadbandModel` is deprecated; use
-   * `ar-MS_BroadbandModel` instead.).
+   * models](#listmodels) method.
    *
    * @return the modelId
    */

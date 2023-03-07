@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,21 +25,18 @@ public class CreateJobOptions extends GenericModel {
 
   /**
    * The model to use for speech recognition. If you omit the `model` parameter, the service uses
-   * the US English `en-US_BroadbandModel` by default. (The model `ar-AR_BroadbandModel` is
-   * deprecated; use `ar-MS_BroadbandModel` instead.)
+   * the US English `en-US_BroadbandModel` by default.
    *
    * <p>_For IBM Cloud Pak for Data,_ if you do not install the `en-US_BroadbandModel`, you must
    * either specify a model with the request or specify a new default model for your installation of
    * the service.
    *
    * <p>**See also:** * [Using a model for speech
-   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) * [The
-   * default
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) *
+   * [Using the default
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use#models-use-default).
    */
   public interface Model {
-    /** ar-AR_BroadbandModel. */
-    String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** ar-MS_BroadbandModel. */
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** ar-MS_Telephony. */
@@ -116,6 +113,8 @@ public class CreateJobOptions extends GenericModel {
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-CA_BroadbandModel. */
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_Multimedia. */
+    String FR_CA_MULTIMEDIA = "fr-CA_Multimedia";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-CA_Telephony. */
@@ -144,6 +143,8 @@ public class CreateJobOptions extends GenericModel {
     String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ja-JP_Telephony. */
+    String JA_JP_TELEPHONY = "ja-JP_Telephony";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_Multimedia. */
@@ -156,6 +157,8 @@ public class CreateJobOptions extends GenericModel {
     String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
+    /** nl-NL_Multimedia. */
+    String NL_NL_MULTIMEDIA = "nl-NL_Multimedia";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** nl-NL_Telephony. */
@@ -168,6 +171,8 @@ public class CreateJobOptions extends GenericModel {
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
     String PT_BR_TELEPHONY = "pt-BR_Telephony";
+    /** sv-SE_Telephony. */
+    String SV_SE_TELEPHONY = "sv-SE_Telephony";
     /** zh-CN_BroadbandModel. */
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
@@ -272,6 +277,11 @@ public class CreateJobOptions extends GenericModel {
     private Boolean lowLatency;
     private Float characterInsertionBias;
 
+    /**
+     * Instantiates a new Builder from an existing CreateJobOptions instance.
+     *
+     * @param createJobOptions the instance to initialize the Builder with
+     */
     private Builder(CreateJobOptions createJobOptions) {
       this.audio = createJobOptions.audio;
       this.contentType = createJobOptions.contentType;
@@ -782,16 +792,15 @@ public class CreateJobOptions extends GenericModel {
    * Gets the model.
    *
    * <p>The model to use for speech recognition. If you omit the `model` parameter, the service uses
-   * the US English `en-US_BroadbandModel` by default. (The model `ar-AR_BroadbandModel` is
-   * deprecated; use `ar-MS_BroadbandModel` instead.)
+   * the US English `en-US_BroadbandModel` by default.
    *
    * <p>_For IBM Cloud Pak for Data,_ if you do not install the `en-US_BroadbandModel`, you must
    * either specify a model with the request or specify a new default model for your installation of
    * the service.
    *
    * <p>**See also:** * [Using a model for speech
-   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) * [The
-   * default
+   * recognition](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use) *
+   * [Using the default
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-use#models-use-default).
    *
    * @return the model
@@ -928,13 +937,15 @@ public class CreateJobOptions extends GenericModel {
    * custom language model compared to those from the base model for the current request.
    *
    * <p>Specify a value between 0.0 and 1.0. Unless a different customization weight was specified
-   * for the custom model when it was trained, the default value is 0.3. A customization weight that
-   * you specify overrides a weight that was specified when the custom model was trained.
+   * for the custom model when the model was trained, the default value is: * 0.3 for
+   * previous-generation models * 0.2 for most next-generation models * 0.1 for next-generation
+   * English and Japanese models
    *
-   * <p>The default value yields the best performance in general. Assign a higher value if your
-   * audio makes frequent use of OOV words from the custom model. Use caution when setting the
-   * weight: a higher value can improve the accuracy of phrases from the custom model's domain, but
-   * it can negatively affect performance on non-domain phrases.
+   * <p>A customization weight that you specify overrides a weight that was specified when the
+   * custom model was trained. The default value yields the best performance in general. Assign a
+   * higher value if your audio makes frequent use of OOV words from the custom model. Use caution
+   * when setting the weight: a higher value can improve the accuracy of phrases from the custom
+   * model's domain, but it can negatively affect performance on non-domain phrases.
    *
    * <p>See [Using customization
    * weight](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageUse#weight).
@@ -1213,10 +1224,10 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the endOfPhraseSilenceTime.
    *
-   * <p>If `true`, specifies the duration of the pause interval at which the service splits a
-   * transcript into multiple final results. If the service detects pauses or extended silence
-   * before it reaches the end of the audio stream, its response can include multiple final results.
-   * Silence indicates a point at which the speaker pauses between spoken words or phrases.
+   * <p>Specifies the duration of the pause interval at which the service splits a transcript into
+   * multiple final results. If the service detects pauses or extended silence before it reaches the
+   * end of the audio stream, its response can include multiple final results. Silence indicates a
+   * point at which the speaker pauses between spoken words or phrases.
    *
    * <p>Specify a value for the pause interval in the range of 0.0 to 120.0. * A value greater than
    * 0 specifies the interval that the service is to use for speech recognition. * A value of 0
@@ -1335,16 +1346,13 @@ public class CreateJobOptions extends GenericModel {
   /**
    * Gets the characterInsertionBias.
    *
-   * <p>For next-generation `Multimedia` and `Telephony` models, an indication of whether the
-   * service is biased to recognize shorter or longer strings of characters when developing
-   * transcription hypotheses. By default, the service is optimized for each individual model to
-   * balance its recognition of strings of different lengths. The model-specific bias is equivalent
-   * to 0.0.
+   * <p>For next-generation models, an indication of whether the service is biased to recognize
+   * shorter or longer strings of characters when developing transcription hypotheses. By default,
+   * the service is optimized to produce the best balance of strings of different lengths.
    *
-   * <p>The value that you specify represents a change from a model's default bias. The allowable
-   * range of values is -1.0 to 1.0. * Negative values bias the service to favor hypotheses with
-   * shorter strings of characters. * Positive values bias the service to favor hypotheses with
-   * longer strings of characters.
+   * <p>The default bias is 0.0. The allowable range of values is -1.0 to 1.0. * Negative values
+   * bias the service to favor hypotheses with shorter strings of characters. * Positive values bias
+   * the service to favor hypotheses with longer strings of characters.
    *
    * <p>As the value approaches -1.0 or 1.0, the impact of the parameter becomes more pronounced. To
    * determine the most effective value for your scenario, start by setting the value of the
@@ -1352,7 +1360,7 @@ public class CreateJobOptions extends GenericModel {
    * impacts the transcription results. Then experiment with different values as necessary,
    * adjusting the value by small increments.
    *
-   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
+   * <p>The parameter is not available for previous-generation models.
    *
    * <p>See [Character insertion
    * bias](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-parsing#insertion-bias).
