@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -136,6 +136,11 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private Boolean newDisambiguationOptOut;
     private Boolean includeAudit;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateDialogNodeOptions instance.
+     *
+     * @param updateDialogNodeOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       this.workspaceId = updateDialogNodeOptions.workspaceId;
       this.dialogNode = updateDialogNodeOptions.dialogNode;

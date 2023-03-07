@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class RuntimeEntityAlternative extends GenericModel {
     private String value;
     private Double confidence;
 
+    /**
+     * Instantiates a new Builder from an existing RuntimeEntityAlternative instance.
+     *
+     * @param runtimeEntityAlternative the instance to initialize the Builder with
+     */
     private Builder(RuntimeEntityAlternative runtimeEntityAlternative) {
       this.value = runtimeEntityAlternative.value;
       this.confidence = runtimeEntityAlternative.confidence;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,8 @@ public class DialogNodeCollection extends GenericModel {
 
   protected Pagination pagination;
 
+  protected DialogNodeCollection() {}
+
   /**
    * Gets the dialogNodes.
    *
@@ -38,7 +40,8 @@ public class DialogNodeCollection extends GenericModel {
   /**
    * Gets the pagination.
    *
-   * <p>The pagination data for the returned objects.
+   * <p>The pagination data for the returned objects. For more information about using pagination,
+   * see [Pagination](#pagination).
    *
    * @return the pagination
    */

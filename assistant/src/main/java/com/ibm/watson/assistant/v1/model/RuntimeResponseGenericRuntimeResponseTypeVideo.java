@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,13 @@ public class RuntimeResponseGenericRuntimeResponseTypeVideo extends RuntimeRespo
     private Map<String, Object> channelOptions;
     private String altText;
 
+    /**
+     * Instantiates a new Builder from an existing RuntimeResponseGenericRuntimeResponseTypeVideo
+     * instance.
+     *
+     * @param runtimeResponseGenericRuntimeResponseTypeVideo the instance to initialize the Builder
+     *     with
+     */
     public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeVideo) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeVideo.responseType;
       this.source = runtimeResponseGenericRuntimeResponseTypeVideo.source;

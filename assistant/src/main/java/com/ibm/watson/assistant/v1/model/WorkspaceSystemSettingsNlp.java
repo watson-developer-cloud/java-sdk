@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,24 +19,17 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
  */
 public class WorkspaceSystemSettingsNlp extends GenericModel {
 
-  /**
-   * The policy the skill follows for selecting the algorithm version to use:
-   *
-   * <p>- `baseline`: the latest mature version - `beta`: the latest beta version.
-   */
-  public interface Model {
-    /** baseline. */
-    String BASELINE = "baseline";
-    /** beta. */
-    String BETA = "beta";
-  }
-
   protected String model;
 
   /** Builder. */
   public static class Builder {
     private String model;
 
+    /**
+     * Instantiates a new Builder from an existing WorkspaceSystemSettingsNlp instance.
+     *
+     * @param workspaceSystemSettingsNlp the instance to initialize the Builder with
+     */
     private Builder(WorkspaceSystemSettingsNlp workspaceSystemSettingsNlp) {
       this.model = workspaceSystemSettingsNlp.model;
     }
@@ -83,9 +76,14 @@ public class WorkspaceSystemSettingsNlp extends GenericModel {
   /**
    * Gets the model.
    *
-   * <p>The policy the skill follows for selecting the algorithm version to use:
+   * <p>The policy the skill follows for selecting the algorithm version to use. For more
+   * information, see the
+   * [documentation](/docs/watson-assistant?topic=watson-assistant-algorithm-version).
    *
-   * <p>- `baseline`: the latest mature version - `beta`: the latest beta version.
+   * <p>On IBM Cloud, you can specify `latest`, `previous`, or `beta`.
+   *
+   * <p>On IBM Cloud Pak for Data, you can specify either `beta` or the date of the version you want
+   * to use, in `YYYY-MM-DD` format.
    *
    * @return the model
    */

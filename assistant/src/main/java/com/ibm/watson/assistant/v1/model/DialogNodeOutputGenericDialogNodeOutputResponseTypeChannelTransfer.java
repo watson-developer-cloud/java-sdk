@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,16 +12,12 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer. */
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
     extends DialogNodeOutputGeneric {
-
-  @SerializedName("transfer_info")
-  private ChannelTransferInfo transferInfo;
 
   /** Builder. */
   public static class Builder {
@@ -30,8 +26,15 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
     private ChannelTransferInfo transferInfo;
     private List<ResponseGenericChannel> channels;
 
+    /**
+     * Instantiates a new Builder from an existing
+     * DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer instance.
+     *
+     * @param dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer the instance to
+     *     initialize the Builder with
+     */
     public Builder(
-        DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
+        DialogNodeOutputGeneric
             dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer) {
       this.responseType =
           dialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer.responseType;
@@ -149,16 +152,5 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeChannelTransfer
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the transferInfo.
-   *
-   * <p>Routing or other contextual information to be used by target service desk systems.
-   *
-   * @return the transferInfo
-   */
-  public ChannelTransferInfo transferInfo() {
-    return transferInfo;
   }
 }

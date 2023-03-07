@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -17,7 +17,11 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /** ResponseGenericChannel. */
 public class ResponseGenericChannel extends GenericModel {
 
-  /** A channel for which the response is intended. */
+  /**
+   * A channel for which the response is intended.
+   *
+   * <p>**Note:** On IBM Cloud Pak for Data, only `chat` is supported.
+   */
   public interface Channel {
     /** chat. */
     String CHAT = "chat";
@@ -41,6 +45,11 @@ public class ResponseGenericChannel extends GenericModel {
   public static class Builder {
     private String channel;
 
+    /**
+     * Instantiates a new Builder from an existing ResponseGenericChannel instance.
+     *
+     * @param responseGenericChannel the instance to initialize the Builder with
+     */
     private Builder(ResponseGenericChannel responseGenericChannel) {
       this.channel = responseGenericChannel.channel;
     }
@@ -88,6 +97,8 @@ public class ResponseGenericChannel extends GenericModel {
    * Gets the channel.
    *
    * <p>A channel for which the response is intended.
+   *
+   * <p>**Note:** On IBM Cloud Pak for Data, only `chat` is supported.
    *
    * @return the channel
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -157,6 +157,11 @@ public class DialogNode extends GenericModel {
     private String userLabel;
     private Boolean disambiguationOptOut;
 
+    /**
+     * Instantiates a new Builder from an existing DialogNode instance.
+     *
+     * @param dialogNode the instance to initialize the Builder with
+     */
     private Builder(DialogNode dialogNode) {
       this.dialogNode = dialogNode.dialogNode;
       this.description = dialogNode.description;

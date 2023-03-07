@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,10 @@ package com.ibm.watson.assistant.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** The pagination data for the returned objects. */
+/**
+ * The pagination data for the returned objects. For more information about using pagination, see
+ * [Pagination](#pagination).
+ */
 public class LogPagination extends GenericModel {
 
   @SerializedName("next_url")
@@ -25,6 +28,8 @@ public class LogPagination extends GenericModel {
 
   @SerializedName("next_cursor")
   protected String nextCursor;
+
+  protected LogPagination() {}
 
   /**
    * Gets the nextUrl.
