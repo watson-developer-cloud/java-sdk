@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class GetTranslatedDocumentOptions extends GenericModel {
     private String documentId;
     private String accept;
 
+    /**
+     * Instantiates a new Builder from an existing GetTranslatedDocumentOptions instance.
+     *
+     * @param getTranslatedDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(GetTranslatedDocumentOptions getTranslatedDocumentOptions) {
       this.documentId = getTranslatedDocumentOptions.documentId;
       this.accept = getTranslatedDocumentOptions.accept;
