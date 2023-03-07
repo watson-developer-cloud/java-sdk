@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class ListModelsOptions extends GenericModel {
     private String target;
     private Boolean xDefault;
 
+    /**
+     * Instantiates a new Builder from an existing ListModelsOptions instance.
+     *
+     * @param listModelsOptions the instance to initialize the Builder with
+     */
     private Builder(ListModelsOptions listModelsOptions) {
       this.source = listModelsOptions.source;
       this.target = listModelsOptions.target;

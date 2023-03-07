@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.language_translator.v3;
@@ -65,8 +65,10 @@ import okhttp3.MultipartBody;
  */
 public class LanguageTranslator extends BaseService {
 
+  /** Default service name used when configuring the `LanguageTranslator` client. */
   public static final String DEFAULT_SERVICE_NAME = "language_translator";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.language-translator.watson.cloud.ibm.com";
 
@@ -490,8 +492,8 @@ public class LanguageTranslator extends BaseService {
    * Get model details.
    *
    * <p>Gets information about a translation model, including training status for custom models. Use
-   * this API call to poll the status of your customization request. A successfully completed
-   * training has a status of `available`.
+   * this method to poll the status of your customization request. A successfully completed training
+   * request has a status of `available`.
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link TranslationModel}
@@ -558,9 +560,20 @@ public class LanguageTranslator extends BaseService {
    * Translate document.
    *
    * <p>Submit a document for translation. You can submit the document contents in the `file`
-   * parameter, or you can reference a previously submitted document by document ID. The maximum
-   * file size for document translation is * 20 MB for service instances on the Standard, Advanced,
-   * and Premium plans * 2 MB for service instances on the Lite plan
+   * parameter, or you can specify a previously submitted document by document ID. The maximum file
+   * size for document translation is * **2 MB** for service instances on the Lite plan * **20 MB**
+   * for service instances on the Standard plan * **50 MB** for service instances on the Advanced
+   * plan * **150 MB** for service instances on the Premium plan
+   *
+   * <p>You can specify the format of the file to be translated in one of two ways: * By specifying
+   * the appropriate file extension for the format. * By specifying the content type (MIME type) of
+   * the format as the `type` of the `file` parameter.
+   *
+   * <p>In some cases, especially for subtitle file formats, you must use either the file extension
+   * or the content type. For more information about all supported file formats, their file
+   * extensions and content types, and how and when to specify the file extension or content type,
+   * see [Supported file
+   * formats](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats).
    *
    * <p>**Note:** When translating a previously submitted document, the target language must be
    * different from the target language of the original request when the document was initially

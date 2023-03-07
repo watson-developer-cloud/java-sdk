@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,6 +39,11 @@ public class TranslateDocumentOptions extends GenericModel {
     private String target;
     private String documentId;
 
+    /**
+     * Instantiates a new Builder from an existing TranslateDocumentOptions instance.
+     *
+     * @param translateDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(TranslateDocumentOptions translateDocumentOptions) {
       this.file = translateDocumentOptions.file;
       this.filename = translateDocumentOptions.filename;
@@ -190,8 +195,19 @@ public class TranslateDocumentOptions extends GenericModel {
    * Gets the file.
    *
    * <p>The contents of the source file to translate. The maximum file size for document translation
-   * is 20 MB for service instances on the Standard, Advanced, and Premium plans, and 2 MB for
-   * service instances on the Lite plan. For more information, see [Supported file
+   * is * **2 MB** for service instances on the Lite plan * **20 MB** for service instances on the
+   * Standard plan * **50 MB** for service instances on the Advanced plan * **150 MB** for service
+   * instances on the Premium plan
+   *
+   * <p>You can specify the format of the file to be translated in one of two ways: * By specifying
+   * the appropriate file extension for the format. * By specifying the content type (MIME type) of
+   * the format as the `type` of the `file` parameter.
+   *
+   * <p>In some cases, especially for subtitle file formats, you must use either the file extension
+   * or the content type.
+   *
+   * <p>For more information about all supported file formats, their file extensions and content
+   * types, and how and when to specify the file extension or content type, see [Supported file
    * formats](https://cloud.ibm.com/docs/language-translator?topic=language-translator-document-translator-tutorial#supported-file-formats).
    *
    * @return the file
