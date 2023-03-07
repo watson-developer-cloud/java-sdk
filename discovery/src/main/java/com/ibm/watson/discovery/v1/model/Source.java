@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,6 +53,11 @@ public class Source extends GenericModel {
     private SourceSchedule schedule;
     private SourceOptions options;
 
+    /**
+     * Instantiates a new Builder from an existing Source instance.
+     *
+     * @param source the instance to initialize the Builder with
+     */
     private Builder(Source source) {
       this.type = source.type;
       this.credentialId = source.credentialId;

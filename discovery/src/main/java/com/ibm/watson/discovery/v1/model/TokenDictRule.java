@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,11 @@ public class TokenDictRule extends GenericModel {
     private List<String> readings;
     private String partOfSpeech;
 
+    /**
+     * Instantiates a new Builder from an existing TokenDictRule instance.
+     *
+     * @param tokenDictRule the instance to initialize the Builder with
+     */
     private Builder(TokenDictRule tokenDictRule) {
       this.text = tokenDictRule.text;
       this.tokens = tokenDictRule.tokens;

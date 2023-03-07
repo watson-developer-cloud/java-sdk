@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -42,6 +42,11 @@ public class NluEnrichmentFeatures extends GenericModel {
     private NluEnrichmentRelations relations;
     private NluEnrichmentConcepts concepts;
 
+    /**
+     * Instantiates a new Builder from an existing NluEnrichmentFeatures instance.
+     *
+     * @param nluEnrichmentFeatures the instance to initialize the Builder with
+     */
     private Builder(NluEnrichmentFeatures nluEnrichmentFeatures) {
       this.keywords = nluEnrichmentFeatures.keywords;
       this.entities = nluEnrichmentFeatures.entities;

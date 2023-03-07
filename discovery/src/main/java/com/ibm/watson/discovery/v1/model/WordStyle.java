@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class WordStyle extends GenericModel {
     private Long level;
     private List<String> names;
 
+    /**
+     * Instantiates a new Builder from an existing WordStyle instance.
+     *
+     * @param wordStyle the instance to initialize the Builder with
+     */
     private Builder(WordStyle wordStyle) {
       this.level = wordStyle.level;
       this.names = wordStyle.names;

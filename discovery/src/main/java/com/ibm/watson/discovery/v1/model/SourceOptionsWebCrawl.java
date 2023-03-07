@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -68,6 +68,11 @@ public class SourceOptionsWebCrawl extends GenericModel {
     private Boolean overrideRobotsTxt;
     private List<String> blacklist;
 
+    /**
+     * Instantiates a new Builder from an existing SourceOptionsWebCrawl instance.
+     *
+     * @param sourceOptionsWebCrawl the instance to initialize the Builder with
+     */
     private Builder(SourceOptionsWebCrawl sourceOptionsWebCrawl) {
       this.url = sourceOptionsWebCrawl.url;
       this.limitToStartingHosts = sourceOptionsWebCrawl.limitToStartingHosts;

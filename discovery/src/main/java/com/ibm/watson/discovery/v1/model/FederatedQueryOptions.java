@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,6 +65,11 @@ public class FederatedQueryOptions extends GenericModel {
     private String bias;
     private Boolean xWatsonLoggingOptOut;
 
+    /**
+     * Instantiates a new Builder from an existing FederatedQueryOptions instance.
+     *
+     * @param federatedQueryOptions the instance to initialize the Builder with
+     */
     private Builder(FederatedQueryOptions federatedQueryOptions) {
       this.environmentId = federatedQueryOptions.environmentId;
       this.collectionIds = federatedQueryOptions.collectionIds;

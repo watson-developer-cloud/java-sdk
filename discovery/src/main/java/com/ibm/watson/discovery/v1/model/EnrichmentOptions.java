@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,6 +61,11 @@ public class EnrichmentOptions extends GenericModel {
     private String language;
     private String model;
 
+    /**
+     * Instantiates a new Builder from an existing EnrichmentOptions instance.
+     *
+     * @param enrichmentOptions the instance to initialize the Builder with
+     */
     private Builder(EnrichmentOptions enrichmentOptions) {
       this.features = enrichmentOptions.features;
       this.language = enrichmentOptions.language;
@@ -106,7 +111,9 @@ public class EnrichmentOptions extends GenericModel {
      *
      * @param model the model
      * @return the EnrichmentOptions builder
+     * @deprecated this method is deprecated and may be removed in a future release
      */
+    @Deprecated
     public Builder model(String model) {
       this.model = model;
       return this;
@@ -163,7 +170,9 @@ public class EnrichmentOptions extends GenericModel {
    * is deprecated.
    *
    * @return the model
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public String model() {
     return model;
   }
