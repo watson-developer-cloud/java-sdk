@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,6 +81,7 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   }
 
   protected String event;
+  protected TurnEventActionSource source;
 
   @SerializedName("action_start_time")
   protected String actionStartTime;
@@ -90,6 +91,9 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
 
   protected String reason;
 
+  @SerializedName("result_variable")
+  protected String resultVariable;
+
   @SerializedName("action_variables")
   protected Map<String, Object> actionVariables;
 
@@ -98,6 +102,7 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
 
   protected Boolean prompted;
   protected TurnEventCalloutCallout callout;
+  protected TurnEventCalloutError error;
 
   protected MessageOutputDebugTurnEvent() {}
 
@@ -110,6 +115,15 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public String getEvent() {
     return event;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
   }
 
   /**
@@ -143,6 +157,18 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public String getReason() {
     return reason;
+  }
+
+  /**
+   * Gets the resultVariable.
+   *
+   * <p>The variable where the result of the call to the action is stored. Included only if
+   * **reason**=`subaction_return`.
+   *
+   * @return the resultVariable
+   */
+  public String getResultVariable() {
+    return resultVariable;
   }
 
   /**
@@ -186,5 +212,14 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public TurnEventCalloutCallout getCallout() {
     return callout;
+  }
+
+  /**
+   * Gets the error.
+   *
+   * @return the error
+   */
+  public TurnEventCalloutError getError() {
+    return error;
   }
 }

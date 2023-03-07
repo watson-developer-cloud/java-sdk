@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,7 +22,6 @@ public class Environment extends GenericModel {
 
   protected String name;
   protected String description;
-  protected String language;
 
   @SerializedName("assistant_id")
   protected String assistantId;
@@ -33,9 +32,9 @@ public class Environment extends GenericModel {
   protected String environment;
 
   @SerializedName("release_reference")
-  protected EnvironmentReleaseReference releaseReference;
+  protected BaseEnvironmentReleaseReference releaseReference;
 
-  protected EnvironmentOrchestration orchestration;
+  protected BaseEnvironmentOrchestration orchestration;
 
   @SerializedName("session_timeout")
   protected Long sessionTimeout;
@@ -44,10 +43,12 @@ public class Environment extends GenericModel {
   protected List<IntegrationReference> integrationReferences;
 
   @SerializedName("skill_references")
-  protected List<SkillReference> skillReferences;
+  protected List<EnvironmentSkill> skillReferences;
 
   protected Date created;
   protected Date updated;
+
+  protected Environment() {}
 
   /**
    * Gets the name.
@@ -69,18 +70,6 @@ public class Environment extends GenericModel {
    */
   public String getDescription() {
     return description;
-  }
-
-  /**
-   * Gets the language.
-   *
-   * <p>The language of the environment. An environment is always created with the same language as
-   * the assistant it is associated with.
-   *
-   * @return the language
-   */
-  public String getLanguage() {
-    return language;
   }
 
   /**
@@ -124,7 +113,7 @@ public class Environment extends GenericModel {
    *
    * @return the releaseReference
    */
-  public EnvironmentReleaseReference getReleaseReference() {
+  public BaseEnvironmentReleaseReference getReleaseReference() {
     return releaseReference;
   }
 
@@ -135,14 +124,14 @@ public class Environment extends GenericModel {
    *
    * @return the orchestration
    */
-  public EnvironmentOrchestration getOrchestration() {
+  public BaseEnvironmentOrchestration getOrchestration() {
     return orchestration;
   }
 
   /**
    * Gets the sessionTimeout.
    *
-   * <p>The session inactivity timeout setting for the environment.
+   * <p>The session inactivity timeout setting for the environment (in seconds).
    *
    * @return the sessionTimeout
    */
@@ -164,12 +153,12 @@ public class Environment extends GenericModel {
   /**
    * Gets the skillReferences.
    *
-   * <p>An array of objects describing the skills (such as actions and dialog) that exist in the
+   * <p>An array of objects identifying the skills (such as action and dialog) that exist in the
    * environment.
    *
    * @return the skillReferences
    */
-  public List<SkillReference> getSkillReferences() {
+  public List<EnvironmentSkill> getSkillReferences() {
     return skillReferences;
   }
 

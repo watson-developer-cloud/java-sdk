@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,13 +12,17 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.Map;
 
 /** TurnEventCalloutCallout. */
 public class TurnEventCalloutCallout extends GenericModel {
 
-  /** callout type. */
+  /**
+   * The type of callout. Currently, the only supported value is `integration_interaction` (for
+   * calls to extensions).
+   */
   public interface Type {
     /** integration_interaction. */
     String INTEGRATION_INTERACTION = "integration_interaction";
@@ -27,10 +31,16 @@ public class TurnEventCalloutCallout extends GenericModel {
   protected String type;
   protected Map<String, Object> internal;
 
+  @SerializedName("result_variable")
+  protected String resultVariable;
+
+  protected TurnEventCalloutCallout() {}
+
   /**
    * Gets the type.
    *
-   * <p>callout type.
+   * <p>The type of callout. Currently, the only supported value is `integration_interaction` (for
+   * calls to extensions).
    *
    * @return the type
    */
@@ -47,5 +57,16 @@ public class TurnEventCalloutCallout extends GenericModel {
    */
   public Map<String, Object> getInternal() {
     return internal;
+  }
+
+  /**
+   * Gets the resultVariable.
+   *
+   * <p>The name of the variable where the callout result is stored.
+   *
+   * @return the resultVariable
+   */
+  public String getResultVariable() {
+    return resultVariable;
   }
 }

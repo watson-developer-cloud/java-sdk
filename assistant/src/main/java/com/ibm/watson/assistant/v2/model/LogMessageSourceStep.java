@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,4 +13,7 @@
 package com.ibm.watson.assistant.v2.model;
 
 /** An object that identifies the dialog element that generated the error message. */
-public class LogMessageSourceStep extends LogMessageSource {}
+public class LogMessageSourceStep extends LogMessageSource {
+
+  protected LogMessageSourceStep() {}
+}

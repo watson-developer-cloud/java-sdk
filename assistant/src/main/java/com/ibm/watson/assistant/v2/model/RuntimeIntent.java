@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class RuntimeIntent extends GenericModel {
     private Double confidence;
     private String skill;
 
+    /**
+     * Instantiates a new Builder from an existing RuntimeIntent instance.
+     *
+     * @param runtimeIntent the instance to initialize the Builder with
+     */
     private Builder(RuntimeIntent runtimeIntent) {
       this.intent = runtimeIntent.intent;
       this.confidence = runtimeIntent.confidence;
@@ -134,9 +139,9 @@ public class RuntimeIntent extends GenericModel {
    * Gets the skill.
    *
    * <p>The skill that identified the intent. Currently, the only possible values are `main skill`
-   * for the dialog skill (if enabled) and `actions skill` for the actions skill.
+   * for the dialog skill (if enabled) and `actions skill` for the action skill.
    *
-   * <p>This property is present only if the assistant has both a dialog skill and an actions skill.
+   * <p>This property is present only if the assistant has both a dialog skill and an action skill.
    *
    * @return the skill
    */

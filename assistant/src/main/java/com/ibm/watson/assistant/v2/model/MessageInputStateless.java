@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,7 @@ public class MessageInputStateless extends GenericModel {
    * The type of the message:
    *
    * <p>- `text`: The user input is processed normally by the assistant. - `search`: Only search
-   * results are returned. (Any dialog or actions skill is bypassed.)
+   * results are returned. (Any dialog or action skill is bypassed.)
    *
    * <p>**Note:** A `search` message results in an error if no search skill is configured for the
    * assistant.
@@ -47,6 +47,7 @@ public class MessageInputStateless extends GenericModel {
   protected String suggestionId;
 
   protected List<MessageInputAttachment> attachments;
+  protected RequestAnalytics analytics;
   protected MessageInputOptionsStateless options;
 
   /** Builder. */
@@ -57,8 +58,14 @@ public class MessageInputStateless extends GenericModel {
     private List<RuntimeEntity> entities;
     private String suggestionId;
     private List<MessageInputAttachment> attachments;
+    private RequestAnalytics analytics;
     private MessageInputOptionsStateless options;
 
+    /**
+     * Instantiates a new Builder from an existing MessageInputStateless instance.
+     *
+     * @param messageInputStateless the instance to initialize the Builder with
+     */
     private Builder(MessageInputStateless messageInputStateless) {
       this.messageType = messageInputStateless.messageType;
       this.text = messageInputStateless.text;
@@ -66,6 +73,7 @@ public class MessageInputStateless extends GenericModel {
       this.entities = messageInputStateless.entities;
       this.suggestionId = messageInputStateless.suggestionId;
       this.attachments = messageInputStateless.attachments;
+      this.analytics = messageInputStateless.analytics;
       this.options = messageInputStateless.options;
     }
 
@@ -193,6 +201,17 @@ public class MessageInputStateless extends GenericModel {
     }
 
     /**
+     * Set the analytics.
+     *
+     * @param analytics the analytics
+     * @return the MessageInputStateless builder
+     */
+    public Builder analytics(RequestAnalytics analytics) {
+      this.analytics = analytics;
+      return this;
+    }
+
+    /**
      * Set the options.
      *
      * @param options the options
@@ -213,6 +232,7 @@ public class MessageInputStateless extends GenericModel {
     entities = builder.entities;
     suggestionId = builder.suggestionId;
     attachments = builder.attachments;
+    analytics = builder.analytics;
     options = builder.options;
   }
 
@@ -231,7 +251,7 @@ public class MessageInputStateless extends GenericModel {
    * <p>The type of the message:
    *
    * <p>- `text`: The user input is processed normally by the assistant. - `search`: Only search
-   * results are returned. (Any dialog or actions skill is bypassed.)
+   * results are returned. (Any dialog or action skill is bypassed.)
    *
    * <p>**Note:** A `search` message results in an error if no search skill is configured for the
    * assistant.
@@ -292,15 +312,27 @@ public class MessageInputStateless extends GenericModel {
   /**
    * Gets the attachments.
    *
-   * <p>An array of multimedia attachments to be sent with the message.
+   * <p>An array of multimedia attachments to be sent with the message. Attachments are not
+   * processed by the assistant itself, but can be sent to external services by webhooks.
    *
-   * <p>**Note:** Attachments are not processed by the assistant itself, but can be sent to external
-   * services by webhooks.
+   * <p>**Note:** Attachments are not supported on IBM Cloud Pak for Data.
    *
    * @return the attachments
    */
   public List<MessageInputAttachment> attachments() {
     return attachments;
+  }
+
+  /**
+   * Gets the analytics.
+   *
+   * <p>An optional object containing analytics data. Currently, this data is used only for events
+   * sent to the Segment extension.
+   *
+   * @return the analytics
+   */
+  public RequestAnalytics analytics() {
+    return analytics;
   }
 
   /**

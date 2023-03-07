@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,12 +16,48 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 import java.util.List;
 
 /**
- * An object describing the versionable content objects (such as skill snapshots) that are included
+ * An object identifying the versionable content objects (such as skill snapshots) that are included
  * in the release.
  */
 public class ReleaseContent extends GenericModel {
 
-  protected List<ReleaseSkillReference> skills;
+  protected List<ReleaseSkill> skills;
+
+  /** Builder. */
+  public static class Builder {
+
+    /**
+     * Instantiates a new Builder from an existing ReleaseContent instance.
+     *
+     * @param releaseContent the instance to initialize the Builder with
+     */
+    private Builder(ReleaseContent releaseContent) {}
+
+    /** Instantiates a new builder. */
+    public Builder() {}
+
+    /**
+     * Builds a ReleaseContent.
+     *
+     * @return the new ReleaseContent instance
+     */
+    public ReleaseContent build() {
+      return new ReleaseContent(this);
+    }
+  }
+
+  protected ReleaseContent() {}
+
+  protected ReleaseContent(Builder builder) {}
+
+  /**
+   * New builder.
+   *
+   * @return a ReleaseContent builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
    * Gets the skills.
@@ -30,7 +66,7 @@ public class ReleaseContent extends GenericModel {
    *
    * @return the skills
    */
-  public List<ReleaseSkillReference> getSkills() {
+  public List<ReleaseSkill> skills() {
     return skills;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,8 @@ public class DialogSuggestion extends GenericModel {
   protected DialogSuggestionValue value;
   protected Map<String, Object> output;
 
+  protected DialogSuggestion() {}
+
   /**
    * Gets the label.
    *
@@ -40,6 +42,9 @@ public class DialogSuggestion extends GenericModel {
    *
    * <p>An object defining the message input to be sent to the assistant if the user selects the
    * corresponding disambiguation option.
+   *
+   * <p>**Note:** This entire message input object must be included in the request body of the next
+   * message sent to the assistant. Do not modify or remove any of the included properties.
    *
    * @return the value
    */
