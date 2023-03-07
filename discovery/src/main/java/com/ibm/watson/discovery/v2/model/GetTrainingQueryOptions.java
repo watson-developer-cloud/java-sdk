@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class GetTrainingQueryOptions extends GenericModel {
     private String projectId;
     private String queryId;
 
+    /**
+     * Instantiates a new Builder from an existing GetTrainingQueryOptions instance.
+     *
+     * @param getTrainingQueryOptions the instance to initialize the Builder with
+     */
     private Builder(GetTrainingQueryOptions getTrainingQueryOptions) {
       this.projectId = getTrainingQueryOptions.projectId;
       this.queryId = getTrainingQueryOptions.queryId;

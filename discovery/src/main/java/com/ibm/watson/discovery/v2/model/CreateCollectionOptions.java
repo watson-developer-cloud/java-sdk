@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,6 @@ public class CreateCollectionOptions extends GenericModel {
   protected String description;
   protected String language;
   protected List<CollectionEnrichment> enrichments;
-  protected CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
   /** Builder. */
   public static class Builder {
@@ -33,15 +32,18 @@ public class CreateCollectionOptions extends GenericModel {
     private String description;
     private String language;
     private List<CollectionEnrichment> enrichments;
-    private CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
+    /**
+     * Instantiates a new Builder from an existing CreateCollectionOptions instance.
+     *
+     * @param createCollectionOptions the instance to initialize the Builder with
+     */
     private Builder(CreateCollectionOptions createCollectionOptions) {
       this.projectId = createCollectionOptions.projectId;
       this.name = createCollectionOptions.name;
       this.description = createCollectionOptions.description;
       this.language = createCollectionOptions.language;
       this.enrichments = createCollectionOptions.enrichments;
-      this.smartDocumentUnderstanding = createCollectionOptions.smartDocumentUnderstanding;
     }
 
     /** Instantiates a new builder. */
@@ -138,18 +140,6 @@ public class CreateCollectionOptions extends GenericModel {
     }
 
     /**
-     * Set the smartDocumentUnderstanding.
-     *
-     * @param smartDocumentUnderstanding the smartDocumentUnderstanding
-     * @return the CreateCollectionOptions builder
-     */
-    public Builder smartDocumentUnderstanding(
-        CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding) {
-      this.smartDocumentUnderstanding = smartDocumentUnderstanding;
-      return this;
-    }
-
-    /**
      * Set the collectionDetails.
      *
      * @param collectionDetails the collectionDetails
@@ -160,7 +150,6 @@ public class CreateCollectionOptions extends GenericModel {
       this.description = collectionDetails.description();
       this.language = collectionDetails.language();
       this.enrichments = collectionDetails.enrichments();
-      this.smartDocumentUnderstanding = collectionDetails.smartDocumentUnderstanding();
       return this;
     }
   }
@@ -175,7 +164,6 @@ public class CreateCollectionOptions extends GenericModel {
     description = builder.description;
     language = builder.language;
     enrichments = builder.enrichments;
-    smartDocumentUnderstanding = builder.smartDocumentUnderstanding;
   }
 
   /**
@@ -247,16 +235,5 @@ public class CreateCollectionOptions extends GenericModel {
    */
   public List<CollectionEnrichment> enrichments() {
     return enrichments;
-  }
-
-  /**
-   * Gets the smartDocumentUnderstanding.
-   *
-   * <p>An object that describes the Smart Document Understanding model for a collection.
-   *
-   * @return the smartDocumentUnderstanding
-   */
-  public CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding() {
-    return smartDocumentUnderstanding;
   }
 }

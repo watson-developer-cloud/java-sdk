@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,11 @@ public class CreateDocumentClassifierOptions extends GenericModel {
     private CreateDocumentClassifier classifier;
     private InputStream testData;
 
+    /**
+     * Instantiates a new Builder from an existing CreateDocumentClassifierOptions instance.
+     *
+     * @param createDocumentClassifierOptions the instance to initialize the Builder with
+     */
     private Builder(CreateDocumentClassifierOptions createDocumentClassifierOptions) {
       this.projectId = createDocumentClassifierOptions.projectId;
       this.trainingData = createDocumentClassifierOptions.trainingData;
@@ -176,8 +181,7 @@ public class CreateDocumentClassifierOptions extends GenericModel {
    * a field that contains the text you want to classify and a field that contains the
    * classification labels that you want to use to classify your data. If you want to specify
    * multiple values in a single field, use a semicolon as the value separator. For a sample file,
-   * see [the product
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-cm-doc-classifier).
+   * see [the product documentation](/docs/discovery-data?topic=discovery-data-cm-doc-classifier).
    *
    * @return the trainingData
    */

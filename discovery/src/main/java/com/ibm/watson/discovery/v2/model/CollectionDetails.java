@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,14 +39,17 @@ public class CollectionDetails extends GenericModel {
     private String description;
     private String language;
     private List<CollectionEnrichment> enrichments;
-    private CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding;
 
+    /**
+     * Instantiates a new Builder from an existing CollectionDetails instance.
+     *
+     * @param collectionDetails the instance to initialize the Builder with
+     */
     private Builder(CollectionDetails collectionDetails) {
       this.name = collectionDetails.name;
       this.description = collectionDetails.description;
       this.language = collectionDetails.language;
       this.enrichments = collectionDetails.enrichments;
-      this.smartDocumentUnderstanding = collectionDetails.smartDocumentUnderstanding;
     }
 
     /** Instantiates a new builder. */
@@ -128,18 +131,6 @@ public class CollectionDetails extends GenericModel {
       this.enrichments = enrichments;
       return this;
     }
-
-    /**
-     * Set the smartDocumentUnderstanding.
-     *
-     * @param smartDocumentUnderstanding the smartDocumentUnderstanding
-     * @return the CollectionDetails builder
-     */
-    public Builder smartDocumentUnderstanding(
-        CollectionDetailsSmartDocumentUnderstanding smartDocumentUnderstanding) {
-      this.smartDocumentUnderstanding = smartDocumentUnderstanding;
-      return this;
-    }
   }
 
   protected CollectionDetails() {}
@@ -150,7 +141,6 @@ public class CollectionDetails extends GenericModel {
     description = builder.description;
     language = builder.language;
     enrichments = builder.enrichments;
-    smartDocumentUnderstanding = builder.smartDocumentUnderstanding;
   }
 
   /**

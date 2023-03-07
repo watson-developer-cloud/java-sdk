@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,11 @@ public class UpdateDocumentClassifierModelOptions extends GenericModel {
     private String name;
     private String description;
 
+    /**
+     * Instantiates a new Builder from an existing UpdateDocumentClassifierModelOptions instance.
+     *
+     * @param updateDocumentClassifierModelOptions the instance to initialize the Builder with
+     */
     private Builder(UpdateDocumentClassifierModelOptions updateDocumentClassifierModelOptions) {
       this.projectId = updateDocumentClassifierModelOptions.projectId;
       this.classifierId = updateDocumentClassifierModelOptions.classifierId;

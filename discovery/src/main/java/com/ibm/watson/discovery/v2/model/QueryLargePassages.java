@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -49,6 +49,11 @@ public class QueryLargePassages extends GenericModel {
     private Boolean findAnswers;
     private Long maxAnswersPerPassage;
 
+    /**
+     * Instantiates a new Builder from an existing QueryLargePassages instance.
+     *
+     * @param queryLargePassages the instance to initialize the Builder with
+     */
     private Builder(QueryLargePassages queryLargePassages) {
       this.enabled = queryLargePassages.enabled;
       this.perDocument = queryLargePassages.perDocument;
@@ -240,8 +245,9 @@ public class QueryLargePassages extends GenericModel {
   /**
    * Gets the fields.
    *
-   * <p>A list of fields to extract passages from. If this parameter is an empty list, then all
-   * root-level fields are included.
+   * <p>A list of fields to extract passages from. By default, passages are extracted from the
+   * `text` and `title` fields only. If you add this parameter and specify an empty list (`[]`) as
+   * its value, then the service searches all root-level fields for suitable passages.
    *
    * @return the fields
    */

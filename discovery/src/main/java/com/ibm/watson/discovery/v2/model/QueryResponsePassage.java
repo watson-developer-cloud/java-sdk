@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,8 +38,9 @@ public class QueryResponsePassage extends GenericModel {
   protected Long endOffset;
 
   protected String field;
-  protected Double confidence;
   protected List<ResultPassageAnswer> answers;
+
+  protected QueryResponsePassage() {}
 
   /**
    * Gets the passageText.
@@ -121,20 +122,10 @@ public class QueryResponsePassage extends GenericModel {
   }
 
   /**
-   * Gets the confidence.
-   *
-   * <p>An estimate of the probability that the passage is relevant.
-   *
-   * @return the confidence
-   */
-  public Double getConfidence() {
-    return confidence;
-  }
-
-  /**
    * Gets the answers.
    *
-   * <p>An array of extracted answers to the specified query.
+   * <p>An array of extracted answers to the specified query. Returned for natural language queries
+   * when **passages.per_document** is `false`.
    *
    * @return the answers
    */

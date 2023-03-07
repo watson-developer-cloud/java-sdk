@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,7 +73,8 @@ public class QueryResult extends DynamicModel<Object> {
   /**
    * Gets the documentPassages.
    *
-   * <p>Passages from the document that best matches the query.
+   * <p>Passages from the document that best matches the query. Returned if
+   * **passages.per_document** is `true`.
    *
    * @return the documentPassages
    */

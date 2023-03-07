@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,6 +38,8 @@ public class QueryResponse extends GenericModel {
   protected List<QueryTableResult> tableResults;
 
   protected List<QueryResponsePassage> passages;
+
+  protected QueryResponse() {}
 
   /**
    * Gets the matchingResults.
@@ -102,7 +104,9 @@ public class QueryResponse extends GenericModel {
    * identified dynamic facets from the data is deprecated.
    *
    * @return the suggestedRefinements
+   * @deprecated this method is deprecated and may be removed in a future release
    */
+  @Deprecated
   public List<QuerySuggestedRefinement> getSuggestedRefinements() {
     return suggestedRefinements;
   }
@@ -122,6 +126,7 @@ public class QueryResponse extends GenericModel {
    * Gets the passages.
    *
    * <p>Passages that best match the query from across all of the collections in the project.
+   * Returned if **passages.per_document** is `false`.
    *
    * @return the passages
    */

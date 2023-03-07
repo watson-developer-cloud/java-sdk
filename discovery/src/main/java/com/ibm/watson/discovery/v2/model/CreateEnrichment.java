@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -71,6 +71,11 @@ public class CreateEnrichment extends GenericModel {
     private String type;
     private EnrichmentOptions options;
 
+    /**
+     * Instantiates a new Builder from an existing CreateEnrichment instance.
+     *
+     * @param createEnrichment the instance to initialize the Builder with
+     */
     private Builder(CreateEnrichment createEnrichment) {
       this.name = createEnrichment.name;
       this.description = createEnrichment.description;

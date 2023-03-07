@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,6 +37,11 @@ public class AnalyzeDocumentOptions extends GenericModel {
     private String fileContentType;
     private String metadata;
 
+    /**
+     * Instantiates a new Builder from an existing AnalyzeDocumentOptions instance.
+     *
+     * @param analyzeDocumentOptions the instance to initialize the Builder with
+     */
     private Builder(AnalyzeDocumentOptions analyzeDocumentOptions) {
       this.projectId = analyzeDocumentOptions.projectId;
       this.collectionId = analyzeDocumentOptions.collectionId;
@@ -203,7 +208,7 @@ public class AnalyzeDocumentOptions extends GenericModel {
    *
    * <p>When adding a document, the content of the document to ingest. For maximum supported file
    * size limits, see [the
-   * documentation](https://cloud.ibm.com/docs/discovery-data?topic=discovery-data-collections#collections-doc-limits).
+   * documentation](/docs/discovery-data?topic=discovery-data-collections#collections-doc-limits).
    *
    * <p>When analyzing a document, the content of the document to analyze but not ingest. Only the
    * `application/json` content type is supported currently. For maximum supported file size limits,

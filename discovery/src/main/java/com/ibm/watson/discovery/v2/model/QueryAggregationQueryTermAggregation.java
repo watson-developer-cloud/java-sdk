@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,21 +12,8 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
-import java.util.List;
+/** Returns results from the field that is specified. */
+public class QueryAggregationQueryTermAggregation extends QueryAggregation {
 
-/** Returns the top values for the field specified. */
-public class QueryGroupByAggregation extends QueryAggregation {
-
-  protected List<QueryGroupByAggregationResult> results;
-
-  /**
-   * Gets the results.
-   *
-   * <p>Array of top values for the field.
-   *
-   * @return the results
-   */
-  public List<QueryGroupByAggregationResult> getResults() {
-    return results;
-  }
+  protected QueryAggregationQueryTermAggregation() {}
 }
