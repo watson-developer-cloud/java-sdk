@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class GetCustomPromptOptions extends GenericModel {
     private String customizationId;
     private String promptId;
 
+    /**
+     * Instantiates a new Builder from an existing GetCustomPromptOptions instance.
+     *
+     * @param getCustomPromptOptions the instance to initialize the Builder with
+     */
     private Builder(GetCustomPromptOptions getCustomPromptOptions) {
       this.customizationId = getCustomPromptOptions.customizationId;
       this.promptId = getCustomPromptOptions.promptId;

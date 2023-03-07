@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.53.0-9710cac3-20220713-193508
+ * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
  */
 
 package com.ibm.watson.text_to_speech.v1;
@@ -62,17 +62,11 @@ import com.ibm.watson.text_to_speech.v1.model.UpdateCustomModelOptions;
 import com.ibm.watson.text_to_speech.v1.model.Voice;
 import com.ibm.watson.text_to_speech.v1.model.Voices;
 import com.ibm.watson.text_to_speech.v1.model.Words;
-import com.ibm.watson.text_to_speech.v1.websocket.SynthesizeCallback;
-import com.ibm.watson.text_to_speech.v1.websocket.TextToSpeechWebSocketListener;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import okhttp3.HttpUrl;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.WebSocket;
 
 /**
  * The IBM Watson&amp;trade; Text to Speech service provides APIs that use IBM's speech-synthesis
@@ -98,11 +92,10 @@ import okhttp3.WebSocket;
  * also define speaker models to improve the quality of your custom prompts. The service support
  * custom prompts only for US English custom models and voices.
  *
- * <p>Effective 31 March 2022, all neural voices are deprecated. The deprecated voices remain
+ * <p>Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated voices remain
  * available to existing users until 31 March 2023, when they will be removed from the service and
- * the documentation. The neural voices are supported only for IBM Cloud; they are not available for
- * IBM Cloud Pak for Data. All enhanced neural voices remain available to all users. For more
- * information, see the [31 March 2022 service
+ * the documentation. *No enhanced neural voices or expressive neural voices are deprecated.* For
+ * more information, see the [31 March 2022 service
  * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
  * in the release notes for {{site.data.keyword.texttospeechshort}} for
  * {{site.data.keyword.cloud_notm}}.{: deprecated}.
@@ -111,8 +104,10 @@ import okhttp3.WebSocket;
  */
 public class TextToSpeech extends BaseService {
 
+  /** Default service name used when configuring the `TextToSpeech` client. */
   public static final String DEFAULT_SERVICE_NAME = "text_to_speech";
 
+  /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
       "https://api.us-south.text-to-speech.watson.cloud.ibm.com";
 
@@ -167,16 +162,15 @@ public class TextToSpeech extends BaseService {
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
    * information about a specific voice, use the [Get a voice](#getvoice).
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *
-   * <p>**See also:** [Listing all available
-   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
+   * <p>**See also:** [Listing all
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-list#list-all-voices).
    *
    * @param listVoicesOptions the {@link ListVoicesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Voices}
@@ -203,16 +197,15 @@ public class TextToSpeech extends BaseService {
    * change from call to call; do not rely on an alphabetized or static list of voices. To see
    * information about a specific voice, use the [Get a voice](#getvoice).
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *
-   * <p>**See also:** [Listing all available
-   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoices).
+   * <p>**See also:** [Listing all
+   * voices](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-list#list-all-voices).
    *
    * @return a {@link ServiceCall} with a result of type {@link Voices}
    */
@@ -229,13 +222,12 @@ public class TextToSpeech extends BaseService {
    * about all available voices, use the [List voices](#listvoices) method.
    *
    * <p>**See also:** [Listing a specific
-   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#listVoice).
+   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-list#list-specific-voice).
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *
@@ -278,11 +270,10 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [The HTTP
    * interface](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-usingHTTP#usingHTTP).
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *
@@ -322,6 +313,12 @@ public class TextToSpeech extends BaseService {
    * some of the formats, see [Using audio
    * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audio-formats).
    *
+   * <p>**Note:** By default, the service returns audio in the Ogg audio format with the Opus codec
+   * (`audio/ogg;codecs=opus`). However, the Ogg audio format is not supported with the Safari
+   * browser. If you are using the service with the Safari browser, you must use the `Accept`
+   * request header or the `accept` query parameter specify a different format in which you want the
+   * service to return the audio.
+   *
    * <p>### Warning messages
    *
    * <p>If a request includes invalid query parameters, the service returns a `Warnings` response
@@ -354,58 +351,17 @@ public class TextToSpeech extends BaseService {
     if (synthesizeOptions.spellOutMode() != null) {
       builder.query("spell_out_mode", String.valueOf(synthesizeOptions.spellOutMode()));
     }
+    if (synthesizeOptions.ratePercentage() != null) {
+      builder.query("rate_percentage", String.valueOf(synthesizeOptions.ratePercentage()));
+    }
+    if (synthesizeOptions.pitchPercentage() != null) {
+      builder.query("pitch_percentage", String.valueOf(synthesizeOptions.pitchPercentage()));
+    }
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", synthesizeOptions.text());
     builder.bodyJson(contentJson);
     ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
-  }
-
-  /**
-   * Synthesize audio.
-   *
-   * <p>Synthesizes text to audio that is spoken in the specified voice. The service bases its
-   * understanding of the language for the input text on the specified voice. Use a voice that
-   * matches the language of the input text.
-   *
-   * <p>The method accepts a maximum of 5 KB of input text in the body of the request, and 8 KB for
-   * the URL and headers. The 5 KB limit includes any SSML tags that you specify. The service
-   * returns the synthesized audio stream as an array of bytes.
-   *
-   * <p>### Audio formats (accept types)
-   *
-   * <p>For more information about specifying an audio format, including additional details about
-   * some of the formats, see [Audio
-   * formats](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-audioFormats#audioFormats).
-   *
-   * @param synthesizeOptions the {@link SynthesizeOptions} containing the options for the call
-   * @param callback the {@link SynthesizeCallback} callback
-   * @return a {@link WebSocket} instance
-   */
-  public WebSocket synthesizeUsingWebSocket(
-      SynthesizeOptions synthesizeOptions, SynthesizeCallback callback) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(
-        synthesizeOptions, "synthesizeOptions cannot be null");
-    com.ibm.cloud.sdk.core.util.Validator.notNull(callback, "callback cannot be null");
-
-    HttpUrl.Builder urlBuilder = HttpUrl.parse(getServiceUrl() + "/v1/synthesize").newBuilder();
-
-    if (synthesizeOptions.voice() != null) {
-      urlBuilder.addQueryParameter("voice", synthesizeOptions.voice());
-    }
-    if (synthesizeOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", synthesizeOptions.customizationId());
-    }
-
-    String url = urlBuilder.toString().replace("https://", "wss://");
-    Request.Builder builder = new Request.Builder().url(url);
-
-    setAuthentication(builder);
-    setDefaultHeaders(builder);
-
-    OkHttpClient client = configureHttpClient();
-    return client.newWebSocket(
-        builder.build(), new TextToSpeechWebSocketListener(synthesizeOptions, callback));
   }
 
   /**
@@ -416,11 +372,10 @@ public class TextToSpeech extends BaseService {
    * default translation for the language of that voice or for a specific custom model to see the
    * translation for that model.
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *
@@ -469,11 +424,10 @@ public class TextToSpeech extends BaseService {
    * <p>**See also:** [Creating a custom
    * model](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-customModels#cuModelsCreate).
    *
-   * <p>**Note:** Effective 31 March 2022, all neural voices are deprecated. The deprecated voices
-   * remain available to existing users until 31 March 2023, when they will be removed from the
-   * service and the documentation. The neural voices are supported only for IBM Cloud; they are not
-   * available for IBM Cloud Pak for Data. All enhanced neural voices remain available to all users.
-   * For more information, see the [31 March 2022 service
+   * <p>**Note:** Effective **31 March 2022**, all *neural voices* are deprecated. The deprecated
+   * voices remain available to existing users until 31 March 2023, when they will be removed from
+   * the service and the documentation. *No enhanced neural voices or expressive neural voices are
+   * deprecated.* For more information, see the [31 March 2022 service
    * update](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-release-notes#text-to-speech-31march2022)
    * in the release notes.
    *

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,11 @@ public class AddCustomPromptOptions extends GenericModel {
     private PromptMetadata metadata;
     private InputStream file;
 
+    /**
+     * Instantiates a new Builder from an existing AddCustomPromptOptions instance.
+     *
+     * @param addCustomPromptOptions the instance to initialize the Builder with
+     */
     private Builder(AddCustomPromptOptions addCustomPromptOptions) {
       this.customizationId = addCustomPromptOptions.customizationId;
       this.promptId = addCustomPromptOptions.promptId;
