@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,6 +73,11 @@ public class CreateCustomModelOptions extends GenericModel {
     private String language;
     private String description;
 
+    /**
+     * Instantiates a new Builder from an existing CreateCustomModelOptions instance.
+     *
+     * @param createCustomModelOptions the instance to initialize the Builder with
+     */
     private Builder(CreateCustomModelOptions createCustomModelOptions) {
       this.name = createCustomModelOptions.name;
       this.language = createCustomModelOptions.language;
@@ -155,7 +160,13 @@ public class CreateCustomModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * <p>The name of the new custom model.
+   * <p>The name of the new custom model. Use a localized name that matches the language of the
+   * custom model. Use a name that describes the purpose of the custom model, such as `Medical
+   * custom model` or `Legal custom model`. Use a name that is unique among all custom models that
+   * you own.
+   *
+   * <p>Include a maximum of 256 characters in the name. Do not use backslashes, slashes, colons,
+   * equal signs, ampersands, or question marks in the name.
    *
    * @return the name
    */
@@ -179,7 +190,8 @@ public class CreateCustomModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>A description of the new custom model. Specifying a description is recommended.
+   * <p>A recommended description of the new custom model. Use a localized description that matches
+   * the language of the custom model. Include a maximum of 128 characters in the description.
    *
    * @return the description
    */

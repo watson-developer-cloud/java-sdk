@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,8 +26,8 @@ public class GetPronunciationOptions extends GenericModel {
    * either specify a voice with the request or specify a new default voice for your installation of
    * the service.
    *
-   * <p>**See also:** [The default
-   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#specify-voice-default).
+   * <p>**See also:** [Using the default
+   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-use#specify-voice-default).
    */
   public interface Voice {
     /** ar-MS_OmarVoice. */
@@ -42,6 +42,10 @@ public class GetPronunciationOptions extends GenericModel {
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
     /** en-AU_CraigVoice. */
     String EN_AU_CRAIGVOICE = "en-AU_CraigVoice";
+    /** en-AU_HeidiExpressive. */
+    String EN_AU_HEIDIEXPRESSIVE = "en-AU_HeidiExpressive";
+    /** en-AU_JackExpressive. */
+    String EN_AU_JACKEXPRESSIVE = "en-AU_JackExpressive";
     /** en-AU_MadisonVoice. */
     String EN_AU_MADISONVOICE = "en-AU_MadisonVoice";
     /** en-AU_SteveVoice. */
@@ -52,16 +56,24 @@ public class GetPronunciationOptions extends GenericModel {
     String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
     /** en-GB_KateV3Voice. */
     String EN_GB_KATEV3VOICE = "en-GB_KateV3Voice";
+    /** en-US_AllisonExpressive. */
+    String EN_US_ALLISONEXPRESSIVE = "en-US_AllisonExpressive";
     /** en-US_AllisonV3Voice. */
     String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
     /** en-US_EmilyV3Voice. */
     String EN_US_EMILYV3VOICE = "en-US_EmilyV3Voice";
+    /** en-US_EmmaExpressive. */
+    String EN_US_EMMAEXPRESSIVE = "en-US_EmmaExpressive";
     /** en-US_HenryV3Voice. */
     String EN_US_HENRYV3VOICE = "en-US_HenryV3Voice";
     /** en-US_KevinV3Voice. */
     String EN_US_KEVINV3VOICE = "en-US_KevinV3Voice";
+    /** en-US_LisaExpressive. */
+    String EN_US_LISAEXPRESSIVE = "en-US_LisaExpressive";
     /** en-US_LisaV3Voice. */
     String EN_US_LISAV3VOICE = "en-US_LisaV3Voice";
+    /** en-US_MichaelExpressive. */
+    String EN_US_MICHAELEXPRESSIVE = "en-US_MichaelExpressive";
     /** en-US_MichaelV3Voice. */
     String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
     /** en-US_OliviaV3Voice. */
@@ -86,6 +98,8 @@ public class GetPronunciationOptions extends GenericModel {
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
     /** ko-KR_HyunjunVoice. */
     String KO_KR_HYUNJUNVOICE = "ko-KR_HyunjunVoice";
+    /** ko-KR_JinV3Voice. */
+    String KO_KR_JINV3VOICE = "ko-KR_JinV3Voice";
     /** ko-KR_SiWooVoice. */
     String KO_KR_SIWOOVOICE = "ko-KR_SiWooVoice";
     /** ko-KR_YoungmiVoice. */
@@ -136,6 +150,11 @@ public class GetPronunciationOptions extends GenericModel {
     private String format;
     private String customizationId;
 
+    /**
+     * Instantiates a new Builder from an existing GetPronunciationOptions instance.
+     *
+     * @param getPronunciationOptions the instance to initialize the Builder with
+     */
     private Builder(GetPronunciationOptions getPronunciationOptions) {
       this.text = getPronunciationOptions.text;
       this.voice = getPronunciationOptions.voice;
@@ -250,8 +269,8 @@ public class GetPronunciationOptions extends GenericModel {
    * either specify a voice with the request or specify a new default voice for your installation of
    * the service.
    *
-   * <p>**See also:** [The default
-   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices#specify-voice-default).
+   * <p>**See also:** [Using the default
+   * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-use#specify-voice-default).
    *
    * @return the voice
    */
