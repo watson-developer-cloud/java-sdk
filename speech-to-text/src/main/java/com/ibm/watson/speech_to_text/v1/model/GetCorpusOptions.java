@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class GetCorpusOptions extends GenericModel {
     private String customizationId;
     private String corpusName;
 
+    /**
+     * Instantiates a new Builder from an existing GetCorpusOptions instance.
+     *
+     * @param getCorpusOptions the instance to initialize the Builder with
+     */
     private Builder(GetCorpusOptions getCorpusOptions) {
       this.customizationId = getCorpusOptions.customizationId;
       this.corpusName = getCorpusOptions.corpusName;

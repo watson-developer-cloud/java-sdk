@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,4 +15,8 @@ package com.ibm.watson.speech_to_text.v1.model;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** The checkJobs options. */
-public class CheckJobsOptions extends GenericModel {}
+public class CheckJobsOptions extends GenericModel {
+
+  /** Construct a new instance of CheckJobsOptions. */
+  public CheckJobsOptions() {}
+}

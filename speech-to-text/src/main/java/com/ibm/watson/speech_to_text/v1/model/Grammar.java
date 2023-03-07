@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,6 +41,8 @@ public class Grammar extends GenericModel {
 
   protected String status;
   protected String error;
+
+  protected Grammar() {}
 
   /**
    * Gets the name.

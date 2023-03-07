@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,16 +19,13 @@ public class CreateAcousticModelOptions extends GenericModel {
 
   /**
    * The name of the base language model that is to be customized by the new custom acoustic model.
-   * The new custom model can be used only with the base model that it customizes. (**Note:** The
-   * model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.)
+   * The new custom model can be used only with the base model that it customizes.
    *
    * <p>To determine whether a base model supports acoustic model customization, refer to [Language
    * support for
    * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
    */
   public interface BaseModelName {
-    /** ar-AR_BroadbandModel. */
-    String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** ar-MS_BroadbandModel. */
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** de-DE_BroadbandModel. */
@@ -117,6 +114,11 @@ public class CreateAcousticModelOptions extends GenericModel {
     private String baseModelName;
     private String description;
 
+    /**
+     * Instantiates a new Builder from an existing CreateAcousticModelOptions instance.
+     *
+     * @param createAcousticModelOptions the instance to initialize the Builder with
+     */
     private Builder(CreateAcousticModelOptions createAcousticModelOptions) {
       this.name = createAcousticModelOptions.name;
       this.baseModelName = createAcousticModelOptions.baseModelName;
@@ -203,10 +205,13 @@ public class CreateAcousticModelOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * <p>A user-defined name for the new custom acoustic model. Use a name that is unique among all
-   * custom acoustic models that you own. Use a localized name that matches the language of the
-   * custom model. Use a name that describes the acoustic environment of the custom model, such as
-   * `Mobile custom model` or `Noisy car custom model`.
+   * <p>A user-defined name for the new custom acoustic model. Use a localized name that matches the
+   * language of the custom model. Use a name that describes the acoustic environment of the custom
+   * model, such as `Mobile custom model` or `Noisy car custom model`. Use a name that is unique
+   * among all custom acoustic models that you own.
+   *
+   * <p>Include a maximum of 256 characters in the name. Do not use backslashes, slashes, colons,
+   * equal signs, ampersands, or question marks in the name.
    *
    * @return the name
    */
@@ -218,8 +223,7 @@ public class CreateAcousticModelOptions extends GenericModel {
    * Gets the baseModelName.
    *
    * <p>The name of the base language model that is to be customized by the new custom acoustic
-   * model. The new custom model can be used only with the base model that it customizes. (**Note:**
-   * The model `ar-AR_BroadbandModel` is deprecated; use `ar-MS_BroadbandModel` instead.)
+   * model. The new custom model can be used only with the base model that it customizes.
    *
    * <p>To determine whether a base model supports acoustic model customization, refer to [Language
    * support for
@@ -234,8 +238,9 @@ public class CreateAcousticModelOptions extends GenericModel {
   /**
    * Gets the description.
    *
-   * <p>A description of the new custom acoustic model. Use a localized description that matches the
-   * language of the custom model.
+   * <p>A recommended description of the new custom acoustic model. Use a localized description that
+   * matches the language of the custom model. Include a maximum of 128 characters in the
+   * description.
    *
    * @return the description
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,6 +35,11 @@ public class AddGrammarOptions extends GenericModel {
     private String contentType;
     private Boolean allowOverwrite;
 
+    /**
+     * Instantiates a new Builder from an existing AddGrammarOptions instance.
+     *
+     * @param addGrammarOptions the instance to initialize the Builder with
+     */
     private Builder(AddGrammarOptions addGrammarOptions) {
       this.customizationId = addGrammarOptions.customizationId;
       this.grammarName = addGrammarOptions.grammarName;
