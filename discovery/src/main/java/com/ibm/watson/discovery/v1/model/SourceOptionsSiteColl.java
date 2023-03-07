@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,6 +28,11 @@ public class SourceOptionsSiteColl extends GenericModel {
     private String siteCollectionPath;
     private Long limit;
 
+    /**
+     * Instantiates a new Builder from an existing SourceOptionsSiteColl instance.
+     *
+     * @param sourceOptionsSiteColl the instance to initialize the Builder with
+     */
     private Builder(SourceOptionsSiteColl sourceOptionsSiteColl) {
       this.siteCollectionPath = sourceOptionsSiteColl.siteCollectionPath;
       this.limit = sourceOptionsSiteColl.limit;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -129,6 +129,11 @@ public class CredentialDetails extends GenericModel {
     private String accessKeyId;
     private String secretAccessKey;
 
+    /**
+     * Instantiates a new Builder from an existing CredentialDetails instance.
+     *
+     * @param credentialDetails the instance to initialize the Builder with
+     */
     private Builder(CredentialDetails credentialDetails) {
       this.credentialType = credentialDetails.credentialType;
       this.clientId = credentialDetails.clientId;

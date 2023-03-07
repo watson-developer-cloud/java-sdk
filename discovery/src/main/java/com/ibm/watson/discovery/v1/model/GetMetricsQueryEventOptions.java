@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,11 @@ public class GetMetricsQueryEventOptions extends GenericModel {
     private Date endTime;
     private String resultType;
 
+    /**
+     * Instantiates a new Builder from an existing GetMetricsQueryEventOptions instance.
+     *
+     * @param getMetricsQueryEventOptions the instance to initialize the Builder with
+     */
     private Builder(GetMetricsQueryEventOptions getMetricsQueryEventOptions) {
       this.startTime = getMetricsQueryEventOptions.startTime;
       this.endTime = getMetricsQueryEventOptions.endTime;

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class DeleteStopwordListOptions extends GenericModel {
     private String environmentId;
     private String collectionId;
 
+    /**
+     * Instantiates a new Builder from an existing DeleteStopwordListOptions instance.
+     *
+     * @param deleteStopwordListOptions the instance to initialize the Builder with
+     */
     private Builder(DeleteStopwordListOptions deleteStopwordListOptions) {
       this.environmentId = deleteStopwordListOptions.environmentId;
       this.collectionId = deleteStopwordListOptions.collectionId;

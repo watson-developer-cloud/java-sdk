@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -51,6 +51,11 @@ public class SourceSchedule extends GenericModel {
     private String timeZone;
     private String frequency;
 
+    /**
+     * Instantiates a new Builder from an existing SourceSchedule instance.
+     *
+     * @param sourceSchedule the instance to initialize the Builder with
+     */
     private Builder(SourceSchedule sourceSchedule) {
       this.enabled = sourceSchedule.enabled;
       this.timeZone = sourceSchedule.timeZone;

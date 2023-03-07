@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,11 @@ public class SourceOptionsFolder extends GenericModel {
     private String folderId;
     private Long limit;
 
+    /**
+     * Instantiates a new Builder from an existing SourceOptionsFolder instance.
+     *
+     * @param sourceOptionsFolder the instance to initialize the Builder with
+     */
     private Builder(SourceOptionsFolder sourceOptionsFolder) {
       this.ownerUserId = sourceOptionsFolder.ownerUserId;
       this.folderId = sourceOptionsFolder.folderId;

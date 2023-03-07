@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class GetStopwordListStatusOptions extends GenericModel {
     private String environmentId;
     private String collectionId;
 
+    /**
+     * Instantiates a new Builder from an existing GetStopwordListStatusOptions instance.
+     *
+     * @param getStopwordListStatusOptions the instance to initialize the Builder with
+     */
     private Builder(GetStopwordListStatusOptions getStopwordListStatusOptions) {
       this.environmentId = getStopwordListStatusOptions.environmentId;
       this.collectionId = getStopwordListStatusOptions.collectionId;

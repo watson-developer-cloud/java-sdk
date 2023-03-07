@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,11 @@ public class AddTrainingDataOptions extends GenericModel {
     private String filter;
     private List<TrainingExample> examples;
 
+    /**
+     * Instantiates a new Builder from an existing AddTrainingDataOptions instance.
+     *
+     * @param addTrainingDataOptions the instance to initialize the Builder with
+     */
     private Builder(AddTrainingDataOptions addTrainingDataOptions) {
       this.environmentId = addTrainingDataOptions.environmentId;
       this.collectionId = addTrainingDataOptions.collectionId;

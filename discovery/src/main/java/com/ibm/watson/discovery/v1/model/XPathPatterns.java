@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,6 +25,11 @@ public class XPathPatterns extends GenericModel {
   public static class Builder {
     private List<String> xpaths;
 
+    /**
+     * Instantiates a new Builder from an existing XPathPatterns instance.
+     *
+     * @param xPathPatterns the instance to initialize the Builder with
+     */
     private Builder(XPathPatterns xPathPatterns) {
       this.xpaths = xPathPatterns.xpaths;
     }

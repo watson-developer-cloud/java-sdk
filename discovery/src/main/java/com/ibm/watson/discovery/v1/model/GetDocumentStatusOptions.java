@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -27,6 +27,11 @@ public class GetDocumentStatusOptions extends GenericModel {
     private String collectionId;
     private String documentId;
 
+    /**
+     * Instantiates a new Builder from an existing GetDocumentStatusOptions instance.
+     *
+     * @param getDocumentStatusOptions the instance to initialize the Builder with
+     */
     private Builder(GetDocumentStatusOptions getDocumentStatusOptions) {
       this.environmentId = getDocumentStatusOptions.environmentId;
       this.collectionId = getDocumentStatusOptions.collectionId;

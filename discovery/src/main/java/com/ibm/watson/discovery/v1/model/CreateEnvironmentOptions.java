@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -54,6 +54,11 @@ public class CreateEnvironmentOptions extends GenericModel {
     private String description;
     private String size;
 
+    /**
+     * Instantiates a new Builder from an existing CreateEnvironmentOptions instance.
+     *
+     * @param createEnvironmentOptions the instance to initialize the Builder with
+     */
     private Builder(CreateEnvironmentOptions createEnvironmentOptions) {
       this.name = createEnvironmentOptions.name;
       this.description = createEnvironmentOptions.description;
