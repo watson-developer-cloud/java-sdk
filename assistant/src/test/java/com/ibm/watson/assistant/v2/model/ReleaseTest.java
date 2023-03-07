@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,10 +30,13 @@ public class ReleaseTest {
 
   @Test
   public void testRelease() throws Throwable {
-    Release releaseModel = new Release();
-    assertNull(releaseModel.getRelease());
-    assertNull(releaseModel.getDescription());
-    assertNull(releaseModel.getContent());
-    assertNull(releaseModel.getStatus());
+    Release releaseModel = new Release.Builder().description("testString").build();
+    assertEquals(releaseModel.description(), "testString");
+
+    String json = TestUtilities.serialize(releaseModel);
+
+    Release releaseModelNew = TestUtilities.deserialize(json, Release.class);
+    assertTrue(releaseModelNew instanceof Release);
+    assertEquals(releaseModelNew.description(), "testString");
   }
 }

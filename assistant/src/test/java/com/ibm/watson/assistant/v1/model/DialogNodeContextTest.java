@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,6 @@ import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.testng.annotations.Test;
 
 /** Unit test class for the DialogNodeContext model. */
@@ -34,32 +33,14 @@ public class DialogNodeContextTest {
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
     assertEquals(
         dialogNodeContextModel.getIntegrations(),
-        new java.util.HashMap<String, Map<String, Object>>() {
-          {
-            put(
-                "foo",
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                });
-          }
-        });
+        java.util.Collections.singletonMap(
+            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
     assertEquals(dialogNodeContextModel.get("foo"), "testString");
 
     String json = TestUtilities.serialize(dialogNodeContextModel);

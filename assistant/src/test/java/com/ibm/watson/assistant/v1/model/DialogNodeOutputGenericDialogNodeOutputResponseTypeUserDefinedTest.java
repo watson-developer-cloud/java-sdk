@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,12 +39,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedTest 
         dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedModel =
             new DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefined.Builder()
                 .responseType("user_defined")
-                .userDefined(
-                    new java.util.HashMap<String, Object>() {
-                      {
-                        put("foo", "testString");
-                      }
-                    })
+                .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
                 .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(
@@ -52,11 +47,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedTest 
         "user_defined");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedModel.userDefined(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedModel.channels(),
         java.util.Arrays.asList(responseGenericChannelModel));
@@ -75,6 +66,11 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedTest 
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedModelNew.responseType(),
         "user_defined");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeUserDefinedModelNew
+            .userDefined()
+            .toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

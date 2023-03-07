@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -62,19 +62,14 @@ public class WorkspaceSystemSettingsTest {
     assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
-    assertEquals(workspaceSystemSettingsNlpModel.model(), "baseline");
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
+    assertEquals(workspaceSystemSettingsNlpModel.model(), "testString");
 
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -88,11 +83,7 @@ public class WorkspaceSystemSettingsTest {
         workspaceSystemSettingsDisambiguationModel);
     assertEquals(
         workspaceSystemSettingsModel.getHumanAgentAssist(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(workspaceSystemSettingsModel.isSpellingSuggestions(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
@@ -113,6 +104,9 @@ public class WorkspaceSystemSettingsTest {
     assertEquals(
         workspaceSystemSettingsModelNew.getDisambiguation().toString(),
         workspaceSystemSettingsDisambiguationModel.toString());
+    assertEquals(
+        workspaceSystemSettingsModelNew.getHumanAgentAssist().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(workspaceSystemSettingsModelNew.isSpellingSuggestions(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsModelNew.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(

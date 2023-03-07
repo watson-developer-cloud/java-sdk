@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,7 +20,6 @@ import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.testng.annotations.Test;
 
 /** Unit test class for the CreateWorkspaceOptions model. */
@@ -31,40 +30,31 @@ public class CreateWorkspaceOptionsTest {
 
   @Test
   public void testCreateWorkspaceOptions() throws Throwable {
+    DialogNodeOutputTextValuesElement dialogNodeOutputTextValuesElementModel =
+        new DialogNodeOutputTextValuesElement.Builder().text("testString").build();
+    assertEquals(dialogNodeOutputTextValuesElementModel.text(), "testString");
+
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();
     assertEquals(responseGenericChannelModel.channel(), "chat");
 
-    DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo dialogNodeOutputGenericModel =
-        new DialogNodeOutputGenericDialogNodeOutputResponseTypeVideo.Builder()
-            .responseType("video")
-            .source("testString")
-            .title("testString")
-            .description("testString")
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeText dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeText.Builder()
+            .responseType("text")
+            .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
+            .selectionPolicy("sequential")
+            .delimiter("\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
-            .channelOptions(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
-            .altText("testString")
             .build();
-    assertEquals(dialogNodeOutputGenericModel.responseType(), "video");
-    assertEquals(dialogNodeOutputGenericModel.source(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.title(), "testString");
-    assertEquals(dialogNodeOutputGenericModel.description(), "testString");
+    assertEquals(dialogNodeOutputGenericModel.responseType(), "text");
+    assertEquals(
+        dialogNodeOutputGenericModel.values(),
+        java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel));
+    assertEquals(dialogNodeOutputGenericModel.selectionPolicy(), "sequential");
+    assertEquals(dialogNodeOutputGenericModel.delimiter(), "\n");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         java.util.Arrays.asList(responseGenericChannelModel));
-    assertEquals(
-        dialogNodeOutputGenericModel.channelOptions(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
-    assertEquals(dialogNodeOutputGenericModel.altText(), "testString");
 
     DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
         new DialogNodeOutputModifiers.Builder().overwrite(true).build();
@@ -74,17 +64,8 @@ public class CreateWorkspaceOptionsTest {
         new DialogNodeOutput.Builder()
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -92,49 +73,22 @@ public class CreateWorkspaceOptionsTest {
         dialogNodeOutputModel.getGeneric(), java.util.Arrays.asList(dialogNodeOutputGenericModel));
     assertEquals(
         dialogNodeOutputModel.getIntegrations(),
-        new java.util.HashMap<String, Map<String, Object>>() {
-          {
-            put(
-                "foo",
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                });
-          }
-        });
+        java.util.Collections.singletonMap(
+            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
     assertEquals(dialogNodeOutputModel.getModifiers(), dialogNodeOutputModifiersModel);
     assertEquals(dialogNodeOutputModel.get("foo"), "testString");
 
     DialogNodeContext dialogNodeContextModel =
         new DialogNodeContext.Builder()
             .integrations(
-                new java.util.HashMap<String, Map<String, Object>>() {
-                  {
-                    put(
-                        "foo",
-                        new java.util.HashMap<String, Object>() {
-                          {
-                            put("foo", "testString");
-                          }
-                        });
-                  }
-                })
+                java.util.Collections.singletonMap(
+                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
     assertEquals(
         dialogNodeContextModel.getIntegrations(),
-        new java.util.HashMap<String, Map<String, Object>>() {
-          {
-            put(
-                "foo",
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                });
-          }
-        });
+        java.util.Collections.singletonMap(
+            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
     assertEquals(dialogNodeContextModel.get("foo"), "testString");
 
     DialogNodeNextStep dialogNodeNextStepModel =
@@ -151,12 +105,7 @@ public class CreateWorkspaceOptionsTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -164,11 +113,7 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(dialogNodeActionModel.type(), "client");
     assertEquals(
         dialogNodeActionModel.parameters(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(dialogNodeActionModel.resultVariable(), "testString");
     assertEquals(dialogNodeActionModel.credentials(), "testString");
 
@@ -181,12 +126,7 @@ public class CreateWorkspaceOptionsTest {
             .previousSibling("testString")
             .output(dialogNodeOutputModel)
             .context(dialogNodeContextModel)
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .nextStep(dialogNodeNextStepModel)
             .title("testString")
             .type("standard")
@@ -207,12 +147,7 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(dialogNodeModel.output(), dialogNodeOutputModel);
     assertEquals(dialogNodeModel.context(), dialogNodeContextModel);
     assertEquals(
-        dialogNodeModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        dialogNodeModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(dialogNodeModel.nextStep(), dialogNodeNextStepModel);
     assertEquals(dialogNodeModel.title(), "testString");
     assertEquals(dialogNodeModel.type(), "standard");
@@ -260,19 +195,14 @@ public class CreateWorkspaceOptionsTest {
     assertEquals(workspaceSystemSettingsOffTopicModel.enabled(), Boolean.valueOf(false));
 
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
-    assertEquals(workspaceSystemSettingsNlpModel.model(), "baseline");
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
+    assertEquals(workspaceSystemSettingsNlpModel.model(), "testString");
 
     WorkspaceSystemSettings workspaceSystemSettingsModel =
         new WorkspaceSystemSettings.Builder()
             .tooling(workspaceSystemSettingsToolingModel)
             .disambiguation(workspaceSystemSettingsDisambiguationModel)
-            .humanAgentAssist(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .humanAgentAssist(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .spellingSuggestions(false)
             .spellingAutoCorrect(false)
             .systemEntities(workspaceSystemSettingsSystemEntitiesModel)
@@ -286,11 +216,7 @@ public class CreateWorkspaceOptionsTest {
         workspaceSystemSettingsDisambiguationModel);
     assertEquals(
         workspaceSystemSettingsModel.getHumanAgentAssist(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(workspaceSystemSettingsModel.isSpellingSuggestions(), Boolean.valueOf(false));
     assertEquals(workspaceSystemSettingsModel.isSpellingAutoCorrect(), Boolean.valueOf(false));
     assertEquals(
@@ -344,24 +270,14 @@ public class CreateWorkspaceOptionsTest {
     CreateValue createValueModel =
         new CreateValue.Builder()
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(createValueModel.value(), "testString");
     assertEquals(
-        createValueModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        createValueModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createValueModel.type(), "synonyms");
     assertEquals(createValueModel.synonyms(), java.util.Arrays.asList("testString"));
     assertEquals(createValueModel.patterns(), java.util.Arrays.asList("testString"));
@@ -370,24 +286,14 @@ public class CreateWorkspaceOptionsTest {
         new CreateEntity.Builder()
             .entity("testString")
             .description("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .fuzzyMatch(true)
             .values(java.util.Arrays.asList(createValueModel))
             .build();
     assertEquals(createEntityModel.entity(), "testString");
     assertEquals(createEntityModel.description(), "testString");
     assertEquals(
-        createEntityModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        createEntityModel.metadata(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createEntityModel.fuzzyMatch(), Boolean.valueOf(true));
     assertEquals(createEntityModel.values(), java.util.Arrays.asList(createValueModel));
 
@@ -398,12 +304,7 @@ public class CreateWorkspaceOptionsTest {
             .language("testString")
             .dialogNodes(java.util.Arrays.asList(dialogNodeModel))
             .counterexamples(java.util.Arrays.asList(counterexampleModel))
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .learningOptOut(false)
             .systemSettings(workspaceSystemSettingsModel)
             .webhooks(java.util.Arrays.asList(webhookModel))
@@ -421,11 +322,7 @@ public class CreateWorkspaceOptionsTest {
         java.util.Arrays.asList(counterexampleModel));
     assertEquals(
         createWorkspaceOptionsModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createWorkspaceOptionsModel.learningOptOut(), Boolean.valueOf(false));
     assertEquals(createWorkspaceOptionsModel.systemSettings(), workspaceSystemSettingsModel);
     assertEquals(createWorkspaceOptionsModel.webhooks(), java.util.Arrays.asList(webhookModel));

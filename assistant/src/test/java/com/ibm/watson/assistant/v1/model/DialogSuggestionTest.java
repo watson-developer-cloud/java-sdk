@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -159,23 +159,13 @@ public class DialogSuggestionTest {
         new DialogSuggestion.Builder()
             .label("testString")
             .value(dialogSuggestionValueModel)
-            .output(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .output(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .dialogNode("testString")
             .build();
     assertEquals(dialogSuggestionModel.label(), "testString");
     assertEquals(dialogSuggestionModel.value(), dialogSuggestionValueModel);
     assertEquals(
-        dialogSuggestionModel.output(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        dialogSuggestionModel.output(), java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(dialogSuggestionModel.dialogNode(), "testString");
 
     String json = TestUtilities.serialize(dialogSuggestionModel);
@@ -186,6 +176,9 @@ public class DialogSuggestionTest {
     assertEquals(dialogSuggestionModelNew.label(), "testString");
     assertEquals(
         dialogSuggestionModelNew.value().toString(), dialogSuggestionValueModel.toString());
+    assertEquals(
+        dialogSuggestionModelNew.output().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(dialogSuggestionModelNew.dialogNode(), "testString");
   }
 

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,12 +38,7 @@ public class UpdateCategoriesModelOptionsTest {
             .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .trainingDataContentType("json")
             .name("testString")
-            .userMetadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", TestUtilities.createMockMap());
-                  }
-                })
+            .userMetadata(java.util.Collections.singletonMap("foo", "unknown type: Object"))
             .description("testString")
             .modelVersion("testString")
             .workspaceId("testString")
@@ -58,11 +53,7 @@ public class UpdateCategoriesModelOptionsTest {
     assertEquals(updateCategoriesModelOptionsModel.name(), "testString");
     assertEquals(
         updateCategoriesModelOptionsModel.userMetadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", TestUtilities.createMockMap());
-          }
-        });
+        java.util.Collections.singletonMap("foo", "unknown type: Object"));
     assertEquals(updateCategoriesModelOptionsModel.description(), "testString");
     assertEquals(updateCategoriesModelOptionsModel.modelVersion(), "testString");
     assertEquals(updateCategoriesModelOptionsModel.workspaceId(), "testString");

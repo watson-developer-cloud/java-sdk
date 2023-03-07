@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,14 +31,14 @@ public class WorkspaceSystemSettingsNlpTest {
   @Test
   public void testWorkspaceSystemSettingsNlp() throws Throwable {
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModel =
-        new WorkspaceSystemSettingsNlp.Builder().model("baseline").build();
-    assertEquals(workspaceSystemSettingsNlpModel.model(), "baseline");
+        new WorkspaceSystemSettingsNlp.Builder().model("testString").build();
+    assertEquals(workspaceSystemSettingsNlpModel.model(), "testString");
 
     String json = TestUtilities.serialize(workspaceSystemSettingsNlpModel);
 
     WorkspaceSystemSettingsNlp workspaceSystemSettingsNlpModelNew =
         TestUtilities.deserialize(json, WorkspaceSystemSettingsNlp.class);
     assertTrue(workspaceSystemSettingsNlpModelNew instanceof WorkspaceSystemSettingsNlp);
-    assertEquals(workspaceSystemSettingsNlpModelNew.model(), "baseline");
+    assertEquals(workspaceSystemSettingsNlpModelNew.model(), "testString");
   }
 }

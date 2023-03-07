@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,12 +35,7 @@ public class CreateValueOptionsTest {
             .workspaceId("testString")
             .entity("testString")
             .value("testString")
-            .metadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .type("synonyms")
             .synonyms(java.util.Arrays.asList("testString"))
             .patterns(java.util.Arrays.asList("testString"))
@@ -51,11 +46,7 @@ public class CreateValueOptionsTest {
     assertEquals(createValueOptionsModel.value(), "testString");
     assertEquals(
         createValueOptionsModel.metadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(createValueOptionsModel.type(), "synonyms");
     assertEquals(createValueOptionsModel.synonyms(), java.util.Arrays.asList("testString"));
     assertEquals(createValueOptionsModel.patterns(), java.util.Arrays.asList("testString"));

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,9 +30,23 @@ public class CreateSessionOptionsTest {
 
   @Test
   public void testCreateSessionOptions() throws Throwable {
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+    assertEquals(requestAnalyticsModel.browser(), "testString");
+    assertEquals(requestAnalyticsModel.device(), "testString");
+    assertEquals(requestAnalyticsModel.pageUrl(), "testString");
+
     CreateSessionOptions createSessionOptionsModel =
-        new CreateSessionOptions.Builder().assistantId("testString").build();
+        new CreateSessionOptions.Builder()
+            .assistantId("testString")
+            .analytics(requestAnalyticsModel)
+            .build();
     assertEquals(createSessionOptionsModel.assistantId(), "testString");
+    assertEquals(createSessionOptionsModel.analytics(), requestAnalyticsModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

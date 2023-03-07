@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,12 +34,7 @@ public class DialogNodeActionTest {
         new DialogNodeAction.Builder()
             .name("testString")
             .type("client")
-            .parameters(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .parameters(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .resultVariable("testString")
             .credentials("testString")
             .build();
@@ -47,11 +42,7 @@ public class DialogNodeActionTest {
     assertEquals(dialogNodeActionModel.type(), "client");
     assertEquals(
         dialogNodeActionModel.parameters(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(dialogNodeActionModel.resultVariable(), "testString");
     assertEquals(dialogNodeActionModel.credentials(), "testString");
 
@@ -62,6 +53,9 @@ public class DialogNodeActionTest {
     assertTrue(dialogNodeActionModelNew instanceof DialogNodeAction);
     assertEquals(dialogNodeActionModelNew.name(), "testString");
     assertEquals(dialogNodeActionModelNew.type(), "client");
+    assertEquals(
+        dialogNodeActionModelNew.parameters().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(dialogNodeActionModelNew.resultVariable(), "testString");
     assertEquals(dialogNodeActionModelNew.credentials(), "testString");
   }

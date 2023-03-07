@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,8 +31,8 @@ public class GetModelOptionsTest {
   @Test
   public void testGetModelOptions() throws Throwable {
     GetModelOptions getModelOptionsModel =
-        new GetModelOptions.Builder().modelId("ar-AR_BroadbandModel").build();
-    assertEquals(getModelOptionsModel.modelId(), "ar-AR_BroadbandModel");
+        new GetModelOptions.Builder().modelId("ar-MS_BroadbandModel").build();
+    assertEquals(getModelOptionsModel.modelId(), "ar-MS_BroadbandModel");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

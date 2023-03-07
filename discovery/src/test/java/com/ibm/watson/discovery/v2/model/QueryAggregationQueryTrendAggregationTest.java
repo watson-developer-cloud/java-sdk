@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,21 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the QueryHistogramAggregation model. */
-public class QueryHistogramAggregationTest {
+/** Unit test class for the QueryAggregationQueryTrendAggregation model. */
+public class QueryAggregationQueryTrendAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testQueryHistogramAggregation() throws Throwable {
-    QueryHistogramAggregation queryHistogramAggregationModel = new QueryHistogramAggregation();
-    assertNull(queryHistogramAggregationModel.getType());
-    assertNull(queryHistogramAggregationModel.getField());
-    assertNull(queryHistogramAggregationModel.getInterval());
-    assertNull(queryHistogramAggregationModel.getName());
+  public void testQueryAggregationQueryTrendAggregation() throws Throwable {
+    QueryAggregationQueryTrendAggregation queryAggregationQueryTrendAggregationModel =
+        new QueryAggregationQueryTrendAggregation();
+    assertNull(queryAggregationQueryTrendAggregationModel.getType());
+    assertNull(queryAggregationQueryTrendAggregationModel.getFacet());
+    assertNull(queryAggregationQueryTrendAggregationModel.getTimeSegments());
+    assertNull(queryAggregationQueryTrendAggregationModel.isShowEstimatedMatchingResults());
+    assertNull(queryAggregationQueryTrendAggregationModel.isShowTotalMatchingDocuments());
+    assertNull(queryAggregationQueryTrendAggregationModel.getResults());
   }
 }

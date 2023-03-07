@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,14 +38,6 @@ public class CreateCollectionOptionsTest {
     assertEquals(collectionEnrichmentModel.enrichmentId(), "testString");
     assertEquals(collectionEnrichmentModel.fields(), java.util.Arrays.asList("testString"));
 
-    CollectionDetailsSmartDocumentUnderstanding collectionDetailsSmartDocumentUnderstandingModel =
-        new CollectionDetailsSmartDocumentUnderstanding.Builder()
-            .enabled(true)
-            .model("custom")
-            .build();
-    assertEquals(collectionDetailsSmartDocumentUnderstandingModel.enabled(), Boolean.valueOf(true));
-    assertEquals(collectionDetailsSmartDocumentUnderstandingModel.model(), "custom");
-
     CreateCollectionOptions createCollectionOptionsModel =
         new CreateCollectionOptions.Builder()
             .projectId("testString")
@@ -53,7 +45,6 @@ public class CreateCollectionOptionsTest {
             .description("testString")
             .language("en")
             .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
-            .smartDocumentUnderstanding(collectionDetailsSmartDocumentUnderstandingModel)
             .build();
     assertEquals(createCollectionOptionsModel.projectId(), "testString");
     assertEquals(createCollectionOptionsModel.name(), "testString");
@@ -62,9 +53,6 @@ public class CreateCollectionOptionsTest {
     assertEquals(
         createCollectionOptionsModel.enrichments(),
         java.util.Arrays.asList(collectionEnrichmentModel));
-    assertEquals(
-        createCollectionOptionsModel.smartDocumentUnderstanding(),
-        collectionDetailsSmartDocumentUnderstandingModel);
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

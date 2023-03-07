@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the QueryTermAggregation model. */
-public class QueryTermAggregationTest {
+/** Unit test class for the QueryAggregationQueryTopHitsAggregation model. */
+public class QueryAggregationQueryTopHitsAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testQueryTermAggregation() throws Throwable {
-    QueryTermAggregation queryTermAggregationModel = new QueryTermAggregation();
-    assertNull(queryTermAggregationModel.getType());
-    assertNull(queryTermAggregationModel.getField());
-    assertNull(queryTermAggregationModel.getCount());
-    assertNull(queryTermAggregationModel.getName());
+  public void testQueryAggregationQueryTopHitsAggregation() throws Throwable {
+    QueryAggregationQueryTopHitsAggregation queryAggregationQueryTopHitsAggregationModel =
+        new QueryAggregationQueryTopHitsAggregation();
+    assertNull(queryAggregationQueryTopHitsAggregationModel.getType());
+    assertNull(queryAggregationQueryTopHitsAggregationModel.getSize());
+    assertNull(queryAggregationQueryTopHitsAggregationModel.getName());
+    assertNull(queryAggregationQueryTopHitsAggregationModel.getHits());
   }
 }

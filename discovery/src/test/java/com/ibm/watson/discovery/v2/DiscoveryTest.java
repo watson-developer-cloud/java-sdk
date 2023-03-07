@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,7 +24,6 @@ import com.ibm.watson.discovery.v2.model.AnalyzeDocumentOptions;
 import com.ibm.watson.discovery.v2.model.AnalyzedDocument;
 import com.ibm.watson.discovery.v2.model.ClassifierFederatedModel;
 import com.ibm.watson.discovery.v2.model.CollectionDetails;
-import com.ibm.watson.discovery.v2.model.CollectionDetailsSmartDocumentUnderstanding;
 import com.ibm.watson.discovery.v2.model.CollectionEnrichment;
 import com.ibm.watson.discovery.v2.model.Completions;
 import com.ibm.watson.discovery.v2.model.ComponentSettingsResponse;
@@ -583,13 +582,6 @@ public class DiscoveryTest {
             .fields(java.util.Arrays.asList("testString"))
             .build();
 
-    // Construct an instance of the CollectionDetailsSmartDocumentUnderstanding model
-    CollectionDetailsSmartDocumentUnderstanding collectionDetailsSmartDocumentUnderstandingModel =
-        new CollectionDetailsSmartDocumentUnderstanding.Builder()
-            .enabled(true)
-            .model("custom")
-            .build();
-
     // Construct an instance of the CreateCollectionOptions model
     CreateCollectionOptions createCollectionOptionsModel =
         new CreateCollectionOptions.Builder()
@@ -598,7 +590,6 @@ public class DiscoveryTest {
             .description("testString")
             .language("en")
             .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
-            .smartDocumentUnderstanding(collectionDetailsSmartDocumentUnderstandingModel)
             .build();
 
     // Invoke createCollection() with a valid options model and verify the result
@@ -1129,7 +1120,7 @@ public class DiscoveryTest {
   public void testQueryWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"mapKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 10}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"confidence\": 0, \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}], \"aggregations\": [{\"type\": \"filter\", \"match\": \"match\", \"matching_results\": 15}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"mapKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"confidence\": 0, \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}";
+        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 0}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}], \"aggregations\": [{\"type\": \"term\", \"field\": \"field\", \"count\": 5, \"name\": \"name\", \"results\": [{\"key\": \"key\", \"matching_results\": 15, \"relevancy\": 9, \"total_matching_documents\": 22, \"estimated_matching_results\": 24, \"aggregations\": [{\"anyKey\": \"anyValue\"}]}]}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"anyKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"anyKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}";
     String queryPath = "/v2/projects/testString/query";
     server.enqueue(
         new MockResponse()
@@ -3079,7 +3070,7 @@ public class DiscoveryTest {
   public void testAnalyzeDocumentWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}], \"result\": {\"metadata\": {\"mapKey\": \"anyValue\"}}}";
+        "{\"notices\": [{\"notice_id\": \"noticeId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"query_id\": \"queryId\", \"severity\": \"warning\", \"step\": \"step\", \"description\": \"description\"}], \"result\": {\"metadata\": {\"anyKey\": \"anyValue\"}}}";
     String analyzeDocumentPath = "/v2/projects/testString/collections/testString/analyze";
     server.enqueue(
         new MockResponse()

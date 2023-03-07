@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,12 +36,7 @@ public class UpdateValueOptionsTest {
             .entity("testString")
             .value("testString")
             .newValue("testString")
-            .newMetadata(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .newMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .newType("synonyms")
             .newSynonyms(java.util.Arrays.asList("testString"))
             .newPatterns(java.util.Arrays.asList("testString"))
@@ -54,11 +49,7 @@ public class UpdateValueOptionsTest {
     assertEquals(updateValueOptionsModel.newValue(), "testString");
     assertEquals(
         updateValueOptionsModel.newMetadata(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(updateValueOptionsModel.newType(), "synonyms");
     assertEquals(updateValueOptionsModel.newSynonyms(), java.util.Arrays.asList("testString"));
     assertEquals(updateValueOptionsModel.newPatterns(), java.util.Arrays.asList("testString"));

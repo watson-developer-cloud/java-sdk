@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,18 +22,20 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the QueryTimesliceAggregation model. */
-public class QueryTimesliceAggregationTest {
+/** Unit test class for the QueryAggregationQueryHistogramAggregation model. */
+public class QueryAggregationQueryHistogramAggregationTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testQueryTimesliceAggregation() throws Throwable {
-    QueryTimesliceAggregation queryTimesliceAggregationModel = new QueryTimesliceAggregation();
-    assertNull(queryTimesliceAggregationModel.getType());
-    assertNull(queryTimesliceAggregationModel.getField());
-    assertNull(queryTimesliceAggregationModel.getInterval());
-    assertNull(queryTimesliceAggregationModel.getName());
+  public void testQueryAggregationQueryHistogramAggregation() throws Throwable {
+    QueryAggregationQueryHistogramAggregation queryAggregationQueryHistogramAggregationModel =
+        new QueryAggregationQueryHistogramAggregation();
+    assertNull(queryAggregationQueryHistogramAggregationModel.getType());
+    assertNull(queryAggregationQueryHistogramAggregationModel.getField());
+    assertNull(queryAggregationQueryHistogramAggregationModel.getInterval());
+    assertNull(queryAggregationQueryHistogramAggregationModel.getName());
+    assertNull(queryAggregationQueryHistogramAggregationModel.getResults());
   }
 }

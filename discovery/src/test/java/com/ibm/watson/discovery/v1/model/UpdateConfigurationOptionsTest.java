@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -200,12 +200,7 @@ public class UpdateConfigurationOptionsTest {
             .entities(nluEnrichmentEntitiesModel)
             .sentiment(nluEnrichmentSentimentModel)
             .emotion(nluEnrichmentEmotionModel)
-            .categories(
-                new java.util.HashMap<String, Object>() {
-                  {
-                    put("foo", "testString");
-                  }
-                })
+            .categories(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .semanticRoles(nluEnrichmentSemanticRolesModel)
             .relations(nluEnrichmentRelationsModel)
             .concepts(nluEnrichmentConceptsModel)
@@ -216,11 +211,7 @@ public class UpdateConfigurationOptionsTest {
     assertEquals(nluEnrichmentFeaturesModel.emotion(), nluEnrichmentEmotionModel);
     assertEquals(
         nluEnrichmentFeaturesModel.categories(),
-        new java.util.HashMap<String, Object>() {
-          {
-            put("foo", "testString");
-          }
-        });
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(nluEnrichmentFeaturesModel.semanticRoles(), nluEnrichmentSemanticRolesModel);
     assertEquals(nluEnrichmentFeaturesModel.relations(), nluEnrichmentRelationsModel);
     assertEquals(nluEnrichmentFeaturesModel.concepts(), nluEnrichmentConceptsModel);

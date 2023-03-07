@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,8 +30,17 @@ public class IntegrationReferenceTest {
 
   @Test
   public void testIntegrationReference() throws Throwable {
-    IntegrationReference integrationReferenceModel = new IntegrationReference();
-    assertNull(integrationReferenceModel.getIntegrationId());
-    assertNull(integrationReferenceModel.getType());
+    IntegrationReference integrationReferenceModel =
+        new IntegrationReference.Builder().integrationId("testString").type("testString").build();
+    assertEquals(integrationReferenceModel.integrationId(), "testString");
+    assertEquals(integrationReferenceModel.type(), "testString");
+
+    String json = TestUtilities.serialize(integrationReferenceModel);
+
+    IntegrationReference integrationReferenceModelNew =
+        TestUtilities.deserialize(json, IntegrationReference.class);
+    assertTrue(integrationReferenceModelNew instanceof IntegrationReference);
+    assertEquals(integrationReferenceModelNew.integrationId(), "testString");
+    assertEquals(integrationReferenceModelNew.type(), "testString");
   }
 }

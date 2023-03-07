@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2023.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -161,7 +161,7 @@ public class SpeechToTextTest {
     // Register a mock response
     String mockResponseBody =
         "{\"name\": \"name\", \"language\": \"language\", \"rate\": 4, \"url\": \"url\", \"supported_features\": {\"custom_language_model\": false, \"custom_acoustic_model\": false, \"speaker_labels\": false, \"low_latency\": true}, \"description\": \"description\"}";
-    String getModelPath = "/v1/models/ar-AR_BroadbandModel";
+    String getModelPath = "/v1/models/ar-MS_BroadbandModel";
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
@@ -170,7 +170,7 @@ public class SpeechToTextTest {
 
     // Construct an instance of the GetModelOptions model
     GetModelOptions getModelOptionsModel =
-        new GetModelOptions.Builder().modelId("ar-AR_BroadbandModel").build();
+        new GetModelOptions.Builder().modelId("ar-MS_BroadbandModel").build();
 
     // Invoke getModel() with a valid options model and verify the result
     Response<SpeechModel> response = speechToTextService.getModel(getModelOptionsModel).execute();
@@ -212,7 +212,7 @@ public class SpeechToTextTest {
   public void testRecognizeWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}";
+        "{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}";
     String recognizePath = "/v1/recognize";
     server.enqueue(
         new MockResponse()
@@ -424,7 +424,7 @@ public class SpeechToTextTest {
   public void testCreateJobWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
+        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
     String createJobPath = "/v1/recognitions";
     server.enqueue(
         new MockResponse()
@@ -542,7 +542,7 @@ public class SpeechToTextTest {
   public void testCheckJobsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"recognitions\": [{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}]}";
+        "{\"recognitions\": [{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}]}";
     String checkJobsPath = "/v1/recognitions";
     server.enqueue(
         new MockResponse()
@@ -587,7 +587,7 @@ public class SpeechToTextTest {
   public void testCheckJobWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
+        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
     String checkJobPath = "/v1/recognitions/testString";
     server.enqueue(
         new MockResponse()
@@ -754,7 +754,7 @@ public class SpeechToTextTest {
 
     // Construct an instance of the ListLanguageModelsOptions model
     ListLanguageModelsOptions listLanguageModelsOptionsModel =
-        new ListLanguageModelsOptions.Builder().language("ar-AR").build();
+        new ListLanguageModelsOptions.Builder().language("ar-MS").build();
 
     // Invoke listLanguageModels() with a valid options model and verify the result
     Response<LanguageModels> response =
@@ -773,7 +773,7 @@ public class SpeechToTextTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("language"), "ar-AR");
+    assertEquals(query.get("language"), "ar-MS");
   }
 
   // Test the listLanguageModels operation with and without retries enabled
@@ -1757,7 +1757,7 @@ public class SpeechToTextTest {
     CreateAcousticModelOptions createAcousticModelOptionsModel =
         new CreateAcousticModelOptions.Builder()
             .name("testString")
-            .baseModelName("ar-AR_BroadbandModel")
+            .baseModelName("ar-MS_BroadbandModel")
             .description("testString")
             .build();
 
@@ -1812,7 +1812,7 @@ public class SpeechToTextTest {
 
     // Construct an instance of the ListAcousticModelsOptions model
     ListAcousticModelsOptions listAcousticModelsOptionsModel =
-        new ListAcousticModelsOptions.Builder().language("ar-AR").build();
+        new ListAcousticModelsOptions.Builder().language("ar-MS").build();
 
     // Invoke listAcousticModels() with a valid options model and verify the result
     Response<AcousticModels> response =
@@ -1831,7 +1831,7 @@ public class SpeechToTextTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("language"), "ar-AR");
+    assertEquals(query.get("language"), "ar-MS");
   }
 
   // Test the listAcousticModels operation with and without retries enabled
