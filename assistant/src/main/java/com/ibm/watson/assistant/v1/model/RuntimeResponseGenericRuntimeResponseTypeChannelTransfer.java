@@ -12,12 +12,16 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
 public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     extends RuntimeResponseGeneric {
+
+  @SerializedName("transfer_info")
+  protected ChannelTransferInfo transferInfo;
 
   /** Builder. */
   public static class Builder {
@@ -34,7 +38,8 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
      *     the Builder with
      */
     public Builder(
-        RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeChannelTransfer) {
+        RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
+            runtimeResponseGenericRuntimeResponseTypeChannelTransfer) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.responseType;
       this.messageToUser = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.messageToUser;
       this.transferInfo = runtimeResponseGenericRuntimeResponseTypeChannelTransfer.transferInfo;
@@ -148,5 +153,16 @@ public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public ChannelTransferInfo transferInfo() {
+    return transferInfo;
   }
 }

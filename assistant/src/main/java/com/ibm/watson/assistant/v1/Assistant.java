@@ -82,6 +82,7 @@ import com.ibm.watson.assistant.v1.model.MessageResponse;
 import com.ibm.watson.assistant.v1.model.Synonym;
 import com.ibm.watson.assistant.v1.model.SynonymCollection;
 import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
+import com.ibm.watson.assistant.v1.model.UpdateDialogNodeNullableOptions;
 import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
 import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
@@ -112,7 +113,7 @@ import java.util.Map.Entry;
 public class Assistant extends BaseService {
 
   /** Default service name used when configuring the `Assistant` client. */
-  public static final String DEFAULT_SERVICE_NAME = "conversation";
+  public static final String DEFAULT_SERVICE_NAME = "assistant";
 
   /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =
@@ -194,6 +195,52 @@ public class Assistant extends BaseService {
   public void setVersion(final String version) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
     this.version = version;
+  }
+
+  /**
+   * Update dialog node.
+   *
+   * <p>Update an existing dialog node with new or modified data.
+   *
+   * <p>If you want to update multiple dialog nodes with a single API call, consider using the
+   * **[Update workspace](#update-workspace)** method instead.
+   *
+   * @param UpdateDialogNodeNullableOptions the {@link UpdateDialogNodeNullableOptions} containing
+   *     the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link DialogNode}
+   */
+  public ServiceCall<DialogNode> updateDialogNodeNullable(
+      UpdateDialogNodeNullableOptions UpdateDialogNodeNullableOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        UpdateDialogNodeNullableOptions, "UpdateDialogNodeNullableOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("workspace_id", UpdateDialogNodeNullableOptions.workspaceId());
+    pathParamsMap.put("dialog_node", UpdateDialogNodeNullableOptions.dialogNode());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v1/workspaces/{workspace_id}/dialog_nodes/{dialog_node}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v1", "testUpdateDialogNode");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (UpdateDialogNodeNullableOptions.includeAudit() != null) {
+      builder.query(
+          "include_audit", String.valueOf(UpdateDialogNodeNullableOptions.includeAudit()));
+    }
+    builder.bodyContent(
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGsonWithSerializeNulls()
+            .toJson(UpdateDialogNodeNullableOptions.body()),
+        "application/json");
+    ResponseConverter<DialogNode> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<DialogNode>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**

@@ -122,9 +122,6 @@ public class DialogNodeOutputGeneric extends GenericModel {
   @SerializedName("agent_unavailable")
   protected AgentAvailabilityMessage agentUnavailable;
 
-  @SerializedName("transfer_info")
-  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
-
   protected String query;
 
   @SerializedName("query_type")
@@ -329,17 +326,6 @@ public class DialogNodeOutputGeneric extends GenericModel {
    */
   public AgentAvailabilityMessage agentUnavailable() {
     return agentUnavailable;
-  }
-
-  /**
-   * Gets the transferInfo.
-   *
-   * <p>Routing or other contextual information to be used by target service desk systems.
-   *
-   * @return the transferInfo
-   */
-  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
-    return transferInfo;
   }
 
   /**

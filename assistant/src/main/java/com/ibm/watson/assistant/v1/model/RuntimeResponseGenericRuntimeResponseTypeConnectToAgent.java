@@ -12,12 +12,16 @@
  */
 package com.ibm.watson.assistant.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 /** RuntimeResponseGenericRuntimeResponseTypeConnectToAgent. */
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
+
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   /** Builder. */
   public static class Builder {
@@ -37,7 +41,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
      * @param runtimeResponseGenericRuntimeResponseTypeConnectToAgent the instance to initialize the
      *     Builder with
      */
-    public Builder(RuntimeResponseGeneric runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
+    public Builder(
+        RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
+            runtimeResponseGenericRuntimeResponseTypeConnectToAgent) {
       this.responseType = runtimeResponseGenericRuntimeResponseTypeConnectToAgent.responseType;
       this.messageToHumanAgent =
           runtimeResponseGenericRuntimeResponseTypeConnectToAgent.messageToHumanAgent;
@@ -197,5 +203,16 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
   }
 }
