@@ -80,7 +80,7 @@ import java.util.Map.Entry;
 public class Assistant extends BaseService {
 
   /** Default service name used when configuring the `Assistant` client. */
-  public static final String DEFAULT_SERVICE_NAME = "conversation";
+  public static final String DEFAULT_SERVICE_NAME = "assistant";
 
   /** Default service endpoint URL. */
   public static final String DEFAULT_SERVICE_URL =

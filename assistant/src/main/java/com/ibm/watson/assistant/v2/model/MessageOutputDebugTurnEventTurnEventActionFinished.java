@@ -42,5 +42,16 @@ public class MessageOutputDebugTurnEventTurnEventActionFinished
     String FALLBACK = "fallback";
   }
 
+  protected TurnEventActionSource source;
+
   protected MessageOutputDebugTurnEventTurnEventActionFinished() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
 }

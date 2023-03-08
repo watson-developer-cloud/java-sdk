@@ -16,5 +16,18 @@ package com.ibm.watson.assistant.v2.model;
 public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     extends RuntimeResponseGeneric {
 
+  protected ChannelTransferInfo transferInfo;
+
   protected RuntimeResponseGenericRuntimeResponseTypeChannelTransfer() {}
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public ChannelTransferInfo transferInfo() {
+    return transferInfo;
+  }
 }
