@@ -12,9 +12,25 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /** RuntimeResponseGenericRuntimeResponseTypeConnectToAgent. */
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
 
+  @SerializedName("transfer_info")
+  protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
+
   protected RuntimeResponseGenericRuntimeResponseTypeConnectToAgent() {}
+
+  /**
+   * Gets the transferInfo.
+   *
+   * <p>Routing or other contextual information to be used by target service desk systems.
+   *
+   * @return the transferInfo
+   */
+  public DialogNodeOutputConnectToAgentTransferInfo transferInfo() {
+    return transferInfo;
+  }
 }

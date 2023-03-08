@@ -81,7 +81,6 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   }
 
   protected String event;
-  protected TurnEventActionSource source;
 
   @SerializedName("action_start_time")
   protected String actionStartTime;
@@ -102,7 +101,6 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
 
   protected Boolean prompted;
   protected TurnEventCalloutCallout callout;
-  protected TurnEventCalloutError error;
 
   protected MessageOutputDebugTurnEvent() {}
 
@@ -115,15 +113,6 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public String getEvent() {
     return event;
-  }
-
-  /**
-   * Gets the source.
-   *
-   * @return the source
-   */
-  public TurnEventActionSource getSource() {
-    return source;
   }
 
   /**
@@ -212,14 +201,5 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public TurnEventCalloutCallout getCallout() {
     return callout;
-  }
-
-  /**
-   * Gets the error.
-   *
-   * @return the error
-   */
-  public TurnEventCalloutError getError() {
-    return error;
   }
 }

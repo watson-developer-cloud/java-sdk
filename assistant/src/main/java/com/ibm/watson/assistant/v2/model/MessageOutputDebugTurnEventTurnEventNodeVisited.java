@@ -31,5 +31,16 @@ public class MessageOutputDebugTurnEventTurnEventNodeVisited extends MessageOutp
     String JUMP = "jump";
   }
 
+  protected TurnEventNodeSource source;
+
   protected MessageOutputDebugTurnEventTurnEventNodeVisited() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventNodeSource getSource() {
+    return source;
+  }
 }

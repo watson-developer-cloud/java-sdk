@@ -25,5 +25,16 @@ public class MessageOutputDebugTurnEventTurnEventStepVisited extends MessageOutp
     String ANYTHING_ELSE = "anything_else";
   }
 
+  protected TurnEventActionSource source;
+
   protected MessageOutputDebugTurnEventTurnEventStepVisited() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
 }

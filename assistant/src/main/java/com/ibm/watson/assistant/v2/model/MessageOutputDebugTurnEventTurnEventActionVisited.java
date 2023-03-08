@@ -47,5 +47,16 @@ public class MessageOutputDebugTurnEventTurnEventActionVisited extends MessageOu
     String NO_ACTION_MATCHES = "no_action_matches";
   }
 
+  protected TurnEventActionSource source;
+
   protected MessageOutputDebugTurnEventTurnEventActionVisited() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
 }

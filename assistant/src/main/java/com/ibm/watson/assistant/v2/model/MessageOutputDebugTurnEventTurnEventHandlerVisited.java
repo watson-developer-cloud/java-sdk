@@ -16,5 +16,16 @@ package com.ibm.watson.assistant.v2.model;
 public class MessageOutputDebugTurnEventTurnEventHandlerVisited
     extends MessageOutputDebugTurnEvent {
 
+  protected TurnEventActionSource source;
+
   protected MessageOutputDebugTurnEventTurnEventHandlerVisited() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
 }

@@ -15,5 +15,26 @@ package com.ibm.watson.assistant.v2.model;
 /** MessageOutputDebugTurnEventTurnEventCallout. */
 public class MessageOutputDebugTurnEventTurnEventCallout extends MessageOutputDebugTurnEvent {
 
+  protected TurnEventActionSource source;
+  protected TurnEventCalloutError error;
+
   protected MessageOutputDebugTurnEventTurnEventCallout() {}
+
+  /**
+   * Gets the source.
+   *
+   * @return the source
+   */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
+
+  /**
+   * Gets the error.
+   *
+   * @return the error
+   */
+  public TurnEventCalloutError getError() {
+    return error;
+  }
 }
