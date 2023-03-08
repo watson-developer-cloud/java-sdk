@@ -18,110 +18,7 @@ import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
-import com.ibm.watson.assistant.v1.model.BulkClassifyOptions;
-import com.ibm.watson.assistant.v1.model.BulkClassifyResponse;
-import com.ibm.watson.assistant.v1.model.BulkClassifyUtterance;
-import com.ibm.watson.assistant.v1.model.CaptureGroup;
-import com.ibm.watson.assistant.v1.model.Context;
-import com.ibm.watson.assistant.v1.model.Counterexample;
-import com.ibm.watson.assistant.v1.model.CounterexampleCollection;
-import com.ibm.watson.assistant.v1.model.CreateCounterexampleOptions;
-import com.ibm.watson.assistant.v1.model.CreateDialogNodeOptions;
-import com.ibm.watson.assistant.v1.model.CreateEntity;
-import com.ibm.watson.assistant.v1.model.CreateEntityOptions;
-import com.ibm.watson.assistant.v1.model.CreateExampleOptions;
-import com.ibm.watson.assistant.v1.model.CreateIntent;
-import com.ibm.watson.assistant.v1.model.CreateIntentOptions;
-import com.ibm.watson.assistant.v1.model.CreateSynonymOptions;
-import com.ibm.watson.assistant.v1.model.CreateValue;
-import com.ibm.watson.assistant.v1.model.CreateValueOptions;
-import com.ibm.watson.assistant.v1.model.CreateWorkspaceAsyncOptions;
-import com.ibm.watson.assistant.v1.model.CreateWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.DeleteCounterexampleOptions;
-import com.ibm.watson.assistant.v1.model.DeleteDialogNodeOptions;
-import com.ibm.watson.assistant.v1.model.DeleteEntityOptions;
-import com.ibm.watson.assistant.v1.model.DeleteExampleOptions;
-import com.ibm.watson.assistant.v1.model.DeleteIntentOptions;
-import com.ibm.watson.assistant.v1.model.DeleteSynonymOptions;
-import com.ibm.watson.assistant.v1.model.DeleteUserDataOptions;
-import com.ibm.watson.assistant.v1.model.DeleteValueOptions;
-import com.ibm.watson.assistant.v1.model.DeleteWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.DialogNode;
-import com.ibm.watson.assistant.v1.model.DialogNodeAction;
-import com.ibm.watson.assistant.v1.model.DialogNodeCollection;
-import com.ibm.watson.assistant.v1.model.DialogNodeContext;
-import com.ibm.watson.assistant.v1.model.DialogNodeNextStep;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutput;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputGenericDialogNodeOutputResponseTypeText;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputModifiers;
-import com.ibm.watson.assistant.v1.model.DialogNodeOutputTextValuesElement;
-import com.ibm.watson.assistant.v1.model.DialogNodeVisitedDetails;
-import com.ibm.watson.assistant.v1.model.Entity;
-import com.ibm.watson.assistant.v1.model.EntityCollection;
-import com.ibm.watson.assistant.v1.model.EntityMentionCollection;
-import com.ibm.watson.assistant.v1.model.Example;
-import com.ibm.watson.assistant.v1.model.ExampleCollection;
-import com.ibm.watson.assistant.v1.model.ExportWorkspaceAsyncOptions;
-import com.ibm.watson.assistant.v1.model.GetCounterexampleOptions;
-import com.ibm.watson.assistant.v1.model.GetDialogNodeOptions;
-import com.ibm.watson.assistant.v1.model.GetEntityOptions;
-import com.ibm.watson.assistant.v1.model.GetExampleOptions;
-import com.ibm.watson.assistant.v1.model.GetIntentOptions;
-import com.ibm.watson.assistant.v1.model.GetSynonymOptions;
-import com.ibm.watson.assistant.v1.model.GetValueOptions;
-import com.ibm.watson.assistant.v1.model.GetWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.Intent;
-import com.ibm.watson.assistant.v1.model.IntentCollection;
-import com.ibm.watson.assistant.v1.model.ListAllLogsOptions;
-import com.ibm.watson.assistant.v1.model.ListCounterexamplesOptions;
-import com.ibm.watson.assistant.v1.model.ListDialogNodesOptions;
-import com.ibm.watson.assistant.v1.model.ListEntitiesOptions;
-import com.ibm.watson.assistant.v1.model.ListExamplesOptions;
-import com.ibm.watson.assistant.v1.model.ListIntentsOptions;
-import com.ibm.watson.assistant.v1.model.ListLogsOptions;
-import com.ibm.watson.assistant.v1.model.ListMentionsOptions;
-import com.ibm.watson.assistant.v1.model.ListSynonymsOptions;
-import com.ibm.watson.assistant.v1.model.ListValuesOptions;
-import com.ibm.watson.assistant.v1.model.ListWorkspacesOptions;
-import com.ibm.watson.assistant.v1.model.LogCollection;
-import com.ibm.watson.assistant.v1.model.LogMessage;
-import com.ibm.watson.assistant.v1.model.LogMessageSource;
-import com.ibm.watson.assistant.v1.model.Mention;
-import com.ibm.watson.assistant.v1.model.MessageContextMetadata;
-import com.ibm.watson.assistant.v1.model.MessageInput;
-import com.ibm.watson.assistant.v1.model.MessageOptions;
-import com.ibm.watson.assistant.v1.model.MessageResponse;
-import com.ibm.watson.assistant.v1.model.OutputData;
-import com.ibm.watson.assistant.v1.model.ResponseGenericChannel;
-import com.ibm.watson.assistant.v1.model.RuntimeEntity;
-import com.ibm.watson.assistant.v1.model.RuntimeEntityAlternative;
-import com.ibm.watson.assistant.v1.model.RuntimeEntityInterpretation;
-import com.ibm.watson.assistant.v1.model.RuntimeEntityRole;
-import com.ibm.watson.assistant.v1.model.RuntimeIntent;
-import com.ibm.watson.assistant.v1.model.RuntimeResponseGenericRuntimeResponseTypeText;
-import com.ibm.watson.assistant.v1.model.Synonym;
-import com.ibm.watson.assistant.v1.model.SynonymCollection;
-import com.ibm.watson.assistant.v1.model.UpdateCounterexampleOptions;
-import com.ibm.watson.assistant.v1.model.UpdateDialogNodeOptions;
-import com.ibm.watson.assistant.v1.model.UpdateEntityOptions;
-import com.ibm.watson.assistant.v1.model.UpdateExampleOptions;
-import com.ibm.watson.assistant.v1.model.UpdateIntentOptions;
-import com.ibm.watson.assistant.v1.model.UpdateSynonymOptions;
-import com.ibm.watson.assistant.v1.model.UpdateValueOptions;
-import com.ibm.watson.assistant.v1.model.UpdateWorkspaceAsyncOptions;
-import com.ibm.watson.assistant.v1.model.UpdateWorkspaceOptions;
-import com.ibm.watson.assistant.v1.model.Value;
-import com.ibm.watson.assistant.v1.model.ValueCollection;
-import com.ibm.watson.assistant.v1.model.Webhook;
-import com.ibm.watson.assistant.v1.model.WebhookHeader;
-import com.ibm.watson.assistant.v1.model.Workspace;
-import com.ibm.watson.assistant.v1.model.WorkspaceCollection;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettings;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsDisambiguation;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsNlp;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsOffTopic;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsSystemEntities;
-import com.ibm.watson.assistant.v1.model.WorkspaceSystemSettingsTooling;
+import com.ibm.watson.assistant.v1.model.*;
 import com.ibm.watson.assistant.v1.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
@@ -158,6 +55,175 @@ public class AssistantTest {
   @Test
   public void testGetVersion() throws Throwable {
     assertEquals(assistantService.getVersion(), "testString");
+  }
+
+  @Test
+  public void testUpdateDialogNodeNullableWOptions() throws Throwable {
+    // Schedule some responses.
+    String mockResponseBody =
+        "{\"dialog_node\": \"dialogNode\", \"description\": \"description\", \"conditions\": \"conditions\", \"parent\": \"parent\", \"previous_sibling\": \"previousSibling\", \"output\": {\"generic\": [{\"response_type\": \"search_skill\", \"query\": \"query\", \"query_type\": \"natural_language\", \"filter\": \"filter\", \"discovery_version\": \"discoveryVersion\", \"channels\": [{\"channel\": \"chat\"}]}], \"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}, \"modifiers\": {\"overwrite\": false}}, \"context\": {\"integrations\": {\"mapKey\": {\"mapKey\": \"anyValue\"}}}, \"metadata\": {\"mapKey\": \"anyValue\"}, \"next_step\": {\"behavior\": \"get_user_input\", \"dialog_node\": \"dialogNode\", \"selector\": \"condition\"}, \"title\": \"title\", \"type\": \"standard\", \"event_name\": \"focus\", \"variable\": \"variable\", \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"mapKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"digress_in\": \"not_available\", \"digress_out\": \"allow_returning\", \"digress_out_slots\": \"not_allowed\", \"user_label\": \"userLabel\", \"disambiguation_opt_out\": true, \"disabled\": true, \"created\": \"2019-01-01T12:00:00\", \"updated\": \"2019-01-01T12:00:00\"}";
+    String updateDialogNodeNullablePath = "/v1/workspaces/testString/dialog_nodes/testString";
+
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    constructClientService();
+
+    // Construct an instance of the DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill
+    // model
+    DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill dialogNodeOutputGenericModel =
+        new DialogNodeOutputGenericDialogNodeOutputResponseTypeSearchSkill.Builder()
+            .responseType("search_skill")
+            .query("testString")
+            .queryType("natural_language")
+            .filter("testString")
+            .discoveryVersion("testString")
+            .build();
+
+    // Construct an instance of the DialogNodeOutputModifiers model
+    DialogNodeOutputModifiers dialogNodeOutputModifiersModel =
+        new DialogNodeOutputModifiers.Builder().overwrite(true).build();
+
+    // Construct an instance of the DialogNodeOutput model
+    DialogNodeOutput dialogNodeOutputModel =
+        new DialogNodeOutput.Builder()
+            .generic(
+                new java.util.ArrayList<DialogNodeOutputGeneric>(
+                    java.util.Arrays.asList(dialogNodeOutputGenericModel)))
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .modifiers(dialogNodeOutputModifiersModel)
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeContext model
+    DialogNodeContext dialogNodeContextModel =
+        new DialogNodeContext.Builder()
+            .integrations(
+                new java.util.HashMap<String, Map<String, Object>>() {
+                  {
+                    put(
+                        "foo",
+                        new java.util.HashMap<String, Object>() {
+                          {
+                            put("foo", "testString");
+                          }
+                        });
+                  }
+                })
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the DialogNodeNextStep model
+    DialogNodeNextStep dialogNodeNextStepModel =
+        new DialogNodeNextStep.Builder()
+            .behavior("get_user_input")
+            .dialogNode("testString")
+            .selector("condition")
+            .build();
+
+    // Construct an instance of the DialogNodeAction model
+    DialogNodeAction dialogNodeActionModel =
+        new DialogNodeAction.Builder()
+            .name("testString")
+            .type("client")
+            .parameters(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .resultVariable("testString")
+            .credentials("testString")
+            .build();
+
+    // Construct an instance of the UpdateDialogNode model
+    UpdateDialogNode updateDialogNodeModel =
+        new UpdateDialogNode.Builder()
+            .dialogNode("testString")
+            .description("testString")
+            .conditions("testString")
+            .parent("testString")
+            .previousSibling("testString")
+            .output(dialogNodeOutputModel)
+            .context(dialogNodeContextModel)
+            .metadata(
+                new java.util.HashMap<String, Object>() {
+                  {
+                    put("foo", "testString");
+                  }
+                })
+            .nextStep(dialogNodeNextStepModel)
+            .title("testString")
+            .type("standard")
+            .eventName("focus")
+            .variable("testString")
+            .actions(
+                new java.util.ArrayList<DialogNodeAction>(
+                    java.util.Arrays.asList(dialogNodeActionModel)))
+            .digressIn("not_available")
+            .digressOut("allow_returning")
+            .digressOutSlots("not_allowed")
+            .userLabel("testString")
+            .disambiguationOptOut(true)
+            .build();
+    Map<String, Object> updateDialogNodeModelAsPatch = updateDialogNodeModel.asPatch();
+
+    // Construct an instance of the UpdateDialogNodeNullableOptions model
+    UpdateDialogNodeNullableOptions updateDialogNodeNullableOptionsModel =
+        new UpdateDialogNodeNullableOptions.Builder()
+            .workspaceId("testString")
+            .dialogNode("testString")
+            .body(updateDialogNodeModelAsPatch)
+            .includeAudit(true)
+            .build();
+
+    // Invoke operation with valid options model (positive test)
+    Response<DialogNode> response =
+        assistantService.updateDialogNodeNullable(updateDialogNodeNullableOptionsModel).execute();
+    assertNotNull(response);
+    DialogNode responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+
+    // Check query
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    // Get query params
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(true));
+    // Check request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateDialogNodeNullablePath);
+  }
+
+  // Test the updateDialogNodeNullable operation with null options model parameter
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateDialogNodeNullableNoOptions() throws Throwable {
+    // construct the service
+    constructClientService();
+
+    server.enqueue(new MockResponse());
+
+    // Invoke operation with null options model (negative test)
+    assistantService.updateDialogNodeNullable(null).execute();
   }
 
   // Test the message operation with a valid options model parameter
