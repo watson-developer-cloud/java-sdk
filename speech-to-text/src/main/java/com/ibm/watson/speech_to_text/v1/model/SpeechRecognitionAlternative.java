@@ -21,10 +21,10 @@ public class SpeechRecognitionAlternative extends GenericModel {
 
   protected String transcript;
   protected Double confidence;
-  protected List<String> timestamps;
+  protected List<SpeechTimestamp> timestamps;
 
   @SerializedName("word_confidence")
-  protected List<String> wordConfidence;
+  protected List<SpeechWordConfidence> wordConfidence;
 
   protected SpeechRecognitionAlternative() {}
 
@@ -62,7 +62,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the timestamps
    */
-  public List<String> getTimestamps() {
+  public List<SpeechTimestamp> getTimestamps() {
     return timestamps;
   }
 
@@ -76,7 +76,7 @@ public class SpeechRecognitionAlternative extends GenericModel {
    *
    * @return the wordConfidence
    */
-  public List<String> getWordConfidence() {
+  public List<SpeechWordConfidence> getWordConfidence() {
     return wordConfidence;
   }
 }
