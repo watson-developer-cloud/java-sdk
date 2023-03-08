@@ -18,6 +18,7 @@ import com.ibm.cloud.sdk.core.security.*;
 import com.ibm.watson.assistant.v2.model.*;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -90,6 +91,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
         assertNotNull(messageResponse.getOutput().getEntities());
         assertNotNull(messageResponse.getOutput().getIntents());
         assertNotNull(messageResponse.getOutput().getDebug());
+        assertNotNull(messageResponse.getContext().skills().actionsSkill());
 
         context = messageResponse.getContext();
       }
@@ -267,10 +269,10 @@ public class AssistantServiceIT extends AssistantServiceTest {
     ReleaseCollection releases = service.listReleases(listReleasesOptions).execute().getResult();
 
     assertNotNull(releases);
-    assertNotNull(releases.getReleases().get(0).getStatus());
-    assertNotNull(releases.getReleases().get(0).getRelease());
+    assertNotNull(releases.getReleases().get(0).status());
+    assertNotNull(releases.getReleases().get(0).release());
 
-    String releaseId = releases.getReleases().get(0).getRelease();
+    String releaseId = releases.getReleases().get(0).release();
 
     GetReleaseOptions getReleasesOptions =
         new GetReleaseOptions.Builder().assistantId(assistantId).release(releaseId).build();
@@ -278,7 +280,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     Release release = service.getRelease(getReleasesOptions).execute().getResult();
 
     assertNotNull(release);
-    assertEquals("Available", release.getStatus());
+    assertEquals("Available", release.status());
   }
 
   /** Test Deploy Releases. */
@@ -302,14 +304,171 @@ public class AssistantServiceIT extends AssistantServiceTest {
     assertNotNull(release.getEnvironmentId());
   }
 
-  /** Test Delete User Data. */
-  /*
-  @Test
-  public void testDeleteUserData(){
-    String customerIdExample = "";
-    Response<Void> deleteUserDataResponse = service.deleteUserData(new DeleteUserDataOptions.Builder().customerId(customerIdExample).build()).execute();
+  /** Test Assistant CRUD operations */
+  // @Test
+  public void testAssistantCRUDOperations() {
+    // Create Assistant
 
-    assertTrue(deleteUserDataResponse.getStatusCode() == 204);
+    CreateAssistantOptions createAssistantOptions =
+        new CreateAssistantOptions.Builder()
+            .name("Java SDK Test Assistant")
+            .description("Created by the Integration Test suite for the Java SDK")
+            .language("en")
+            .build();
+
+    AssistantData createAssistantResult =
+        service.createAssistant(createAssistantOptions).execute().getResult();
+
+    assertNotNull(createAssistantResult);
+    assertNotNull(createAssistantResult.assistantId());
+    assertEquals("Java SDK Test Assistant", createAssistantResult.name());
+    assertNotNull(createAssistantResult.assistantSkills());
+    assertNotNull(createAssistantResult.assistantEnvironments());
+    assertEquals(
+        "Created by the Integration Test suite for the Java SDK",
+        createAssistantResult.description());
+    assertEquals("en", createAssistantResult.language());
+
+    // List Assistants
+
+    ListAssistantsOptions listAssistantsOptions =
+        new ListAssistantsOptions.Builder()
+            .pageLimit(5)
+            .includeCount(true)
+            .sort("name")
+            .includeAudit(true)
+            .build();
+
+    AssistantCollection listAssistantsResponse =
+        service.listAssistants(listAssistantsOptions).execute().getResult();
+
+    assertNotNull(listAssistantsResponse);
+    assertNotNull(listAssistantsResponse.getAssistants());
+    assertNotNull(listAssistantsResponse.getPagination());
+
+    // Delete Assistant
+
+    DeleteAssistantOptions deleteAssistantOptions =
+        new DeleteAssistantOptions.Builder()
+            .assistantId(createAssistantResult.assistantId())
+            .build();
+
+    int deleteResponseCode =
+        service.deleteAssistant(deleteAssistantOptions).execute().getStatusCode();
+
+    assertEquals(200, deleteResponseCode);
   }
-  */
+
+  /** Test Skills CRUD operations */
+  // @Test
+  public void testSkillsCRUDOperations() {
+    // Bootstrap new assistant and get default skill
+
+    CreateAssistantOptions createAssistantOptions =
+        new CreateAssistantOptions.Builder()
+            .name("Java SDK Test Assistant")
+            .description("Created by the Integration Test suite for the Java SDK")
+            .language("en")
+            .build();
+
+    AssistantData createAssistantResult =
+        service.createAssistant(createAssistantOptions).execute().getResult();
+
+    String assistantId = createAssistantResult.assistantId();
+    String skillId = createAssistantResult.assistantSkills().get(0).skillId();
+
+    // Get skill
+
+    GetSkillOptions getSkillOptions =
+        new GetSkillOptions.Builder().assistantId(assistantId).skillId(skillId).build();
+
+    Skill getSkillResult = service.getSkill(getSkillOptions).execute().getResult();
+
+    assertNotNull(getSkillResult);
+    assertEquals(skillId, getSkillResult.getSkillId());
+    assertEquals(assistantId, getSkillResult.getAssistantId());
+
+    // Update skill
+
+    UpdateSkillOptions updateSkillOptions =
+        new UpdateSkillOptions.Builder()
+            .assistantId(assistantId)
+            .skillId(skillId)
+            .name("Updated Java SDK Skill")
+            .description("Updated by the Skill CRUD integration tests")
+            .build();
+
+    Skill updateSkillResult = service.updateSkill(updateSkillOptions).execute().getResult();
+
+    assertNotNull(updateSkillResult);
+    assertEquals(assistantId, updateSkillResult.getAssistantId());
+    assertEquals(skillId, updateSkillResult.getSkillId());
+    assertEquals("Updated Java SDK Skill", updateSkillResult.getName());
+    assertEquals("Updated by the Skill CRUD integration tests", updateSkillResult.getDescription());
+
+    // Import skill
+
+    SkillImport skillImport =
+        new SkillImport.Builder()
+            .name("Watson Java SDK Import Skill")
+            .description("Testing the import skill endpoint")
+            .language("en")
+            .type("action")
+            .build();
+
+    List<SkillImport> skillsToImport = new ArrayList<SkillImport>();
+    skillsToImport.add(skillImport);
+
+    ImportSkillsOptions importSkillsOptions =
+        new ImportSkillsOptions.Builder()
+            .assistantId(assistantId)
+            .assistantSkills(skillsToImport)
+            .build();
+
+    SkillsAsyncRequestStatus skillImportResult =
+        service.importSkills(importSkillsOptions).execute().getResult();
+
+    assertNotNull(skillImportResult);
+    assertEquals(assistantId, skillImportResult.getAssistantId());
+    assertNotNull(skillImportResult.getStatus());
+
+    String importStatus = skillImportResult.getStatus();
+
+    // poll for available status
+
+    ImportSkillsStatusOptions importSkillsStatusOptions =
+        new ImportSkillsStatusOptions.Builder().assistantId(assistantId).build();
+
+    while (importStatus != SkillsAsyncRequestStatus.Status.COMPLETED) {
+      skillImportResult =
+          service.importSkillsStatus(importSkillsStatusOptions).execute().getResult();
+      importStatus = skillImportResult.getStatus();
+
+      assertNotEquals(SkillsAsyncRequestStatus.Status.FAILED, importStatus);
+    }
+
+    assertEquals(SkillsAsyncRequestStatus.Status.COMPLETED, importStatus);
+
+    // Export skill
+
+    ExportSkillsOptions exportSkillsOptions =
+        new ExportSkillsOptions.Builder().assistantId(assistantId).includeAudit(true).build();
+
+    SkillsExport skillsExportResult =
+        service.exportSkills(exportSkillsOptions).execute().getResult();
+
+    assertNotNull(skillsExportResult);
+    assertNotNull(skillsExportResult.getAssistantSkills());
+    assertNotNull(skillsExportResult.getAssistantState());
+
+    // Tear down created assistant
+
+    DeleteAssistantOptions deleteAssistantOptions =
+        new DeleteAssistantOptions.Builder().assistantId(assistantId).build();
+
+    int deleteResponseCode =
+        service.deleteAssistant(deleteAssistantOptions).execute().getStatusCode();
+
+    assertEquals(200, deleteResponseCode);
+  }
 }

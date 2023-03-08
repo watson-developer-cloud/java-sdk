@@ -260,8 +260,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryCalculationAggregation histogramAggregation =
-        (QueryCalculationAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryCalculationAggregation histogramAggregation =
+        (QueryAggregationQueryCalculationAggregation) response.getAggregations().get(0);
     assertNotNull(histogramAggregation);
 
     assertNotNull(response);
@@ -282,8 +282,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryFilterAggregation filterAggregation =
-        (QueryFilterAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryFilterAggregation filterAggregation =
+        (QueryAggregationQueryFilterAggregation) response.getAggregations().get(0);
     assertNotNull(filterAggregation);
 
     assertNotNull(response);
@@ -306,8 +306,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryHistogramAggregation histogramAggregation =
-        (QueryHistogramAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryHistogramAggregation histogramAggregation =
+        (QueryAggregationQueryHistogramAggregation) response.getAggregations().get(0);
     assertNotNull(histogramAggregation);
 
     assertNotNull(response);
@@ -335,8 +335,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryNestedAggregation nestedAggregation =
-        (QueryNestedAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryNestedAggregation nestedAggregation =
+        (QueryAggregationQueryNestedAggregation) response.getAggregations().get(0);
     assertNotNull(nestedAggregation);
 
     assertNotNull(response);
@@ -359,7 +359,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryTermAggregation termAggregation = (QueryTermAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryTermAggregation termAggregation =
+        (QueryAggregationQueryTermAggregation) response.getAggregations().get(0);
     assertNotNull(termAggregation);
 
     assertNotNull(response);
@@ -380,8 +381,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryTimesliceAggregation timesliceAggregation =
-        (QueryTimesliceAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryTimesliceAggregation timesliceAggregation =
+        (QueryAggregationQueryTimesliceAggregation) response.getAggregations().get(0);
     assertNotNull(timesliceAggregation);
 
     assertNotNull(response);
@@ -402,8 +403,8 @@ public class DiscoveryIT extends WatsonServiceTest {
 
     assertNotNull(response);
     assertTrue(response.getAggregations().size() > 0);
-    QueryTopHitsAggregation topHitsAggregation =
-        (QueryTopHitsAggregation) response.getAggregations().get(0);
+    QueryAggregationQueryTopHitsAggregation topHitsAggregation =
+        (QueryAggregationQueryTopHitsAggregation) response.getAggregations().get(0);
     assertNotNull(topHitsAggregation);
 
     assertNotNull(response);
