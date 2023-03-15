@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /**
  * Detects how much the frequency of a given facet value deviates from the expected average for the
  * given time period. This aggregation type does not use data from previous time periods. It
@@ -20,5 +22,18 @@ package com.ibm.watson.discovery.v2.model;
  */
 public class QueryAggregationQueryTopicAggregation extends QueryAggregation {
 
+  protected List<QueryTopicAggregationResult> results;
+
   protected QueryAggregationQueryTopicAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryTopicAggregationResult> getResults() {
+    return results;
+  }
 }

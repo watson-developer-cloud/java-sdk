@@ -12,8 +12,23 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /** Returns the top documents ranked by the score of the query. */
 public class QueryAggregationQueryTopHitsAggregation extends QueryAggregation {
 
+  protected List<QueryTopHitsAggregationResult> results;
+
   protected QueryAggregationQueryTopHitsAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryTopHitsAggregationResult> getResults() {
+    return results;
+  }
 }

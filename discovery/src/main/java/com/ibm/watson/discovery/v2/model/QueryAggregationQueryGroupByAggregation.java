@@ -12,8 +12,23 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /** Separates document results into groups that meet the conditions you specify. */
 public class QueryAggregationQueryGroupByAggregation extends QueryAggregation {
 
+  protected List<QueryGroupByAggregationResult> results;
+
   protected QueryAggregationQueryGroupByAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryGroupByAggregationResult> getResults() {
+    return results;
+  }
 }

@@ -12,11 +12,26 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /**
  * Numeric interval segments to categorize documents by using field values from a single numeric
  * field to describe the category.
  */
 public class QueryAggregationQueryHistogramAggregation extends QueryAggregation {
 
+  protected List<QueryHistogramAggregationResult> results;
+
   protected QueryAggregationQueryHistogramAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryHistogramAggregationResult> getResults() {
+    return results;
+  }
 }

@@ -12,8 +12,23 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /** A specialized histogram aggregation that uses dates to create interval segments. */
 public class QueryAggregationQueryTimesliceAggregation extends QueryAggregation {
 
+  protected List<QueryTimesliceAggregationResult> results;
+
   protected QueryAggregationQueryTimesliceAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryTimesliceAggregationResult> getResults() {
+    return results;
+  }
 }
