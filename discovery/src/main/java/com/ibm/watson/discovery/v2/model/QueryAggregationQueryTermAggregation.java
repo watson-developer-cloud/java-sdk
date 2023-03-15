@@ -12,8 +12,23 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /** Returns results from the field that is specified. */
 public class QueryAggregationQueryTermAggregation extends QueryAggregation {
 
+  protected List<QueryTermAggregationResult> results;
+
   protected QueryAggregationQueryTermAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryTermAggregationResult> getResults() {
+    return results;
+  }
 }

@@ -12,11 +12,26 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /**
  * Calculates relevancy values using combinations of document sets from results of the specified
  * pair of aggregations.
  */
 public class QueryAggregationQueryPairAggregation extends QueryAggregation {
 
+  protected List<QueryPairAggregationResult> results;
+
   protected QueryAggregationQueryPairAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryPairAggregationResult> getResults() {
+    return results;
+  }
 }

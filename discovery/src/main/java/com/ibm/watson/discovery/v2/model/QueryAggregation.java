@@ -56,7 +56,6 @@ public class QueryAggregation extends GenericModel {
   protected String field;
   protected Long count;
   protected String name;
-  protected List<QueryTermAggregationResult> results;
   protected Long interval;
   protected String path;
 
@@ -128,17 +127,6 @@ public class QueryAggregation extends GenericModel {
    */
   public String getName() {
     return name;
-  }
-
-  /**
-   * Gets the results.
-   *
-   * <p>An array of results.
-   *
-   * @return the results
-   */
-  public List<QueryTermAggregationResult> getResults() {
-    return results;
   }
 
   /**

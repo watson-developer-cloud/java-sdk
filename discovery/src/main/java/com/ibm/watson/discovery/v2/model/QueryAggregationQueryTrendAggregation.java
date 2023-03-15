@@ -12,11 +12,26 @@
  */
 package com.ibm.watson.discovery.v2.model;
 
+import java.util.List;
+
 /**
  * Detects sharp and unexpected changes in the frequency of a facet or facet value over time based
  * on the past history of frequency changes of the facet value.
  */
 public class QueryAggregationQueryTrendAggregation extends QueryAggregation {
 
+  protected List<QueryTrendAggregationResult> results;
+
   protected QueryAggregationQueryTrendAggregation() {}
+
+  /**
+   * Gets the results.
+   *
+   * <p>An array of results.
+   *
+   * @return the results
+   */
+  public List<QueryTrendAggregationResult> getResults() {
+    return results;
+  }
 }
