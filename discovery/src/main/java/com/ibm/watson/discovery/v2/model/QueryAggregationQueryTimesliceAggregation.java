@@ -17,9 +17,23 @@ import java.util.List;
 /** A specialized histogram aggregation that uses dates to create interval segments. */
 public class QueryAggregationQueryTimesliceAggregation extends QueryAggregation {
 
+  protected String interval;
+
   protected List<QueryTimesliceAggregationResult> results;
 
   protected QueryAggregationQueryTimesliceAggregation() {}
+
+
+  /**
+    * Gets the interval.
+    *
+    * <p>The date interval value.
+    *
+    * @return the interval
+    */
+  public String getInterval() {
+    return interval;
+  }
 
   /**
    * Gets the results.

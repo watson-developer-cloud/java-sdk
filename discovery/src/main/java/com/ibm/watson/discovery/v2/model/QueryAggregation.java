@@ -56,7 +56,6 @@ public class QueryAggregation extends GenericModel {
   protected String field;
   protected Long count;
   protected String name;
-  protected Long interval;
   protected String path;
 
   @SerializedName("matching_results")
@@ -127,17 +126,6 @@ public class QueryAggregation extends GenericModel {
    */
   public String getName() {
     return name;
-  }
-
-  /**
-   * Gets the interval.
-   *
-   * <p>The size of the sections that the results are split into.
-   *
-   * @return the interval
-   */
-  public Long getInterval() {
-    return interval;
   }
 
   /**

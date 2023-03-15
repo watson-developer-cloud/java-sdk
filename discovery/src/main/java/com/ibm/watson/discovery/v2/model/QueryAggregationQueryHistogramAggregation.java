@@ -20,9 +20,22 @@ import java.util.List;
  */
 public class QueryAggregationQueryHistogramAggregation extends QueryAggregation {
 
+  protected Long interval;
+
   protected List<QueryHistogramAggregationResult> results;
 
   protected QueryAggregationQueryHistogramAggregation() {}
+
+  /**
+    * Gets the interval.
+    *
+    * <p>The size of the sections that the results are split into.
+    *
+    * @return the interval
+    */
+  public Long getInterval() {
+    return interval;
+  }
 
   /**
    * Gets the results.
