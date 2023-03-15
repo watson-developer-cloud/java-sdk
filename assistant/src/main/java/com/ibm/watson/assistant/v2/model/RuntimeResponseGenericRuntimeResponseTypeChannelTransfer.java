@@ -12,10 +12,13 @@
  */
 package com.ibm.watson.assistant.v2.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /** RuntimeResponseGenericRuntimeResponseTypeChannelTransfer. */
 public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     extends RuntimeResponseGeneric {
 
+  @SerializedName("transfer_info")
   protected ChannelTransferInfo transferInfo;
 
   protected RuntimeResponseGenericRuntimeResponseTypeChannelTransfer() {}
