@@ -22,7 +22,7 @@
         <!-- >>> Replace this with the name of your SDK's github repository -->
         <git-repository-name>java-sdk</git-repository-name>
 
-        <testng-version>7.4.0</testng-version>
+        <testng-version>7.7.0</testng-version>
         <okhttp3-version>4.9.0</okhttp3-version>
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
