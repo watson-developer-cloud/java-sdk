@@ -1,3 +1,28 @@
+# [11.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v10.1.0...v11.0.0) (2023-03-16)
+
+
+### Features
+
+* **assistantv1:** update based on api definitions ([d2aebb9](https://github.com/watson-developer-cloud/java-sdk/commit/d2aebb9b0f9428b9ba7673f6e768049df32acac7))
+* **assistantv2:** add new assistant, environment, and skills lifecycle methods ([aaf9b77](https://github.com/watson-developer-cloud/java-sdk/commit/aaf9b773317042358240fb62fd369dad69678092))
+* **discoveryv1:** update based on latest api definitions ([a810f01](https://github.com/watson-developer-cloud/java-sdk/commit/a810f01ef76b8513f26c0fc1a0e07a06d5bad50c))
+* **discoveryv2:** update based on api definitions ([1e2682f](https://github.com/watson-developer-cloud/java-sdk/commit/1e2682f82318500d817c4a9e78493277773780f1))
+* **language translator:** update based on api definitions ([d45607b](https://github.com/watson-developer-cloud/java-sdk/commit/d45607b472b5c1899cba393e628c1d632ffcf6f0))
+* **natural language understanding:** update based on api definitions ([a743cb7](https://github.com/watson-developer-cloud/java-sdk/commit/a743cb7f774b66790da4e9fbe059602e93cbbf6f))
+* **speech to text:** update based on new api definitions ([0a7058b](https://github.com/watson-developer-cloud/java-sdk/commit/0a7058bc169c8d39a7e541b677108e75d2067bbe))
+* **text to speech:** update based on api definitions ([54fd47d](https://github.com/watson-developer-cloud/java-sdk/commit/54fd47dd50ea517834c4109a1ecca87785662507))
+
+
+### BREAKING CHANGES
+
+* **natural language understanding:** removes the 'sentimentModel' functions and models
+* **discoveryv2:** enrichmentId is now a required param for 'DocumentClassifierEnrichment' model.
+'confidence' property has been removed from 'QueryResponsePassage' and 'QueryResultPassage' models.
+Breaking interface changes to handling aggregation discriminators.
+* **assistantv2:** 'createSession' param replaced with 'requestAnalytics' param. 'language' property
+removed from 'Environment' model. method name changes in environment and release models.
+* **assistantv1:** public interface 'Model' in 'WorkspaceSystemSettingsNlp' has been removed
+
 # [10.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v10.0.1...v10.1.0) (2022-08-10)
 
 
