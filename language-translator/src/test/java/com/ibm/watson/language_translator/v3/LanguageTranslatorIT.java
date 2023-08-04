@@ -17,8 +17,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.http.Response;
 import com.ibm.cloud.sdk.core.security.Authenticator;
@@ -32,6 +30,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,12 +46,11 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   private LanguageTranslator service;
 
   private final Map<String, String> translations =
-      ImmutableMap.of(
-          "The IBM Watson team is awesome",
-          "El equipo de IBM Watson es impresionante",
-          "Welcome to the cognitive era",
-          "Bienvenido a la era cognitiva");
-  private final List<String> texts = ImmutableList.copyOf(translations.keySet());
+      new HashMap<String, String>() {{
+        put("The IBM Watson team is awesome", "El equipo de IBM Watson es impresionante");
+        put("Welcome to the cognitive era", "Bienvenido a la era cognitiva");
+      }};
+  private final List<String> texts = new ArrayList<>(translations.keySet());
 
   /**
    * Sets up the tests.

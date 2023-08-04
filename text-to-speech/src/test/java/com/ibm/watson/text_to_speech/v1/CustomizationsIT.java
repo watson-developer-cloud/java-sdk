@@ -18,7 +18,6 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.google.common.collect.ImmutableList;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.security.Authenticator;
 import com.ibm.cloud.sdk.core.security.IamAuthenticator;
@@ -28,6 +27,8 @@ import com.ibm.watson.common.WatsonServiceTest;
 import com.ibm.watson.text_to_speech.v1.model.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -79,7 +80,7 @@ public class CustomizationsIT extends WatsonServiceTest {
             .word("shocking")
             .translation("<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>")
             .build();
-    return ImmutableList.of(word1, word2);
+    return Collections.unmodifiableList(Arrays.asList(word1, word2));
   }
 
   private List<Word> instantiateWordsJapanese() {
@@ -95,7 +96,7 @@ public class CustomizationsIT extends WatsonServiceTest {
             .translation("close the door")
             .partOfSpeech(Word.PartOfSpeech.HOKA)
             .build();
-    return ImmutableList.of(word1, word2);
+    return Collections.unmodifiableList(Arrays.asList(word1, word2));
   }
 
   private CustomModel createCustomModel() {

@@ -17,12 +17,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.ibm.cloud.sdk.core.security.NoAuthAuthenticator;
 import com.ibm.watson.common.WatsonServiceUnitTest;
 import com.ibm.watson.text_to_speech.v1.model.*;
-import java.util.List;
+import java.util.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
@@ -80,7 +78,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   private static List<Word> instantiateWords() {
-    return ImmutableList.of(instantiateWord());
+    return Collections.unmodifiableList(Arrays.asList(instantiateWord()));
   }
 
   /**
@@ -331,7 +329,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testListWords() throws InterruptedException {
     final List<Word> expected = instantiateWords();
 
-    server.enqueue(jsonResponse(ImmutableMap.of(WORDS, expected)));
+    server.enqueue(hashmapToJsonResponse(new HashMap<String, List<Word>>() {{
+        put(WORDS, expected);
+      }}));
     ListWordsOptions listOptions =
         new ListWordsOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final Words result = service.listWords(listOptions).execute().getResult();
@@ -351,7 +351,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testGetWord() throws InterruptedException {
     final Word expected = instantiateWords().get(0);
 
-    server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.translation())));
+    Map<String, String> map = new HashMap<String, String>() {{
+      put(TRANSLATION, expected.translation());
+    }};
+
+    server.enqueue(hashmapToJsonResponse(map));
     GetWordOptions getOptions =
         new GetWordOptions.Builder()
             .customizationId(CUSTOMIZATION_ID)
