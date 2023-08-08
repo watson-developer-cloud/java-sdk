@@ -13,9 +13,12 @@
 package com.ibm.watson.common;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.cloud.sdk.core.http.HttpMediaType;
 import com.ibm.cloud.sdk.core.util.GsonSingleton;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.apache.commons.lang3.StringUtils;
@@ -80,5 +83,19 @@ public class WatsonServiceUnitTest extends WatsonServiceTest {
     return new MockResponse()
         .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
         .setBody(GSON.toJson(body));
+  }
+
+  /**
+   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
+   * For HashMaps
+   *
+   * @param body the body
+   * @return the mock response
+   */
+  protected static MockResponse hashmapToJsonResponse(Object body) {
+    Type typeObject = new TypeToken<HashMap>() {}.getType();
+    return new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(body, typeObject));
   }
 }
