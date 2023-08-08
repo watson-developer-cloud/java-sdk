@@ -1,3 +1,10 @@
+## [11.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v11.0.0...v11.0.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* **pom:** upgrade sdk-core ([#1220](https://github.com/watson-developer-cloud/java-sdk/issues/1220)) ([5ce39c7](https://github.com/watson-developer-cloud/java-sdk/commit/5ce39c7c800bd8ae7b4dfa17ffdaf7a865f1fc4c))
+
 # [11.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v10.1.0...v11.0.0) (2023-03-16)
 
 
