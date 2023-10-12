@@ -1,10 +1,8 @@
 # Watson APIs Java SDK
 [![Build and Test](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/build-test.yml/badge.svg)](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/build-test.yml)
 [![Deploy and Publish](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/deploy.yml/badge.svg)](https://github.com/watson-developer-cloud/java-sdk/actions/workflows/deploy.yml)
-[![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson/ibm-watson)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## Deprecated builds
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
