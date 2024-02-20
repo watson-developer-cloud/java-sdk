@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,9 +72,9 @@ public class TokenDictRule extends GenericModel {
     }
 
     /**
-     * Adds an tokens to tokens.
+     * Adds a new element to tokens.
      *
-     * @param tokens the new tokens
+     * @param tokens the new element to be added
      * @return the TokenDictRule builder
      */
     public Builder addTokens(String tokens) {
@@ -87,9 +87,9 @@ public class TokenDictRule extends GenericModel {
     }
 
     /**
-     * Adds an readings to readings.
+     * Adds a new element to readings.
      *
-     * @param readings the new readings
+     * @param readings the new element to be added
      * @return the TokenDictRule builder
      */
     public Builder addReadings(String readings) {

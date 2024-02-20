@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,9 +73,9 @@ public class Expansion extends GenericModel {
     }
 
     /**
-     * Adds an inputTerms to inputTerms.
+     * Adds a new element to inputTerms.
      *
-     * @param inputTerms the new inputTerms
+     * @param inputTerms the new element to be added
      * @return the Expansion builder
      */
     public Builder addInputTerms(String inputTerms) {
@@ -88,9 +88,9 @@ public class Expansion extends GenericModel {
     }
 
     /**
-     * Adds an expandedTerms to expandedTerms.
+     * Adds a new element to expandedTerms.
      *
-     * @param expandedTerms the new expandedTerms
+     * @param expandedTerms the new element to be added
      * @return the Expansion builder
      */
     public Builder addExpandedTerms(String expandedTerms) {

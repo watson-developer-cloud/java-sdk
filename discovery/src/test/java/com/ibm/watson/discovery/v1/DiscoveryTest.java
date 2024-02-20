@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -521,7 +521,7 @@ public class DiscoveryTest {
   public void testCreateConfigurationWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 2, \"request_timeout\": 30000, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String createConfigurationPath = "/v1/environments/testString/configurations";
     server.enqueue(
         new MockResponse()
@@ -725,8 +725,8 @@ public class DiscoveryTest {
             .limitToStartingHosts(true)
             .crawlSpeed("normal")
             .allowUntrustedCertificate(false)
-            .maximumHops(Long.valueOf("26"))
-            .requestTimeout(Long.valueOf("26"))
+            .maximumHops(Long.valueOf("2"))
+            .requestTimeout(Long.valueOf("30000"))
             .overrideRobotsTxt(false)
             .blacklist(java.util.Arrays.asList("testString"))
             .build();
@@ -809,7 +809,7 @@ public class DiscoveryTest {
   public void testListConfigurationsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"configurations\": [{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}]}";
+        "{\"configurations\": [{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 2, \"request_timeout\": 30000, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}]}";
     String listConfigurationsPath = "/v1/environments/testString/configurations";
     server.enqueue(
         new MockResponse()
@@ -867,7 +867,7 @@ public class DiscoveryTest {
   public void testGetConfigurationWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 2, \"request_timeout\": 30000, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String getConfigurationPath = "/v1/environments/testString/configurations/testString";
     server.enqueue(
         new MockResponse()
@@ -924,7 +924,7 @@ public class DiscoveryTest {
   public void testUpdateConfigurationWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 11, \"request_timeout\": 14, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
+        "{\"configuration_id\": \"configurationId\", \"name\": \"name\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"description\": \"description\", \"conversions\": {\"pdf\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}]}}, \"word\": {\"heading\": {\"fonts\": [{\"level\": 5, \"min_size\": 7, \"max_size\": 7, \"bold\": true, \"italic\": true, \"name\": \"name\"}], \"styles\": [{\"level\": 5, \"names\": [\"names\"]}]}}, \"html\": {\"exclude_tags_completely\": [\"excludeTagsCompletely\"], \"exclude_tags_keep_content\": [\"excludeTagsKeepContent\"], \"keep_content\": {\"xpaths\": [\"xpaths\"]}, \"exclude_content\": {\"xpaths\": [\"xpaths\"]}, \"keep_tag_attributes\": [\"keepTagAttributes\"], \"exclude_tag_attributes\": [\"excludeTagAttributes\"]}, \"segment\": {\"enabled\": false, \"selector_tags\": [\"selectorTags\"], \"annotated_fields\": [\"annotatedFields\"]}, \"json_normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"image_text_recognition\": true}, \"enrichments\": [{\"description\": \"description\", \"destination_field\": \"destinationField\", \"source_field\": \"sourceField\", \"overwrite\": false, \"enrichment\": \"enrichment\", \"ignore_downstream_errors\": false, \"options\": {\"features\": {\"keywords\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5}, \"entities\": {\"sentiment\": false, \"emotion\": false, \"limit\": 5, \"mentions\": true, \"mention_types\": true, \"sentence_locations\": false, \"model\": \"model\"}, \"sentiment\": {\"document\": true, \"targets\": [\"target\"]}, \"emotion\": {\"document\": true, \"targets\": [\"target\"]}, \"categories\": {\"anyKey\": \"anyValue\"}, \"semantic_roles\": {\"entities\": true, \"keywords\": true, \"limit\": 5}, \"relations\": {\"model\": \"model\"}, \"concepts\": {\"limit\": 5}}, \"language\": \"ar\", \"model\": \"model\"}}], \"normalizations\": [{\"operation\": \"copy\", \"source_field\": \"sourceField\", \"destination_field\": \"destinationField\"}], \"source\": {\"type\": \"box\", \"credential_id\": \"credentialId\", \"schedule\": {\"enabled\": true, \"time_zone\": \"America/New_York\", \"frequency\": \"daily\"}, \"options\": {\"folders\": [{\"owner_user_id\": \"ownerUserId\", \"folder_id\": \"folderId\", \"limit\": 5}], \"objects\": [{\"name\": \"name\", \"limit\": 5}], \"site_collections\": [{\"site_collection_path\": \"siteCollectionPath\", \"limit\": 5}], \"urls\": [{\"url\": \"url\", \"limit_to_starting_hosts\": true, \"crawl_speed\": \"normal\", \"allow_untrusted_certificate\": false, \"maximum_hops\": 2, \"request_timeout\": 30000, \"override_robots_txt\": false, \"blacklist\": [\"blacklist\"]}], \"buckets\": [{\"name\": \"name\", \"limit\": 5}], \"crawl_all_buckets\": false}}}";
     String updateConfigurationPath = "/v1/environments/testString/configurations/testString";
     server.enqueue(
         new MockResponse()
@@ -1128,8 +1128,8 @@ public class DiscoveryTest {
             .limitToStartingHosts(true)
             .crawlSpeed("normal")
             .allowUntrustedCertificate(false)
-            .maximumHops(Long.valueOf("26"))
-            .requestTimeout(Long.valueOf("26"))
+            .maximumHops(Long.valueOf("2"))
+            .requestTimeout(Long.valueOf("30000"))
             .overrideRobotsTxt(false)
             .blacklist(java.util.Arrays.asList("testString"))
             .build();
@@ -2399,14 +2399,14 @@ public class DiscoveryTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
             .highlight(false)
             .passagesFields("testString")
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicate(false)
             .deduplicateField("testString")
             .similar(false)
@@ -2476,14 +2476,14 @@ public class DiscoveryTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
             .passagesFields(java.util.Arrays.asList("testString"))
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicateField("testString")
             .similar(false)
             .similarDocumentIds(java.util.Arrays.asList("testString"))
@@ -2513,7 +2513,7 @@ public class DiscoveryTest {
     assertEquals(query.get("natural_language_query"), "testString");
     assertEquals(Boolean.valueOf(query.get("passages")), Boolean.valueOf(true));
     assertEquals(query.get("aggregation"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
     assertEquals(
         query.get("return"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
@@ -2522,8 +2522,8 @@ public class DiscoveryTest {
     assertEquals(
         query.get("passages.fields"),
         RequestUtils.join(java.util.Arrays.asList("testString"), ","));
-    assertEquals(Long.valueOf(query.get("passages.count")), Long.valueOf("100"));
-    assertEquals(Long.valueOf(query.get("passages.characters")), Long.valueOf("50"));
+    assertEquals(Long.valueOf(query.get("passages.count")), Long.valueOf("10"));
+    assertEquals(Long.valueOf(query.get("passages.characters")), Long.valueOf("400"));
     assertEquals(query.get("deduplicate.field"), "testString");
     assertEquals(Boolean.valueOf(query.get("similar")), Boolean.valueOf(false));
     assertEquals(
@@ -2573,14 +2573,14 @@ public class DiscoveryTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
             .highlight(false)
             .passagesFields("testString")
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicate(false)
             .deduplicateField("testString")
             .similar(false)
@@ -2649,7 +2649,7 @@ public class DiscoveryTest {
             .query("testString")
             .naturalLanguageQuery("testString")
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
@@ -2684,7 +2684,7 @@ public class DiscoveryTest {
     assertEquals(query.get("query"), "testString");
     assertEquals(query.get("natural_language_query"), "testString");
     assertEquals(query.get("aggregation"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
     assertEquals(
         query.get("return"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
@@ -2736,7 +2736,7 @@ public class DiscoveryTest {
             .collectionId("testString")
             .prefix("testString")
             .field("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("5"))
             .build();
 
     // Invoke getAutocompletion() with a valid options model and verify the result
@@ -2759,7 +2759,7 @@ public class DiscoveryTest {
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("prefix"), "testString");
     assertEquals(query.get("field"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("5"));
   }
 
   // Test the getAutocompletion operation with and without retries enabled
@@ -3501,7 +3501,7 @@ public class DiscoveryTest {
         new QueryLogOptions.Builder()
             .filter("testString")
             .query("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
             .build();
@@ -3525,7 +3525,7 @@ public class DiscoveryTest {
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("filter"), "testString");
     assertEquals(query.get("query"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
     assertEquals(query.get("sort"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
   }
@@ -3763,7 +3763,7 @@ public class DiscoveryTest {
 
     // Construct an instance of the GetMetricsQueryTokenEventOptions model
     GetMetricsQueryTokenEventOptions getMetricsQueryTokenEventOptionsModel =
-        new GetMetricsQueryTokenEventOptions.Builder().count(Long.valueOf("26")).build();
+        new GetMetricsQueryTokenEventOptions.Builder().count(Long.valueOf("10")).build();
 
     // Invoke getMetricsQueryTokenEvent() with a valid options model and verify the result
     Response<MetricTokenResponse> response =
@@ -3783,7 +3783,7 @@ public class DiscoveryTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
   }
 
   // Test the getMetricsQueryTokenEvent operation with and without retries enabled

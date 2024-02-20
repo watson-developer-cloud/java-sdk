@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ public class ListDocumentsOptionsTest {
         new ListDocumentsOptions.Builder()
             .projectId("testString")
             .collectionId("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("1000"))
             .status("testString")
             .hasNotices(true)
             .isParent(true)
@@ -43,7 +43,7 @@ public class ListDocumentsOptionsTest {
             .build();
     assertEquals(listDocumentsOptionsModel.projectId(), "testString");
     assertEquals(listDocumentsOptionsModel.collectionId(), "testString");
-    assertEquals(listDocumentsOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(listDocumentsOptionsModel.count(), Long.valueOf("1000"));
     assertEquals(listDocumentsOptionsModel.status(), "testString");
     assertEquals(listDocumentsOptionsModel.hasNotices(), Boolean.valueOf(true));
     assertEquals(listDocumentsOptionsModel.isParent(), Boolean.valueOf(true));

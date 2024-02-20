@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,9 +47,9 @@ public class PdfHeadingDetection extends GenericModel {
     }
 
     /**
-     * Adds an fontSetting to fonts.
+     * Adds a new element to fonts.
      *
-     * @param fontSetting the new fontSetting
+     * @param fontSetting the new element to be added
      * @return the PdfHeadingDetection builder
      */
     public Builder addFontSetting(FontSetting fontSetting) {

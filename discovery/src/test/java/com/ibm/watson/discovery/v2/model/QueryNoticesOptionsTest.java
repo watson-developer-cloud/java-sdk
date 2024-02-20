@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,14 +36,14 @@ public class QueryNoticesOptionsTest {
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .offset(Long.valueOf("26"))
             .build();
     assertEquals(queryNoticesOptionsModel.projectId(), "testString");
     assertEquals(queryNoticesOptionsModel.filter(), "testString");
     assertEquals(queryNoticesOptionsModel.query(), "testString");
     assertEquals(queryNoticesOptionsModel.naturalLanguageQuery(), "testString");
-    assertEquals(queryNoticesOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(queryNoticesOptionsModel.count(), Long.valueOf("10"));
     assertEquals(queryNoticesOptionsModel.offset(), Long.valueOf("26"));
   }
 

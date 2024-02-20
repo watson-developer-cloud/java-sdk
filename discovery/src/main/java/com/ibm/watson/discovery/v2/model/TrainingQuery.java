@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,9 +73,9 @@ public class TrainingQuery extends GenericModel {
     }
 
     /**
-     * Adds an examples to examples.
+     * Adds a new element to examples.
      *
-     * @param examples the new examples
+     * @param examples the new element to be added
      * @return the TrainingQuery builder
      */
     public Builder addExamples(TrainingExample examples) {
@@ -166,7 +166,10 @@ public class TrainingQuery extends GenericModel {
   /**
    * Gets the filter.
    *
-   * <p>The filter used on the collection before the **natural_language_query** is applied.
+   * <p>The filter used on the collection before the **natural_language_query** is applied. Only
+   * specify a filter if the documents that you consider to be most relevant are not included in the
+   * top 100 results when you submit test queries. If you specify a filter during training, apply
+   * the same filter to queries that are submitted at runtime for optimal ranking results.
    *
    * @return the filter
    */

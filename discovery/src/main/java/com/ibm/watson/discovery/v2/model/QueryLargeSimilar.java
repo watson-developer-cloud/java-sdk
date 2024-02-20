@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -61,9 +61,9 @@ public class QueryLargeSimilar extends GenericModel {
     }
 
     /**
-     * Adds an documentIds to documentIds.
+     * Adds a new element to documentIds.
      *
-     * @param documentIds the new documentIds
+     * @param documentIds the new element to be added
      * @return the QueryLargeSimilar builder
      */
     public Builder addDocumentIds(String documentIds) {
@@ -76,9 +76,9 @@ public class QueryLargeSimilar extends GenericModel {
     }
 
     /**
-     * Adds an fields to fields.
+     * Adds a new element to fields.
      *
-     * @param fields the new fields
+     * @param fields the new element to be added
      * @return the QueryLargeSimilar builder
      */
     public Builder addFields(String fields) {

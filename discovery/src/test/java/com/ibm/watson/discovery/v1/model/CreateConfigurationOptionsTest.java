@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -283,8 +283,8 @@ public class CreateConfigurationOptionsTest {
             .limitToStartingHosts(true)
             .crawlSpeed("normal")
             .allowUntrustedCertificate(false)
-            .maximumHops(Long.valueOf("26"))
-            .requestTimeout(Long.valueOf("26"))
+            .maximumHops(Long.valueOf("2"))
+            .requestTimeout(Long.valueOf("30000"))
             .overrideRobotsTxt(false)
             .blacklist(java.util.Arrays.asList("testString"))
             .build();
@@ -292,8 +292,8 @@ public class CreateConfigurationOptionsTest {
     assertEquals(sourceOptionsWebCrawlModel.limitToStartingHosts(), Boolean.valueOf(true));
     assertEquals(sourceOptionsWebCrawlModel.crawlSpeed(), "normal");
     assertEquals(sourceOptionsWebCrawlModel.allowUntrustedCertificate(), Boolean.valueOf(false));
-    assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("26"));
-    assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("26"));
+    assertEquals(sourceOptionsWebCrawlModel.maximumHops(), Long.valueOf("2"));
+    assertEquals(sourceOptionsWebCrawlModel.requestTimeout(), Long.valueOf("30000"));
     assertEquals(sourceOptionsWebCrawlModel.overrideRobotsTxt(), Boolean.valueOf(false));
     assertEquals(sourceOptionsWebCrawlModel.blacklist(), java.util.Arrays.asList("testString"));
 

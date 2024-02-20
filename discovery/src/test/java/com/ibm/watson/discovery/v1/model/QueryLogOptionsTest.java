@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,13 +34,13 @@ public class QueryLogOptionsTest {
         new QueryLogOptions.Builder()
             .filter("testString")
             .query("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
             .build();
     assertEquals(queryLogOptionsModel.filter(), "testString");
     assertEquals(queryLogOptionsModel.query(), "testString");
-    assertEquals(queryLogOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(queryLogOptionsModel.count(), Long.valueOf("10"));
     assertEquals(queryLogOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(queryLogOptionsModel.sort(), java.util.Arrays.asList("testString"));
   }

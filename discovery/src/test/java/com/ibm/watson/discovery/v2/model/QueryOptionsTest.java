@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -49,7 +49,7 @@ public class QueryOptionsTest {
             .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
             .findAnswers(false)
-            .maxAnswersPerPassage(Long.valueOf("26"))
+            .maxAnswersPerPassage(Long.valueOf("1"))
             .build();
     assertEquals(queryLargePassagesModel.enabled(), Boolean.valueOf(true));
     assertEquals(queryLargePassagesModel.perDocument(), Boolean.valueOf(true));
@@ -58,7 +58,7 @@ public class QueryOptionsTest {
     assertEquals(queryLargePassagesModel.count(), Long.valueOf("400"));
     assertEquals(queryLargePassagesModel.characters(), Long.valueOf("50"));
     assertEquals(queryLargePassagesModel.findAnswers(), Boolean.valueOf(false));
-    assertEquals(queryLargePassagesModel.maxAnswersPerPassage(), Long.valueOf("26"));
+    assertEquals(queryLargePassagesModel.maxAnswersPerPassage(), Long.valueOf("1"));
 
     QueryLargeSimilar queryLargeSimilarModel =
         new QueryLargeSimilar.Builder()

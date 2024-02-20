@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -58,9 +58,9 @@ public class SegmentSettings extends GenericModel {
     }
 
     /**
-     * Adds an selectorTags to selectorTags.
+     * Adds a new element to selectorTags.
      *
-     * @param selectorTags the new selectorTags
+     * @param selectorTags the new element to be added
      * @return the SegmentSettings builder
      */
     public Builder addSelectorTags(String selectorTags) {
@@ -73,9 +73,9 @@ public class SegmentSettings extends GenericModel {
     }
 
     /**
-     * Adds an annotatedFields to annotatedFields.
+     * Adds a new element to annotatedFields.
      *
-     * @param annotatedFields the new annotatedFields
+     * @param annotatedFields the new element to be added
      * @return the SegmentSettings builder
      */
     public Builder addAnnotatedFields(String annotatedFields) {
@@ -170,11 +170,11 @@ public class SegmentSettings extends GenericModel {
    * <p>Defines the annotated smart document understanding fields that the document is split on. The
    * content of the annotated field that the segmentation splits at is used as the **title** field
    * for that segmented result. For example, if the field `sub-title` is specified, when a document
-   * is uploaded each time the smart documement understanding conversion encounters a field of type
+   * is uploaded each time the smart document understanding conversion encounters a field of type
    * `sub-title` the document is split at that point and the content of the field used as the title
-   * of the remaining content. Thnis split is performed for all instances of the listed fields in
-   * the uploaded document. Only valid if used with a collection that has **enabled** set to `true`
-   * in the **smart_document_understanding** object.
+   * of the remaining content. This split is performed for all instances of the listed fields in the
+   * uploaded document. Only valid if used with a collection that has **enabled** set to `true` in
+   * the **smart_document_understanding** object.
    *
    * @return the annotatedFields
    */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -74,9 +74,9 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Adds an excludeTagsCompletely to excludeTagsCompletely.
+     * Adds a new element to excludeTagsCompletely.
      *
-     * @param excludeTagsCompletely the new excludeTagsCompletely
+     * @param excludeTagsCompletely the new element to be added
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagsCompletely(String excludeTagsCompletely) {
@@ -90,9 +90,9 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Adds an excludeTagsKeepContent to excludeTagsKeepContent.
+     * Adds a new element to excludeTagsKeepContent.
      *
-     * @param excludeTagsKeepContent the new excludeTagsKeepContent
+     * @param excludeTagsKeepContent the new element to be added
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagsKeepContent(String excludeTagsKeepContent) {
@@ -106,9 +106,9 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Adds an keepTagAttributes to keepTagAttributes.
+     * Adds a new element to keepTagAttributes.
      *
-     * @param keepTagAttributes the new keepTagAttributes
+     * @param keepTagAttributes the new element to be added
      * @return the HtmlSettings builder
      */
     public Builder addKeepTagAttributes(String keepTagAttributes) {
@@ -122,9 +122,9 @@ public class HtmlSettings extends GenericModel {
     }
 
     /**
-     * Adds an excludeTagAttributes to excludeTagAttributes.
+     * Adds a new element to excludeTagAttributes.
      *
-     * @param excludeTagAttributes the new excludeTagAttributes
+     * @param excludeTagAttributes the new element to be added
      * @return the HtmlSettings builder
      */
     public Builder addExcludeTagAttributes(String excludeTagAttributes) {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -56,9 +56,9 @@ public class Expansions extends GenericModel {
     }
 
     /**
-     * Adds an expansions to expansions.
+     * Adds a new element to expansions.
      *
-     * @param expansions the new expansions
+     * @param expansions the new element to be added
      * @return the Expansions builder
      */
     public Builder addExpansions(Expansion expansions) {

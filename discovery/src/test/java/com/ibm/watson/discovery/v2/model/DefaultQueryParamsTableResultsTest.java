@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,11 +34,11 @@ public class DefaultQueryParamsTableResultsTest {
         new DefaultQueryParamsTableResults.Builder()
             .enabled(true)
             .count(Long.valueOf("26"))
-            .perDocument(Long.valueOf("26"))
+            .perDocument(Long.valueOf("0"))
             .build();
     assertEquals(defaultQueryParamsTableResultsModel.enabled(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsTableResultsModel.count(), Long.valueOf("26"));
-    assertEquals(defaultQueryParamsTableResultsModel.perDocument(), Long.valueOf("26"));
+    assertEquals(defaultQueryParamsTableResultsModel.perDocument(), Long.valueOf("0"));
 
     String json = TestUtilities.serialize(defaultQueryParamsTableResultsModel);
 
@@ -47,6 +47,6 @@ public class DefaultQueryParamsTableResultsTest {
     assertTrue(defaultQueryParamsTableResultsModelNew instanceof DefaultQueryParamsTableResults);
     assertEquals(defaultQueryParamsTableResultsModelNew.enabled(), Boolean.valueOf(true));
     assertEquals(defaultQueryParamsTableResultsModelNew.count(), Long.valueOf("26"));
-    assertEquals(defaultQueryParamsTableResultsModelNew.perDocument(), Long.valueOf("26"));
+    assertEquals(defaultQueryParamsTableResultsModelNew.perDocument(), Long.valueOf("0"));
   }
 }
