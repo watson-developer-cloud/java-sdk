@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,27 +44,28 @@ public class CreateJobOptionsTest {
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
-            .inactivityTimeout(Long.valueOf("26"))
+            .inactivityTimeout(Long.valueOf("30"))
             .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
-            .maxAlternatives(Long.valueOf("26"))
+            .maxAlternatives(Long.valueOf("1"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
             .wordConfidence(false)
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
+            .smartFormattingVersion(false)
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
             .processingMetrics(false)
-            .processingMetricsInterval(Float.valueOf("36.0"))
+            .processingMetricsInterval(Float.valueOf("1.0"))
             .audioMetrics(false)
-            .endOfPhraseSilenceTime(Double.valueOf("72.5"))
+            .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
-            .speechDetectorSensitivity(Float.valueOf("36.0"))
-            .backgroundAudioSuppression(Float.valueOf("36.0"))
+            .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
-            .characterInsertionBias(Float.valueOf("36.0"))
+            .characterInsertionBias(Float.valueOf("0.0"))
             .build();
     assertEquals(
         IOUtils.toString(createJobOptionsModel.audio()),
@@ -79,27 +80,28 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(createJobOptionsModel.baseModelVersion(), "testString");
     assertEquals(createJobOptionsModel.customizationWeight(), Double.valueOf("72.5"));
-    assertEquals(createJobOptionsModel.inactivityTimeout(), Long.valueOf("26"));
+    assertEquals(createJobOptionsModel.inactivityTimeout(), Long.valueOf("30"));
     assertEquals(createJobOptionsModel.keywords(), java.util.Arrays.asList("testString"));
     assertEquals(createJobOptionsModel.keywordsThreshold(), Float.valueOf("36.0"));
-    assertEquals(createJobOptionsModel.maxAlternatives(), Long.valueOf("26"));
+    assertEquals(createJobOptionsModel.maxAlternatives(), Long.valueOf("1"));
     assertEquals(createJobOptionsModel.wordAlternativesThreshold(), Float.valueOf("36.0"));
     assertEquals(createJobOptionsModel.wordConfidence(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.timestamps(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(createJobOptionsModel.smartFormatting(), Boolean.valueOf(false));
+    assertEquals(createJobOptionsModel.smartFormattingVersion(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.speakerLabels(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.grammarName(), "testString");
     assertEquals(createJobOptionsModel.redaction(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.processingMetrics(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.processingMetricsInterval(), Float.valueOf("36.0"));
+    assertEquals(createJobOptionsModel.processingMetricsInterval(), Float.valueOf("1.0"));
     assertEquals(createJobOptionsModel.audioMetrics(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("72.5"));
+    assertEquals(createJobOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("0.8"));
     assertEquals(createJobOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
-    assertEquals(createJobOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
+    assertEquals(createJobOptionsModel.speechDetectorSensitivity(), Float.valueOf("0.5"));
+    assertEquals(createJobOptionsModel.backgroundAudioSuppression(), Float.valueOf("0.0"));
     assertEquals(createJobOptionsModel.lowLatency(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.characterInsertionBias(), Float.valueOf("36.0"));
+    assertEquals(createJobOptionsModel.characterInsertionBias(), Float.valueOf("0.0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,6 +32,7 @@ public class WordTest {
   public void testWord() throws Throwable {
     Word wordModel = new Word();
     assertNull(wordModel.getWord());
+    assertNull(wordModel.getMappingOnly());
     assertNull(wordModel.getSoundsLike());
     assertNull(wordModel.getDisplayAs());
     assertNull(wordModel.getCount());

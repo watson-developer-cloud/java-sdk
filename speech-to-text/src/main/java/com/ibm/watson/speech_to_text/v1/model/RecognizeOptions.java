@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -197,6 +197,7 @@ public class RecognizeOptions extends GenericModel {
   protected Boolean timestamps;
   protected Boolean profanityFilter;
   protected Boolean smartFormatting;
+  protected Boolean smartFormattingVersion;
   protected Boolean speakerLabels;
   protected String grammarName;
   protected Boolean redaction;
@@ -226,6 +227,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean timestamps;
     private Boolean profanityFilter;
     private Boolean smartFormatting;
+    private Boolean smartFormattingVersion;
     private Boolean speakerLabels;
     private String grammarName;
     private Boolean redaction;
@@ -259,6 +261,7 @@ public class RecognizeOptions extends GenericModel {
       this.timestamps = recognizeOptions.timestamps;
       this.profanityFilter = recognizeOptions.profanityFilter;
       this.smartFormatting = recognizeOptions.smartFormatting;
+      this.smartFormattingVersion = recognizeOptions.smartFormattingVersion;
       this.speakerLabels = recognizeOptions.speakerLabels;
       this.grammarName = recognizeOptions.grammarName;
       this.redaction = recognizeOptions.redaction;
@@ -293,9 +296,9 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Adds an keyword to keywords.
+     * Adds a new element to keywords.
      *
-     * @param keyword the new keyword
+     * @param keyword the new element to be added
      * @return the RecognizeOptions builder
      */
     public Builder addKeyword(String keyword) {
@@ -484,6 +487,17 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the smartFormattingVersion.
+     *
+     * @param smartFormattingVersion the smartFormattingVersion
+     * @return the RecognizeOptions builder
+     */
+    public Builder smartFormattingVersion(Boolean smartFormattingVersion) {
+      this.smartFormattingVersion = smartFormattingVersion;
+      return this;
+    }
+
+    /**
      * Set the speakerLabels.
      *
      * @param speakerLabels the speakerLabels
@@ -626,6 +640,7 @@ public class RecognizeOptions extends GenericModel {
     timestamps = builder.timestamps;
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
+    smartFormattingVersion = builder.smartFormattingVersion;
     speakerLabels = builder.speakerLabels;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
@@ -909,6 +924,18 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean smartFormatting() {
     return smartFormatting;
+  }
+
+  /**
+   * Gets the smartFormattingVersion.
+   *
+   * <p>Smart formatting version is for next-generation models and that is supported in US English,
+   * Brazilian Portuguese, French and German languages.
+   *
+   * @return the smartFormattingVersion
+   */
+  public Boolean smartFormattingVersion() {
+    return smartFormattingVersion;
   }
 
   /**

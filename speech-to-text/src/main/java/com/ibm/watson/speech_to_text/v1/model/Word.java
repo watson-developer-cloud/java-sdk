@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,6 +20,9 @@ import java.util.List;
 public class Word extends GenericModel {
 
   protected String word;
+
+  @SerializedName("mapping_only")
+  protected List<String> mappingOnly;
 
   @SerializedName("sounds_like")
   protected List<String> soundsLike;
@@ -43,6 +46,21 @@ public class Word extends GenericModel {
    */
   public String getWord() {
     return word;
+  }
+
+  /**
+   * Gets the mappingOnly.
+   *
+   * <p>(Optional) Parameter for custom words. You can use the 'mapping_only' key in custom words as
+   * a form of post processing. A boolean value that indicates whether the added word should be used
+   * to fine-tune the mode for selected next-gen models. This field appears in the response body
+   * only when it's 'For a custom model that is based on a previous-generation model', the
+   * mapping_only field is populated with the value set by the user, but would not be used.
+   *
+   * @return the mappingOnly
+   */
+  public List<String> getMappingOnly() {
+    return mappingOnly;
   }
 
   /**
