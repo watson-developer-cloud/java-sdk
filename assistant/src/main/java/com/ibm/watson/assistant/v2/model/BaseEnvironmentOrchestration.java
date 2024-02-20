@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,9 +76,9 @@ public class BaseEnvironmentOrchestration extends GenericModel {
   /**
    * Gets the searchSkillFallback.
    *
-   * <p>Whether assistants deployed to the environment fall back to a search skill when responding
-   * to messages that do not match any intent. If no search skill is configured for the assistant,
-   * this property is ignored.
+   * <p>Whether to fall back to a search skill when responding to messages that do not match any
+   * intent or action defined in dialog or action skills. (If no search skill is configured for the
+   * environment, this property is ignored.).
    *
    * @return the searchSkillFallback
    */

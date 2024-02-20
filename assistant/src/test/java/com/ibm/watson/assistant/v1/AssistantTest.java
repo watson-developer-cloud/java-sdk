@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -498,7 +498,7 @@ public class AssistantTest {
     // Construct an instance of the ListWorkspacesOptions model
     ListWorkspacesOptions listWorkspacesOptionsModel =
         new ListWorkspacesOptions.Builder()
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("name")
             .cursor("testString")
@@ -523,7 +523,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "name");
     assertEquals(query.get("cursor"), "testString");
@@ -567,7 +567,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -581,7 +581,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -591,7 +591,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -873,7 +873,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -887,7 +887,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -897,7 +897,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -1176,7 +1176,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -1190,7 +1190,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -1200,7 +1200,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -1418,7 +1418,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -1432,7 +1432,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -1442,7 +1442,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -1723,7 +1723,7 @@ public class AssistantTest {
         new ListIntentsOptions.Builder()
             .workspaceId("testString")
             .export(false)
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("intent")
             .cursor("testString")
@@ -1749,7 +1749,7 @@ public class AssistantTest {
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
     assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "intent");
     assertEquals(query.get("cursor"), "testString");
@@ -2050,7 +2050,7 @@ public class AssistantTest {
         new ListExamplesOptions.Builder()
             .workspaceId("testString")
             .intent("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("text")
             .cursor("testString")
@@ -2075,7 +2075,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "text");
     assertEquals(query.get("cursor"), "testString");
@@ -2364,7 +2364,7 @@ public class AssistantTest {
     ListCounterexamplesOptions listCounterexamplesOptionsModel =
         new ListCounterexamplesOptions.Builder()
             .workspaceId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("text")
             .cursor("testString")
@@ -2389,7 +2389,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "text");
     assertEquals(query.get("cursor"), "testString");
@@ -2661,7 +2661,7 @@ public class AssistantTest {
         new ListEntitiesOptions.Builder()
             .workspaceId("testString")
             .export(false)
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("entity")
             .cursor("testString")
@@ -2687,7 +2687,7 @@ public class AssistantTest {
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
     assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "entity");
     assertEquals(query.get("cursor"), "testString");
@@ -3046,7 +3046,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .entity("testString")
             .export(false)
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("value")
             .cursor("testString")
@@ -3072,7 +3072,7 @@ public class AssistantTest {
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
     assertEquals(Boolean.valueOf(query.get("export")), Boolean.valueOf(false));
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "value");
     assertEquals(query.get("cursor"), "testString");
@@ -3358,7 +3358,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .entity("testString")
             .value("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("synonym")
             .cursor("testString")
@@ -3383,7 +3383,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "synonym");
     assertEquals(query.get("cursor"), "testString");
@@ -3664,7 +3664,7 @@ public class AssistantTest {
     ListDialogNodesOptions listDialogNodesOptionsModel =
         new ListDialogNodesOptions.Builder()
             .workspaceId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("dialog_node")
             .cursor("testString")
@@ -3689,7 +3689,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "dialog_node");
     assertEquals(query.get("cursor"), "testString");
@@ -3740,7 +3740,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -3754,7 +3754,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -3764,7 +3764,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -3936,7 +3936,7 @@ public class AssistantTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
 
@@ -3950,7 +3950,7 @@ public class AssistantTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -3960,7 +3960,7 @@ public class AssistantTest {
         new DialogNodeContext.Builder()
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .add("foo", "testString")
             .build();
 
@@ -4118,7 +4118,7 @@ public class AssistantTest {
             .workspaceId("testString")
             .sort("testString")
             .filter("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .cursor("testString")
             .build();
 
@@ -4141,7 +4141,7 @@ public class AssistantTest {
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("sort"), "testString");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(query.get("cursor"), "testString");
   }
 
@@ -4180,7 +4180,7 @@ public class AssistantTest {
         new ListAllLogsOptions.Builder()
             .filter("testString")
             .sort("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .cursor("testString")
             .build();
 
@@ -4204,7 +4204,7 @@ public class AssistantTest {
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("filter"), "testString");
     assertEquals(query.get("sort"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(query.get("cursor"), "testString");
   }
 

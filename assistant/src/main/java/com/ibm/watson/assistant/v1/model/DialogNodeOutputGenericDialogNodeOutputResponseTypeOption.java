@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,9 +80,9 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     }
 
     /**
-     * Adds an options to options.
+     * Adds a new element to options.
      *
-     * @param options the new options
+     * @param options the new element to be added
      * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeOption builder
      */
     public Builder addOptions(DialogNodeOutputOptionsElement options) {
@@ -95,9 +95,9 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeOption
     }
 
     /**
-     * Adds an channels to channels.
+     * Adds a new element to channels.
      *
-     * @param channels the new channels
+     * @param channels the new element to be added
      * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypeOption builder
      */
     public Builder addChannels(ResponseGenericChannel channels) {

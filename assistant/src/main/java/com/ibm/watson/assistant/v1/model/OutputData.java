@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -85,9 +85,9 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an nodesVisited to nodesVisited.
+     * Adds a new element to nodesVisited.
      *
-     * @param nodesVisited the new nodesVisited
+     * @param nodesVisited the new element to be added
      * @return the OutputData builder
      */
     public Builder addNodesVisited(String nodesVisited) {
@@ -100,9 +100,9 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an nodesVisitedDetails to nodesVisitedDetails.
+     * Adds a new element to nodesVisitedDetails.
      *
-     * @param nodesVisitedDetails the new nodesVisitedDetails
+     * @param nodesVisitedDetails the new element to be added
      * @return the OutputData builder
      */
     public Builder addNodesVisitedDetails(DialogNodeVisitedDetails nodesVisitedDetails) {
@@ -116,9 +116,9 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an logMessages to logMessages.
+     * Adds a new element to logMessages.
      *
-     * @param logMessages the new logMessages
+     * @param logMessages the new element to be added
      * @return the OutputData builder
      */
     public Builder addLogMessages(LogMessage logMessages) {
@@ -131,9 +131,9 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an generic to generic.
+     * Adds a new element to generic.
      *
-     * @param generic the new generic
+     * @param generic the new element to be added
      * @return the OutputData builder
      */
     public Builder addGeneric(RuntimeResponseGeneric generic) {

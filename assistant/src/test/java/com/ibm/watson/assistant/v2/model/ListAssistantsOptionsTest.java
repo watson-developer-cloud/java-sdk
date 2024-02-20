@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,13 +32,13 @@ public class ListAssistantsOptionsTest {
   public void testListAssistantsOptions() throws Throwable {
     ListAssistantsOptions listAssistantsOptionsModel =
         new ListAssistantsOptions.Builder()
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("name")
             .cursor("testString")
             .includeAudit(false)
             .build();
-    assertEquals(listAssistantsOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listAssistantsOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listAssistantsOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listAssistantsOptionsModel.sort(), "name");
     assertEquals(listAssistantsOptionsModel.cursor(), "testString");

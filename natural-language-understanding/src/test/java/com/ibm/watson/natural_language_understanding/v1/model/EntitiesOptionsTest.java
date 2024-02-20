@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,13 +32,13 @@ public class EntitiesOptionsTest {
   public void testEntitiesOptions() throws Throwable {
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .mentions(false)
             .model("testString")
             .sentiment(false)
             .emotion(false)
             .build();
-    assertEquals(entitiesOptionsModel.limit(), Long.valueOf("250"));
+    assertEquals(entitiesOptionsModel.limit(), Long.valueOf("50"));
     assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModel.model(), "testString");
     assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(false));
@@ -49,7 +49,7 @@ public class EntitiesOptionsTest {
     EntitiesOptions entitiesOptionsModelNew =
         TestUtilities.deserialize(json, EntitiesOptions.class);
     assertTrue(entitiesOptionsModelNew instanceof EntitiesOptions);
-    assertEquals(entitiesOptionsModelNew.limit(), Long.valueOf("250"));
+    assertEquals(entitiesOptionsModelNew.limit(), Long.valueOf("50"));
     assertEquals(entitiesOptionsModelNew.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModelNew.model(), "testString");
     assertEquals(entitiesOptionsModelNew.sentiment(), Boolean.valueOf(false));

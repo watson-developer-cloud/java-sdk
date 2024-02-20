@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -135,7 +135,7 @@ public class TextToSpeechTest {
     // Register a mock response
     String mockResponseBody =
         "{\"url\": \"url\", \"gender\": \"gender\", \"name\": \"name\", \"language\": \"language\", \"description\": \"description\", \"customizable\": true, \"supported_features\": {\"custom_pronunciation\": false, \"voice_transformation\": false}, \"customization\": {\"customization_id\": \"customizationId\", \"name\": \"name\", \"language\": \"language\", \"owner\": \"owner\", \"created\": \"created\", \"last_modified\": \"lastModified\", \"description\": \"description\", \"words\": [{\"word\": \"word\", \"translation\": \"translation\", \"part_of_speech\": \"Dosi\"}], \"prompts\": [{\"prompt\": \"prompt\", \"prompt_id\": \"promptId\", \"status\": \"status\", \"error\": \"error\", \"speaker_id\": \"speakerId\"}]}}";
-    String getVoicePath = "/v1/voices/ar-MS_OmarVoice";
+    String getVoicePath = "/v1/voices/de-DE_BirgitV3Voice";
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
@@ -145,7 +145,7 @@ public class TextToSpeechTest {
     // Construct an instance of the GetVoiceOptions model
     GetVoiceOptions getVoiceOptionsModel =
         new GetVoiceOptions.Builder()
-            .voice("ar-MS_OmarVoice")
+            .voice("de-DE_BirgitV3Voice")
             .customizationId("testString")
             .build();
 
@@ -205,8 +205,8 @@ public class TextToSpeechTest {
             .voice("en-US_MichaelV3Voice")
             .customizationId("testString")
             .spellOutMode("default")
-            .ratePercentage(Long.valueOf("26"))
-            .pitchPercentage(Long.valueOf("26"))
+            .ratePercentage(Long.valueOf("0"))
+            .pitchPercentage(Long.valueOf("0"))
             .build();
 
     // Invoke synthesize() with a valid options model and verify the result
@@ -230,8 +230,8 @@ public class TextToSpeechTest {
     assertEquals(query.get("voice"), "en-US_MichaelV3Voice");
     assertEquals(query.get("customization_id"), "testString");
     assertEquals(query.get("spell_out_mode"), "default");
-    assertEquals(Long.valueOf(query.get("rate_percentage")), Long.valueOf("26"));
-    assertEquals(Long.valueOf(query.get("pitch_percentage")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("rate_percentage")), Long.valueOf("0"));
+    assertEquals(Long.valueOf(query.get("pitch_percentage")), Long.valueOf("0"));
   }
 
   // Test the synthesize operation with and without retries enabled
@@ -384,7 +384,7 @@ public class TextToSpeechTest {
 
     // Construct an instance of the ListCustomModelsOptions model
     ListCustomModelsOptions listCustomModelsOptionsModel =
-        new ListCustomModelsOptions.Builder().language("ar-MS").build();
+        new ListCustomModelsOptions.Builder().language("de-DE").build();
 
     // Invoke listCustomModels() with a valid options model and verify the result
     Response<CustomModels> response =
@@ -403,7 +403,7 @@ public class TextToSpeechTest {
     // Verify query params
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
-    assertEquals(query.get("language"), "ar-MS");
+    assertEquals(query.get("language"), "de-DE");
   }
 
   // Test the listCustomModels operation with and without retries enabled

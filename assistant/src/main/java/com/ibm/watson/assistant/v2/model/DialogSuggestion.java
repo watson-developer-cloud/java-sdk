@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,7 +55,7 @@ public class DialogSuggestion extends GenericModel {
   /**
    * Gets the output.
    *
-   * <p>The dialog output that will be returned from the Watson Assistant service if the user
+   * <p>The dialog output that will be returned from the watsonx Assistant service if the user
    * selects the corresponding option.
    *
    * @return the output

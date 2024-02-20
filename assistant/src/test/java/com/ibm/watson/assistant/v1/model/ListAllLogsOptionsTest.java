@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,12 +34,12 @@ public class ListAllLogsOptionsTest {
         new ListAllLogsOptions.Builder()
             .filter("testString")
             .sort("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .cursor("testString")
             .build();
     assertEquals(listAllLogsOptionsModel.filter(), "testString");
     assertEquals(listAllLogsOptionsModel.sort(), "testString");
-    assertEquals(listAllLogsOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listAllLogsOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listAllLogsOptionsModel.cursor(), "testString");
   }
 

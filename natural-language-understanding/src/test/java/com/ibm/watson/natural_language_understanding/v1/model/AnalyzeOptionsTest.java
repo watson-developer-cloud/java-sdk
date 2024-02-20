@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,8 +35,8 @@ public class AnalyzeOptionsTest {
     assertEquals(classificationsOptionsModel.model(), "testString");
 
     ConceptsOptions conceptsOptionsModel =
-        new ConceptsOptions.Builder().limit(Long.valueOf("50")).build();
-    assertEquals(conceptsOptionsModel.limit(), Long.valueOf("50"));
+        new ConceptsOptions.Builder().limit(Long.valueOf("8")).build();
+    assertEquals(conceptsOptionsModel.limit(), Long.valueOf("8"));
 
     EmotionOptions emotionOptionsModel =
         new EmotionOptions.Builder()
@@ -48,13 +48,13 @@ public class AnalyzeOptionsTest {
 
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .mentions(false)
             .model("testString")
             .sentiment(false)
             .emotion(false)
             .build();
-    assertEquals(entitiesOptionsModel.limit(), Long.valueOf("250"));
+    assertEquals(entitiesOptionsModel.limit(), Long.valueOf("50"));
     assertEquals(entitiesOptionsModel.mentions(), Boolean.valueOf(false));
     assertEquals(entitiesOptionsModel.model(), "testString");
     assertEquals(entitiesOptionsModel.sentiment(), Boolean.valueOf(false));
@@ -62,11 +62,11 @@ public class AnalyzeOptionsTest {
 
     KeywordsOptions keywordsOptionsModel =
         new KeywordsOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .sentiment(false)
             .emotion(false)
             .build();
-    assertEquals(keywordsOptionsModel.limit(), Long.valueOf("250"));
+    assertEquals(keywordsOptionsModel.limit(), Long.valueOf("50"));
     assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(false));
     assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(false));
 
@@ -76,11 +76,11 @@ public class AnalyzeOptionsTest {
 
     SemanticRolesOptions semanticRolesOptionsModel =
         new SemanticRolesOptions.Builder()
-            .limit(Long.valueOf("26"))
+            .limit(Long.valueOf("50"))
             .keywords(false)
             .entities(false)
             .build();
-    assertEquals(semanticRolesOptionsModel.limit(), Long.valueOf("26"));
+    assertEquals(semanticRolesOptionsModel.limit(), Long.valueOf("50"));
     assertEquals(semanticRolesOptionsModel.keywords(), Boolean.valueOf(false));
     assertEquals(semanticRolesOptionsModel.entities(), Boolean.valueOf(false));
 
@@ -93,17 +93,17 @@ public class AnalyzeOptionsTest {
     assertEquals(sentimentOptionsModel.targets(), java.util.Arrays.asList("testString"));
 
     SummarizationOptions summarizationOptionsModel =
-        new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
-    assertEquals(summarizationOptionsModel.limit(), Long.valueOf("10"));
+        new SummarizationOptions.Builder().limit(Long.valueOf("3")).build();
+    assertEquals(summarizationOptionsModel.limit(), Long.valueOf("3"));
 
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
             .explanation(false)
-            .limit(Long.valueOf("10"))
+            .limit(Long.valueOf("3"))
             .model("testString")
             .build();
     assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(false));
-    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
+    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("3"));
     assertEquals(categoriesOptionsModel.model(), "testString");
 
     SyntaxOptionsTokens syntaxOptionsTokensModel =

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,9 +59,9 @@ public class CaptureGroup extends GenericModel {
     }
 
     /**
-     * Adds an location to location.
+     * Adds a new element to location.
      *
-     * @param location the new location
+     * @param location the new element to be added
      * @return the CaptureGroup builder
      */
     public Builder addLocation(Long location) {

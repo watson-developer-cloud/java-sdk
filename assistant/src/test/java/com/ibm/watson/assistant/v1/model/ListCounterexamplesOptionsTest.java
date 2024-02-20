@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,14 +33,14 @@ public class ListCounterexamplesOptionsTest {
     ListCounterexamplesOptions listCounterexamplesOptionsModel =
         new ListCounterexamplesOptions.Builder()
             .workspaceId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("text")
             .cursor("testString")
             .includeAudit(false)
             .build();
     assertEquals(listCounterexamplesOptionsModel.workspaceId(), "testString");
-    assertEquals(listCounterexamplesOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listCounterexamplesOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listCounterexamplesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listCounterexamplesOptionsModel.sort(), "text");
     assertEquals(listCounterexamplesOptionsModel.cursor(), "testString");

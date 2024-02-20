@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ public class ListEntitiesOptionsTest {
         new ListEntitiesOptions.Builder()
             .workspaceId("testString")
             .export(false)
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("entity")
             .cursor("testString")
@@ -42,7 +42,7 @@ public class ListEntitiesOptionsTest {
             .build();
     assertEquals(listEntitiesOptionsModel.workspaceId(), "testString");
     assertEquals(listEntitiesOptionsModel.export(), Boolean.valueOf(false));
-    assertEquals(listEntitiesOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listEntitiesOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listEntitiesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listEntitiesOptionsModel.sort(), "entity");
     assertEquals(listEntitiesOptionsModel.cursor(), "testString");

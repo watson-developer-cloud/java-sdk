@@ -329,9 +329,13 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testListWords() throws InterruptedException {
     final List<Word> expected = instantiateWords();
 
-    server.enqueue(hashmapToJsonResponse(new HashMap<String, List<Word>>() {{
-        put(WORDS, expected);
-      }}));
+    server.enqueue(
+        hashmapToJsonResponse(
+            new HashMap<String, List<Word>>() {
+              {
+                put(WORDS, expected);
+              }
+            }));
     ListWordsOptions listOptions =
         new ListWordsOptions.Builder().customizationId(CUSTOMIZATION_ID).build();
     final Words result = service.listWords(listOptions).execute().getResult();
@@ -351,9 +355,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void testGetWord() throws InterruptedException {
     final Word expected = instantiateWords().get(0);
 
-    Map<String, String> map = new HashMap<String, String>() {{
-      put(TRANSLATION, expected.translation());
-    }};
+    Map<String, String> map =
+        new HashMap<String, String>() {
+          {
+            put(TRANSLATION, expected.translation());
+          }
+        };
 
     server.enqueue(hashmapToJsonResponse(map));
     GetWordOptions getOptions =

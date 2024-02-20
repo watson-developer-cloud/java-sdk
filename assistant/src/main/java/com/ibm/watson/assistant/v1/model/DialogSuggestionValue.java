@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,9 +59,9 @@ public class DialogSuggestionValue extends GenericModel {
     }
 
     /**
-     * Adds an intents to intents.
+     * Adds a new element to intents.
      *
-     * @param intents the new intents
+     * @param intents the new element to be added
      * @return the DialogSuggestionValue builder
      */
     public Builder addIntents(RuntimeIntent intents) {
@@ -74,9 +74,9 @@ public class DialogSuggestionValue extends GenericModel {
     }
 
     /**
-     * Adds an entities to entities.
+     * Adds a new element to entities.
      *
-     * @param entities the new entities
+     * @param entities the new element to be added
      * @return the DialogSuggestionValue builder
      */
     public Builder addEntities(RuntimeEntity entities) {

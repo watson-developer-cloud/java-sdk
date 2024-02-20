@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,14 +31,14 @@ public class ConceptsOptionsTest {
   @Test
   public void testConceptsOptions() throws Throwable {
     ConceptsOptions conceptsOptionsModel =
-        new ConceptsOptions.Builder().limit(Long.valueOf("50")).build();
-    assertEquals(conceptsOptionsModel.limit(), Long.valueOf("50"));
+        new ConceptsOptions.Builder().limit(Long.valueOf("8")).build();
+    assertEquals(conceptsOptionsModel.limit(), Long.valueOf("8"));
 
     String json = TestUtilities.serialize(conceptsOptionsModel);
 
     ConceptsOptions conceptsOptionsModelNew =
         TestUtilities.deserialize(json, ConceptsOptions.class);
     assertTrue(conceptsOptionsModelNew instanceof ConceptsOptions);
-    assertEquals(conceptsOptionsModelNew.limit(), Long.valueOf("50"));
+    assertEquals(conceptsOptionsModelNew.limit(), Long.valueOf("8"));
   }
 }

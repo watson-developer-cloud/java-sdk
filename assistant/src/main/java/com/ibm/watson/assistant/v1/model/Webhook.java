@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -68,9 +68,9 @@ public class Webhook extends GenericModel {
     }
 
     /**
-     * Adds an headers to headers.
+     * Adds a new element to headers.
      *
-     * @param headers the new headers
+     * @param headers the new element to be added
      * @return the Webhook builder
      */
     public Builder addHeaders(WebhookHeader headers) {

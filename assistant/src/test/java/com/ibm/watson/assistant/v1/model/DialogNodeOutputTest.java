@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,7 +43,7 @@ public class DialogNodeOutputTest {
             .responseType("text")
             .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
             .selectionPolicy("sequential")
-            .delimiter("\n")
+            .delimiter("\\n")
             .channels(java.util.Arrays.asList(responseGenericChannelModel))
             .build();
     assertEquals(dialogNodeOutputGenericModel.responseType(), "text");
@@ -51,7 +51,7 @@ public class DialogNodeOutputTest {
         dialogNodeOutputGenericModel.values(),
         java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel));
     assertEquals(dialogNodeOutputGenericModel.selectionPolicy(), "sequential");
-    assertEquals(dialogNodeOutputGenericModel.delimiter(), "\n");
+    assertEquals(dialogNodeOutputGenericModel.delimiter(), "\\n");
     assertEquals(
         dialogNodeOutputGenericModel.channels(),
         java.util.Arrays.asList(responseGenericChannelModel));
@@ -65,7 +65,7 @@ public class DialogNodeOutputTest {
             .generic(java.util.Arrays.asList(dialogNodeOutputGenericModel))
             .integrations(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .modifiers(dialogNodeOutputModifiersModel)
             .add("foo", "testString")
             .build();
@@ -74,7 +74,7 @@ public class DialogNodeOutputTest {
     assertEquals(
         dialogNodeOutputModel.getIntegrations(),
         java.util.Collections.singletonMap(
-            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
+            "key1", java.util.Collections.singletonMap("anyKey", "anyValue")));
     assertEquals(dialogNodeOutputModel.getModifiers(), dialogNodeOutputModifiersModel);
     assertEquals(dialogNodeOutputModel.get("foo"), "testString");
 

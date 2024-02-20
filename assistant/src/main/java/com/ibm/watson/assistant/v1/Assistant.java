@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 package com.ibm.watson.assistant.v1;
@@ -691,7 +691,7 @@ public class Assistant extends BaseService {
    *
    * <p>A successful call to this method only initiates asynchronous creation of the workspace. The
    * new workspace is not available until processing completes. To check the status of the
-   * asynchronous operation, use the **Export workspace asynchronously** method.
+   * asynchronous operation, use the **Get information about a workspace** method.
    *
    * @param createWorkspaceAsyncOptions the {@link CreateWorkspaceAsyncOptions} containing the
    *     options for the call
@@ -786,7 +786,7 @@ public class Assistant extends BaseService {
    *
    * <p>A successful call to this method only initiates asynchronous creation of the workspace. The
    * new workspace is not available until processing completes. To check the status of the
-   * asynchronous operation, use the **Export workspace asynchronously** method.
+   * asynchronous operation, use the **Get information about a workspace** method.
    *
    * @return a {@link ServiceCall} with a result of type {@link Workspace}
    */
@@ -802,7 +802,7 @@ public class Assistant extends BaseService {
    *
    * <p>A successful call to this method only initiates an asynchronous update of the workspace. The
    * updated workspace is not available until processing completes. To check the status of the
-   * asynchronous operation, use the **Export workspace asynchronously** method.
+   * asynchronous operation, use the **Get information about a workspace** method.
    *
    * @param updateWorkspaceAsyncOptions the {@link UpdateWorkspaceAsyncOptions} containing the
    *     options for the call

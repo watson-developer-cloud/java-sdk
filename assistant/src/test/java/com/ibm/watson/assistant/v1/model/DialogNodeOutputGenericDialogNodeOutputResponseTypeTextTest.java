@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,7 +44,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
                 .responseType("text")
                 .values(java.util.Arrays.asList(dialogNodeOutputTextValuesElementModel))
                 .selectionPolicy("sequential")
-                .delimiter("\n")
+                .delimiter("\\n")
                 .channels(java.util.Arrays.asList(responseGenericChannelModel))
                 .build();
     assertEquals(
@@ -55,7 +55,7 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.selectionPolicy(),
         "sequential");
-    assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "\n");
+    assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.delimiter(), "\\n");
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModel.channels(),
         java.util.Arrays.asList(responseGenericChannelModel));
@@ -75,7 +75,8 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypeTextTest {
     assertEquals(
         dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.selectionPolicy(),
         "sequential");
-    assertEquals(dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.delimiter(), "\n");
+    assertEquals(
+        dialogNodeOutputGenericDialogNodeOutputResponseTypeTextModelNew.delimiter(), "\\n");
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

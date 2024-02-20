@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -96,9 +96,9 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Adds an synonym to newSynonyms.
+     * Adds a new element to newSynonyms.
      *
-     * @param synonym the new synonym
+     * @param synonym the new element to be added
      * @return the UpdateValueOptions builder
      */
     public Builder addSynonym(String synonym) {
@@ -111,9 +111,9 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Adds an pattern to newPatterns.
+     * Adds a new element to newPatterns.
      *
-     * @param pattern the new pattern
+     * @param pattern the new element to be added
      * @return the UpdateValueOptions builder
      */
     public Builder addPattern(String pattern) {

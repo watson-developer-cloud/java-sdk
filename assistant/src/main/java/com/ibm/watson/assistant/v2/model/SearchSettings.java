@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,7 +15,12 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** An object describing the search skill configuration. */
+/**
+ * An object describing the search skill configuration.
+ *
+ * <p>**Note:** Search settings are not supported in **Import skills** requests, and are not
+ * included in **Export skills** responses.
+ */
 public class SearchSettings extends GenericModel {
 
   protected SearchSettingsDiscovery discovery;

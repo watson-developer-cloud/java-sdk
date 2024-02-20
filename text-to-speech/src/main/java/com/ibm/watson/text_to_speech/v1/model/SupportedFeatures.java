@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -41,10 +41,10 @@ public class SupportedFeatures extends GenericModel {
   /**
    * Gets the voiceTransformation.
    *
-   * <p>If `true`, the voice can be transformed by using the SSML
-   * &amp;lt;voice-transformation&amp;gt; element; if `false`, the voice cannot be transformed. The
-   * feature was available only for the now-deprecated standard voices. You cannot use the feature
-   * with neural voices.
+   * <p>If `true`, the voice can be transformed by using the SSML `&lt;voice-transformation&gt;`
+   * element; if `false`, the voice cannot be transformed. **Note:** The SSML
+   * `&lt;voice-transformation&gt;` element is obsolete. You can no longer use the element with any
+   * supported voice.
    *
    * @return the voiceTransformation
    */

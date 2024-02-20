@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -150,7 +150,7 @@ public class ListLogsOptions extends GenericModel {
    * environment ID of the environment where the assistant is deployed. - For all other requests,
    * specify the assistant ID of the assistant.
    *
-   * <p>To find the environment ID or assistant ID in the Watson Assistant user interface, open the
+   * <p>To find the environment ID or assistant ID in the watsonx Assistant user interface, open the
    * assistant settings and scroll to the **Environments** section.
    *
    * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
@@ -192,6 +192,8 @@ public class ListLogsOptions extends GenericModel {
    * Gets the pageLimit.
    *
    * <p>The number of records to return in each page of results.
+   *
+   * <p>**Note:** If the API is not returning your data, try lowering the page_limit value.
    *
    * @return the pageLimit
    */

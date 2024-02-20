@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,9 +80,9 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
-     * Adds an intent to intents.
+     * Adds a new element to intents.
      *
-     * @param intent the new intent
+     * @param intent the new element to be added
      * @return the MessageOptions builder
      */
     public Builder addIntent(RuntimeIntent intent) {
@@ -95,9 +95,9 @@ public class MessageOptions extends GenericModel {
     }
 
     /**
-     * Adds an entity to entities.
+     * Adds a new element to entities.
      *
-     * @param entity the new entity
+     * @param entity the new element to be added
      * @return the MessageOptions builder
      */
     public Builder addEntity(RuntimeEntity entity) {

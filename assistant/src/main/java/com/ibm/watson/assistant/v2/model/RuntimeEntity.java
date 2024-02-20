@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -82,9 +82,9 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Adds an location to location.
+     * Adds a new element to location.
      *
-     * @param location the new location
+     * @param location the new element to be added
      * @return the RuntimeEntity builder
      */
     public Builder addLocation(Long location) {
@@ -97,9 +97,9 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Adds an groups to groups.
+     * Adds a new element to groups.
      *
-     * @param groups the new groups
+     * @param groups the new element to be added
      * @return the RuntimeEntity builder
      */
     public Builder addGroups(CaptureGroup groups) {
@@ -112,9 +112,9 @@ public class RuntimeEntity extends GenericModel {
     }
 
     /**
-     * Adds an alternatives to alternatives.
+     * Adds a new element to alternatives.
      *
-     * @param alternatives the new alternatives
+     * @param alternatives the new element to be added
      * @return the RuntimeEntity builder
      */
     public Builder addAlternatives(RuntimeEntityAlternative alternatives) {
@@ -288,7 +288,7 @@ public class RuntimeEntity extends GenericModel {
   /**
    * Gets the confidence.
    *
-   * <p>A decimal percentage that represents Watson's confidence in the recognized entity.
+   * <p>A decimal percentage that represents confidence in the recognized entity.
    *
    * @return the confidence
    */
