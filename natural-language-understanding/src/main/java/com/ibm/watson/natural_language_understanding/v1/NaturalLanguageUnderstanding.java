@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 package com.ibm.watson.natural_language_understanding.v1;
@@ -64,7 +64,7 @@ import okhttp3.MultipartBody;
  * Understanding.
  *
  * <p>IBM is sunsetting Watson Natural Language Understanding Custom Sentiment (BETA). From **June
- * 1, 2023** onward, you will no longer be able to use the Custom Sentiment feature.&lt;br
+ * 3, 2023** onward, you will no longer be able to use the Custom Sentiment feature.&lt;br
  * /&gt;&lt;br /&gt;To ensure we continue providing our clients with robust and powerful text
  * classification capabilities, IBM recently announced the general availability of a new
  * [single-label text classification
@@ -331,6 +331,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     if (createCategoriesModelOptions.name() != null) {
       multipartBuilder.addFormDataPart("name", createCategoriesModelOptions.name());
     }
+    if (createCategoriesModelOptions.userMetadata() != null) {
+      multipartBuilder.addFormDataPart(
+          "user_metadata", String.valueOf(createCategoriesModelOptions.userMetadata()));
+    }
     if (createCategoriesModelOptions.description() != null) {
       multipartBuilder.addFormDataPart("description", createCategoriesModelOptions.description());
     }
@@ -460,6 +464,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     if (updateCategoriesModelOptions.name() != null) {
       multipartBuilder.addFormDataPart("name", updateCategoriesModelOptions.name());
     }
+    if (updateCategoriesModelOptions.userMetadata() != null) {
+      multipartBuilder.addFormDataPart(
+          "user_metadata", String.valueOf(updateCategoriesModelOptions.userMetadata()));
+    }
     if (updateCategoriesModelOptions.description() != null) {
       multipartBuilder.addFormDataPart("description", updateCategoriesModelOptions.description());
     }
@@ -550,6 +558,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
     if (createClassificationsModelOptions.name() != null) {
       multipartBuilder.addFormDataPart("name", createClassificationsModelOptions.name());
+    }
+    if (createClassificationsModelOptions.userMetadata() != null) {
+      multipartBuilder.addFormDataPart(
+          "user_metadata", String.valueOf(createClassificationsModelOptions.userMetadata()));
     }
     if (createClassificationsModelOptions.description() != null) {
       multipartBuilder.addFormDataPart(
@@ -687,6 +699,10 @@ public class NaturalLanguageUnderstanding extends BaseService {
     multipartBuilder.addFormDataPart("training_data", "filename", trainingDataBody);
     if (updateClassificationsModelOptions.name() != null) {
       multipartBuilder.addFormDataPart("name", updateClassificationsModelOptions.name());
+    }
+    if (updateClassificationsModelOptions.userMetadata() != null) {
+      multipartBuilder.addFormDataPart(
+          "user_metadata", String.valueOf(updateClassificationsModelOptions.userMetadata()));
     }
     if (updateClassificationsModelOptions.description() != null) {
       multipartBuilder.addFormDataPart(
