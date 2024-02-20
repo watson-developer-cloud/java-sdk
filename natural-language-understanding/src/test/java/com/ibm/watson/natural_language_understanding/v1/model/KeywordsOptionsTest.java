@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,11 +32,11 @@ public class KeywordsOptionsTest {
   public void testKeywordsOptions() throws Throwable {
     KeywordsOptions keywordsOptionsModel =
         new KeywordsOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .sentiment(false)
             .emotion(false)
             .build();
-    assertEquals(keywordsOptionsModel.limit(), Long.valueOf("250"));
+    assertEquals(keywordsOptionsModel.limit(), Long.valueOf("50"));
     assertEquals(keywordsOptionsModel.sentiment(), Boolean.valueOf(false));
     assertEquals(keywordsOptionsModel.emotion(), Boolean.valueOf(false));
 
@@ -45,7 +45,7 @@ public class KeywordsOptionsTest {
     KeywordsOptions keywordsOptionsModelNew =
         TestUtilities.deserialize(json, KeywordsOptions.class);
     assertTrue(keywordsOptionsModelNew instanceof KeywordsOptions);
-    assertEquals(keywordsOptionsModelNew.limit(), Long.valueOf("250"));
+    assertEquals(keywordsOptionsModelNew.limit(), Long.valueOf("50"));
     assertEquals(keywordsOptionsModelNew.sentiment(), Boolean.valueOf(false));
     assertEquals(keywordsOptionsModelNew.emotion(), Boolean.valueOf(false));
   }

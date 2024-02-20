@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,14 +33,14 @@ public class ListDialogNodesOptionsTest {
     ListDialogNodesOptions listDialogNodesOptionsModel =
         new ListDialogNodesOptions.Builder()
             .workspaceId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("dialog_node")
             .cursor("testString")
             .includeAudit(false)
             .build();
     assertEquals(listDialogNodesOptionsModel.workspaceId(), "testString");
-    assertEquals(listDialogNodesOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listDialogNodesOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listDialogNodesOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listDialogNodesOptionsModel.sort(), "dialog_node");
     assertEquals(listDialogNodesOptionsModel.cursor(), "testString");

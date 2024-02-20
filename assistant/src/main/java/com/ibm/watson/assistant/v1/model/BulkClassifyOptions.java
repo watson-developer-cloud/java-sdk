@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,9 +59,9 @@ public class BulkClassifyOptions extends GenericModel {
     }
 
     /**
-     * Adds an input to input.
+     * Adds a new element to input.
      *
-     * @param input the new input
+     * @param input the new element to be added
      * @return the BulkClassifyOptions builder
      */
     public Builder addInput(BulkClassifyUtterance input) {

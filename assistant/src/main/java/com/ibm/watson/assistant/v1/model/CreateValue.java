@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -80,9 +80,9 @@ public class CreateValue extends GenericModel {
     }
 
     /**
-     * Adds an synonym to synonyms.
+     * Adds a new element to synonyms.
      *
-     * @param synonym the new synonym
+     * @param synonym the new element to be added
      * @return the CreateValue builder
      */
     public Builder addSynonym(String synonym) {
@@ -95,9 +95,9 @@ public class CreateValue extends GenericModel {
     }
 
     /**
-     * Adds an pattern to patterns.
+     * Adds a new element to patterns.
      *
-     * @param pattern the new pattern
+     * @param pattern the new element to be added
      * @return the CreateValue builder
      */
     public Builder addPattern(String pattern) {

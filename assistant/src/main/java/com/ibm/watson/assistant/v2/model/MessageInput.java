@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -90,9 +90,9 @@ public class MessageInput extends GenericModel {
     }
 
     /**
-     * Adds an intent to intents.
+     * Adds a new element to intents.
      *
-     * @param intent the new intent
+     * @param intent the new element to be added
      * @return the MessageInput builder
      */
     public Builder addIntent(RuntimeIntent intent) {
@@ -105,9 +105,9 @@ public class MessageInput extends GenericModel {
     }
 
     /**
-     * Adds an entity to entities.
+     * Adds a new element to entities.
      *
-     * @param entity the new entity
+     * @param entity the new element to be added
      * @return the MessageInput builder
      */
     public Builder addEntity(RuntimeEntity entity) {
@@ -120,9 +120,9 @@ public class MessageInput extends GenericModel {
     }
 
     /**
-     * Adds an attachments to attachments.
+     * Adds a new element to attachments.
      *
-     * @param attachments the new attachments
+     * @param attachments the new element to be added
      * @return the MessageInput builder
      */
     public Builder addAttachments(MessageInputAttachment attachments) {

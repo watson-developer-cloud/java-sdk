@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -109,7 +109,7 @@ public class NaturalLanguageUnderstandingTest {
 
     // Construct an instance of the ConceptsOptions model
     ConceptsOptions conceptsOptionsModel =
-        new ConceptsOptions.Builder().limit(Long.valueOf("50")).build();
+        new ConceptsOptions.Builder().limit(Long.valueOf("8")).build();
 
     // Construct an instance of the EmotionOptions model
     EmotionOptions emotionOptionsModel =
@@ -121,7 +121,7 @@ public class NaturalLanguageUnderstandingTest {
     // Construct an instance of the EntitiesOptions model
     EntitiesOptions entitiesOptionsModel =
         new EntitiesOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .mentions(false)
             .model("testString")
             .sentiment(false)
@@ -131,7 +131,7 @@ public class NaturalLanguageUnderstandingTest {
     // Construct an instance of the KeywordsOptions model
     KeywordsOptions keywordsOptionsModel =
         new KeywordsOptions.Builder()
-            .limit(Long.valueOf("250"))
+            .limit(Long.valueOf("50"))
             .sentiment(false)
             .emotion(false)
             .build();
@@ -143,7 +143,7 @@ public class NaturalLanguageUnderstandingTest {
     // Construct an instance of the SemanticRolesOptions model
     SemanticRolesOptions semanticRolesOptionsModel =
         new SemanticRolesOptions.Builder()
-            .limit(Long.valueOf("26"))
+            .limit(Long.valueOf("50"))
             .keywords(false)
             .entities(false)
             .build();
@@ -157,13 +157,13 @@ public class NaturalLanguageUnderstandingTest {
 
     // Construct an instance of the SummarizationOptions model
     SummarizationOptions summarizationOptionsModel =
-        new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
+        new SummarizationOptions.Builder().limit(Long.valueOf("3")).build();
 
     // Construct an instance of the CategoriesOptions model
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
             .explanation(false)
-            .limit(Long.valueOf("10"))
+            .limit(Long.valueOf("3"))
             .model("testString")
             .build();
 
@@ -348,7 +348,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testCreateCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createCategoriesModelPath = "/v1/models/categories";
     server.enqueue(
         new MockResponse()
@@ -363,6 +363,7 @@ public class NaturalLanguageUnderstandingTest {
             .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .trainingDataContentType("json")
             .name("testString")
+            .userMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .description("testString")
             .modelVersion("testString")
             .workspaceId("testString")
@@ -413,7 +414,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListCategoriesModelsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listCategoriesModelsPath = "/v1/models/categories";
     server.enqueue(
         new MockResponse()
@@ -462,7 +463,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testGetCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getCategoriesModelPath = "/v1/models/categories/testString";
     server.enqueue(
         new MockResponse()
@@ -518,7 +519,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testUpdateCategoriesModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateCategoriesModelPath = "/v1/models/categories/testString";
     server.enqueue(
         new MockResponse()
@@ -534,6 +535,7 @@ public class NaturalLanguageUnderstandingTest {
             .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .trainingDataContentType("json")
             .name("testString")
+            .userMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .description("testString")
             .modelVersion("testString")
             .workspaceId("testString")
@@ -639,7 +641,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testCreateClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String createClassificationsModelPath = "/v1/models/classifications";
     server.enqueue(
         new MockResponse()
@@ -658,6 +660,7 @@ public class NaturalLanguageUnderstandingTest {
             .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .trainingDataContentType("json")
             .name("testString")
+            .userMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .description("testString")
             .modelVersion("testString")
             .workspaceId("testString")
@@ -709,7 +712,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testListClassificationsModelsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
+        "{\"models\": [{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}]}";
     String listClassificationsModelsPath = "/v1/models/classifications";
     server.enqueue(
         new MockResponse()
@@ -758,7 +761,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testGetClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String getClassificationsModelPath = "/v1/models/classifications/testString";
     server.enqueue(
         new MockResponse()
@@ -814,7 +817,7 @@ public class NaturalLanguageUnderstandingTest {
   public void testUpdateClassificationsModelWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"user_metadata\": {\"mapKey\": \"unknown property type: inner\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
+        "{\"name\": \"name\", \"user_metadata\": {\"anyKey\": \"anyValue\"}, \"language\": \"language\", \"description\": \"description\", \"model_version\": \"modelVersion\", \"workspace_id\": \"workspaceId\", \"version_description\": \"versionDescription\", \"features\": [\"features\"], \"status\": \"starting\", \"model_id\": \"modelId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"notices\": [{\"message\": \"message\"}], \"last_trained\": \"2019-01-01T12:00:00.000Z\", \"last_deployed\": \"2019-01-01T12:00:00.000Z\"}";
     String updateClassificationsModelPath = "/v1/models/classifications/testString";
     server.enqueue(
         new MockResponse()
@@ -834,6 +837,7 @@ public class NaturalLanguageUnderstandingTest {
             .trainingData(TestUtilities.createMockStream("This is a mock file."))
             .trainingDataContentType("json")
             .name("testString")
+            .userMetadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .description("testString")
             .modelVersion("testString")
             .workspaceId("testString")

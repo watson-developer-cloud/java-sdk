@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,12 +38,12 @@ public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgentTest {
         new DialogNodeOutputConnectToAgentTransferInfo.Builder()
             .target(
                 java.util.Collections.singletonMap(
-                    "foo", java.util.Collections.singletonMap("anyKey", "anyValue")))
+                    "key1", java.util.Collections.singletonMap("anyKey", "anyValue")))
             .build();
     assertEquals(
         dialogNodeOutputConnectToAgentTransferInfoModel.target(),
         java.util.Collections.singletonMap(
-            "foo", java.util.Collections.singletonMap("anyKey", "anyValue")));
+            "key1", java.util.Collections.singletonMap("anyKey", "anyValue")));
 
     ResponseGenericChannel responseGenericChannelModel =
         new ResponseGenericChannel.Builder().channel("chat").build();

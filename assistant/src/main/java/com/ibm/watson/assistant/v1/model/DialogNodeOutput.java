@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -72,9 +72,9 @@ public class DialogNodeOutput extends DynamicModel<Object> {
     }
 
     /**
-     * Adds an generic to generic.
+     * Adds a new element to generic.
      *
-     * @param generic the new generic
+     * @param generic the new element to be added
      * @return the DialogNodeOutput builder
      */
     public Builder addGeneric(DialogNodeOutputGeneric generic) {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,11 +33,11 @@ public class CategoriesOptionsTest {
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
             .explanation(false)
-            .limit(Long.valueOf("10"))
+            .limit(Long.valueOf("3"))
             .model("testString")
             .build();
     assertEquals(categoriesOptionsModel.explanation(), Boolean.valueOf(false));
-    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("10"));
+    assertEquals(categoriesOptionsModel.limit(), Long.valueOf("3"));
     assertEquals(categoriesOptionsModel.model(), "testString");
 
     String json = TestUtilities.serialize(categoriesOptionsModel);
@@ -46,7 +46,7 @@ public class CategoriesOptionsTest {
         TestUtilities.deserialize(json, CategoriesOptions.class);
     assertTrue(categoriesOptionsModelNew instanceof CategoriesOptions);
     assertEquals(categoriesOptionsModelNew.explanation(), Boolean.valueOf(false));
-    assertEquals(categoriesOptionsModelNew.limit(), Long.valueOf("10"));
+    assertEquals(categoriesOptionsModelNew.limit(), Long.valueOf("3"));
     assertEquals(categoriesOptionsModelNew.model(), "testString");
   }
 }

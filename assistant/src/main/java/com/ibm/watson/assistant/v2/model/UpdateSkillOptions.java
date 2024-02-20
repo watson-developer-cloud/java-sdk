@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -184,7 +184,7 @@ public class UpdateSkillOptions extends GenericModel {
    * environment ID of the environment where the assistant is deployed. - For all other requests,
    * specify the assistant ID of the assistant.
    *
-   * <p>To find the environment ID or assistant ID in the Watson Assistant user interface, open the
+   * <p>To find the environment ID or assistant ID in the watsonx Assistant user interface, open the
    * assistant settings and scroll to the **Environments** section.
    *
    * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
@@ -200,8 +200,8 @@ public class UpdateSkillOptions extends GenericModel {
   /**
    * Gets the skillId.
    *
-   * <p>Unique identifier of the skill. To find the skill ID in the Watson Assistant user interface,
-   * open the skill settings and click **API Details**.
+   * <p>Unique identifier of the skill. To find the skill ID in the watsonx Assistant user
+   * interface, open the skill settings and click **API Details**.
    *
    * @return the skillId
    */
@@ -259,6 +259,9 @@ public class UpdateSkillOptions extends GenericModel {
    * Gets the searchSettings.
    *
    * <p>An object describing the search skill configuration.
+   *
+   * <p>**Note:** Search settings are not supported in **Import skills** requests, and are not
+   * included in **Export skills** responses.
    *
    * @return the searchSettings
    */

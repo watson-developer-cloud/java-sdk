@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,14 +31,14 @@ public class SummarizationOptionsTest {
   @Test
   public void testSummarizationOptions() throws Throwable {
     SummarizationOptions summarizationOptionsModel =
-        new SummarizationOptions.Builder().limit(Long.valueOf("10")).build();
-    assertEquals(summarizationOptionsModel.limit(), Long.valueOf("10"));
+        new SummarizationOptions.Builder().limit(Long.valueOf("3")).build();
+    assertEquals(summarizationOptionsModel.limit(), Long.valueOf("3"));
 
     String json = TestUtilities.serialize(summarizationOptionsModel);
 
     SummarizationOptions summarizationOptionsModelNew =
         TestUtilities.deserialize(json, SummarizationOptions.class);
     assertTrue(summarizationOptionsModelNew instanceof SummarizationOptions);
-    assertEquals(summarizationOptionsModelNew.limit(), Long.valueOf("10"));
+    assertEquals(summarizationOptionsModelNew.limit(), Long.valueOf("3"));
   }
 }

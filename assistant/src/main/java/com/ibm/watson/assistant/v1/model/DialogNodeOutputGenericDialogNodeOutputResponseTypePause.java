@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,9 +65,9 @@ public class DialogNodeOutputGenericDialogNodeOutputResponseTypePause
     }
 
     /**
-     * Adds an channels to channels.
+     * Adds a new element to channels.
      *
-     * @param channels the new channels
+     * @param channels the new element to be added
      * @return the DialogNodeOutputGenericDialogNodeOutputResponseTypePause builder
      */
     public Builder addChannels(ResponseGenericChannel channels) {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,9 +81,9 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an dialogNode to dialogNodes.
+     * Adds a new element to dialogNodes.
      *
-     * @param dialogNode the new dialogNode
+     * @param dialogNode the new element to be added
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addDialogNode(DialogNode dialogNode) {
@@ -96,9 +96,9 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an counterexample to counterexamples.
+     * Adds a new element to counterexamples.
      *
-     * @param counterexample the new counterexample
+     * @param counterexample the new element to be added
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addCounterexample(Counterexample counterexample) {
@@ -112,9 +112,9 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an webhooks to webhooks.
+     * Adds a new element to webhooks.
      *
-     * @param webhooks the new webhooks
+     * @param webhooks the new element to be added
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addWebhooks(Webhook webhooks) {
@@ -127,9 +127,9 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an intent to intents.
+     * Adds a new element to intents.
      *
-     * @param intent the new intent
+     * @param intent the new element to be added
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addIntent(CreateIntent intent) {
@@ -142,9 +142,9 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an entity to entities.
+     * Adds a new element to entities.
      *
-     * @param entity the new entity
+     * @param entity the new element to be added
      * @return the CreateWorkspaceOptions builder
      */
     public Builder addEntity(CreateEntity entity) {

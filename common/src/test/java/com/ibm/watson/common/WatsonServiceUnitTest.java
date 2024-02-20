@@ -86,8 +86,8 @@ public class WatsonServiceUnitTest extends WatsonServiceTest {
   }
 
   /**
-   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
-   * For HashMaps
+   * Create a MockResponse with JSON content type and the object serialized to JSON as body. For
+   * HashMaps
    *
    * @param body the body
    * @return the mock response

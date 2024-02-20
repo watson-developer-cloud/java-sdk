@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,7 +34,7 @@ public class ListIntentsOptionsTest {
         new ListIntentsOptions.Builder()
             .workspaceId("testString")
             .export(false)
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("intent")
             .cursor("testString")
@@ -42,7 +42,7 @@ public class ListIntentsOptionsTest {
             .build();
     assertEquals(listIntentsOptionsModel.workspaceId(), "testString");
     assertEquals(listIntentsOptionsModel.export(), Boolean.valueOf(false));
-    assertEquals(listIntentsOptionsModel.pageLimit(), Long.valueOf("26"));
+    assertEquals(listIntentsOptionsModel.pageLimit(), Long.valueOf("100"));
     assertEquals(listIntentsOptionsModel.includeCount(), Boolean.valueOf(false));
     assertEquals(listIntentsOptionsModel.sort(), "intent");
     assertEquals(listIntentsOptionsModel.cursor(), "testString");

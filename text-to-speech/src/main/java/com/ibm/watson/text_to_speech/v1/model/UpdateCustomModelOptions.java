@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,9 +65,9 @@ public class UpdateCustomModelOptions extends GenericModel {
     }
 
     /**
-     * Adds an word to words.
+     * Adds a new element to words.
      *
-     * @param word the new word
+     * @param word the new element to be added
      * @return the UpdateCustomModelOptions builder
      */
     public Builder addWord(Word word) {

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,9 +76,9 @@ public class UpdateIntentOptions extends GenericModel {
     }
 
     /**
-     * Adds an example to newExamples.
+     * Adds a new element to newExamples.
      *
-     * @param example the new example
+     * @param example the new element to be added
      * @return the UpdateIntentOptions builder
      */
     public Builder addExample(Example example) {

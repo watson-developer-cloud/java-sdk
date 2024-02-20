@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -32,26 +32,16 @@ public class SynthesizeOptions extends GenericModel {
    * voice](https://cloud.ibm.com/docs/text-to-speech?topic=text-to-speech-voices-use#specify-voice-default).
    */
   public interface Voice {
-    /** ar-MS_OmarVoice. */
-    String AR_MS_OMARVOICE = "ar-MS_OmarVoice";
-    /** cs-CZ_AlenaVoice. */
-    String CS_CZ_ALENAVOICE = "cs-CZ_AlenaVoice";
     /** de-DE_BirgitV3Voice. */
     String DE_DE_BIRGITV3VOICE = "de-DE_BirgitV3Voice";
     /** de-DE_DieterV3Voice. */
     String DE_DE_DIETERV3VOICE = "de-DE_DieterV3Voice";
     /** de-DE_ErikaV3Voice. */
     String DE_DE_ERIKAV3VOICE = "de-DE_ErikaV3Voice";
-    /** en-AU_CraigVoice. */
-    String EN_AU_CRAIGVOICE = "en-AU_CraigVoice";
     /** en-AU_HeidiExpressive. */
     String EN_AU_HEIDIEXPRESSIVE = "en-AU_HeidiExpressive";
     /** en-AU_JackExpressive. */
     String EN_AU_JACKEXPRESSIVE = "en-AU_JackExpressive";
-    /** en-AU_MadisonVoice. */
-    String EN_AU_MADISONVOICE = "en-AU_MadisonVoice";
-    /** en-AU_SteveVoice. */
-    String EN_AU_STEVEVOICE = "en-AU_SteveVoice";
     /** en-GB_CharlotteV3Voice. */
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
     /** en-GB_JamesV3Voice. */
@@ -98,34 +88,12 @@ public class SynthesizeOptions extends GenericModel {
     String IT_IT_FRANCESCAV3VOICE = "it-IT_FrancescaV3Voice";
     /** ja-JP_EmiV3Voice. */
     String JA_JP_EMIV3VOICE = "ja-JP_EmiV3Voice";
-    /** ko-KR_HyunjunVoice. */
-    String KO_KR_HYUNJUNVOICE = "ko-KR_HyunjunVoice";
     /** ko-KR_JinV3Voice. */
     String KO_KR_JINV3VOICE = "ko-KR_JinV3Voice";
-    /** ko-KR_SiWooVoice. */
-    String KO_KR_SIWOOVOICE = "ko-KR_SiWooVoice";
-    /** ko-KR_YoungmiVoice. */
-    String KO_KR_YOUNGMIVOICE = "ko-KR_YoungmiVoice";
-    /** ko-KR_YunaVoice. */
-    String KO_KR_YUNAVOICE = "ko-KR_YunaVoice";
-    /** nl-BE_AdeleVoice. */
-    String NL_BE_ADELEVOICE = "nl-BE_AdeleVoice";
-    /** nl-BE_BramVoice. */
-    String NL_BE_BRAMVOICE = "nl-BE_BramVoice";
-    /** nl-NL_EmmaVoice. */
-    String NL_NL_EMMAVOICE = "nl-NL_EmmaVoice";
-    /** nl-NL_LiamVoice. */
-    String NL_NL_LIAMVOICE = "nl-NL_LiamVoice";
+    /** nl-NL_MerelV3Voice. */
+    String NL_NL_MERELV3VOICE = "nl-NL_MerelV3Voice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
-    /** sv-SE_IngridVoice. */
-    String SV_SE_INGRIDVOICE = "sv-SE_IngridVoice";
-    /** zh-CN_LiNaVoice. */
-    String ZH_CN_LINAVOICE = "zh-CN_LiNaVoice";
-    /** zh-CN_WangWeiVoice. */
-    String ZH_CN_WANGWEIVOICE = "zh-CN_WangWeiVoice";
-    /** zh-CN_ZhangJingVoice. */
-    String ZH_CN_ZHANGJINGVOICE = "zh-CN_ZhangJingVoice";
   }
 
   /**
@@ -158,7 +126,7 @@ public class SynthesizeOptions extends GenericModel {
   protected String spellOutMode;
   protected Long ratePercentage;
   protected Long pitchPercentage;
-  protected List<String> timings;
+protected List<String> timings;
 
   /** Builder. */
   public static class Builder {
@@ -169,7 +137,7 @@ public class SynthesizeOptions extends GenericModel {
     private String spellOutMode;
     private Long ratePercentage;
     private Long pitchPercentage;
-    private List<String> timings;
+private List<String> timings;
 
     /**
      * Instantiates a new Builder from an existing SynthesizeOptions instance.
@@ -184,7 +152,7 @@ public class SynthesizeOptions extends GenericModel {
       this.spellOutMode = synthesizeOptions.spellOutMode;
       this.ratePercentage = synthesizeOptions.ratePercentage;
       this.pitchPercentage = synthesizeOptions.pitchPercentage;
-      this.timings = synthesizeOptions.timings;
+this.timings = synthesizeOptions.timings;
     }
 
     /** Instantiates a new builder. */

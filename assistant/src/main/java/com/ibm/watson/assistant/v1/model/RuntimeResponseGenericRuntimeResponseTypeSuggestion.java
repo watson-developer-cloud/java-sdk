@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,9 +65,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
     }
 
     /**
-     * Adds an suggestions to suggestions.
+     * Adds a new element to suggestions.
      *
-     * @param suggestions the new suggestions
+     * @param suggestions the new element to be added
      * @return the RuntimeResponseGenericRuntimeResponseTypeSuggestion builder
      */
     public Builder addSuggestions(DialogSuggestion suggestions) {
@@ -80,9 +80,9 @@ public class RuntimeResponseGenericRuntimeResponseTypeSuggestion extends Runtime
     }
 
     /**
-     * Adds an channels to channels.
+     * Adds a new element to channels.
      *
-     * @param channels the new channels
+     * @param channels the new element to be added
      * @return the RuntimeResponseGenericRuntimeResponseTypeSuggestion builder
      */
     public Builder addChannels(ResponseGenericChannel channels) {

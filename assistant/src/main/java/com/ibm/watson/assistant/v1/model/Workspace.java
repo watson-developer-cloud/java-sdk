@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,11 +24,9 @@ public class Workspace extends GenericModel {
   /**
    * The current status of the workspace: - **Available**: The workspace is available and ready to
    * process messages. - **Failed**: An asynchronous operation has failed. See the **status_errors**
-   * property for more information about the cause of the failure. Returned only by the **Export
-   * workspace asynchronously** method. - **Non Existent**: The workspace does not exist. -
-   * **Processing**: An asynchronous operation has not yet completed. Returned only by the **Export
-   * workspace asynchronously** method. - **Training**: The workspace is training based on new data
-   * such as intents or examples.
+   * property for more information about the cause of the failure. - **Non Existent**: The workspace
+   * does not exist. - **Processing**: An asynchronous operation has not yet completed. -
+   * **Training**: The workspace is training based on new data such as intents or examples.
    */
   public interface Status {
     /** Available. */
@@ -208,11 +206,10 @@ public class Workspace extends GenericModel {
    *
    * <p>The current status of the workspace: - **Available**: The workspace is available and ready
    * to process messages. - **Failed**: An asynchronous operation has failed. See the
-   * **status_errors** property for more information about the cause of the failure. Returned only
-   * by the **Export workspace asynchronously** method. - **Non Existent**: The workspace does not
-   * exist. - **Processing**: An asynchronous operation has not yet completed. Returned only by the
-   * **Export workspace asynchronously** method. - **Training**: The workspace is training based on
-   * new data such as intents or examples.
+   * **status_errors** property for more information about the cause of the failure. - **Non
+   * Existent**: The workspace does not exist. - **Processing**: An asynchronous operation has not
+   * yet completed. - **Training**: The workspace is training based on new data such as intents or
+   * examples.
    *
    * @return the status
    */
