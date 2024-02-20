@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,6 +40,7 @@ public class TrainLanguageModelOptions extends GenericModel {
   protected String wordTypeToAdd;
   protected Double customizationWeight;
   protected Boolean strict;
+  protected Boolean force;
 
   /** Builder. */
   public static class Builder {
@@ -47,6 +48,7 @@ public class TrainLanguageModelOptions extends GenericModel {
     private String wordTypeToAdd;
     private Double customizationWeight;
     private Boolean strict;
+    private Boolean force;
 
     /**
      * Instantiates a new Builder from an existing TrainLanguageModelOptions instance.
@@ -58,6 +60,7 @@ public class TrainLanguageModelOptions extends GenericModel {
       this.wordTypeToAdd = trainLanguageModelOptions.wordTypeToAdd;
       this.customizationWeight = trainLanguageModelOptions.customizationWeight;
       this.strict = trainLanguageModelOptions.strict;
+      this.force = trainLanguageModelOptions.force;
     }
 
     /** Instantiates a new builder. */
@@ -124,6 +127,17 @@ public class TrainLanguageModelOptions extends GenericModel {
       this.strict = strict;
       return this;
     }
+
+    /**
+     * Set the force.
+     *
+     * @param force the force
+     * @return the TrainLanguageModelOptions builder
+     */
+    public Builder force(Boolean force) {
+      this.force = force;
+      return this;
+    }
   }
 
   protected TrainLanguageModelOptions() {}
@@ -135,6 +149,7 @@ public class TrainLanguageModelOptions extends GenericModel {
     wordTypeToAdd = builder.wordTypeToAdd;
     customizationWeight = builder.customizationWeight;
     strict = builder.strict;
+    force = builder.force;
   }
 
   /**
@@ -218,5 +233,23 @@ public class TrainLanguageModelOptions extends GenericModel {
    */
   public Boolean strict() {
     return strict;
+  }
+
+  /**
+   * Gets the force.
+   *
+   * <p>If `true`, forces the training of the custom language model regardless of whether it
+   * contains any changes (is in the `ready` or `available` state). By default (`false`), the model
+   * must be in the `ready` state to be trained. You can use the parameter to train and thus upgrade
+   * a custom model that is based on an improved next-generation model. *The parameter is available
+   * only for IBM Cloud, not for IBM Cloud Pak for Data.*
+   *
+   * <p>See [Upgrading a custom language model based on an improved next-generation
+   * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language-ng).
+   *
+   * @return the force
+   */
+  public Boolean force() {
+    return force;
   }
 }

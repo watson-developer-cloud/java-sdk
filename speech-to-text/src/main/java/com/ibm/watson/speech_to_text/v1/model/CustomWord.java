@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,6 +22,9 @@ public class CustomWord extends GenericModel {
 
   protected String word;
 
+  @SerializedName("mapping_only")
+  protected List<String> mappingOnly;
+
   @SerializedName("sounds_like")
   protected List<String> soundsLike;
 
@@ -31,6 +34,7 @@ public class CustomWord extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String word;
+    private List<String> mappingOnly;
     private List<String> soundsLike;
     private String displayAs;
 
@@ -41,6 +45,7 @@ public class CustomWord extends GenericModel {
      */
     private Builder(CustomWord customWord) {
       this.word = customWord.word;
+      this.mappingOnly = customWord.mappingOnly;
       this.soundsLike = customWord.soundsLike;
       this.displayAs = customWord.displayAs;
     }
@@ -58,9 +63,24 @@ public class CustomWord extends GenericModel {
     }
 
     /**
-     * Adds an soundsLike to soundsLike.
+     * Adds a new element to mappingOnly.
      *
-     * @param soundsLike the new soundsLike
+     * @param mappingOnly the new element to be added
+     * @return the CustomWord builder
+     */
+    public Builder addMappingOnly(String mappingOnly) {
+      com.ibm.cloud.sdk.core.util.Validator.notNull(mappingOnly, "mappingOnly cannot be null");
+      if (this.mappingOnly == null) {
+        this.mappingOnly = new ArrayList<String>();
+      }
+      this.mappingOnly.add(mappingOnly);
+      return this;
+    }
+
+    /**
+     * Adds a new element to soundsLike.
+     *
+     * @param soundsLike the new element to be added
      * @return the CustomWord builder
      */
     public Builder addSoundsLike(String soundsLike) {
@@ -80,6 +100,17 @@ public class CustomWord extends GenericModel {
      */
     public Builder word(String word) {
       this.word = word;
+      return this;
+    }
+
+    /**
+     * Set the mappingOnly. Existing mappingOnly will be replaced.
+     *
+     * @param mappingOnly the mappingOnly
+     * @return the CustomWord builder
+     */
+    public Builder mappingOnly(List<String> mappingOnly) {
+      this.mappingOnly = mappingOnly;
       return this;
     }
 
@@ -110,6 +141,7 @@ public class CustomWord extends GenericModel {
 
   protected CustomWord(Builder builder) {
     word = builder.word;
+    mappingOnly = builder.mappingOnly;
     soundsLike = builder.soundsLike;
     displayAs = builder.displayAs;
   }
@@ -127,8 +159,11 @@ public class CustomWord extends GenericModel {
    * Gets the word.
    *
    * <p>For the [Add custom words](#addwords) method, you must specify the custom word that is to be
-   * added to or updated in the custom model. Do not include spaces in the word. Use a `-` (dash) or
-   * `_` (underscore) to connect the tokens of compound words.
+   * added to or updated in the custom model. Do not use characters that need to be URL-encoded, for
+   * example, spaces, slashes, backslashes, colons, ampersands, double quotes, plus signs, equals
+   * signs, or question marks. Use a `-` (dash) or `_` (underscore) to connect the tokens of
+   * compound words. A Japanese custom word can include at most 25 characters, not including leading
+   * or trailing spaces.
    *
    * <p>Omit this parameter for the [Add a custom word](#addword) method.
    *
@@ -136,6 +171,22 @@ public class CustomWord extends GenericModel {
    */
   public String word() {
     return word;
+  }
+
+  /**
+   * Gets the mappingOnly.
+   *
+   * <p>Parameter for custom words. You can use the 'mapping_only' key in custom words as a form of
+   * post processing. This key parameter has a boolean value to determine whether 'sounds_like' (for
+   * non-Japanese models) or word (for Japanese) is not used for the model fine-tuning, but for the
+   * replacement for 'display_as'. This feature helps you when you use custom words exclusively to
+   * map 'sounds_like' (or word) to 'display_as' value. When you use custom words solely for
+   * post-processing purposes that does not need fine-tuning.
+   *
+   * @return the mappingOnly
+   */
+  public List<String> mappingOnly() {
+    return mappingOnly;
   }
 
   /**
@@ -151,7 +202,8 @@ public class CustomWord extends GenericModel {
    * vocabulary.
    *
    * <p>A word can have at most five sounds-like pronunciations. A pronunciation can include at most
-   * 40 characters not including spaces.
+   * 40 characters, not including leading or trailing spaces. A Japanese pronunciation can include
+   * at most 25 characters, not including leading or trailing spaces.
    *
    * @return the soundsLike
    */

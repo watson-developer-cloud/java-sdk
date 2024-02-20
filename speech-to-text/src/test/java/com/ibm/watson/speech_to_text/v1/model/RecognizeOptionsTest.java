@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,25 +40,26 @@ public class RecognizeOptionsTest {
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
-            .inactivityTimeout(Long.valueOf("26"))
+            .inactivityTimeout(Long.valueOf("30"))
             .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
-            .maxAlternatives(Long.valueOf("26"))
+            .maxAlternatives(Long.valueOf("1"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
             .wordConfidence(false)
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
+            .smartFormattingVersion(false)
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
             .audioMetrics(false)
-            .endOfPhraseSilenceTime(Double.valueOf("72.5"))
+            .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
-            .speechDetectorSensitivity(Float.valueOf("36.0"))
-            .backgroundAudioSuppression(Float.valueOf("36.0"))
+            .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
-            .characterInsertionBias(Float.valueOf("36.0"))
+            .characterInsertionBias(Float.valueOf("0.0"))
             .build();
     assertEquals(
         IOUtils.toString(recognizeOptionsModel.audio()),
@@ -69,25 +70,26 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.baseModelVersion(), "testString");
     assertEquals(recognizeOptionsModel.customizationWeight(), Double.valueOf("72.5"));
-    assertEquals(recognizeOptionsModel.inactivityTimeout(), Long.valueOf("26"));
+    assertEquals(recognizeOptionsModel.inactivityTimeout(), Long.valueOf("30"));
     assertEquals(recognizeOptionsModel.keywords(), java.util.Arrays.asList("testString"));
     assertEquals(recognizeOptionsModel.keywordsThreshold(), Float.valueOf("36.0"));
-    assertEquals(recognizeOptionsModel.maxAlternatives(), Long.valueOf("26"));
+    assertEquals(recognizeOptionsModel.maxAlternatives(), Long.valueOf("1"));
     assertEquals(recognizeOptionsModel.wordAlternativesThreshold(), Float.valueOf("36.0"));
     assertEquals(recognizeOptionsModel.wordConfidence(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.timestamps(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(recognizeOptionsModel.smartFormatting(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.smartFormattingVersion(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.speakerLabels(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.grammarName(), "testString");
     assertEquals(recognizeOptionsModel.redaction(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.audioMetrics(), Boolean.valueOf(false));
-    assertEquals(recognizeOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("72.5"));
+    assertEquals(recognizeOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("0.8"));
     assertEquals(recognizeOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(false));
-    assertEquals(recognizeOptionsModel.speechDetectorSensitivity(), Float.valueOf("36.0"));
-    assertEquals(recognizeOptionsModel.backgroundAudioSuppression(), Float.valueOf("36.0"));
+    assertEquals(recognizeOptionsModel.speechDetectorSensitivity(), Float.valueOf("0.5"));
+    assertEquals(recognizeOptionsModel.backgroundAudioSuppression(), Float.valueOf("0.0"));
     assertEquals(recognizeOptionsModel.lowLatency(), Boolean.valueOf(false));
-    assertEquals(recognizeOptionsModel.characterInsertionBias(), Float.valueOf("36.0"));
+    assertEquals(recognizeOptionsModel.characterInsertionBias(), Float.valueOf("0.0"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

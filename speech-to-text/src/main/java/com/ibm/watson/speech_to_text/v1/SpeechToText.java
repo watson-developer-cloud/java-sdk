@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -482,6 +482,10 @@ public class SpeechToText extends BaseService {
     if (recognizeOptions.smartFormatting() != null) {
       builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
     }
+    if (recognizeOptions.smartFormattingVersion() != null) {
+      builder.query(
+          "smart_formatting_version", String.valueOf(recognizeOptions.smartFormattingVersion()));
+    }
     if (recognizeOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
@@ -797,6 +801,10 @@ public class SpeechToText extends BaseService {
     }
     if (createJobOptions.smartFormatting() != null) {
       builder.query("smart_formatting", String.valueOf(createJobOptions.smartFormatting()));
+    }
+    if (createJobOptions.smartFormattingVersion() != null) {
+      builder.query(
+          "smart_formatting_version", String.valueOf(createJobOptions.smartFormattingVersion()));
     }
     if (createJobOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(createJobOptions.speakerLabels()));
@@ -1184,10 +1192,16 @@ public class SpeechToText extends BaseService {
    * cannot accept subsequent training requests or requests to add new resources until the existing
    * request completes.
    *
-   * <p>**See also:** * [Train the custom language
+   * <p>For custom models that are based on improved base language models, training also performs an
+   * automatic upgrade to a newer version of the base model. You do not need to use the [Upgrade a
+   * custom language model](#upgradelanguagemodel) method to perform the upgrade.
+   *
+   * <p>**See also:** * [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support) *
+   * [Train the custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#trainModel-language)
-   * * [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support)
+   * * [Upgrading custom language models that are based on improved next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language-ng)
    *
    * <p>### Training failures
    *
@@ -1228,6 +1242,9 @@ public class SpeechToText extends BaseService {
     }
     if (trainLanguageModelOptions.strict() != null) {
       builder.query("strict", String.valueOf(trainLanguageModelOptions.strict()));
+    }
+    if (trainLanguageModelOptions.force() != null) {
+      builder.query("force", String.valueOf(trainLanguageModelOptions.force()));
     }
     ResponseConverter<TrainingResponse> responseConverter =
         ResponseConverterUtils.getValue(
@@ -1291,10 +1308,16 @@ public class SpeechToText extends BaseService {
    * complete, the model resumes the status that it had prior to upgrade. The service cannot accept
    * subsequent requests for the model until the upgrade completes.
    *
-   * <p>**See also:** * [Upgrading a custom language
+   * <p>For custom models that are based on improved base language models, the [Train a custom
+   * language model](#trainlanguagemodel) method also performs an automatic upgrade to a newer
+   * version of the base model. You do not need to use the upgrade method.
+   *
+   * <p>**See also:** * [Language support for
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support) *
+   * [Upgrading a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language)
-   * * [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
+   * * [Upgrading custom language models that are based on improved next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-language-ng).
    *
    * @param upgradeLanguageModelOptions the {@link UpgradeLanguageModelOptions} containing the
    *     options for the call
@@ -1436,10 +1459,10 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-
+    
     // hand edit replacement for corpus file serialization
     builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
-
+    
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
@@ -1601,7 +1624,13 @@ public class SpeechToText extends BaseService {
    * custom model that is based on a previous-generation model_, if you omit the `sounds_like`
    * field, the service attempts to set the field to its pronunciation of the word. It cannot
    * generate a pronunciation for all words, so you must review the word's definition to ensure that
-   * it is complete and valid.
+   * it is complete and valid. * The `mapping_only` field provides parameter for custom words. You
+   * can use the 'mapping_only' key in custom words as a form of post processing. This key parameter
+   * has a boolean value to determine whether 'sounds_like' (for non-Japanese models) or word (for
+   * Japanese) is not used for the model fine-tuning, but for the replacement for 'display_as'. This
+   * feature helps you when you use custom words exclusively to map 'sounds_like' (or word) to
+   * 'display_as' value. When you use custom words solely for post-processing purposes that does not
+   * need fine-tuning.
    *
    * <p>If you add a custom word that already exists in the words resource for the custom model, the
    * new definition overwrites the existing data for the word. If the service encounters an error
@@ -1732,6 +1761,12 @@ public class SpeechToText extends BaseService {
     final JsonObject contentJson = new JsonObject();
     if (addWordOptions.word() != null) {
       contentJson.addProperty("word", addWordOptions.word());
+    }
+    if (addWordOptions.mappingOnly() != null) {
+      contentJson.add(
+          "mapping_only",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(addWordOptions.mappingOnly()));
     }
     if (addWordOptions.soundsLike() != null) {
       contentJson.add(

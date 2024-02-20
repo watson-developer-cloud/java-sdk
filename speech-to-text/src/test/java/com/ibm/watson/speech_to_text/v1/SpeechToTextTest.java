@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -212,7 +212,7 @@ public class SpeechToTextTest {
   public void testRecognizeWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}";
+        "{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}";
     String recognizePath = "/v1/recognize";
     server.enqueue(
         new MockResponse()
@@ -230,25 +230,26 @@ public class SpeechToTextTest {
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
-            .inactivityTimeout(Long.valueOf("26"))
+            .inactivityTimeout(Long.valueOf("30"))
             .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
-            .maxAlternatives(Long.valueOf("26"))
+            .maxAlternatives(Long.valueOf("1"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
             .wordConfidence(false)
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
+            .smartFormattingVersion(false)
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
             .audioMetrics(false)
-            .endOfPhraseSilenceTime(Double.valueOf("72.5"))
+            .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
-            .speechDetectorSensitivity(Float.valueOf("36.0"))
-            .backgroundAudioSuppression(Float.valueOf("36.0"))
+            .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
-            .characterInsertionBias(Float.valueOf("36.0"))
+            .characterInsertionBias(Float.valueOf("0.0"))
             .build();
 
     // Invoke recognize() with a valid options model and verify the result
@@ -273,27 +274,28 @@ public class SpeechToTextTest {
     assertEquals(query.get("acoustic_customization_id"), "testString");
     assertEquals(query.get("base_model_version"), "testString");
     assertEquals(Double.valueOf(query.get("customization_weight")), Double.valueOf("72.5"));
-    assertEquals(Long.valueOf(query.get("inactivity_timeout")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("inactivity_timeout")), Long.valueOf("30"));
     assertEquals(
         query.get("keywords"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Float.valueOf(query.get("keywords_threshold")), Float.valueOf("36.0"));
-    assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("1"));
     assertEquals(Float.valueOf(query.get("word_alternatives_threshold")), Float.valueOf("36.0"));
     assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
     assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("smart_formatting_version")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("grammar_name"), "testString");
     assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("72.5"));
+    assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("0.8"));
     assertEquals(
         Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
-    assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("36.0"));
-    assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("36.0"));
+    assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("0.5"));
+    assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("0.0"));
     assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
-    assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("36.0"));
+    assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("0.0"));
   }
 
   // Test the recognize operation with and without retries enabled
@@ -424,7 +426,7 @@ public class SpeechToTextTest {
   public void testCreateJobWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
+        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
     String createJobPath = "/v1/recognitions";
     server.enqueue(
         new MockResponse()
@@ -446,27 +448,28 @@ public class SpeechToTextTest {
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
             .customizationWeight(Double.valueOf("72.5"))
-            .inactivityTimeout(Long.valueOf("26"))
+            .inactivityTimeout(Long.valueOf("30"))
             .keywords(java.util.Arrays.asList("testString"))
             .keywordsThreshold(Float.valueOf("36.0"))
-            .maxAlternatives(Long.valueOf("26"))
+            .maxAlternatives(Long.valueOf("1"))
             .wordAlternativesThreshold(Float.valueOf("36.0"))
             .wordConfidence(false)
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
+            .smartFormattingVersion(false)
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
             .processingMetrics(false)
-            .processingMetricsInterval(Float.valueOf("36.0"))
+            .processingMetricsInterval(Float.valueOf("1.0"))
             .audioMetrics(false)
-            .endOfPhraseSilenceTime(Double.valueOf("72.5"))
+            .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
-            .speechDetectorSensitivity(Float.valueOf("36.0"))
-            .backgroundAudioSuppression(Float.valueOf("36.0"))
+            .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
-            .characterInsertionBias(Float.valueOf("36.0"))
+            .characterInsertionBias(Float.valueOf("0.0"))
             .build();
 
     // Invoke createJob() with a valid options model and verify the result
@@ -495,29 +498,30 @@ public class SpeechToTextTest {
     assertEquals(query.get("acoustic_customization_id"), "testString");
     assertEquals(query.get("base_model_version"), "testString");
     assertEquals(Double.valueOf(query.get("customization_weight")), Double.valueOf("72.5"));
-    assertEquals(Long.valueOf(query.get("inactivity_timeout")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("inactivity_timeout")), Long.valueOf("30"));
     assertEquals(
         query.get("keywords"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(Float.valueOf(query.get("keywords_threshold")), Float.valueOf("36.0"));
-    assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("max_alternatives")), Long.valueOf("1"));
     assertEquals(Float.valueOf(query.get("word_alternatives_threshold")), Float.valueOf("36.0"));
     assertEquals(Boolean.valueOf(query.get("word_confidence")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
     assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
+    assertEquals(Boolean.valueOf(query.get("smart_formatting_version")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("grammar_name"), "testString");
     assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("processing_metrics")), Boolean.valueOf(false));
-    assertEquals(Float.valueOf(query.get("processing_metrics_interval")), Float.valueOf("36.0"));
+    assertEquals(Float.valueOf(query.get("processing_metrics_interval")), Float.valueOf("1.0"));
     assertEquals(Boolean.valueOf(query.get("audio_metrics")), Boolean.valueOf(false));
-    assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("72.5"));
+    assertEquals(Double.valueOf(query.get("end_of_phrase_silence_time")), Double.valueOf("0.8"));
     assertEquals(
         Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
-    assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("36.0"));
-    assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("36.0"));
+    assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("0.5"));
+    assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("0.0"));
     assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
-    assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("36.0"));
+    assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("0.0"));
   }
 
   // Test the createJob operation with and without retries enabled
@@ -542,7 +546,7 @@ public class SpeechToTextTest {
   public void testCheckJobsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"recognitions\": [{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}]}";
+        "{\"recognitions\": [{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}]}";
     String checkJobsPath = "/v1/recognitions";
     server.enqueue(
         new MockResponse()
@@ -587,7 +591,7 @@ public class SpeechToTextTest {
   public void testCheckJobWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [[\"timestamps\"]], \"word_confidence\": [[\"wordConfidence\"]]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
+        "{\"id\": \"id\", \"status\": \"waiting\", \"created\": \"created\", \"updated\": \"updated\", \"url\": \"url\", \"user_token\": \"userToken\", \"results\": [{\"results\": [{\"final\": true, \"alternatives\": [{\"transcript\": \"transcript\", \"confidence\": 0, \"timestamps\": [\"timestamps\"], \"word_confidence\": [\"wordConfidence\"]}], \"keywords_result\": {\"mapKey\": [{\"normalized_text\": \"normalizedText\", \"start_time\": 9, \"end_time\": 7, \"confidence\": 0}]}, \"word_alternatives\": [{\"start_time\": 9, \"end_time\": 7, \"alternatives\": [{\"confidence\": 0, \"word\": \"word\"}]}], \"end_of_utterance\": \"end_of_data\"}], \"result_index\": 11, \"speaker_labels\": [{\"from\": 4, \"to\": 2, \"speaker\": 7, \"confidence\": 10, \"final\": true}], \"processing_metrics\": {\"processed_audio\": {\"received\": 8, \"seen_by_engine\": 12, \"transcription\": 13, \"speaker_labels\": 13}, \"wall_clock_since_first_byte_received\": 31, \"periodic\": true}, \"audio_metrics\": {\"sampling_interval\": 16, \"accumulated\": {\"final\": true, \"end_time\": 7, \"signal_to_noise_ratio\": 18, \"speech_ratio\": 11, \"high_frequency_loss\": 17, \"direct_current_offset\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"clipping_rate\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}], \"non_speech_level\": [{\"begin\": 5, \"end\": 3, \"count\": 5}]}}, \"warnings\": [\"warnings\"]}], \"warnings\": [\"warnings\"]}";
     String checkJobPath = "/v1/recognitions/testString";
     server.enqueue(
         new MockResponse()
@@ -907,6 +911,7 @@ public class SpeechToTextTest {
             .wordTypeToAdd("all")
             .customizationWeight(Double.valueOf("72.5"))
             .strict(true)
+            .force(false)
             .build();
 
     // Invoke trainLanguageModel() with a valid options model and verify the result
@@ -929,6 +934,7 @@ public class SpeechToTextTest {
     assertEquals(query.get("word_type_to_add"), "all");
     assertEquals(Double.valueOf(query.get("customization_weight")), Double.valueOf("72.5"));
     assertEquals(Boolean.valueOf(query.get("strict")), Boolean.valueOf(true));
+    assertEquals(Boolean.valueOf(query.get("force")), Boolean.valueOf(false));
   }
 
   // Test the trainLanguageModel operation with and without retries enabled
@@ -1259,7 +1265,7 @@ public class SpeechToTextTest {
   public void testListWordsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"words\": [{\"word\": \"word\", \"sounds_like\": [\"soundsLike\"], \"display_as\": \"displayAs\", \"count\": 5, \"source\": [\"source\"], \"error\": [{\"element\": \"element\"}]}]}";
+        "{\"words\": [{\"word\": \"word\", \"mapping_only\": [\"mappingOnly\"], \"sounds_like\": [\"soundsLike\"], \"display_as\": \"displayAs\", \"count\": 5, \"source\": [\"source\"], \"error\": [{\"element\": \"element\"}]}]}";
     String listWordsPath = "/v1/customizations/testString/words";
     server.enqueue(
         new MockResponse()
@@ -1324,6 +1330,7 @@ public class SpeechToTextTest {
     CustomWord customWordModel =
         new CustomWord.Builder()
             .word("testString")
+            .mappingOnly(java.util.Arrays.asList("testString"))
             .soundsLike(java.util.Arrays.asList("testString"))
             .displayAs("testString")
             .build();
@@ -1384,6 +1391,7 @@ public class SpeechToTextTest {
             .customizationId("testString")
             .wordName("testString")
             .word("testString")
+            .mappingOnly(java.util.Arrays.asList("testString"))
             .soundsLike(java.util.Arrays.asList("testString"))
             .displayAs("testString")
             .build();
@@ -1428,7 +1436,7 @@ public class SpeechToTextTest {
   public void testGetWordWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"word\": \"word\", \"sounds_like\": [\"soundsLike\"], \"display_as\": \"displayAs\", \"count\": 5, \"source\": [\"source\"], \"error\": [{\"element\": \"element\"}]}";
+        "{\"word\": \"word\", \"mapping_only\": [\"mappingOnly\"], \"sounds_like\": [\"soundsLike\"], \"display_as\": \"displayAs\", \"count\": 5, \"source\": [\"source\"], \"error\": [{\"element\": \"element\"}]}";
     String getWordPath = "/v1/customizations/testString/words/testString";
     server.enqueue(
         new MockResponse()
