@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -101,9 +101,9 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Adds an collectionIds to collectionIds.
+     * Adds a new element to collectionIds.
      *
-     * @param collectionIds the new collectionIds
+     * @param collectionIds the new element to be added
      * @return the QueryOptions builder
      */
     public Builder addCollectionIds(String collectionIds) {
@@ -116,9 +116,9 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Adds an returnField to xReturn.
+     * Adds a new element to xReturn.
      *
-     * @param returnField the new returnField
+     * @param returnField the new element to be added
      * @return the QueryOptions builder
      */
     public Builder addReturnField(String returnField) {
@@ -382,7 +382,8 @@ public class QueryOptions extends GenericModel {
    * <p>A query search that is written in the Discovery Query Language and returns all matching
    * documents in your data set with full enrichments and full text, and with the most relevant
    * documents listed first. Use a query search when you want to find the most relevant search
-   * results.
+   * results. You can use this parameter or the **natural_language_query** parameter to specify the
+   * query input, but not both.
    *
    * @return the query
    */
@@ -394,7 +395,9 @@ public class QueryOptions extends GenericModel {
    * Gets the naturalLanguageQuery.
    *
    * <p>A natural language query that returns relevant documents by using training data and natural
-   * language understanding.
+   * language understanding. You can use this parameter or the **query** parameter to specify the
+   * query input, but not both. To filter the results based on criteria you specify, include the
+   * **filter** parameter in the request.
    *
    * @return the naturalLanguageQuery
    */

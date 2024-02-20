@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 package com.ibm.watson.discovery.v2;
@@ -130,7 +130,7 @@ public class Discovery extends BaseService {
    * the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2020-08-30`.
+   *     YYYY-MM-DD format. The current version is `2023-03-31`.
    */
   public Discovery(String version) {
     this(
@@ -144,7 +144,7 @@ public class Discovery extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2020-08-30`.
+   *     YYYY-MM-DD format. The current version is `2023-03-31`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Discovery(String version, Authenticator authenticator) {
@@ -156,7 +156,7 @@ public class Discovery extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2020-08-30`.
+   *     YYYY-MM-DD format. The current version is `2023-03-31`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Discovery(String version, String serviceName) {
@@ -168,7 +168,7 @@ public class Discovery extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the version of the API you want to use. Specify dates in
-   *     YYYY-MM-DD format. The current version is `2020-08-30`.
+   *     YYYY-MM-DD format. The current version is `2023-03-31`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -183,7 +183,7 @@ public class Discovery extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the version of the API you want to use. Specify dates in YYYY-MM-DD format.
-   * The current version is `2020-08-30`.
+   * The current version is `2023-03-31`.
    *
    * @return the version
    */
@@ -475,7 +475,7 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Get collection.
+   * Get collection details.
    *
    * <p>Get details about the specified collection.
    *
@@ -510,7 +510,20 @@ public class Discovery extends BaseService {
   /**
    * Update a collection.
    *
-   * <p>Updates the specified collection's name, description, and enrichments.
+   * <p>Updates the specified collection's name, description, enrichments, and configuration.
+   *
+   * <p>If you apply normalization rules to data in an existing collection, you must initiate
+   * reprocessing of the collection. To do so, from the *Manage fields* page in the product user
+   * interface, temporarily change the data type of a field to enable the reprocess button. Change
+   * the data type of the field back to its original value, and then click **Apply changes and
+   * reprocess**.
+   *
+   * <p>To remove a configuration that applies JSON normalization operations as part of the
+   * conversion phase of ingestion, specify an empty `json_normalizations` object (`[]`) in the
+   * request.
+   *
+   * <p>To remove a configuration that applies JSON normalization operations after enrichments are
+   * applied, specify an empty `normalizations` object (`[]`) in the request.
    *
    * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for
    *     the call
@@ -593,8 +606,7 @@ public class Discovery extends BaseService {
    * each document and returns information for up to 10,000 documents.
    *
    * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
-   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances. It is not
-   * currently available from Premium plan instances.
+   * installed instances, and from IBM Cloud-managed instances.
    *
    * @param listDocumentsOptions the {@link ListDocumentsOptions} containing the options for the
    *     call
@@ -728,8 +740,7 @@ public class Discovery extends BaseService {
    * by crawling an external data source.
    *
    * <p>**Note**: This method is available only from Cloud Pak for Data version 4.0.9 and later
-   * installed instances and from Plus and Enterprise plan IBM Cloud-managed instances. It is not
-   * currently available from Premium plan instances.
+   * installed instances, and from IBM Cloud-managed instances.
    *
    * @param getDocumentOptions the {@link GetDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link DocumentDetails}
@@ -978,6 +989,10 @@ public class Discovery extends BaseService {
    * Get Autocomplete Suggestions.
    *
    * <p>Returns completion query suggestions for the specified prefix.
+   *
+   * <p>Suggested words are based on terms from the project documents. Suggestions are not based on
+   * terms from the project's search history, and the project does not learn from previous user
+   * choices.
    *
    * @param getAutocompletionOptions the {@link GetAutocompletionOptions} containing the options for
    *     the call
@@ -1437,10 +1452,12 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Create training query.
+   * Create a training query.
    *
    * <p>Add a query to the training data for this project. The query can contain a filter and
    * natural language query.
+   *
+   * <p>**Note**: You cannot apply relevancy training to a `content_mining` project type.
    *
    * @param createTrainingQueryOptions the {@link CreateTrainingQueryOptions} containing the options
    *     for the call
@@ -1517,7 +1534,8 @@ public class Discovery extends BaseService {
   /**
    * Update a training query.
    *
-   * <p>Updates an existing training query and it's examples.
+   * <p>Updates an existing training query and its examples. You must resubmit all of the examples
+   * with the update request.
    *
    * @param updateTrainingQueryOptions the {@link UpdateTrainingQueryOptions} containing the options
    *     for the call
@@ -1564,6 +1582,9 @@ public class Discovery extends BaseService {
    * Delete a training data query.
    *
    * <p>Removes details from a training data query, including the query string and all examples.
+   *
+   * <p>To delete an example, use the *Update a training query* method and omit the example that you
+   * want to delete from the example set.
    *
    * @param deleteTrainingQueryOptions the {@link DeleteTrainingQueryOptions} containing the options
    *     for the call
@@ -2190,7 +2211,7 @@ public class Discovery extends BaseService {
   }
 
   /**
-   * Analyze a Document.
+   * Analyze a document.
    *
    * <p>Process a document and return it for realtime use. Supports JSON files only.
    *
@@ -2200,6 +2221,11 @@ public class Discovery extends BaseService {
    * in a `Quote` field, you must apply enrichments to the `Quote` field in the collection
    * configuration. Then, when you analyze the file, the text in the `Quote` field is analyzed and
    * results are written to a field named `enriched_Quote`.
+   *
+   * <p>Submit a request against only one collection at a time. Remember, the documents in the
+   * collection are not significant. It is the enrichments that are defined for the collection that
+   * matter. If you submit requests to several collections, then several models are initiated at the
+   * same time, which can cause request failures.
    *
    * <p>**Note:** This method is supported with Enterprise plan deployments and installed
    * deployments only.

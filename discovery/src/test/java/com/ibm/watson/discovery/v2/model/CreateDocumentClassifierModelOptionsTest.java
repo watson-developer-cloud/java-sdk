@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,25 +36,27 @@ public class CreateDocumentClassifierModelOptionsTest {
             .classifierId("testString")
             .name("testString")
             .description("testString")
-            .learningRate(Double.valueOf("0"))
+            .learningRate(Double.valueOf("0.1"))
             .l1RegularizationStrengths(java.util.Arrays.asList(Double.valueOf("1.0E-6")))
             .l2RegularizationStrengths(java.util.Arrays.asList(Double.valueOf("1.0E-6")))
-            .trainingMaxSteps(Long.valueOf("0"))
-            .improvementRatio(Double.valueOf("0"))
+            .trainingMaxSteps(Long.valueOf("10000000"))
+            .improvementRatio(Double.valueOf("0.000010"))
             .build();
     assertEquals(createDocumentClassifierModelOptionsModel.projectId(), "testString");
     assertEquals(createDocumentClassifierModelOptionsModel.classifierId(), "testString");
     assertEquals(createDocumentClassifierModelOptionsModel.name(), "testString");
     assertEquals(createDocumentClassifierModelOptionsModel.description(), "testString");
-    assertEquals(createDocumentClassifierModelOptionsModel.learningRate(), Double.valueOf("0"));
+    assertEquals(createDocumentClassifierModelOptionsModel.learningRate(), Double.valueOf("0.1"));
     assertEquals(
         createDocumentClassifierModelOptionsModel.l1RegularizationStrengths(),
         java.util.Arrays.asList(Double.valueOf("1.0E-6")));
     assertEquals(
         createDocumentClassifierModelOptionsModel.l2RegularizationStrengths(),
         java.util.Arrays.asList(Double.valueOf("1.0E-6")));
-    assertEquals(createDocumentClassifierModelOptionsModel.trainingMaxSteps(), Long.valueOf("0"));
-    assertEquals(createDocumentClassifierModelOptionsModel.improvementRatio(), Double.valueOf("0"));
+    assertEquals(
+        createDocumentClassifierModelOptionsModel.trainingMaxSteps(), Long.valueOf("10000000"));
+    assertEquals(
+        createDocumentClassifierModelOptionsModel.improvementRatio(), Double.valueOf("0.000010"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

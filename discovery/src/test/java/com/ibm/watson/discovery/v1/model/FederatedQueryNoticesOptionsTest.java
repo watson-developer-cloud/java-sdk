@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,7 +38,7 @@ public class FederatedQueryNoticesOptionsTest {
             .query("testString")
             .naturalLanguageQuery("testString")
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
@@ -55,7 +55,7 @@ public class FederatedQueryNoticesOptionsTest {
     assertEquals(federatedQueryNoticesOptionsModel.query(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(federatedQueryNoticesOptionsModel.aggregation(), "testString");
-    assertEquals(federatedQueryNoticesOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(federatedQueryNoticesOptionsModel.count(), Long.valueOf("10"));
     assertEquals(
         federatedQueryNoticesOptionsModel.xReturn(), java.util.Arrays.asList("testString"));
     assertEquals(federatedQueryNoticesOptionsModel.offset(), Long.valueOf("26"));

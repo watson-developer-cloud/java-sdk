@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -251,13 +251,13 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * <p>When adding a document, the content of the document to ingest. For maximum supported file
-   * size limits, see [the
-   * documentation](/docs/discovery-data?topic=discovery-data-collections#collections-doc-limits).
+   * <p>**Add a document**: The content of the document to ingest. For the supported file types and
+   * maximum supported file size limits when adding a document, see [the
+   * documentation](/docs/discovery-data?topic=discovery-data-collections#supportedfiletypes).
    *
-   * <p>When analyzing a document, the content of the document to analyze but not ingest. Only the
-   * `application/json` content type is supported currently. For maximum supported file size limits,
-   * see [the product
+   * <p>**Analyze a document**: The content of the document to analyze but not ingest. Only the
+   * `application/json` content type is supported by the Analyze API. For maximum supported file
+   * size limits, see [the product
    * documentation](/docs/discovery-data?topic=discovery-data-analyzeapi#analyzeapi-limits).
    *
    * @return the file

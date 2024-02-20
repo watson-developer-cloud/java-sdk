@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,14 +39,14 @@ public class QueryOptionsTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
             .highlight(false)
             .passagesFields("testString")
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicate(false)
             .deduplicateField("testString")
             .similar(false)
@@ -63,14 +63,14 @@ public class QueryOptionsTest {
     assertEquals(queryOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(queryOptionsModel.passages(), Boolean.valueOf(true));
     assertEquals(queryOptionsModel.aggregation(), "testString");
-    assertEquals(queryOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(queryOptionsModel.count(), Long.valueOf("10"));
     assertEquals(queryOptionsModel.xReturn(), "testString");
     assertEquals(queryOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(queryOptionsModel.sort(), "testString");
     assertEquals(queryOptionsModel.highlight(), Boolean.valueOf(false));
     assertEquals(queryOptionsModel.passagesFields(), "testString");
-    assertEquals(queryOptionsModel.passagesCount(), Long.valueOf("100"));
-    assertEquals(queryOptionsModel.passagesCharacters(), Long.valueOf("50"));
+    assertEquals(queryOptionsModel.passagesCount(), Long.valueOf("10"));
+    assertEquals(queryOptionsModel.passagesCharacters(), Long.valueOf("400"));
     assertEquals(queryOptionsModel.deduplicate(), Boolean.valueOf(false));
     assertEquals(queryOptionsModel.deduplicateField(), "testString");
     assertEquals(queryOptionsModel.similar(), Boolean.valueOf(false));

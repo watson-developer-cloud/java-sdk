@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -76,9 +76,9 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an enrichment to enrichments.
+     * Adds a new element to enrichments.
      *
-     * @param enrichment the new enrichment
+     * @param enrichment the new element to be added
      * @return the CreateConfigurationOptions builder
      */
     public Builder addEnrichment(Enrichment enrichment) {
@@ -91,9 +91,9 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an normalization to normalizations.
+     * Adds a new element to normalizations.
      *
-     * @param normalization the new normalization
+     * @param normalization the new element to be added
      * @return the CreateConfigurationOptions builder
      */
     public Builder addNormalization(NormalizationOperation normalization) {

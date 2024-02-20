@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -86,9 +86,9 @@ public class CreateDocumentClassifierModelOptions extends GenericModel {
     }
 
     /**
-     * Adds an l1RegularizationStrengths to l1RegularizationStrengths.
+     * Adds a new element to l1RegularizationStrengths.
      *
-     * @param l1RegularizationStrengths the new l1RegularizationStrengths
+     * @param l1RegularizationStrengths the new element to be added
      * @return the CreateDocumentClassifierModelOptions builder
      */
     public Builder addL1RegularizationStrengths(Double l1RegularizationStrengths) {
@@ -102,9 +102,9 @@ public class CreateDocumentClassifierModelOptions extends GenericModel {
     }
 
     /**
-     * Adds an l2RegularizationStrengths to l2RegularizationStrengths.
+     * Adds a new element to l2RegularizationStrengths.
      *
-     * @param l2RegularizationStrengths the new l2RegularizationStrengths
+     * @param l2RegularizationStrengths the new element to be added
      * @return the CreateDocumentClassifierModelOptions builder
      */
     public Builder addL2RegularizationStrengths(Double l2RegularizationStrengths) {

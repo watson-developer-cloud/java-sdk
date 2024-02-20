@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,14 +39,14 @@ public class QueryNoticesOptionsTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn(java.util.Arrays.asList("testString"))
             .offset(Long.valueOf("26"))
             .sort(java.util.Arrays.asList("testString"))
             .highlight(false)
             .passagesFields(java.util.Arrays.asList("testString"))
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicateField("testString")
             .similar(false)
             .similarDocumentIds(java.util.Arrays.asList("testString"))
@@ -59,14 +59,14 @@ public class QueryNoticesOptionsTest {
     assertEquals(queryNoticesOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(queryNoticesOptionsModel.passages(), Boolean.valueOf(true));
     assertEquals(queryNoticesOptionsModel.aggregation(), "testString");
-    assertEquals(queryNoticesOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(queryNoticesOptionsModel.count(), Long.valueOf("10"));
     assertEquals(queryNoticesOptionsModel.xReturn(), java.util.Arrays.asList("testString"));
     assertEquals(queryNoticesOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(queryNoticesOptionsModel.sort(), java.util.Arrays.asList("testString"));
     assertEquals(queryNoticesOptionsModel.highlight(), Boolean.valueOf(false));
     assertEquals(queryNoticesOptionsModel.passagesFields(), java.util.Arrays.asList("testString"));
-    assertEquals(queryNoticesOptionsModel.passagesCount(), Long.valueOf("100"));
-    assertEquals(queryNoticesOptionsModel.passagesCharacters(), Long.valueOf("50"));
+    assertEquals(queryNoticesOptionsModel.passagesCount(), Long.valueOf("10"));
+    assertEquals(queryNoticesOptionsModel.passagesCharacters(), Long.valueOf("400"));
     assertEquals(queryNoticesOptionsModel.deduplicateField(), "testString");
     assertEquals(queryNoticesOptionsModel.similar(), Boolean.valueOf(false));
     assertEquals(

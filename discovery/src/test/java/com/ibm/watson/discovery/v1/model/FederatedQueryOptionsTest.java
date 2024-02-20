@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -39,14 +39,14 @@ public class FederatedQueryOptionsTest {
             .naturalLanguageQuery("testString")
             .passages(true)
             .aggregation("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .xReturn("testString")
             .offset(Long.valueOf("26"))
             .sort("testString")
             .highlight(false)
             .passagesFields("testString")
-            .passagesCount(Long.valueOf("100"))
-            .passagesCharacters(Long.valueOf("50"))
+            .passagesCount(Long.valueOf("10"))
+            .passagesCharacters(Long.valueOf("400"))
             .deduplicate(false)
             .deduplicateField("testString")
             .similar(false)
@@ -62,14 +62,14 @@ public class FederatedQueryOptionsTest {
     assertEquals(federatedQueryOptionsModel.naturalLanguageQuery(), "testString");
     assertEquals(federatedQueryOptionsModel.passages(), Boolean.valueOf(true));
     assertEquals(federatedQueryOptionsModel.aggregation(), "testString");
-    assertEquals(federatedQueryOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(federatedQueryOptionsModel.count(), Long.valueOf("10"));
     assertEquals(federatedQueryOptionsModel.xReturn(), "testString");
     assertEquals(federatedQueryOptionsModel.offset(), Long.valueOf("26"));
     assertEquals(federatedQueryOptionsModel.sort(), "testString");
     assertEquals(federatedQueryOptionsModel.highlight(), Boolean.valueOf(false));
     assertEquals(federatedQueryOptionsModel.passagesFields(), "testString");
-    assertEquals(federatedQueryOptionsModel.passagesCount(), Long.valueOf("100"));
-    assertEquals(federatedQueryOptionsModel.passagesCharacters(), Long.valueOf("50"));
+    assertEquals(federatedQueryOptionsModel.passagesCount(), Long.valueOf("10"));
+    assertEquals(federatedQueryOptionsModel.passagesCharacters(), Long.valueOf("400"));
     assertEquals(federatedQueryOptionsModel.deduplicate(), Boolean.valueOf(false));
     assertEquals(federatedQueryOptionsModel.deduplicateField(), "testString");
     assertEquals(federatedQueryOptionsModel.similar(), Boolean.valueOf(false));

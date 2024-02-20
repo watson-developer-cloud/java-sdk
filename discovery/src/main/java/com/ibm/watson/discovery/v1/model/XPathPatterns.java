@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -47,9 +47,9 @@ public class XPathPatterns extends GenericModel {
     }
 
     /**
-     * Adds an xpaths to xpaths.
+     * Adds a new element to xpaths.
      *
-     * @param xpaths the new xpaths
+     * @param xpaths the new element to be added
      * @return the XPathPatterns builder
      */
     public Builder addXpaths(String xpaths) {

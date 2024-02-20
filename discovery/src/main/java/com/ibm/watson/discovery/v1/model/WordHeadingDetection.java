@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -50,9 +50,9 @@ public class WordHeadingDetection extends GenericModel {
     }
 
     /**
-     * Adds an fontSetting to fonts.
+     * Adds a new element to fonts.
      *
-     * @param fontSetting the new fontSetting
+     * @param fontSetting the new element to be added
      * @return the WordHeadingDetection builder
      */
     public Builder addFontSetting(FontSetting fontSetting) {
@@ -65,9 +65,9 @@ public class WordHeadingDetection extends GenericModel {
     }
 
     /**
-     * Adds an wordStyle to styles.
+     * Adds a new element to styles.
      *
-     * @param wordStyle the new wordStyle
+     * @param wordStyle the new element to be added
      * @return the WordHeadingDetection builder
      */
     public Builder addWordStyle(WordStyle wordStyle) {

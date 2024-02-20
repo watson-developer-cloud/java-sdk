@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,13 +36,13 @@ public class GetAutocompletionOptionsTest {
             .collectionId("testString")
             .prefix("testString")
             .field("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("5"))
             .build();
     assertEquals(getAutocompletionOptionsModel.environmentId(), "testString");
     assertEquals(getAutocompletionOptionsModel.collectionId(), "testString");
     assertEquals(getAutocompletionOptionsModel.prefix(), "testString");
     assertEquals(getAutocompletionOptionsModel.field(), "testString");
-    assertEquals(getAutocompletionOptionsModel.count(), Long.valueOf("26"));
+    assertEquals(getAutocompletionOptionsModel.count(), Long.valueOf("5"));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

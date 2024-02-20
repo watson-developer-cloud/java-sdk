@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,9 +59,9 @@ public class QueryLogOptions extends GenericModel {
     }
 
     /**
-     * Adds an sort to sort.
+     * Adds a new element to sort.
      *
-     * @param sort the new sort
+     * @param sort the new element to be added
      * @return the QueryLogOptions builder
      */
     public Builder addSort(String sort) {

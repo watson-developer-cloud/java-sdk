@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -68,9 +68,9 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Adds an folders to folders.
+     * Adds a new element to folders.
      *
-     * @param folders the new folders
+     * @param folders the new element to be added
      * @return the SourceOptions builder
      */
     public Builder addFolders(SourceOptionsFolder folders) {
@@ -83,9 +83,9 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Adds an objects to objects.
+     * Adds a new element to objects.
      *
-     * @param objects the new objects
+     * @param objects the new element to be added
      * @return the SourceOptions builder
      */
     public Builder addObjects(SourceOptionsObject objects) {
@@ -98,9 +98,9 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Adds an siteCollections to siteCollections.
+     * Adds a new element to siteCollections.
      *
-     * @param siteCollections the new siteCollections
+     * @param siteCollections the new element to be added
      * @return the SourceOptions builder
      */
     public Builder addSiteCollections(SourceOptionsSiteColl siteCollections) {
@@ -114,9 +114,9 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Adds an urls to urls.
+     * Adds a new element to urls.
      *
-     * @param urls the new urls
+     * @param urls the new element to be added
      * @return the SourceOptions builder
      */
     public Builder addUrls(SourceOptionsWebCrawl urls) {
@@ -129,9 +129,9 @@ public class SourceOptions extends GenericModel {
     }
 
     /**
-     * Adds an buckets to buckets.
+     * Adds a new element to buckets.
      *
-     * @param buckets the new buckets
+     * @param buckets the new element to be added
      * @return the SourceOptions builder
      */
     public Builder addBuckets(SourceOptionsBuckets buckets) {
