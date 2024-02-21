@@ -23,6 +23,9 @@ public class MessageInputOptionsStateless extends GenericModel {
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
 
+  @SerializedName("async_callout")
+  protected Boolean asyncCallout;
+
   protected MessageInputOptionsSpelling spelling;
   protected Boolean debug;
 
@@ -30,6 +33,7 @@ public class MessageInputOptionsStateless extends GenericModel {
   public static class Builder {
     private Boolean restart;
     private Boolean alternateIntents;
+    private Boolean asyncCallout;
     private MessageInputOptionsSpelling spelling;
     private Boolean debug;
 
@@ -41,6 +45,7 @@ public class MessageInputOptionsStateless extends GenericModel {
     private Builder(MessageInputOptionsStateless messageInputOptionsStateless) {
       this.restart = messageInputOptionsStateless.restart;
       this.alternateIntents = messageInputOptionsStateless.alternateIntents;
+      this.asyncCallout = messageInputOptions.asyncCallout;
       this.spelling = messageInputOptionsStateless.spelling;
       this.debug = messageInputOptionsStateless.debug;
     }
@@ -80,6 +85,17 @@ public class MessageInputOptionsStateless extends GenericModel {
     }
 
     /**
+     * Set the asyncCallout.
+     *
+     * @param asyncCallout the asyncCallout
+     * @return the MessageInputOptions builder
+     */
+    public Builder asyncCallout(Boolean asyncCallout) {
+      this.asyncCallout = asyncCallout;
+      return this;
+    }
+
+    /**
      * Set the spelling.
      *
      * @param spelling the spelling
@@ -107,6 +123,7 @@ public class MessageInputOptionsStateless extends GenericModel {
   protected MessageInputOptionsStateless(Builder builder) {
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;
+    asyncCallout = builder.asyncCallout;
     spelling = builder.spelling;
     debug = builder.debug;
   }
@@ -141,6 +158,22 @@ public class MessageInputOptionsStateless extends GenericModel {
    */
   public Boolean alternateIntents() {
     return alternateIntents;
+  }
+
+  /**
+   * Gets the asyncCallout.
+   *
+   * <p>Whether custom extension callouts are executed asynchronously. Asynchronous execution means
+   * the response to the extension callout will be processed on the subsequent message call, the
+   * initial message response signals to the client that the operation may be long running. With
+   * synchronous execution the custom extension is executed and returns the response in a single
+   * message turn. **Note:** **async_callout** defaults to true for API versions earlier than
+   * 2023-06-15.
+   *
+   * @return the asyncCallout
+   */
+  public Boolean asyncCallout() {
+    return asyncCallout;
   }
 
   /**

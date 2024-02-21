@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   protected String environmentId;
   protected String name;
   protected String description;
+  protected BaseEnvironmentOrchestration orchestration;
   protected Long sessionTimeout;
   protected List<EnvironmentSkill> skillReferences;
 
@@ -32,6 +33,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
     private String environmentId;
     private String name;
     private String description;
+    private BaseEnvironmentOrchestration orchestration;
     private Long sessionTimeout;
     private List<EnvironmentSkill> skillReferences;
 
@@ -45,6 +47,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
       this.environmentId = updateEnvironmentOptions.environmentId;
       this.name = updateEnvironmentOptions.name;
       this.description = updateEnvironmentOptions.description;
+      this.orchestration = updateEnvironmentOptions.orchestration;
       this.sessionTimeout = updateEnvironmentOptions.sessionTimeout;
       this.skillReferences = updateEnvironmentOptions.skillReferences;
     }
@@ -73,9 +76,9 @@ public class UpdateEnvironmentOptions extends GenericModel {
     }
 
     /**
-     * Adds an skillReference to skillReferences.
+     * Adds a new element to skillReferences.
      *
-     * @param skillReference the new skillReference
+     * @param skillReference the new element to be added
      * @return the UpdateEnvironmentOptions builder
      */
     public Builder addSkillReference(EnvironmentSkill skillReference) {
@@ -133,6 +136,17 @@ public class UpdateEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Set the orchestration.
+     *
+     * @param orchestration the orchestration
+     * @return the UpdateEnvironmentOptions builder
+     */
+    public Builder orchestration(BaseEnvironmentOrchestration orchestration) {
+      this.orchestration = orchestration;
+      return this;
+    }
+
+    /**
      * Set the sessionTimeout.
      *
      * @param sessionTimeout the sessionTimeout
@@ -166,6 +180,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
+    orchestration = builder.orchestration;
     sessionTimeout = builder.sessionTimeout;
     skillReferences = builder.skillReferences;
   }
@@ -187,7 +202,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
    * environment ID of the environment where the assistant is deployed. - For all other requests,
    * specify the assistant ID of the assistant.
    *
-   * <p>To find the environment ID or assistant ID in the Watson Assistant user interface, open the
+   * <p>To find the environment ID or assistant ID in the watsonx Assistant user interface, open the
    * assistant settings and scroll to the **Environments** section.
    *
    * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
@@ -203,7 +218,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * <p>Unique identifier of the environment. To find the environment ID in the Watson Assistant
+   * <p>Unique identifier of the environment. To find the environment ID in the watsonx Assistant
    * user interface, open the environment settings and click **API Details**. **Note:** Currently,
    * the API does not support creating environments.
    *
@@ -233,6 +248,17 @@ public class UpdateEnvironmentOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the orchestration.
+   *
+   * <p>The search skill orchestration settings for the environment.
+   *
+   * @return the orchestration
+   */
+  public BaseEnvironmentOrchestration orchestration() {
+    return orchestration;
   }
 
   /**

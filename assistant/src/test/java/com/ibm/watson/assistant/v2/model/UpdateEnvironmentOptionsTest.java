@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,10 @@ public class UpdateEnvironmentOptionsTest {
 
   @Test
   public void testUpdateEnvironmentOptions() throws Throwable {
+    BaseEnvironmentOrchestration baseEnvironmentOrchestrationModel =
+        new BaseEnvironmentOrchestration.Builder().searchSkillFallback(true).build();
+    assertEquals(baseEnvironmentOrchestrationModel.searchSkillFallback(), Boolean.valueOf(true));
+
     EnvironmentSkill environmentSkillModel =
         new EnvironmentSkill.Builder()
             .skillId("testString")
@@ -50,6 +54,7 @@ public class UpdateEnvironmentOptionsTest {
             .environmentId("testString")
             .name("testString")
             .description("testString")
+            .orchestration(baseEnvironmentOrchestrationModel)
             .sessionTimeout(Long.valueOf("10"))
             .skillReferences(java.util.Arrays.asList(environmentSkillModel))
             .build();
@@ -57,6 +62,7 @@ public class UpdateEnvironmentOptionsTest {
     assertEquals(updateEnvironmentOptionsModel.environmentId(), "testString");
     assertEquals(updateEnvironmentOptionsModel.name(), "testString");
     assertEquals(updateEnvironmentOptionsModel.description(), "testString");
+    assertEquals(updateEnvironmentOptionsModel.orchestration(), baseEnvironmentOrchestrationModel);
     assertEquals(updateEnvironmentOptionsModel.sessionTimeout(), Long.valueOf("10"));
     assertEquals(
         updateEnvironmentOptionsModel.skillReferences(),

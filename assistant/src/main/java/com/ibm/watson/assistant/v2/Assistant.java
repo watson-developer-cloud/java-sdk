@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.64.1-cee95189-20230124-211647
+ * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
  */
 
 package com.ibm.watson.assistant.v2;
@@ -68,12 +68,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * The IBM Watson&amp;trade; Assistant service combines machine learning, natural language
+ * The IBM&amp;reg; watsonx&amp;trade; Assistant service combines machine learning, natural language
  * understanding, and an integrated dialog editor to create conversation flows between your apps and
  * your users.
  *
  * <p>The Assistant v2 API provides runtime methods your client application can use to send user
  * input to an assistant and receive a response.
+ *
+ * <p>You need a paid Plus plan or higher to use the watsonx Assistant v2 API.
  *
  * <p>API Version: 2.0 See: https://cloud.ibm.com/docs/assistant
  */
@@ -93,7 +95,7 @@ public class Assistant extends BaseService {
    * the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-11-27`.
+   *     format. The current version is `2023-06-15`.
    */
   public Assistant(String version) {
     this(
@@ -107,7 +109,7 @@ public class Assistant extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-11-27`.
+   *     format. The current version is `2023-06-15`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Assistant(String version, Authenticator authenticator) {
@@ -119,7 +121,7 @@ public class Assistant extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-11-27`.
+   *     format. The current version is `2023-06-15`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Assistant(String version, String serviceName) {
@@ -131,7 +133,7 @@ public class Assistant extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2021-11-27`.
+   *     format. The current version is `2023-06-15`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -146,7 +148,7 @@ public class Assistant extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2021-11-27`.
+   * current version is `2023-06-15`.
    *
    * @return the version
    */
@@ -168,8 +170,6 @@ public class Assistant extends BaseService {
    * Create an assistant.
    *
    * <p>Create a new assistant.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param createAssistantOptions the {@link CreateAssistantOptions} containing the options for the
    *     call
@@ -214,8 +214,6 @@ public class Assistant extends BaseService {
    *
    * <p>Create a new assistant.
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @return a {@link ServiceCall} with a result of type {@link AssistantData}
    */
   public ServiceCall<AssistantData> createAssistant() {
@@ -225,9 +223,7 @@ public class Assistant extends BaseService {
   /**
    * List assistants.
    *
-   * <p>List the assistants associated with a Watson Assistant service instance.
-   *
-   * <p>This method is available only with Enterprise plans.
+   * <p>List the assistants associated with a watsonx Assistant service instance.
    *
    * @param listAssistantsOptions the {@link ListAssistantsOptions} containing the options for the
    *     call
@@ -271,9 +267,7 @@ public class Assistant extends BaseService {
   /**
    * List assistants.
    *
-   * <p>List the assistants associated with a Watson Assistant service instance.
-   *
-   * <p>This method is available only with Enterprise plans.
+   * <p>List the assistants associated with a watsonx Assistant service instance.
    *
    * @return a {@link ServiceCall} with a result of type {@link AssistantCollection}
    */
@@ -285,8 +279,6 @@ public class Assistant extends BaseService {
    * Delete assistant.
    *
    * <p>Delete an assistant.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param deleteAssistantOptions the {@link DeleteAssistantOptions} containing the options for the
    *     call
@@ -318,7 +310,7 @@ public class Assistant extends BaseService {
    * <p>Create a new session. A session is used to send user input to a skill and receive responses.
    * It also maintains the state of the conversation. A session persists until it is deleted, or
    * until it times out because of inactivity. (For more information, see the
-   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings).
+   * [documentation](https://cloud.ibm.com/docs/assistant?topic=assistant-assistant-settings).).
    *
    * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the
    *     call
@@ -390,7 +382,7 @@ public class Assistant extends BaseService {
    * Send user input to assistant (stateful).
    *
    * <p>Send user input to an assistant and receive a response, with conversation state (including
-   * context data) stored by Watson Assistant for the duration of the session.
+   * context data) stored by watsonx Assistant for the duration of the session.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link MessageResponse}
@@ -527,7 +519,7 @@ public class Assistant extends BaseService {
    *
    * <p>List the events from the log of an assistant.
    *
-   * <p>This method requires Manager access, and is available only with Plus and Enterprise plans.
+   * <p>This method requires Manager access.
    *
    * <p>**Note:** If you use the **cursor** parameter to retrieve results one page at a time,
    * subsequent requests must be no more than 5 minutes apart. Any returned value for the **cursor**
@@ -583,7 +575,7 @@ public class Assistant extends BaseService {
    *
    * <p>**Note:** This operation is intended only for deleting data associated with a single
    * specific customer, not for deleting data associated with multiple customers or for any other
-   * purpose. For more information, see [Labeling and deleting data in Watson
+   * purpose. For more information, see [Labeling and deleting data in watsonx
    * Assistant](https://cloud.ibm.com/docs/assistant?topic=assistant-information-security#information-security-gdpr-wa).
    *
    * @param deleteUserDataOptions the {@link DeleteUserDataOptions} containing the options for the
@@ -611,8 +603,6 @@ public class Assistant extends BaseService {
    * List environments.
    *
    * <p>List the environments associated with an assistant.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for
    *     the call
@@ -662,8 +652,6 @@ public class Assistant extends BaseService {
    * <p>Get information about an environment. For more information about environments, see
    * [Environments](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#environments).
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the
    *     call
    * @return a {@link ServiceCall} with a result of type {@link Environment}
@@ -703,8 +691,6 @@ public class Assistant extends BaseService {
    * see
    * [Environments](https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-publish-overview#environments).
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for
    *     the call
    * @return a {@link ServiceCall} with a result of type {@link Environment}
@@ -736,6 +722,12 @@ public class Assistant extends BaseService {
     if (updateEnvironmentOptions.description() != null) {
       contentJson.addProperty("description", updateEnvironmentOptions.description());
     }
+    if (updateEnvironmentOptions.orchestration() != null) {
+      contentJson.add(
+          "orchestration",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(updateEnvironmentOptions.orchestration()));
+    }
     if (updateEnvironmentOptions.sessionTimeout() != null) {
       contentJson.addProperty("session_timeout", updateEnvironmentOptions.sessionTimeout());
     }
@@ -756,9 +748,7 @@ public class Assistant extends BaseService {
    * Create release.
    *
    * <p>Create a new release using the current content of the dialog and action skills in the draft
-   * environment. (In the Watson Assistant user interface, a release is called a *version*.)
-   *
-   * <p>This method is available only with Enterprise plans.
+   * environment. (In the watsonx Assistant user interface, a release is called a *version*.).
    *
    * @param createReleaseOptions the {@link CreateReleaseOptions} containing the options for the
    *     call
@@ -793,10 +783,8 @@ public class Assistant extends BaseService {
   /**
    * List releases.
    *
-   * <p>List the releases associated with an assistant. (In the Watson Assistant user interface, a
-   * release is called a *version*.)
-   *
-   * <p>This method is available only with Enterprise plans.
+   * <p>List the releases associated with an assistant. (In the watsonx Assistant user interface, a
+   * release is called a *version*.).
    *
    * @param listReleasesOptions the {@link ListReleasesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link ReleaseCollection}
@@ -847,8 +835,6 @@ public class Assistant extends BaseService {
    * value of the **status** property. When processing has completed, the request returns the
    * release data.
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @param getReleaseOptions the {@link GetReleaseOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Release}
    */
@@ -882,9 +868,8 @@ public class Assistant extends BaseService {
   /**
    * Delete release.
    *
-   * <p>Delete a release. (In the Watson Assistant user interface, a release is called a *version*.)
-   *
-   * <p>This method is available only with Enterprise plans.
+   * <p>Delete a release. (In the watsonx Assistant user interface, a release is called a
+   * *version*.).
    *
    * @param deleteReleaseOptions the {@link DeleteReleaseOptions} containing the options for the
    *     call
@@ -917,8 +902,6 @@ public class Assistant extends BaseService {
    *
    * <p>Update the environment with the content of the release. All snapshots saved as part of the
    * release become active in the environment.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param deployReleaseOptions the {@link DeployReleaseOptions} containing the options for the
    *     call
@@ -959,8 +942,6 @@ public class Assistant extends BaseService {
    *
    * <p>Get information about a skill.
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @param getSkillOptions the {@link GetSkillOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Skill}
    */
@@ -993,8 +974,6 @@ public class Assistant extends BaseService {
    *
    * <p>**Note:** The update is performed asynchronously; you can see the status of the update by
    * calling the **Get skill** method and checking the value of the **status** property.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param updateSkillOptions the {@link UpdateSkillOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link Skill}
@@ -1066,8 +1045,6 @@ public class Assistant extends BaseService {
    * <p>When processing has completed, the request returns the exported JSON data. Remember that the
    * usual rate limits apply.
    *
-   * <p>This method is available only with Enterprise plans.
-   *
    * @param exportSkillsOptions the {@link ExportSkillsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SkillsExport}
    */
@@ -1106,8 +1083,6 @@ public class Assistant extends BaseService {
    * <p>A successful call to this method initiates an asynchronous import. The updated skills
    * belonging to the assistant are not available until processing completes. To check the status of
    * the asynchronous import operation, use the **Get status of skills import** method.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param importSkillsOptions the {@link ImportSkillsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a result of type {@link SkillsAsyncRequestStatus}
@@ -1152,8 +1127,6 @@ public class Assistant extends BaseService {
    *
    * <p>Retrieve the status of an asynchronous import operation previously initiated by using the
    * **Import skills** method.
-   *
-   * <p>This method is available only with Enterprise plans.
    *
    * @param importSkillsStatusOptions the {@link ImportSkillsStatusOptions} containing the options
    *     for the call

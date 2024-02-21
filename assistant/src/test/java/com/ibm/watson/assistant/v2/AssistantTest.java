@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,6 +21,7 @@ import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.assistant.v2.model.AssistantCollection;
 import com.ibm.watson.assistant.v2.model.AssistantData;
 import com.ibm.watson.assistant.v2.model.AssistantState;
+import com.ibm.watson.assistant.v2.model.BaseEnvironmentOrchestration;
 import com.ibm.watson.assistant.v2.model.BulkClassifyOptions;
 import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
 import com.ibm.watson.assistant.v2.model.BulkClassifyUtterance;
@@ -191,7 +192,7 @@ public class AssistantTest {
     // Construct an instance of the ListAssistantsOptions model
     ListAssistantsOptions listAssistantsOptionsModel =
         new ListAssistantsOptions.Builder()
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("name")
             .cursor("testString")
@@ -216,7 +217,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "name");
     assertEquals(query.get("cursor"), "testString");
@@ -502,6 +503,7 @@ public class AssistantTest {
         new MessageInputOptions.Builder()
             .restart(false)
             .alternateIntents(false)
+            .asyncCallout(false)
             .spelling(messageInputOptionsSpellingModel)
             .debug(false)
             .returnContext(false)
@@ -727,6 +729,7 @@ public class AssistantTest {
         new MessageInputOptionsStateless.Builder()
             .restart(false)
             .alternateIntents(false)
+            .asyncCallout(false)
             .spelling(messageInputOptionsSpellingModel)
             .debug(false)
             .build();
@@ -928,7 +931,7 @@ public class AssistantTest {
             .assistantId("testString")
             .sort("testString")
             .filter("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .cursor("testString")
             .build();
 
@@ -951,7 +954,7 @@ public class AssistantTest {
     assertEquals(query.get("version"), "testString");
     assertEquals(query.get("sort"), "testString");
     assertEquals(query.get("filter"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(query.get("cursor"), "testString");
   }
 
@@ -1038,7 +1041,7 @@ public class AssistantTest {
     ListEnvironmentsOptions listEnvironmentsOptionsModel =
         new ListEnvironmentsOptions.Builder()
             .assistantId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("name")
             .cursor("testString")
@@ -1063,7 +1066,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "name");
     assertEquals(query.get("cursor"), "testString");
@@ -1159,6 +1162,10 @@ public class AssistantTest {
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
+    // Construct an instance of the BaseEnvironmentOrchestration model
+    BaseEnvironmentOrchestration baseEnvironmentOrchestrationModel =
+        new BaseEnvironmentOrchestration.Builder().searchSkillFallback(true).build();
+
     // Construct an instance of the EnvironmentSkill model
     EnvironmentSkill environmentSkillModel =
         new EnvironmentSkill.Builder()
@@ -1176,6 +1183,7 @@ public class AssistantTest {
             .environmentId("testString")
             .name("testString")
             .description("testString")
+            .orchestration(baseEnvironmentOrchestrationModel)
             .sessionTimeout(Long.valueOf("10"))
             .skillReferences(java.util.Arrays.asList(environmentSkillModel))
             .build();
@@ -1291,7 +1299,7 @@ public class AssistantTest {
     ListReleasesOptions listReleasesOptionsModel =
         new ListReleasesOptions.Builder()
             .assistantId("testString")
-            .pageLimit(Long.valueOf("26"))
+            .pageLimit(Long.valueOf("100"))
             .includeCount(false)
             .sort("name")
             .cursor("testString")
@@ -1316,7 +1324,7 @@ public class AssistantTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
     assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
     assertEquals(query.get("sort"), "name");
     assertEquals(query.get("cursor"), "testString");
