@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,8 +48,6 @@ public class SkillImport extends GenericModel {
     String ACTION = "action";
     /** dialog. */
     String DIALOG = "dialog";
-    /** search. */
-    String SEARCH = "search";
   }
 
   protected String name;
@@ -397,6 +395,9 @@ public class SkillImport extends GenericModel {
    * Gets the searchSettings.
    *
    * <p>An object describing the search skill configuration.
+   *
+   * <p>**Note:** Search settings are not supported in **Import skills** requests, and are not
+   * included in **Export skills** responses.
    *
    * @return the searchSettings
    */

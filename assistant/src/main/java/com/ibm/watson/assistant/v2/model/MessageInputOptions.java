@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,9 @@ public class MessageInputOptions extends GenericModel {
   @SerializedName("alternate_intents")
   protected Boolean alternateIntents;
 
+  @SerializedName("async_callout")
+  protected Boolean asyncCallout;
+
   protected MessageInputOptionsSpelling spelling;
   protected Boolean debug;
 
@@ -35,6 +38,7 @@ public class MessageInputOptions extends GenericModel {
   public static class Builder {
     private Boolean restart;
     private Boolean alternateIntents;
+    private Boolean asyncCallout;
     private MessageInputOptionsSpelling spelling;
     private Boolean debug;
     private Boolean returnContext;
@@ -48,6 +52,7 @@ public class MessageInputOptions extends GenericModel {
     private Builder(MessageInputOptions messageInputOptions) {
       this.restart = messageInputOptions.restart;
       this.alternateIntents = messageInputOptions.alternateIntents;
+      this.asyncCallout = messageInputOptions.asyncCallout;
       this.spelling = messageInputOptions.spelling;
       this.debug = messageInputOptions.debug;
       this.returnContext = messageInputOptions.returnContext;
@@ -85,6 +90,17 @@ public class MessageInputOptions extends GenericModel {
      */
     public Builder alternateIntents(Boolean alternateIntents) {
       this.alternateIntents = alternateIntents;
+      return this;
+    }
+
+    /**
+     * Set the asyncCallout.
+     *
+     * @param asyncCallout the asyncCallout
+     * @return the MessageInputOptions builder
+     */
+    public Builder asyncCallout(Boolean asyncCallout) {
+      this.asyncCallout = asyncCallout;
       return this;
     }
 
@@ -138,6 +154,7 @@ public class MessageInputOptions extends GenericModel {
   protected MessageInputOptions(Builder builder) {
     restart = builder.restart;
     alternateIntents = builder.alternateIntents;
+    asyncCallout = builder.asyncCallout;
     spelling = builder.spelling;
     debug = builder.debug;
     returnContext = builder.returnContext;
@@ -174,6 +191,22 @@ public class MessageInputOptions extends GenericModel {
    */
   public Boolean alternateIntents() {
     return alternateIntents;
+  }
+
+  /**
+   * Gets the asyncCallout.
+   *
+   * <p>Whether custom extension callouts are executed asynchronously. Asynchronous execution means
+   * the response to the extension callout will be processed on the subsequent message call, the
+   * initial message response signals to the client that the operation may be long running. With
+   * synchronous execution the custom extension is executed and returns the response in a single
+   * message turn. **Note:** **async_callout** defaults to true for API versions earlier than
+   * 2023-06-15.
+   *
+   * @return the asyncCallout
+   */
+  public Boolean asyncCallout() {
+    return asyncCallout;
   }
 
   /**

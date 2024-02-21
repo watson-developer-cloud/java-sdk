@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -163,6 +163,7 @@ public class MessageOptionsTest {
         new MessageInputOptions.Builder()
             .restart(false)
             .alternateIntents(false)
+            .asyncCallout(false)
             .spelling(messageInputOptionsSpellingModel)
             .debug(false)
             .returnContext(false)
@@ -170,6 +171,7 @@ public class MessageOptionsTest {
             .build();
     assertEquals(messageInputOptionsModel.restart(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.alternateIntents(), Boolean.valueOf(false));
+    assertEquals(messageInputOptionsModel.asyncCallout(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.spelling(), messageInputOptionsSpellingModel);
     assertEquals(messageInputOptionsModel.debug(), Boolean.valueOf(false));
     assertEquals(messageInputOptionsModel.returnContext(), Boolean.valueOf(false));
