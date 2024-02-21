@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -110,6 +110,7 @@ import com.ibm.watson.discovery.v2.model.UpdateDocumentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.UpdateProjectOptions;
 import com.ibm.watson.discovery.v2.model.UpdateTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.WebhookHeader;
 import com.ibm.watson.discovery.v2.utils.TestUtilities;
 import java.io.IOException;
 import java.io.InputStream;
@@ -199,7 +200,7 @@ public class DiscoveryTest {
   public void testCreateProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String createProjectPath = "/v2/projects";
     server.enqueue(
         new MockResponse()
@@ -223,7 +224,7 @@ public class DiscoveryTest {
         new DefaultQueryParamsTableResults.Builder()
             .enabled(true)
             .count(Long.valueOf("26"))
-            .perDocument(Long.valueOf("26"))
+            .perDocument(Long.valueOf("0"))
             .build();
 
     // Construct an instance of the DefaultQueryParamsSuggestedRefinements model
@@ -298,7 +299,7 @@ public class DiscoveryTest {
   public void testGetProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String getProjectPath = "/v2/projects/testString";
     server.enqueue(
         new MockResponse()
@@ -352,7 +353,7 @@ public class DiscoveryTest {
   public void testUpdateProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 11}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String updateProjectPath = "/v2/projects/testString";
     server.enqueue(
         new MockResponse()
@@ -823,7 +824,7 @@ public class DiscoveryTest {
         new ListDocumentsOptions.Builder()
             .projectId("testString")
             .collectionId("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("1000"))
             .status("testString")
             .hasNotices(true)
             .isParent(true)
@@ -849,7 +850,7 @@ public class DiscoveryTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("version"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("1000"));
     assertEquals(query.get("status"), "testString");
     assertEquals(Boolean.valueOf(query.get("has_notices")), Boolean.valueOf(true));
     assertEquals(Boolean.valueOf(query.get("is_parent")), Boolean.valueOf(true));
@@ -1120,7 +1121,7 @@ public class DiscoveryTest {
   public void testQueryWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 0}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}], \"aggregations\": [{\"type\": \"term\", \"field\": \"field\", \"count\": 5, \"name\": \"name\", \"results\": [{\"key\": \"key\", \"matching_results\": 15, \"relevancy\": 9, \"total_matching_documents\": 22, \"estimated_matching_results\": 24, \"aggregations\": [{\"anyKey\": \"anyValue\"}]}]}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"anyKey\": \"anyValue\"}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"anyKey\": \"anyValue\"}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [{\"id\": \"id\"}], \"row_header_texts\": [{\"text\": \"text\"}], \"row_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"column_header_ids\": [{\"id\": \"id\"}], \"column_header_texts\": [{\"text\": \"text\"}], \"column_header_texts_normalized\": [{\"text_normalized\": \"textNormalized\"}], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}";
+        "{\"matching_results\": 15, \"results\": [{\"document_id\": \"documentId\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"result_metadata\": {\"document_retrieval_source\": \"search\", \"collection_id\": \"collectionId\", \"confidence\": 0}, \"document_passages\": [{\"passage_text\": \"passageText\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}], \"aggregations\": [{\"type\": \"term\", \"field\": \"field\", \"count\": 5, \"name\": \"name\", \"results\": [{\"key\": \"key\", \"matching_results\": 15, \"relevancy\": 9, \"total_matching_documents\": 22, \"estimated_matching_results\": 24, \"aggregations\": [{\"anyKey\": \"anyValue\"}]}]}], \"retrieval_details\": {\"document_retrieval_strategy\": \"untrained\"}, \"suggested_query\": \"suggestedQuery\", \"suggested_refinements\": [{\"text\": \"text\"}], \"table_results\": [{\"table_id\": \"tableId\", \"source_document_id\": \"sourceDocumentId\", \"collection_id\": \"collectionId\", \"table_html\": \"tableHtml\", \"table_html_offset\": 15, \"table\": {\"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"section_title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"title\": {\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}, \"table_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"row_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"column_headers\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"text_normalized\": \"textNormalized\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14}], \"key_value_pairs\": [{\"key\": {\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}, \"value\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\"}]}], \"body_cells\": [{\"cell_id\": \"cellId\", \"location\": {\"begin\": 5, \"end\": 3}, \"text\": \"text\", \"row_index_begin\": 13, \"row_index_end\": 11, \"column_index_begin\": 16, \"column_index_end\": 14, \"row_header_ids\": [\"rowHeaderIds\"], \"row_header_texts\": [\"rowHeaderTexts\"], \"row_header_texts_normalized\": [\"rowHeaderTextsNormalized\"], \"column_header_ids\": [\"columnHeaderIds\"], \"column_header_texts\": [\"columnHeaderTexts\"], \"column_header_texts_normalized\": [\"columnHeaderTextsNormalized\"], \"attributes\": [{\"type\": \"type\", \"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}], \"contexts\": [{\"text\": \"text\", \"location\": {\"begin\": 5, \"end\": 3}}]}}], \"passages\": [{\"passage_text\": \"passageText\", \"passage_score\": 12, \"document_id\": \"documentId\", \"collection_id\": \"collectionId\", \"start_offset\": 11, \"end_offset\": 9, \"field\": \"field\", \"answers\": [{\"answer_text\": \"answerText\", \"start_offset\": 11, \"end_offset\": 9, \"confidence\": 0}]}]}";
     String queryPath = "/v2/projects/testString/query";
     server.enqueue(
         new MockResponse()
@@ -1146,7 +1147,7 @@ public class DiscoveryTest {
             .count(Long.valueOf("400"))
             .characters(Long.valueOf("50"))
             .findAnswers(false)
-            .maxAnswersPerPassage(Long.valueOf("26"))
+            .maxAnswersPerPassage(Long.valueOf("1"))
             .build();
 
     // Construct an instance of the QueryLargeSimilar model
@@ -1233,7 +1234,7 @@ public class DiscoveryTest {
             .prefix("testString")
             .collectionIds(java.util.Arrays.asList("testString"))
             .field("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("5"))
             .build();
 
     // Invoke getAutocompletion() with a valid options model and verify the result
@@ -1258,7 +1259,7 @@ public class DiscoveryTest {
     assertEquals(
         query.get("collection_ids"), RequestUtils.join(java.util.Arrays.asList("testString"), ","));
     assertEquals(query.get("field"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("5"));
   }
 
   // Test the getAutocompletion operation with and without retries enabled
@@ -1299,7 +1300,7 @@ public class DiscoveryTest {
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .offset(Long.valueOf("26"))
             .build();
 
@@ -1324,7 +1325,7 @@ public class DiscoveryTest {
     assertEquals(query.get("filter"), "testString");
     assertEquals(query.get("query"), "testString");
     assertEquals(query.get("natural_language_query"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
   }
 
@@ -1365,7 +1366,7 @@ public class DiscoveryTest {
             .filter("testString")
             .query("testString")
             .naturalLanguageQuery("testString")
-            .count(Long.valueOf("26"))
+            .count(Long.valueOf("10"))
             .offset(Long.valueOf("26"))
             .build();
 
@@ -1390,7 +1391,7 @@ public class DiscoveryTest {
     assertEquals(query.get("filter"), "testString");
     assertEquals(query.get("query"), "testString");
     assertEquals(query.get("natural_language_query"), "testString");
-    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("26"));
+    assertEquals(Long.valueOf(query.get("count")), Long.valueOf("10"));
     assertEquals(Long.valueOf(query.get("offset")), Long.valueOf("26"));
   }
 
@@ -2153,7 +2154,7 @@ public class DiscoveryTest {
   public void testListEnrichmentsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 4}}]}";
+        "{\"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 0, \"url\": \"url\", \"version\": \"2023-03-31\", \"secret\": \"secret\", \"headers\": {\"name\": \"name\", \"value\": \"value\"}, \"location_encoding\": \"`utf-16`\"}}]}";
     String listEnrichmentsPath = "/v2/projects/testString/enrichments";
     server.enqueue(
         new MockResponse()
@@ -2207,13 +2208,17 @@ public class DiscoveryTest {
   public void testCreateEnrichmentWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 4}}";
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 0, \"url\": \"url\", \"version\": \"2023-03-31\", \"secret\": \"secret\", \"headers\": {\"name\": \"name\", \"value\": \"value\"}, \"location_encoding\": \"`utf-16`\"}}";
     String createEnrichmentPath = "/v2/projects/testString/enrichments";
     server.enqueue(
         new MockResponse()
             .setHeader("Content-type", "application/json")
             .setResponseCode(201)
             .setBody(mockResponseBody));
+
+    // Construct an instance of the WebhookHeader model
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
 
     // Construct an instance of the EnrichmentOptions model
     EnrichmentOptions enrichmentOptionsModel =
@@ -2225,7 +2230,12 @@ public class DiscoveryTest {
             .classifierId("testString")
             .modelId("testString")
             .confidenceThreshold(Double.valueOf("0"))
-            .topK(Long.valueOf("26"))
+            .topK(Long.valueOf("0"))
+            .url("testString")
+            .version("2023-03-31")
+            .secret("testString")
+            .headers(webhookHeaderModel)
+            .locationEncoding("`utf-16`")
             .build();
 
     // Construct an instance of the CreateEnrichment model
@@ -2287,7 +2297,7 @@ public class DiscoveryTest {
   public void testGetEnrichmentWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 4}}";
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 0, \"url\": \"url\", \"version\": \"2023-03-31\", \"secret\": \"secret\", \"headers\": {\"name\": \"name\", \"value\": \"value\"}, \"location_encoding\": \"`utf-16`\"}}";
     String getEnrichmentPath = "/v2/projects/testString/enrichments/testString";
     server.enqueue(
         new MockResponse()
@@ -2344,7 +2354,7 @@ public class DiscoveryTest {
   public void testUpdateEnrichmentWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 4}}";
+        "{\"enrichment_id\": \"enrichmentId\", \"name\": \"name\", \"description\": \"description\", \"type\": \"part_of_speech\", \"options\": {\"languages\": [\"languages\"], \"entity_type\": \"entityType\", \"regular_expression\": \"regularExpression\", \"result_field\": \"resultField\", \"classifier_id\": \"classifierId\", \"model_id\": \"modelId\", \"confidence_threshold\": 0, \"top_k\": 0, \"url\": \"url\", \"version\": \"2023-03-31\", \"secret\": \"secret\", \"headers\": {\"name\": \"name\", \"value\": \"value\"}, \"location_encoding\": \"`utf-16`\"}}";
     String updateEnrichmentPath = "/v2/projects/testString/enrichments/testString";
     server.enqueue(
         new MockResponse()
@@ -2839,11 +2849,11 @@ public class DiscoveryTest {
             .classifierId("testString")
             .name("testString")
             .description("testString")
-            .learningRate(Double.valueOf("0"))
+            .learningRate(Double.valueOf("0.1"))
             .l1RegularizationStrengths(java.util.Arrays.asList(Double.valueOf("1.0E-6")))
             .l2RegularizationStrengths(java.util.Arrays.asList(Double.valueOf("1.0E-6")))
-            .trainingMaxSteps(Long.valueOf("0"))
-            .improvementRatio(Double.valueOf("0"))
+            .trainingMaxSteps(Long.valueOf("10000000"))
+            .improvementRatio(Double.valueOf("0.000010"))
             .build();
 
     // Invoke createDocumentClassifierModel() with a valid options model and verify the result

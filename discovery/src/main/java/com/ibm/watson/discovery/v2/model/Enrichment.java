@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,6 +38,10 @@ public class Enrichment extends GenericModel {
     String WATSON_KNOWLEDGE_STUDIO_MODEL = "watson_knowledge_studio_model";
     /** classifier. */
     String CLASSIFIER = "classifier";
+    /** webhook. */
+    String WEBHOOK = "webhook";
+    /** sentence_classifier. */
+    String SENTENCE_CLASSIFIER = "sentence_classifier";
   }
 
   @SerializedName("enrichment_id")

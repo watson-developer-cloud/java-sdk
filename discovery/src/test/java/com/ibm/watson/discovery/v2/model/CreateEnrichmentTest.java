@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,11 @@ public class CreateEnrichmentTest {
 
   @Test
   public void testCreateEnrichment() throws Throwable {
+    WebhookHeader webhookHeaderModel =
+        new WebhookHeader.Builder().name("testString").value("testString").build();
+    assertEquals(webhookHeaderModel.name(), "testString");
+    assertEquals(webhookHeaderModel.value(), "testString");
+
     EnrichmentOptions enrichmentOptionsModel =
         new EnrichmentOptions.Builder()
             .languages(java.util.Arrays.asList("testString"))
@@ -39,7 +44,12 @@ public class CreateEnrichmentTest {
             .classifierId("testString")
             .modelId("testString")
             .confidenceThreshold(Double.valueOf("0"))
-            .topK(Long.valueOf("26"))
+            .topK(Long.valueOf("0"))
+            .url("testString")
+            .version("2023-03-31")
+            .secret("testString")
+            .headers(webhookHeaderModel)
+            .locationEncoding("`utf-16`")
             .build();
     assertEquals(enrichmentOptionsModel.languages(), java.util.Arrays.asList("testString"));
     assertEquals(enrichmentOptionsModel.entityType(), "testString");
@@ -48,7 +58,12 @@ public class CreateEnrichmentTest {
     assertEquals(enrichmentOptionsModel.classifierId(), "testString");
     assertEquals(enrichmentOptionsModel.modelId(), "testString");
     assertEquals(enrichmentOptionsModel.confidenceThreshold(), Double.valueOf("0"));
-    assertEquals(enrichmentOptionsModel.topK(), Long.valueOf("26"));
+    assertEquals(enrichmentOptionsModel.topK(), Long.valueOf("0"));
+    assertEquals(enrichmentOptionsModel.url(), "testString");
+    assertEquals(enrichmentOptionsModel.version(), "2023-03-31");
+    assertEquals(enrichmentOptionsModel.secret(), "testString");
+    assertEquals(enrichmentOptionsModel.headers(), webhookHeaderModel);
+    assertEquals(enrichmentOptionsModel.locationEncoding(), "`utf-16`");
 
     CreateEnrichment createEnrichmentModel =
         new CreateEnrichment.Builder()
