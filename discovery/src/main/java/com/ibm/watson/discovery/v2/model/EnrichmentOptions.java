@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,6 +46,14 @@ public class EnrichmentOptions extends GenericModel {
   @SerializedName("top_k")
   protected Long topK;
 
+  protected String url;
+  protected String version;
+  protected String secret;
+  protected WebhookHeader headers;
+
+  @SerializedName("location_encoding")
+  protected String locationEncoding;
+
   /** Builder. */
   public static class Builder {
     private List<String> languages;
@@ -56,6 +64,11 @@ public class EnrichmentOptions extends GenericModel {
     private String modelId;
     private Double confidenceThreshold;
     private Long topK;
+    private String url;
+    private String version;
+    private String secret;
+    private WebhookHeader headers;
+    private String locationEncoding;
 
     /**
      * Instantiates a new Builder from an existing EnrichmentOptions instance.
@@ -71,6 +84,11 @@ public class EnrichmentOptions extends GenericModel {
       this.modelId = enrichmentOptions.modelId;
       this.confidenceThreshold = enrichmentOptions.confidenceThreshold;
       this.topK = enrichmentOptions.topK;
+      this.url = enrichmentOptions.url;
+      this.version = enrichmentOptions.version;
+      this.secret = enrichmentOptions.secret;
+      this.headers = enrichmentOptions.headers;
+      this.locationEncoding = enrichmentOptions.locationEncoding;
     }
 
     /** Instantiates a new builder. */
@@ -86,9 +104,9 @@ public class EnrichmentOptions extends GenericModel {
     }
 
     /**
-     * Adds an languages to languages.
+     * Adds a new element to languages.
      *
-     * @param languages the new languages
+     * @param languages the new element to be added
      * @return the EnrichmentOptions builder
      */
     public Builder addLanguages(String languages) {
@@ -187,6 +205,61 @@ public class EnrichmentOptions extends GenericModel {
       this.topK = topK;
       return this;
     }
+
+    /**
+     * Set the url.
+     *
+     * @param url the url
+     * @return the EnrichmentOptions builder
+     */
+    public Builder url(String url) {
+      this.url = url;
+      return this;
+    }
+
+    /**
+     * Set the version.
+     *
+     * @param version the version
+     * @return the EnrichmentOptions builder
+     */
+    public Builder version(String version) {
+      this.version = version;
+      return this;
+    }
+
+    /**
+     * Set the secret.
+     *
+     * @param secret the secret
+     * @return the EnrichmentOptions builder
+     */
+    public Builder secret(String secret) {
+      this.secret = secret;
+      return this;
+    }
+
+    /**
+     * Set the headers.
+     *
+     * @param headers the headers
+     * @return the EnrichmentOptions builder
+     */
+    public Builder headers(WebhookHeader headers) {
+      this.headers = headers;
+      return this;
+    }
+
+    /**
+     * Set the locationEncoding.
+     *
+     * @param locationEncoding the locationEncoding
+     * @return the EnrichmentOptions builder
+     */
+    public Builder locationEncoding(String locationEncoding) {
+      this.locationEncoding = locationEncoding;
+      return this;
+    }
   }
 
   protected EnrichmentOptions() {}
@@ -200,6 +273,11 @@ public class EnrichmentOptions extends GenericModel {
     modelId = builder.modelId;
     confidenceThreshold = builder.confidenceThreshold;
     topK = builder.topK;
+    url = builder.url;
+    version = builder.version;
+    secret = builder.secret;
+    headers = builder.headers;
+    locationEncoding = builder.locationEncoding;
   }
 
   /**
@@ -311,5 +389,70 @@ public class EnrichmentOptions extends GenericModel {
    */
   public Long topK() {
     return topK;
+  }
+
+  /**
+   * Gets the url.
+   *
+   * <p>A URL that uses the SSL protocol (begins with https) for the webhook. Required when type is
+   * `webhook`. Not valid when creating any other type of enrichment.
+   *
+   * @return the url
+   */
+  public String url() {
+    return url;
+  }
+
+  /**
+   * Gets the version.
+   *
+   * <p>The Discovery API version that allows to distinguish the schema. The version is specified in
+   * the `yyyy-mm-dd` format. Optional when `type` is `webhook`. Not valid when creating any other
+   * type of enrichment.
+   *
+   * @return the version
+   */
+  public String version() {
+    return version;
+  }
+
+  /**
+   * Gets the secret.
+   *
+   * <p>A private key can be included in the request to authenticate with the external service. The
+   * maximum length is 1,024 characters. Optional when `type` is `webhook`. Not valid when creating
+   * any other type of enrichment.
+   *
+   * @return the secret
+   */
+  public String secret() {
+    return secret;
+  }
+
+  /**
+   * Gets the headers.
+   *
+   * <p>An array of headers to pass with the HTTP request. Optional when `type` is `webhook`. Not
+   * valid when creating any other type of enrichment.
+   *
+   * @return the headers
+   */
+  public WebhookHeader headers() {
+    return headers;
+  }
+
+  /**
+   * Gets the locationEncoding.
+   *
+   * <p>Discovery calculates offsets of the text's location with this encoding type in documents.
+   * Use the same location encoding type in both Discovery and external enrichment for a document.
+   *
+   * <p>These encoding types are supported: `utf-8`, `utf-16`, and `utf-32`. Optional when `type` is
+   * `webhook`. Not valid when creating any other type of enrichment.
+   *
+   * @return the locationEncoding
+   */
+  public String locationEncoding() {
+    return locationEncoding;
   }
 }

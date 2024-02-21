@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,6 +43,14 @@ public class CreateEnrichment extends GenericModel {
    *
    * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
    * machine learning model that is defined in a ZIP file.
+   *
+   * <p>* `webhook`: Connects to an external enrichment application by using a webhook. The feature
+   * is available from IBM Cloud-managed instances only. The external enrichment feature is beta
+   * functionality. Beta features are not supported by the SDKs.
+   *
+   * <p>* `sentence_classifier`: Use sentence classifier to classify sentences in your documents.
+   * This feature is available in IBM Cloud-managed instances only. The sentence classifier feature
+   * is beta functionality. Beta features are not supported by the SDKs.
    */
   public interface Type {
     /** classifier. */
@@ -57,6 +65,10 @@ public class CreateEnrichment extends GenericModel {
     String RULE_BASED = "rule_based";
     /** watson_knowledge_studio_model. */
     String WATSON_KNOWLEDGE_STUDIO_MODEL = "watson_knowledge_studio_model";
+    /** webhook. */
+    String WEBHOOK = "webhook";
+    /** sentence_classifier. */
+    String SENTENCE_CLASSIFIER = "sentence_classifier";
   }
 
   protected String name;
@@ -208,6 +220,14 @@ public class CreateEnrichment extends GenericModel {
    *
    * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
    * machine learning model that is defined in a ZIP file.
+   *
+   * <p>* `webhook`: Connects to an external enrichment application by using a webhook. The feature
+   * is available from IBM Cloud-managed instances only. The external enrichment feature is beta
+   * functionality. Beta features are not supported by the SDKs.
+   *
+   * <p>* `sentence_classifier`: Use sentence classifier to classify sentences in your documents.
+   * This feature is available in IBM Cloud-managed instances only. The sentence classifier feature
+   * is beta functionality. Beta features are not supported by the SDKs.
    *
    * @return the type
    */
