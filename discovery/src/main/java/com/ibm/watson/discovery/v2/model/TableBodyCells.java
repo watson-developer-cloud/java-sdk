@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -38,22 +38,22 @@ public class TableBodyCells extends GenericModel {
   protected Long columnIndexEnd;
 
   @SerializedName("row_header_ids")
-  protected List<TableRowHeaderIds> rowHeaderIds;
+  protected List<String> rowHeaderIds;
 
   @SerializedName("row_header_texts")
-  protected List<TableRowHeaderTexts> rowHeaderTexts;
+  protected List<String> rowHeaderTexts;
 
   @SerializedName("row_header_texts_normalized")
-  protected List<TableRowHeaderTextsNormalized> rowHeaderTextsNormalized;
+  protected List<String> rowHeaderTextsNormalized;
 
   @SerializedName("column_header_ids")
-  protected List<TableColumnHeaderIds> columnHeaderIds;
+  protected List<String> columnHeaderIds;
 
   @SerializedName("column_header_texts")
-  protected List<TableColumnHeaderTexts> columnHeaderTexts;
+  protected List<String> columnHeaderTexts;
 
   @SerializedName("column_header_texts_normalized")
-  protected List<TableColumnHeaderTextsNormalized> columnHeaderTextsNormalized;
+  protected List<String> columnHeaderTextsNormalized;
 
   protected List<DocumentAttribute> attributes;
 
@@ -140,66 +140,68 @@ public class TableBodyCells extends GenericModel {
   /**
    * Gets the rowHeaderIds.
    *
-   * <p>A list of table row header ids.
+   * <p>A list of ID values that represent the table row headers that are associated with this body
+   * cell.
    *
    * @return the rowHeaderIds
    */
-  public List<TableRowHeaderIds> getRowHeaderIds() {
+  public List<String> getRowHeaderIds() {
     return rowHeaderIds;
   }
 
   /**
    * Gets the rowHeaderTexts.
    *
-   * <p>A list of table row header texts.
+   * <p>A list of row header values that are associated with this body cell.
    *
    * @return the rowHeaderTexts
    */
-  public List<TableRowHeaderTexts> getRowHeaderTexts() {
+  public List<String> getRowHeaderTexts() {
     return rowHeaderTexts;
   }
 
   /**
    * Gets the rowHeaderTextsNormalized.
    *
-   * <p>A list of table row header texts normalized.
+   * <p>A list of normalized row header values that are associated with this body cell.
    *
    * @return the rowHeaderTextsNormalized
    */
-  public List<TableRowHeaderTextsNormalized> getRowHeaderTextsNormalized() {
+  public List<String> getRowHeaderTextsNormalized() {
     return rowHeaderTextsNormalized;
   }
 
   /**
    * Gets the columnHeaderIds.
    *
-   * <p>A list of table column header ids.
+   * <p>A list of ID values that represent the column headers that are associated with this body
+   * cell.
    *
    * @return the columnHeaderIds
    */
-  public List<TableColumnHeaderIds> getColumnHeaderIds() {
+  public List<String> getColumnHeaderIds() {
     return columnHeaderIds;
   }
 
   /**
    * Gets the columnHeaderTexts.
    *
-   * <p>A list of table column header texts.
+   * <p>A list of column header values that are associated with this body cell.
    *
    * @return the columnHeaderTexts
    */
-  public List<TableColumnHeaderTexts> getColumnHeaderTexts() {
+  public List<String> getColumnHeaderTexts() {
     return columnHeaderTexts;
   }
 
   /**
    * Gets the columnHeaderTextsNormalized.
    *
-   * <p>A list of table column header texts normalized.
+   * <p>A list of normalized column header values that are associated with this body cell.
    *
    * @return the columnHeaderTextsNormalized
    */
-  public List<TableColumnHeaderTextsNormalized> getColumnHeaderTextsNormalized() {
+  public List<String> getColumnHeaderTextsNormalized() {
     return columnHeaderTextsNormalized;
   }
 

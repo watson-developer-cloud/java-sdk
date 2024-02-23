@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,6 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.Map;
 
 /**
  * Column-level cells, each applicable as a header to other cells in the same column as itself, of
@@ -25,7 +24,7 @@ public class TableColumnHeaders extends GenericModel {
   @SerializedName("cell_id")
   protected String cellId;
 
-  protected Map<String, Object> location;
+  protected TableElementLocation location;
   protected String text;
 
   @SerializedName("text_normalized")
@@ -59,12 +58,12 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * <p>The location of the column header cell in the current table as defined by its `begin` and
-   * `end` offsets, respectfully, in the input document.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
-  public Map<String, Object> getLocation() {
+  public TableElementLocation getLocation() {
     return location;
   }
 
@@ -82,8 +81,7 @@ public class TableColumnHeaders extends GenericModel {
   /**
    * Gets the textNormalized.
    *
-   * <p>If you provide customization input, the normalized version of the cell text according to the
-   * customization; otherwise, the same value as `text`.
+   * <p>Normalized column header text.
    *
    * @return the textNormalized
    */

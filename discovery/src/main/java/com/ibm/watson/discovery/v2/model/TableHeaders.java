@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,7 +14,6 @@ package com.ibm.watson.discovery.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
-import java.util.Map;
 
 /** The contents of the current table's header. */
 public class TableHeaders extends GenericModel {
@@ -22,7 +21,7 @@ public class TableHeaders extends GenericModel {
   @SerializedName("cell_id")
   protected String cellId;
 
-  protected Map<String, Object> location;
+  protected TableElementLocation location;
   protected String text;
 
   @SerializedName("row_index_begin")
@@ -53,12 +52,12 @@ public class TableHeaders extends GenericModel {
   /**
    * Gets the location.
    *
-   * <p>The location of the table header cell in the current table as defined by its `begin` and
-   * `end` offsets, respectfully, in the input document.
+   * <p>The numeric location of the identified element in the document, represented with two
+   * integers labeled `begin` and `end`.
    *
    * @return the location
    */
-  public Map<String, Object> getLocation() {
+  public TableElementLocation getLocation() {
     return location;
   }
 
