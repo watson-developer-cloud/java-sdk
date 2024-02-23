@@ -1459,10 +1459,10 @@ public class SpeechToText extends BaseService {
     if (addCorpusOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addCorpusOptions.allowOverwrite()));
     }
-    
+
     // hand edit replacement for corpus file serialization
     builder.body(RequestUtils.inputStreamBody(addCorpusOptions.corpusFile(), "text/plain"));
-    
+
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
     return createServiceCall(builder.build(), responseConverter);
   }
