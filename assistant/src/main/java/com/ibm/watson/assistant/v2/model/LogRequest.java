@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,103 +15,25 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** A stateful message request formatted for the Watson Assistant service. */
-public class MessageRequest extends GenericModel {
+/** A message request formatted for the watsonx Assistant service. */
+public class LogRequest extends GenericModel {
 
-  protected MessageInput input;
+  protected LogRequestInput input;
   protected MessageContext context;
 
   @SerializedName("user_id")
   protected String userId;
 
-  /** Builder. */
-  public static class Builder {
-    private MessageInput input;
-    private MessageContext context;
-    private String userId;
-
-    /**
-     * Instantiates a new Builder from an existing MessageRequest instance.
-     *
-     * @param messageRequest the instance to initialize the Builder with
-     */
-    private Builder(MessageRequest messageRequest) {
-      this.input = messageRequest.input;
-      this.context = messageRequest.context;
-      this.userId = messageRequest.userId;
-    }
-
-    /** Instantiates a new builder. */
-    public Builder() {}
-
-    /**
-     * Builds a MessageRequest.
-     *
-     * @return the new MessageRequest instance
-     */
-    public MessageRequest build() {
-      return new MessageRequest(this);
-    }
-
-    /**
-     * Set the input.
-     *
-     * @param input the input
-     * @return the MessageRequest builder
-     */
-    public Builder input(MessageInput input) {
-      this.input = input;
-      return this;
-    }
-
-    /**
-     * Set the context.
-     *
-     * @param context the context
-     * @return the MessageRequest builder
-     */
-    public Builder context(MessageContext context) {
-      this.context = context;
-      return this;
-    }
-
-    /**
-     * Set the userId.
-     *
-     * @param userId the userId
-     * @return the MessageRequest builder
-     */
-    public Builder userId(String userId) {
-      this.userId = userId;
-      return this;
-    }
-  }
-
-  protected MessageRequest() {}
-
-  protected MessageRequest(Builder builder) {
-    input = builder.input;
-    context = builder.context;
-    userId = builder.userId;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a MessageRequest builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
+  protected LogRequest() {}
 
   /**
    * Gets the input.
    *
-   * <p>An input object that includes the input text.
+   * <p>An input object that includes the input text. All private data is masked or removed.
    *
    * @return the input
    */
-  public MessageInput input() {
+  public LogRequestInput getInput() {
     return input;
   }
 
@@ -127,7 +49,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the context
    */
-  public MessageContext context() {
+  public MessageContext getContext() {
     return context;
   }
 
@@ -146,7 +68,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the userId
    */
-  public String userId() {
+  public String getUserId() {
     return userId;
   }
 }

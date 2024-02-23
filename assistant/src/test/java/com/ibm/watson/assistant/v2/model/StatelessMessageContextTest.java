@@ -22,14 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageContext model. */
-public class MessageContextTest {
+/** Unit test class for the StatelessMessageContext model. */
+public class StatelessMessageContextTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageContext() throws Throwable {
+  public void testStatelessMessageContext() throws Throwable {
     MessageContextGlobalSystem messageContextGlobalSystemModel =
         new MessageContextGlobalSystem.Builder()
             .timezone("testString")
@@ -50,9 +50,13 @@ public class MessageContextTest {
     assertEquals(messageContextGlobalSystemModel.state(), "testString");
     assertEquals(messageContextGlobalSystemModel.skipUserInput(), Boolean.valueOf(true));
 
-    MessageContextGlobal messageContextGlobalModel =
-        new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();
-    assertEquals(messageContextGlobalModel.system(), messageContextGlobalSystemModel);
+    StatelessMessageContextGlobal statelessMessageContextGlobalModel =
+        new StatelessMessageContextGlobal.Builder()
+            .system(messageContextGlobalSystemModel)
+            .sessionId("testString")
+            .build();
+    assertEquals(statelessMessageContextGlobalModel.system(), messageContextGlobalSystemModel);
+    assertEquals(statelessMessageContextGlobalModel.sessionId(), "testString");
 
     MessageContextSkillSystem messageContextSkillSystemModel =
         new MessageContextSkillSystem.Builder()
@@ -72,52 +76,68 @@ public class MessageContextTest {
         java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(messageContextDialogSkillModel.system(), messageContextSkillSystemModel);
 
-    MessageContextActionSkill messageContextActionSkillModel =
-        new MessageContextActionSkill.Builder()
+    StatelessMessageContextSkillsActionsSkill statelessMessageContextSkillsActionsSkillModel =
+        new StatelessMessageContextSkillsActionsSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateActionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateSkillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
     assertEquals(
-        messageContextActionSkillModel.userDefined(),
-        java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextActionSkillModel.system(), messageContextSkillSystemModel);
-    assertEquals(
-        messageContextActionSkillModel.actionVariables(),
+        statelessMessageContextSkillsActionsSkillModel.userDefined(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(
-        messageContextActionSkillModel.skillVariables(),
+        statelessMessageContextSkillsActionsSkillModel.system(), messageContextSkillSystemModel);
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.actionVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.skillVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.privateActionVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.privateSkillVariables(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
-    MessageContextSkills messageContextSkillsModel =
-        new MessageContextSkills.Builder()
+    StatelessMessageContextSkills statelessMessageContextSkillsModel =
+        new StatelessMessageContextSkills.Builder()
             .mainSkill(messageContextDialogSkillModel)
-            .actionsSkill(messageContextActionSkillModel)
+            .actionsSkill(statelessMessageContextSkillsActionsSkillModel)
             .build();
-    assertEquals(messageContextSkillsModel.mainSkill(), messageContextDialogSkillModel);
-    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextActionSkillModel);
+    assertEquals(statelessMessageContextSkillsModel.mainSkill(), messageContextDialogSkillModel);
+    assertEquals(
+        statelessMessageContextSkillsModel.actionsSkill(),
+        statelessMessageContextSkillsActionsSkillModel);
 
-    MessageContext messageContextModel =
-        new MessageContext.Builder()
-            .global(messageContextGlobalModel)
-            .skills(messageContextSkillsModel)
+    StatelessMessageContext statelessMessageContextModel =
+        new StatelessMessageContext.Builder()
+            .global(statelessMessageContextGlobalModel)
+            .skills(statelessMessageContextSkillsModel)
             .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
-    assertEquals(messageContextModel.global(), messageContextGlobalModel);
-    assertEquals(messageContextModel.skills(), messageContextSkillsModel);
+    assertEquals(statelessMessageContextModel.global(), statelessMessageContextGlobalModel);
+    assertEquals(statelessMessageContextModel.skills(), statelessMessageContextSkillsModel);
     assertEquals(
-        messageContextModel.integrations(),
+        statelessMessageContextModel.integrations(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
-    String json = TestUtilities.serialize(messageContextModel);
+    String json = TestUtilities.serialize(statelessMessageContextModel);
 
-    MessageContext messageContextModelNew = TestUtilities.deserialize(json, MessageContext.class);
-    assertTrue(messageContextModelNew instanceof MessageContext);
-    assertEquals(messageContextModelNew.global().toString(), messageContextGlobalModel.toString());
-    assertEquals(messageContextModelNew.skills().toString(), messageContextSkillsModel.toString());
+    StatelessMessageContext statelessMessageContextModelNew =
+        TestUtilities.deserialize(json, StatelessMessageContext.class);
+    assertTrue(statelessMessageContextModelNew instanceof StatelessMessageContext);
     assertEquals(
-        messageContextModelNew.integrations().toString(),
+        statelessMessageContextModelNew.global().toString(),
+        statelessMessageContextGlobalModel.toString());
+    assertEquals(
+        statelessMessageContextModelNew.skills().toString(),
+        statelessMessageContextSkillsModel.toString());
+    assertEquals(
+        statelessMessageContextModelNew.integrations().toString(),
         java.util.Collections.singletonMap("anyKey", "anyValue").toString());
   }
 }

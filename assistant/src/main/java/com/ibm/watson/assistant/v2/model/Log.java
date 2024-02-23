@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,8 +21,8 @@ public class Log extends GenericModel {
   @SerializedName("log_id")
   protected String logId;
 
-  protected MessageRequest request;
-  protected MessageResponse response;
+  protected LogRequest request;
+  protected LogResponse response;
 
   @SerializedName("assistant_id")
   protected String assistantId;
@@ -62,22 +62,22 @@ public class Log extends GenericModel {
   /**
    * Gets the request.
    *
-   * <p>A stateful message request formatted for the Watson Assistant service.
+   * <p>A message request formatted for the watsonx Assistant service.
    *
    * @return the request
    */
-  public MessageRequest getRequest() {
+  public LogRequest getRequest() {
     return request;
   }
 
   /**
    * Gets the response.
    *
-   * <p>A response from the Watson Assistant service.
+   * <p>A response from the watsonx Assistant service.
    *
    * @return the response
    */
-  public MessageResponse getResponse() {
+  public LogResponse getResponse() {
     return response;
   }
 

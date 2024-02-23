@@ -16,46 +16,46 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
 /** Context data specific to particular skills used by the assistant. */
-public class MessageContextSkills extends GenericModel {
+public class StatelessMessageContextSkills extends GenericModel {
 
   @SerializedName("main skill")
   protected MessageContextDialogSkill mainSkill;
 
   @SerializedName("actions skill")
-  protected MessageContextActionSkill actionsSkill;
+  protected StatelessMessageContextSkillsActionsSkill actionsSkill;
 
   /** Builder. */
   public static class Builder {
     private MessageContextDialogSkill mainSkill;
-    private MessageContextActionSkill actionsSkill;
+    private StatelessMessageContextSkillsActionsSkill actionsSkill;
 
     /**
-     * Instantiates a new Builder from an existing MessageContextSkills instance.
+     * Instantiates a new Builder from an existing StatelessMessageContextSkills instance.
      *
-     * @param messageContextSkills the instance to initialize the Builder with
+     * @param statelessMessageContextSkills the instance to initialize the Builder with
      */
-    private Builder(MessageContextSkills messageContextSkills) {
-      this.mainSkill = messageContextSkills.mainSkill;
-      this.actionsSkill = messageContextSkills.actionsSkill;
+    private Builder(StatelessMessageContextSkills statelessMessageContextSkills) {
+      this.mainSkill = statelessMessageContextSkills.mainSkill;
+      this.actionsSkill = statelessMessageContextSkills.actionsSkill;
     }
 
     /** Instantiates a new builder. */
     public Builder() {}
 
     /**
-     * Builds a MessageContextSkills.
+     * Builds a StatelessMessageContextSkills.
      *
-     * @return the new MessageContextSkills instance
+     * @return the new StatelessMessageContextSkills instance
      */
-    public MessageContextSkills build() {
-      return new MessageContextSkills(this);
+    public StatelessMessageContextSkills build() {
+      return new StatelessMessageContextSkills(this);
     }
 
     /**
      * Set the mainSkill.
      *
      * @param mainSkill the mainSkill
-     * @return the MessageContextSkills builder
+     * @return the StatelessMessageContextSkills builder
      */
     public Builder mainSkill(MessageContextDialogSkill mainSkill) {
       this.mainSkill = mainSkill;
@@ -66,17 +66,17 @@ public class MessageContextSkills extends GenericModel {
      * Set the actionsSkill.
      *
      * @param actionsSkill the actionsSkill
-     * @return the MessageContextSkills builder
+     * @return the StatelessMessageContextSkills builder
      */
-    public Builder actionsSkill(MessageContextActionSkill actionsSkill) {
+    public Builder actionsSkill(StatelessMessageContextSkillsActionsSkill actionsSkill) {
       this.actionsSkill = actionsSkill;
       return this;
     }
   }
 
-  protected MessageContextSkills() {}
+  protected StatelessMessageContextSkills() {}
 
-  protected MessageContextSkills(Builder builder) {
+  protected StatelessMessageContextSkills(Builder builder) {
     mainSkill = builder.mainSkill;
     actionsSkill = builder.actionsSkill;
   }
@@ -84,7 +84,7 @@ public class MessageContextSkills extends GenericModel {
   /**
    * New builder.
    *
-   * @return a MessageContextSkills builder
+   * @return a StatelessMessageContextSkills builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -104,12 +104,11 @@ public class MessageContextSkills extends GenericModel {
   /**
    * Gets the actionsSkill.
    *
-   * <p>Context variables that are used by the action skill. Private variables are persisted, but
-   * not shown.
+   * <p>Context variables that are used by the action skill.
    *
    * @return the actionsSkill
    */
-  public MessageContextActionSkill actionsSkill() {
+  public StatelessMessageContextSkillsActionsSkill actionsSkill() {
     return actionsSkill;
   }
 }
