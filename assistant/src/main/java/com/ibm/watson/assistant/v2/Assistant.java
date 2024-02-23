@@ -51,8 +51,6 @@ import com.ibm.watson.assistant.v2.model.ListLogsOptions;
 import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
-import com.ibm.watson.assistant.v2.model.MessageResponse;
-import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
 import com.ibm.watson.assistant.v2.model.Release;
 import com.ibm.watson.assistant.v2.model.ReleaseCollection;
@@ -60,6 +58,8 @@ import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.assistant.v2.model.Skill;
 import com.ibm.watson.assistant.v2.model.SkillsAsyncRequestStatus;
 import com.ibm.watson.assistant.v2.model.SkillsExport;
+import com.ibm.watson.assistant.v2.model.StatefulMessageResponse;
+import com.ibm.watson.assistant.v2.model.StatelessMessageResponse;
 import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOptions;
 import com.ibm.watson.assistant.v2.model.UpdateSkillOptions;
 import com.ibm.watson.common.SdkCommon;
@@ -385,9 +385,9 @@ public class Assistant extends BaseService {
    * context data) stored by watsonx Assistant for the duration of the session.
    *
    * @param messageOptions the {@link MessageOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a result of type {@link MessageResponse}
+   * @return a {@link ServiceCall} with a result of type {@link StatefulMessageResponse}
    */
-  public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
+  public ServiceCall<StatefulMessageResponse> message(MessageOptions messageOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions, "messageOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("assistant_id", messageOptions.assistantId());
@@ -419,9 +419,9 @@ public class Assistant extends BaseService {
       contentJson.addProperty("user_id", messageOptions.userId());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<MessageResponse> responseConverter =
+    ResponseConverter<StatefulMessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<MessageResponse>() {}.getType());
+            new com.google.gson.reflect.TypeToken<StatefulMessageResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -433,9 +433,9 @@ public class Assistant extends BaseService {
    *
    * @param messageStatelessOptions the {@link MessageStatelessOptions} containing the options for
    *     the call
-   * @return a {@link ServiceCall} with a result of type {@link MessageResponseStateless}
+   * @return a {@link ServiceCall} with a result of type {@link StatelessMessageResponse}
    */
-  public ServiceCall<MessageResponseStateless> messageStateless(
+  public ServiceCall<StatelessMessageResponse> messageStateless(
       MessageStatelessOptions messageStatelessOptions) {
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         messageStatelessOptions, "messageStatelessOptions cannot be null");
@@ -469,9 +469,9 @@ public class Assistant extends BaseService {
       contentJson.addProperty("user_id", messageStatelessOptions.userId());
     }
     builder.bodyJson(contentJson);
-    ResponseConverter<MessageResponseStateless> responseConverter =
+    ResponseConverter<StatelessMessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
-            new com.google.gson.reflect.TypeToken<MessageResponseStateless>() {}.getType());
+            new com.google.gson.reflect.TypeToken<StatelessMessageResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

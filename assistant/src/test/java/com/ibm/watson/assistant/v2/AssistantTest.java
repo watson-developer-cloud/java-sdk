@@ -49,23 +49,17 @@ import com.ibm.watson.assistant.v2.model.ListLogsOptions;
 import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageContext;
+import com.ibm.watson.assistant.v2.model.MessageContextActionSkill;
+import com.ibm.watson.assistant.v2.model.MessageContextDialogSkill;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobal;
-import com.ibm.watson.assistant.v2.model.MessageContextGlobalStateless;
 import com.ibm.watson.assistant.v2.model.MessageContextGlobalSystem;
-import com.ibm.watson.assistant.v2.model.MessageContextSkillAction;
-import com.ibm.watson.assistant.v2.model.MessageContextSkillDialog;
 import com.ibm.watson.assistant.v2.model.MessageContextSkillSystem;
 import com.ibm.watson.assistant.v2.model.MessageContextSkills;
-import com.ibm.watson.assistant.v2.model.MessageContextStateless;
 import com.ibm.watson.assistant.v2.model.MessageInput;
 import com.ibm.watson.assistant.v2.model.MessageInputAttachment;
 import com.ibm.watson.assistant.v2.model.MessageInputOptions;
 import com.ibm.watson.assistant.v2.model.MessageInputOptionsSpelling;
-import com.ibm.watson.assistant.v2.model.MessageInputOptionsStateless;
-import com.ibm.watson.assistant.v2.model.MessageInputStateless;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
-import com.ibm.watson.assistant.v2.model.MessageResponse;
-import com.ibm.watson.assistant.v2.model.MessageResponseStateless;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
 import com.ibm.watson.assistant.v2.model.Release;
 import com.ibm.watson.assistant.v2.model.ReleaseCollection;
@@ -85,6 +79,14 @@ import com.ibm.watson.assistant.v2.model.Skill;
 import com.ibm.watson.assistant.v2.model.SkillImport;
 import com.ibm.watson.assistant.v2.model.SkillsAsyncRequestStatus;
 import com.ibm.watson.assistant.v2.model.SkillsExport;
+import com.ibm.watson.assistant.v2.model.StatefulMessageResponse;
+import com.ibm.watson.assistant.v2.model.StatelessMessageContext;
+import com.ibm.watson.assistant.v2.model.StatelessMessageContextGlobal;
+import com.ibm.watson.assistant.v2.model.StatelessMessageContextSkills;
+import com.ibm.watson.assistant.v2.model.StatelessMessageContextSkillsActionsSkill;
+import com.ibm.watson.assistant.v2.model.StatelessMessageInput;
+import com.ibm.watson.assistant.v2.model.StatelessMessageInputOptions;
+import com.ibm.watson.assistant.v2.model.StatelessMessageResponse;
 import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOptions;
 import com.ibm.watson.assistant.v2.model.UpdateSkillOptions;
 import com.ibm.watson.assistant.v2.utils.TestUtilities;
@@ -403,7 +405,7 @@ public class AssistantTest {
   public void testMessageWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\", \"masked_output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"masked_input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"analytics\": {\"browser\": \"browser\", \"device\": \"device\", \"pageUrl\": \"pageUrl\"}, \"options\": {\"restart\": false, \"alternate_intents\": false, \"async_callout\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}}";
     String messagePath = "/v2/assistants/testString/sessions/testString/message";
     server.enqueue(
         new MockResponse()
@@ -547,16 +549,16 @@ public class AssistantTest {
             .add("foo", "testString")
             .build();
 
-    // Construct an instance of the MessageContextSkillDialog model
-    MessageContextSkillDialog messageContextSkillDialogModel =
-        new MessageContextSkillDialog.Builder()
+    // Construct an instance of the MessageContextDialogSkill model
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .build();
 
-    // Construct an instance of the MessageContextSkillAction model
-    MessageContextSkillAction messageContextSkillActionModel =
-        new MessageContextSkillAction.Builder()
+    // Construct an instance of the MessageContextActionSkill model
+    MessageContextActionSkill messageContextActionSkillModel =
+        new MessageContextActionSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
@@ -566,8 +568,8 @@ public class AssistantTest {
     // Construct an instance of the MessageContextSkills model
     MessageContextSkills messageContextSkillsModel =
         new MessageContextSkills.Builder()
-            .mainSkill(messageContextSkillDialogModel)
-            .actionsSkill(messageContextSkillActionModel)
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(messageContextActionSkillModel)
             .build();
 
     // Construct an instance of the MessageContext model
@@ -589,9 +591,10 @@ public class AssistantTest {
             .build();
 
     // Invoke message() with a valid options model and verify the result
-    Response<MessageResponse> response = assistantService.message(messageOptionsModel).execute();
+    Response<StatefulMessageResponse> response =
+        assistantService.message(messageOptionsModel).execute();
     assertNotNull(response);
-    MessageResponse responseObj = response.getResult();
+    StatefulMessageResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
     // Verify the contents of the request sent to the mock server
@@ -629,7 +632,7 @@ public class AssistantTest {
   public void testMessageStatelessWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}";
+        "{\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}, \"private_action_variables\": {\"anyKey\": \"anyValue\"}, \"private_skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"masked_output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"masked_input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"analytics\": {\"browser\": \"browser\", \"device\": \"device\", \"pageUrl\": \"pageUrl\"}, \"options\": {\"restart\": false, \"alternate_intents\": false, \"async_callout\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"user_id\": \"userId\"}";
     String messageStatelessPath = "/v2/assistants/testString/message";
     server.enqueue(
         new MockResponse()
@@ -724,9 +727,9 @@ public class AssistantTest {
     MessageInputOptionsSpelling messageInputOptionsSpellingModel =
         new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
 
-    // Construct an instance of the MessageInputOptionsStateless model
-    MessageInputOptionsStateless messageInputOptionsStatelessModel =
-        new MessageInputOptionsStateless.Builder()
+    // Construct an instance of the StatelessMessageInputOptions model
+    StatelessMessageInputOptions statelessMessageInputOptionsModel =
+        new StatelessMessageInputOptions.Builder()
             .restart(false)
             .alternateIntents(false)
             .asyncCallout(false)
@@ -734,9 +737,9 @@ public class AssistantTest {
             .debug(false)
             .build();
 
-    // Construct an instance of the MessageInputStateless model
-    MessageInputStateless messageInputStatelessModel =
-        new MessageInputStateless.Builder()
+    // Construct an instance of the StatelessMessageInput model
+    StatelessMessageInput statelessMessageInputModel =
+        new StatelessMessageInput.Builder()
             .messageType("text")
             .text("testString")
             .intents(java.util.Arrays.asList(runtimeIntentModel))
@@ -744,7 +747,7 @@ public class AssistantTest {
             .suggestionId("testString")
             .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
             .analytics(requestAnalyticsModel)
-            .options(messageInputOptionsStatelessModel)
+            .options(statelessMessageInputOptionsModel)
             .build();
 
     // Construct an instance of the MessageContextGlobalSystem model
@@ -760,9 +763,9 @@ public class AssistantTest {
             .skipUserInput(true)
             .build();
 
-    // Construct an instance of the MessageContextGlobalStateless model
-    MessageContextGlobalStateless messageContextGlobalStatelessModel =
-        new MessageContextGlobalStateless.Builder()
+    // Construct an instance of the StatelessMessageContextGlobal model
+    StatelessMessageContextGlobal statelessMessageContextGlobalModel =
+        new StatelessMessageContextGlobal.Builder()
             .system(messageContextGlobalSystemModel)
             .sessionId("testString")
             .build();
@@ -774,34 +777,36 @@ public class AssistantTest {
             .add("foo", "testString")
             .build();
 
-    // Construct an instance of the MessageContextSkillDialog model
-    MessageContextSkillDialog messageContextSkillDialogModel =
-        new MessageContextSkillDialog.Builder()
+    // Construct an instance of the MessageContextDialogSkill model
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .build();
 
-    // Construct an instance of the MessageContextSkillAction model
-    MessageContextSkillAction messageContextSkillActionModel =
-        new MessageContextSkillAction.Builder()
+    // Construct an instance of the StatelessMessageContextSkillsActionsSkill model
+    StatelessMessageContextSkillsActionsSkill statelessMessageContextSkillsActionsSkillModel =
+        new StatelessMessageContextSkillsActionsSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateActionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateSkillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
 
-    // Construct an instance of the MessageContextSkills model
-    MessageContextSkills messageContextSkillsModel =
-        new MessageContextSkills.Builder()
-            .mainSkill(messageContextSkillDialogModel)
-            .actionsSkill(messageContextSkillActionModel)
+    // Construct an instance of the StatelessMessageContextSkills model
+    StatelessMessageContextSkills statelessMessageContextSkillsModel =
+        new StatelessMessageContextSkills.Builder()
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(statelessMessageContextSkillsActionsSkillModel)
             .build();
 
-    // Construct an instance of the MessageContextStateless model
-    MessageContextStateless messageContextStatelessModel =
-        new MessageContextStateless.Builder()
-            .global(messageContextGlobalStatelessModel)
-            .skills(messageContextSkillsModel)
+    // Construct an instance of the StatelessMessageContext model
+    StatelessMessageContext statelessMessageContextModel =
+        new StatelessMessageContext.Builder()
+            .global(statelessMessageContextGlobalModel)
+            .skills(statelessMessageContextSkillsModel)
             .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
 
@@ -809,16 +814,16 @@ public class AssistantTest {
     MessageStatelessOptions messageStatelessOptionsModel =
         new MessageStatelessOptions.Builder()
             .assistantId("testString")
-            .input(messageInputStatelessModel)
-            .context(messageContextStatelessModel)
+            .input(statelessMessageInputModel)
+            .context(statelessMessageContextModel)
             .userId("testString")
             .build();
 
     // Invoke messageStateless() with a valid options model and verify the result
-    Response<MessageResponseStateless> response =
+    Response<StatelessMessageResponse> response =
         assistantService.messageStateless(messageStatelessOptionsModel).execute();
     assertNotNull(response);
-    MessageResponseStateless responseObj = response.getResult();
+    StatelessMessageResponse responseObj = response.getResult();
     assertNotNull(responseObj);
 
     // Verify the contents of the request sent to the mock server
@@ -917,7 +922,7 @@ public class AssistantTest {
   public void testListLogsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"analytics\": {\"browser\": \"browser\", \"device\": \"device\", \"pageUrl\": \"pageUrl\"}, \"options\": {\"restart\": false, \"alternate_intents\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
+        "{\"logs\": [{\"log_id\": \"logId\", \"request\": {\"input\": {\"message_type\": \"text\", \"text\": \"text\", \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"suggestion_id\": \"suggestionId\", \"attachments\": [{\"url\": \"url\", \"media_type\": \"mediaType\"}], \"analytics\": {\"browser\": \"browser\", \"device\": \"device\", \"pageUrl\": \"pageUrl\"}, \"options\": {\"restart\": false, \"alternate_intents\": false, \"async_callout\": false, \"spelling\": {\"suggestions\": false, \"auto_correct\": false}, \"debug\": false, \"return_context\": false, \"export\": false}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"response\": {\"output\": {\"generic\": [{\"response_type\": \"text\", \"text\": \"text\", \"channels\": [{\"channel\": \"channel\"}]}], \"intents\": [{\"intent\": \"intent\", \"confidence\": 10, \"skill\": \"skill\"}], \"entities\": [{\"entity\": \"entity\", \"location\": [8], \"value\": \"value\", \"confidence\": 10, \"groups\": [{\"group\": \"group\", \"location\": [8]}], \"interpretation\": {\"calendar_type\": \"calendarType\", \"datetime_link\": \"datetimeLink\", \"festival\": \"festival\", \"granularity\": \"day\", \"range_link\": \"rangeLink\", \"range_modifier\": \"rangeModifier\", \"relative_day\": 11, \"relative_month\": 13, \"relative_week\": 12, \"relative_weekend\": 15, \"relative_year\": 12, \"specific_day\": 11, \"specific_day_of_week\": \"specificDayOfWeek\", \"specific_month\": 13, \"specific_quarter\": 15, \"specific_year\": 12, \"numeric_value\": 12, \"subtype\": \"subtype\", \"part_of_day\": \"partOfDay\", \"relative_hour\": 12, \"relative_minute\": 14, \"relative_second\": 14, \"specific_hour\": 12, \"specific_minute\": 14, \"specific_second\": 14, \"timezone\": \"timezone\"}, \"alternatives\": [{\"value\": \"value\", \"confidence\": 10}], \"role\": {\"type\": \"date_from\"}, \"skill\": \"skill\"}], \"actions\": [{\"name\": \"name\", \"type\": \"client\", \"parameters\": {\"anyKey\": \"anyValue\"}, \"result_variable\": \"resultVariable\", \"credentials\": \"credentials\"}], \"debug\": {\"nodes_visited\": [{\"dialog_node\": \"dialogNode\", \"title\": \"title\", \"conditions\": \"conditions\"}], \"log_messages\": [{\"level\": \"info\", \"message\": \"message\", \"code\": \"code\", \"source\": {\"type\": \"dialog_node\", \"dialog_node\": \"dialogNode\"}}], \"branch_exited\": true, \"branch_exited_reason\": \"completed\", \"turn_events\": [{\"event\": \"action_visited\", \"source\": {\"type\": \"action\", \"action\": \"action\", \"action_title\": \"actionTitle\", \"condition\": \"condition\"}, \"action_start_time\": \"actionStartTime\", \"condition_type\": \"user_defined\", \"reason\": \"intent\", \"result_variable\": \"resultVariable\"}]}, \"user_defined\": {\"anyKey\": \"anyValue\"}, \"spelling\": {\"text\": \"text\", \"original_text\": \"originalText\", \"suggested_text\": \"suggestedText\"}}, \"context\": {\"global\": {\"system\": {\"timezone\": \"timezone\", \"user_id\": \"userId\", \"turn_count\": 9, \"locale\": \"en-us\", \"reference_time\": \"referenceTime\", \"session_start_time\": \"sessionStartTime\", \"state\": \"state\", \"skip_user_input\": false}, \"session_id\": \"sessionId\"}, \"skills\": {\"main skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}}, \"actions skill\": {\"user_defined\": {\"anyKey\": \"anyValue\"}, \"system\": {\"state\": \"state\"}, \"action_variables\": {\"anyKey\": \"anyValue\"}, \"skill_variables\": {\"anyKey\": \"anyValue\"}}}, \"integrations\": {\"anyKey\": \"anyValue\"}}, \"user_id\": \"userId\"}, \"assistant_id\": \"assistantId\", \"session_id\": \"sessionId\", \"skill_id\": \"skillId\", \"snapshot\": \"snapshot\", \"request_timestamp\": \"requestTimestamp\", \"response_timestamp\": \"responseTimestamp\", \"language\": \"language\", \"customer_id\": \"customerId\"}], \"pagination\": {\"next_url\": \"nextUrl\", \"matched\": 7, \"next_cursor\": \"nextCursor\"}}";
     String listLogsPath = "/v2/assistants/testString/logs";
     server.enqueue(
         new MockResponse()

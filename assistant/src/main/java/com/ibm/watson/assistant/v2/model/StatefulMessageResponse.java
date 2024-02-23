@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,8 +15,8 @@ package com.ibm.watson.assistant.v2.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
 
-/** A response from the Watson Assistant service. */
-public class MessageResponse extends GenericModel {
+/** A response from the watsonx Assistant service. */
+public class StatefulMessageResponse extends GenericModel {
 
   protected MessageOutput output;
   protected MessageContext context;
@@ -24,7 +24,13 @@ public class MessageResponse extends GenericModel {
   @SerializedName("user_id")
   protected String userId;
 
-  protected MessageResponse() {}
+  @SerializedName("masked_output")
+  protected MessageOutput maskedOutput;
+
+  @SerializedName("masked_input")
+  protected MessageInput maskedInput;
+
+  protected StatefulMessageResponse() {}
 
   /**
    * Gets the output.
@@ -68,5 +74,28 @@ public class MessageResponse extends GenericModel {
    */
   public String getUserId() {
     return userId;
+  }
+
+  /**
+   * Gets the maskedOutput.
+   *
+   * <p>Assistant output to be rendered or processed by the client. All private data is masked or
+   * removed.
+   *
+   * @return the maskedOutput
+   */
+  public MessageOutput getMaskedOutput() {
+    return maskedOutput;
+  }
+
+  /**
+   * Gets the maskedInput.
+   *
+   * <p>An input object that includes the input text. All private data is masked or removed.
+   *
+   * @return the maskedInput
+   */
+  public MessageInput getMaskedInput() {
+    return maskedInput;
   }
 }

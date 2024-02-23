@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -159,20 +159,22 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageInputOptionsSpellingModel.suggestions(), Boolean.valueOf(true));
     assertEquals(messageInputOptionsSpellingModel.autoCorrect(), Boolean.valueOf(true));
 
-    MessageInputOptionsStateless messageInputOptionsStatelessModel =
-        new MessageInputOptionsStateless.Builder()
+    StatelessMessageInputOptions statelessMessageInputOptionsModel =
+        new StatelessMessageInputOptions.Builder()
             .restart(false)
             .alternateIntents(false)
+            .asyncCallout(false)
             .spelling(messageInputOptionsSpellingModel)
             .debug(false)
             .build();
-    assertEquals(messageInputOptionsStatelessModel.restart(), Boolean.valueOf(false));
-    assertEquals(messageInputOptionsStatelessModel.alternateIntents(), Boolean.valueOf(false));
-    assertEquals(messageInputOptionsStatelessModel.spelling(), messageInputOptionsSpellingModel);
-    assertEquals(messageInputOptionsStatelessModel.debug(), Boolean.valueOf(false));
+    assertEquals(statelessMessageInputOptionsModel.restart(), Boolean.valueOf(false));
+    assertEquals(statelessMessageInputOptionsModel.alternateIntents(), Boolean.valueOf(false));
+    assertEquals(statelessMessageInputOptionsModel.asyncCallout(), Boolean.valueOf(false));
+    assertEquals(statelessMessageInputOptionsModel.spelling(), messageInputOptionsSpellingModel);
+    assertEquals(statelessMessageInputOptionsModel.debug(), Boolean.valueOf(false));
 
-    MessageInputStateless messageInputStatelessModel =
-        new MessageInputStateless.Builder()
+    StatelessMessageInput statelessMessageInputModel =
+        new StatelessMessageInput.Builder()
             .messageType("text")
             .text("testString")
             .intents(java.util.Arrays.asList(runtimeIntentModel))
@@ -180,19 +182,19 @@ public class MessageStatelessOptionsTest {
             .suggestionId("testString")
             .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
             .analytics(requestAnalyticsModel)
-            .options(messageInputOptionsStatelessModel)
+            .options(statelessMessageInputOptionsModel)
             .build();
-    assertEquals(messageInputStatelessModel.messageType(), "text");
-    assertEquals(messageInputStatelessModel.text(), "testString");
-    assertEquals(messageInputStatelessModel.intents(), java.util.Arrays.asList(runtimeIntentModel));
+    assertEquals(statelessMessageInputModel.messageType(), "text");
+    assertEquals(statelessMessageInputModel.text(), "testString");
+    assertEquals(statelessMessageInputModel.intents(), java.util.Arrays.asList(runtimeIntentModel));
     assertEquals(
-        messageInputStatelessModel.entities(), java.util.Arrays.asList(runtimeEntityModel));
-    assertEquals(messageInputStatelessModel.suggestionId(), "testString");
+        statelessMessageInputModel.entities(), java.util.Arrays.asList(runtimeEntityModel));
+    assertEquals(statelessMessageInputModel.suggestionId(), "testString");
     assertEquals(
-        messageInputStatelessModel.attachments(),
+        statelessMessageInputModel.attachments(),
         java.util.Arrays.asList(messageInputAttachmentModel));
-    assertEquals(messageInputStatelessModel.analytics(), requestAnalyticsModel);
-    assertEquals(messageInputStatelessModel.options(), messageInputOptionsStatelessModel);
+    assertEquals(statelessMessageInputModel.analytics(), requestAnalyticsModel);
+    assertEquals(statelessMessageInputModel.options(), statelessMessageInputOptionsModel);
 
     MessageContextGlobalSystem messageContextGlobalSystemModel =
         new MessageContextGlobalSystem.Builder()
@@ -214,13 +216,13 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageContextGlobalSystemModel.state(), "testString");
     assertEquals(messageContextGlobalSystemModel.skipUserInput(), Boolean.valueOf(true));
 
-    MessageContextGlobalStateless messageContextGlobalStatelessModel =
-        new MessageContextGlobalStateless.Builder()
+    StatelessMessageContextGlobal statelessMessageContextGlobalModel =
+        new StatelessMessageContextGlobal.Builder()
             .system(messageContextGlobalSystemModel)
             .sessionId("testString")
             .build();
-    assertEquals(messageContextGlobalStatelessModel.system(), messageContextGlobalSystemModel);
-    assertEquals(messageContextGlobalStatelessModel.sessionId(), "testString");
+    assertEquals(statelessMessageContextGlobalModel.system(), messageContextGlobalSystemModel);
+    assertEquals(statelessMessageContextGlobalModel.sessionId(), "testString");
 
     MessageContextSkillSystem messageContextSkillSystemModel =
         new MessageContextSkillSystem.Builder()
@@ -230,64 +232,75 @@ public class MessageStatelessOptionsTest {
     assertEquals(messageContextSkillSystemModel.getState(), "testString");
     assertEquals(messageContextSkillSystemModel.get("foo"), "testString");
 
-    MessageContextSkillDialog messageContextSkillDialogModel =
-        new MessageContextSkillDialog.Builder()
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .build();
     assertEquals(
-        messageContextSkillDialogModel.userDefined(),
+        messageContextDialogSkillModel.userDefined(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextSkillDialogModel.system(), messageContextSkillSystemModel);
+    assertEquals(messageContextDialogSkillModel.system(), messageContextSkillSystemModel);
 
-    MessageContextSkillAction messageContextSkillActionModel =
-        new MessageContextSkillAction.Builder()
+    StatelessMessageContextSkillsActionsSkill statelessMessageContextSkillsActionsSkillModel =
+        new StatelessMessageContextSkillsActionsSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateActionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .privateSkillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
     assertEquals(
-        messageContextSkillActionModel.userDefined(),
-        java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextSkillActionModel.system(), messageContextSkillSystemModel);
-    assertEquals(
-        messageContextSkillActionModel.actionVariables(),
+        statelessMessageContextSkillsActionsSkillModel.userDefined(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(
-        messageContextSkillActionModel.skillVariables(),
+        statelessMessageContextSkillsActionsSkillModel.system(), messageContextSkillSystemModel);
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.actionVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.skillVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.privateActionVariables(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(
+        statelessMessageContextSkillsActionsSkillModel.privateSkillVariables(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
-    MessageContextSkills messageContextSkillsModel =
-        new MessageContextSkills.Builder()
-            .mainSkill(messageContextSkillDialogModel)
-            .actionsSkill(messageContextSkillActionModel)
+    StatelessMessageContextSkills statelessMessageContextSkillsModel =
+        new StatelessMessageContextSkills.Builder()
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(statelessMessageContextSkillsActionsSkillModel)
             .build();
-    assertEquals(messageContextSkillsModel.mainSkill(), messageContextSkillDialogModel);
-    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextSkillActionModel);
+    assertEquals(statelessMessageContextSkillsModel.mainSkill(), messageContextDialogSkillModel);
+    assertEquals(
+        statelessMessageContextSkillsModel.actionsSkill(),
+        statelessMessageContextSkillsActionsSkillModel);
 
-    MessageContextStateless messageContextStatelessModel =
-        new MessageContextStateless.Builder()
-            .global(messageContextGlobalStatelessModel)
-            .skills(messageContextSkillsModel)
+    StatelessMessageContext statelessMessageContextModel =
+        new StatelessMessageContext.Builder()
+            .global(statelessMessageContextGlobalModel)
+            .skills(statelessMessageContextSkillsModel)
             .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
-    assertEquals(messageContextStatelessModel.global(), messageContextGlobalStatelessModel);
-    assertEquals(messageContextStatelessModel.skills(), messageContextSkillsModel);
+    assertEquals(statelessMessageContextModel.global(), statelessMessageContextGlobalModel);
+    assertEquals(statelessMessageContextModel.skills(), statelessMessageContextSkillsModel);
     assertEquals(
-        messageContextStatelessModel.integrations(),
+        statelessMessageContextModel.integrations(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
     MessageStatelessOptions messageStatelessOptionsModel =
         new MessageStatelessOptions.Builder()
             .assistantId("testString")
-            .input(messageInputStatelessModel)
-            .context(messageContextStatelessModel)
+            .input(statelessMessageInputModel)
+            .context(statelessMessageContextModel)
             .userId("testString")
             .build();
     assertEquals(messageStatelessOptionsModel.assistantId(), "testString");
-    assertEquals(messageStatelessOptionsModel.input(), messageInputStatelessModel);
-    assertEquals(messageStatelessOptionsModel.context(), messageContextStatelessModel);
+    assertEquals(messageStatelessOptionsModel.input(), statelessMessageInputModel);
+    assertEquals(messageStatelessOptionsModel.context(), statelessMessageContextModel);
     assertEquals(messageStatelessOptionsModel.userId(), "testString");
   }
 

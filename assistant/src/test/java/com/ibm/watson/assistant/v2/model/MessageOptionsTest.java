@@ -230,41 +230,41 @@ public class MessageOptionsTest {
     assertEquals(messageContextSkillSystemModel.getState(), "testString");
     assertEquals(messageContextSkillSystemModel.get("foo"), "testString");
 
-    MessageContextSkillDialog messageContextSkillDialogModel =
-        new MessageContextSkillDialog.Builder()
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .build();
     assertEquals(
-        messageContextSkillDialogModel.userDefined(),
+        messageContextDialogSkillModel.userDefined(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextSkillDialogModel.system(), messageContextSkillSystemModel);
+    assertEquals(messageContextDialogSkillModel.system(), messageContextSkillSystemModel);
 
-    MessageContextSkillAction messageContextSkillActionModel =
-        new MessageContextSkillAction.Builder()
+    MessageContextActionSkill messageContextActionSkillModel =
+        new MessageContextActionSkill.Builder()
             .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .system(messageContextSkillSystemModel)
             .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
             .build();
     assertEquals(
-        messageContextSkillActionModel.userDefined(),
+        messageContextActionSkillModel.userDefined(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextSkillActionModel.system(), messageContextSkillSystemModel);
+    assertEquals(messageContextActionSkillModel.system(), messageContextSkillSystemModel);
     assertEquals(
-        messageContextSkillActionModel.actionVariables(),
+        messageContextActionSkillModel.actionVariables(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
     assertEquals(
-        messageContextSkillActionModel.skillVariables(),
+        messageContextActionSkillModel.skillVariables(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
     MessageContextSkills messageContextSkillsModel =
         new MessageContextSkills.Builder()
-            .mainSkill(messageContextSkillDialogModel)
-            .actionsSkill(messageContextSkillActionModel)
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(messageContextActionSkillModel)
             .build();
-    assertEquals(messageContextSkillsModel.mainSkill(), messageContextSkillDialogModel);
-    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextSkillActionModel);
+    assertEquals(messageContextSkillsModel.mainSkill(), messageContextDialogSkillModel);
+    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextActionSkillModel);
 
     MessageContext messageContextModel =
         new MessageContext.Builder()

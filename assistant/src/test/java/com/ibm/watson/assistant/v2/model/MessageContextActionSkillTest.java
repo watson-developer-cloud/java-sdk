@@ -22,14 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageContextSkills model. */
-public class MessageContextSkillsTest {
+/** Unit test class for the MessageContextActionSkill model. */
+public class MessageContextActionSkillTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageContextSkills() throws Throwable {
+  public void testMessageContextActionSkill() throws Throwable {
     MessageContextSkillSystem messageContextSkillSystemModel =
         new MessageContextSkillSystem.Builder()
             .state("testString")
@@ -37,16 +37,6 @@ public class MessageContextSkillsTest {
             .build();
     assertEquals(messageContextSkillSystemModel.getState(), "testString");
     assertEquals(messageContextSkillSystemModel.get("foo"), "testString");
-
-    MessageContextDialogSkill messageContextDialogSkillModel =
-        new MessageContextDialogSkill.Builder()
-            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
-            .system(messageContextSkillSystemModel)
-            .build();
-    assertEquals(
-        messageContextDialogSkillModel.userDefined(),
-        java.util.Collections.singletonMap("anyKey", "anyValue"));
-    assertEquals(messageContextDialogSkillModel.system(), messageContextSkillSystemModel);
 
     MessageContextActionSkill messageContextActionSkillModel =
         new MessageContextActionSkill.Builder()
@@ -66,24 +56,22 @@ public class MessageContextSkillsTest {
         messageContextActionSkillModel.skillVariables(),
         java.util.Collections.singletonMap("anyKey", "anyValue"));
 
-    MessageContextSkills messageContextSkillsModel =
-        new MessageContextSkills.Builder()
-            .mainSkill(messageContextDialogSkillModel)
-            .actionsSkill(messageContextActionSkillModel)
-            .build();
-    assertEquals(messageContextSkillsModel.mainSkill(), messageContextDialogSkillModel);
-    assertEquals(messageContextSkillsModel.actionsSkill(), messageContextActionSkillModel);
+    String json = TestUtilities.serialize(messageContextActionSkillModel);
 
-    String json = TestUtilities.serialize(messageContextSkillsModel);
-
-    MessageContextSkills messageContextSkillsModelNew =
-        TestUtilities.deserialize(json, MessageContextSkills.class);
-    assertTrue(messageContextSkillsModelNew instanceof MessageContextSkills);
+    MessageContextActionSkill messageContextActionSkillModelNew =
+        TestUtilities.deserialize(json, MessageContextActionSkill.class);
+    assertTrue(messageContextActionSkillModelNew instanceof MessageContextActionSkill);
     assertEquals(
-        messageContextSkillsModelNew.mainSkill().toString(),
-        messageContextDialogSkillModel.toString());
+        messageContextActionSkillModelNew.userDefined().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
     assertEquals(
-        messageContextSkillsModelNew.actionsSkill().toString(),
-        messageContextActionSkillModel.toString());
+        messageContextActionSkillModelNew.system().toString(),
+        messageContextSkillSystemModel.toString());
+    assertEquals(
+        messageContextActionSkillModelNew.actionVariables().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
+    assertEquals(
+        messageContextActionSkillModelNew.skillVariables().toString(),
+        java.util.Collections.singletonMap("anyKey", "anyValue").toString());
   }
 }

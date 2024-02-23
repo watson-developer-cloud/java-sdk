@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2021.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,17 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageResponse model. */
-public class MessageResponseTest {
+/** Unit test class for the StatelessMessageResponse model. */
+public class StatelessMessageResponseTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageResponse() throws Throwable {
-    MessageResponse messageResponseModel = new MessageResponse();
-    assertNull(messageResponseModel.getOutput());
-    assertNull(messageResponseModel.getContext());
-    assertNull(messageResponseModel.getUserId());
+  public void testStatelessMessageResponse() throws Throwable {
+    StatelessMessageResponse statelessMessageResponseModel = new StatelessMessageResponse();
+    assertNull(statelessMessageResponseModel.getOutput());
+    assertNull(statelessMessageResponseModel.getContext());
+    assertNull(statelessMessageResponseModel.getMaskedOutput());
+    assertNull(statelessMessageResponseModel.getMaskedInput());
+    assertNull(statelessMessageResponseModel.getUserId());
   }
 }
