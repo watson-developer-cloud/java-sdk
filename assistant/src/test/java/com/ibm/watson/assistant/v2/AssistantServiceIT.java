@@ -75,7 +75,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
                 .input(input)
                 .context(context)
                 .build();
-        MessageResponse messageResponse = service.message(messageOptions).execute().getResult();
+        StatefulMessageResponse messageResponse = service.message(messageOptions).execute().getResult();
 
         // message assertions
         List<RuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
@@ -114,15 +114,15 @@ public class AssistantServiceIT extends AssistantServiceTest {
     String sessionId = sessionResponse.getSessionId();
 
     final List<String> messages = Arrays.asList("Hello");
-    MessageContextStateless context = new MessageContextStateless.Builder().build();
+    StatelessMessageContext context = new StatelessMessageContext.Builder().build();
 
     try {
       // send messages
       for (String message : messages) {
-        MessageInputOptionsStateless inputOptions =
-            new MessageInputOptionsStateless.Builder().debug(true).build();
-        MessageInputStateless input =
-            new MessageInputStateless.Builder()
+        StatelessMessageInputOptions inputOptions =
+            new StatelessMessageInputOptions.Builder().debug(true).build();
+        StatelessMessageInput input =
+            new StatelessMessageInput.Builder()
                 .text(message)
                 .messageType(MessageInput.MessageType.TEXT)
                 .options(inputOptions)
@@ -133,7 +133,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
                 .input(input)
                 .context(context)
                 .build();
-        MessageResponseStateless messageResponse =
+        StatelessMessageResponse messageResponse =
             service.messageStateless(messageOptions).execute().getResult();
 
         // message assertions
@@ -174,7 +174,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     LogCollection logCollection = service.listLogs(builder.build()).execute().getResult();
 
     assertNotNull(logCollection);
-    assertTrue(logCollection.getLogs().get(0).getRequest().input().text().contains("Hello"));
+    assertTrue(logCollection.getLogs().get(0).getRequest().getInput().text().contains("Hello"));
     assertTrue(logCollection.getLogs().get(0).getLanguage().equals("en"));
   }
 
@@ -222,7 +222,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
             .input(input)
             .context(context)
             .build();
-    MessageResponse response = service.message(messageOptions).execute().getResult();
+    StatefulMessageResponse response = service.message(messageOptions).execute().getResult();
 
     RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
         runtimeResponseGenericRuntimeResponseTypeChannelTransfer =
