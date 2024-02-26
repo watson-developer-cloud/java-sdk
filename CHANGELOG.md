@@ -1,3 +1,29 @@
+# [12.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v11.0.1...v12.0.0) (2024-02-26)
+
+
+### Bug Fixes
+
+* **wa-v2:** fix tests and delete unused models ([3e7e9c7](https://github.com/watson-developer-cloud/java-sdk/commit/3e7e9c79dd524833f8a1ccaa50f60e9a6ef969cb))
+
+
+### Features
+
+* **disco-v2:** class changes ([ba46325](https://github.com/watson-developer-cloud/java-sdk/commit/ba463252ae00560c0cec40c960b7649efd06fd83))
+* **discov2:** new EnrichmentOptions parameters ([78d93b7](https://github.com/watson-developer-cloud/java-sdk/commit/78d93b70dd570ce8acd8260b676b0d124f31de9d))
+* **mcsp:** update sdk-core for MCSP authenticator support ([8e9f831](https://github.com/watson-developer-cloud/java-sdk/commit/8e9f8319f92f51d74d4fc1b1a433e0415a38b206))
+* **nlu:** add support for userMetadata param ([a00b9d7](https://github.com/watson-developer-cloud/java-sdk/commit/a00b9d76dddb1bfba98db8938f4f07ddbaa56de7))
+* **stt:** new params ([56755c6](https://github.com/watson-developer-cloud/java-sdk/commit/56755c6f50bf0638de3c85093ea819db7e7071fe))
+* **wa-v2:** new method params ([439ed47](https://github.com/watson-developer-cloud/java-sdk/commit/439ed4784e9a0a1d510bacfa0b0cd656afa87dff))
+* **wa-v2:** support for private variables ([89f2209](https://github.com/watson-developer-cloud/java-sdk/commit/89f2209f937a22b6b00fa26cfddcb4ab991c541f))
+
+
+### BREAKING CHANGES
+
+* **disco-v2:** TableBodyCells properties changed to string lists.
+Location property changed from Map to TableElementLocation.
+* **wa-v2:** Multiple class name changes and Log class property type
+changes
+
 ## [11.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v11.0.0...v11.0.1) (2023-08-08)
 
 
