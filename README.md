@@ -238,6 +238,19 @@ service.setServiceUrl("<service CP4D URL>");
 
 Be sure to both disable SSL verification when authenticating and set the endpoint explicitly to the URL given in Cloud Pak for Data.
 
+#### MCSP
+To use the SDK through a third party cloud provider (such as AWS), use the `MCSPAuthenticator`. This will require the base endpoint URL for the MCSP token service (e.g. https://iam.platform.saas.ibm.com) and an apikey. 
+
+```java
+// letting the SDK manage the token
+Authenticator authenticator = new MCSPAuthenticator.Builder()
+            .apikey("apikey")
+            .url("token_service_endpoint")
+            .build();
+Assistant service = new Assistant("2023-06-15", authenticator);
+service.setServiceUrl("<url_as_per_region>");
+```
+
 ## Using the SDK
 
 ### Parsing responses
