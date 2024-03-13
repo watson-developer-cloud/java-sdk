@@ -1,3 +1,11 @@
+## [12.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v12.0.0...v12.0.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **stt:** change smartFormattingVersion to a Long ([258c406](https://github.com/watson-developer-cloud/java-sdk/commit/258c406c6d38f676d1961691453742cd6402cc45))
+* **wss:** add smartFormattingVersion to websockets ([9806d3c](https://github.com/watson-developer-cloud/java-sdk/commit/9806d3cce178322c2011451fc7e41e67539d90ca))
+
 # [12.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v11.0.1...v12.0.0) (2024-02-26)
 
 
