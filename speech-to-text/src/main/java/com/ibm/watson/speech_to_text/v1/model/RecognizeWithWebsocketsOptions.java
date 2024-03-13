@@ -29,8 +29,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models#models).
    */
   public interface Model {
-    /** ar-AR_BroadbandModel. */
-    String AR_AR_BROADBANDMODEL = "ar-AR_BroadbandModel";
     /** ar-MS_BroadbandModel. */
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
     /** ar-MS_Telephony. */
@@ -107,6 +105,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
     /** fr-CA_BroadbandModel. */
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
+    /** fr-CA_Multimedia. */
+    String FR_CA_MULTIMEDIA = "fr-CA_Multimedia";
     /** fr-CA_NarrowbandModel. */
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-CA_Telephony. */
@@ -135,6 +135,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String JA_JP_MULTIMEDIA = "ja-JP_Multimedia";
     /** ja-JP_NarrowbandModel. */
     String JA_JP_NARROWBANDMODEL = "ja-JP_NarrowbandModel";
+    /** ja-JP_Telephony. */
+    String JA_JP_TELEPHONY = "ja-JP_Telephony";
     /** ko-KR_BroadbandModel. */
     String KO_KR_BROADBANDMODEL = "ko-KR_BroadbandModel";
     /** ko-KR_Multimedia. */
@@ -147,6 +149,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String NL_BE_TELEPHONY = "nl-BE_Telephony";
     /** nl-NL_BroadbandModel. */
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
+    /** nl-NL_Multimedia. */
+    String NL_NL_MULTIMEDIA = "nl-NL_Multimedia";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** nl-NL_Telephony. */
@@ -159,6 +163,8 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     String PT_BR_NARROWBANDMODEL = "pt-BR_NarrowbandModel";
     /** pt-BR_Telephony. */
     String PT_BR_TELEPHONY = "pt-BR_Telephony";
+    /** sv-SE_Telephony. */
+    String SV_SE_TELEPHONY = "sv-SE_Telephony";
     /** zh-CN_BroadbandModel. */
     String ZH_CN_BROADBANDMODEL = "zh-CN_BroadbandModel";
     /** zh-CN_NarrowbandModel. */
@@ -186,6 +192,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   protected Boolean timestamps;
   protected Boolean profanityFilter;
   protected Boolean smartFormatting;
+  protected Long smartFormattingVersion;
   protected Boolean speakerLabels;
   protected String grammarName;
   protected Boolean redaction;
@@ -218,6 +225,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     private Boolean timestamps;
     private Boolean profanityFilter;
     private Boolean smartFormatting;
+    private Long smartFormattingVersion;
     private Boolean speakerLabels;
     private String grammarName;
     private Boolean redaction;
@@ -249,6 +257,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
       this.timestamps = recognizeWithWebsocketsOptions.timestamps;
       this.profanityFilter = recognizeWithWebsocketsOptions.profanityFilter;
       this.smartFormatting = recognizeWithWebsocketsOptions.smartFormatting;
+      this.smartFormattingVersion = recognizeWithWebsocketsOptions.smartFormattingVersion;
       this.speakerLabels = recognizeWithWebsocketsOptions.speakerLabels;
       this.grammarName = recognizeWithWebsocketsOptions.grammarName;
       this.redaction = recognizeWithWebsocketsOptions.redaction;
@@ -477,6 +486,17 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     }
 
     /**
+     * Set the smartFormattingVersion.
+     *
+     * @param smartFormattingVersion the smartFormattingVersion
+     * @return the RecognizeOptions builder
+     */
+    public Builder smartFormattingVersion(long smartFormattingVersion) {
+      this.smartFormattingVersion = smartFormattingVersion;
+      return this;
+    }
+
+    /**
      * Set the speakerLabels.
      *
      * @param speakerLabels the speakerLabels
@@ -656,6 +676,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     timestamps = builder.timestamps;
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
+    smartFormattingVersion = builder.smartFormattingVersion;
     speakerLabels = builder.speakerLabels;
     grammarName = builder.grammarName;
     redaction = builder.redaction;
@@ -927,6 +948,18 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
    */
   public Boolean smartFormatting() {
     return smartFormatting;
+  }
+
+  /**
+   * Gets the smartFormattingVersion.
+   *
+   * <p>Smart formatting version is for next-generation models and that is supported in US English,
+   * Brazilian Portuguese, French and German languages.
+   *
+   * @return the smartFormattingVersion
+   */
+  public Long smartFormattingVersion() {
+    return smartFormattingVersion;
   }
 
   /**
