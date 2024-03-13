@@ -197,7 +197,7 @@ public class RecognizeOptions extends GenericModel {
   protected Boolean timestamps;
   protected Boolean profanityFilter;
   protected Boolean smartFormatting;
-  protected Boolean smartFormattingVersion;
+  protected Long smartFormattingVersion;
   protected Boolean speakerLabels;
   protected String grammarName;
   protected Boolean redaction;
@@ -227,7 +227,7 @@ public class RecognizeOptions extends GenericModel {
     private Boolean timestamps;
     private Boolean profanityFilter;
     private Boolean smartFormatting;
-    private Boolean smartFormattingVersion;
+    private Long smartFormattingVersion;
     private Boolean speakerLabels;
     private String grammarName;
     private Boolean redaction;
@@ -492,7 +492,7 @@ public class RecognizeOptions extends GenericModel {
      * @param smartFormattingVersion the smartFormattingVersion
      * @return the RecognizeOptions builder
      */
-    public Builder smartFormattingVersion(Boolean smartFormattingVersion) {
+    public Builder smartFormattingVersion(long smartFormattingVersion) {
       this.smartFormattingVersion = smartFormattingVersion;
       return this;
     }
@@ -934,7 +934,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * @return the smartFormattingVersion
    */
-  public Boolean smartFormattingVersion() {
+  public Long smartFormattingVersion() {
     return smartFormattingVersion;
   }
 

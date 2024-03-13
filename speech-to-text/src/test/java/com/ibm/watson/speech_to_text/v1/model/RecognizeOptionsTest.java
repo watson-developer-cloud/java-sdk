@@ -49,7 +49,7 @@ public class RecognizeOptionsTest {
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
-            .smartFormattingVersion(false)
+            .smartFormattingVersion(Long.valueOf("0"))
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
@@ -79,7 +79,7 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.timestamps(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(recognizeOptionsModel.smartFormatting(), Boolean.valueOf(false));
-    assertEquals(recognizeOptionsModel.smartFormattingVersion(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.smartFormattingVersion(), Long.valueOf("0"));
     assertEquals(recognizeOptionsModel.speakerLabels(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.grammarName(), "testString");
     assertEquals(recognizeOptionsModel.redaction(), Boolean.valueOf(false));

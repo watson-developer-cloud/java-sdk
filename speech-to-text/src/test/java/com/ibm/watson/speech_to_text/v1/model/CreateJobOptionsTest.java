@@ -53,7 +53,7 @@ public class CreateJobOptionsTest {
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
-            .smartFormattingVersion(false)
+            .smartFormattingVersion(Long.valueOf("0"))
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
@@ -89,7 +89,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.timestamps(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.profanityFilter(), Boolean.valueOf(true));
     assertEquals(createJobOptionsModel.smartFormatting(), Boolean.valueOf(false));
-    assertEquals(createJobOptionsModel.smartFormattingVersion(), Boolean.valueOf(false));
+    assertEquals(createJobOptionsModel.smartFormattingVersion(), Long.valueOf("0"));
     assertEquals(createJobOptionsModel.speakerLabels(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.grammarName(), "testString");
     assertEquals(createJobOptionsModel.redaction(), Boolean.valueOf(false));
