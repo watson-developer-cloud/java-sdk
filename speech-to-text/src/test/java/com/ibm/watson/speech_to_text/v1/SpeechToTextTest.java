@@ -239,7 +239,7 @@ public class SpeechToTextTest {
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
-            .smartFormattingVersion(false)
+            .smartFormattingVersion(Long.valueOf("0"))
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
@@ -284,7 +284,7 @@ public class SpeechToTextTest {
     assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
     assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
-    assertEquals(Boolean.valueOf(query.get("smart_formatting_version")), Boolean.valueOf(false));
+    assertEquals(Long.valueOf(query.get("smart_formatting_version")), Long.valueOf("0"));
     assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("grammar_name"), "testString");
     assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
@@ -457,7 +457,7 @@ public class SpeechToTextTest {
             .timestamps(false)
             .profanityFilter(true)
             .smartFormatting(false)
-            .smartFormattingVersion(false)
+            .smartFormattingVersion(Long.valueOf("0"))
             .speakerLabels(false)
             .grammarName("testString")
             .redaction(false)
@@ -508,7 +508,7 @@ public class SpeechToTextTest {
     assertEquals(Boolean.valueOf(query.get("timestamps")), Boolean.valueOf(false));
     assertEquals(Boolean.valueOf(query.get("profanity_filter")), Boolean.valueOf(true));
     assertEquals(Boolean.valueOf(query.get("smart_formatting")), Boolean.valueOf(false));
-    assertEquals(Boolean.valueOf(query.get("smart_formatting_version")), Boolean.valueOf(false));
+    assertEquals(Long.valueOf(query.get("smart_formatting_version")), Long.valueOf("0"));
     assertEquals(Boolean.valueOf(query.get("speaker_labels")), Boolean.valueOf(false));
     assertEquals(query.get("grammar_name"), "testString");
     assertEquals(Boolean.valueOf(query.get("redaction")), Boolean.valueOf(false));
