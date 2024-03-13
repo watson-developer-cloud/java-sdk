@@ -27,12 +27,12 @@ public class QueryAggregationQueryHistogramAggregation extends QueryAggregation 
   protected QueryAggregationQueryHistogramAggregation() {}
 
   /**
-    * Gets the interval.
-    *
-    * <p>The size of the sections that the results are split into.
-    *
-    * @return the interval
-    */
+   * Gets the interval.
+   *
+   * <p>The size of the sections that the results are split into.
+   *
+   * @return the interval
+   */
   public Long getInterval() {
     return interval;
   }

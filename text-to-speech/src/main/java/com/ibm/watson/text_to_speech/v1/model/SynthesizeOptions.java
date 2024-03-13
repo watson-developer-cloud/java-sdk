@@ -126,7 +126,7 @@ public class SynthesizeOptions extends GenericModel {
   protected String spellOutMode;
   protected Long ratePercentage;
   protected Long pitchPercentage;
-protected List<String> timings;
+  protected List<String> timings;
 
   /** Builder. */
   public static class Builder {
@@ -137,7 +137,7 @@ protected List<String> timings;
     private String spellOutMode;
     private Long ratePercentage;
     private Long pitchPercentage;
-private List<String> timings;
+    private List<String> timings;
 
     /**
      * Instantiates a new Builder from an existing SynthesizeOptions instance.
@@ -152,7 +152,7 @@ private List<String> timings;
       this.spellOutMode = synthesizeOptions.spellOutMode;
       this.ratePercentage = synthesizeOptions.ratePercentage;
       this.pitchPercentage = synthesizeOptions.pitchPercentage;
-this.timings = synthesizeOptions.timings;
+      this.timings = synthesizeOptions.timings;
     }
 
     /** Instantiates a new builder. */

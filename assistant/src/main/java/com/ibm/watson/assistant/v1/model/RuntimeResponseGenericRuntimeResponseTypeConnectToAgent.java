@@ -20,7 +20,7 @@ import java.util.List;
 public class RuntimeResponseGenericRuntimeResponseTypeConnectToAgent
     extends RuntimeResponseGeneric {
 
-@SerializedName("transfer_info")
+  @SerializedName("transfer_info")
   protected DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   /** Builder. */
