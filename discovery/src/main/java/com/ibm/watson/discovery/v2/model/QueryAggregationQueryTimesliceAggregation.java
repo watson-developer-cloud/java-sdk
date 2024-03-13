@@ -23,14 +23,13 @@ public class QueryAggregationQueryTimesliceAggregation extends QueryAggregation 
 
   protected QueryAggregationQueryTimesliceAggregation() {}
 
-
   /**
-    * Gets the interval.
-    *
-    * <p>The date interval value.
-    *
-    * @return the interval
-    */
+   * Gets the interval.
+   *
+   * <p>The date interval value.
+   *
+   * @return the interval
+   */
   public String getInterval() {
     return interval;
   }

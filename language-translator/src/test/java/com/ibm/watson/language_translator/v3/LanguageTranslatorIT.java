@@ -46,10 +46,12 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   private LanguageTranslator service;
 
   private final Map<String, String> translations =
-      new HashMap<String, String>() {{
-        put("The IBM Watson team is awesome", "El equipo de IBM Watson es impresionante");
-        put("Welcome to the cognitive era", "Bienvenido a la era cognitiva");
-      }};
+      new HashMap<String, String>() {
+        {
+          put("The IBM Watson team is awesome", "El equipo de IBM Watson es impresionante");
+          put("Welcome to the cognitive era", "Bienvenido a la era cognitiva");
+        }
+      };
   private final List<String> texts = new ArrayList<>(translations.keySet());
 
   /**

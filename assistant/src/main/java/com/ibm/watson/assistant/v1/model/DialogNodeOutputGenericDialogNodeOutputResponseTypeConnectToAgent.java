@@ -20,7 +20,7 @@ import java.util.List;
 public class DialogNodeOutputGenericDialogNodeOutputResponseTypeConnectToAgent
     extends DialogNodeOutputGeneric {
 
-@SerializedName("transfer_info")
+  @SerializedName("transfer_info")
   private DialogNodeOutputConnectToAgentTransferInfo transferInfo;
 
   /** Builder. */

@@ -20,7 +20,7 @@ import java.util.List;
 public class RuntimeResponseGenericRuntimeResponseTypeChannelTransfer
     extends RuntimeResponseGeneric {
 
-@SerializedName("transfer_info")
+  @SerializedName("transfer_info")
   protected ChannelTransferInfo transferInfo;
 
   /** Builder. */

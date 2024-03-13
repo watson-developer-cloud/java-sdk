@@ -75,7 +75,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
                 .input(input)
                 .context(context)
                 .build();
-        StatefulMessageResponse messageResponse = service.message(messageOptions).execute().getResult();
+        StatefulMessageResponse messageResponse =
+            service.message(messageOptions).execute().getResult();
 
         // message assertions
         List<RuntimeResponseGeneric> genericResponses = messageResponse.getOutput().getGeneric();
