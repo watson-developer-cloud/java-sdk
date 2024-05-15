@@ -50,7 +50,6 @@ InputStream audio = new FileInputStream("src/test/resources/sample1.wav");
 RecognizeOptions options = new RecognizeOptions.Builder()
   .audio(audio)
   .contentType(HttpMediaType.AUDIO_WAV)
-  .interimResults(true)
   .build();
 
 service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {

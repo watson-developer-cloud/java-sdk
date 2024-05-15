@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2022.
+ * (C) Copyright IBM Corp. 2020, 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -201,9 +201,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
   protected Float backgroundAudioSuppression;
-  protected Boolean lowLatency;
   protected Float characterInsertionBias;
-  private Boolean interimResults;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
 
@@ -234,9 +232,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
     private Float backgroundAudioSuppression;
-    private Boolean lowLatency;
     private Float characterInsertionBias;
-    private Boolean interimResults;
     private Boolean processingMetrics;
     private Float processingMetricsInterval;
 
@@ -266,9 +262,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
       this.splitTranscriptAtPhraseEnd = recognizeWithWebsocketsOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeWithWebsocketsOptions.speechDetectorSensitivity;
       this.backgroundAudioSuppression = recognizeWithWebsocketsOptions.backgroundAudioSuppression;
-      this.lowLatency = recognizeWithWebsocketsOptions.lowLatency;
       this.characterInsertionBias = recognizeWithWebsocketsOptions.characterInsertionBias;
-      this.interimResults = recognizeWithWebsocketsOptions.interimResults;
       this.processingMetrics = recognizeWithWebsocketsOptions.processingMetrics;
       this.processingMetricsInterval = recognizeWithWebsocketsOptions.processingMetricsInterval;
     }
@@ -585,17 +579,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     }
 
     /**
-     * Set the lowLatency.
-     *
-     * @param lowLatency the lowLatency
-     * @return the RecognizeOptions builder
-     */
-    public Builder lowLatency(Boolean lowLatency) {
-      this.lowLatency = lowLatency;
-      return this;
-    }
-
-    /**
      * Set the characterInsertionBias.
      *
      * @param characterInsertionBias the characterInsertionBias
@@ -615,19 +598,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
      */
     public Builder audio(File audio) throws FileNotFoundException {
       this.audio = new FileInputStream(audio);
-      return this;
-    }
-
-    /**
-     * Set the interimResults.
-     *
-     * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-     *
-     * @param interimResults the interimResults
-     * @return the interimResults
-     */
-    public Builder interimResults(Boolean interimResults) {
-      this.interimResults = interimResults;
       return this;
     }
 
@@ -685,9 +655,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
-    lowLatency = builder.lowLatency;
     characterInsertionBias = builder.characterInsertionBias;
-    interimResults = builder.interimResults;
     processingMetrics = builder.processingMetrics;
     processingMetricsInterval = builder.processingMetricsInterval;
   }
@@ -1124,28 +1092,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   }
 
   /**
-   * Gets the lowLatency.
-   *
-   * <p>If `true` for next-generation `Multimedia` and `Telephony` models that support low latency,
-   * directs the service to produce results even more quickly than it usually does. Next-generation
-   * models produce transcription results faster than previous-generation models. The `low_latency`
-   * parameter causes the models to produce results even more quickly, though the results might be
-   * less accurate when the parameter is used.
-   *
-   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
-   * It is available for most next-generation models. * For a list of next-generation models that
-   * support low latency, see [Supported next-generation language
-   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported).
-   * * For more information about the `low_latency` parameter, see [Low
-   * latency](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-interim#low-latency).
-   *
-   * @return the lowLatency
-   */
-  public Boolean lowLatency() {
-    return lowLatency;
-  }
-
-  /**
    * Gets the characterInsertionBias.
    *
    * <p>For next-generation `Multimedia` and `Telephony` models, an indication of whether the
@@ -1174,21 +1120,6 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
    */
   public Float characterInsertionBias() {
     return characterInsertionBias;
-  }
-
-  /**
-   * Gets the interimResults.
-   *
-   * <p>If `true`, the service returns interim results as a stream of `SpeechRecognitionResults`
-   * objects. By default, the service returns a single `SpeechRecognitionResults` object with final
-   * results only.
-   *
-   * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
-   *
-   * @return the interimResults
-   */
-  public Boolean interimResults() {
-    return interimResults;
   }
 
   /**
