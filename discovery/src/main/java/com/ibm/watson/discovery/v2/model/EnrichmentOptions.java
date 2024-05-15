@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -343,8 +343,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * <p>A unique identifier of the document classifier. Required when **type** is `classifier`. Not
-   * valid when creating any other type of enrichment.
+   * <p>The Universally Unique Identifier (UUID) of the document classifier. Required when **type**
+   * is `classifier`. Not valid when creating any other type of enrichment.
    *
    * @return the classifierId
    */
@@ -355,8 +355,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * <p>A unique identifier of the document classifier model. Required when **type** is
-   * `classifier`. Not valid when creating any other type of enrichment.
+   * <p>The Universally Unique Identifier (UUID) of the document classifier model. Required when
+   * **type** is `classifier`. Not valid when creating any other type of enrichment.
    *
    * @return the modelId
    */

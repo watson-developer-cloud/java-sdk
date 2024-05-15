@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,8 +26,13 @@ public class ProjectListDetails extends GenericModel {
    *
    * <p>The `content_mining` and `content_intelligence` types are available with Premium plan
    * managed deployments and installed deployments only.
+   *
+   * <p>The Intelligent Document Processing (IDP) project type is available from IBM Cloud-managed
+   * instances only.
    */
   public interface Type {
+    /** intelligent_document_processing. */
+    String INTELLIGENT_DOCUMENT_PROCESSING = "intelligent_document_processing";
     /** document_retrieval. */
     String DOCUMENT_RETRIEVAL = "document_retrieval";
     /** conversational_search. */
@@ -57,7 +62,7 @@ public class ProjectListDetails extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The unique identifier of this project.
+   * <p>The Universally Unique Identifier (UUID) of this project.
    *
    * @return the projectId
    */
@@ -86,6 +91,9 @@ public class ProjectListDetails extends GenericModel {
    *
    * <p>The `content_mining` and `content_intelligence` types are available with Premium plan
    * managed deployments and installed deployments only.
+   *
+   * <p>The Intelligent Document Processing (IDP) project type is available from IBM Cloud-managed
+   * instances only.
    *
    * @return the type
    */

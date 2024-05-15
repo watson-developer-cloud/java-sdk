@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,11 +43,13 @@ public class CollectionDetailsTest {
             .name("testString")
             .description("testString")
             .language("en")
+            .ocrEnabled(false)
             .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
             .build();
     assertEquals(collectionDetailsModel.name(), "testString");
     assertEquals(collectionDetailsModel.description(), "testString");
     assertEquals(collectionDetailsModel.language(), "en");
+    assertEquals(collectionDetailsModel.ocrEnabled(), Boolean.valueOf(false));
     assertEquals(
         collectionDetailsModel.enrichments(), java.util.Arrays.asList(collectionEnrichmentModel));
 
@@ -59,6 +61,7 @@ public class CollectionDetailsTest {
     assertEquals(collectionDetailsModelNew.name(), "testString");
     assertEquals(collectionDetailsModelNew.description(), "testString");
     assertEquals(collectionDetailsModelNew.language(), "en");
+    assertEquals(collectionDetailsModelNew.ocrEnabled(), Boolean.valueOf(false));
   }
 
   @Test(expectedExceptions = IllegalArgumentException.class)

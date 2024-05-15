@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -461,6 +461,9 @@ public class Discovery extends BaseService {
     if (createCollectionOptions.language() != null) {
       contentJson.addProperty("language", createCollectionOptions.language());
     }
+    if (createCollectionOptions.ocrEnabled() != null) {
+      contentJson.addProperty("ocr_enabled", createCollectionOptions.ocrEnabled());
+    }
     if (createCollectionOptions.enrichments() != null) {
       contentJson.add(
           "enrichments",
@@ -554,6 +557,9 @@ public class Discovery extends BaseService {
     }
     if (updateCollectionOptions.description() != null) {
       contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.ocrEnabled() != null) {
+      contentJson.addProperty("ocr_enabled", updateCollectionOptions.ocrEnabled());
     }
     if (updateCollectionOptions.enrichments() != null) {
       contentJson.add(
