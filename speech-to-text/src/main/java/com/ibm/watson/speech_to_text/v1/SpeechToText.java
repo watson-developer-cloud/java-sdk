@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2016, 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -190,8 +190,7 @@ public class SpeechToText extends BaseService {
    * Sends audio and returns transcription results for recognition requests over a WebSocket
    * connection. Requests and responses are enabled over a single TCP connection that abstracts much
    * of the complexity of the request to offer efficient implementation, low latency, high
-   * throughput, and an asynchronous response. By default, only final results are returned for any
-   * request; to enable interim results, set the interimResults parameter to true.
+   * throughput, and an asynchronous response.
    *
    * <p>The service imposes a data size limit of 100 MB per utterance (per recognition request). You
    * can send multiple utterances over a single WebSocket connection. The service automatically
