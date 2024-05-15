@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -93,11 +93,11 @@ public class CreateProjectOptionsTest {
     CreateProjectOptions createProjectOptionsModel =
         new CreateProjectOptions.Builder()
             .name("testString")
-            .type("document_retrieval")
+            .type("intelligent_document_processing")
             .defaultQueryParameters(defaultQueryParamsModel)
             .build();
     assertEquals(createProjectOptionsModel.name(), "testString");
-    assertEquals(createProjectOptionsModel.type(), "document_retrieval");
+    assertEquals(createProjectOptionsModel.type(), "intelligent_document_processing");
     assertEquals(createProjectOptionsModel.defaultQueryParameters(), defaultQueryParamsModel);
   }
 

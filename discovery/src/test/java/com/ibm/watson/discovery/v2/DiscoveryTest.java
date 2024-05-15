@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -154,7 +154,7 @@ public class DiscoveryTest {
   public void testListProjectsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"projects\": [{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15}]}";
+        "{\"projects\": [{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"intelligent_document_processing\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15}]}";
     String listProjectsPath = "/v2/projects";
     server.enqueue(
         new MockResponse()
@@ -200,7 +200,7 @@ public class DiscoveryTest {
   public void testCreateProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"intelligent_document_processing\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String createProjectPath = "/v2/projects";
     server.enqueue(
         new MockResponse()
@@ -253,7 +253,7 @@ public class DiscoveryTest {
     CreateProjectOptions createProjectOptionsModel =
         new CreateProjectOptions.Builder()
             .name("testString")
-            .type("document_retrieval")
+            .type("intelligent_document_processing")
             .defaultQueryParameters(defaultQueryParamsModel)
             .build();
 
@@ -299,7 +299,7 @@ public class DiscoveryTest {
   public void testGetProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"intelligent_document_processing\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String getProjectPath = "/v2/projects/testString";
     server.enqueue(
         new MockResponse()
@@ -353,7 +353,7 @@ public class DiscoveryTest {
   public void testUpdateProjectWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"document_retrieval\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
+        "{\"project_id\": \"projectId\", \"name\": \"name\", \"type\": \"intelligent_document_processing\", \"relevancy_training_status\": {\"data_updated\": \"dataUpdated\", \"total_examples\": 13, \"sufficient_label_diversity\": true, \"processing\": true, \"minimum_examples_added\": true, \"successfully_trained\": \"successfullyTrained\", \"available\": false, \"notices\": 7, \"minimum_queries_added\": false}, \"collection_count\": 15, \"default_query_parameters\": {\"collection_ids\": [\"collectionIds\"], \"passages\": {\"enabled\": false, \"count\": 5, \"fields\": [\"fields\"], \"characters\": 10, \"per_document\": false, \"max_per_document\": 14}, \"table_results\": {\"enabled\": false, \"count\": 5, \"per_document\": 0}, \"aggregation\": \"aggregation\", \"suggested_refinements\": {\"enabled\": false, \"count\": 5}, \"spelling_suggestions\": false, \"highlight\": false, \"count\": 5, \"sort\": \"sort\", \"return\": [\"xReturn\"]}}";
     String updateProjectPath = "/v2/projects/testString";
     server.enqueue(
         new MockResponse()
@@ -568,7 +568,7 @@ public class DiscoveryTest {
   public void testCreateCollectionWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"ocr_enabled\": false, \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
     String createCollectionPath = "/v2/projects/testString/collections";
     server.enqueue(
         new MockResponse()
@@ -590,6 +590,7 @@ public class DiscoveryTest {
             .name("testString")
             .description("testString")
             .language("en")
+            .ocrEnabled(false)
             .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
             .build();
 
@@ -635,7 +636,7 @@ public class DiscoveryTest {
   public void testGetCollectionWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"ocr_enabled\": false, \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
     String getCollectionPath = "/v2/projects/testString/collections/testString";
     server.enqueue(
         new MockResponse()
@@ -692,7 +693,7 @@ public class DiscoveryTest {
   public void testUpdateCollectionWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
+        "{\"collection_id\": \"collectionId\", \"name\": \"name\", \"description\": \"description\", \"created\": \"2019-01-01T12:00:00.000Z\", \"language\": \"en\", \"ocr_enabled\": false, \"enrichments\": [{\"enrichment_id\": \"enrichmentId\", \"fields\": [\"fields\"]}], \"smart_document_understanding\": {\"enabled\": false, \"model\": \"custom\"}}";
     String updateCollectionPath = "/v2/projects/testString/collections/testString";
     server.enqueue(
         new MockResponse()
@@ -714,6 +715,7 @@ public class DiscoveryTest {
             .collectionId("testString")
             .name("testString")
             .description("testString")
+            .ocrEnabled(false)
             .enrichments(java.util.Arrays.asList(collectionEnrichmentModel))
             .build();
 

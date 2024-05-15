@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ public class UpdateCollectionOptions extends GenericModel {
   protected String collectionId;
   protected String name;
   protected String description;
+  protected Boolean ocrEnabled;
   protected List<CollectionEnrichment> enrichments;
 
   /** Builder. */
@@ -31,6 +32,7 @@ public class UpdateCollectionOptions extends GenericModel {
     private String collectionId;
     private String name;
     private String description;
+    private Boolean ocrEnabled;
     private List<CollectionEnrichment> enrichments;
 
     /**
@@ -43,6 +45,7 @@ public class UpdateCollectionOptions extends GenericModel {
       this.collectionId = updateCollectionOptions.collectionId;
       this.name = updateCollectionOptions.name;
       this.description = updateCollectionOptions.description;
+      this.ocrEnabled = updateCollectionOptions.ocrEnabled;
       this.enrichments = updateCollectionOptions.enrichments;
     }
 
@@ -129,6 +132,17 @@ public class UpdateCollectionOptions extends GenericModel {
     }
 
     /**
+     * Set the ocrEnabled.
+     *
+     * @param ocrEnabled the ocrEnabled
+     * @return the UpdateCollectionOptions builder
+     */
+    public Builder ocrEnabled(Boolean ocrEnabled) {
+      this.ocrEnabled = ocrEnabled;
+      return this;
+    }
+
+    /**
      * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
@@ -150,6 +164,7 @@ public class UpdateCollectionOptions extends GenericModel {
     collectionId = builder.collectionId;
     name = builder.name;
     description = builder.description;
+    ocrEnabled = builder.ocrEnabled;
     enrichments = builder.enrichments;
   }
 
@@ -165,8 +180,8 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The ID of the project. This information can be found from the *Integrate and Deploy* page in
-   * Discovery.
+   * <p>The Universally Unique Identifier (UUID) of the project. This information can be found from
+   * the *Integrate and Deploy* page in Discovery.
    *
    * @return the projectId
    */
@@ -177,7 +192,7 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * <p>The ID of the collection.
+   * <p>The Universally Unique Identifier (UUID) of the collection.
    *
    * @return the collectionId
    */
@@ -205,6 +220,18 @@ public class UpdateCollectionOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the ocrEnabled.
+   *
+   * <p>If set to `true`, optical character recognition (OCR) is enabled. For more information, see
+   * [Optical character recognition](/docs/discovery-data?topic=discovery-data-collections#ocr).
+   *
+   * @return the ocrEnabled
+   */
+  public Boolean ocrEnabled() {
+    return ocrEnabled;
   }
 
   /**

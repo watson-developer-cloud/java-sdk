@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,6 +28,10 @@ public class CollectionDetails extends GenericModel {
   protected String description;
   protected Date created;
   protected String language;
+
+  @SerializedName("ocr_enabled")
+  protected Boolean ocrEnabled;
+
   protected List<CollectionEnrichment> enrichments;
 
   @SerializedName("smart_document_understanding")
@@ -38,6 +42,7 @@ public class CollectionDetails extends GenericModel {
     private String name;
     private String description;
     private String language;
+    private Boolean ocrEnabled;
     private List<CollectionEnrichment> enrichments;
 
     /**
@@ -49,6 +54,7 @@ public class CollectionDetails extends GenericModel {
       this.name = collectionDetails.name;
       this.description = collectionDetails.description;
       this.language = collectionDetails.language;
+      this.ocrEnabled = collectionDetails.ocrEnabled;
       this.enrichments = collectionDetails.enrichments;
     }
 
@@ -122,6 +128,17 @@ public class CollectionDetails extends GenericModel {
     }
 
     /**
+     * Set the ocrEnabled.
+     *
+     * @param ocrEnabled the ocrEnabled
+     * @return the CollectionDetails builder
+     */
+    public Builder ocrEnabled(Boolean ocrEnabled) {
+      this.ocrEnabled = ocrEnabled;
+      return this;
+    }
+
+    /**
      * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
@@ -140,6 +157,7 @@ public class CollectionDetails extends GenericModel {
     name = builder.name;
     description = builder.description;
     language = builder.language;
+    ocrEnabled = builder.ocrEnabled;
     enrichments = builder.enrichments;
   }
 
@@ -155,7 +173,7 @@ public class CollectionDetails extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * <p>The unique identifier of the collection.
+   * <p>The Universally Unique Identifier (UUID) of the collection.
    *
    * @return the collectionId
    */
@@ -206,6 +224,18 @@ public class CollectionDetails extends GenericModel {
    */
   public String language() {
     return language;
+  }
+
+  /**
+   * Gets the ocrEnabled.
+   *
+   * <p>If set to `true`, optical character recognition (OCR) is enabled. For more information, see
+   * [Optical character recognition](/docs/discovery-data?topic=discovery-data-collections#ocr).
+   *
+   * @return the ocrEnabled
+   */
+  public Boolean ocrEnabled() {
+    return ocrEnabled;
   }
 
   /**

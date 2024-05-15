@@ -23,6 +23,7 @@ public class CreateCollectionOptions extends GenericModel {
   protected String name;
   protected String description;
   protected String language;
+  protected Boolean ocrEnabled;
   protected List<CollectionEnrichment> enrichments;
 
   /** Builder. */
@@ -31,6 +32,7 @@ public class CreateCollectionOptions extends GenericModel {
     private String name;
     private String description;
     private String language;
+    private Boolean ocrEnabled;
     private List<CollectionEnrichment> enrichments;
 
     /**
@@ -43,6 +45,7 @@ public class CreateCollectionOptions extends GenericModel {
       this.name = createCollectionOptions.name;
       this.description = createCollectionOptions.description;
       this.language = createCollectionOptions.language;
+      this.ocrEnabled = createCollectionOptions.ocrEnabled;
       this.enrichments = createCollectionOptions.enrichments;
     }
 
@@ -129,6 +132,17 @@ public class CreateCollectionOptions extends GenericModel {
     }
 
     /**
+     * Set the ocrEnabled.
+     *
+     * @param ocrEnabled the ocrEnabled
+     * @return the CreateCollectionOptions builder
+     */
+    public Builder ocrEnabled(Boolean ocrEnabled) {
+      this.ocrEnabled = ocrEnabled;
+      return this;
+    }
+
+    /**
      * Set the enrichments. Existing enrichments will be replaced.
      *
      * @param enrichments the enrichments
@@ -149,6 +163,7 @@ public class CreateCollectionOptions extends GenericModel {
       this.name = collectionDetails.name();
       this.description = collectionDetails.description();
       this.language = collectionDetails.language();
+      this.ocrEnabled = collectionDetails.ocrEnabled();
       this.enrichments = collectionDetails.enrichments();
       return this;
     }
@@ -163,6 +178,7 @@ public class CreateCollectionOptions extends GenericModel {
     name = builder.name;
     description = builder.description;
     language = builder.language;
+    ocrEnabled = builder.ocrEnabled;
     enrichments = builder.enrichments;
   }
 
@@ -178,8 +194,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The ID of the project. This information can be found from the *Integrate and Deploy* page in
-   * Discovery.
+   * <p>The Universally Unique Identifier (UUID) of the project. This information can be found from
+   * the *Integrate and Deploy* page in Discovery.
    *
    * @return the projectId
    */
@@ -219,6 +235,18 @@ public class CreateCollectionOptions extends GenericModel {
    */
   public String language() {
     return language;
+  }
+
+  /**
+   * Gets the ocrEnabled.
+   *
+   * <p>If set to `true`, optical character recognition (OCR) is enabled. For more information, see
+   * [Optical character recognition](/docs/discovery-data?topic=discovery-data-collections#ocr).
+   *
+   * @return the ocrEnabled
+   */
+  public Boolean ocrEnabled() {
+    return ocrEnabled;
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -57,7 +57,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the enrichmentId.
    *
-   * <p>The unique identifier of this enrichment.
+   * <p>The Universally Unique Identifier (UUID) of this enrichment.
    *
    * @return the enrichmentId
    */
