@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -226,6 +226,7 @@ public class SpeechToTextTest {
             .audio(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/octet-stream")
             .model("en-US_BroadbandModel")
+            .speechBeginEvent(false)
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -270,6 +271,7 @@ public class SpeechToTextTest {
     Map<String, String> query = TestUtilities.parseQueryString(request);
     assertNotNull(query);
     assertEquals(query.get("model"), "en-US_BroadbandModel");
+    assertEquals(Boolean.valueOf(query.get("speech_begin_event")), Boolean.valueOf(false));
     assertEquals(query.get("language_customization_id"), "testString");
     assertEquals(query.get("acoustic_customization_id"), "testString");
     assertEquals(query.get("base_model_version"), "testString");

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -113,8 +113,8 @@ import okhttp3.WebSocket;
  *
  * <p>Effective **31 July 2023**, all previous-generation models will be removed from the service
  * and the documentation. Most previous-generation models were deprecated on 15 March 2022. You must
- * migrate to the equivalent next-generation model by 31 July 2023. For more information, see
- * [Migrating to next-generation
+ * migrate to the equivalent large speech model or next-generation model by 31 July 2023. For more
+ * information, see [Migrating to large speech
  * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).{:
  * deprecated}
  *
@@ -372,31 +372,37 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Supported audio
    * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats).
    *
-   * <p>### Next-generation models
+   * <p>### Large speech models and Next-generation models
    *
-   * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
-   * for many languages. Next-generation models have higher throughput than the service's previous
-   * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
-   * service can return transcriptions more quickly and also provide noticeably better transcription
-   * accuracy.
+   * <p>The service supports large speech models and next-generation `Multimedia` (16 kHz) and
+   * `Telephony` (8 kHz) models for many languages. Large speech models and next-generation models
+   * have higher throughput than the service's previous generation of `Broadband` and `Narrowband`
+   * models. When you use large speech models and next-generation models, the service can return
+   * transcriptions more quickly and also provide noticeably better transcription accuracy.
    *
-   * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Most next-generation models support the `low_latency` parameter, and
-   * all next-generation models support the `character_insertion_bias` parameter. These parameters
-   * are not available with previous-generation models.
+   * <p>You specify a large speech model or next-generation model by using the `model` query
+   * parameter, as you do a previous-generation model. Only the next-generation models support the
+   * `low_latency` parameter, and all large speech models and next-generation models support the
+   * `character_insertion_bias` parameter. These parameters are not available with
+   * previous-generation models.
    *
-   * <p>Next-generation models do not support all of the speech recognition parameters that are
-   * available for use with previous-generation models. Next-generation models do not support the
-   * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
-   * `processing_metrics` and `processing_metrics_interval` * `word_alternatives_threshold`
+   * <p>Large speech models and next-generation models do not support all of the speech recognition
+   * parameters that are available for use with previous-generation models. Next-generation models
+   * do not support the following parameters: * `acoustic_customization_id` * `keywords` and
+   * `keywords_threshold` * `processing_metrics` and `processing_metrics_interval` *
+   * `word_alternatives_threshold`
    *
    * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
    * from the service and the documentation. Most previous-generation models were deprecated on 15
-   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
-   * information, see [Migrating to next-generation
+   * March 2022. You must migrate to the equivalent large speech model or next-generation model by
+   * 31 July 2023. For more information, see [Migrating to large speech
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
-   * <p>**See also:** * [Next-generation languages and
+   * <p>**See also:** * [Large speech languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages)
+   * * [Supported features for large speech
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages#models-lsm-supported-features)
+   * * [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng) * [Supported
    * features for next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features)
@@ -438,6 +444,9 @@ public class SpeechToText extends BaseService {
     }
     if (recognizeOptions.model() != null) {
       builder.query("model", String.valueOf(recognizeOptions.model()));
+    }
+    if (recognizeOptions.speechBeginEvent() != null) {
+      builder.query("speech_begin_event", String.valueOf(recognizeOptions.speechBeginEvent()));
     }
     if (recognizeOptions.languageCustomizationId() != null) {
       builder.query(
@@ -699,31 +708,37 @@ public class SpeechToText extends BaseService {
    * <p>**See also:** [Supported audio
    * formats](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-audio-formats).
    *
-   * <p>### Next-generation models
+   * <p>### Large speech models and Next-generation models
    *
-   * <p>The service supports next-generation `Multimedia` (16 kHz) and `Telephony` (8 kHz) models
-   * for many languages. Next-generation models have higher throughput than the service's previous
-   * generation of `Broadband` and `Narrowband` models. When you use next-generation models, the
-   * service can return transcriptions more quickly and also provide noticeably better transcription
-   * accuracy.
+   * <p>The service supports large speech models and next-generation `Multimedia` (16 kHz) and
+   * `Telephony` (8 kHz) models for many languages. Large speech models and next-generation models
+   * have higher throughput than the service's previous generation of `Broadband` and `Narrowband`
+   * models. When you use large speech models and next-generation models, the service can return
+   * transcriptions more quickly and also provide noticeably better transcription accuracy.
    *
-   * <p>You specify a next-generation model by using the `model` query parameter, as you do a
-   * previous-generation model. Most next-generation models support the `low_latency` parameter, and
-   * all next-generation models support the `character_insertion_bias` parameter. These parameters
-   * are not available with previous-generation models.
+   * <p>You specify a large speech model or next-generation model by using the `model` query
+   * parameter, as you do a previous-generation model. Only the next-generation models support the
+   * `low_latency` parameter, and all large speech models and next-generation models support the
+   * `character_insertion_bias` parameter. These parameters are not available with
+   * previous-generation models.
    *
-   * <p>Next-generation models do not support all of the speech recognition parameters that are
-   * available for use with previous-generation models. Next-generation models do not support the
-   * following parameters: * `acoustic_customization_id` * `keywords` and `keywords_threshold` *
-   * `processing_metrics` and `processing_metrics_interval` * `word_alternatives_threshold`
+   * <p>Large speech models and next-generation models do not support all of the speech recognition
+   * parameters that are available for use with previous-generation models. Next-generation models
+   * do not support the following parameters: * `acoustic_customization_id` * `keywords` and
+   * `keywords_threshold` * `processing_metrics` and `processing_metrics_interval` *
+   * `word_alternatives_threshold`
    *
    * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
    * from the service and the documentation. Most previous-generation models were deprecated on 15
-   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
-   * information, see [Migrating to next-generation
+   * March 2022. You must migrate to the equivalent large speech model or next-generation model by
+   * 31 July 2023. For more information, see [Migrating to large speech
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
-   * <p>**See also:** * [Next-generation languages and
+   * <p>**See also:** * [Large speech languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages)
+   * * [Supported features for large speech
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages#models-lsm-supported-features)
+   * * [Next-generation languages and
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng) * [Supported
    * features for next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
@@ -994,14 +1009,49 @@ public class SpeechToText extends BaseService {
    *
    * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
    * from the service and the documentation. Most previous-generation models were deprecated on 15
-   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
-   * information, see [Migrating to next-generation
+   * March 2022. You must migrate to the equivalent large speech model or next-generation model by
+   * 31 July 2023. For more information, see [Migrating to large speech
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
    * <p>**See also:** * [Create a custom language
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#createModel-language)
    * * [Language support for
-   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support).
+   * customization](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-support)
+   *
+   * <p>### Large speech models and Next-generation models
+   *
+   * <p>The service supports large speech models and next-generation `Multimedia` (16 kHz) and
+   * `Telephony` (8 kHz) models for many languages. Large speech models and next-generation models
+   * have higher throughput than the service's previous generation of `Broadband` and `Narrowband`
+   * models. When you use large speech models and next-generation models, the service can return
+   * transcriptions more quickly and also provide noticeably better transcription accuracy.
+   *
+   * <p>You specify a large speech model or next-generation model by using the `model` query
+   * parameter, as you do a previous-generation model. Only the next-generation models support the
+   * `low_latency` parameter, and all large speech models and next-generation models support the
+   * `character_insertion_bias` parameter. These parameters are not available with
+   * previous-generation models.
+   *
+   * <p>Large speech models and next-generation models do not support all of the speech recognition
+   * parameters that are available for use with previous-generation models. Next-generation models
+   * do not support the following parameters: * `acoustic_customization_id` * `keywords` and
+   * `keywords_threshold` * `processing_metrics` and `processing_metrics_interval` *
+   * `word_alternatives_threshold`
+   *
+   * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
+   * from the service and the documentation. Most previous-generation models were deprecated on 15
+   * March 2022. You must migrate to the equivalent large speech model or next-generation model by
+   * 31 July 2023. For more information, see [Migrating to large speech
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
+   *
+   * <p>**See also:** * [Large speech languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages)
+   * * [Supported features for large speech
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-large-speech-languages#models-lsm-supported-features)
+   * * [Next-generation languages and
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng) * [Supported
+   * features for next-generation
+   * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-features).
    *
    * @param createLanguageModelOptions the {@link CreateLanguageModelOptions} containing the options
    *     for the call
@@ -1403,6 +1453,10 @@ public class SpeechToText extends BaseService {
    * until the service's analysis of the corpus for the current request completes. Use the [Get a
    * corpus](#getcorpus) method to check the status of the analysis.
    *
+   * <p>_For custom models that are based on large speech models_, the service parses and extracts
+   * word sequences from one or multiple corpora files. The characters help the service learn and
+   * predict character sequences from audio.
+   *
    * <p>_For custom models that are based on previous-generation models_, the service auto-populates
    * the model's words resource with words from the corpus that are not found in its base
    * vocabulary. These words are referred to as out-of-vocabulary (OOV) words. After adding a
@@ -1429,11 +1483,11 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addCorpus)
    * * [Working with corpora for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingCorpora)
-   * * [Working with corpora for next-generation
+   * * [Working with corpora for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingCorpora-ng)
    * * [Validating a words resource for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
-   * * [Validating a words resource for next-generation
+   * * [Validating a words resource for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addCorpusOptions the {@link AddCorpusOptions} containing the options for the call
@@ -1657,11 +1711,11 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
    * * [Working with custom words for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Working with custom words for next-generation
+   * * [Working with custom words for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingWords-ng)
    * * [Validating a words resource for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
-   * * [Validating a words resource for next-generation
+   * * [Validating a words resource for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addWordsOptions the {@link AddWordsOptions} containing the options for the call
@@ -1732,11 +1786,11 @@ public class SpeechToText extends BaseService {
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-languageCreate#addWords)
    * * [Working with custom words for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#workingWords)
-   * * [Working with custom words for next-generation
+   * * [Working with custom words for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#workingWords-ng)
    * * [Validating a words resource for previous-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords#validateModel)
-   * * [Validating a words resource for next-generation
+   * * [Validating a words resource for large speech models and next-generation
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-corporaWords-ng#validateModel-ng).
    *
    * @param addWordOptions the {@link AddWordOptions} containing the options for the call
@@ -2057,12 +2111,12 @@ public class SpeechToText extends BaseService {
    * but you cannot create any more until your model count is below the limit.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**Important:** Effective **31 July 2023**, all previous-generation models will be removed
    * from the service and the documentation. Most previous-generation models were deprecated on 15
-   * March 2022. You must migrate to the equivalent next-generation model by 31 July 2023. For more
-   * information, see [Migrating to next-generation
+   * March 2022. You must migrate to the equivalent large speech model or next-generation model by
+   * 31 July 2023. For more information, see [Migrating to large speech
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-migrate).
    *
    * <p>**See also:** [Create a custom acoustic
@@ -2107,7 +2161,7 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to list information about it.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
@@ -2148,7 +2202,7 @@ public class SpeechToText extends BaseService {
    * credentials for the instance of the service that owns a model to list information about it.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
@@ -2166,7 +2220,7 @@ public class SpeechToText extends BaseService {
    * instance of the service that owns a model to list information about it.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Listing custom acoustic
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#listModels-acoustic).
@@ -2205,7 +2259,7 @@ public class SpeechToText extends BaseService {
    * use credentials for the instance of the service that owns a model to delete it.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Deleting a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#deleteModel-acoustic).
@@ -2268,7 +2322,7 @@ public class SpeechToText extends BaseService {
    * fully trained and available.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** * [Train the custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#trainModel-acoustic)
@@ -2342,7 +2396,7 @@ public class SpeechToText extends BaseService {
    * owns a model to reset it.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Resetting a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAcousticModels#resetModel-acoustic).
@@ -2400,7 +2454,7 @@ public class SpeechToText extends BaseService {
    * language model.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Upgrading a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-custom-upgrade#custom-upgrade-acoustic).
@@ -2450,7 +2504,7 @@ public class SpeechToText extends BaseService {
    * audio resources.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Listing audio resources for a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
@@ -2521,7 +2575,7 @@ public class SpeechToText extends BaseService {
    * becomes `ok`.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Add audio to the custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-acoustic#addAudio).
@@ -2631,7 +2685,7 @@ public class SpeechToText extends BaseService {
    * resources.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Listing audio resources for a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#listAudio).
@@ -2676,7 +2730,7 @@ public class SpeechToText extends BaseService {
    * audio resources.
    *
    * <p>**Note:** Acoustic model customization is supported only for use with previous-generation
-   * models. It is not supported for next-generation models.
+   * models. It is not supported for large speech models and next-generation models.
    *
    * <p>**See also:** [Deleting an audio resource from a custom acoustic
    * model](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-manageAudio#deleteAudio).
