@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -51,6 +51,8 @@ public class RecognizeOptions extends GenericModel {
     String DE_DE_NARROWBANDMODEL = "de-DE_NarrowbandModel";
     /** de-DE_Telephony. */
     String DE_DE_TELEPHONY = "de-DE_Telephony";
+    /** en-AU. */
+    String EN_AU = "en-AU";
     /** en-AU_BroadbandModel. */
     String EN_AU_BROADBANDMODEL = "en-AU_BroadbandModel";
     /** en-AU_Multimedia. */
@@ -59,8 +61,12 @@ public class RecognizeOptions extends GenericModel {
     String EN_AU_NARROWBANDMODEL = "en-AU_NarrowbandModel";
     /** en-AU_Telephony. */
     String EN_AU_TELEPHONY = "en-AU_Telephony";
+    /** en-IN. */
+    String EN_IN = "en-IN";
     /** en-IN_Telephony. */
     String EN_IN_TELEPHONY = "en-IN_Telephony";
+    /** en-GB. */
+    String EN_GB = "en-GB";
     /** en-GB_BroadbandModel. */
     String EN_GB_BROADBANDMODEL = "en-GB_BroadbandModel";
     /** en-GB_Multimedia. */
@@ -69,6 +75,8 @@ public class RecognizeOptions extends GenericModel {
     String EN_GB_NARROWBANDMODEL = "en-GB_NarrowbandModel";
     /** en-GB_Telephony. */
     String EN_GB_TELEPHONY = "en-GB_Telephony";
+    /** en-US. */
+    String EN_US = "en-US";
     /** en-US_BroadbandModel. */
     String EN_US_BROADBANDMODEL = "en-US_BroadbandModel";
     /** en-US_Multimedia. */
@@ -111,6 +119,8 @@ public class RecognizeOptions extends GenericModel {
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
     String ES_PE_NARROWBANDMODEL = "es-PE_NarrowbandModel";
+    /** fr-CA. */
+    String FR_CA = "fr-CA";
     /** fr-CA_BroadbandModel. */
     String FR_CA_BROADBANDMODEL = "fr-CA_BroadbandModel";
     /** fr-CA_Multimedia. */
@@ -119,6 +129,8 @@ public class RecognizeOptions extends GenericModel {
     String FR_CA_NARROWBANDMODEL = "fr-CA_NarrowbandModel";
     /** fr-CA_Telephony. */
     String FR_CA_TELEPHONY = "fr-CA_Telephony";
+    /** fr-FR. */
+    String FR_FR = "fr-FR";
     /** fr-FR_BroadbandModel. */
     String FR_FR_BROADBANDMODEL = "fr-FR_BroadbandModel";
     /** fr-FR_Multimedia. */
@@ -137,6 +149,8 @@ public class RecognizeOptions extends GenericModel {
     String IT_IT_MULTIMEDIA = "it-IT_Multimedia";
     /** it-IT_Telephony. */
     String IT_IT_TELEPHONY = "it-IT_Telephony";
+    /** ja-JP. */
+    String JA_JP = "ja-JP";
     /** ja-JP_BroadbandModel. */
     String JA_JP_BROADBANDMODEL = "ja-JP_BroadbandModel";
     /** ja-JP_Multimedia. */
@@ -184,6 +198,7 @@ public class RecognizeOptions extends GenericModel {
   protected InputStream audio;
   protected String contentType;
   protected String model;
+  protected Boolean speechBeginEvent;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
   protected String baseModelVersion;
@@ -214,6 +229,7 @@ public class RecognizeOptions extends GenericModel {
     private InputStream audio;
     private String contentType;
     private String model;
+    private Boolean speechBeginEvent;
     private String languageCustomizationId;
     private String acousticCustomizationId;
     private String baseModelVersion;
@@ -248,6 +264,7 @@ public class RecognizeOptions extends GenericModel {
       this.audio = recognizeOptions.audio;
       this.contentType = recognizeOptions.contentType;
       this.model = recognizeOptions.model;
+      this.speechBeginEvent = recognizeOptions.speechBeginEvent;
       this.languageCustomizationId = recognizeOptions.languageCustomizationId;
       this.acousticCustomizationId = recognizeOptions.acousticCustomizationId;
       this.baseModelVersion = recognizeOptions.baseModelVersion;
@@ -340,6 +357,17 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder model(String model) {
       this.model = model;
+      return this;
+    }
+
+    /**
+     * Set the speechBeginEvent.
+     *
+     * @param speechBeginEvent the speechBeginEvent
+     * @return the RecognizeOptions builder
+     */
+    public Builder speechBeginEvent(Boolean speechBeginEvent) {
+      this.speechBeginEvent = speechBeginEvent;
       return this;
     }
 
@@ -627,6 +655,7 @@ public class RecognizeOptions extends GenericModel {
     audio = builder.audio;
     contentType = builder.contentType;
     model = builder.model;
+    speechBeginEvent = builder.speechBeginEvent;
     languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     baseModelVersion = builder.baseModelVersion;
@@ -707,6 +736,22 @@ public class RecognizeOptions extends GenericModel {
   }
 
   /**
+   * Gets the speechBeginEvent.
+   *
+   * <p>If `true`, the service returns a response object `SpeechActivity` which contains the time
+   * when a speech activity is detected in the stream. This can be used both in standard and low
+   * latency mode. This feature enables client applications to know that some words/speech has been
+   * detected and the service is in the process of decoding. This can be used in lieu of interim
+   * results in standard mode. See [Using speech recognition
+   * parameters](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-service-features#features-parameters).
+   *
+   * @return the speechBeginEvent
+   */
+  public Boolean speechBeginEvent() {
+    return speechBeginEvent;
+  }
+
+  /**
    * Gets the languageCustomizationId.
    *
    * <p>The customization ID (GUID) of a custom language model that is to be used with the
@@ -764,9 +809,9 @@ public class RecognizeOptions extends GenericModel {
    * custom language model compared to those from the base model for the current request.
    *
    * <p>Specify a value between 0.0 and 1.0. Unless a different customization weight was specified
-   * for the custom model when the model was trained, the default value is: * 0.3 for
-   * previous-generation models * 0.2 for most next-generation models * 0.1 for next-generation
-   * English and Japanese models
+   * for the custom model when the model was trained, the default value is: * 0.5 for large speech
+   * models * 0.3 for previous-generation models * 0.2 for most next-generation models * 0.1 for
+   * next-generation English and Japanese models
    *
    * <p>A customization weight that you specify overrides a weight that was specified when the
    * custom model was trained. The default value yields the best performance in general. Assign a
@@ -929,8 +974,8 @@ public class RecognizeOptions extends GenericModel {
   /**
    * Gets the smartFormattingVersion.
    *
-   * <p>Smart formatting version is for next-generation models and that is supported in US English,
-   * Brazilian Portuguese, French and German languages.
+   * <p>Smart formatting version for large speech models and next-generation models is supported in
+   * US English, Brazilian Portuguese, French, German, Spanish and French Canadian languages.
    *
    * @return the smartFormattingVersion
    */
@@ -947,8 +992,8 @@ public class RecognizeOptions extends GenericModel {
    * of whether you specify `false` for the parameter. * _For previous-generation models,_ the
    * parameter can be used with Australian English, US English, German, Japanese, Korean, and
    * Spanish (both broadband and narrowband models) and UK English (narrowband model) transcription
-   * only. * _For next-generation models,_ the parameter can be used with Czech, English
-   * (Australian, Indian, UK, and US), German, Japanese, Korean, and Spanish transcription only.
+   * only. * _For large speech models and next-generation models,_ the parameter can be used with
+   * all available languages.
    *
    * <p>See [Speaker
    * labels](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speaker-labels).
@@ -1080,8 +1125,8 @@ public class RecognizeOptions extends GenericModel {
    * <p>The values increase on a monotonic curve. Specifying one or two decimal places of precision
    * (for example, `0.55`) is typically more than sufficient.
    *
-   * <p>The parameter is supported with all next-generation models and with most previous-generation
-   * models. See [Speech detector
+   * <p>The parameter is supported with all large speech models, next-generation models and with
+   * most previous-generation models. See [Speech detector
    * sensitivity](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-sensitivity)
    * and [Language model
    * support](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-support).
@@ -1106,8 +1151,8 @@ public class RecognizeOptions extends GenericModel {
    * <p>The values increase on a monotonic curve. Specifying one or two decimal places of precision
    * (for example, `0.55`) is typically more than sufficient.
    *
-   * <p>The parameter is supported with all next-generation models and with most previous-generation
-   * models. See [Background audio
+   * <p>The parameter is supported with all large speech models, next-generation models and with
+   * most previous-generation models. See [Background audio
    * suppression](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-parameters-suppression)
    * and [Language model
    * support](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#detection-support).
@@ -1127,9 +1172,9 @@ public class RecognizeOptions extends GenericModel {
    * parameter causes the models to produce results even more quickly, though the results might be
    * less accurate when the parameter is used.
    *
-   * <p>The parameter is not available for previous-generation `Broadband` and `Narrowband` models.
-   * It is available for most next-generation models. * For a list of next-generation models that
-   * support low latency, see [Supported next-generation language
+   * <p>The parameter is not available for large speech models and previous-generation `Broadband`
+   * and `Narrowband` models. It is available for most next-generation models. * For a list of
+   * next-generation models that support low latency, see [Supported next-generation language
    * models](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-models-ng#models-ng-supported).
    * * For more information about the `low_latency` parameter, see [Low
    * latency](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-interim#low-latency).
@@ -1143,9 +1188,10 @@ public class RecognizeOptions extends GenericModel {
   /**
    * Gets the characterInsertionBias.
    *
-   * <p>For next-generation models, an indication of whether the service is biased to recognize
-   * shorter or longer strings of characters when developing transcription hypotheses. By default,
-   * the service is optimized to produce the best balance of strings of different lengths.
+   * <p>For large speech models and next-generation models, an indication of whether the service is
+   * biased to recognize shorter or longer strings of characters when developing transcription
+   * hypotheses. By default, the service is optimized to produce the best balance of strings of
+   * different lengths.
    *
    * <p>The default bias is 0.0. The allowable range of values is -1.0 to 1.0. * Negative values
    * bias the service to favor hypotheses with shorter strings of characters. * Positive values bias

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,6 +36,7 @@ public class RecognizeOptionsTest {
             .audio(TestUtilities.createMockStream("This is a mock file."))
             .contentType("application/octet-stream")
             .model("en-US_BroadbandModel")
+            .speechBeginEvent(false)
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -66,6 +67,7 @@ public class RecognizeOptionsTest {
         IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
     assertEquals(recognizeOptionsModel.contentType(), "application/octet-stream");
     assertEquals(recognizeOptionsModel.model(), "en-US_BroadbandModel");
+    assertEquals(recognizeOptionsModel.speechBeginEvent(), Boolean.valueOf(false));
     assertEquals(recognizeOptionsModel.languageCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.baseModelVersion(), "testString");
