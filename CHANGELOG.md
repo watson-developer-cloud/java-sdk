@@ -1,3 +1,18 @@
+# [13.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v12.0.1...v13.0.0) (2024-05-20)
+
+
+### Features
+
+* **discov2:** add ocrEnabled parameter ([45ec51d](https://github.com/watson-developer-cloud/java-sdk/commit/45ec51d59adce5923f30e59790d08d22002c6417))
+* **stt:** add speechBeginEvent param to recognize func ([5cb5238](https://github.com/watson-developer-cloud/java-sdk/commit/5cb5238bb7822c6397c0fe2fdf7c0c71dae600ac))
+* **stt:** remove interimResults and lowLatency wss params ([4c571c2](https://github.com/watson-developer-cloud/java-sdk/commit/4c571c22e725858908b57628ec251b178e763392))
+
+
+### BREAKING CHANGES
+
+* **stt:** RecognizeWithWebsocketsOptions interimResults and
+lowLatency properties removed
+
 ## [12.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v12.0.0...v12.0.1) (2024-03-13)
 
 
