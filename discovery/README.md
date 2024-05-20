@@ -8,14 +8,14 @@
 <dependency>
   <groupId>com.ibm.watson</groupId>
   <artifactId>discovery</artifactId>
-  <version>12.0.1</version>
+  <version>13.0.0</version>
 </dependency>
 ```
 
 ##### Gradle
 
 ```gradle
-'com.ibm.watson:discovery:12.0.1'
+'com.ibm.watson:discovery:13.0.0'
 ```
 
 ## Usage
