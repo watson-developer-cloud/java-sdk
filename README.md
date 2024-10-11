@@ -106,7 +106,7 @@ The file downloaded will be called `ibm-credentials.env`. This is the name the S
 As long as you set that up correctly, you don't have to worry about setting any authentication options in your code. So, for example, if you created and downloaded the credential file for your Discovery instance, you just need to do the following:
 
 ```java
-Discovery service = new Discovery("2019-04-30");
+Discovery service = new Discovery("2023-03-31");
 ```
 
 And that's it!
@@ -144,7 +144,7 @@ Builder pattern approach:
 Authenticator authenticator = new IamAuthenticator.Builder()
             .apikey("<iam_api_key>")
             .build();
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 ```
 
 Deprecated constructor approach:
@@ -152,7 +152,7 @@ Deprecated constructor approach:
 ```java
 // letting the SDK manage the IAM token
 Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 ```
 
 Supplying the access token:
@@ -160,7 +160,7 @@ Supplying the access token:
 ```java
 // assuming control of managing IAM token
 Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 ```
 
 #### Username and password
@@ -172,14 +172,14 @@ Authenticator authenticator = new BasicAuthenticator.Builder()
             .username("<username>")
             .password("<password>")
             .build();
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 ```
 
 Deprecated constructor approach:
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 ```
 
 #### ICP
@@ -187,7 +187,7 @@ Authenticating with ICP is similar to the basic username and password method, ex
 
 ```java
 Authenticator authenticator = new BasicAuthenticator("<username>", "<password>");
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 
 HttpConfigOptions options = new HttpConfigOptions.Builder()
   .disableSslVerification(true)
@@ -210,7 +210,7 @@ Authenticator authenticator = new CloudPakForDataAuthenticator.Builder()
             .disableSSLVerification(true)
             .headers(null)
             .build();
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 service.setServiceUrl("<service CP4D URL>");
 ```
 
@@ -225,14 +225,14 @@ Authenticator authenticator = new CloudPakForDataAuthenticator(
   true, // disabling SSL verification
   null,
 );
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 service.setServiceUrl("<service CP4D URL>");
 ```
 
 ```java
 // assuming control of managing the access token
 Authenticator authenticator = new BearerTokenAuthenticator("<access_token>");
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 service.setServiceUrl("<service CP4D URL>");
 ```
 
@@ -288,7 +288,7 @@ Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080
 IamAuthenticator authenticator = new IamAuthenticator(apiKey);
 authenticator.setProxy(proxy);
 
-Discovery service = new Discovery("2019-04-30", authenticator);
+Discovery service = new Discovery("2023-03-31", authenticator);
 
 // setting configuration options
 HttpConfigOptions options = new HttpConfigOptions.Builder()
