@@ -20,23 +20,9 @@
 
 ## Usage
 
-This SDK supports both the Discovery v1 and v2 APIs.
+This SDK supports the Discovery v2 APIs.
 
-Otherwise, the APIs are fairly similar, offering the ability to manage collections of documents and query them for insights. You can learn more about the Discovery service [here](https://cloud.ibm.com/docs/discovery?topic=discovery-gs-api).
-
-### Using Discovery v1
-
-```java
-// Make sure to use the Discovery v1 import!
-Authenticator authenticator = new IamAuthenticator("<iam_api_key>");
-Discovery discovery = new Discovery("2019-04-30", authenticator);
-
-//Build an empty query on an existing environment/collection
-String environmentId = "<environment_id>";
-String collectionId = "<collection_id>";
-QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
-QueryResponse queryResponse = discovery.query(queryOptions).execute().getResult();
-```
+Otherwise, the APIs are fairly similar, offering the ability to manage collections of documents and query them for insights. You can learn more about the Discovery service [here](https://cloud.ibm.com/apidocs/discovery-data).
 
 ### Using Discovery v2
 
