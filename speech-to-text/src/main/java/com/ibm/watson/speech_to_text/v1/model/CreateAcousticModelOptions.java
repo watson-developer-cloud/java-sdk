@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2023.
+ * (C) Copyright IBM Corp. 2018, 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,26 +46,38 @@ public class CreateAcousticModelOptions extends GenericModel {
     String EN_US_NARROWBANDMODEL = "en-US_NarrowbandModel";
     /** en-US_ShortForm_NarrowbandModel. */
     String EN_US_SHORTFORM_NARROWBANDMODEL = "en-US_ShortForm_NarrowbandModel";
+    /** es-AR. */
+    String ES_AR = "es-AR";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
     String ES_AR_NARROWBANDMODEL = "es-AR_NarrowbandModel";
+    /** es-CL. */
+    String ES_CL = "es-CL";
     /** es-CL_BroadbandModel. */
     String ES_CL_BROADBANDMODEL = "es-CL_BroadbandModel";
     /** es-CL_NarrowbandModel. */
     String ES_CL_NARROWBANDMODEL = "es-CL_NarrowbandModel";
+    /** es-CO. */
+    String ES_CO = "es-CO";
     /** es-CO_BroadbandModel. */
     String ES_CO_BROADBANDMODEL = "es-CO_BroadbandModel";
     /** es-CO_NarrowbandModel. */
     String ES_CO_NARROWBANDMODEL = "es-CO_NarrowbandModel";
+    /** es-ES. */
+    String ES_ES = "es-ES";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
     String ES_ES_NARROWBANDMODEL = "es-ES_NarrowbandModel";
+    /** es-MX. */
+    String ES_MX = "es-MX";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
     String ES_MX_NARROWBANDMODEL = "es-MX_NarrowbandModel";
+    /** es-PE. */
+    String ES_PE = "es-PE";
     /** es-PE_BroadbandModel. */
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
@@ -94,6 +106,8 @@ public class CreateAcousticModelOptions extends GenericModel {
     String NL_NL_BROADBANDMODEL = "nl-NL_BroadbandModel";
     /** nl-NL_NarrowbandModel. */
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
+    /** pt-BR. */
+    String PT_BR = "pt-BR";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_NarrowbandModel. */
