@@ -63,16 +63,6 @@ import okhttp3.MultipartBody;
  * with Watson Knowledge Studio to detect custom entities and relations in Natural Language
  * Understanding.
  *
- * <p>IBM is sunsetting Watson Natural Language Understanding Custom Sentiment (BETA). From **June
- * 3, 2023** onward, you will no longer be able to use the Custom Sentiment feature.&lt;br
- * /&gt;&lt;br /&gt;To ensure we continue providing our clients with robust and powerful text
- * classification capabilities, IBM recently announced the general availability of a new
- * [single-label text classification
- * capability](https://cloud.ibm.com/docs/natural-language-understanding?topic=natural-language-understanding-classifications).
- * This new feature includes extended language support and training data customizations suited for
- * building a custom sentiment classifier.&lt;br /&gt;&lt;br /&gt;If you would like more information
- * or further guidance, please contact IBM Cloud Support.{: deprecated}.
- *
  * <p>API Version: 1.0 See: https://cloud.ibm.com/docs/natural-language-understanding
  */
 public class NaturalLanguageUnderstanding extends BaseService {
@@ -168,7 +158,7 @@ public class NaturalLanguageUnderstanding extends BaseService {
    *
    * <p>Analyzes text, HTML, or a public webpage for the following features: - Categories -
    * Classifications - Concepts - Emotion - Entities - Keywords - Metadata - Relations - Semantic
-   * roles - Sentiment - Syntax - Summarization (Experimental)
+   * roles - Sentiment - Syntax
    *
    * <p>If a language for the input text is not specified with the `language` parameter, the service
    * [automatically detects the

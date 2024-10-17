@@ -31,7 +31,6 @@ public class Features extends GenericModel {
   protected SemanticRolesOptions semanticRoles;
 
   protected SentimentOptions sentiment;
-  protected SummarizationOptions summarization;
   protected CategoriesOptions categories;
   protected SyntaxOptions syntax;
 
@@ -46,7 +45,6 @@ public class Features extends GenericModel {
     private RelationsOptions relations;
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
-    private SummarizationOptions summarization;
     private CategoriesOptions categories;
     private SyntaxOptions syntax;
 
@@ -65,7 +63,6 @@ public class Features extends GenericModel {
       this.relations = features.relations;
       this.semanticRoles = features.semanticRoles;
       this.sentiment = features.sentiment;
-      this.summarization = features.summarization;
       this.categories = features.categories;
       this.syntax = features.syntax;
     }
@@ -182,17 +179,6 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Set the summarization.
-     *
-     * @param summarization the summarization
-     * @return the Features builder
-     */
-    public Builder summarization(SummarizationOptions summarization) {
-      this.summarization = summarization;
-      return this;
-    }
-
-    /**
      * Set the categories.
      *
      * @param categories the categories
@@ -227,7 +213,6 @@ public class Features extends GenericModel {
     relations = builder.relations;
     semanticRoles = builder.semanticRoles;
     sentiment = builder.sentiment;
-    summarization = builder.summarization;
     categories = builder.categories;
     syntax = builder.syntax;
   }
@@ -369,21 +354,6 @@ public class Features extends GenericModel {
    */
   public SentimentOptions sentiment() {
     return sentiment;
-  }
-
-  /**
-   * Gets the summarization.
-   *
-   * <p>(Experimental) Returns a summary of content.
-   *
-   * <p>Supported languages: English only.
-   *
-   * <p>Supported regions: Dallas region only.
-   *
-   * @return the summarization
-   */
-  public SummarizationOptions summarization() {
-    return summarization;
   }
 
   /**

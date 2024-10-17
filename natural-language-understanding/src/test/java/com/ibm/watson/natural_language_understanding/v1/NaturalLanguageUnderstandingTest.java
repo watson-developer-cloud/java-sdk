@@ -47,7 +47,6 @@ import com.ibm.watson.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SentimentOptions;
-import com.ibm.watson.natural_language_understanding.v1.model.SummarizationOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptions;
 import com.ibm.watson.natural_language_understanding.v1.model.SyntaxOptionsTokens;
 import com.ibm.watson.natural_language_understanding.v1.model.UpdateCategoriesModelOptions;
@@ -155,10 +154,6 @@ public class NaturalLanguageUnderstandingTest {
             .targets(java.util.Arrays.asList("testString"))
             .build();
 
-    // Construct an instance of the SummarizationOptions model
-    SummarizationOptions summarizationOptionsModel =
-        new SummarizationOptions.Builder().limit(Long.valueOf("3")).build();
-
     // Construct an instance of the CategoriesOptions model
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
@@ -187,7 +182,6 @@ public class NaturalLanguageUnderstandingTest {
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
-            .summarization(summarizationOptionsModel)
             .categories(categoriesOptionsModel)
             .syntax(syntaxOptionsModel)
             .build();
