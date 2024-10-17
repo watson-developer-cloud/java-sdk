@@ -89,18 +89,26 @@ public class RecognizeOptions extends GenericModel {
     String EN_US_TELEPHONY = "en-US_Telephony";
     /** en-WW_Medical_Telephony. */
     String EN_WW_MEDICAL_TELEPHONY = "en-WW_Medical_Telephony";
+    /** es-AR. */
+    String ES_AR = "es-AR";
     /** es-AR_BroadbandModel. */
     String ES_AR_BROADBANDMODEL = "es-AR_BroadbandModel";
     /** es-AR_NarrowbandModel. */
     String ES_AR_NARROWBANDMODEL = "es-AR_NarrowbandModel";
+    /** es-CL. */
+    String ES_CL = "es-CL";
     /** es-CL_BroadbandModel. */
     String ES_CL_BROADBANDMODEL = "es-CL_BroadbandModel";
     /** es-CL_NarrowbandModel. */
     String ES_CL_NARROWBANDMODEL = "es-CL_NarrowbandModel";
+    /** es-CO. */
+    String ES_CO = "es-CO";
     /** es-CO_BroadbandModel. */
     String ES_CO_BROADBANDMODEL = "es-CO_BroadbandModel";
     /** es-CO_NarrowbandModel. */
     String ES_CO_NARROWBANDMODEL = "es-CO_NarrowbandModel";
+    /** es-ES. */
+    String ES_ES = "es-ES";
     /** es-ES_BroadbandModel. */
     String ES_ES_BROADBANDMODEL = "es-ES_BroadbandModel";
     /** es-ES_NarrowbandModel. */
@@ -111,10 +119,14 @@ public class RecognizeOptions extends GenericModel {
     String ES_ES_TELEPHONY = "es-ES_Telephony";
     /** es-LA_Telephony. */
     String ES_LA_TELEPHONY = "es-LA_Telephony";
+    /** es-MX. */
+    String ES_MX = "es-MX";
     /** es-MX_BroadbandModel. */
     String ES_MX_BROADBANDMODEL = "es-MX_BroadbandModel";
     /** es-MX_NarrowbandModel. */
     String ES_MX_NARROWBANDMODEL = "es-MX_NarrowbandModel";
+    /** es-PE. */
+    String ES_PE = "es-PE";
     /** es-PE_BroadbandModel. */
     String ES_PE_BROADBANDMODEL = "es-PE_BroadbandModel";
     /** es-PE_NarrowbandModel. */
@@ -177,6 +189,8 @@ public class RecognizeOptions extends GenericModel {
     String NL_NL_NARROWBANDMODEL = "nl-NL_NarrowbandModel";
     /** nl-NL_Telephony. */
     String NL_NL_TELEPHONY = "nl-NL_Telephony";
+    /** pt-BR. */
+    String PT_BR = "pt-BR";
     /** pt-BR_BroadbandModel. */
     String PT_BR_BROADBANDMODEL = "pt-BR_BroadbandModel";
     /** pt-BR_Multimedia. */
