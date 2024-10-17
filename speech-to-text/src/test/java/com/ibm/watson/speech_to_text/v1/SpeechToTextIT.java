@@ -347,6 +347,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
             .wordAlternativesThreshold(0.5f)
             .model(EN_BROADBAND16K)
             .contentType(HttpMediaType.AUDIO_WAV)
+            .interimResults(true)
             .processingMetrics(true)
             .processingMetricsInterval(0.2f)
             .audioMetrics(true)
