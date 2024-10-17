@@ -37,12 +37,6 @@
         </dependency>
         <dependency>
             <groupId>com.ibm.watson</groupId>
-            <artifactId>language-translator</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.ibm.watson</groupId>
             <artifactId>natural-language-understanding</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>

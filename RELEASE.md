@@ -17,7 +17,7 @@ If things **don't** go smoothly, you'll need to follow some other instructions t
 The most common reason for a release to fail is because of a Travis timeout. Builds are only allowed to run for a maximum of 1 hour, and unfortunately the syncing process between Bintray and Maven Central can be slow enough to go over this time limit sometimes. If this happens, you should do the following:
 
 - Navigate to the code on Bintray at [this URL](https://bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo). If you're not a member of the ibm-cloud-sdks organization, ask the maintainer of this SDK repo for access.
-- Navigate to the "Maven Central" tab in each of the packages that didn't sync. Here's an example: https://bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo/com.ibm.watson%3Alanguage-translator#central. You can figure out which packages to sync manually by checking the failed Travis build log or by looking at the "Last Synced" date for the package.
+- Navigate to the "Maven Central" tab in each of the packages that didn't sync. Here's an example: https://bintray.com/ibm-cloud-sdks/ibm-cloud-sdk-repo/com.ibm.watson%3Anatural-language-understanding#central. You can figure out which packages to sync manually by checking the failed Travis build log or by looking at the "Last Synced" date for the package.
 - Click the "Sync" button. If you need to provide Sonatype credentials, you can also ask the maintainer of this SDK repo for those.
 
     <img alt="Bintray sync"  width="600" src="./.github/bintray-sync.png">
