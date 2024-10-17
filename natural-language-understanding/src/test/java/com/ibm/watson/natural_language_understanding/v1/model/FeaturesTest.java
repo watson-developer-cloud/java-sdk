@@ -92,10 +92,6 @@ public class FeaturesTest {
     assertEquals(sentimentOptionsModel.document(), Boolean.valueOf(true));
     assertEquals(sentimentOptionsModel.targets(), java.util.Arrays.asList("testString"));
 
-    SummarizationOptions summarizationOptionsModel =
-        new SummarizationOptions.Builder().limit(Long.valueOf("3")).build();
-    assertEquals(summarizationOptionsModel.limit(), Long.valueOf("3"));
-
     CategoriesOptions categoriesOptionsModel =
         new CategoriesOptions.Builder()
             .explanation(false)
@@ -127,7 +123,6 @@ public class FeaturesTest {
             .relations(relationsOptionsModel)
             .semanticRoles(semanticRolesOptionsModel)
             .sentiment(sentimentOptionsModel)
-            .summarization(summarizationOptionsModel)
             .categories(categoriesOptionsModel)
             .syntax(syntaxOptionsModel)
             .build();
@@ -141,7 +136,6 @@ public class FeaturesTest {
     assertEquals(featuresModel.relations(), relationsOptionsModel);
     assertEquals(featuresModel.semanticRoles(), semanticRolesOptionsModel);
     assertEquals(featuresModel.sentiment(), sentimentOptionsModel);
-    assertEquals(featuresModel.summarization(), summarizationOptionsModel);
     assertEquals(featuresModel.categories(), categoriesOptionsModel);
     assertEquals(featuresModel.syntax(), syntaxOptionsModel);
 
@@ -161,7 +155,6 @@ public class FeaturesTest {
     assertEquals(featuresModelNew.relations().toString(), relationsOptionsModel.toString());
     assertEquals(featuresModelNew.semanticRoles().toString(), semanticRolesOptionsModel.toString());
     assertEquals(featuresModelNew.sentiment().toString(), sentimentOptionsModel.toString());
-    assertEquals(featuresModelNew.summarization().toString(), summarizationOptionsModel.toString());
     assertEquals(featuresModelNew.categories().toString(), categoriesOptionsModel.toString());
     assertEquals(featuresModelNew.syntax().toString(), syntaxOptionsModel.toString());
   }
