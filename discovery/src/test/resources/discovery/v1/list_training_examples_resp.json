@@ -1,9 +1,0 @@
-{
-  "examples": [
-    {
-      "document_id": "mock_docid",
-      "relevance": 0,
-      "cross_reference": "cross_reference"
-    }
-  ]
-}
