@@ -178,8 +178,8 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the projectId.
    *
-   * <p>The ID of the project. This information can be found from the *Integrate and Deploy* page in
-   * Discovery.
+   * <p>The Universally Unique Identifier (UUID) of the project. This information can be found from
+   * the *Integrate and Deploy* page in Discovery.
    *
    * @return the projectId
    */
@@ -190,7 +190,7 @@ public class QueryCollectionNoticesOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * <p>The ID of the collection.
+   * <p>The Universally Unique Identifier (UUID) of the collection.
    *
    * @return the collectionId
    */

@@ -72,6 +72,8 @@ import com.ibm.watson.discovery.v2.model.GetEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.GetProjectOptions;
 import com.ibm.watson.discovery.v2.model.GetStopwordListOptions;
 import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.ListBatchesOptions;
+import com.ibm.watson.discovery.v2.model.ListBatchesResponse;
 import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
 import com.ibm.watson.discovery.v2.model.ListDocumentClassifierModelsOptions;
@@ -86,6 +88,9 @@ import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
 import com.ibm.watson.discovery.v2.model.ListProjectsResponse;
 import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
 import com.ibm.watson.discovery.v2.model.ProjectDetails;
+import com.ibm.watson.discovery.v2.model.PullBatchesOptions;
+import com.ibm.watson.discovery.v2.model.PullBatchesResponse;
+import com.ibm.watson.discovery.v2.model.PushBatchesOptions;
 import com.ibm.watson.discovery.v2.model.QueryCollectionNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryNoticesResponse;
@@ -1791,6 +1796,129 @@ public class Discovery extends BaseService {
     }
     builder.query("version", String.valueOf(this.version));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List batches.
+   *
+   * <p>A batch is a set of documents that are ready for enrichment by an external application.
+   * After you apply a webhook enrichment to a collection, and then process or upload documents to
+   * the collection, Discovery creates a batch with a unique **batch_id**.
+   *
+   * <p>To start, you must register your external application as a **webhook** type by using the
+   * [Create enrichment API](/apidocs/discovery-data#createenrichment) method.
+   *
+   * <p>Use the List batches API to get the following:
+   *
+   * <p>* Notified batches that are not yet pulled by the external enrichment application.
+   *
+   * <p>* Batches that are pulled, but not yet pushed to Discovery by the external enrichment
+   * application.
+   *
+   * @param listBatchesOptions the {@link ListBatchesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link ListBatchesResponse}
+   */
+  public ServiceCall<ListBatchesResponse> listBatches(ListBatchesOptions listBatchesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        listBatchesOptions, "listBatchesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", listBatchesOptions.projectId());
+    pathParamsMap.put("collection_id", listBatchesOptions.collectionId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/batches",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "listBatches");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<ListBatchesResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ListBatchesResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Pull batches.
+   *
+   * <p>Pull a batch of documents from Discovery for enrichment by an external application. Ensure
+   * to include the `Accept-Encoding: gzip` header in this method to get the file. You can also
+   * implement retry logic when calling this method to avoid any network errors.
+   *
+   * @param pullBatchesOptions the {@link PullBatchesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link PullBatchesResponse}
+   */
+  public ServiceCall<PullBatchesResponse> pullBatches(PullBatchesOptions pullBatchesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        pullBatchesOptions, "pullBatchesOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", pullBatchesOptions.projectId());
+    pathParamsMap.put("collection_id", pullBatchesOptions.collectionId());
+    pathParamsMap.put("batch_id", pullBatchesOptions.batchId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/batches/{batch_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "pullBatches");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    ResponseConverter<PullBatchesResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<PullBatchesResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Push batches.
+   *
+   * <p>Push a batch of documents to Discovery after annotation by an external application. You can
+   * implement retry logic when calling this method to avoid any network errors.
+   *
+   * @param pushBatchesOptions the {@link PushBatchesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a result of type {@link Boolean}
+   */
+  public ServiceCall<Boolean> pushBatches(PushBatchesOptions pushBatchesOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        pushBatchesOptions, "pushBatchesOptions cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.isTrue(
+        (pushBatchesOptions.file() != null), "At least one of  or file must be supplied.");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("project_id", pushBatchesOptions.projectId());
+    pathParamsMap.put("collection_id", pushBatchesOptions.collectionId());
+    pathParamsMap.put("batch_id", pushBatchesOptions.batchId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/projects/{project_id}/collections/{collection_id}/batches/{batch_id}",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("discovery", "v2", "pushBatches");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (pushBatchesOptions.file() != null) {
+      okhttp3.RequestBody fileBody =
+          RequestUtils.inputStreamBody(pushBatchesOptions.file(), "application/octet-stream");
+      multipartBuilder.addFormDataPart("file", pushBatchesOptions.filename(), fileBody);
+    }
+    builder.body(multipartBuilder.build());
+    ResponseConverter<Boolean> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<Boolean>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

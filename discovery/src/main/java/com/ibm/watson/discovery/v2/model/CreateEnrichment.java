@@ -44,9 +44,7 @@ public class CreateEnrichment extends GenericModel {
    * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
    * machine learning model that is defined in a ZIP file.
    *
-   * <p>* `webhook`: Connects to an external enrichment application by using a webhook. The feature
-   * is available from IBM Cloud-managed instances only. The external enrichment feature is beta
-   * functionality. Beta features are not supported by the SDKs.
+   * <p>* `webhook`: Connects to an external enrichment application by using a webhook.
    *
    * <p>* `sentence_classifier`: Use sentence classifier to classify sentences in your documents.
    * This feature is available in IBM Cloud-managed instances only. The sentence classifier feature
@@ -221,9 +219,7 @@ public class CreateEnrichment extends GenericModel {
    * <p>* `watson_knowledge_studio_model`: Creates an enrichment from a Watson Knowledge Studio
    * machine learning model that is defined in a ZIP file.
    *
-   * <p>* `webhook`: Connects to an external enrichment application by using a webhook. The feature
-   * is available from IBM Cloud-managed instances only. The external enrichment feature is beta
-   * functionality. Beta features are not supported by the SDKs.
+   * <p>* `webhook`: Connects to an external enrichment application by using a webhook.
    *
    * <p>* `sentence_classifier`: Use sentence classifier to classify sentences in your documents.
    * This feature is available in IBM Cloud-managed instances only. The sentence classifier feature

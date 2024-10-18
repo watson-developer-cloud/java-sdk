@@ -75,6 +75,8 @@ import com.ibm.watson.discovery.v2.model.GetEnrichmentOptions;
 import com.ibm.watson.discovery.v2.model.GetProjectOptions;
 import com.ibm.watson.discovery.v2.model.GetStopwordListOptions;
 import com.ibm.watson.discovery.v2.model.GetTrainingQueryOptions;
+import com.ibm.watson.discovery.v2.model.ListBatchesOptions;
+import com.ibm.watson.discovery.v2.model.ListBatchesResponse;
 import com.ibm.watson.discovery.v2.model.ListCollectionsOptions;
 import com.ibm.watson.discovery.v2.model.ListCollectionsResponse;
 import com.ibm.watson.discovery.v2.model.ListDocumentClassifierModelsOptions;
@@ -89,6 +91,9 @@ import com.ibm.watson.discovery.v2.model.ListProjectsOptions;
 import com.ibm.watson.discovery.v2.model.ListProjectsResponse;
 import com.ibm.watson.discovery.v2.model.ListTrainingQueriesOptions;
 import com.ibm.watson.discovery.v2.model.ProjectDetails;
+import com.ibm.watson.discovery.v2.model.PullBatchesOptions;
+import com.ibm.watson.discovery.v2.model.PullBatchesResponse;
+import com.ibm.watson.discovery.v2.model.PushBatchesOptions;
 import com.ibm.watson.discovery.v2.model.QueryCollectionNoticesOptions;
 import com.ibm.watson.discovery.v2.model.QueryLargePassages;
 import com.ibm.watson.discovery.v2.model.QueryLargeSimilar;
@@ -2460,6 +2465,175 @@ public class DiscoveryTest {
   public void testDeleteEnrichmentNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     discoveryService.deleteEnrichment(null).execute();
+  }
+
+  // Test the listBatches operation with a valid options model parameter
+  @Test
+  public void testListBatchesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"batches\": [{\"batch_id\": \"batchId\", \"created\": \"2019-01-01T12:00:00.000Z\", \"enrichment_id\": \"enrichmentId\"}]}";
+    String listBatchesPath = "/v2/projects/testString/collections/testString/batches";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ListBatchesOptions model
+    ListBatchesOptions listBatchesOptionsModel =
+        new ListBatchesOptions.Builder().projectId("testString").collectionId("testString").build();
+
+    // Invoke listBatches() with a valid options model and verify the result
+    Response<ListBatchesResponse> response =
+        discoveryService.listBatches(listBatchesOptionsModel).execute();
+    assertNotNull(response);
+    ListBatchesResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listBatchesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the listBatches operation with and without retries enabled
+  @Test
+  public void testListBatchesWRetries() throws Throwable {
+    discoveryService.enableRetries(4, 30);
+    testListBatchesWOptions();
+
+    discoveryService.disableRetries();
+    testListBatchesWOptions();
+  }
+
+  // Test the listBatches operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testListBatchesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    discoveryService.listBatches(null).execute();
+  }
+
+  // Test the pullBatches operation with a valid options model parameter
+  @Test
+  public void testPullBatchesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "{\"file\": \"file\"}";
+    String pullBatchesPath = "/v2/projects/testString/collections/testString/batches/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the PullBatchesOptions model
+    PullBatchesOptions pullBatchesOptionsModel =
+        new PullBatchesOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .batchId("testString")
+            .build();
+
+    // Invoke pullBatches() with a valid options model and verify the result
+    Response<PullBatchesResponse> response =
+        discoveryService.pullBatches(pullBatchesOptionsModel).execute();
+    assertNotNull(response);
+    PullBatchesResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, pullBatchesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the pullBatches operation with and without retries enabled
+  @Test
+  public void testPullBatchesWRetries() throws Throwable {
+    discoveryService.enableRetries(4, 30);
+    testPullBatchesWOptions();
+
+    discoveryService.disableRetries();
+    testPullBatchesWOptions();
+  }
+
+  // Test the pullBatches operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPullBatchesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    discoveryService.pullBatches(null).execute();
+  }
+
+  // Test the pushBatches operation with a valid options model parameter
+  @Test
+  public void testPushBatchesWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "false";
+    String pushBatchesPath = "/v2/projects/testString/collections/testString/batches/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the PushBatchesOptions model
+    PushBatchesOptions pushBatchesOptionsModel =
+        new PushBatchesOptions.Builder()
+            .projectId("testString")
+            .collectionId("testString")
+            .batchId("testString")
+            .file(TestUtilities.createMockStream("This is a mock file."))
+            .filename("testString")
+            .build();
+
+    // Invoke pushBatches() with a valid options model and verify the result
+    Response<Boolean> response = discoveryService.pushBatches(pushBatchesOptionsModel).execute();
+    assertNotNull(response);
+    Boolean responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, pushBatchesPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the pushBatches operation with and without retries enabled
+  @Test
+  public void testPushBatchesWRetries() throws Throwable {
+    discoveryService.enableRetries(4, 30);
+    testPushBatchesWOptions();
+
+    discoveryService.disableRetries();
+    testPushBatchesWOptions();
+  }
+
+  // Test the pushBatches operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testPushBatchesNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    discoveryService.pushBatches(null).execute();
   }
 
   // Test the listDocumentClassifiers operation with a valid options model parameter
