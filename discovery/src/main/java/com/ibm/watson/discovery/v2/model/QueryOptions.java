@@ -446,8 +446,15 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * <p>The number of query results to skip at the beginning. For example, if the total number of
-   * results that are returned is 10 and the offset is 8, it returns the last two results.
+   * <p>The number of query results to skip at the beginning. Consider that the `count` is set to 10
+   * (the default value) and the total number of results that are returned is 100. In this case, the
+   * following examples show the returned results for different `offset` values:
+   *
+   * <p>* If `offset` is set to 95, it returns the last 5 results.
+   *
+   * <p>* If `offset` is set to 10, it returns the second batch of 10 results.
+   *
+   * <p>* If `offset` is set to 100 or more, it returns empty results.
    *
    * @return the offset
    */
