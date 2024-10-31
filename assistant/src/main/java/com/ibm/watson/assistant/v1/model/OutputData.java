@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2017, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,6 +24,9 @@ import java.util.Map;
 /**
  * An output object that includes the response to the user, the dialog nodes that were triggered,
  * and messages from the log.
+ *
+ * <p>This type supports additional properties of type Object. Any additional data included with the
+ * output.
  */
 public class OutputData extends DynamicModel<Object> {
 
@@ -190,7 +194,7 @@ public class OutputData extends DynamicModel<Object> {
     }
 
     /**
-     * Add an arbitrary property.
+     * Add an arbitrary property. Any additional data included with the output.
      *
      * @param name the name of the property to add
      * @param value the value of the property to add
