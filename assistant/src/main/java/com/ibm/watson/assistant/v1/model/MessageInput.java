@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v1.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -18,7 +19,12 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import java.util.HashMap;
 import java.util.Map;
 
-/** An input object that includes the input text. */
+/**
+ * An input object that includes the input text.
+ *
+ * <p>This type supports additional properties of type Object. Any additional data included with the
+ * message input.
+ */
 public class MessageInput extends DynamicModel<Object> {
 
   @SerializedName("text")
@@ -105,7 +111,7 @@ public class MessageInput extends DynamicModel<Object> {
     }
 
     /**
-     * Add an arbitrary property.
+     * Add an arbitrary property. Any additional data included with the message input.
      *
      * @param name the name of the property to add
      * @param value the value of the property to add
