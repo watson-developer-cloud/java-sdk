@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-77cc8190-20241107-152357
+ * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
  */
 
 package com.ibm.watson.assistant.v2;

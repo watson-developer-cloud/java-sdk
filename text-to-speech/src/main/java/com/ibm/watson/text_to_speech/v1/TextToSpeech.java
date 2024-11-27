@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.96.0-d6dec9d7-20241008-212902
+ * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
  */
 
 package com.ibm.watson.text_to_speech.v1;
