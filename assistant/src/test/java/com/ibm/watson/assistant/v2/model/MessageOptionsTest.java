@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -281,12 +281,14 @@ public class MessageOptionsTest {
     MessageOptions messageOptionsModel =
         new MessageOptions.Builder()
             .assistantId("testString")
+            .environmentId("testString")
             .sessionId("testString")
             .input(messageInputModel)
             .context(messageContextModel)
             .userId("testString")
             .build();
     assertEquals(messageOptionsModel.assistantId(), "testString");
+    assertEquals(messageOptionsModel.environmentId(), "testString");
     assertEquals(messageOptionsModel.sessionId(), "testString");
     assertEquals(messageOptionsModel.input(), messageInputModel);
     assertEquals(messageOptionsModel.context(), messageContextModel);

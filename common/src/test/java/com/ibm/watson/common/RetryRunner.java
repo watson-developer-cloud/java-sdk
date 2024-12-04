@@ -31,7 +31,7 @@ import org.junit.runners.model.Statement;
 public class RetryRunner extends BlockJUnit4ClassRunner {
   private static final Logger LOG = Logger.getLogger(RetryRunner.class.getName());
 
-  private static final int RETRY_COUNT = 3;
+  private static final int RETRY_COUNT = 0;
 
   /** Delay factor when tests are failing. */
   private static final int RETRY_DELAY_FACTOR = 2000;

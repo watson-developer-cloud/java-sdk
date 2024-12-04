@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -18,7 +19,11 @@ import com.ibm.cloud.sdk.core.service.model.DynamicModel;
 import java.util.HashMap;
 import java.util.Map;
 
-/** System context data used by the skill. */
+/**
+ * System context data used by the skill.
+ *
+ * <p>This type supports additional properties of type Object. For internal use only.
+ */
 public class MessageContextSkillSystem extends DynamicModel<Object> {
 
   @SerializedName("state")
@@ -67,7 +72,7 @@ public class MessageContextSkillSystem extends DynamicModel<Object> {
     }
 
     /**
-     * Add an arbitrary property.
+     * Add an arbitrary property. For internal use only.
      *
      * @param name the name of the property to add
      * @param value the value of the property to add

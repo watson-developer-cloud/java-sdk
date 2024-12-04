@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -18,6 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class MessageStatelessOptions extends GenericModel {
 
   protected String assistantId;
+  protected String environmentId;
   protected StatelessMessageInput input;
   protected StatelessMessageContext context;
   protected String userId;
@@ -25,6 +27,7 @@ public class MessageStatelessOptions extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String assistantId;
+    private String environmentId;
     private StatelessMessageInput input;
     private StatelessMessageContext context;
     private String userId;
@@ -36,6 +39,7 @@ public class MessageStatelessOptions extends GenericModel {
      */
     private Builder(MessageStatelessOptions messageStatelessOptions) {
       this.assistantId = messageStatelessOptions.assistantId;
+      this.environmentId = messageStatelessOptions.environmentId;
       this.input = messageStatelessOptions.input;
       this.context = messageStatelessOptions.context;
       this.userId = messageStatelessOptions.userId;
@@ -48,9 +52,11 @@ public class MessageStatelessOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param assistantId the assistantId
+     * @param environmentId the environmentId
      */
-    public Builder(String assistantId) {
+    public Builder(String assistantId, String environmentId) {
       this.assistantId = assistantId;
+      this.environmentId = environmentId;
     }
 
     /**
@@ -70,6 +76,17 @@ public class MessageStatelessOptions extends GenericModel {
      */
     public Builder assistantId(String assistantId) {
       this.assistantId = assistantId;
+      return this;
+    }
+
+    /**
+     * Set the environmentId.
+     *
+     * @param environmentId the environmentId
+     * @return the MessageStatelessOptions builder
+     */
+    public Builder environmentId(String environmentId) {
+      this.environmentId = environmentId;
       return this;
     }
 
@@ -112,7 +129,10 @@ public class MessageStatelessOptions extends GenericModel {
   protected MessageStatelessOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     assistantId = builder.assistantId;
+    environmentId = builder.environmentId;
     input = builder.input;
     context = builder.context;
     userId = builder.userId;
@@ -146,6 +166,19 @@ public class MessageStatelessOptions extends GenericModel {
    */
   public String assistantId() {
     return assistantId;
+  }
+
+  /**
+   * Gets the environmentId.
+   *
+   * <p>Unique identifier of the environment. To find the environment ID in the watsonx Assistant
+   * user interface, open the environment settings and click **API Details**. **Note:** Currently,
+   * the API does not support creating environments.
+   *
+   * @return the environmentId
+   */
+  public String environmentId() {
+    return environmentId;
   }
 
   /**

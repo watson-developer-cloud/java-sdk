@@ -14,13 +14,20 @@ package com.ibm.watson.assistant.v2;
 
 import static org.junit.Assert.*;
 
-import com.ibm.cloud.sdk.core.security.*;
 import com.ibm.watson.assistant.v2.model.*;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
+import com.launchdarkly.eventsource.StreamException;
+import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import okhttp3.OkHttpClient;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,6 +38,8 @@ import org.junit.runner.RunWith;
 public class AssistantServiceIT extends AssistantServiceTest {
   private Assistant service;
   private String assistantId;
+
+  private static final String RESOURCE = "src/test/resources/assistant/";
 
   /**
    * Sets up the tests.
@@ -282,6 +291,98 @@ public class AssistantServiceIT extends AssistantServiceTest {
 
     assertNotNull(release);
     assertEquals("Available", release.status());
+  }
+
+  /** Test Provider API */
+    @Test
+    public void testProviders() {
+      var listProviderOptions = new ListProvidersOptions.Builder().build();
+      var listProvidersResponse = service.listProviders(listProviderOptions).execute().getResult();
+      var providerId = listProvidersResponse.getConversationalSkillProviders().get(0).getProviderId();
+      assertNotNull(listProvidersResponse);
+      assertNotNull(providerId);
+
+      ArrayList<ProviderSpecificationServersItem> serverList = new ArrayList<>();
+      serverList.add(
+          new ProviderSpecificationServersItem.Builder()
+              .url("https://myProCodeProvider.com")
+              .build());
+
+      ProviderSpecification providerSpecification =
+          new ProviderSpecification.Builder().servers(serverList).build();
+
+      var password = new ProviderAuthenticationTypeAndValue.Builder().type("value").value("test").build();
+      var basicFlow = new ProviderPrivateAuthenticationBasicFlow.Builder().password(password).build();
+      var providerPrivate = new ProviderPrivate.Builder().authentication(basicFlow).build();
+
+      // service.setServiceUrl("http://localhost:9001");
+
+      var updateProvidersOptions =
+          new UpdateProviderOptions.Builder()
+              .providerId(providerId)
+              .specification(providerSpecification)
+              .xPrivate(providerPrivate)
+              .build();
+      var updateProvidersResponse =
+          service.updateProvider(updateProvidersOptions).execute().getResult();
+      assertNotNull(updateProvidersResponse);
+    }
+
+  /** Test Import/Export Release API */
+  @Test
+  public void testImportRelease() throws IOException {
+    InputStream testFile = new FileInputStream(RESOURCE + "demo_wa_V4.zip");
+    var importOptions =
+        new CreateReleaseImportOptions.Builder().assistantId(assistantId).body(testFile).build();
+    var importResponse = service.createReleaseImport(importOptions).execute().getResult();
+    assertNotNull(importResponse);
+  }
+
+  @Test
+  public void testDownloadExportRelease() throws IOException {
+    var exportOptions =
+        new DownloadReleaseExportOptions.Builder().assistantId(assistantId).release("1").build();
+    var exportResponse = service.downloadReleaseExport(exportOptions).execute().getResult();
+    assertNotNull(exportResponse);
+  }
+
+  @Test
+  public void testDownloadExportReleaseStream() throws IOException {
+    var exportOptions =
+        new DownloadReleaseExportOptions.Builder().assistantId(assistantId).release("1").build();
+    var exportReleaseStream =
+        service.downloadReleaseExportAsStream(exportOptions).execute().getResult();
+    assertNotNull(exportReleaseStream);
+  }
+
+  @Test
+  public void testMessageStreamStateless() throws IOException, StreamException {
+    var messageInput =
+        new MessageInput.Builder()
+            .messageType("text")
+            .text("can you list the steps to create a custom extension?")
+            .build();
+    var messageStreamStatelessOptions =
+        new MessageStreamStatelessOptions.Builder()
+            .assistantId("99a74576-47de-42a9-ab05-9dd98978809b")
+            .environmentId("03dce212-1aa3-436a-a747-8717a96ded5a")
+            .userId("Angelo")
+            .input(messageInput)
+            .build();
+    InputStream inputStream =
+        service.messageStreamStateless(messageStreamStatelessOptions).execute().getResult();
+
+    var messageDeserializer = new MessageEventDeserializer.Builder(inputStream).build();
+    for (StatelessMessageStreamResponse message : messageDeserializer.statelessMessages()) {
+      if (message.getPartialItem() != null) {
+        assertNotNull(message.getPartialItem().getText());
+      } else if (message.getCompleteItem() != null) {
+        assertNotNull(message.getCompleteItem().text());
+      } else if (message.getFinalResponse() != null) {
+        assertNotNull(message.getFinalResponse().getOutput());
+        assertNotNull(message.getFinalResponse().getOutput());
+      }
+    }
   }
 
   /** Test Deploy Releases. */

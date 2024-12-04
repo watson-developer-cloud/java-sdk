@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2;
 
 import static org.testng.Assert.*;
@@ -21,12 +22,16 @@ import com.ibm.cloud.sdk.core.service.model.FileWithMetadata;
 import com.ibm.watson.assistant.v2.model.AssistantCollection;
 import com.ibm.watson.assistant.v2.model.AssistantData;
 import com.ibm.watson.assistant.v2.model.AssistantState;
-import com.ibm.watson.assistant.v2.model.BaseEnvironmentOrchestration;
 import com.ibm.watson.assistant.v2.model.BulkClassifyOptions;
 import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
 import com.ibm.watson.assistant.v2.model.BulkClassifyUtterance;
 import com.ibm.watson.assistant.v2.model.CaptureGroup;
 import com.ibm.watson.assistant.v2.model.CreateAssistantOptions;
+import com.ibm.watson.assistant.v2.model.CreateAssistantReleaseImportResponse;
+import com.ibm.watson.assistant.v2.model.CreateProviderOptions;
+import com.ibm.watson.assistant.v2.model.CreateReleaseExportOptions;
+import com.ibm.watson.assistant.v2.model.CreateReleaseExportWithStatusErrors;
+import com.ibm.watson.assistant.v2.model.CreateReleaseImportOptions;
 import com.ibm.watson.assistant.v2.model.CreateReleaseOptions;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteAssistantOptions;
@@ -34,11 +39,13 @@ import com.ibm.watson.assistant.v2.model.DeleteReleaseOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.assistant.v2.model.DeployReleaseOptions;
+import com.ibm.watson.assistant.v2.model.DownloadReleaseExportOptions;
 import com.ibm.watson.assistant.v2.model.Environment;
 import com.ibm.watson.assistant.v2.model.EnvironmentCollection;
 import com.ibm.watson.assistant.v2.model.EnvironmentSkill;
 import com.ibm.watson.assistant.v2.model.ExportSkillsOptions;
 import com.ibm.watson.assistant.v2.model.GetEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.GetReleaseImportStatusOptions;
 import com.ibm.watson.assistant.v2.model.GetReleaseOptions;
 import com.ibm.watson.assistant.v2.model.GetSkillOptions;
 import com.ibm.watson.assistant.v2.model.ImportSkillsOptions;
@@ -46,6 +53,7 @@ import com.ibm.watson.assistant.v2.model.ImportSkillsStatusOptions;
 import com.ibm.watson.assistant.v2.model.ListAssistantsOptions;
 import com.ibm.watson.assistant.v2.model.ListEnvironmentsOptions;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.ListProvidersOptions;
 import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageContext;
@@ -61,6 +69,22 @@ import com.ibm.watson.assistant.v2.model.MessageInputOptions;
 import com.ibm.watson.assistant.v2.model.MessageInputOptionsSpelling;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
+import com.ibm.watson.assistant.v2.model.MessageStreamOptions;
+import com.ibm.watson.assistant.v2.model.MessageStreamStatelessOptions;
+import com.ibm.watson.assistant.v2.model.MonitorAssistantReleaseImportArtifactResponse;
+import com.ibm.watson.assistant.v2.model.ProviderAuthenticationOAuth2;
+import com.ibm.watson.assistant.v2.model.ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password;
+import com.ibm.watson.assistant.v2.model.ProviderAuthenticationOAuth2PasswordUsername;
+import com.ibm.watson.assistant.v2.model.ProviderAuthenticationTypeAndValue;
+import com.ibm.watson.assistant.v2.model.ProviderCollection;
+import com.ibm.watson.assistant.v2.model.ProviderPrivate;
+import com.ibm.watson.assistant.v2.model.ProviderPrivateAuthenticationBearerFlow;
+import com.ibm.watson.assistant.v2.model.ProviderResponse;
+import com.ibm.watson.assistant.v2.model.ProviderSpecification;
+import com.ibm.watson.assistant.v2.model.ProviderSpecificationComponents;
+import com.ibm.watson.assistant.v2.model.ProviderSpecificationComponentsSecuritySchemes;
+import com.ibm.watson.assistant.v2.model.ProviderSpecificationComponentsSecuritySchemesBasic;
+import com.ibm.watson.assistant.v2.model.ProviderSpecificationServersItem;
 import com.ibm.watson.assistant.v2.model.Release;
 import com.ibm.watson.assistant.v2.model.ReleaseCollection;
 import com.ibm.watson.assistant.v2.model.RequestAnalytics;
@@ -70,10 +94,16 @@ import com.ibm.watson.assistant.v2.model.RuntimeEntityInterpretation;
 import com.ibm.watson.assistant.v2.model.RuntimeEntityRole;
 import com.ibm.watson.assistant.v2.model.RuntimeIntent;
 import com.ibm.watson.assistant.v2.model.SearchSettings;
+import com.ibm.watson.assistant.v2.model.SearchSettingsClientSideSearch;
+import com.ibm.watson.assistant.v2.model.SearchSettingsConversationalSearch;
+import com.ibm.watson.assistant.v2.model.SearchSettingsConversationalSearchResponseLength;
+import com.ibm.watson.assistant.v2.model.SearchSettingsConversationalSearchSearchConfidence;
 import com.ibm.watson.assistant.v2.model.SearchSettingsDiscovery;
 import com.ibm.watson.assistant.v2.model.SearchSettingsDiscoveryAuthentication;
+import com.ibm.watson.assistant.v2.model.SearchSettingsElasticSearch;
 import com.ibm.watson.assistant.v2.model.SearchSettingsMessages;
 import com.ibm.watson.assistant.v2.model.SearchSettingsSchemaMapping;
+import com.ibm.watson.assistant.v2.model.SearchSettingsServerSideSearch;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
 import com.ibm.watson.assistant.v2.model.Skill;
 import com.ibm.watson.assistant.v2.model.SkillImport;
@@ -88,6 +118,8 @@ import com.ibm.watson.assistant.v2.model.StatelessMessageInput;
 import com.ibm.watson.assistant.v2.model.StatelessMessageInputOptions;
 import com.ibm.watson.assistant.v2.model.StatelessMessageResponse;
 import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOrchestration;
+import com.ibm.watson.assistant.v2.model.UpdateProviderOptions;
 import com.ibm.watson.assistant.v2.model.UpdateSkillOptions;
 import com.ibm.watson.assistant.v2.utils.TestUtilities;
 import java.io.IOException;
@@ -125,6 +157,328 @@ public class AssistantTest {
   @Test
   public void testGetVersion() throws Throwable {
     assertEquals(assistantService.getVersion(), "testString");
+  }
+
+  // Test the createProvider operation with a valid options model parameter
+  @Test
+  public void testCreateProviderWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"provider_id\": \"providerId\", \"specification\": {\"servers\": [{\"url\": \"url\"}], \"components\": {\"securitySchemes\": {\"authentication_method\": \"basic\", \"basic\": {\"username\": {\"type\": \"value\", \"value\": \"value\"}}, \"oauth2\": {\"preferred_flow\": \"password\", \"flows\": {\"token_url\": \"tokenUrl\", \"refresh_url\": \"refreshUrl\", \"client_auth_type\": \"Body\", \"content_type\": \"contentType\", \"header_prefix\": \"headerPrefix\", \"username\": {\"type\": \"value\", \"value\": \"value\"}}}}}}}";
+    String createProviderPath = "/v2/providers";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ProviderSpecificationServersItem model
+    ProviderSpecificationServersItem providerSpecificationServersItemModel =
+        new ProviderSpecificationServersItem.Builder().url("testString").build();
+
+    // Construct an instance of the ProviderAuthenticationTypeAndValue model
+    ProviderAuthenticationTypeAndValue providerAuthenticationTypeAndValueModel =
+        new ProviderAuthenticationTypeAndValue.Builder().type("value").value("testString").build();
+
+    // Construct an instance of the ProviderSpecificationComponentsSecuritySchemesBasic model
+    ProviderSpecificationComponentsSecuritySchemesBasic
+        providerSpecificationComponentsSecuritySchemesBasicModel =
+            new ProviderSpecificationComponentsSecuritySchemesBasic.Builder()
+                .username(providerAuthenticationTypeAndValueModel)
+                .build();
+
+    // Construct an instance of the ProviderAuthenticationOAuth2PasswordUsername model
+    ProviderAuthenticationOAuth2PasswordUsername providerAuthenticationOAuth2PasswordUsernameModel =
+        new ProviderAuthenticationOAuth2PasswordUsername.Builder()
+            .type("value")
+            .value("testString")
+            .build();
+
+    // Construct an instance of the
+    // ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password model
+    ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password
+        providerAuthenticationOAuth2FlowsModel =
+            new ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password.Builder()
+                .tokenUrl("testString")
+                .refreshUrl("testString")
+                .clientAuthType("Body")
+                .contentType("testString")
+                .headerPrefix("testString")
+                .username(providerAuthenticationOAuth2PasswordUsernameModel)
+                .build();
+
+    // Construct an instance of the ProviderAuthenticationOAuth2 model
+    ProviderAuthenticationOAuth2 providerAuthenticationOAuth2Model =
+        new ProviderAuthenticationOAuth2.Builder()
+            .preferredFlow("password")
+            .flows(providerAuthenticationOAuth2FlowsModel)
+            .build();
+
+    // Construct an instance of the ProviderSpecificationComponentsSecuritySchemes model
+    ProviderSpecificationComponentsSecuritySchemes
+        providerSpecificationComponentsSecuritySchemesModel =
+            new ProviderSpecificationComponentsSecuritySchemes.Builder()
+                .authenticationMethod("basic")
+                .basic(providerSpecificationComponentsSecuritySchemesBasicModel)
+                .oauth2(providerAuthenticationOAuth2Model)
+                .build();
+
+    // Construct an instance of the ProviderSpecificationComponents model
+    ProviderSpecificationComponents providerSpecificationComponentsModel =
+        new ProviderSpecificationComponents.Builder()
+            .securitySchemes(providerSpecificationComponentsSecuritySchemesModel)
+            .build();
+
+    // Construct an instance of the ProviderSpecification model
+    ProviderSpecification providerSpecificationModel =
+        new ProviderSpecification.Builder()
+            .servers(java.util.Arrays.asList(providerSpecificationServersItemModel))
+            .components(providerSpecificationComponentsModel)
+            .build();
+
+    // Construct an instance of the ProviderPrivateAuthenticationBearerFlow model
+    ProviderPrivateAuthenticationBearerFlow providerPrivateAuthenticationModel =
+        new ProviderPrivateAuthenticationBearerFlow.Builder()
+            .token(providerAuthenticationTypeAndValueModel)
+            .build();
+
+    // Construct an instance of the ProviderPrivate model
+    ProviderPrivate providerPrivateModel =
+        new ProviderPrivate.Builder().authentication(providerPrivateAuthenticationModel).build();
+
+    // Construct an instance of the CreateProviderOptions model
+    CreateProviderOptions createProviderOptionsModel =
+        new CreateProviderOptions.Builder()
+            .providerId("testString")
+            .specification(providerSpecificationModel)
+            .xPrivate(providerPrivateModel)
+            .build();
+
+    // Invoke createProvider() with a valid options model and verify the result
+    Response<ProviderResponse> response =
+        assistantService.createProvider(createProviderOptionsModel).execute();
+    assertNotNull(response);
+    ProviderResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createProviderPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the createProvider operation with and without retries enabled
+  @Test
+  public void testCreateProviderWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testCreateProviderWOptions();
+
+    assistantService.disableRetries();
+    testCreateProviderWOptions();
+  }
+
+  // Test the createProvider operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateProviderNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.createProvider(null).execute();
+  }
+
+  // Test the listProviders operation with a valid options model parameter
+  @Test
+  public void testListProvidersWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"conversational_skill_providers\": [{\"provider_id\": \"providerId\", \"specification\": {\"servers\": [{\"url\": \"url\"}], \"components\": {\"securitySchemes\": {\"authentication_method\": \"basic\", \"basic\": {\"username\": {\"type\": \"value\", \"value\": \"value\"}}, \"oauth2\": {\"preferred_flow\": \"password\", \"flows\": {\"token_url\": \"tokenUrl\", \"refresh_url\": \"refreshUrl\", \"client_auth_type\": \"Body\", \"content_type\": \"contentType\", \"header_prefix\": \"headerPrefix\", \"username\": {\"type\": \"value\", \"value\": \"value\"}}}}}}}], \"pagination\": {\"refresh_url\": \"refreshUrl\", \"next_url\": \"nextUrl\", \"total\": 5, \"matched\": 7, \"refresh_cursor\": \"refreshCursor\", \"next_cursor\": \"nextCursor\"}}";
+    String listProvidersPath = "/v2/providers";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ListProvidersOptions model
+    ListProvidersOptions listProvidersOptionsModel =
+        new ListProvidersOptions.Builder()
+            .pageLimit(Long.valueOf("100"))
+            .includeCount(false)
+            .sort("name")
+            .cursor("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke listProviders() with a valid options model and verify the result
+    Response<ProviderCollection> response =
+        assistantService.listProviders(listProvidersOptionsModel).execute();
+    assertNotNull(response);
+    ProviderCollection responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, listProvidersPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Long.valueOf(query.get("page_limit")), Long.valueOf("100"));
+    assertEquals(Boolean.valueOf(query.get("include_count")), Boolean.valueOf(false));
+    assertEquals(query.get("sort"), "name");
+    assertEquals(query.get("cursor"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the listProviders operation with and without retries enabled
+  @Test
+  public void testListProvidersWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testListProvidersWOptions();
+
+    assistantService.disableRetries();
+    testListProvidersWOptions();
+  }
+
+  // Test the updateProvider operation with a valid options model parameter
+  @Test
+  public void testUpdateProviderWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"provider_id\": \"providerId\", \"specification\": {\"servers\": [{\"url\": \"url\"}], \"components\": {\"securitySchemes\": {\"authentication_method\": \"basic\", \"basic\": {\"username\": {\"type\": \"value\", \"value\": \"value\"}}, \"oauth2\": {\"preferred_flow\": \"password\", \"flows\": {\"token_url\": \"tokenUrl\", \"refresh_url\": \"refreshUrl\", \"client_auth_type\": \"Body\", \"content_type\": \"contentType\", \"header_prefix\": \"headerPrefix\", \"username\": {\"type\": \"value\", \"value\": \"value\"}}}}}}}";
+    String updateProviderPath = "/v2/providers/testString";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the ProviderSpecificationServersItem model
+    ProviderSpecificationServersItem providerSpecificationServersItemModel =
+        new ProviderSpecificationServersItem.Builder().url("testString").build();
+
+    // Construct an instance of the ProviderAuthenticationTypeAndValue model
+    ProviderAuthenticationTypeAndValue providerAuthenticationTypeAndValueModel =
+        new ProviderAuthenticationTypeAndValue.Builder().type("value").value("testString").build();
+
+    // Construct an instance of the ProviderSpecificationComponentsSecuritySchemesBasic model
+    ProviderSpecificationComponentsSecuritySchemesBasic
+        providerSpecificationComponentsSecuritySchemesBasicModel =
+            new ProviderSpecificationComponentsSecuritySchemesBasic.Builder()
+                .username(providerAuthenticationTypeAndValueModel)
+                .build();
+
+    // Construct an instance of the ProviderAuthenticationOAuth2PasswordUsername model
+    ProviderAuthenticationOAuth2PasswordUsername providerAuthenticationOAuth2PasswordUsernameModel =
+        new ProviderAuthenticationOAuth2PasswordUsername.Builder()
+            .type("value")
+            .value("testString")
+            .build();
+
+    // Construct an instance of the
+    // ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password model
+    ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password
+        providerAuthenticationOAuth2FlowsModel =
+            new ProviderAuthenticationOAuth2FlowsProviderAuthenticationOAuth2Password.Builder()
+                .tokenUrl("testString")
+                .refreshUrl("testString")
+                .clientAuthType("Body")
+                .contentType("testString")
+                .headerPrefix("testString")
+                .username(providerAuthenticationOAuth2PasswordUsernameModel)
+                .build();
+
+    // Construct an instance of the ProviderAuthenticationOAuth2 model
+    ProviderAuthenticationOAuth2 providerAuthenticationOAuth2Model =
+        new ProviderAuthenticationOAuth2.Builder()
+            .preferredFlow("password")
+            .flows(providerAuthenticationOAuth2FlowsModel)
+            .build();
+
+    // Construct an instance of the ProviderSpecificationComponentsSecuritySchemes model
+    ProviderSpecificationComponentsSecuritySchemes
+        providerSpecificationComponentsSecuritySchemesModel =
+            new ProviderSpecificationComponentsSecuritySchemes.Builder()
+                .authenticationMethod("basic")
+                .basic(providerSpecificationComponentsSecuritySchemesBasicModel)
+                .oauth2(providerAuthenticationOAuth2Model)
+                .build();
+
+    // Construct an instance of the ProviderSpecificationComponents model
+    ProviderSpecificationComponents providerSpecificationComponentsModel =
+        new ProviderSpecificationComponents.Builder()
+            .securitySchemes(providerSpecificationComponentsSecuritySchemesModel)
+            .build();
+
+    // Construct an instance of the ProviderSpecification model
+    ProviderSpecification providerSpecificationModel =
+        new ProviderSpecification.Builder()
+            .servers(java.util.Arrays.asList(providerSpecificationServersItemModel))
+            .components(providerSpecificationComponentsModel)
+            .build();
+
+    // Construct an instance of the ProviderPrivateAuthenticationBearerFlow model
+    ProviderPrivateAuthenticationBearerFlow providerPrivateAuthenticationModel =
+        new ProviderPrivateAuthenticationBearerFlow.Builder()
+            .token(providerAuthenticationTypeAndValueModel)
+            .build();
+
+    // Construct an instance of the ProviderPrivate model
+    ProviderPrivate providerPrivateModel =
+        new ProviderPrivate.Builder().authentication(providerPrivateAuthenticationModel).build();
+
+    // Construct an instance of the UpdateProviderOptions model
+    UpdateProviderOptions updateProviderOptionsModel =
+        new UpdateProviderOptions.Builder()
+            .providerId("testString")
+            .specification(providerSpecificationModel)
+            .xPrivate(providerPrivateModel)
+            .build();
+
+    // Invoke updateProvider() with a valid options model and verify the result
+    Response<ProviderResponse> response =
+        assistantService.updateProvider(updateProviderOptionsModel).execute();
+    assertNotNull(response);
+    ProviderResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, updateProviderPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the updateProvider operation with and without retries enabled
+  @Test
+  public void testUpdateProviderWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testUpdateProviderWOptions();
+
+    assistantService.disableRetries();
+    testUpdateProviderWOptions();
+  }
+
+  // Test the updateProvider operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testUpdateProviderNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.updateProvider(null).execute();
   }
 
   // Test the createAssistant operation with a valid options model parameter
@@ -584,6 +938,7 @@ public class AssistantTest {
     MessageOptions messageOptionsModel =
         new MessageOptions.Builder()
             .assistantId("testString")
+            .environmentId("testString")
             .sessionId("testString")
             .input(messageInputModel)
             .context(messageContextModel)
@@ -814,6 +1169,7 @@ public class AssistantTest {
     MessageStatelessOptions messageStatelessOptionsModel =
         new MessageStatelessOptions.Builder()
             .assistantId("testString")
+            .environmentId("testString")
             .input(statelessMessageInputModel)
             .context(statelessMessageContextModel)
             .userId("testString")
@@ -854,6 +1210,463 @@ public class AssistantTest {
   public void testMessageStatelessNoOptions() throws Throwable {
     server.enqueue(new MockResponse());
     assistantService.messageStateless(null).execute();
+  }
+
+  // Test the messageStream operation with a valid options model parameter
+  @Test
+  public void testMessageStreamWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "This is a mock binary response.";
+    String messageStreamPath =
+        "/v2/assistants/testString/environments/testString/sessions/testString/message_stream";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "text/event-stream")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the RuntimeIntent model
+    RuntimeIntent runtimeIntentModel =
+        new RuntimeIntent.Builder()
+            .intent("testString")
+            .confidence(Double.valueOf("72.5"))
+            .skill("testString")
+            .build();
+
+    // Construct an instance of the CaptureGroup model
+    CaptureGroup captureGroupModel =
+        new CaptureGroup.Builder()
+            .group("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .build();
+
+    // Construct an instance of the RuntimeEntityInterpretation model
+    RuntimeEntityInterpretation runtimeEntityInterpretationModel =
+        new RuntimeEntityInterpretation.Builder()
+            .calendarType("testString")
+            .datetimeLink("testString")
+            .festival("testString")
+            .granularity("day")
+            .rangeLink("testString")
+            .rangeModifier("testString")
+            .relativeDay(Double.valueOf("72.5"))
+            .relativeMonth(Double.valueOf("72.5"))
+            .relativeWeek(Double.valueOf("72.5"))
+            .relativeWeekend(Double.valueOf("72.5"))
+            .relativeYear(Double.valueOf("72.5"))
+            .specificDay(Double.valueOf("72.5"))
+            .specificDayOfWeek("testString")
+            .specificMonth(Double.valueOf("72.5"))
+            .specificQuarter(Double.valueOf("72.5"))
+            .specificYear(Double.valueOf("72.5"))
+            .numericValue(Double.valueOf("72.5"))
+            .subtype("testString")
+            .partOfDay("testString")
+            .relativeHour(Double.valueOf("72.5"))
+            .relativeMinute(Double.valueOf("72.5"))
+            .relativeSecond(Double.valueOf("72.5"))
+            .specificHour(Double.valueOf("72.5"))
+            .specificMinute(Double.valueOf("72.5"))
+            .specificSecond(Double.valueOf("72.5"))
+            .timezone("testString")
+            .build();
+
+    // Construct an instance of the RuntimeEntityAlternative model
+    RuntimeEntityAlternative runtimeEntityAlternativeModel =
+        new RuntimeEntityAlternative.Builder()
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .build();
+
+    // Construct an instance of the RuntimeEntityRole model
+    RuntimeEntityRole runtimeEntityRoleModel =
+        new RuntimeEntityRole.Builder().type("date_from").build();
+
+    // Construct an instance of the RuntimeEntity model
+    RuntimeEntity runtimeEntityModel =
+        new RuntimeEntity.Builder()
+            .entity("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .groups(java.util.Arrays.asList(captureGroupModel))
+            .interpretation(runtimeEntityInterpretationModel)
+            .alternatives(java.util.Arrays.asList(runtimeEntityAlternativeModel))
+            .role(runtimeEntityRoleModel)
+            .skill("testString")
+            .build();
+
+    // Construct an instance of the MessageInputAttachment model
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
+
+    // Construct an instance of the RequestAnalytics model
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+
+    // Construct an instance of the MessageInputOptionsSpelling model
+    MessageInputOptionsSpelling messageInputOptionsSpellingModel =
+        new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
+
+    // Construct an instance of the MessageInputOptions model
+    MessageInputOptions messageInputOptionsModel =
+        new MessageInputOptions.Builder()
+            .restart(false)
+            .alternateIntents(false)
+            .asyncCallout(false)
+            .spelling(messageInputOptionsSpellingModel)
+            .debug(false)
+            .returnContext(false)
+            .export(false)
+            .build();
+
+    // Construct an instance of the MessageInput model
+    MessageInput messageInputModel =
+        new MessageInput.Builder()
+            .messageType("text")
+            .text("testString")
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
+            .suggestionId("testString")
+            .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
+            .analytics(requestAnalyticsModel)
+            .options(messageInputOptionsModel)
+            .build();
+
+    // Construct an instance of the MessageContextGlobalSystem model
+    MessageContextGlobalSystem messageContextGlobalSystemModel =
+        new MessageContextGlobalSystem.Builder()
+            .timezone("testString")
+            .userId("testString")
+            .turnCount(Long.valueOf("26"))
+            .locale("en-us")
+            .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
+            .skipUserInput(true)
+            .build();
+
+    // Construct an instance of the MessageContextGlobal model
+    MessageContextGlobal messageContextGlobalModel =
+        new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();
+
+    // Construct an instance of the MessageContextSkillSystem model
+    MessageContextSkillSystem messageContextSkillSystemModel =
+        new MessageContextSkillSystem.Builder()
+            .state("testString")
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the MessageContextDialogSkill model
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .system(messageContextSkillSystemModel)
+            .build();
+
+    // Construct an instance of the MessageContextActionSkill model
+    MessageContextActionSkill messageContextActionSkillModel =
+        new MessageContextActionSkill.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .system(messageContextSkillSystemModel)
+            .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
+    // Construct an instance of the MessageContextSkills model
+    MessageContextSkills messageContextSkillsModel =
+        new MessageContextSkills.Builder()
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(messageContextActionSkillModel)
+            .build();
+
+    // Construct an instance of the MessageContext model
+    MessageContext messageContextModel =
+        new MessageContext.Builder()
+            .global(messageContextGlobalModel)
+            .skills(messageContextSkillsModel)
+            .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
+    // Construct an instance of the MessageStreamOptions model
+    MessageStreamOptions messageStreamOptionsModel =
+        new MessageStreamOptions.Builder()
+            .assistantId("testString")
+            .environmentId("testString")
+            .sessionId("testString")
+            .input(messageInputModel)
+            .context(messageContextModel)
+            .userId("testString")
+            .build();
+
+    // Invoke messageStream() with a valid options model and verify the result
+    Response<InputStream> response =
+        assistantService.messageStream(messageStreamOptionsModel).execute();
+    assertNotNull(response);
+    try (InputStream responseObj = response.getResult(); ) {
+      assertNotNull(responseObj);
+    }
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, messageStreamPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the messageStream operation with and without retries enabled
+  @Test
+  public void testMessageStreamWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testMessageStreamWOptions();
+
+    assistantService.disableRetries();
+    testMessageStreamWOptions();
+  }
+
+  // Test the messageStream operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testMessageStreamNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.messageStream(null).execute();
+  }
+
+  // Test the messageStreamStateless operation with a valid options model parameter
+  @Test
+  public void testMessageStreamStatelessWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "This is a mock binary response.";
+    String messageStreamStatelessPath =
+        "/v2/assistants/testString/environments/testString/message_stream";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "text/event-stream")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the RuntimeIntent model
+    RuntimeIntent runtimeIntentModel =
+        new RuntimeIntent.Builder()
+            .intent("testString")
+            .confidence(Double.valueOf("72.5"))
+            .skill("testString")
+            .build();
+
+    // Construct an instance of the CaptureGroup model
+    CaptureGroup captureGroupModel =
+        new CaptureGroup.Builder()
+            .group("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .build();
+
+    // Construct an instance of the RuntimeEntityInterpretation model
+    RuntimeEntityInterpretation runtimeEntityInterpretationModel =
+        new RuntimeEntityInterpretation.Builder()
+            .calendarType("testString")
+            .datetimeLink("testString")
+            .festival("testString")
+            .granularity("day")
+            .rangeLink("testString")
+            .rangeModifier("testString")
+            .relativeDay(Double.valueOf("72.5"))
+            .relativeMonth(Double.valueOf("72.5"))
+            .relativeWeek(Double.valueOf("72.5"))
+            .relativeWeekend(Double.valueOf("72.5"))
+            .relativeYear(Double.valueOf("72.5"))
+            .specificDay(Double.valueOf("72.5"))
+            .specificDayOfWeek("testString")
+            .specificMonth(Double.valueOf("72.5"))
+            .specificQuarter(Double.valueOf("72.5"))
+            .specificYear(Double.valueOf("72.5"))
+            .numericValue(Double.valueOf("72.5"))
+            .subtype("testString")
+            .partOfDay("testString")
+            .relativeHour(Double.valueOf("72.5"))
+            .relativeMinute(Double.valueOf("72.5"))
+            .relativeSecond(Double.valueOf("72.5"))
+            .specificHour(Double.valueOf("72.5"))
+            .specificMinute(Double.valueOf("72.5"))
+            .specificSecond(Double.valueOf("72.5"))
+            .timezone("testString")
+            .build();
+
+    // Construct an instance of the RuntimeEntityAlternative model
+    RuntimeEntityAlternative runtimeEntityAlternativeModel =
+        new RuntimeEntityAlternative.Builder()
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .build();
+
+    // Construct an instance of the RuntimeEntityRole model
+    RuntimeEntityRole runtimeEntityRoleModel =
+        new RuntimeEntityRole.Builder().type("date_from").build();
+
+    // Construct an instance of the RuntimeEntity model
+    RuntimeEntity runtimeEntityModel =
+        new RuntimeEntity.Builder()
+            .entity("testString")
+            .location(java.util.Arrays.asList(Long.valueOf("26")))
+            .value("testString")
+            .confidence(Double.valueOf("72.5"))
+            .groups(java.util.Arrays.asList(captureGroupModel))
+            .interpretation(runtimeEntityInterpretationModel)
+            .alternatives(java.util.Arrays.asList(runtimeEntityAlternativeModel))
+            .role(runtimeEntityRoleModel)
+            .skill("testString")
+            .build();
+
+    // Construct an instance of the MessageInputAttachment model
+    MessageInputAttachment messageInputAttachmentModel =
+        new MessageInputAttachment.Builder().url("testString").mediaType("testString").build();
+
+    // Construct an instance of the RequestAnalytics model
+    RequestAnalytics requestAnalyticsModel =
+        new RequestAnalytics.Builder()
+            .browser("testString")
+            .device("testString")
+            .pageUrl("testString")
+            .build();
+
+    // Construct an instance of the MessageInputOptionsSpelling model
+    MessageInputOptionsSpelling messageInputOptionsSpellingModel =
+        new MessageInputOptionsSpelling.Builder().suggestions(true).autoCorrect(true).build();
+
+    // Construct an instance of the MessageInputOptions model
+    MessageInputOptions messageInputOptionsModel =
+        new MessageInputOptions.Builder()
+            .restart(false)
+            .alternateIntents(false)
+            .asyncCallout(false)
+            .spelling(messageInputOptionsSpellingModel)
+            .debug(false)
+            .returnContext(false)
+            .export(false)
+            .build();
+
+    // Construct an instance of the MessageInput model
+    MessageInput messageInputModel =
+        new MessageInput.Builder()
+            .messageType("text")
+            .text("testString")
+            .intents(java.util.Arrays.asList(runtimeIntentModel))
+            .entities(java.util.Arrays.asList(runtimeEntityModel))
+            .suggestionId("testString")
+            .attachments(java.util.Arrays.asList(messageInputAttachmentModel))
+            .analytics(requestAnalyticsModel)
+            .options(messageInputOptionsModel)
+            .build();
+
+    // Construct an instance of the MessageContextGlobalSystem model
+    MessageContextGlobalSystem messageContextGlobalSystemModel =
+        new MessageContextGlobalSystem.Builder()
+            .timezone("testString")
+            .userId("testString")
+            .turnCount(Long.valueOf("26"))
+            .locale("en-us")
+            .referenceTime("testString")
+            .sessionStartTime("testString")
+            .state("testString")
+            .skipUserInput(true)
+            .build();
+
+    // Construct an instance of the MessageContextGlobal model
+    MessageContextGlobal messageContextGlobalModel =
+        new MessageContextGlobal.Builder().system(messageContextGlobalSystemModel).build();
+
+    // Construct an instance of the MessageContextSkillSystem model
+    MessageContextSkillSystem messageContextSkillSystemModel =
+        new MessageContextSkillSystem.Builder()
+            .state("testString")
+            .add("foo", "testString")
+            .build();
+
+    // Construct an instance of the MessageContextDialogSkill model
+    MessageContextDialogSkill messageContextDialogSkillModel =
+        new MessageContextDialogSkill.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .system(messageContextSkillSystemModel)
+            .build();
+
+    // Construct an instance of the MessageContextActionSkill model
+    MessageContextActionSkill messageContextActionSkillModel =
+        new MessageContextActionSkill.Builder()
+            .userDefined(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .system(messageContextSkillSystemModel)
+            .actionVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .skillVariables(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
+    // Construct an instance of the MessageContextSkills model
+    MessageContextSkills messageContextSkillsModel =
+        new MessageContextSkills.Builder()
+            .mainSkill(messageContextDialogSkillModel)
+            .actionsSkill(messageContextActionSkillModel)
+            .build();
+
+    // Construct an instance of the MessageContext model
+    MessageContext messageContextModel =
+        new MessageContext.Builder()
+            .global(messageContextGlobalModel)
+            .skills(messageContextSkillsModel)
+            .integrations(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
+    // Construct an instance of the MessageStreamStatelessOptions model
+    MessageStreamStatelessOptions messageStreamStatelessOptionsModel =
+        new MessageStreamStatelessOptions.Builder()
+            .assistantId("testString")
+            .environmentId("testString")
+            .input(messageInputModel)
+            .context(messageContextModel)
+            .userId("testString")
+            .build();
+
+    // Invoke messageStreamStateless() with a valid options model and verify the result
+    Response<InputStream> response =
+        assistantService.messageStreamStateless(messageStreamStatelessOptionsModel).execute();
+    assertNotNull(response);
+    try (InputStream responseObj = response.getResult(); ) {
+      assertNotNull(responseObj);
+    }
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, messageStreamStatelessPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+  }
+
+  // Test the messageStreamStateless operation with and without retries enabled
+  @Test
+  public void testMessageStreamStatelessWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testMessageStreamStatelessWOptions();
+
+    assistantService.disableRetries();
+    testMessageStreamStatelessWOptions();
+  }
+
+  // Test the messageStreamStateless operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testMessageStreamStatelessNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.messageStreamStateless(null).execute();
   }
 
   // Test the bulkClassify operation with a valid options model parameter
@@ -1167,9 +1980,9 @@ public class AssistantTest {
             .setResponseCode(200)
             .setBody(mockResponseBody));
 
-    // Construct an instance of the BaseEnvironmentOrchestration model
-    BaseEnvironmentOrchestration baseEnvironmentOrchestrationModel =
-        new BaseEnvironmentOrchestration.Builder().searchSkillFallback(true).build();
+    // Construct an instance of the UpdateEnvironmentOrchestration model
+    UpdateEnvironmentOrchestration updateEnvironmentOrchestrationModel =
+        new UpdateEnvironmentOrchestration.Builder().searchSkillFallback(true).build();
 
     // Construct an instance of the EnvironmentSkill model
     EnvironmentSkill environmentSkillModel =
@@ -1188,7 +2001,7 @@ public class AssistantTest {
             .environmentId("testString")
             .name("testString")
             .description("testString")
-            .orchestration(baseEnvironmentOrchestrationModel)
+            .orchestration(updateEnvironmentOrchestrationModel)
             .sessionTimeout(Long.valueOf("10"))
             .skillReferences(java.util.Arrays.asList(environmentSkillModel))
             .build();
@@ -1519,12 +2332,307 @@ public class AssistantTest {
     assistantService.deployRelease(null).execute();
   }
 
+  // Test the createReleaseExport operation with a valid options model parameter
+  @Test
+  public void testCreateReleaseExportWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"status\": \"Available\", \"task_id\": \"taskId\", \"assistant_id\": \"assistantId\", \"release\": \"release\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\"}";
+    String createReleaseExportPath = "/v2/assistants/testString/releases/testString/export";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the CreateReleaseExportOptions model
+    CreateReleaseExportOptions createReleaseExportOptionsModel =
+        new CreateReleaseExportOptions.Builder()
+            .assistantId("testString")
+            .release("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke createReleaseExport() with a valid options model and verify the result
+    Response<CreateReleaseExportWithStatusErrors> response =
+        assistantService.createReleaseExport(createReleaseExportOptionsModel).execute();
+    assertNotNull(response);
+    CreateReleaseExportWithStatusErrors responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createReleaseExportPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the createReleaseExport operation with and without retries enabled
+  @Test
+  public void testCreateReleaseExportWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testCreateReleaseExportWOptions();
+
+    assistantService.disableRetries();
+    testCreateReleaseExportWOptions();
+  }
+
+  // Test the createReleaseExport operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateReleaseExportNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.createReleaseExport(null).execute();
+  }
+
+  // Test the downloadReleaseExport operation with a valid options model parameter
+  @Test
+  public void testDownloadReleaseExportWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"status\": \"Available\", \"task_id\": \"taskId\", \"assistant_id\": \"assistantId\", \"release\": \"release\", \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\"}";
+    String downloadReleaseExportPath = "/v2/assistants/testString/releases/testString/export";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the DownloadReleaseExportOptions model
+    DownloadReleaseExportOptions downloadReleaseExportOptionsModel =
+        new DownloadReleaseExportOptions.Builder()
+            .assistantId("testString")
+            .release("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke downloadReleaseExport() with a valid options model and verify the result
+    Response<CreateReleaseExportWithStatusErrors> response =
+        assistantService.downloadReleaseExport(downloadReleaseExportOptionsModel).execute();
+    assertNotNull(response);
+    CreateReleaseExportWithStatusErrors responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, downloadReleaseExportPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the downloadReleaseExport operation with and without retries enabled
+  @Test
+  public void testDownloadReleaseExportWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testDownloadReleaseExportWOptions();
+
+    assistantService.disableRetries();
+    testDownloadReleaseExportWOptions();
+  }
+
+  // Test the downloadReleaseExport operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDownloadReleaseExportNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.downloadReleaseExport(null).execute();
+  }
+
+  // Test the downloadReleaseExportAsStream operation with a valid options model parameter
+  @Test
+  public void testDownloadReleaseExportAsStreamWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody = "This is a mock binary response.";
+    String downloadReleaseExportAsStreamPath =
+        "/v2/assistants/testString/releases/testString/export";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/octet-stream")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the DownloadReleaseExportOptions model
+    DownloadReleaseExportOptions downloadReleaseExportOptionsModel =
+        new DownloadReleaseExportOptions.Builder()
+            .assistantId("testString")
+            .release("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke downloadReleaseExportAsStream() with a valid options model and verify the result
+    Response<InputStream> response =
+        assistantService.downloadReleaseExportAsStream(downloadReleaseExportOptionsModel).execute();
+    assertNotNull(response);
+    try (InputStream responseObj = response.getResult(); ) {
+      assertNotNull(responseObj);
+    }
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, downloadReleaseExportAsStreamPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the downloadReleaseExportAsStream operation with and without retries enabled
+  @Test
+  public void testDownloadReleaseExportAsStreamWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testDownloadReleaseExportAsStreamWOptions();
+
+    assistantService.disableRetries();
+    testDownloadReleaseExportAsStreamWOptions();
+  }
+
+  // Test the downloadReleaseExportAsStream operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDownloadReleaseExportAsStreamNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.downloadReleaseExportAsStream(null).execute();
+  }
+
+  // Test the createReleaseImport operation with a valid options model parameter
+  @Test
+  public void testCreateReleaseImportWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"status\": \"Failed\", \"task_id\": \"taskId\", \"assistant_id\": \"assistantId\", \"skill_impact_in_draft\": [\"action\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+    String createReleaseImportPath = "/v2/assistants/testString/import";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(202)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the CreateReleaseImportOptions model
+    CreateReleaseImportOptions createReleaseImportOptionsModel =
+        new CreateReleaseImportOptions.Builder()
+            .assistantId("testString")
+            .body(TestUtilities.createMockStream("This is a mock file."))
+            .includeAudit(false)
+            .build();
+
+    // Invoke createReleaseImport() with a valid options model and verify the result
+    Response<CreateAssistantReleaseImportResponse> response =
+        assistantService.createReleaseImport(createReleaseImportOptionsModel).execute();
+    assertNotNull(response);
+    CreateAssistantReleaseImportResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "POST");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, createReleaseImportPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the createReleaseImport operation with and without retries enabled
+  @Test
+  public void testCreateReleaseImportWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testCreateReleaseImportWOptions();
+
+    assistantService.disableRetries();
+    testCreateReleaseImportWOptions();
+  }
+
+  // Test the createReleaseImport operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testCreateReleaseImportNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.createReleaseImport(null).execute();
+  }
+
+  // Test the getReleaseImportStatus operation with a valid options model parameter
+  @Test
+  public void testGetReleaseImportStatusWOptions() throws Throwable {
+    // Register a mock response
+    String mockResponseBody =
+        "{\"status\": \"Completed\", \"task_id\": \"taskId\", \"assistant_id\": \"assistantId\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"skill_impact_in_draft\": [\"action\"], \"created\": \"2019-01-01T12:00:00.000Z\", \"updated\": \"2019-01-01T12:00:00.000Z\"}";
+    String getReleaseImportStatusPath = "/v2/assistants/testString/import";
+    server.enqueue(
+        new MockResponse()
+            .setHeader("Content-type", "application/json")
+            .setResponseCode(200)
+            .setBody(mockResponseBody));
+
+    // Construct an instance of the GetReleaseImportStatusOptions model
+    GetReleaseImportStatusOptions getReleaseImportStatusOptionsModel =
+        new GetReleaseImportStatusOptions.Builder()
+            .assistantId("testString")
+            .includeAudit(false)
+            .build();
+
+    // Invoke getReleaseImportStatus() with a valid options model and verify the result
+    Response<MonitorAssistantReleaseImportArtifactResponse> response =
+        assistantService.getReleaseImportStatus(getReleaseImportStatusOptionsModel).execute();
+    assertNotNull(response);
+    MonitorAssistantReleaseImportArtifactResponse responseObj = response.getResult();
+    assertNotNull(responseObj);
+
+    // Verify the contents of the request sent to the mock server
+    RecordedRequest request = server.takeRequest();
+    assertNotNull(request);
+    assertEquals(request.getMethod(), "GET");
+    // Verify request path
+    String parsedPath = TestUtilities.parseReqPath(request);
+    assertEquals(parsedPath, getReleaseImportStatusPath);
+    // Verify query params
+    Map<String, String> query = TestUtilities.parseQueryString(request);
+    assertNotNull(query);
+    assertEquals(query.get("version"), "testString");
+    assertEquals(Boolean.valueOf(query.get("include_audit")), Boolean.valueOf(false));
+  }
+
+  // Test the getReleaseImportStatus operation with and without retries enabled
+  @Test
+  public void testGetReleaseImportStatusWRetries() throws Throwable {
+    assistantService.enableRetries(4, 30);
+    testGetReleaseImportStatusWOptions();
+
+    assistantService.disableRetries();
+    testGetReleaseImportStatusWOptions();
+  }
+
+  // Test the getReleaseImportStatus operation with a null options model (negative test)
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testGetReleaseImportStatusNoOptions() throws Throwable {
+    server.enqueue(new MockResponse());
+    assistantService.getReleaseImportStatus(null).execute();
+  }
+
   // Test the getSkill operation with a valid options model parameter
   @Test
   public void testGetSkillWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}";
+        "{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}, \"elastic_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"index\": \"index\", \"filter\": [\"anyValue\"], \"query_body\": {\"anyKey\": \"anyValue\"}, \"managed_index\": \"managedIndex\", \"apikey\": \"apikey\"}, \"conversational_search\": {\"enabled\": true, \"response_length\": {\"option\": \"moderate\"}, \"search_confidence\": {\"threshold\": \"less_often\"}}, \"server_side_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"apikey\": \"apikey\", \"no_auth\": true, \"auth_type\": \"basic\"}, \"client_side_search\": {\"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}";
     String getSkillPath = "/v2/assistants/testString/skills/testString";
     server.enqueue(
         new MockResponse()
@@ -1577,7 +2685,7 @@ public class AssistantTest {
   public void testUpdateSkillWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}";
+        "{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}, \"elastic_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"index\": \"index\", \"filter\": [\"anyValue\"], \"query_body\": {\"anyKey\": \"anyValue\"}, \"managed_index\": \"managedIndex\", \"apikey\": \"apikey\"}, \"conversational_search\": {\"enabled\": true, \"response_length\": {\"option\": \"moderate\"}, \"search_confidence\": {\"threshold\": \"less_often\"}}, \"server_side_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"apikey\": \"apikey\", \"no_auth\": true, \"auth_type\": \"basic\"}, \"client_side_search\": {\"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}";
     String updateSkillPath = "/v2/assistants/testString/skills/testString";
     server.enqueue(
         new MockResponse()
@@ -1622,12 +2730,73 @@ public class AssistantTest {
             .title("testString")
             .build();
 
+    // Construct an instance of the SearchSettingsElasticSearch model
+    SearchSettingsElasticSearch searchSettingsElasticSearchModel =
+        new SearchSettingsElasticSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .index("testString")
+            .filter(java.util.Arrays.asList("testString"))
+            .queryBody(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .managedIndex("testString")
+            .apikey("testString")
+            .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearchResponseLength model
+    SearchSettingsConversationalSearchResponseLength
+        searchSettingsConversationalSearchResponseLengthModel =
+            new SearchSettingsConversationalSearchResponseLength.Builder()
+                .option("moderate")
+                .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearchSearchConfidence model
+    SearchSettingsConversationalSearchSearchConfidence
+        searchSettingsConversationalSearchSearchConfidenceModel =
+            new SearchSettingsConversationalSearchSearchConfidence.Builder()
+                .threshold("less_often")
+                .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearch model
+    SearchSettingsConversationalSearch searchSettingsConversationalSearchModel =
+        new SearchSettingsConversationalSearch.Builder()
+            .enabled(true)
+            .responseLength(searchSettingsConversationalSearchResponseLengthModel)
+            .searchConfidence(searchSettingsConversationalSearchSearchConfidenceModel)
+            .build();
+
+    // Construct an instance of the SearchSettingsServerSideSearch model
+    SearchSettingsServerSideSearch searchSettingsServerSideSearchModel =
+        new SearchSettingsServerSideSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .apikey("testString")
+            .noAuth(true)
+            .authType("basic")
+            .build();
+
+    // Construct an instance of the SearchSettingsClientSideSearch model
+    SearchSettingsClientSideSearch searchSettingsClientSideSearchModel =
+        new SearchSettingsClientSideSearch.Builder()
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
     // Construct an instance of the SearchSettings model
     SearchSettings searchSettingsModel =
         new SearchSettings.Builder()
             .discovery(searchSettingsDiscoveryModel)
             .messages(searchSettingsMessagesModel)
             .schemaMapping(searchSettingsSchemaMappingModel)
+            .elasticSearch(searchSettingsElasticSearchModel)
+            .conversationalSearch(searchSettingsConversationalSearchModel)
+            .serverSideSearch(searchSettingsServerSideSearchModel)
+            .clientSideSearch(searchSettingsClientSideSearchModel)
             .build();
 
     // Construct an instance of the UpdateSkillOptions model
@@ -1683,7 +2852,7 @@ public class AssistantTest {
   public void testExportSkillsWOptions() throws Throwable {
     // Register a mock response
     String mockResponseBody =
-        "{\"assistant_skills\": [{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}], \"assistant_state\": {\"action_disabled\": true, \"dialog_disabled\": true}}";
+        "{\"assistant_skills\": [{\"name\": \"name\", \"description\": \"description\", \"workspace\": {\"anyKey\": \"anyValue\"}, \"skill_id\": \"skillId\", \"status\": \"Available\", \"status_errors\": [{\"message\": \"message\"}], \"status_description\": \"statusDescription\", \"dialog_settings\": {\"anyKey\": \"anyValue\"}, \"assistant_id\": \"assistantId\", \"workspace_id\": \"workspaceId\", \"environment_id\": \"environmentId\", \"valid\": false, \"next_snapshot_version\": \"nextSnapshotVersion\", \"search_settings\": {\"discovery\": {\"instance_id\": \"instanceId\", \"project_id\": \"projectId\", \"url\": \"url\", \"max_primary_results\": 10000, \"max_total_results\": 10000, \"confidence_threshold\": 0.0, \"highlight\": false, \"find_answers\": false, \"authentication\": {\"basic\": \"basic\", \"bearer\": \"bearer\"}}, \"messages\": {\"success\": \"success\", \"error\": \"error\", \"no_result\": \"noResult\"}, \"schema_mapping\": {\"url\": \"url\", \"body\": \"body\", \"title\": \"title\"}, \"elastic_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"index\": \"index\", \"filter\": [\"anyValue\"], \"query_body\": {\"anyKey\": \"anyValue\"}, \"managed_index\": \"managedIndex\", \"apikey\": \"apikey\"}, \"conversational_search\": {\"enabled\": true, \"response_length\": {\"option\": \"moderate\"}, \"search_confidence\": {\"threshold\": \"less_often\"}}, \"server_side_search\": {\"url\": \"url\", \"port\": \"port\", \"username\": \"username\", \"password\": \"password\", \"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}, \"apikey\": \"apikey\", \"no_auth\": true, \"auth_type\": \"basic\"}, \"client_side_search\": {\"filter\": \"filter\", \"metadata\": {\"anyKey\": \"anyValue\"}}}, \"warnings\": [{\"code\": \"code\", \"path\": \"path\", \"message\": \"message\"}], \"language\": \"language\", \"type\": \"action\"}], \"assistant_state\": {\"action_disabled\": true, \"dialog_disabled\": true}}";
     String exportSkillsPath = "/v2/assistants/testString/skills_export";
     server.enqueue(
         new MockResponse()
@@ -1783,12 +2952,73 @@ public class AssistantTest {
             .title("testString")
             .build();
 
+    // Construct an instance of the SearchSettingsElasticSearch model
+    SearchSettingsElasticSearch searchSettingsElasticSearchModel =
+        new SearchSettingsElasticSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .index("testString")
+            .filter(java.util.Arrays.asList("testString"))
+            .queryBody(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .managedIndex("testString")
+            .apikey("testString")
+            .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearchResponseLength model
+    SearchSettingsConversationalSearchResponseLength
+        searchSettingsConversationalSearchResponseLengthModel =
+            new SearchSettingsConversationalSearchResponseLength.Builder()
+                .option("moderate")
+                .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearchSearchConfidence model
+    SearchSettingsConversationalSearchSearchConfidence
+        searchSettingsConversationalSearchSearchConfidenceModel =
+            new SearchSettingsConversationalSearchSearchConfidence.Builder()
+                .threshold("less_often")
+                .build();
+
+    // Construct an instance of the SearchSettingsConversationalSearch model
+    SearchSettingsConversationalSearch searchSettingsConversationalSearchModel =
+        new SearchSettingsConversationalSearch.Builder()
+            .enabled(true)
+            .responseLength(searchSettingsConversationalSearchResponseLengthModel)
+            .searchConfidence(searchSettingsConversationalSearchSearchConfidenceModel)
+            .build();
+
+    // Construct an instance of the SearchSettingsServerSideSearch model
+    SearchSettingsServerSideSearch searchSettingsServerSideSearchModel =
+        new SearchSettingsServerSideSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .apikey("testString")
+            .noAuth(true)
+            .authType("basic")
+            .build();
+
+    // Construct an instance of the SearchSettingsClientSideSearch model
+    SearchSettingsClientSideSearch searchSettingsClientSideSearchModel =
+        new SearchSettingsClientSideSearch.Builder()
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+
     // Construct an instance of the SearchSettings model
     SearchSettings searchSettingsModel =
         new SearchSettings.Builder()
             .discovery(searchSettingsDiscoveryModel)
             .messages(searchSettingsMessagesModel)
             .schemaMapping(searchSettingsSchemaMappingModel)
+            .elasticSearch(searchSettingsElasticSearchModel)
+            .conversationalSearch(searchSettingsConversationalSearchModel)
+            .serverSideSearch(searchSettingsServerSideSearchModel)
+            .clientSideSearch(searchSettingsClientSideSearchModel)
             .build();
 
     // Construct an instance of the SkillImport model

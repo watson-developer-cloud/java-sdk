@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022, 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +34,9 @@ public class TurnEventCalloutCallout extends GenericModel {
 
   @SerializedName("result_variable")
   protected String resultVariable;
+
+  protected TurnEventCalloutCalloutRequest request;
+  protected TurnEventCalloutCalloutResponse response;
 
   protected TurnEventCalloutCallout() {}
 
@@ -68,5 +72,27 @@ public class TurnEventCalloutCallout extends GenericModel {
    */
   public String getResultVariable() {
     return resultVariable;
+  }
+
+  /**
+   * Gets the request.
+   *
+   * <p>The request object executed to the external server specified by the extension.
+   *
+   * @return the request
+   */
+  public TurnEventCalloutCalloutRequest getRequest() {
+    return request;
+  }
+
+  /**
+   * Gets the response.
+   *
+   * <p>The response object received by the external server made by the extension.
+   *
+   * @return the response
+   */
+  public TurnEventCalloutCalloutResponse getResponse() {
+    return response;
   }
 }

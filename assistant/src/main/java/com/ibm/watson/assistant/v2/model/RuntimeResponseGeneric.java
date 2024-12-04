@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2022.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -57,7 +58,6 @@ public class RuntimeResponseGeneric extends GenericModel {
         "user_defined", RuntimeResponseGenericRuntimeResponseTypeUserDefined.class);
     discriminatorMapping.put("video", RuntimeResponseGenericRuntimeResponseTypeVideo.class);
   }
-
   /** The preferred type of control to display. */
   public interface Preference {
     /** dropdown. */

@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,14 +31,7 @@ public class BaseEnvironmentReleaseReferenceTest {
   @Test
   public void testBaseEnvironmentReleaseReference() throws Throwable {
     BaseEnvironmentReleaseReference baseEnvironmentReleaseReferenceModel =
-        new BaseEnvironmentReleaseReference.Builder().release("testString").build();
-    assertEquals(baseEnvironmentReleaseReferenceModel.release(), "testString");
-
-    String json = TestUtilities.serialize(baseEnvironmentReleaseReferenceModel);
-
-    BaseEnvironmentReleaseReference baseEnvironmentReleaseReferenceModelNew =
-        TestUtilities.deserialize(json, BaseEnvironmentReleaseReference.class);
-    assertTrue(baseEnvironmentReleaseReferenceModelNew instanceof BaseEnvironmentReleaseReference);
-    assertEquals(baseEnvironmentReleaseReferenceModelNew.release(), "testString");
+        new BaseEnvironmentReleaseReference();
+    assertNull(baseEnvironmentReleaseReferenceModel.getRelease());
   }
 }
