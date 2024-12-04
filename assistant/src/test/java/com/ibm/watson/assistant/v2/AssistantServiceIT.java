@@ -296,9 +296,9 @@ public class AssistantServiceIT extends AssistantServiceTest {
   /** Test Provider API */
     @Test
     public void testProviders() {
-      var listProviderOptions = new ListProvidersOptions.Builder().build();
-      var listProvidersResponse = service.listProviders(listProviderOptions).execute().getResult();
-      var providerId = listProvidersResponse.getConversationalSkillProviders().get(0).getProviderId();
+      ListProvidersOptions listProviderOptions = new ListProvidersOptions.Builder().build();
+      ProviderCollection listProvidersResponse = service.listProviders(listProviderOptions).execute().getResult();
+      String providerId = listProvidersResponse.getConversationalSkillProviders().get(0).getProviderId();
       assertNotNull(listProvidersResponse);
       assertNotNull(providerId);
 
@@ -311,19 +311,19 @@ public class AssistantServiceIT extends AssistantServiceTest {
       ProviderSpecification providerSpecification =
           new ProviderSpecification.Builder().servers(serverList).build();
 
-      var password = new ProviderAuthenticationTypeAndValue.Builder().type("value").value("test").build();
-      var basicFlow = new ProviderPrivateAuthenticationBasicFlow.Builder().password(password).build();
-      var providerPrivate = new ProviderPrivate.Builder().authentication(basicFlow).build();
+      ProviderAuthenticationTypeAndValue password = new ProviderAuthenticationTypeAndValue.Builder().type("value").value("test").build();
+      ProviderPrivateAuthenticationBasicFlow basicFlow = new ProviderPrivateAuthenticationBasicFlow.Builder().password(password).build();
+      ProviderPrivate providerPrivate = new ProviderPrivate.Builder().authentication(basicFlow).build();
 
       // service.setServiceUrl("http://localhost:9001");
 
-      var updateProvidersOptions =
+      UpdateProviderOptions updateProvidersOptions =
           new UpdateProviderOptions.Builder()
               .providerId(providerId)
               .specification(providerSpecification)
               .xPrivate(providerPrivate)
               .build();
-      var updateProvidersResponse =
+      ProviderResponse updateProvidersResponse =
           service.updateProvider(updateProvidersOptions).execute().getResult();
       assertNotNull(updateProvidersResponse);
     }
@@ -332,37 +332,37 @@ public class AssistantServiceIT extends AssistantServiceTest {
   @Test
   public void testImportRelease() throws IOException {
     InputStream testFile = new FileInputStream(RESOURCE + "demo_wa_V4.zip");
-    var importOptions =
+    CreateReleaseImportOptions importOptions =
         new CreateReleaseImportOptions.Builder().assistantId(assistantId).body(testFile).build();
-    var importResponse = service.createReleaseImport(importOptions).execute().getResult();
+    CreateAssistantReleaseImportResponse importResponse = service.createReleaseImport(importOptions).execute().getResult();
     assertNotNull(importResponse);
   }
 
   @Test
   public void testDownloadExportRelease() throws IOException {
-    var exportOptions =
+    DownloadReleaseExportOptions exportOptions =
         new DownloadReleaseExportOptions.Builder().assistantId(assistantId).release("1").build();
-    var exportResponse = service.downloadReleaseExport(exportOptions).execute().getResult();
+    CreateReleaseExportWithStatusErrors exportResponse = service.downloadReleaseExport(exportOptions).execute().getResult();
     assertNotNull(exportResponse);
   }
 
   @Test
   public void testDownloadExportReleaseStream() throws IOException {
-    var exportOptions =
+    DownloadReleaseExportOptions exportOptions =
         new DownloadReleaseExportOptions.Builder().assistantId(assistantId).release("1").build();
-    var exportReleaseStream =
+    InputStream exportReleaseStream =
         service.downloadReleaseExportAsStream(exportOptions).execute().getResult();
     assertNotNull(exportReleaseStream);
   }
 
   @Test
   public void testMessageStreamStateless() throws IOException, StreamException {
-    var messageInput =
+    MessageInput messageInput =
         new MessageInput.Builder()
             .messageType("text")
             .text("can you list the steps to create a custom extension?")
             .build();
-    var messageStreamStatelessOptions =
+    MessageStreamStatelessOptions messageStreamStatelessOptions =
         new MessageStreamStatelessOptions.Builder()
             .assistantId("99a74576-47de-42a9-ab05-9dd98978809b")
             .environmentId("03dce212-1aa3-436a-a747-8717a96ded5a")
@@ -372,7 +372,7 @@ public class AssistantServiceIT extends AssistantServiceTest {
     InputStream inputStream =
         service.messageStreamStateless(messageStreamStatelessOptions).execute().getResult();
 
-    var messageDeserializer = new MessageEventDeserializer.Builder(inputStream).build();
+    MessageEventDeserializer messageDeserializer = new MessageEventDeserializer.Builder(inputStream).build();
     for (StatelessMessageStreamResponse message : messageDeserializer.statelessMessages()) {
       if (message.getPartialItem() != null) {
         assertNotNull(message.getPartialItem().getText());
