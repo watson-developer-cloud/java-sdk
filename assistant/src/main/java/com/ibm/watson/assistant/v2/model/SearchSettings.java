@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,11 +30,27 @@ public class SearchSettings extends GenericModel {
   @SerializedName("schema_mapping")
   protected SearchSettingsSchemaMapping schemaMapping;
 
+  @SerializedName("elastic_search")
+  protected SearchSettingsElasticSearch elasticSearch;
+
+  @SerializedName("conversational_search")
+  protected SearchSettingsConversationalSearch conversationalSearch;
+
+  @SerializedName("server_side_search")
+  protected SearchSettingsServerSideSearch serverSideSearch;
+
+  @SerializedName("client_side_search")
+  protected SearchSettingsClientSideSearch clientSideSearch;
+
   /** Builder. */
   public static class Builder {
     private SearchSettingsDiscovery discovery;
     private SearchSettingsMessages messages;
     private SearchSettingsSchemaMapping schemaMapping;
+    private SearchSettingsElasticSearch elasticSearch;
+    private SearchSettingsConversationalSearch conversationalSearch;
+    private SearchSettingsServerSideSearch serverSideSearch;
+    private SearchSettingsClientSideSearch clientSideSearch;
 
     /**
      * Instantiates a new Builder from an existing SearchSettings instance.
@@ -44,6 +61,10 @@ public class SearchSettings extends GenericModel {
       this.discovery = searchSettings.discovery;
       this.messages = searchSettings.messages;
       this.schemaMapping = searchSettings.schemaMapping;
+      this.elasticSearch = searchSettings.elasticSearch;
+      this.conversationalSearch = searchSettings.conversationalSearch;
+      this.serverSideSearch = searchSettings.serverSideSearch;
+      this.clientSideSearch = searchSettings.clientSideSearch;
     }
 
     /** Instantiates a new builder. */
@@ -106,6 +127,50 @@ public class SearchSettings extends GenericModel {
       this.schemaMapping = schemaMapping;
       return this;
     }
+
+    /**
+     * Set the elasticSearch.
+     *
+     * @param elasticSearch the elasticSearch
+     * @return the SearchSettings builder
+     */
+    public Builder elasticSearch(SearchSettingsElasticSearch elasticSearch) {
+      this.elasticSearch = elasticSearch;
+      return this;
+    }
+
+    /**
+     * Set the conversationalSearch.
+     *
+     * @param conversationalSearch the conversationalSearch
+     * @return the SearchSettings builder
+     */
+    public Builder conversationalSearch(SearchSettingsConversationalSearch conversationalSearch) {
+      this.conversationalSearch = conversationalSearch;
+      return this;
+    }
+
+    /**
+     * Set the serverSideSearch.
+     *
+     * @param serverSideSearch the serverSideSearch
+     * @return the SearchSettings builder
+     */
+    public Builder serverSideSearch(SearchSettingsServerSideSearch serverSideSearch) {
+      this.serverSideSearch = serverSideSearch;
+      return this;
+    }
+
+    /**
+     * Set the clientSideSearch.
+     *
+     * @param clientSideSearch the clientSideSearch
+     * @return the SearchSettings builder
+     */
+    public Builder clientSideSearch(SearchSettingsClientSideSearch clientSideSearch) {
+      this.clientSideSearch = clientSideSearch;
+      return this;
+    }
   }
 
   protected SearchSettings() {}
@@ -118,6 +183,10 @@ public class SearchSettings extends GenericModel {
     discovery = builder.discovery;
     messages = builder.messages;
     schemaMapping = builder.schemaMapping;
+    elasticSearch = builder.elasticSearch;
+    conversationalSearch = builder.conversationalSearch;
+    serverSideSearch = builder.serverSideSearch;
+    clientSideSearch = builder.clientSideSearch;
   }
 
   /**
@@ -162,5 +231,52 @@ public class SearchSettings extends GenericModel {
    */
   public SearchSettingsSchemaMapping schemaMapping() {
     return schemaMapping;
+  }
+
+  /**
+   * Gets the elasticSearch.
+   *
+   * <p>Configuration settings for the Elasticsearch service used by the search integration. You can
+   * provide either basic auth or apiKey auth.
+   *
+   * @return the elasticSearch
+   */
+  public SearchSettingsElasticSearch elasticSearch() {
+    return elasticSearch;
+  }
+
+  /**
+   * Gets the conversationalSearch.
+   *
+   * <p>Configuration settings for conversational search.
+   *
+   * @return the conversationalSearch
+   */
+  public SearchSettingsConversationalSearch conversationalSearch() {
+    return conversationalSearch;
+  }
+
+  /**
+   * Gets the serverSideSearch.
+   *
+   * <p>Configuration settings for the server-side search service used by the search integration.
+   * You can provide either basic auth, apiKey auth or none.
+   *
+   * @return the serverSideSearch
+   */
+  public SearchSettingsServerSideSearch serverSideSearch() {
+    return serverSideSearch;
+  }
+
+  /**
+   * Gets the clientSideSearch.
+   *
+   * <p>Configuration settings for the client-side search service or server-side search service used
+   * by the search integration.
+   *
+   * @return the clientSideSearch
+   */
+  public SearchSettingsClientSideSearch clientSideSearch() {
+    return clientSideSearch;
   }
 }

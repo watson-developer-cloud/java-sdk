@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -81,15 +81,110 @@ public class ImportSkillsOptionsTest {
     assertEquals(searchSettingsSchemaMappingModel.body(), "testString");
     assertEquals(searchSettingsSchemaMappingModel.title(), "testString");
 
+    SearchSettingsElasticSearch searchSettingsElasticSearchModel =
+        new SearchSettingsElasticSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .index("testString")
+            .filter(java.util.Arrays.asList("testString"))
+            .queryBody(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .managedIndex("testString")
+            .apikey("testString")
+            .build();
+    assertEquals(searchSettingsElasticSearchModel.url(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.port(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.username(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.password(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.index(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.filter(), java.util.Arrays.asList("testString"));
+    assertEquals(
+        searchSettingsElasticSearchModel.queryBody(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(searchSettingsElasticSearchModel.managedIndex(), "testString");
+    assertEquals(searchSettingsElasticSearchModel.apikey(), "testString");
+
+    SearchSettingsConversationalSearchResponseLength
+        searchSettingsConversationalSearchResponseLengthModel =
+            new SearchSettingsConversationalSearchResponseLength.Builder()
+                .option("moderate")
+                .build();
+    assertEquals(searchSettingsConversationalSearchResponseLengthModel.option(), "moderate");
+
+    SearchSettingsConversationalSearchSearchConfidence
+        searchSettingsConversationalSearchSearchConfidenceModel =
+            new SearchSettingsConversationalSearchSearchConfidence.Builder()
+                .threshold("less_often")
+                .build();
+    assertEquals(searchSettingsConversationalSearchSearchConfidenceModel.threshold(), "less_often");
+
+    SearchSettingsConversationalSearch searchSettingsConversationalSearchModel =
+        new SearchSettingsConversationalSearch.Builder()
+            .enabled(true)
+            .responseLength(searchSettingsConversationalSearchResponseLengthModel)
+            .searchConfidence(searchSettingsConversationalSearchSearchConfidenceModel)
+            .build();
+    assertEquals(searchSettingsConversationalSearchModel.enabled(), Boolean.valueOf(true));
+    assertEquals(
+        searchSettingsConversationalSearchModel.responseLength(),
+        searchSettingsConversationalSearchResponseLengthModel);
+    assertEquals(
+        searchSettingsConversationalSearchModel.searchConfidence(),
+        searchSettingsConversationalSearchSearchConfidenceModel);
+
+    SearchSettingsServerSideSearch searchSettingsServerSideSearchModel =
+        new SearchSettingsServerSideSearch.Builder()
+            .url("testString")
+            .port("testString")
+            .username("testString")
+            .password("testString")
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .apikey("testString")
+            .noAuth(true)
+            .authType("basic")
+            .build();
+    assertEquals(searchSettingsServerSideSearchModel.url(), "testString");
+    assertEquals(searchSettingsServerSideSearchModel.port(), "testString");
+    assertEquals(searchSettingsServerSideSearchModel.username(), "testString");
+    assertEquals(searchSettingsServerSideSearchModel.password(), "testString");
+    assertEquals(searchSettingsServerSideSearchModel.filter(), "testString");
+    assertEquals(
+        searchSettingsServerSideSearchModel.metadata(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+    assertEquals(searchSettingsServerSideSearchModel.apikey(), "testString");
+    assertEquals(searchSettingsServerSideSearchModel.noAuth(), Boolean.valueOf(true));
+    assertEquals(searchSettingsServerSideSearchModel.authType(), "basic");
+
+    SearchSettingsClientSideSearch searchSettingsClientSideSearchModel =
+        new SearchSettingsClientSideSearch.Builder()
+            .filter("testString")
+            .metadata(java.util.Collections.singletonMap("anyKey", "anyValue"))
+            .build();
+    assertEquals(searchSettingsClientSideSearchModel.filter(), "testString");
+    assertEquals(
+        searchSettingsClientSideSearchModel.metadata(),
+        java.util.Collections.singletonMap("anyKey", "anyValue"));
+
     SearchSettings searchSettingsModel =
         new SearchSettings.Builder()
             .discovery(searchSettingsDiscoveryModel)
             .messages(searchSettingsMessagesModel)
             .schemaMapping(searchSettingsSchemaMappingModel)
+            .elasticSearch(searchSettingsElasticSearchModel)
+            .conversationalSearch(searchSettingsConversationalSearchModel)
+            .serverSideSearch(searchSettingsServerSideSearchModel)
+            .clientSideSearch(searchSettingsClientSideSearchModel)
             .build();
     assertEquals(searchSettingsModel.discovery(), searchSettingsDiscoveryModel);
     assertEquals(searchSettingsModel.messages(), searchSettingsMessagesModel);
     assertEquals(searchSettingsModel.schemaMapping(), searchSettingsSchemaMappingModel);
+    assertEquals(searchSettingsModel.elasticSearch(), searchSettingsElasticSearchModel);
+    assertEquals(
+        searchSettingsModel.conversationalSearch(), searchSettingsConversationalSearchModel);
+    assertEquals(searchSettingsModel.serverSideSearch(), searchSettingsServerSideSearchModel);
+    assertEquals(searchSettingsModel.clientSideSearch(), searchSettingsClientSideSearchModel);
 
     SkillImport skillImportModel =
         new SkillImport.Builder()

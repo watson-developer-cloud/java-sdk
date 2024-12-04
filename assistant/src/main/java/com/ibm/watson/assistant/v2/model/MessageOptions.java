@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -18,6 +19,7 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class MessageOptions extends GenericModel {
 
   protected String assistantId;
+  protected String environmentId;
   protected String sessionId;
   protected MessageInput input;
   protected MessageContext context;
@@ -26,6 +28,7 @@ public class MessageOptions extends GenericModel {
   /** Builder. */
   public static class Builder {
     private String assistantId;
+    private String environmentId;
     private String sessionId;
     private MessageInput input;
     private MessageContext context;
@@ -38,6 +41,7 @@ public class MessageOptions extends GenericModel {
      */
     private Builder(MessageOptions messageOptions) {
       this.assistantId = messageOptions.assistantId;
+      this.environmentId = messageOptions.environmentId;
       this.sessionId = messageOptions.sessionId;
       this.input = messageOptions.input;
       this.context = messageOptions.context;
@@ -51,10 +55,12 @@ public class MessageOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param assistantId the assistantId
+     * @param environmentId the environmentId
      * @param sessionId the sessionId
      */
-    public Builder(String assistantId, String sessionId) {
+    public Builder(String assistantId, String environmentId, String sessionId) {
       this.assistantId = assistantId;
+      this.environmentId = environmentId;
       this.sessionId = sessionId;
     }
 
@@ -75,6 +81,17 @@ public class MessageOptions extends GenericModel {
      */
     public Builder assistantId(String assistantId) {
       this.assistantId = assistantId;
+      return this;
+    }
+
+    /**
+     * Set the environmentId.
+     *
+     * @param environmentId the environmentId
+     * @return the MessageOptions builder
+     */
+    public Builder environmentId(String environmentId) {
+      this.environmentId = environmentId;
       return this;
     }
 
@@ -128,8 +145,11 @@ public class MessageOptions extends GenericModel {
   protected MessageOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId, "sessionId cannot be empty");
     assistantId = builder.assistantId;
+    environmentId = builder.environmentId;
     sessionId = builder.sessionId;
     input = builder.input;
     context = builder.context;
@@ -164,6 +184,19 @@ public class MessageOptions extends GenericModel {
    */
   public String assistantId() {
     return assistantId;
+  }
+
+  /**
+   * Gets the environmentId.
+   *
+   * <p>Unique identifier of the environment. To find the environment ID in the watsonx Assistant
+   * user interface, open the environment settings and click **API Details**. **Note:** Currently,
+   * the API does not support creating environments.
+   *
+   * @return the environmentId
+   */
+  public String environmentId() {
+    return environmentId;
   }
 
   /**

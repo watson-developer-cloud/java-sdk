@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.85.0-75c38f8f-20240206-210220
+ * IBM OpenAPI SDK Code Generator Version: 99-SNAPSHOT-77cc8190-20241107-152357
  */
 
 package com.ibm.watson.assistant.v2;
@@ -30,6 +30,11 @@ import com.ibm.watson.assistant.v2.model.AssistantData;
 import com.ibm.watson.assistant.v2.model.BulkClassifyOptions;
 import com.ibm.watson.assistant.v2.model.BulkClassifyResponse;
 import com.ibm.watson.assistant.v2.model.CreateAssistantOptions;
+import com.ibm.watson.assistant.v2.model.CreateAssistantReleaseImportResponse;
+import com.ibm.watson.assistant.v2.model.CreateProviderOptions;
+import com.ibm.watson.assistant.v2.model.CreateReleaseExportOptions;
+import com.ibm.watson.assistant.v2.model.CreateReleaseExportWithStatusErrors;
+import com.ibm.watson.assistant.v2.model.CreateReleaseImportOptions;
 import com.ibm.watson.assistant.v2.model.CreateReleaseOptions;
 import com.ibm.watson.assistant.v2.model.CreateSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteAssistantOptions;
@@ -37,10 +42,12 @@ import com.ibm.watson.assistant.v2.model.DeleteReleaseOptions;
 import com.ibm.watson.assistant.v2.model.DeleteSessionOptions;
 import com.ibm.watson.assistant.v2.model.DeleteUserDataOptions;
 import com.ibm.watson.assistant.v2.model.DeployReleaseOptions;
+import com.ibm.watson.assistant.v2.model.DownloadReleaseExportOptions;
 import com.ibm.watson.assistant.v2.model.Environment;
 import com.ibm.watson.assistant.v2.model.EnvironmentCollection;
 import com.ibm.watson.assistant.v2.model.ExportSkillsOptions;
 import com.ibm.watson.assistant.v2.model.GetEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.GetReleaseImportStatusOptions;
 import com.ibm.watson.assistant.v2.model.GetReleaseOptions;
 import com.ibm.watson.assistant.v2.model.GetSkillOptions;
 import com.ibm.watson.assistant.v2.model.ImportSkillsOptions;
@@ -48,10 +55,16 @@ import com.ibm.watson.assistant.v2.model.ImportSkillsStatusOptions;
 import com.ibm.watson.assistant.v2.model.ListAssistantsOptions;
 import com.ibm.watson.assistant.v2.model.ListEnvironmentsOptions;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions;
+import com.ibm.watson.assistant.v2.model.ListProvidersOptions;
 import com.ibm.watson.assistant.v2.model.ListReleasesOptions;
 import com.ibm.watson.assistant.v2.model.LogCollection;
 import com.ibm.watson.assistant.v2.model.MessageOptions;
 import com.ibm.watson.assistant.v2.model.MessageStatelessOptions;
+import com.ibm.watson.assistant.v2.model.MessageStreamOptions;
+import com.ibm.watson.assistant.v2.model.MessageStreamStatelessOptions;
+import com.ibm.watson.assistant.v2.model.MonitorAssistantReleaseImportArtifactResponse;
+import com.ibm.watson.assistant.v2.model.ProviderCollection;
+import com.ibm.watson.assistant.v2.model.ProviderResponse;
 import com.ibm.watson.assistant.v2.model.Release;
 import com.ibm.watson.assistant.v2.model.ReleaseCollection;
 import com.ibm.watson.assistant.v2.model.SessionResponse;
@@ -61,8 +74,10 @@ import com.ibm.watson.assistant.v2.model.SkillsExport;
 import com.ibm.watson.assistant.v2.model.StatefulMessageResponse;
 import com.ibm.watson.assistant.v2.model.StatelessMessageResponse;
 import com.ibm.watson.assistant.v2.model.UpdateEnvironmentOptions;
+import com.ibm.watson.assistant.v2.model.UpdateProviderOptions;
 import com.ibm.watson.assistant.v2.model.UpdateSkillOptions;
 import com.ibm.watson.common.SdkCommon;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -164,6 +179,138 @@ public class Assistant extends BaseService {
   public void setVersion(final String version) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(version, "version cannot be empty.");
     this.version = version;
+  }
+
+  /**
+   * Create a conversational skill provider.
+   *
+   * <p>Create a new conversational skill provider.
+   *
+   * @param createProviderOptions the {@link CreateProviderOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ProviderResponse}
+   */
+  public ServiceCall<ProviderResponse> createProvider(CreateProviderOptions createProviderOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createProviderOptions, "createProviderOptions cannot be null");
+    RequestBuilder builder =
+        RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/providers"));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "createProvider");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("provider_id", createProviderOptions.providerId());
+    contentJson.add(
+        "specification",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(createProviderOptions.specification()));
+    contentJson.add(
+        "private",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(createProviderOptions.xPrivate()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProviderResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProviderResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List conversational skill providers.
+   *
+   * <p>List the conversational skill providers associated with a Watson Assistant service instance.
+   *
+   * @param listProvidersOptions the {@link ListProvidersOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ProviderCollection}
+   */
+  public ServiceCall<ProviderCollection> listProviders(ListProvidersOptions listProvidersOptions) {
+    if (listProvidersOptions == null) {
+      listProvidersOptions = new ListProvidersOptions.Builder().build();
+    }
+    RequestBuilder builder =
+        RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/providers"));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listProviders");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (listProvidersOptions.pageLimit() != null) {
+      builder.query("page_limit", String.valueOf(listProvidersOptions.pageLimit()));
+    }
+    if (listProvidersOptions.includeCount() != null) {
+      builder.query("include_count", String.valueOf(listProvidersOptions.includeCount()));
+    }
+    if (listProvidersOptions.sort() != null) {
+      builder.query("sort", String.valueOf(listProvidersOptions.sort()));
+    }
+    if (listProvidersOptions.cursor() != null) {
+      builder.query("cursor", String.valueOf(listProvidersOptions.cursor()));
+    }
+    if (listProvidersOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(listProvidersOptions.includeAudit()));
+    }
+    ResponseConverter<ProviderCollection> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProviderCollection>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * List conversational skill providers.
+   *
+   * <p>List the conversational skill providers associated with a Watson Assistant service instance.
+   *
+   * @return a {@link ServiceCall} with a result of type {@link ProviderCollection}
+   */
+  public ServiceCall<ProviderCollection> listProviders() {
+    return listProviders(null);
+  }
+
+  /**
+   * Update a conversational skill provider.
+   *
+   * <p>Update a new conversational skill provider.
+   *
+   * @param updateProviderOptions the {@link UpdateProviderOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link ProviderResponse}
+   */
+  public ServiceCall<ProviderResponse> updateProvider(UpdateProviderOptions updateProviderOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        updateProviderOptions, "updateProviderOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("provider_id", updateProviderOptions.providerId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/providers/{provider_id}", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "updateProvider");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add(
+        "specification",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(updateProviderOptions.specification()));
+    contentJson.add(
+        "private",
+        com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+            .toJsonTree(updateProviderOptions.xPrivate()));
+    builder.bodyJson(contentJson);
+    ResponseConverter<ProviderResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<ProviderResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
   }
 
   /**
@@ -391,6 +538,7 @@ public class Assistant extends BaseService {
     com.ibm.cloud.sdk.core.util.Validator.notNull(messageOptions, "messageOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("assistant_id", messageOptions.assistantId());
+    pathParamsMap.put("environment_id", messageOptions.environmentId());
     pathParamsMap.put("session_id", messageOptions.sessionId());
     RequestBuilder builder =
         RequestBuilder.post(
@@ -441,6 +589,7 @@ public class Assistant extends BaseService {
         messageStatelessOptions, "messageStatelessOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("assistant_id", messageStatelessOptions.assistantId());
+    pathParamsMap.put("environment_id", messageStatelessOptions.environmentId());
     RequestBuilder builder =
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
@@ -472,6 +621,107 @@ public class Assistant extends BaseService {
     ResponseConverter<StatelessMessageResponse> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<StatelessMessageResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Send user input to assistant (stateful).
+   *
+   * <p>Send user input to an assistant and receive a streamed response, with conversation state
+   * (including context data) stored by watsonx Assistant for the duration of the session.
+   *
+   * @param messageStreamOptions the {@link MessageStreamOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
+   */
+  public ServiceCall<InputStream> messageStream(MessageStreamOptions messageStreamOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        messageStreamOptions, "messageStreamOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", messageStreamOptions.assistantId());
+    pathParamsMap.put("environment_id", messageStreamOptions.environmentId());
+    pathParamsMap.put("session_id", messageStreamOptions.sessionId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/sessions/{session_id}/message_stream",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "messageStream");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "text/event-stream");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (messageStreamOptions.input() != null) {
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStreamOptions.input()));
+    }
+    if (messageStreamOptions.context() != null) {
+      contentJson.add(
+          "context",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStreamOptions.context()));
+    }
+    if (messageStreamOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageStreamOptions.userId());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Send user input to assistant (stateless).
+   *
+   * <p>Send user input to an assistant and receive a response, with conversation state (including
+   * context data) managed by your application.
+   *
+   * @param messageStreamStatelessOptions the {@link MessageStreamStatelessOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
+   */
+  public ServiceCall<InputStream> messageStreamStateless(
+      MessageStreamStatelessOptions messageStreamStatelessOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        messageStreamStatelessOptions, "messageStreamStatelessOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", messageStreamStatelessOptions.assistantId());
+    pathParamsMap.put("environment_id", messageStreamStatelessOptions.environmentId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/message_stream",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "messageStreamStateless");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "text/event-stream");
+    builder.query("version", String.valueOf(this.version));
+    final JsonObject contentJson = new JsonObject();
+    if (messageStreamStatelessOptions.input() != null) {
+      contentJson.add(
+          "input",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStreamStatelessOptions.input()));
+    }
+    if (messageStreamStatelessOptions.context() != null) {
+      contentJson.add(
+          "context",
+          com.ibm.cloud.sdk.core.util.GsonSingleton.getGson()
+              .toJsonTree(messageStreamStatelessOptions.context()));
+    }
+    if (messageStreamStatelessOptions.userId() != null) {
+      contentJson.addProperty("user_id", messageStreamStatelessOptions.userId());
+    }
+    builder.bodyJson(contentJson);
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
     return createServiceCall(builder.build(), responseConverter);
   }
 
@@ -934,6 +1184,242 @@ public class Assistant extends BaseService {
     ResponseConverter<Environment> responseConverter =
         ResponseConverterUtils.getValue(
             new com.google.gson.reflect.TypeToken<Environment>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create release export.
+   *
+   * <p>Initiate an asynchronous process which will create a downloadable Zip file artifact
+   * (/package) for an assistant release. This artifact will contain Action and/or Dialog skills
+   * that are part of the release. The Dialog skill will only be included in the event that
+   * coexistence is enabled on the assistant. The expected workflow with the use of Release Export
+   * endpoint is to first initiate the creation of the artifact with the POST endpoint and then poll
+   * the GET endpoint to retrieve the artifact. Once the artifact has been created, it will last for
+   * the duration (/scope) of the release.
+   *
+   * @param createReleaseExportOptions the {@link CreateReleaseExportOptions} containing the options
+   *     for the call
+   * @return a {@link ServiceCall} with a result of type {@link CreateReleaseExportWithStatusErrors}
+   */
+  public ServiceCall<CreateReleaseExportWithStatusErrors> createReleaseExport(
+      CreateReleaseExportOptions createReleaseExportOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createReleaseExportOptions, "createReleaseExportOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", createReleaseExportOptions.assistantId());
+    pathParamsMap.put("release", createReleaseExportOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}/export",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "createReleaseExport");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (createReleaseExportOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createReleaseExportOptions.includeAudit()));
+    }
+    ResponseConverter<CreateReleaseExportWithStatusErrors> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<
+                CreateReleaseExportWithStatusErrors>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get release export.
+   *
+   * <p>A dual function endpoint to either retrieve the Zip file artifact that is associated with an
+   * assistant release or, retrieve the status of the artifact's creation. It is assumed that the
+   * artifact creation was already initiated prior to calling this endpoint. In the event that the
+   * artifact is not yet created and ready for download, this endpoint can be used to poll the
+   * system until the creation is completed or has failed. On the other hand, if the artifact is
+   * created, this endpoint will return the Zip file artifact as an octet stream. Once the artifact
+   * has been created, it will last for the duration (/scope) of the release. &lt;br /&gt;&lt;br
+   * /&gt; When you will have downloaded the Zip file artifact, you have one of three ways to import
+   * it into an assistant's draft environment. These are as follows. &lt;br
+   * /&gt;&lt;ol&gt;&lt;li&gt;Import the zip package in Tooling via &lt;var&gt;"Assistant Settings"
+   * -&gt; "Download/Upload files" -&gt; "Upload" -&gt; "Assistant
+   * only"&lt;/var&gt;.&lt;/li&gt;&lt;li&gt;Import the zip package via "Create release import"
+   * endpoint using the APIs.&lt;/li&gt;&lt;li&gt;Extract the contents of the Zip file artifact and
+   * individually import the skill JSONs via skill update endpoints.&lt;/li&gt;&lt;/ol&gt;.
+   *
+   * @param downloadReleaseExportOptions the {@link DownloadReleaseExportOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link CreateReleaseExportWithStatusErrors}
+   */
+  public ServiceCall<CreateReleaseExportWithStatusErrors> downloadReleaseExport(
+      DownloadReleaseExportOptions downloadReleaseExportOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        downloadReleaseExportOptions, "downloadReleaseExportOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", downloadReleaseExportOptions.assistantId());
+    pathParamsMap.put("release", downloadReleaseExportOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}/export",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "downloadReleaseExport");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (downloadReleaseExportOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(downloadReleaseExportOptions.includeAudit()));
+    }
+    ResponseConverter<CreateReleaseExportWithStatusErrors> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<
+                CreateReleaseExportWithStatusErrors>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get release export as stream.
+   *
+   * <p>A dual function endpoint to either retrieve the Zip file artifact that is associated with an
+   * assistant release or, retrieve the status of the artifact's creation. It is assumed that the
+   * artifact creation was already initiated prior to calling this endpoint. In the event that the
+   * artifact is not yet created and ready for download, this endpoint can be used to poll the
+   * system until the creation is completed or has failed. On the other hand, if the artifact is
+   * created, this endpoint will return the Zip file artifact as an octet stream. Once the artifact
+   * has been created, it will last for the duration (/scope) of the release. &lt;br /&gt;&lt;br
+   * /&gt; When you will have downloaded the Zip file artifact, you have one of three ways to import
+   * it into an assistant's draft environment. These are as follows. &lt;br
+   * /&gt;&lt;ol&gt;&lt;li&gt;Import the zip package in Tooling via &lt;var&gt;"Assistant Settings"
+   * -&gt; "Download/Upload files" -&gt; "Upload" -&gt; "Assistant
+   * only"&lt;/var&gt;.&lt;/li&gt;&lt;li&gt;Import the zip package via "Create release import"
+   * endpoint using the APIs.&lt;/li&gt;&lt;li&gt;Extract the contents of the Zip file artifact and
+   * individually import the skill JSONs via skill update endpoints.&lt;/li&gt;&lt;/ol&gt;.
+   *
+   * @param downloadReleaseExportOptions the {@link DownloadReleaseExportOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link InputStream}
+   */
+  public ServiceCall<InputStream> downloadReleaseExportAsStream(
+      DownloadReleaseExportOptions downloadReleaseExportOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        downloadReleaseExportOptions, "downloadReleaseExportOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", downloadReleaseExportOptions.assistantId());
+    pathParamsMap.put("release", downloadReleaseExportOptions.release());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/releases/{release}/export",
+                pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "downloadReleaseExportAsStream");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/octet-stream");
+    builder.query("version", String.valueOf(this.version));
+    if (downloadReleaseExportOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(downloadReleaseExportOptions.includeAudit()));
+    }
+    ResponseConverter<InputStream> responseConverter = ResponseConverterUtils.getInputStream();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Create release import.
+   *
+   * <p>Import a previously exported assistant release Zip file artifact (/package) into an
+   * assistant. This endpoint creates (/initiates) an asynchronous task (/job) in the background
+   * which will import the artifact contents into the draft environment of the assistant on which
+   * this endpoint is called. Specifically, the asynchronous operation will override the action
+   * and/or dialog skills in the assistant. It will be worth noting that when the artifact that is
+   * provided to this endpoint is from an assistant release which has coexistence enabled (i.e., it
+   * has both action and dialog skills), the import process will automatically enable coexistence,
+   * if not already enabled, on the assistant into which said artifact is being uploaded to. On the
+   * other hand, if the artifact package being imported only has action skill in it, the import
+   * asynchronous process will only override the draft environment's action skill, regardless of
+   * whether coexistence is enabled on the assistant into which the package is being imported.
+   * Lastly, the system will only run one asynchronous import at a time on an assistant. As such,
+   * consecutive imports will override previous import's updates to the skills in the draft
+   * environment. Once created, you may poll the completion of the import via the "Get release
+   * import Status" endpoint.
+   *
+   * @param createReleaseImportOptions the {@link CreateReleaseImportOptions} containing the options
+   *     for the call
+   * @return a {@link ServiceCall} with a result of type {@link
+   *     CreateAssistantReleaseImportResponse}
+   */
+  public ServiceCall<CreateAssistantReleaseImportResponse> createReleaseImport(
+      CreateReleaseImportOptions createReleaseImportOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        createReleaseImportOptions, "createReleaseImportOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", createReleaseImportOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/import", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "createReleaseImport");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (createReleaseImportOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(createReleaseImportOptions.includeAudit()));
+    }
+    builder.bodyContent(createReleaseImportOptions.body(), "application/octet-stream");
+    ResponseConverter<CreateAssistantReleaseImportResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<
+                CreateAssistantReleaseImportResponse>() {}.getType());
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Get release import Status.
+   *
+   * <p>Monitor the status of an assistant release import. You may poll this endpoint until the
+   * status of the import has either succeeded or failed.
+   *
+   * @param getReleaseImportStatusOptions the {@link GetReleaseImportStatusOptions} containing the
+   *     options for the call
+   * @return a {@link ServiceCall} with a result of type {@link
+   *     MonitorAssistantReleaseImportArtifactResponse}
+   */
+  public ServiceCall<MonitorAssistantReleaseImportArtifactResponse> getReleaseImportStatus(
+      GetReleaseImportStatusOptions getReleaseImportStatusOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        getReleaseImportStatusOptions, "getReleaseImportStatusOptions cannot be null");
+    Map<String, String> pathParamsMap = new HashMap<String, String>();
+    pathParamsMap.put("assistant_id", getReleaseImportStatusOptions.assistantId());
+    RequestBuilder builder =
+        RequestBuilder.get(
+            RequestBuilder.resolveRequestUrl(
+                getServiceUrl(), "/v2/assistants/{assistant_id}/import", pathParamsMap));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("conversation", "v2", "getReleaseImportStatus");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    builder.query("version", String.valueOf(this.version));
+    if (getReleaseImportStatusOptions.includeAudit() != null) {
+      builder.query("include_audit", String.valueOf(getReleaseImportStatusOptions.includeAudit()));
+    }
+    ResponseConverter<MonitorAssistantReleaseImportArtifactResponse> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<
+                MonitorAssistantReleaseImportArtifactResponse>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 

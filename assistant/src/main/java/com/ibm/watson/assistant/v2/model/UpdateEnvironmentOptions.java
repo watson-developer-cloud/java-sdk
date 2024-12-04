@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023, 2024.
+ * (C) Copyright IBM Corp. 2024.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,6 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+
 package com.ibm.watson.assistant.v2.model;
 
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
@@ -23,7 +24,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   protected String environmentId;
   protected String name;
   protected String description;
-  protected BaseEnvironmentOrchestration orchestration;
+  protected UpdateEnvironmentOrchestration orchestration;
   protected Long sessionTimeout;
   protected List<EnvironmentSkill> skillReferences;
 
@@ -33,7 +34,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
     private String environmentId;
     private String name;
     private String description;
-    private BaseEnvironmentOrchestration orchestration;
+    private UpdateEnvironmentOrchestration orchestration;
     private Long sessionTimeout;
     private List<EnvironmentSkill> skillReferences;
 
@@ -141,7 +142,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
      * @param orchestration the orchestration
      * @return the UpdateEnvironmentOptions builder
      */
-    public Builder orchestration(BaseEnvironmentOrchestration orchestration) {
+    public Builder orchestration(UpdateEnvironmentOrchestration orchestration) {
       this.orchestration = orchestration;
       return this;
     }
@@ -257,7 +258,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
    *
    * @return the orchestration
    */
-  public BaseEnvironmentOrchestration orchestration() {
+  public UpdateEnvironmentOrchestration orchestration() {
     return orchestration;
   }
 
