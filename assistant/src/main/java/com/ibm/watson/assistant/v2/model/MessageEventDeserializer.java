@@ -45,7 +45,7 @@ public class MessageEventDeserializer extends MessageStreamResponse {
      * @param inputStream the inputStream
      */
     public Builder(InputStream inputStream) {
-      var inputStreamConnectStrategy =
+      InputStreamConnectStrategy inputStreamConnectStrategy =
           new InputStreamConnectStrategy.Builder().inputStream(inputStream).build();
       this.eventSource = new EventSource.Builder(inputStreamConnectStrategy).build();
     }
@@ -66,7 +66,7 @@ public class MessageEventDeserializer extends MessageStreamResponse {
      * @return the MessageEventDeserializer builder
      */
     public MessageEventDeserializer.Builder inputStream(InputStream inputStream) {
-      var inputStreamConnectStrategy =
+      InputStreamConnectStrategy inputStreamConnectStrategy =
           new InputStreamConnectStrategy.Builder().inputStream(inputStream).build();
       this.eventSource = new EventSource.Builder(inputStreamConnectStrategy).build();
       return this;
@@ -109,8 +109,8 @@ public class MessageEventDeserializer extends MessageStreamResponse {
     }
 
     public T next() {
-      var gson = new Gson();
-      var messageEvent = messageEvents.iterator().next();
+      Gson gson = new Gson();
+      MessageEvent messageEvent = messageEvents.iterator().next();
       T item = (T) gson.fromJson(messageEvent.getData(), MessageStreamResponse.class);
       return item;
     }
@@ -128,8 +128,8 @@ public class MessageEventDeserializer extends MessageStreamResponse {
     }
 
     public T next() {
-      var gson = new Gson();
-      var messageEvent = messageEvents.iterator().next();
+      Gson gson = new Gson();
+      MessageEvent messageEvent = messageEvents.iterator().next();
       T item = (T) gson.fromJson(messageEvent.getData(), StatelessMessageStreamResponse.class);
       return item;
     }
