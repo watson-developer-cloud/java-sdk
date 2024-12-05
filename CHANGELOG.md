@@ -1,3 +1,30 @@
+# [14.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v13.0.0...v14.0.0) (2024-12-05)
+
+
+### Bug Fixes
+
+* **nlu:** remove summarization param ([3fa8b85](https://github.com/watson-developer-cloud/java-sdk/commit/3fa8b850dac020d11fa3534236723afaeb1af089))
+
+
+### Features
+
+* **discov1:** remove discoV1 ([2d64d0d](https://github.com/watson-developer-cloud/java-sdk/commit/2d64d0d76b2838617c639b9eb651df4460628398))
+* **discov2:** add methods for new batches api ([750a115](https://github.com/watson-developer-cloud/java-sdk/commit/750a1155f081ff1bddcb9b963f3c56e3402595b9))
+* **lt:** remove lt and other deprecated resources ([254428b](https://github.com/watson-developer-cloud/java-sdk/commit/254428b0bd0167c0df3acfefe1128a9655cd5d7e))
+* **stt:** add new speech models ([5ca34b2](https://github.com/watson-developer-cloud/java-sdk/commit/5ca34b2542ca3aff3f2c1d039dbf9ae99eb62504))
+* **stt:** readd interimResults and lowLatency wss params ([6696356](https://github.com/watson-developer-cloud/java-sdk/commit/669635661a4eb81847e448d40bb8181509beada1))
+* **WxA:** add new functions and update required params ([a429786](https://github.com/watson-developer-cloud/java-sdk/commit/a429786aed4c0e9c8411599fcd262343eb831905))
+
+
+### BREAKING CHANGES
+
+* **WxA:** `environmentId` now required for `message` and `messageStateless` functions
+
+Add support for message streaming and new APIs
+New functions: createProviders, listProviders, updateProviders, createReleaseExport, downloadReleaseExport, createReleaseImport, getReleaseImportStatus, messageStream, messageStreamStateless
+* **lt:** LanguageTranslator functionality has been removed
+* **discov1:** DiscoveryV1 functionality has been removed
+
 # [13.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v12.0.1...v13.0.0) (2024-05-20)
 
 
