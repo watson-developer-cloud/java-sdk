@@ -47,6 +47,7 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
     discriminatorMapping.put("callout", MessageOutputDebugTurnEventTurnEventCallout.class);
     discriminatorMapping.put("search", MessageOutputDebugTurnEventTurnEventSearch.class);
     discriminatorMapping.put("node_visited", MessageOutputDebugTurnEventTurnEventNodeVisited.class);
+    discriminatorMapping.put("conversational_search_end", MessageOutputDebugTurnEventTurnEventConversationalSearchEnd.class);
   }
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
