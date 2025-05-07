@@ -1,3 +1,10 @@
+## [14.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.0...v14.0.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* **wa-v2:** add conversational_search_end turn event ([ca524b1](https://github.com/watson-developer-cloud/java-sdk/commit/ca524b1753150ff7f5b0b8a2fac17428a3c41c8d))
+
 # [14.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v13.0.0...v14.0.0) (2024-12-05)
 
 
