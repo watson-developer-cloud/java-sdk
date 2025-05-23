@@ -13,8 +13,8 @@
 
 package com.ibm.watson.assistant.v2.model;
 
-/** GenerativeAITaskGeneralPurposeAnsweringTask. */
-public class GenerativeAITaskGeneralPurposeAnsweringTask extends GenerativeAITask {
+/** GenerativeAITaskGeneralPurposeAnswering. */
+public class GenerativeAITaskGeneralPurposeAnswering extends GenerativeAITask {
 
-  protected GenerativeAITaskGeneralPurposeAnsweringTask() {}
+  protected GenerativeAITaskGeneralPurposeAnswering() {}
 }

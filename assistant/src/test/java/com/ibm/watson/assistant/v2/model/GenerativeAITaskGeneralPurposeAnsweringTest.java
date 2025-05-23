@@ -22,21 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the GenerativeAITaskContentGroundedAnsweringTask model. */
-public class GenerativeAITaskContentGroundedAnsweringTaskTest {
+/** Unit test class for the GenerativeAITaskGeneralPurposeAnswering model. */
+public class GenerativeAITaskGeneralPurposeAnsweringTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testGenerativeAITaskContentGroundedAnsweringTask() throws Throwable {
-    GenerativeAITaskContentGroundedAnsweringTask generativeAiTaskContentGroundedAnsweringTaskModel =
-        new GenerativeAITaskContentGroundedAnsweringTask();
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.getTask());
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.isIsIdkResponse());
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.isIsHapDetected());
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.getConfidenceScores());
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.getOriginalResponse());
-    assertNull(generativeAiTaskContentGroundedAnsweringTaskModel.getInferredQuery());
+  public void testGenerativeAITaskGeneralPurposeAnswering() throws Throwable {
+    GenerativeAITaskGeneralPurposeAnswering generativeAiTaskGeneralPurposeAnsweringModel =
+        new GenerativeAITaskGeneralPurposeAnswering();
+    assertNull(generativeAiTaskGeneralPurposeAnsweringModel.getTask());
+    assertNull(generativeAiTaskGeneralPurposeAnsweringModel.isIsIdkResponse());
+    assertNull(generativeAiTaskGeneralPurposeAnsweringModel.isIsHapDetected());
   }
 }

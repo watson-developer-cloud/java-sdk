@@ -19,8 +19,8 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 /**
  * GenerativeAITask.
  *
- * <p>Classes which extend this class: - GenerativeAITaskContentGroundedAnsweringTask -
- * GenerativeAITaskGeneralPurposeAnsweringTask
+ * <p>Classes which extend this class: - GenerativeAITaskContentGroundedAnswering -
+ * GenerativeAITaskGeneralPurposeAnswering
  */
 public class GenerativeAITask extends GenericModel {
   @SuppressWarnings("unused")
@@ -31,9 +31,9 @@ public class GenerativeAITask extends GenericModel {
   static {
     discriminatorMapping = new java.util.HashMap<>();
     discriminatorMapping.put(
-        "content_grounded_answering", GenerativeAITaskContentGroundedAnsweringTask.class);
+        "content_grounded_answering", GenerativeAITaskContentGroundedAnswering.class);
     discriminatorMapping.put(
-        "general_purpose_answering", GenerativeAITaskGeneralPurposeAnsweringTask.class);
+        "general_purpose_answering", GenerativeAITaskGeneralPurposeAnswering.class);
   }
 
   protected String task;
