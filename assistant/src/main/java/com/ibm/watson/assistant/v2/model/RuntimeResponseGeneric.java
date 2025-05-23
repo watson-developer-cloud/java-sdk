@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -21,10 +21,11 @@ import java.util.Map;
 /**
  * RuntimeResponseGeneric.
  *
- * <p>Classes which extend this class: - RuntimeResponseGenericRuntimeResponseTypeText -
- * RuntimeResponseGenericRuntimeResponseTypePause - RuntimeResponseGenericRuntimeResponseTypeImage -
- * RuntimeResponseGenericRuntimeResponseTypeOption -
- * RuntimeResponseGenericRuntimeResponseTypeConnectToAgent -
+ * <p>Classes which extend this class: -
+ * RuntimeResponseGenericRuntimeResponseTypeConversationalSearch -
+ * RuntimeResponseGenericRuntimeResponseTypeText - RuntimeResponseGenericRuntimeResponseTypePause -
+ * RuntimeResponseGenericRuntimeResponseTypeImage - RuntimeResponseGenericRuntimeResponseTypeOption
+ * - RuntimeResponseGenericRuntimeResponseTypeConnectToAgent -
  * RuntimeResponseGenericRuntimeResponseTypeSuggestion -
  * RuntimeResponseGenericRuntimeResponseTypeChannelTransfer -
  * RuntimeResponseGenericRuntimeResponseTypeSearch -
@@ -40,6 +41,8 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   static {
     discriminatorMapping = new java.util.HashMap<>();
+    discriminatorMapping.put(
+        "conversation_search", RuntimeResponseGenericRuntimeResponseTypeConversationalSearch.class);
     discriminatorMapping.put("audio", RuntimeResponseGenericRuntimeResponseTypeAudio.class);
     discriminatorMapping.put(
         "channel_transfer", RuntimeResponseGenericRuntimeResponseTypeChannelTransfer.class);
@@ -70,6 +73,22 @@ public class RuntimeResponseGeneric extends GenericModel {
   protected String responseType;
 
   protected String text;
+
+  @SerializedName("citations_title")
+  protected String citationsTitle;
+
+  protected List<ResponseGenericCitation> citations;
+
+  @SerializedName("confidence_scores")
+  protected ResponseGenericConfidenceScores confidenceScores;
+
+  @SerializedName("response_length_option")
+  protected String responseLengthOption;
+
+  @SerializedName("search_results")
+  protected List<SearchResults> searchResults;
+
+  protected String disclaimer;
   protected List<ResponseGenericChannel> channels;
   protected Long time;
   protected Boolean typing;
@@ -132,12 +151,83 @@ public class RuntimeResponseGeneric extends GenericModel {
   /**
    * Gets the text.
    *
-   * <p>The text of the response.
+   * <p>The text of the conversational search response.
    *
    * @return the text
    */
   public String text() {
     return text;
+  }
+
+  /**
+   * Gets the citationsTitle.
+   *
+   * <p>The title of the citations. The default is “How do we know?”. It can be updated in the
+   * conversational search user interface.
+   *
+   * @return the citationsTitle
+   */
+  public String citationsTitle() {
+    return citationsTitle;
+  }
+
+  /**
+   * Gets the citations.
+   *
+   * <p>The citations for the generated response.
+   *
+   * @return the citations
+   */
+  public List<ResponseGenericCitation> citations() {
+    return citations;
+  }
+
+  /**
+   * Gets the confidenceScores.
+   *
+   * <p>The confidence scores for determining whether to show the generated response or an “I don't
+   * know” response.
+   *
+   * @return the confidenceScores
+   */
+  public ResponseGenericConfidenceScores confidenceScores() {
+    return confidenceScores;
+  }
+
+  /**
+   * Gets the responseLengthOption.
+   *
+   * <p>The response length option. It is used to control the length of the generated response. It
+   * is configured either in the user interface or through the Update skill API. For more
+   * information, see [watsonx Assistant documentation](
+   * https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-conversational-search#tuning-the-generated-response-length-in-conversational-search).
+   *
+   * @return the responseLengthOption
+   */
+  public String responseLengthOption() {
+    return responseLengthOption;
+  }
+
+  /**
+   * Gets the searchResults.
+   *
+   * <p>An array of objects containing the search results.
+   *
+   * @return the searchResults
+   */
+  public List<SearchResults> searchResults() {
+    return searchResults;
+  }
+
+  /**
+   * Gets the disclaimer.
+   *
+   * <p>A disclaimer for the conversational search response.
+   *
+   * @return the disclaimer
+   */
+  public String disclaimer() {
+    return disclaimer;
   }
 
   /**

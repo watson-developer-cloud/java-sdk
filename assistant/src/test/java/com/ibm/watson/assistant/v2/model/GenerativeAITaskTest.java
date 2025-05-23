@@ -22,19 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the GenerativeAITask model. */
+public class GenerativeAITaskTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
+  // TODO: Add tests for models that are abstract
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testGenerativeAITask() throws Throwable {
+    GenerativeAITask generativeAiTaskModel = new GenerativeAITask();
+    assertNotNull(generativeAiTaskModel);
   }
 }

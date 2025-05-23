@@ -22,19 +22,21 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the GenerativeAITaskContentGroundedAnswering model. */
+public class GenerativeAITaskContentGroundedAnsweringTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testGenerativeAITaskContentGroundedAnswering() throws Throwable {
+    GenerativeAITaskContentGroundedAnswering generativeAiTaskContentGroundedAnsweringModel =
+        new GenerativeAITaskContentGroundedAnswering();
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.getTask());
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.isIsIdkResponse());
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.isIsHapDetected());
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.getConfidenceScores());
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.getOriginalResponse());
+    assertNull(generativeAiTaskContentGroundedAnsweringModel.getInferredQuery());
   }
 }
