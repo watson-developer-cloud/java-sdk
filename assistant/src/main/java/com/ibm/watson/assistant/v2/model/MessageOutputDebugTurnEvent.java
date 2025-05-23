@@ -15,6 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +26,14 @@ import java.util.Map;
  * MessageOutputDebugTurnEventTurnEventStepVisited -
  * MessageOutputDebugTurnEventTurnEventStepAnswered -
  * MessageOutputDebugTurnEventTurnEventHandlerVisited - MessageOutputDebugTurnEventTurnEventCallout
- * - MessageOutputDebugTurnEventTurnEventSearch - MessageOutputDebugTurnEventTurnEventNodeVisited
+ * - MessageOutputDebugTurnEventTurnEventSearch - MessageOutputDebugTurnEventTurnEventNodeVisited -
+ * MessageOutputDebugTurnEventTurnEventConversationalSearchEnd -
+ * MessageOutputDebugTurnEventTurnEventManualRoute -
+ * MessageOutputDebugTurnEventTurnEventTopicSwitchDenied -
+ * MessageOutputDebugTurnEventTurnEventActionRoutingDenied -
+ * MessageOutputDebugTurnEventTurnEventSuggestionIntentsDenied -
+ * MessageOutputDebugTurnEventTurnEventGenerativeAICalled -
+ * MessageOutputDebugTurnEventTurnEventClientActions
  */
 public class MessageOutputDebugTurnEvent extends GenericModel {
   @SuppressWarnings("unused")
@@ -47,7 +55,21 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
     discriminatorMapping.put("callout", MessageOutputDebugTurnEventTurnEventCallout.class);
     discriminatorMapping.put("search", MessageOutputDebugTurnEventTurnEventSearch.class);
     discriminatorMapping.put("node_visited", MessageOutputDebugTurnEventTurnEventNodeVisited.class);
-    discriminatorMapping.put("conversational_search_end", MessageOutputDebugTurnEventTurnEventConversationalSearchEnd.class);
+    discriminatorMapping.put(
+        "conversational_search_end",
+        MessageOutputDebugTurnEventTurnEventConversationalSearchEnd.class);
+    discriminatorMapping.put("manual_route", MessageOutputDebugTurnEventTurnEventManualRoute.class);
+    discriminatorMapping.put(
+        "topic_switch_denied", MessageOutputDebugTurnEventTurnEventTopicSwitchDenied.class);
+    discriminatorMapping.put(
+        "action_routing_denied", MessageOutputDebugTurnEventTurnEventActionRoutingDenied.class);
+    discriminatorMapping.put(
+        "suggestion_intents_denied",
+        MessageOutputDebugTurnEventTurnEventSuggestionIntentsDenied.class);
+    discriminatorMapping.put(
+        "generative_ai_called", MessageOutputDebugTurnEventTurnEventGenerativeAICalled.class);
+    discriminatorMapping.put(
+        "client_actions", MessageOutputDebugTurnEventTurnEventClientActions.class);
   }
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
@@ -101,7 +123,23 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   protected Boolean hasQuestion;
 
   protected Boolean prompted;
-  protected TurnEventCalloutCallout callout;
+
+  @SerializedName("route_name")
+  protected String routeName;
+
+  @SerializedName("intents_denied")
+  protected List<RuntimeIntent> intentsDenied;
+
+  @SerializedName("generative_ai_start_time")
+  protected String generativeAiStartTime;
+
+  @SerializedName("generative_ai")
+  protected GenerativeAITask generativeAi;
+
+  protected TurnEventGenerativeAICalledMetrics metrics;
+
+  @SerializedName("client_actions")
+  protected List<ClientAction> clientActions;
 
   protected MessageOutputDebugTurnEvent() {}
 
@@ -196,11 +234,64 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   }
 
   /**
-   * Gets the callout.
+   * Gets the routeName.
    *
-   * @return the callout
+   * <p>The name of the route.
+   *
+   * @return the routeName
    */
-  public TurnEventCalloutCallout getCallout() {
-    return callout;
+  public String getRouteName() {
+    return routeName;
+  }
+
+  /**
+   * Gets the intentsDenied.
+   *
+   * <p>An array of denied intents.
+   *
+   * @return the intentsDenied
+   */
+  public List<RuntimeIntent> getIntentsDenied() {
+    return intentsDenied;
+  }
+
+  /**
+   * Gets the generativeAiStartTime.
+   *
+   * <p>The time when generative ai started processing the message.
+   *
+   * @return the generativeAiStartTime
+   */
+  public String getGenerativeAiStartTime() {
+    return generativeAiStartTime;
+  }
+
+  /**
+   * Gets the generativeAi.
+   *
+   * @return the generativeAi
+   */
+  public GenerativeAITask getGenerativeAi() {
+    return generativeAi;
+  }
+
+  /**
+   * Gets the metrics.
+   *
+   * @return the metrics
+   */
+  public TurnEventGenerativeAICalledMetrics getMetrics() {
+    return metrics;
+  }
+
+  /**
+   * Gets the clientActions.
+   *
+   * <p>An array of client actions.
+   *
+   * @return the clientActions
+   */
+  public List<ClientAction> getClientActions() {
+    return clientActions;
   }
 }
