@@ -13,9 +13,8 @@
 
 package com.ibm.watson.assistant.v2.model;
 
-/** MessageOutputDebugTurnEventTurnEventConversationalSearchEnd. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-    extends MessageOutputDebugTurnEvent {
+/** MessageOutputDebugTurnEventTurnEventManualRoute. */
+public class MessageOutputDebugTurnEventTurnEventManualRoute extends MessageOutputDebugTurnEvent {
 
   /** The type of condition (if any) that is defined for the action. */
   public interface ConditionType {
@@ -26,17 +25,17 @@ public class MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
     /** anything_else. */
     String ANYTHING_ELSE = "anything_else";
   }
- 
-  protected TurnEventActionSource source;
 
-  protected MessageOutputDebugTurnEventTurnEventConversationalSearchEnd() {}
- 
-   /**
-    * Gets the source.
-    *
-    * @return the source
-    */
-   public TurnEventActionSource getSource() {
-     return source;
-   }
+  protected TurnEventStepSource source;
+
+  protected MessageOutputDebugTurnEventTurnEventManualRoute() {}
+
+  /**
+  * Gets the source.
+  *
+  * @return the source
+  */
+  public TurnEventStepSource getSource() {
+    return source;
+  }
 }

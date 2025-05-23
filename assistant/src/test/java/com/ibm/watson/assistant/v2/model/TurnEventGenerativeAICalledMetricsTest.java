@@ -22,19 +22,18 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the TurnEventGenerativeAICalledMetrics model. */
+public class TurnEventGenerativeAICalledMetricsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testTurnEventGenerativeAICalledMetrics() throws Throwable {
+    TurnEventGenerativeAICalledMetrics turnEventGenerativeAiCalledMetricsModel =
+        new TurnEventGenerativeAICalledMetrics();
+    assertNull(turnEventGenerativeAiCalledMetricsModel.getSearchTimeMs());
+    assertNull(turnEventGenerativeAiCalledMetricsModel.getAnswerGenerationTimeMs());
+    assertNull(turnEventGenerativeAiCalledMetricsModel.getTotalTimeMs());
   }
 }

@@ -22,19 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the ClientAction model. */
+public class ClientActionTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testClientAction() throws Throwable {
+    ClientAction clientActionModel = new ClientAction();
+    assertNull(clientActionModel.getName());
+    assertNull(clientActionModel.getResultVariable());
+    assertNull(clientActionModel.getType());
+    assertNull(clientActionModel.getSkill());
+    assertNull(clientActionModel.getParameters());
   }
 }

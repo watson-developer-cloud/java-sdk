@@ -13,8 +13,8 @@
 
 package com.ibm.watson.assistant.v2.model;
 
-/** MessageOutputDebugTurnEventTurnEventConversationalSearchEnd. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
+/** MessageOutputDebugTurnEventTurnEventTopicSwitchDenied. */
+public class MessageOutputDebugTurnEventTurnEventTopicSwitchDenied
     extends MessageOutputDebugTurnEvent {
 
   /** The type of condition (if any) that is defined for the action. */
@@ -26,17 +26,23 @@ public class MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
     /** anything_else. */
     String ANYTHING_ELSE = "anything_else";
   }
- 
+
+  /** The reason the action was visited. */
+  public interface Reason {
+    /** action_conditions_failed. */
+    String ACTION_CONDITIONS_FAILED = "action_conditions_failed";
+  }
+
   protected TurnEventActionSource source;
 
-  protected MessageOutputDebugTurnEventTurnEventConversationalSearchEnd() {}
- 
-   /**
-    * Gets the source.
-    *
-    * @return the source
-    */
-   public TurnEventActionSource getSource() {
-     return source;
-   }
+  protected MessageOutputDebugTurnEventTurnEventTopicSwitchDenied() {}
+
+  /**
+  * Gets the source.
+  *
+  * @return the source
+  */
+  public TurnEventActionSource getSource() {
+    return source;
+  }
 }
