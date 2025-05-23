@@ -22,19 +22,20 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the TurnEventStepSource model. */
+public class TurnEventStepSourceTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testTurnEventStepSource() throws Throwable {
+    TurnEventStepSource turnEventStepSourceModel = new TurnEventStepSource();
+    assertNull(turnEventStepSourceModel.getType());
+    assertNull(turnEventStepSourceModel.getAction());
+    assertNull(turnEventStepSourceModel.getActionTitle());
+    assertNull(turnEventStepSourceModel.getStep());
+    assertNull(turnEventStepSourceModel.isIsAiGuided());
+    assertNull(turnEventStepSourceModel.isIsSkillBased());
   }
 }

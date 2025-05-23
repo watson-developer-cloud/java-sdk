@@ -22,19 +22,23 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the MessageOutputDebugTurnEventTurnEventConversationalSearchEnd model. */
-public class MessageOutputDebugTurnEventTurnEventConversationalSearchEndTest {
+/** Unit test class for the MessageOutputDebugTurnEventTurnEventGenerativeAICalled model. */
+public class MessageOutputDebugTurnEventTurnEventGenerativeAICalledTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testMessageOutputDebugTurnEventTurnEventConversationalSearchEnd() throws Throwable {
-    MessageOutputDebugTurnEventTurnEventConversationalSearchEnd
-        messageOutputDebugTurnEventTurnEventConversationalSearchEndModel =
-            new MessageOutputDebugTurnEventTurnEventConversationalSearchEnd();
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getEvent());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getSource());
-    assertNull(messageOutputDebugTurnEventTurnEventConversationalSearchEndModel.getConditionType());
+  public void testMessageOutputDebugTurnEventTurnEventGenerativeAICalled() throws Throwable {
+    MessageOutputDebugTurnEventTurnEventGenerativeAICalled
+        messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel =
+            new MessageOutputDebugTurnEventTurnEventGenerativeAICalled();
+    assertNull(messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getEvent());
+    assertNull(messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getSource());
+    assertNull(
+        messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getGenerativeAiStartTime());
+    assertNull(messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getGenerativeAi());
+    assertNull(messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getCallout());
+    assertNull(messageOutputDebugTurnEventTurnEventGenerativeAiCalledModel.getMetrics());
   }
 }
