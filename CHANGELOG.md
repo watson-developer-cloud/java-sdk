@@ -1,3 +1,10 @@
+## [14.0.2](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.1...v14.0.2) (2025-05-27)
+
+
+### Bug Fixes
+
+* **wa-v2:** add missing turn events ([99970d2](https://github.com/watson-developer-cloud/java-sdk/commit/99970d25be792724509df4aad804a8d4cbd164b7))
+
 ## [14.0.1](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.0...v14.0.1) (2025-05-07)
 
 
