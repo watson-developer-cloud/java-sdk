@@ -18,7 +18,6 @@ public class MessageOutputDebugTurnEventTurnEventCallout extends MessageOutputDe
 
   protected TurnEventActionSource source;
   protected TurnEventCalloutError error;
-  protected TurnEventCalloutCallout callout;
 
   protected MessageOutputDebugTurnEventTurnEventCallout() {}
 
@@ -38,14 +37,5 @@ public class MessageOutputDebugTurnEventTurnEventCallout extends MessageOutputDe
    */
   public TurnEventCalloutError getError() {
     return error;
-  }
-
-  /**
-   * Gets the callout.
-   *
-   * @return the callout
-   */
-  public TurnEventCalloutCallout getCallout() {
-    return callout;
   }
 }
