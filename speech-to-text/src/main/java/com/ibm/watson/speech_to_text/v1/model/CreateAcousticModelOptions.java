@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2018, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,6 +29,8 @@ public class CreateAcousticModelOptions extends GenericModel {
   public interface BaseModelName {
     /** ar-MS_BroadbandModel. */
     String AR_MS_BROADBANDMODEL = "ar-MS_BroadbandModel";
+    /** de-DE. */
+    String DE_DE = "de-DE";
     /** de-DE_BroadbandModel. */
     String DE_DE_BROADBANDMODEL = "de-DE_BroadbandModel";
     /** de-DE_NarrowbandModel. */

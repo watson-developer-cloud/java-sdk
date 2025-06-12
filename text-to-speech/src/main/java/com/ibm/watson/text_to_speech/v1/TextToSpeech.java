@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
+ * IBM OpenAPI SDK Code Generator Version: 3.105.0-3c13b041-20250605-193116
  */
 
 package com.ibm.watson.text_to_speech.v1;
@@ -310,18 +310,19 @@ public class TextToSpeech extends BaseService {
    * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/l16` - You must specify
    * the `rate` of the audio. You can optionally specify the `endianness` of the audio. The default
    * endianness is `little-endian`. * `audio/mp3` - You can optionally specify the `rate` of the
-   * audio. The default sampling rate is 22,050 Hz. * `audio/mpeg` - You can optionally specify the
-   * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/mulaw` - You must specify
-   * the `rate` of the audio. * `audio/ogg` - The service returns the audio in the `vorbis` codec.
-   * You can optionally specify the `rate` of the audio. The default sampling rate is 22,050 Hz. *
-   * `audio/ogg;codecs=opus` - You can optionally specify the `rate` of the audio. Only the
-   * following values are valid sampling rates: `48000`, `24000`, `16000`, `12000`, or `8000`. If
-   * you specify a value other than one of these, the service returns an error. The default sampling
-   * rate is 48,000 Hz. * `audio/ogg;codecs=vorbis` - You can optionally specify the `rate` of the
-   * audio. The default sampling rate is 22,050 Hz. * `audio/wav` - You can optionally specify the
-   * `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/webm` - The service
-   * returns the audio in the `opus` codec. The service returns audio with a sampling rate of 48,000
-   * Hz. * `audio/webm;codecs=opus` - The service returns audio with a sampling rate of 48,000 Hz. *
+   * audio. The default sampling rate is 24,000 Hz for Natural voices and 22,050 Hz for for all
+   * other voices. * `audio/mpeg` - You can optionally specify the `rate` of the audio. The default
+   * sampling rate is 22,050 Hz. * `audio/mulaw` - You must specify the `rate` of the audio. *
+   * `audio/ogg` - The service returns the audio in the `vorbis` codec. You can optionally specify
+   * the `rate` of the audio. The default sampling rate is 22,050 Hz. * `audio/ogg;codecs=opus` -
+   * You can optionally specify the `rate` of the audio. Only the following values are valid
+   * sampling rates: `48000`, `24000`, `16000`, `12000`, or `8000`. If you specify a value other
+   * than one of these, the service returns an error. The default sampling rate is 48,000 Hz. *
+   * `audio/ogg;codecs=vorbis` - You can optionally specify the `rate` of the audio. The default
+   * sampling rate is 22,050 Hz. * `audio/wav` - You can optionally specify the `rate` of the audio.
+   * The default sampling rate is 22,050 Hz. * `audio/webm` - The service returns the audio in the
+   * `opus` codec. The service returns audio with a sampling rate of 48,000 Hz. *
+   * `audio/webm;codecs=opus` - The service returns audio with a sampling rate of 48,000 Hz. *
    * `audio/webm;codecs=vorbis` - You can optionally specify the `rate` of the audio. The default
    * sampling rate is 22,050 Hz.
    *
