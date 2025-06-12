@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
+ * IBM OpenAPI SDK Code Generator Version: 3.105.0-3c13b041-20250605-193116
  */
 
 package com.ibm.watson.discovery.v2;
@@ -863,6 +863,25 @@ public class Discovery extends BaseService {
    * deleted document is added back in to your collection. To remove subdocuments that are generated
    * by an uploaded file, delete the original document instead. You can get the document ID of the
    * original document from the `parent_document_id` of the subdocument result.
+   *
+   * <p>If the document with the given document ID exists, Watson Discovery first marks or tags the
+   * document as deleted when it sends the 200 response code. At a later time (within a couple of
+   * minutes unless the document has many child documents), it removes the document from the
+   * collection.
+   *
+   * <p>There is no bulk document delete API. Documents must be deleted one at a time using this
+   * API. However, you can delete a collection, and all the documents from the collection are
+   * removed along with the collection.
+   *
+   * <p>The document will be deleted from the given collection only, not from the corresponding data
+   * source. Wherever relevant, an incremental crawl will not bring back the document into Watson
+   * Discovery from the data source. Only a full crawl will retrieve the deleted document back from
+   * the data source provided it is still present in the same data source.
+   *
+   * <p>Finally, if multiple collections share the same dataset, deleting a document from a
+   * collection will remove it from that collection only (in other remaining collections the
+   * document will still exist). The document will be removed from the dataset, if this document is
+   * deleted from all the collections that share the same dataset.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the
    *     call

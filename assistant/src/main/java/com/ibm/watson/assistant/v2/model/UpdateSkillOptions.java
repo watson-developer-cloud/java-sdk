@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023, 2024.
+ * (C) Copyright IBM Corp. 2023, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -180,17 +180,23 @@ public class UpdateSkillOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed,
-   * depending on the type of request: - For message, session, and log requests, specify the
-   * environment ID of the environment where the assistant is deployed. - For all other requests,
-   * specify the assistant ID of the assistant.
+   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed.
+   * Set the value for this ID depending on the type of request:
    *
-   * <p>To find the environment ID or assistant ID in the watsonx Assistant user interface, open the
-   * assistant settings and scroll to the **Environments** section.
+   * <p>- For message, session, and log requests, specify the environment ID of the environment
+   * where the assistant is deployed.
+   *
+   * <p>- For all other requests, specify the assistant ID of the assistant.
+   *
+   * <p>To get the **assistant ID** and **environment ID** in the watsonx Assistant interface, open
+   * the **Assistant settings** page, and scroll to the **Assistant IDs and API details** section
+   * and click **View Details**.
    *
    * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
-   * ID. To find the assistant ID in the user interface, open the assistant settings and click API
-   * Details.
+   * ID.
+   *
+   * <p>To find the **assistant ID** in the user interface, open the **Assistant settings** and
+   * click **API Details**.
    *
    * @return the assistantId
    */
@@ -201,8 +207,10 @@ public class UpdateSkillOptions extends GenericModel {
   /**
    * Gets the skillId.
    *
-   * <p>Unique identifier of the skill. To find the skill ID in the watsonx Assistant user
-   * interface, open the skill settings and click **API Details**.
+   * <p>Unique identifier of the skill. To find the action or dialog skill ID in the watsonx
+   * Assistant user interface, open the skill settings and click **API Details**. To find the search
+   * skill ID, use the Get environment API to retrieve the skill references for an environment and
+   * it will include the search skill info, if available.
    *
    * @return the skillId
    */

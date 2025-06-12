@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024.
+ * (C) Copyright IBM Corp. 2024, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -96,28 +96,29 @@ public class InputStreamConnectStrategy extends ConnectStrategy {
 
   @Override
   public Client createClient(LDLogger ldLogger) {
-    Client client = new Client() {
-      @Override
-      public Result connect(String s) throws StreamException {
-        Result result = new Result(inputStream, null, inputStream);
-        return result;
-      }
+    Client client =
+        new Client() {
+          @Override
+          public Result connect(String s) throws StreamException {
+            Result result = new Result(inputStream, null, inputStream);
+            return result;
+          }
 
-      @Override
-      public boolean awaitClosed(long l) throws InterruptedException {
-        return false;
-      }
+          @Override
+          public boolean awaitClosed(long l) throws InterruptedException {
+            return false;
+          }
 
-      @Override
-      public URI getOrigin() {
-        return null;
-      }
+          @Override
+          public URI getOrigin() {
+            return null;
+          }
 
-      @Override
-      public void close() throws IOException {
-        inputStream.close();
-      }
-    };
+          @Override
+          public void close() throws IOException {
+            inputStream.close();
+          }
+        };
     return client;
   }
 }

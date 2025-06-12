@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2020, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -120,8 +120,10 @@ public class BulkClassifyOptions extends GenericModel {
   /**
    * Gets the skillId.
    *
-   * <p>Unique identifier of the skill. To find the skill ID in the watsonx Assistant user
-   * interface, open the skill settings and click **API Details**.
+   * <p>Unique identifier of the skill. To find the action or dialog skill ID in the watsonx
+   * Assistant user interface, open the skill settings and click **API Details**. To find the search
+   * skill ID, use the Get environment API to retrieve the skill references for an environment and
+   * it will include the search skill info, if available.
    *
    * @return the skillId
    */
