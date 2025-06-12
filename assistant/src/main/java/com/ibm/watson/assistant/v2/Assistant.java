@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
+ * IBM OpenAPI SDK Code Generator Version: 3.105.0-3c13b041-20250605-193116
  */
 
 package com.ibm.watson.assistant.v2;
@@ -110,7 +110,7 @@ public class Assistant extends BaseService {
    * the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2023-06-15`.
+   *     format. The current version is `2024-08-25`.
    */
   public Assistant(String version) {
     this(
@@ -124,7 +124,7 @@ public class Assistant extends BaseService {
    * authenticator are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2023-06-15`.
+   *     format. The current version is `2024-08-25`.
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
   public Assistant(String version, Authenticator authenticator) {
@@ -136,7 +136,7 @@ public class Assistant extends BaseService {
    * configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2023-06-15`.
+   *     format. The current version is `2024-08-25`.
    * @param serviceName the service name to be used when configuring the client instance
    */
   public Assistant(String version, String serviceName) {
@@ -148,7 +148,7 @@ public class Assistant extends BaseService {
    * are used to configure the client instance.
    *
    * @param version Release date of the API version you want to use. Specify dates in YYYY-MM-DD
-   *     format. The current version is `2023-06-15`.
+   *     format. The current version is `2024-08-25`.
    * @param serviceName the service name to be used when configuring the client instance
    * @param authenticator the {@link Authenticator} instance to be configured for this client
    */
@@ -163,7 +163,7 @@ public class Assistant extends BaseService {
    * Gets the version.
    *
    * <p>Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The
-   * current version is `2023-06-15`.
+   * current version is `2024-08-25`.
    *
    * @return the version
    */
@@ -1516,8 +1516,9 @@ public class Assistant extends BaseService {
    * Export skills.
    *
    * <p>Asynchronously export the action skill and dialog skill (if enabled) for the assistant. Use
-   * this method to save all skill data so that you can import it to a different assistant using the
-   * **Import skills** method.
+   * this method to save all skill data from the draft environment so that you can import it to a
+   * different assistant using the **Import skills** method. Use `assistant_id` instead of
+   * `environment_id` to call this endpoint.
    *
    * <p>A successful call to this method only initiates an asynchronous export. The exported JSON
    * data is not available until processing completes.
@@ -1562,6 +1563,8 @@ public class Assistant extends BaseService {
    * Import skills.
    *
    * <p>Asynchronously import skills into an existing assistant from a previously exported file.
+   * This method only imports assistants into a draft environment. Use `assistant_id` instead of
+   * `environment_id` to call this endpoint.
    *
    * <p>The request body for this method should contain the response data that was received from a
    * previous call to the **Export skills** method, without modification.

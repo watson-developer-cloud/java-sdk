@@ -88,6 +88,8 @@ public class TurnEventStepSource extends GenericModel {
   /**
    * Gets the isAiGuided.
    *
+   * <p>Whether the action that the turn event was generated from is an AI-guided action.
+   *
    * @return the isAiGuided
    */
   public Boolean isIsAiGuided() {
@@ -96,6 +98,8 @@ public class TurnEventStepSource extends GenericModel {
 
   /**
    * Gets the isSkillBased.
+   *
+   * <p>Whether the action that the turn event was generated from is a skill-guided action.
    *
    * @return the isSkillBased
    */

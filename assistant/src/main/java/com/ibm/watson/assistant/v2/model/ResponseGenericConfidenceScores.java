@@ -38,9 +38,9 @@ public class ResponseGenericConfidenceScores extends GenericModel {
    * Gets the threshold.
    *
    * <p>The confidence score threshold. If either the pre_gen or post_gen score is below this
-   * threshold, an “I don't know” response will be shown to replace the generated text. It can be
-   * configured either in the user interface or through the Update skill API. For more information,
-   * see the [watsonx Assistant documentation](
+   * threshold, it shows an “I don't know” response to replace the generated text. You can configure
+   * the threshold in either the user interface or through the Update skill API. For more
+   * information, see the [watsonx Assistant documentation](
    * https://cloud.ibm.com/docs/watson-assistant?topic=watson-assistant-conversational-search#behavioral-tuning-conversational-search).
    *
    * @return the threshold
