@@ -27,7 +27,7 @@
         <surefire-version>3.0.0-M3</surefire-version>
         <jacoco-plugin-version>0.8.5</jacoco-plugin-version>
         <maven-deploy-plugin-version>3.0.0-M1</maven-deploy-plugin-version>
-        <nexus-staging-plugin-version>1.6.8</nexus-staging-plugin-version>
+        <central-publishing-plugin-version>0.7.0</central-publishing-plugin-version>
         <maven-gpg-plugin-version>1.6</maven-gpg-plugin-version>
         <maven-source-plugin-version>3.1.0</maven-source-plugin-version>
         <maven-shade-plugin-version>3.2.2</maven-shade-plugin-version>
@@ -191,9 +191,9 @@
                     <version>${maven-deploy-plugin-version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-plugin-version}</version>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>${central-publishing-plugin-version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -470,28 +470,14 @@
             <!-- For this profile, we'll get dependencies from maven central -->
             <repositories></repositories>
 
-            <distributionManagement>
-                <snapshotRepository>
-                    <!-- We don't deploy snapshot releases -->
-                </snapshotRepository>
-                <repository>
-                    <!-- This is where the nexus staging plugin will publish artifacts -->
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>false</autoReleaseAfterClose>
-                            <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
+                            <publishingServerId>central</publishingServerId>
                         </configuration>
                     </plugin>
                     <plugin>
