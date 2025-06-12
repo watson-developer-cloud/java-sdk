@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2018, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,6 +45,8 @@ public class SynthesizeOptions extends GenericModel {
     String EN_AU_JACKEXPRESSIVE = "en-AU_JackExpressive";
     /** en-GB_CharlotteV3Voice. */
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
+    /** en-GB_GeorgeExpressive. */
+    String EN_GB_GEORGEEXPRESSIVE = "en-GB_GeorgeExpressive";
     /** en-GB_JamesV3Voice. */
     String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
     /** en-GB_KateV3Voice. */
@@ -53,6 +55,8 @@ public class SynthesizeOptions extends GenericModel {
     String EN_US_ALLISONEXPRESSIVE = "en-US_AllisonExpressive";
     /** en-US_AllisonV3Voice. */
     String EN_US_ALLISONV3VOICE = "en-US_AllisonV3Voice";
+    /** en-US_EllieNatural. */
+    String EN_US_ELLIENATURAL = "en-US_EllieNatural";
     /** en-US_EmilyV3Voice. */
     String EN_US_EMILYV3VOICE = "en-US_EmilyV3Voice";
     /** en-US_EmmaExpressive. */
@@ -75,6 +79,8 @@ public class SynthesizeOptions extends GenericModel {
     String ES_ES_ENRIQUEV3VOICE = "es-ES_EnriqueV3Voice";
     /** es-ES_LauraV3Voice. */
     String ES_ES_LAURAV3VOICE = "es-ES_LauraV3Voice";
+    /** es-LA_DanielaExpressive. */
+    String ES_LA_DANIELAEXPRESSIVE = "es-LA_DanielaExpressive";
     /** es-LA_SofiaV3Voice. */
     String ES_LA_SOFIAV3VOICE = "es-LA_SofiaV3Voice";
     /** es-US_SofiaV3Voice. */
@@ -95,6 +101,8 @@ public class SynthesizeOptions extends GenericModel {
     String NL_NL_MERELV3VOICE = "nl-NL_MerelV3Voice";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
+    /** pt-BR_LucasExpressive. */
+    String PT_BR_LUCASEXPRESSIVE = "pt-BR_LucasExpressive";
   }
 
   /**
