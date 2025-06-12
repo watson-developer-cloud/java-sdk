@@ -86,8 +86,8 @@ jobs:
     - name: Publish to Maven Central
       env:
         GHA_TAG: "refs/tags/v14.0.2" # for setMavenVersion_gha
-        OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }} # for .travis.settings.xml
-        OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }} # for .travis.settings.xml
+        CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
         GPG_KEYNAME: ${{ secrets.SIGNING_KEY }}
         GPG_PASSPHRASE: ${{ secrets.SIGNING_PASSWORD }}
         SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }} # for setupSigning_gha
