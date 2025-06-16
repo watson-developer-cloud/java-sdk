@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2023, 2024.
+ * (C) Copyright IBM Corp. 2023, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -73,17 +73,17 @@ public class SearchSettings extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param discovery the discovery
      * @param messages the messages
      * @param schemaMapping the schemaMapping
+     * @param conversationalSearch the conversationalSearch
      */
     public Builder(
-        SearchSettingsDiscovery discovery,
         SearchSettingsMessages messages,
-        SearchSettingsSchemaMapping schemaMapping) {
-      this.discovery = discovery;
+        SearchSettingsSchemaMapping schemaMapping,
+        SearchSettingsConversationalSearch conversationalSearch) {
       this.messages = messages;
       this.schemaMapping = schemaMapping;
+      this.conversationalSearch = conversationalSearch;
     }
 
     /**
@@ -176,10 +176,11 @@ public class SearchSettings extends GenericModel {
   protected SearchSettings() {}
 
   protected SearchSettings(Builder builder) {
-    com.ibm.cloud.sdk.core.util.Validator.notNull(builder.discovery, "discovery cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(builder.messages, "messages cannot be null");
     com.ibm.cloud.sdk.core.util.Validator.notNull(
         builder.schemaMapping, "schemaMapping cannot be null");
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        builder.conversationalSearch, "conversationalSearch cannot be null");
     discovery = builder.discovery;
     messages = builder.messages;
     schemaMapping = builder.schemaMapping;

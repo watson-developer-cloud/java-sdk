@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2022, 2025.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,21 +13,23 @@
 
 package com.ibm.watson.assistant.v2.model;
 
-/** MessageOutputDebugTurnEventTurnEventCallout. */
-public class MessageOutputDebugTurnEventTurnEventCallout extends MessageOutputDebugTurnEvent {
+import java.util.Map;
 
-  protected TurnEventActionSource source;
-  protected TurnEventCalloutCallout callout;
-  protected TurnEventCalloutError error;
+/** MessageOutputDebugTurnEventTurnEventGenerativeAICalled. */
+public class MessageOutputDebugTurnEventTurnEventGenerativeAICalled
+    extends MessageOutputDebugTurnEvent {
 
-  protected MessageOutputDebugTurnEventTurnEventCallout() {}
+  protected Map<String, Object> source;
+  protected TurnEventGenerativeAICalledCallout callout;
+
+  protected MessageOutputDebugTurnEventTurnEventGenerativeAICalled() {}
 
   /**
    * Gets the source.
    *
    * @return the source
    */
-  public TurnEventActionSource getSource() {
+  public Map<String, Object> getSource() {
     return source;
   }
 
@@ -36,16 +38,7 @@ public class MessageOutputDebugTurnEventTurnEventCallout extends MessageOutputDe
    *
    * @return the callout
    */
-  public TurnEventCalloutCallout getCallout() {
+  public TurnEventGenerativeAICalledCallout getCallout() {
     return callout;
-  }
-
-  /**
-   * Gets the error.
-   *
-   * @return the error
-   */
-  public TurnEventCalloutError getError() {
-    return error;
   }
 }

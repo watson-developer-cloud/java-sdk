@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,16 +18,12 @@ import com.ibm.watson.assistant.v2.model.*;
 import com.ibm.watson.assistant.v2.model.ListLogsOptions.Builder;
 import com.ibm.watson.common.RetryRunner;
 import com.launchdarkly.eventsource.StreamException;
-import java.io.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import okhttp3.OkHttpClient;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -294,39 +290,44 @@ public class AssistantServiceIT extends AssistantServiceTest {
   }
 
   /** Test Provider API */
-    @Test
-    public void testProviders() {
-      ListProvidersOptions listProviderOptions = new ListProvidersOptions.Builder().build();
-      ProviderCollection listProvidersResponse = service.listProviders(listProviderOptions).execute().getResult();
-      String providerId = listProvidersResponse.getConversationalSkillProviders().get(0).getProviderId();
-      assertNotNull(listProvidersResponse);
-      assertNotNull(providerId);
+  @Test
+  public void testProviders() {
+    ListProvidersOptions listProviderOptions = new ListProvidersOptions.Builder().build();
+    ProviderCollection listProvidersResponse =
+        service.listProviders(listProviderOptions).execute().getResult();
+    String providerId =
+        listProvidersResponse.getConversationalSkillProviders().get(0).getProviderId();
+    assertNotNull(listProvidersResponse);
+    assertNotNull(providerId);
 
-      ArrayList<ProviderSpecificationServersItem> serverList = new ArrayList<>();
-      serverList.add(
-          new ProviderSpecificationServersItem.Builder()
-              .url("https://myProCodeProvider.com")
-              .build());
+    ArrayList<ProviderSpecificationServersItem> serverList = new ArrayList<>();
+    serverList.add(
+        new ProviderSpecificationServersItem.Builder()
+            .url("https://myProCodeProvider.com")
+            .build());
 
-      ProviderSpecification providerSpecification =
-          new ProviderSpecification.Builder().servers(serverList).build();
+    ProviderSpecification providerSpecification =
+        new ProviderSpecification.Builder().servers(serverList).build();
 
-      ProviderAuthenticationTypeAndValue password = new ProviderAuthenticationTypeAndValue.Builder().type("value").value("test").build();
-      ProviderPrivateAuthenticationBasicFlow basicFlow = new ProviderPrivateAuthenticationBasicFlow.Builder().password(password).build();
-      ProviderPrivate providerPrivate = new ProviderPrivate.Builder().authentication(basicFlow).build();
+    ProviderAuthenticationTypeAndValue password =
+        new ProviderAuthenticationTypeAndValue.Builder().type("value").value("test").build();
+    ProviderPrivateAuthenticationBasicFlow basicFlow =
+        new ProviderPrivateAuthenticationBasicFlow.Builder().password(password).build();
+    ProviderPrivate providerPrivate =
+        new ProviderPrivate.Builder().authentication(basicFlow).build();
 
-      // service.setServiceUrl("http://localhost:9001");
+    // service.setServiceUrl("http://localhost:9001");
 
-      UpdateProviderOptions updateProvidersOptions =
-          new UpdateProviderOptions.Builder()
-              .providerId(providerId)
-              .specification(providerSpecification)
-              .xPrivate(providerPrivate)
-              .build();
-      ProviderResponse updateProvidersResponse =
-          service.updateProvider(updateProvidersOptions).execute().getResult();
-      assertNotNull(updateProvidersResponse);
-    }
+    UpdateProviderOptions updateProvidersOptions =
+        new UpdateProviderOptions.Builder()
+            .providerId(providerId)
+            .specification(providerSpecification)
+            .xPrivate(providerPrivate)
+            .build();
+    ProviderResponse updateProvidersResponse =
+        service.updateProvider(updateProvidersOptions).execute().getResult();
+    assertNotNull(updateProvidersResponse);
+  }
 
   /** Test Import/Export Release API */
   @Test
@@ -334,7 +335,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     InputStream testFile = new FileInputStream(RESOURCE + "demo_wa_V4.zip");
     CreateReleaseImportOptions importOptions =
         new CreateReleaseImportOptions.Builder().assistantId(assistantId).body(testFile).build();
-    CreateAssistantReleaseImportResponse importResponse = service.createReleaseImport(importOptions).execute().getResult();
+    CreateAssistantReleaseImportResponse importResponse =
+        service.createReleaseImport(importOptions).execute().getResult();
     assertNotNull(importResponse);
   }
 
@@ -342,7 +344,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
   public void testDownloadExportRelease() throws IOException {
     DownloadReleaseExportOptions exportOptions =
         new DownloadReleaseExportOptions.Builder().assistantId(assistantId).release("1").build();
-    CreateReleaseExportWithStatusErrors exportResponse = service.downloadReleaseExport(exportOptions).execute().getResult();
+    CreateReleaseExportWithStatusErrors exportResponse =
+        service.downloadReleaseExport(exportOptions).execute().getResult();
     assertNotNull(exportResponse);
   }
 
@@ -372,7 +375,8 @@ public class AssistantServiceIT extends AssistantServiceTest {
     InputStream inputStream =
         service.messageStreamStateless(messageStreamStatelessOptions).execute().getResult();
 
-    MessageEventDeserializer messageDeserializer = new MessageEventDeserializer.Builder(inputStream).build();
+    MessageEventDeserializer messageDeserializer =
+        new MessageEventDeserializer.Builder(inputStream).build();
     for (StatelessMessageStreamResponse message : messageDeserializer.statelessMessages()) {
       if (message.getPartialItem() != null) {
         assertNotNull(message.getPartialItem().getText());
