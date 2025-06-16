@@ -32,6 +32,7 @@ import java.util.Map;
  * MessageOutputDebugTurnEventTurnEventTopicSwitchDenied -
  * MessageOutputDebugTurnEventTurnEventActionRoutingDenied -
  * MessageOutputDebugTurnEventTurnEventSuggestionIntentsDenied -
+ * MessageOutputDebugTurnEventTurnEventGenerativeAICalled -
  * MessageOutputDebugTurnEventTurnEventClientActions
  */
 public class MessageOutputDebugTurnEvent extends GenericModel {
@@ -65,6 +66,8 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
     discriminatorMapping.put(
         "suggestion_intents_denied",
         MessageOutputDebugTurnEventTurnEventSuggestionIntentsDenied.class);
+    discriminatorMapping.put(
+        "generative_ai_called", MessageOutputDebugTurnEventTurnEventGenerativeAICalled.class);
     discriminatorMapping.put(
         "client_actions", MessageOutputDebugTurnEventTurnEventClientActions.class);
   }
@@ -120,12 +123,19 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   protected Boolean hasQuestion;
 
   protected Boolean prompted;
-  protected TurnEventCalloutCallout callout;
   @SerializedName("route_name")
   protected String routeName;
 
   @SerializedName("intents_denied")
   protected List<RuntimeIntent> intentsDenied;
+
+  @SerializedName("generative_ai_start_time")
+  protected String generativeAiStartTime;
+
+  @SerializedName("generative_ai")
+  protected GenerativeAITask generativeAi;
+
+  protected TurnEventGenerativeAICalledMetrics metrics;
 
   @SerializedName("client_actions")
   protected List<ClientAction> clientActions;
@@ -223,15 +233,6 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
   }
 
   /**
-   * Gets the callout.
-   *
-   * @return the callout
-   */
-  public TurnEventCalloutCallout getCallout() {
-    return callout;
-  }
-
-  /**
    * Gets the routeName.
    *
    * <p>The name of the route.
@@ -251,6 +252,35 @@ public class MessageOutputDebugTurnEvent extends GenericModel {
    */
   public List<RuntimeIntent> getIntentsDenied() {
     return intentsDenied;
+  }
+
+  /**
+   * Gets the generativeAiStartTime.
+   *
+   * <p>The time when generative ai started processing the message.
+   *
+   * @return the generativeAiStartTime
+   */
+  public String getGenerativeAiStartTime() {
+    return generativeAiStartTime;
+  }
+
+  /**
+   * Gets the generativeAi.
+   *
+   * @return the generativeAi
+   */
+  public GenerativeAITask getGenerativeAi() {
+    return generativeAi;
+  }
+
+  /**
+   * Gets the metrics.
+   *
+   * @return the metrics
+   */
+  public TurnEventGenerativeAICalledMetrics getMetrics() {
+    return metrics;
   }
 
   /**

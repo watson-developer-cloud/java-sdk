@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2024, 2025.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,24 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the StatelessFinalResponseOutput model. */
-public class StatelessFinalResponseOutputTest {
+/** Unit test class for the GenerativeAITaskConfidenceScores model. */
+public class GenerativeAITaskConfidenceScoresTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testStatelessFinalResponseOutput() throws Throwable {
-    StatelessFinalResponseOutput statelessFinalResponseOutputModel =
-        new StatelessFinalResponseOutput();
-    assertNull(statelessFinalResponseOutputModel.getGeneric());
-    assertNull(statelessFinalResponseOutputModel.getIntents());
-    assertNull(statelessFinalResponseOutputModel.getEntities());
-    assertNull(statelessFinalResponseOutputModel.getActions());
-    assertNull(statelessFinalResponseOutputModel.getDebug());
-    assertNull(statelessFinalResponseOutputModel.getUserDefined());
-    assertNull(statelessFinalResponseOutputModel.getSpelling());
-    assertNull(statelessFinalResponseOutputModel.getLlmMetadata());
-    assertNull(statelessFinalResponseOutputModel.getStreamingMetadata());
+  public void testGenerativeAITaskConfidenceScores() throws Throwable {
+    GenerativeAITaskConfidenceScores generativeAiTaskConfidenceScoresModel =
+        new GenerativeAITaskConfidenceScores();
+    assertNull(generativeAiTaskConfidenceScoresModel.getPreGen());
+    assertNull(generativeAiTaskConfidenceScoresModel.getPreGenThreshold());
+    assertNull(generativeAiTaskConfidenceScoresModel.getPostGen());
+    assertNull(generativeAiTaskConfidenceScoresModel.getPostGenThreshold());
   }
 }

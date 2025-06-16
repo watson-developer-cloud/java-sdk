@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2018, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,9 @@ public class MessageOutput extends GenericModel {
   protected Map<String, Object> userDefined;
 
   protected MessageOutputSpelling spelling;
+
+  @SerializedName("llm_metadata")
+  protected List<MessageOutputLLMMetadata> llmMetadata;
 
   protected MessageOutput() {}
 
@@ -111,5 +114,17 @@ public class MessageOutput extends GenericModel {
    */
   public MessageOutputSpelling getSpelling() {
     return spelling;
+  }
+
+  /**
+   * Gets the llmMetadata.
+   *
+   * <p>An array of objects that provide information about calls to large language models that
+   * occured as part of handling this message.
+   *
+   * @return the llmMetadata
+   */
+  public List<MessageOutputLLMMetadata> getLlmMetadata() {
+    return llmMetadata;
   }
 }

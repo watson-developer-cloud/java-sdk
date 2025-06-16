@@ -15,6 +15,7 @@ package com.ibm.watson.assistant.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.cloud.sdk.core.service.model.GenericModel;
+import java.util.Map;
 
 /** ClientAction. */
 public class ClientAction extends GenericModel {
@@ -34,7 +35,7 @@ public class ClientAction extends GenericModel {
 
   protected String type;
   protected String skill;
-  protected ClientActionParameters parameters;
+  protected Map<String, Object> parameters;
 
   protected ClientAction() {}
 
@@ -52,6 +53,8 @@ public class ClientAction extends GenericModel {
   /**
    * Gets the resultVariable.
    *
+   * <p>The name of the variable that the results are stored in.
+   *
    * @return the resultVariable
    */
   public String getResultVariable() {
@@ -60,6 +63,8 @@ public class ClientAction extends GenericModel {
 
   /**
    * Gets the type.
+   *
+   * <p>The type of turn event.
    *
    * @return the type
    */
@@ -81,9 +86,11 @@ public class ClientAction extends GenericModel {
   /**
    * Gets the parameters.
    *
+   * <p>An object containing arbitrary variables that are included in the turn event.
+   *
    * @return the parameters
    */
-  public ClientActionParameters getParameters() {
+  public Map<String, Object> getParameters() {
     return parameters;
   }
 }
