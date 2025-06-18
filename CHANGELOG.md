@@ -1,3 +1,19 @@
+# [15.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.2...v15.0.0) (2025-06-18)
+
+
+### Features
+
+* **stt,tts:** new models and voices ([e2aaf08](https://github.com/watson-developer-cloud/java-sdk/commit/e2aaf0850dd30ce1dfe8c9534171b84a1a146765))
+* **wa-v2:** add new turn event type ([3ec3da0](https://github.com/watson-developer-cloud/java-sdk/commit/3ec3da0fff08ac3b4d1314b9b8c6767d4645ed6c))
+
+
+### BREAKING CHANGES
+
+* **wa-v2:** conversationalSearch is now a required parameter when constructing SearchSettings
+
+Add new llmMetadata property
+Add new turn event TurnEventGenerativeAICalledCallout
+
 ## [14.0.2](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.1...v14.0.2) (2025-05-27)
 
 
