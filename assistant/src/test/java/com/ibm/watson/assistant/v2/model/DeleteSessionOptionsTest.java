@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,9 +33,11 @@ public class DeleteSessionOptionsTest {
     DeleteSessionOptions deleteSessionOptionsModel =
         new DeleteSessionOptions.Builder()
             .assistantId("testString")
+            .environmentId("testString")
             .sessionId("testString")
             .build();
     assertEquals(deleteSessionOptionsModel.assistantId(), "testString");
+    assertEquals(deleteSessionOptionsModel.environmentId(), "testString");
     assertEquals(deleteSessionOptionsModel.sessionId(), "testString");
   }
 

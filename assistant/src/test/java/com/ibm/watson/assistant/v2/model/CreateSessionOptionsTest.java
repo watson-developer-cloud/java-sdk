@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2023.
+ * (C) Copyright IBM Corp. 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -43,9 +43,11 @@ public class CreateSessionOptionsTest {
     CreateSessionOptions createSessionOptionsModel =
         new CreateSessionOptions.Builder()
             .assistantId("testString")
+            .environmentId("testString")
             .analytics(requestAnalyticsModel)
             .build();
     assertEquals(createSessionOptionsModel.assistantId(), "testString");
+    assertEquals(createSessionOptionsModel.environmentId(), "testString");
     assertEquals(createSessionOptionsModel.analytics(), requestAnalyticsModel);
   }
 
