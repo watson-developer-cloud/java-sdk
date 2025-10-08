@@ -103,6 +103,8 @@ public class GenerativeAITask extends GenericModel {
   /**
    * Gets the originalResponse.
    *
+   * <p>The original response returned by the generative ai.
+   *
    * @return the originalResponse
    */
   public String getOriginalResponse() {
@@ -111,6 +113,9 @@ public class GenerativeAITask extends GenericModel {
 
   /**
    * Gets the inferredQuery.
+   *
+   * <p>Generated from the input text after auto-correction. If this field is not present, the input
+   * text was used as the query to the generative ai.
    *
    * @return the inferredQuery
    */

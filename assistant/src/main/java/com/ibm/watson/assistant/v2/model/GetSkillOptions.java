@@ -104,23 +104,9 @@ public class GetSkillOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed.
-   * Set the value for this ID depending on the type of request:
-   *
-   * <p>- For message, session, and log requests, specify the environment ID of the environment
-   * where the assistant is deployed.
-   *
-   * <p>- For all other requests, specify the assistant ID of the assistant.
-   *
-   * <p>To get the **assistant ID** and **environment ID** in the watsonx Assistant interface, open
-   * the **Assistant settings** page, and scroll to the **Assistant IDs and API details** section
-   * and click **View Details**.
-   *
-   * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
-   * ID.
-   *
-   * <p>To find the **assistant ID** in the user interface, open the **Assistant settings** and
-   * click **API Details**.
+   * <p>Unique identifier of the assistant. To get the **assistant ID** in the watsonx Assistant
+   * interface, open the **Assistant settings** page, and scroll to the **Assistant IDs and API
+   * details** section and click **View Details**.
    *
    * @return the assistantId
    */

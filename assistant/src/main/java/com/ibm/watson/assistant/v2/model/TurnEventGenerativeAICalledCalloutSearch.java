@@ -29,6 +29,8 @@ public class TurnEventGenerativeAICalledCalloutSearch extends GenericModel {
   /**
    * Gets the engine.
    *
+   * <p>The search engine that was used to scan the documents.
+   *
    * @return the engine
    */
   public String getEngine() {
@@ -38,6 +40,9 @@ public class TurnEventGenerativeAICalledCalloutSearch extends GenericModel {
   /**
    * Gets the index.
    *
+   * <p>The name of the Elasticsearch index being used. This field is only available if the engine
+   * being used is Elasticsearch.
+   *
    * @return the index
    */
   public String getIndex() {
@@ -46,6 +51,8 @@ public class TurnEventGenerativeAICalledCalloutSearch extends GenericModel {
 
   /**
    * Gets the query.
+   *
+   * <p>The query that will be used by the system to initiate search on the document search engine.
    *
    * @return the query
    */
