@@ -19,11 +19,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class DeleteSessionOptions extends GenericModel {
 
   protected String assistantId;
+  protected String environmentId;
   protected String sessionId;
 
   /** Builder. */
   public static class Builder {
     private String assistantId;
+    private String environmentId;
     private String sessionId;
 
     /**
@@ -33,6 +35,7 @@ public class DeleteSessionOptions extends GenericModel {
      */
     private Builder(DeleteSessionOptions deleteSessionOptions) {
       this.assistantId = deleteSessionOptions.assistantId;
+      this.environmentId = deleteSessionOptions.environmentId;
       this.sessionId = deleteSessionOptions.sessionId;
     }
 
@@ -43,10 +46,12 @@ public class DeleteSessionOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param assistantId the assistantId
+     * @param environmentId the environmentId
      * @param sessionId the sessionId
      */
-    public Builder(String assistantId, String sessionId) {
+    public Builder(String assistantId, String environmentId, String sessionId) {
       this.assistantId = assistantId;
+      this.environmentId = environmentId;
       this.sessionId = sessionId;
     }
 
@@ -71,6 +76,17 @@ public class DeleteSessionOptions extends GenericModel {
     }
 
     /**
+     * Set the environmentId.
+     *
+     * @param environmentId the environmentId
+     * @return the DeleteSessionOptions builder
+     */
+    public Builder environmentId(String environmentId) {
+      this.environmentId = environmentId;
+      return this;
+    }
+
+    /**
      * Set the sessionId.
      *
      * @param sessionId the sessionId
@@ -87,8 +103,11 @@ public class DeleteSessionOptions extends GenericModel {
   protected DeleteSessionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(builder.sessionId, "sessionId cannot be empty");
     assistantId = builder.assistantId;
+    environmentId = builder.environmentId;
     sessionId = builder.sessionId;
   }
 
@@ -104,28 +123,27 @@ public class DeleteSessionOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed.
-   * Set the value for this ID depending on the type of request:
-   *
-   * <p>- For message, session, and log requests, specify the environment ID of the environment
-   * where the assistant is deployed.
-   *
-   * <p>- For all other requests, specify the assistant ID of the assistant.
-   *
-   * <p>To get the **assistant ID** and **environment ID** in the watsonx Assistant interface, open
-   * the **Assistant settings** page, and scroll to the **Assistant IDs and API details** section
-   * and click **View Details**.
-   *
-   * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
-   * ID.
-   *
-   * <p>To find the **assistant ID** in the user interface, open the **Assistant settings** and
-   * click **API Details**.
+   * <p>Unique identifier of the assistant. To get the **assistant ID** in the watsonx Assistant
+   * interface, open the **Assistant settings** page, and scroll to the **Assistant IDs and API
+   * details** section and click **View Details**.
    *
    * @return the assistantId
    */
   public String assistantId() {
     return assistantId;
+  }
+
+  /**
+   * Gets the environmentId.
+   *
+   * <p>Unique identifier of the environment. To find the environment ID in the watsonx Assistant
+   * user interface, open the environment settings and click **API Details**. **Note:** Currently,
+   * the API does not support creating environments.
+   *
+   * @return the environmentId
+   */
+  public String environmentId() {
+    return environmentId;
   }
 
   /**

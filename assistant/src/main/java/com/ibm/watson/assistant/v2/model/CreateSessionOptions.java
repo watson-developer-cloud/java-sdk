@@ -19,11 +19,13 @@ import com.ibm.cloud.sdk.core.service.model.GenericModel;
 public class CreateSessionOptions extends GenericModel {
 
   protected String assistantId;
+  protected String environmentId;
   protected RequestAnalytics analytics;
 
   /** Builder. */
   public static class Builder {
     private String assistantId;
+    private String environmentId;
     private RequestAnalytics analytics;
 
     /**
@@ -33,6 +35,7 @@ public class CreateSessionOptions extends GenericModel {
      */
     private Builder(CreateSessionOptions createSessionOptions) {
       this.assistantId = createSessionOptions.assistantId;
+      this.environmentId = createSessionOptions.environmentId;
       this.analytics = createSessionOptions.analytics;
     }
 
@@ -43,9 +46,11 @@ public class CreateSessionOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param assistantId the assistantId
+     * @param environmentId the environmentId
      */
-    public Builder(String assistantId) {
+    public Builder(String assistantId, String environmentId) {
       this.assistantId = assistantId;
+      this.environmentId = environmentId;
     }
 
     /**
@@ -69,6 +74,17 @@ public class CreateSessionOptions extends GenericModel {
     }
 
     /**
+     * Set the environmentId.
+     *
+     * @param environmentId the environmentId
+     * @return the CreateSessionOptions builder
+     */
+    public Builder environmentId(String environmentId) {
+      this.environmentId = environmentId;
+      return this;
+    }
+
+    /**
      * Set the analytics.
      *
      * @param analytics the analytics
@@ -85,7 +101,10 @@ public class CreateSessionOptions extends GenericModel {
   protected CreateSessionOptions(Builder builder) {
     com.ibm.cloud.sdk.core.util.Validator.notEmpty(
         builder.assistantId, "assistantId cannot be empty");
+    com.ibm.cloud.sdk.core.util.Validator.notEmpty(
+        builder.environmentId, "environmentId cannot be empty");
     assistantId = builder.assistantId;
+    environmentId = builder.environmentId;
     analytics = builder.analytics;
   }
 
@@ -101,28 +120,27 @@ public class CreateSessionOptions extends GenericModel {
   /**
    * Gets the assistantId.
    *
-   * <p>The assistant ID or the environment ID of the environment where the assistant is deployed.
-   * Set the value for this ID depending on the type of request:
-   *
-   * <p>- For message, session, and log requests, specify the environment ID of the environment
-   * where the assistant is deployed.
-   *
-   * <p>- For all other requests, specify the assistant ID of the assistant.
-   *
-   * <p>To get the **assistant ID** and **environment ID** in the watsonx Assistant interface, open
-   * the **Assistant settings** page, and scroll to the **Assistant IDs and API details** section
-   * and click **View Details**.
-   *
-   * <p>**Note:** If you are using the classic Watson Assistant experience, always use the assistant
-   * ID.
-   *
-   * <p>To find the **assistant ID** in the user interface, open the **Assistant settings** and
-   * click **API Details**.
+   * <p>Unique identifier of the assistant. To get the **assistant ID** in the watsonx Assistant
+   * interface, open the **Assistant settings** page, and scroll to the **Assistant IDs and API
+   * details** section and click **View Details**.
    *
    * @return the assistantId
    */
   public String assistantId() {
     return assistantId;
+  }
+
+  /**
+   * Gets the environmentId.
+   *
+   * <p>Unique identifier of the environment. To find the environment ID in the watsonx Assistant
+   * user interface, open the environment settings and click **API Details**. **Note:** Currently,
+   * the API does not support creating environments.
+   *
+   * @return the environmentId
+   */
+  public String environmentId() {
+    return environmentId;
   }
 
   /**

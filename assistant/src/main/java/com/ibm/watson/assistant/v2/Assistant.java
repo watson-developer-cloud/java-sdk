@@ -195,8 +195,7 @@ public class Assistant extends BaseService {
         createProviderOptions, "createProviderOptions cannot be null");
     RequestBuilder builder =
         RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/providers"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "createProvider");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "createProvider");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -234,7 +233,7 @@ public class Assistant extends BaseService {
     }
     RequestBuilder builder =
         RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/providers"));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listProviders");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "listProviders");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -290,8 +289,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/providers/{provider_id}", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "updateProvider");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "updateProvider");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -330,8 +328,7 @@ public class Assistant extends BaseService {
     }
     RequestBuilder builder =
         RequestBuilder.post(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/assistants"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "createAssistant");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "createAssistant");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -383,8 +380,7 @@ public class Assistant extends BaseService {
     }
     RequestBuilder builder =
         RequestBuilder.get(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/assistants"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "listAssistants");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "listAssistants");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -440,8 +436,7 @@ public class Assistant extends BaseService {
         RequestBuilder.delete(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "deleteAssistant");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "deleteAssistant");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -468,11 +463,14 @@ public class Assistant extends BaseService {
         createSessionOptions, "createSessionOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("assistant_id", createSessionOptions.assistantId());
+    pathParamsMap.put("environment_id", createSessionOptions.environmentId());
     RequestBuilder builder =
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/assistants/{assistant_id}/sessions", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createSession");
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/sessions",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "createSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -508,14 +506,15 @@ public class Assistant extends BaseService {
         deleteSessionOptions, "deleteSessionOptions cannot be null");
     Map<String, String> pathParamsMap = new HashMap<String, String>();
     pathParamsMap.put("assistant_id", deleteSessionOptions.assistantId());
+    pathParamsMap.put("environment_id", deleteSessionOptions.environmentId());
     pathParamsMap.put("session_id", deleteSessionOptions.sessionId());
     RequestBuilder builder =
         RequestBuilder.delete(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(),
-                "/v2/assistants/{assistant_id}/sessions/{session_id}",
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/sessions/{session_id}",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteSession");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "deleteSession");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -546,7 +545,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/sessions/{session_id}/message",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "message");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "message");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -647,7 +646,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/environments/{environment_id}/sessions/{session_id}/message_stream",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "messageStream");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "messageStream");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -698,7 +697,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/environments/{environment_id}/message_stream",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "messageStreamStateless");
+        SdkCommon.getSdkHeaders("assistant", "v2", "messageStreamStateless");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -746,7 +745,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/skills/{skill_id}/workspace/bulk_classify", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "bulkClassify");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "bulkClassify");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -788,7 +787,7 @@ public class Assistant extends BaseService {
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/logs", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listLogs");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "listLogs");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -837,8 +836,7 @@ public class Assistant extends BaseService {
         deleteUserDataOptions, "deleteUserDataOptions cannot be null");
     RequestBuilder builder =
         RequestBuilder.delete(RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v2/user_data"));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "deleteUserData");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "deleteUserData");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -868,8 +866,7 @@ public class Assistant extends BaseService {
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/environments", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "listEnvironments");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "listEnvironments");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -918,8 +915,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/environments/{environment_id}",
                 pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "getEnvironment");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "getEnvironment");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -959,7 +955,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/environments/{environment_id}",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "updateEnvironment");
+        SdkCommon.getSdkHeaders("assistant", "v2", "updateEnvironment");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1013,7 +1009,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/releases", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "createRelease");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "createRelease");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1048,7 +1044,7 @@ public class Assistant extends BaseService {
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/releases", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "listReleases");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "listReleases");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1100,7 +1096,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/releases/{release}",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "getRelease");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "getRelease");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1137,7 +1133,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/releases/{release}",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deleteRelease");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "deleteRelease");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1169,7 +1165,7 @@ public class Assistant extends BaseService {
                 getServiceUrl(),
                 "/v2/assistants/{assistant_id}/releases/{release}/deploy",
                 pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "deployRelease");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "deployRelease");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1216,7 +1212,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/releases/{release}/export",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "createReleaseExport");
+        SdkCommon.getSdkHeaders("assistant", "v2", "createReleaseExport");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1268,7 +1264,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/releases/{release}/export",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "downloadReleaseExport");
+        SdkCommon.getSdkHeaders("assistant", "v2", "downloadReleaseExport");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1320,7 +1316,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/releases/{release}/export",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "downloadReleaseExportAsStream");
+        SdkCommon.getSdkHeaders("assistant", "v2", "downloadReleaseExportAsStream");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1368,7 +1364,7 @@ public class Assistant extends BaseService {
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/import", pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "createReleaseImport");
+        SdkCommon.getSdkHeaders("assistant", "v2", "createReleaseImport");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1407,7 +1403,7 @@ public class Assistant extends BaseService {
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/import", pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "getReleaseImportStatus");
+        SdkCommon.getSdkHeaders("assistant", "v2", "getReleaseImportStatus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1441,7 +1437,7 @@ public class Assistant extends BaseService {
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/skills/{skill_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "getSkill");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "getSkill");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1474,7 +1470,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/skills/{skill_id}", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "updateSkill");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "updateSkill");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1544,7 +1540,7 @@ public class Assistant extends BaseService {
         RequestBuilder.get(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/skills_export", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "exportSkills");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "exportSkills");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1586,7 +1582,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(), "/v2/assistants/{assistant_id}/skills_import", pathParamsMap));
-    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("conversation", "v2", "importSkills");
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "importSkills");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
@@ -1634,7 +1630,7 @@ public class Assistant extends BaseService {
                 "/v2/assistants/{assistant_id}/skills_import/status",
                 pathParamsMap));
     Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "importSkillsStatus");
+        SdkCommon.getSdkHeaders("assistant", "v2", "importSkillsStatus");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
