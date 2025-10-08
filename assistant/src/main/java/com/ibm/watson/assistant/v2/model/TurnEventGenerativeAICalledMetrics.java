@@ -33,6 +33,9 @@ public class TurnEventGenerativeAICalledMetrics extends GenericModel {
   /**
    * Gets the searchTimeMs.
    *
+   * <p>The amount of time (in milliseconds) it took for the system to complete the search using the
+   * document search engine.
+   *
    * @return the searchTimeMs
    */
   public Double getSearchTimeMs() {
@@ -42,6 +45,9 @@ public class TurnEventGenerativeAICalledMetrics extends GenericModel {
   /**
    * Gets the answerGenerationTimeMs.
    *
+   * <p>The amount of time (in milliseconds) it took for the system to complete answer generation
+   * process by reaching out to watsonx.ai.
+   *
    * @return the answerGenerationTimeMs
    */
   public Double getAnswerGenerationTimeMs() {
@@ -50,6 +56,9 @@ public class TurnEventGenerativeAICalledMetrics extends GenericModel {
 
   /**
    * Gets the totalTimeMs.
+   *
+   * <p>The amount of time (in milliseconds) it took for the system to fully process the
+   * conversational search.
    *
    * @return the totalTimeMs
    */

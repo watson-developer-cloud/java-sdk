@@ -39,6 +39,8 @@ public class GenerativeAITaskConfidenceScores extends GenericModel {
   /**
    * Gets the preGen.
    *
+   * <p>The confidence score based on user query and search results.
+   *
    * @return the preGen
    */
   public Double getPreGen() {
@@ -47,6 +49,10 @@ public class GenerativeAITaskConfidenceScores extends GenericModel {
 
   /**
    * Gets the preGenThreshold.
+   *
+   * <p>The pre_gen confidence score threshold. If the pre_gen score is below this threshold, it
+   * shows an “I don't know” response instead of the generated response. Shown in the conversational
+   * search skill UI as the “Retrieval Confidence threshold”.
    *
    * @return the preGenThreshold
    */
@@ -57,6 +63,8 @@ public class GenerativeAITaskConfidenceScores extends GenericModel {
   /**
    * Gets the postGen.
    *
+   * <p>The confidence score based on user query, search results, and the generated response.
+   *
    * @return the postGen
    */
   public Double getPostGen() {
@@ -65,6 +73,10 @@ public class GenerativeAITaskConfidenceScores extends GenericModel {
 
   /**
    * Gets the postGenThreshold.
+   *
+   * <p>The post_gen confidence score threshold. If the post_gen score is below this threshold, it
+   * shows an “I don't know” response instead of the generated response. Shown in the conversational
+   * search skill UI as the “Response Confidence threshold”.
    *
    * @return the postGenThreshold
    */

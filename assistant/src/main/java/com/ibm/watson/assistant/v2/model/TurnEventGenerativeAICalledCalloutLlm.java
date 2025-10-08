@@ -43,6 +43,8 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
   /**
    * Gets the type.
    *
+   * <p>The name of the LLM engine called by the system.
+   *
    * @return the type
    */
   public String getType() {
@@ -51,6 +53,8 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
 
   /**
    * Gets the modelId.
+   *
+   * <p>The LLM model used to generate the response.
    *
    * @return the modelId
    */
@@ -61,6 +65,9 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
   /**
    * Gets the modelClassId.
    *
+   * <p>The watsonx.ai class ID that was used during the answer generation request to the LLM. This
+   * is only included when a request to the LLM has been made by the system.
+   *
    * @return the modelClassId
    */
   public String getModelClassId() {
@@ -69,6 +76,9 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
 
   /**
    * Gets the generatedTokenCount.
+   *
+   * <p>The number of tokens that were generated in the response by the LLM. This is only included
+   * when a request to the LLM was successful and a response was generated.
    *
    * @return the generatedTokenCount
    */
@@ -79,6 +89,9 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
   /**
    * Gets the inputTokenCount.
    *
+   * <p>The number of tokens that were sent to the LLM during answer generation. This is only
+   * included when a request to the LLM has been made by the system.
+   *
    * @return the inputTokenCount
    */
   public Long getInputTokenCount() {
@@ -87,6 +100,8 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
 
   /**
    * Gets the success.
+   *
+   * <p>Whether the answer generation request to the LLM was successful.
    *
    * @return the success
    */
@@ -105,6 +120,8 @@ public class TurnEventGenerativeAICalledCalloutLlm extends GenericModel {
 
   /**
    * Gets the request.
+   *
+   * <p>n array of objects containing the search results.
    *
    * @return the request
    */

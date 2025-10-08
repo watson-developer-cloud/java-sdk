@@ -36,6 +36,8 @@ public class TurnEventGenerativeAICalledCallout extends GenericModel {
   /**
    * Gets the searchCalled.
    *
+   * <p>Whether the document search engine was called.
+   *
    * @return the searchCalled
    */
   public Boolean isSearchCalled() {
@@ -44,6 +46,8 @@ public class TurnEventGenerativeAICalledCallout extends GenericModel {
 
   /**
    * Gets the llmCalled.
+   *
+   * <p>Whether watsonx.ai was called during answer generation.
    *
    * @return the llmCalled
    */
@@ -71,6 +75,9 @@ public class TurnEventGenerativeAICalledCallout extends GenericModel {
 
   /**
    * Gets the idkReasonCode.
+   *
+   * <p>Indicates why a conversational search response resolved to an idk response. This field will
+   * only be available when the conversational search response is an idk response.
    *
    * @return the idkReasonCode
    */

@@ -32,6 +32,8 @@ public class TurnEventGenerativeAICalledCalloutLlmResponse extends GenericModel 
   /**
    * Gets the text.
    *
+   * <p>The LLM response that is returned.
+   *
    * @return the text
    */
   public String getText() {
@@ -41,6 +43,8 @@ public class TurnEventGenerativeAICalledCalloutLlmResponse extends GenericModel 
   /**
    * Gets the responseType.
    *
+   * <p>The type of response that is returned.
+   *
    * @return the responseType
    */
   public String getResponseType() {
@@ -49,6 +53,8 @@ public class TurnEventGenerativeAICalledCalloutLlmResponse extends GenericModel 
 
   /**
    * Gets the isIdkResponse.
+   *
+   * <p>Whether the response is an idk response.
    *
    * @return the isIdkResponse
    */
