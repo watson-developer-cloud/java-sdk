@@ -543,7 +543,7 @@ public class Assistant extends BaseService {
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
                 getServiceUrl(),
-                "/v2/assistants/{assistant_id}/sessions/{session_id}/message",
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/sessions/{session_id}/message",
                 pathParamsMap));
     Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "message");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
@@ -592,9 +592,10 @@ public class Assistant extends BaseService {
     RequestBuilder builder =
         RequestBuilder.post(
             RequestBuilder.resolveRequestUrl(
-                getServiceUrl(), "/v2/assistants/{assistant_id}/message", pathParamsMap));
-    Map<String, String> sdkHeaders =
-        SdkCommon.getSdkHeaders("conversation", "v2", "messageStateless");
+                getServiceUrl(),
+                "/v2/assistants/{assistant_id}/environments/{environment_id}/message",
+                pathParamsMap));
+    Map<String, String> sdkHeaders = SdkCommon.getSdkHeaders("assistant", "v2", "messageStateless");
     for (Entry<String, String> header : sdkHeaders.entrySet()) {
       builder.header(header.getKey(), header.getValue());
     }
