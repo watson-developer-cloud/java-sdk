@@ -1,3 +1,20 @@
+# [16.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v15.0.0...v16.0.0) (2025-10-09)
+
+
+### Bug Fixes
+
+* **wa-v2:** fix missing path parameter in HTTP request creation for message functions ([c379682](https://github.com/watson-developer-cloud/java-sdk/commit/c3796825e2bad8f9b2177be3572929397387ad48))
+
+
+### Features
+
+* **wa-v2:** add environmentId param to sessions functions and update sdk headers ([7d33340](https://github.com/watson-developer-cloud/java-sdk/commit/7d33340f84796145516e615f0c59c94c52325468))
+
+
+### BREAKING CHANGES
+
+* **wa-v2:** `assistantId` and `environmentId` are now required parameters for the `createSession` and `deleteSession` functions
+
 # [15.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v14.0.2...v15.0.0) (2025-06-18)
 
 
