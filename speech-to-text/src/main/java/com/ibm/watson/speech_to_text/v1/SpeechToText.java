@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2024.
+ * (C) Copyright IBM Corp. 2016, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  */
 
 /*
- * IBM OpenAPI SDK Code Generator Version: 3.97.0-0e90eab1-20241120-170029
+ * IBM OpenAPI SDK Code Generator Version: 3.105.0-3c13b041-20250605-193116
  */
 
 package com.ibm.watson.speech_to_text.v1;
@@ -520,6 +520,9 @@ public class SpeechToText extends BaseService {
           "speech_detector_sensitivity",
           String.valueOf(recognizeOptions.speechDetectorSensitivity()));
     }
+    if (recognizeOptions.sadModule() != null) {
+      builder.query("sad_module", String.valueOf(recognizeOptions.sadModule()));
+    }
     if (recognizeOptions.backgroundAudioSuppression() != null) {
       builder.query(
           "background_audio_suppression",
@@ -853,6 +856,9 @@ public class SpeechToText extends BaseService {
       builder.query(
           "speech_detector_sensitivity",
           String.valueOf(createJobOptions.speechDetectorSensitivity()));
+    }
+    if (createJobOptions.sadModule() != null) {
+      builder.query("sad_module", String.valueOf(createJobOptions.sadModule()));
     }
     if (createJobOptions.backgroundAudioSuppression() != null) {
       builder.query(

@@ -203,6 +203,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
   protected Float backgroundAudioSuppression;
   protected Boolean lowLatency;
   protected Float characterInsertionBias;
+  protected Long sadModule;
   private Boolean interimResults;
   private Boolean processingMetrics;
   private Float processingMetricsInterval;
@@ -236,6 +237,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     private Float backgroundAudioSuppression;
     private Boolean lowLatency;
     private Float characterInsertionBias;
+    private Long sadModule;
     private Boolean interimResults;
     private Boolean processingMetrics;
     private Float processingMetricsInterval;
@@ -268,6 +270,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
       this.backgroundAudioSuppression = recognizeWithWebsocketsOptions.backgroundAudioSuppression;
       this.lowLatency = recognizeWithWebsocketsOptions.lowLatency;
       this.characterInsertionBias = recognizeWithWebsocketsOptions.characterInsertionBias;
+      this.sadModule = recognizeWithWebsocketsOptions.sadModule;
       this.interimResults = recognizeWithWebsocketsOptions.interimResults;
       this.processingMetrics = recognizeWithWebsocketsOptions.processingMetrics;
       this.processingMetricsInterval = recognizeWithWebsocketsOptions.processingMetricsInterval;
@@ -607,6 +610,17 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     }
 
     /**
+     * Set the sadModule.
+     *
+     * @param sadModule the sadModule
+     * @return the RecognizeOptions builder
+     */
+    public Builder sadModule(Long sadModule) {
+      this.sadModule = sadModule;
+      return this;
+    }
+
+    /**
      * Set the interimResults.
      *
      * <p>NOTE: This parameter only works for the `recognizeUsingWebSocket` method.
@@ -687,6 +701,7 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
     lowLatency = builder.lowLatency;
     characterInsertionBias = builder.characterInsertionBias;
+    sadModule = builder.sadModule;
     interimResults = builder.interimResults;
     processingMetrics = builder.processingMetrics;
     processingMetricsInterval = builder.processingMetricsInterval;
@@ -1174,6 +1189,23 @@ public class RecognizeWithWebsocketsOptions extends GenericModel {
    */
   public Float characterInsertionBias() {
     return characterInsertionBias;
+  }
+
+  /**
+   * Gets the sadModule.
+   *
+   * <p>Detects speech boundaries within the audio stream with better performance, improved noise
+   * suppression, faster responsiveness, and increased accuracy.
+   *
+   * <p>Specify `sad_module: 2`
+   *
+   * <p>See [Speech Activity Detection
+   * (SAD)](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#sad).
+   *
+   * @return the sadModule
+   */
+  public Long sadModule() {
+    return sadModule;
   }
 
   /**

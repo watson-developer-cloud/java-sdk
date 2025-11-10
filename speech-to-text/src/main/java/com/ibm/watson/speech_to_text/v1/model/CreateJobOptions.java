@@ -270,6 +270,7 @@ public class CreateJobOptions extends GenericModel {
   protected Double endOfPhraseSilenceTime;
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
+  protected Long sadModule;
   protected Float backgroundAudioSuppression;
   protected Boolean lowLatency;
   protected Float characterInsertionBias;
@@ -306,6 +307,7 @@ public class CreateJobOptions extends GenericModel {
     private Double endOfPhraseSilenceTime;
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
+    private Long sadModule;
     private Float backgroundAudioSuppression;
     private Boolean lowLatency;
     private Float characterInsertionBias;
@@ -346,6 +348,7 @@ public class CreateJobOptions extends GenericModel {
       this.endOfPhraseSilenceTime = createJobOptions.endOfPhraseSilenceTime;
       this.splitTranscriptAtPhraseEnd = createJobOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = createJobOptions.speechDetectorSensitivity;
+      this.sadModule = createJobOptions.sadModule;
       this.backgroundAudioSuppression = createJobOptions.backgroundAudioSuppression;
       this.lowLatency = createJobOptions.lowLatency;
       this.characterInsertionBias = createJobOptions.characterInsertionBias;
@@ -718,6 +721,17 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
+     * Set the sadModule.
+     *
+     * @param sadModule the sadModule
+     * @return the CreateJobOptions builder
+     */
+    public Builder sadModule(long sadModule) {
+      this.sadModule = sadModule;
+      return this;
+    }
+
+    /**
      * Set the backgroundAudioSuppression.
      *
      * @param backgroundAudioSuppression the backgroundAudioSuppression
@@ -797,6 +811,7 @@ public class CreateJobOptions extends GenericModel {
     endOfPhraseSilenceTime = builder.endOfPhraseSilenceTime;
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
+    sadModule = builder.sadModule;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
     lowLatency = builder.lowLatency;
     characterInsertionBias = builder.characterInsertionBias;
@@ -1351,6 +1366,23 @@ public class CreateJobOptions extends GenericModel {
    */
   public Float speechDetectorSensitivity() {
     return speechDetectorSensitivity;
+  }
+
+  /**
+   * Gets the sadModule.
+   *
+   * <p>Detects speech boundaries within the audio stream with better performance, improved noise
+   * suppression, faster responsiveness, and increased accuracy.
+   *
+   * <p>Specify `sad_module: 2`
+   *
+   * <p>See [Speech Activity Detection
+   * (SAD)](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#sad).
+   *
+   * @return the sadModule
+   */
+  public Long sadModule() {
+    return sadModule;
   }
 
   /**
