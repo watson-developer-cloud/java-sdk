@@ -30,12 +30,18 @@ public class GetVoiceOptions extends GenericModel {
     String EN_AU_HEIDIEXPRESSIVE = "en-AU_HeidiExpressive";
     /** en-AU_JackExpressive. */
     String EN_AU_JACKEXPRESSIVE = "en-AU_JackExpressive";
+    /** en-CA_HannahNatural. */
+    String EN_CA_HANNAHNATURAL = "en-CA_HannahNatural";
     /** en-GB_CharlotteV3Voice. */
     String EN_GB_CHARLOTTEV3VOICE = "en-GB_CharlotteV3Voice";
+    /** en-GB_ChloeNatural. */
+    String EN_GB_CHLOENATURAL = "en-GB_ChloeNatural";
     /** en-GB_GeorgeExpressive. */
     String EN_GB_GEORGEEXPRESSIVE = "en-GB_GeorgeExpressive";
     /** en-GB_JamesV3Voice. */
     String EN_GB_JAMESV3VOICE = "en-GB_JamesV3Voice";
+    /** en-GB_GeorgeNatural. */
+    String EN_GB_GEORGENATURAL = "en-GB_GeorgeNatural";
     /** en-GB_KateV3Voice. */
     String EN_GB_KATEV3VOICE = "en-GB_KateV3Voice";
     /** en-US_AllisonExpressive. */
@@ -48,8 +54,14 @@ public class GetVoiceOptions extends GenericModel {
     String EN_US_EMILYV3VOICE = "en-US_EmilyV3Voice";
     /** en-US_EmmaExpressive. */
     String EN_US_EMMAEXPRESSIVE = "en-US_EmmaExpressive";
+    /** en-US_EmmaNatural. */
+    String EN_US_EMMANATURAL = "en-US_EmmaNatural";
+    /** en-US_EthanNatural. */
+    String EN_US_ETHANNATURAL = "en-US_EthanNatural";
     /** en-US_HenryV3Voice. */
     String EN_US_HENRYV3VOICE = "en-US_HenryV3Voice";
+    /** en-US_JacksonNatural. */
+    String EN_US_JACKSONNATURAL = "en-US_JacksonNatural";
     /** en-US_KevinV3Voice. */
     String EN_US_KEVINV3VOICE = "en-US_KevinV3Voice";
     /** en-US_LisaExpressive. */
@@ -62,6 +74,8 @@ public class GetVoiceOptions extends GenericModel {
     String EN_US_MICHAELV3VOICE = "en-US_MichaelV3Voice";
     /** en-US_OliviaV3Voice. */
     String EN_US_OLIVIAV3VOICE = "en-US_OliviaV3Voice";
+    /** en-US_VictoriaNatural. */
+    String EN_US_VICTORIANATURAL = "en-US_VictoriaNatural";
     /** es-ES_EnriqueV3Voice. */
     String ES_ES_ENRIQUEV3VOICE = "es-ES_EnriqueV3Voice";
     /** es-ES_LauraV3Voice. */
@@ -86,10 +100,14 @@ public class GetVoiceOptions extends GenericModel {
     String KO_KR_JINV3VOICE = "ko-KR_JinV3Voice";
     /** nl-NL_MerelV3Voice. */
     String NL_NL_MERELV3VOICE = "nl-NL_MerelV3Voice";
+    /** pt-BR_CamilaNatural. */
+    String PT_BR_CAMILANATURAL = "pt-BR_CamilaNatural";
     /** pt-BR_IsabelaV3Voice. */
     String PT_BR_ISABELAV3VOICE = "pt-BR_IsabelaV3Voice";
     /** pt-BR_LucasExpressive. */
     String PT_BR_LUCASEXPRESSIVE = "pt-BR_LucasExpressive";
+    /** pt-BR_LucasNatural. */
+    String PT_BR_LUCASNATURAL = "pt-BR_LucasNatural";
   }
 
   protected String voice;
