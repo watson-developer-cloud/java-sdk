@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2024.
+ * (C) Copyright IBM Corp. 2019, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -249,6 +249,7 @@ public class SpeechToTextTest {
             .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .sadModule(Long.valueOf("1"))
             .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
             .characterInsertionBias(Float.valueOf("0.0"))
@@ -296,6 +297,7 @@ public class SpeechToTextTest {
     assertEquals(
         Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("0.5"));
+    assertEquals(Long.valueOf(query.get("sad_module")), Long.valueOf("1"));
     assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("0.0"));
     assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("0.0"));
@@ -470,6 +472,7 @@ public class SpeechToTextTest {
             .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .sadModule(Long.valueOf("1"))
             .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
             .characterInsertionBias(Float.valueOf("0.0"))
@@ -522,6 +525,7 @@ public class SpeechToTextTest {
     assertEquals(
         Boolean.valueOf(query.get("split_transcript_at_phrase_end")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("speech_detector_sensitivity")), Float.valueOf("0.5"));
+    assertEquals(Long.valueOf(query.get("sad_module")), Long.valueOf("1"));
     assertEquals(Float.valueOf(query.get("background_audio_suppression")), Float.valueOf("0.0"));
     assertEquals(Boolean.valueOf(query.get("low_latency")), Boolean.valueOf(false));
     assertEquals(Float.valueOf(query.get("character_insertion_bias")), Float.valueOf("0.0"));

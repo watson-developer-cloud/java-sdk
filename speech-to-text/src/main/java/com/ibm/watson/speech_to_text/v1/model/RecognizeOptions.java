@@ -237,6 +237,7 @@ public class RecognizeOptions extends GenericModel {
   protected Double endOfPhraseSilenceTime;
   protected Boolean splitTranscriptAtPhraseEnd;
   protected Float speechDetectorSensitivity;
+  protected Long sadModule;
   protected Float backgroundAudioSuppression;
   protected Boolean lowLatency;
   protected Float characterInsertionBias;
@@ -268,6 +269,7 @@ public class RecognizeOptions extends GenericModel {
     private Double endOfPhraseSilenceTime;
     private Boolean splitTranscriptAtPhraseEnd;
     private Float speechDetectorSensitivity;
+    private Long sadModule;
     private Float backgroundAudioSuppression;
     private Boolean lowLatency;
     private Float characterInsertionBias;
@@ -303,6 +305,7 @@ public class RecognizeOptions extends GenericModel {
       this.endOfPhraseSilenceTime = recognizeOptions.endOfPhraseSilenceTime;
       this.splitTranscriptAtPhraseEnd = recognizeOptions.splitTranscriptAtPhraseEnd;
       this.speechDetectorSensitivity = recognizeOptions.speechDetectorSensitivity;
+      this.sadModule = recognizeOptions.sadModule;
       this.backgroundAudioSuppression = recognizeOptions.backgroundAudioSuppression;
       this.lowLatency = recognizeOptions.lowLatency;
       this.characterInsertionBias = recognizeOptions.characterInsertionBias;
@@ -620,6 +623,17 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
+     * Set the sadModule.
+     *
+     * @param sadModule the sadModule
+     * @return the RecognizeOptions builder
+     */
+    public Builder sadModule(long sadModule) {
+      this.sadModule = sadModule;
+      return this;
+    }
+
+    /**
      * Set the backgroundAudioSuppression.
      *
      * @param backgroundAudioSuppression the backgroundAudioSuppression
@@ -694,6 +708,7 @@ public class RecognizeOptions extends GenericModel {
     endOfPhraseSilenceTime = builder.endOfPhraseSilenceTime;
     splitTranscriptAtPhraseEnd = builder.splitTranscriptAtPhraseEnd;
     speechDetectorSensitivity = builder.speechDetectorSensitivity;
+    sadModule = builder.sadModule;
     backgroundAudioSuppression = builder.backgroundAudioSuppression;
     lowLatency = builder.lowLatency;
     characterInsertionBias = builder.characterInsertionBias;
@@ -759,7 +774,8 @@ public class RecognizeOptions extends GenericModel {
    * when a speech activity is detected in the stream. This can be used both in standard and low
    * latency mode. This feature enables client applications to know that some words/speech has been
    * detected and the service is in the process of decoding. This can be used in lieu of interim
-   * results in standard mode. See [Using speech recognition
+   * results in standard mode. Use `sad_module: 2` to increase accuracy and performance in detecting
+   * speech boundaries within the audio stream. See [Using speech recognition
    * parameters](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-service-features#features-parameters).
    *
    * @return the speechBeginEvent
@@ -1152,6 +1168,23 @@ public class RecognizeOptions extends GenericModel {
    */
   public Float speechDetectorSensitivity() {
     return speechDetectorSensitivity;
+  }
+
+  /**
+   * Gets the sadModule.
+   *
+   * <p>Detects speech boundaries within the audio stream with better performance, improved noise
+   * suppression, faster responsiveness, and increased accuracy.
+   *
+   * <p>Specify `sad_module: 2`
+   *
+   * <p>See [Speech Activity Detection
+   * (SAD)](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-detection#sad).
+   *
+   * @return the sadModule
+   */
+  public Long sadModule() {
+    return sadModule;
   }
 
   /**

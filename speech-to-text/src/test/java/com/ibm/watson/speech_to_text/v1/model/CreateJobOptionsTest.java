@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2024.
+ * (C) Copyright IBM Corp. 2020, 2025.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -63,6 +63,7 @@ public class CreateJobOptionsTest {
             .endOfPhraseSilenceTime(Double.valueOf("0.8"))
             .splitTranscriptAtPhraseEnd(false)
             .speechDetectorSensitivity(Float.valueOf("0.5"))
+            .sadModule(Long.valueOf("1"))
             .backgroundAudioSuppression(Float.valueOf("0.0"))
             .lowLatency(false)
             .characterInsertionBias(Float.valueOf("0.0"))
@@ -99,6 +100,7 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.endOfPhraseSilenceTime(), Double.valueOf("0.8"));
     assertEquals(createJobOptionsModel.splitTranscriptAtPhraseEnd(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.speechDetectorSensitivity(), Float.valueOf("0.5"));
+    assertEquals(createJobOptionsModel.sadModule(), Long.valueOf("1"));
     assertEquals(createJobOptionsModel.backgroundAudioSuppression(), Float.valueOf("0.0"));
     assertEquals(createJobOptionsModel.lowLatency(), Boolean.valueOf(false));
     assertEquals(createJobOptionsModel.characterInsertionBias(), Float.valueOf("0.0"));
