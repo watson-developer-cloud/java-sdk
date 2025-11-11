@@ -1,3 +1,11 @@
+# [16.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v16.0.0...v16.1.0) (2025-11-11)
+
+
+### Features
+
+* **stt:** add new sad_module param to recognize functions ([1321a46](https://github.com/watson-developer-cloud/java-sdk/commit/1321a46a0d894888330ce6677bef2f5da755c0ff))
+* **tts:** add new voice models ([ef52d55](https://github.com/watson-developer-cloud/java-sdk/commit/ef52d55d3abf731410e9fd3aaf41ea7f58738b97))
+
 # [16.0.0](https://github.com/watson-developer-cloud/java-sdk/compare/v15.0.0...v16.0.0) (2025-10-09)
 
 
