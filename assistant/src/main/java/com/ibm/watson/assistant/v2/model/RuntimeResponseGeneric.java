@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2019, 2025.
+ * (C) Copyright IBM Corp. 2019, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,7 +31,9 @@ import java.util.Map;
  * RuntimeResponseGenericRuntimeResponseTypeSearch -
  * RuntimeResponseGenericRuntimeResponseTypeUserDefined -
  * RuntimeResponseGenericRuntimeResponseTypeVideo - RuntimeResponseGenericRuntimeResponseTypeAudio -
- * RuntimeResponseGenericRuntimeResponseTypeIframe - RuntimeResponseGenericRuntimeResponseTypeDate
+ * RuntimeResponseGenericRuntimeResponseTypeIframe - RuntimeResponseGenericRuntimeResponseTypeDate -
+ * RuntimeResponseGenericRuntimeResponseTypeDtmf -
+ * RuntimeResponseGenericRuntimeResponseTypeEndSession
  */
 public class RuntimeResponseGeneric extends GenericModel {
   @SuppressWarnings("unused")
@@ -60,6 +62,9 @@ public class RuntimeResponseGeneric extends GenericModel {
     discriminatorMapping.put(
         "user_defined", RuntimeResponseGenericRuntimeResponseTypeUserDefined.class);
     discriminatorMapping.put("video", RuntimeResponseGenericRuntimeResponseTypeVideo.class);
+    discriminatorMapping.put("dtmf", RuntimeResponseGenericRuntimeResponseTypeDtmf.class);
+    discriminatorMapping.put(
+        "end_session", RuntimeResponseGenericRuntimeResponseTypeEndSession.class);
   }
   /** The preferred type of control to display. */
   public interface Preference {
@@ -133,6 +138,9 @@ public class RuntimeResponseGeneric extends GenericModel {
 
   @SerializedName("image_url")
   protected String imageUrl;
+
+  @SerializedName("command_info")
+  protected DtmfCommandInfo commandInfo;
 
   protected RuntimeResponseGeneric() {}
 
@@ -469,5 +477,14 @@ public class RuntimeResponseGeneric extends GenericModel {
    */
   public String imageUrl() {
     return imageUrl;
+  }
+
+  /**
+   * Gets the commandInfo.
+   *
+   * @return the commandInfo
+   */
+  public DtmfCommandInfo commandInfo() {
+    return commandInfo;
   }
 }
