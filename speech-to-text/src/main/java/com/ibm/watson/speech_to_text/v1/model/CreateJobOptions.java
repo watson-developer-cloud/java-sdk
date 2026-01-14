@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2025.
+ * (C) Copyright IBM Corp. 2018, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -247,6 +247,8 @@ public class CreateJobOptions extends GenericModel {
   protected String events;
   protected String userToken;
   protected Long resultsTtl;
+  protected Boolean speechBeginEvent;
+  protected String enrichments;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
   protected String baseModelVersion;
@@ -284,6 +286,8 @@ public class CreateJobOptions extends GenericModel {
     private String events;
     private String userToken;
     private Long resultsTtl;
+    private Boolean speechBeginEvent;
+    private String enrichments;
     private String languageCustomizationId;
     private String acousticCustomizationId;
     private String baseModelVersion;
@@ -325,6 +329,8 @@ public class CreateJobOptions extends GenericModel {
       this.events = createJobOptions.events;
       this.userToken = createJobOptions.userToken;
       this.resultsTtl = createJobOptions.resultsTtl;
+      this.speechBeginEvent = createJobOptions.speechBeginEvent;
+      this.enrichments = createJobOptions.enrichments;
       this.languageCustomizationId = createJobOptions.languageCustomizationId;
       this.acousticCustomizationId = createJobOptions.acousticCustomizationId;
       this.baseModelVersion = createJobOptions.baseModelVersion;
@@ -464,6 +470,28 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder resultsTtl(long resultsTtl) {
       this.resultsTtl = resultsTtl;
+      return this;
+    }
+
+    /**
+     * Set the speechBeginEvent.
+     *
+     * @param speechBeginEvent the speechBeginEvent
+     * @return the CreateJobOptions builder
+     */
+    public Builder speechBeginEvent(Boolean speechBeginEvent) {
+      this.speechBeginEvent = speechBeginEvent;
+      return this;
+    }
+
+    /**
+     * Set the enrichments.
+     *
+     * @param enrichments the enrichments
+     * @return the CreateJobOptions builder
+     */
+    public Builder enrichments(String enrichments) {
+      this.enrichments = enrichments;
       return this;
     }
 
@@ -788,6 +816,8 @@ public class CreateJobOptions extends GenericModel {
     events = builder.events;
     userToken = builder.userToken;
     resultsTtl = builder.resultsTtl;
+    speechBeginEvent = builder.speechBeginEvent;
+    enrichments = builder.enrichments;
     languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     baseModelVersion = builder.baseModelVersion;
@@ -938,6 +968,41 @@ public class CreateJobOptions extends GenericModel {
    */
   public Long resultsTtl() {
     return resultsTtl;
+  }
+
+  /**
+   * Gets the speechBeginEvent.
+   *
+   * <p>If `true`, the service returns a response object `SpeechActivity` which contains the time
+   * when a speech activity is detected in the stream. This can be used both in standard and low
+   * latency mode. This feature enables client applications to know that some words/speech has been
+   * detected and the service is in the process of decoding. This can be used in lieu of interim
+   * results in standard mode. Use `sad_module: 2` to increase accuracy and performance in detecting
+   * speech boundaries within the audio stream. See [Using speech recognition
+   * parameters](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-service-features#features-parameters).
+   *
+   * @return the speechBeginEvent
+   */
+  public Boolean speechBeginEvent() {
+    return speechBeginEvent;
+  }
+
+  /**
+   * Gets the enrichments.
+   *
+   * <p>Speech transcript enrichment improves readability of raw ASR transcripts by adding
+   * punctuation (periods, commas, question marks, exclamation points) and intelligent
+   * capitalization (sentence beginnings, proper nouns, acronyms, brand names). To enable
+   * enrichment, add the `enrichments=punctuation` parameter to your recognition request. Supported
+   * languages include English (US, UK, Australia, India), French (France, Canada), German, Italian,
+   * Portuguese (Brazil, Portugal), Spanish (Spain, Latin America, Argentina, Chile, Colombia,
+   * Mexico, Peru), and Japanese. See [Speech transcript
+   * enrichment](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speech-transcript-enrichment).
+   *
+   * @return the enrichments
+   */
+  public String enrichments() {
+    return enrichments;
   }
 
   /**

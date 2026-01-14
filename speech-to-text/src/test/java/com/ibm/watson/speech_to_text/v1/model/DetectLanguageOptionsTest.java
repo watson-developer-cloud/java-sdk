@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2026.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,23 +20,32 @@ import com.ibm.watson.speech_to_text.v1.utils.TestUtilities;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.testng.annotations.Test;
 
-/** Unit test class for the SpeechRecognitionResults model. */
-public class SpeechRecognitionResultsTest {
+/** Unit test class for the DetectLanguageOptions model. */
+public class DetectLanguageOptionsTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSpeechRecognitionResults() throws Throwable {
-    SpeechRecognitionResults speechRecognitionResultsModel = new SpeechRecognitionResults();
-    assertNull(speechRecognitionResultsModel.getResults());
-    assertNull(speechRecognitionResultsModel.getResultIndex());
-    assertNull(speechRecognitionResultsModel.getSpeakerLabels());
-    assertNull(speechRecognitionResultsModel.getProcessingMetrics());
-    assertNull(speechRecognitionResultsModel.getAudioMetrics());
-    assertNull(speechRecognitionResultsModel.getWarnings());
-    assertNull(speechRecognitionResultsModel.getEnrichedResults());
+  public void testDetectLanguageOptions() throws Throwable {
+    DetectLanguageOptions detectLanguageOptionsModel =
+        new DetectLanguageOptions.Builder()
+            .lidConfidence(Float.valueOf("36.0"))
+            .audio(TestUtilities.createMockStream("This is a mock file."))
+            .contentType("application/octet-stream")
+            .build();
+    assertEquals(detectLanguageOptionsModel.lidConfidence(), Float.valueOf("36.0"));
+    assertEquals(
+        IOUtils.toString(detectLanguageOptionsModel.audio()),
+        IOUtils.toString(TestUtilities.createMockStream("This is a mock file.")));
+    assertEquals(detectLanguageOptionsModel.contentType(), "application/octet-stream");
+  }
+
+  @Test(expectedExceptions = IllegalArgumentException.class)
+  public void testDetectLanguageOptionsError() throws Throwable {
+    new DetectLanguageOptions.Builder().build();
   }
 }
