@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2025.
+ * (C) Copyright IBM Corp. 2016, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -216,6 +216,7 @@ public class RecognizeOptions extends GenericModel {
   protected String contentType;
   protected String model;
   protected Boolean speechBeginEvent;
+  protected String enrichments;
   protected String languageCustomizationId;
   protected String acousticCustomizationId;
   protected String baseModelVersion;
@@ -248,6 +249,7 @@ public class RecognizeOptions extends GenericModel {
     private String contentType;
     private String model;
     private Boolean speechBeginEvent;
+    private String enrichments;
     private String languageCustomizationId;
     private String acousticCustomizationId;
     private String baseModelVersion;
@@ -284,6 +286,7 @@ public class RecognizeOptions extends GenericModel {
       this.contentType = recognizeOptions.contentType;
       this.model = recognizeOptions.model;
       this.speechBeginEvent = recognizeOptions.speechBeginEvent;
+      this.enrichments = recognizeOptions.enrichments;
       this.languageCustomizationId = recognizeOptions.languageCustomizationId;
       this.acousticCustomizationId = recognizeOptions.acousticCustomizationId;
       this.baseModelVersion = recognizeOptions.baseModelVersion;
@@ -388,6 +391,17 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder speechBeginEvent(Boolean speechBeginEvent) {
       this.speechBeginEvent = speechBeginEvent;
+      return this;
+    }
+
+    /**
+     * Set the enrichments.
+     *
+     * @param enrichments the enrichments
+     * @return the RecognizeOptions builder
+     */
+    public Builder enrichments(String enrichments) {
+      this.enrichments = enrichments;
       return this;
     }
 
@@ -687,6 +701,7 @@ public class RecognizeOptions extends GenericModel {
     contentType = builder.contentType;
     model = builder.model;
     speechBeginEvent = builder.speechBeginEvent;
+    enrichments = builder.enrichments;
     languageCustomizationId = builder.languageCustomizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     baseModelVersion = builder.baseModelVersion;
@@ -782,6 +797,24 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean speechBeginEvent() {
     return speechBeginEvent;
+  }
+
+  /**
+   * Gets the enrichments.
+   *
+   * <p>Speech transcript enrichment improves readability of raw ASR transcripts by adding
+   * punctuation (periods, commas, question marks, exclamation points) and intelligent
+   * capitalization (sentence beginnings, proper nouns, acronyms, brand names). To enable
+   * enrichment, add the `enrichments=punctuation` parameter to your recognition request. Supported
+   * languages include English (US, UK, Australia, India), French (France, Canada), German, Italian,
+   * Portuguese (Brazil, Portugal), Spanish (Spain, Latin America, Argentina, Chile, Colombia,
+   * Mexico, Peru), and Japanese. See [Speech transcript
+   * enrichment](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speech-transcript-enrichment).
+   *
+   * @return the enrichments
+   */
+  public String enrichments() {
+    return enrichments;
   }
 
   /**

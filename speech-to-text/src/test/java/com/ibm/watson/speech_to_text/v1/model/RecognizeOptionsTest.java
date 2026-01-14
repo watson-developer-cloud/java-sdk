@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2025.
+ * (C) Copyright IBM Corp. 2020, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -37,6 +37,7 @@ public class RecognizeOptionsTest {
             .contentType("application/octet-stream")
             .model("en-US_BroadbandModel")
             .speechBeginEvent(false)
+            .enrichments("testString")
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -69,6 +70,7 @@ public class RecognizeOptionsTest {
     assertEquals(recognizeOptionsModel.contentType(), "application/octet-stream");
     assertEquals(recognizeOptionsModel.model(), "en-US_BroadbandModel");
     assertEquals(recognizeOptionsModel.speechBeginEvent(), Boolean.valueOf(false));
+    assertEquals(recognizeOptionsModel.enrichments(), "testString");
     assertEquals(recognizeOptionsModel.languageCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(recognizeOptionsModel.baseModelVersion(), "testString");

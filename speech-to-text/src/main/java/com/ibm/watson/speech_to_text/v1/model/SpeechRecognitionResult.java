@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2018, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -65,8 +65,7 @@ public class SpeechRecognitionResult extends GenericModel {
    * results are interim. They can be updated with further interim results until final results are
    * eventually sent.
    *
-   * <p>**Note:** Because `final` is a reserved word in Java and Swift, the field is renamed
-   * `xFinal` in Java and is escaped with back quotes in Swift.
+   * <p>**Note:** Because `final` is a reserved word in Java, the field is renamed `xFinal` in Java.
    *
    * @return the xFinal
    */

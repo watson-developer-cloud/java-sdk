@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2016, 2025.
+ * (C) Copyright IBM Corp. 2016, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -51,6 +51,7 @@ import com.ibm.watson.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.DeleteUserDataOptions;
 import com.ibm.watson.speech_to_text.v1.model.DeleteWordOptions;
+import com.ibm.watson.speech_to_text.v1.model.DetectLanguageOptions;
 import com.ibm.watson.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.speech_to_text.v1.model.GetCorpusOptions;
@@ -60,6 +61,7 @@ import com.ibm.watson.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.speech_to_text.v1.model.Grammar;
 import com.ibm.watson.speech_to_text.v1.model.Grammars;
+import com.ibm.watson.speech_to_text.v1.model.LanguageDetectionResults;
 import com.ibm.watson.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.speech_to_text.v1.model.LanguageModels;
 import com.ibm.watson.speech_to_text.v1.model.ListAcousticModelsOptions;
@@ -447,6 +449,9 @@ public class SpeechToText extends BaseService {
     if (recognizeOptions.speechBeginEvent() != null) {
       builder.query("speech_begin_event", String.valueOf(recognizeOptions.speechBeginEvent()));
     }
+    if (recognizeOptions.enrichments() != null) {
+      builder.query("enrichments", String.valueOf(recognizeOptions.enrichments()));
+    }
     if (recognizeOptions.languageCustomizationId() != null) {
       builder.query(
           "language_customization_id", String.valueOf(recognizeOptions.languageCustomizationId()));
@@ -775,6 +780,12 @@ public class SpeechToText extends BaseService {
     }
     if (createJobOptions.resultsTtl() != null) {
       builder.query("results_ttl", String.valueOf(createJobOptions.resultsTtl()));
+    }
+    if (createJobOptions.speechBeginEvent() != null) {
+      builder.query("speech_begin_event", String.valueOf(createJobOptions.speechBeginEvent()));
+    }
+    if (createJobOptions.enrichments() != null) {
+      builder.query("enrichments", String.valueOf(createJobOptions.enrichments()));
     }
     if (createJobOptions.languageCustomizationId() != null) {
       builder.query(
@@ -2799,6 +2810,45 @@ public class SpeechToText extends BaseService {
     }
     builder.query("customer_id", String.valueOf(deleteUserDataOptions.customerId()));
     ResponseConverter<Void> responseConverter = ResponseConverterUtils.getVoid();
+    return createServiceCall(builder.build(), responseConverter);
+  }
+
+  /**
+   * Spoken language identification.
+   *
+   * <p>Detects the spoken language in audio streams. The endpoint is `/v1/detect_language` and user
+   * can optionally include `lid_confidence` parameter to set a custom confidence threshold for
+   * detection. The model continuously processes incoming audio and returns the identified language
+   * when it reaches a confidence level higher than the specified threshold (0.99 by default). See
+   * [Spoken language
+   * identification](https://cloud.ibm.com/docs/speech-to-text?topic=speech-to-text-speech-language-identification).
+   *
+   * @param detectLanguageOptions the {@link DetectLanguageOptions} containing the options for the
+   *     call
+   * @return a {@link ServiceCall} with a result of type {@link LanguageDetectionResults}
+   */
+  public ServiceCall<LanguageDetectionResults> detectLanguage(
+      DetectLanguageOptions detectLanguageOptions) {
+    com.ibm.cloud.sdk.core.util.Validator.notNull(
+        detectLanguageOptions, "detectLanguageOptions cannot be null");
+    RequestBuilder builder =
+        RequestBuilder.post(
+            RequestBuilder.resolveRequestUrl(getServiceUrl(), "/v1/detect_language"));
+    Map<String, String> sdkHeaders =
+        SdkCommon.getSdkHeaders("speech_to_text", "v1", "detectLanguage");
+    for (Entry<String, String> header : sdkHeaders.entrySet()) {
+      builder.header(header.getKey(), header.getValue());
+    }
+    builder.header("Accept", "application/json");
+    if (detectLanguageOptions.contentType() != null) {
+      builder.header("Content-Type", detectLanguageOptions.contentType());
+    }
+    builder.query("lid_confidence", String.valueOf(detectLanguageOptions.lidConfidence()));
+    builder.bodyContent(
+        detectLanguageOptions.contentType(), null, null, detectLanguageOptions.audio());
+    ResponseConverter<LanguageDetectionResults> responseConverter =
+        ResponseConverterUtils.getValue(
+            new com.google.gson.reflect.TypeToken<LanguageDetectionResults>() {}.getType());
     return createServiceCall(builder.build(), responseConverter);
   }
 }

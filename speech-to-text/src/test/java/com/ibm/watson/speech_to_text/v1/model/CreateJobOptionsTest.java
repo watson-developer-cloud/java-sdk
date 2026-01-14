@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2025.
+ * (C) Copyright IBM Corp. 2020, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,6 +40,8 @@ public class CreateJobOptionsTest {
             .events("recognitions.started")
             .userToken("testString")
             .resultsTtl(Long.valueOf("26"))
+            .speechBeginEvent(false)
+            .enrichments("testString")
             .languageCustomizationId("testString")
             .acousticCustomizationId("testString")
             .baseModelVersion("testString")
@@ -77,6 +79,8 @@ public class CreateJobOptionsTest {
     assertEquals(createJobOptionsModel.events(), "recognitions.started");
     assertEquals(createJobOptionsModel.userToken(), "testString");
     assertEquals(createJobOptionsModel.resultsTtl(), Long.valueOf("26"));
+    assertEquals(createJobOptionsModel.speechBeginEvent(), Boolean.valueOf(false));
+    assertEquals(createJobOptionsModel.enrichments(), "testString");
     assertEquals(createJobOptionsModel.languageCustomizationId(), "testString");
     assertEquals(createJobOptionsModel.acousticCustomizationId(), "testString");
     assertEquals(createJobOptionsModel.baseModelVersion(), "testString");

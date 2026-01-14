@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2018, 2024.
+ * (C) Copyright IBM Corp. 2018, 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,6 +35,9 @@ public class SpeechRecognitionResults extends GenericModel {
   protected AudioMetrics audioMetrics;
 
   protected List<String> warnings;
+
+  @SerializedName("enriched_results")
+  protected EnrichedResults enrichedResults;
 
   protected SpeechRecognitionResults() {}
 
@@ -134,5 +137,17 @@ public class SpeechRecognitionResults extends GenericModel {
    */
   public List<String> getWarnings() {
     return warnings;
+  }
+
+  /**
+   * Gets the enrichedResults.
+   *
+   * <p>If enriched results are requested, transcription with inserted punctuation marks such as
+   * periods, commas, question marks, and exclamation points.
+   *
+   * @return the enrichedResults
+   */
+  public EnrichedResults getEnrichedResults() {
+    return enrichedResults;
   }
 }

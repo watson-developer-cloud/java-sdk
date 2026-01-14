@@ -1,5 +1,5 @@
 /*
- * (C) Copyright IBM Corp. 2020, 2026.
+ * (C) Copyright IBM Corp. 2026.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,21 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import org.testng.annotations.Test;
 
-/** Unit test class for the SpeechRecognitionResults model. */
-public class SpeechRecognitionResultsTest {
+/** Unit test class for the EnrichedResultsTranscript model. */
+public class EnrichedResultsTranscriptTest {
   final HashMap<String, InputStream> mockStreamMap = TestUtilities.createMockStreamMap();
   final List<FileWithMetadata> mockListFileWithMetadata =
       TestUtilities.creatMockListFileWithMetadata();
 
   @Test
-  public void testSpeechRecognitionResults() throws Throwable {
-    SpeechRecognitionResults speechRecognitionResultsModel = new SpeechRecognitionResults();
-    assertNull(speechRecognitionResultsModel.getResults());
-    assertNull(speechRecognitionResultsModel.getResultIndex());
-    assertNull(speechRecognitionResultsModel.getSpeakerLabels());
-    assertNull(speechRecognitionResultsModel.getProcessingMetrics());
-    assertNull(speechRecognitionResultsModel.getAudioMetrics());
-    assertNull(speechRecognitionResultsModel.getWarnings());
-    assertNull(speechRecognitionResultsModel.getEnrichedResults());
+  public void testEnrichedResultsTranscript() throws Throwable {
+    EnrichedResultsTranscript enrichedResultsTranscriptModel = new EnrichedResultsTranscript();
+    assertNull(enrichedResultsTranscriptModel.getText());
+    assertNull(enrichedResultsTranscriptModel.getTimestamp());
   }
 }
