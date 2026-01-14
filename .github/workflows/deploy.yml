@@ -86,7 +86,7 @@ jobs:
 
     - name: Publish to Maven Central
       env:
-        GHA_TAG: "refs/tags/v16.1.0" # for setMavenVersion_gha
+        GHA_TAG: "refs/tags/v16.2.0" # for setMavenVersion_gha
         CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }} # for .travis.settings.xml
         CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
         GPG_KEYNAME: ${{ secrets.SIGNING_KEY }}
@@ -110,7 +110,7 @@ jobs:
         GHA_BUILD_NUMBER: ${{ github.run_number }}
         GHA_JOB_NUMBER: ${{ github.job_number }}
         GHA_COMMIT: ${{ github.sha }}
-        GHA_TAG: "refs/tags/v16.1.0" # for setMavenVersion_gha
+        GHA_TAG: "refs/tags/v16.2.0" # for setMavenVersion_gha
       run: |
         build/setMavenVersion_gha.sh
         mvn clean javadoc:aggregate $MVN_ARGS
