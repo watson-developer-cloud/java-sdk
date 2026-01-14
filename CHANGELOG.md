@@ -1,3 +1,11 @@
+# [16.2.0](https://github.com/watson-developer-cloud/java-sdk/compare/v16.1.0...v16.2.0) (2026-01-14)
+
+
+### Features
+
+* **stt:** add recognize enrichments, add new function detectLanguage ([b4620f1](https://github.com/watson-developer-cloud/java-sdk/commit/b4620f12b813f0d13a9790e779f84ed2d852370a))
+* **wa-v2:** add dtmf and end_session response types ([5d7be56](https://github.com/watson-developer-cloud/java-sdk/commit/5d7be56a31d88486ef04fb0ea1ee209815ad9c27))
+
 # [16.1.0](https://github.com/watson-developer-cloud/java-sdk/compare/v16.0.0...v16.1.0) (2025-11-11)
 
 
